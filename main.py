@@ -1,7 +1,7 @@
 # main.py
 # ============================================================
-# Sistema de Defensa Web con Agentes de IA
-# Versión: 1.0 · Fase 2
+# web-defense-ai V2 — Sistema de defensa web con agentes de IA
+# Segunda version de la aplicacion
 # ============================================================
 
 import os
@@ -130,7 +130,7 @@ def crear_tareas(agente_analista, agente_detective,
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 60)
-    print("  🛡️  SISTEMA DE DEFENSA WEB CON AGENTES DE IA BY T3r0S3c")
+    print("  🛡️  web-defense-ai V2 — T3r0S3c")
     print("=" * 60)
 
     # ----------------------------------------------------------

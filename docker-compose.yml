@@ -1,7 +1,7 @@
 # docker-compose.yml
 # ============================================================
-# Sistema de Defensa Web con Agentes de IA
-# Versión: 1.0 · Fase 1
+# web-defense-ai V2 — Sistema de defensa web con agentes de IA
+# Infraestructura de laboratorio de la segunda version
 # ============================================================
 
 # ---------- RED INTERNA DEL PROYECTO ----------

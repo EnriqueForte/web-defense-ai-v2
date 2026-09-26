@@ -6,16 +6,24 @@ __pycache__/
 
 # Secretos — NUNCA al repositorio
 .env
+.env.*
+!.env.example
 
 # Logs y reportes generados
 logs/*.log
 reports/*.md
 reports/historial/
 
-# VS Code personal
+# VSCode: compartir configuracion del proyecto, excluir preferencias adicionales
 .vscode/*
 !.vscode/settings.json
 !.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+
+# Frontend futuro
+node_modules/
+.next/
 
 # Docker
 docker/*/data/
@@ -25,3 +33,6 @@ docker/*/data/
 dist/
 build/
 .pytest_cache/
+
+# Copias locales de recuperacion de Git; nunca publicar
+.local-backups/

@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "web-defense-ai V2: verificar sintaxis Python",
+            "type": "process",
+            "command": "${command:python.interpreterPath}",
+            "args": ["-B", "scripts/check_syntax.py"],
+            "options": { "cwd": "${workspaceFolder}" },
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: dashboard con recarga local",
+            "type": "process",
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "-B", "-m", "flask", "--app", "dashboard.app", "--debug",
+                "run", "--host", "127.0.0.1", "--port", "5000", "--no-debugger"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": { "PYTHONIOENCODING": "utf-8" }
+            },
+            "runOptions": { "instanceLimit": 1 },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        }
+    ]
+}

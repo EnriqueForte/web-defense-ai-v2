@@ -1,6 +1,6 @@
 # dashboard/app.py
 # ============================================================
-# Servidor Flask — Dashboard de Defensa Web T3r0S3c
+# web-defense-ai V2 — Dashboard Flask · T3r0S3c
 # ============================================================
 
 import os
@@ -399,6 +399,6 @@ def ver_reporte(nombre):
 # ARRANQUE
 # ============================================================
 if __name__ == "__main__":
-    print("\n  T3r0S3c — Dashboard de Defensa Web")
+    print("\n  web-defense-ai V2 — Dashboard · T3r0S3c")
     print("  Abre tu navegador en: http://localhost:5000\n")
     app.run(debug=True, host="0.0.0.0", port=5000)

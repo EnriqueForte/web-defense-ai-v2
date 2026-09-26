@@ -1,6 +1,6 @@
 # pipeline.py
 # ============================================================
-# Pipeline automatizado del Sistema de Defensa Web
+# web-defense-ai V2 — Pipeline automatizado
 # Ejecuta el análisis cada N minutos de forma continua
 # ============================================================
 
@@ -37,9 +37,9 @@ def imprimir_banner():
     print(f"""
 {Color.CYAN}{Color.NEGRITA}
 ╔══════════════════════════════════════════════════════════════╗
-║       SISTEMA DE DEFENSA WEB CON AGENTES DE IA               ║
+║                      web-defense-ai V2                      ║
 ║                    BY T3r0S3c                                ║
-║              Pipeline Automatizado v1.0                      ║
+║                   Pipeline automatizado                    ║
 ╚══════════════════════════════════════════════════════════════╝
 {Color.RESET}""")
 

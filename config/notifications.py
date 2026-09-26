@@ -1,4 +1,4 @@
-# config/notificaciones.py
+# web-defense-ai V2 — Notificaciones (config/notifications.py)
 import smtplib
 import os
 import requests
@@ -60,7 +60,7 @@ def notificar_alerta_critica(alertas: list, ciclo: int) -> None:
     criticas = [a for a in alertas if "CRITICA" in a.upper()]
     altas    = [a for a in alertas if "ALTA" in a.upper()]
     mensaje_telegram = (
-        f"🚨 <b>ALERTA DE SEGURIDAD - T3r0S3c</b>\n\n"
+        f"🚨 <b>ALERTA DE SEGURIDAD - web-defense-ai V2</b>\n\n"
         f"Timestamp: {timestamp}\n"
         f"Ciclo: #{ciclo}\n\n"
         f"CRITICAS : {len(criticas)}\n"
@@ -81,7 +81,7 @@ def notificar_alerta_critica(alertas: list, ciclo: int) -> None:
             mensaje_telegram += f"  {alerta[:80]}\n"
             
     mensaje_email = (
-        f"ALERTA DE SEGURIDAD - T3r0S3c\n"
+        f"ALERTA DE SEGURIDAD - web-defense-ai V2\n"
         f"{'='*50}\n"
         f"Timestamp : {timestamp}\n"
         f"Ciclo     : #{ciclo}\n"
@@ -91,6 +91,6 @@ def notificar_alerta_critica(alertas: list, ciclo: int) -> None:
     )
     enviar_telegram(mensaje_telegram)
     enviar_email(
-        asunto=f"[ALERTA T3r0S3c] {len(criticas)} amenazas CRITICAS detectadas",
+        asunto=f"[web-defense-ai V2] {len(criticas)} amenazas CRITICAS detectadas",
         cuerpo=mensaje_email
     )

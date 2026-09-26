@@ -2,13 +2,42 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "🛡️ Lanzar Sistema de Defensa",
+            "name": "web-defense-ai V2: dashboard local",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "flask",
+            "args": [
+                "--app", "dashboard.app", "run",
+                "--host", "127.0.0.1", "--port", "5000",
+                "--no-debugger", "--no-reload"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env",
+            "env": { "PYTHONIOENCODING": "utf-8" },
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
+            "name": "web-defense-ai V2: analisis real (usa API de IA)",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/main.py",
+            "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/.env",
             "justMyCode": false
+        },
+        {
+            "name": "web-defense-ai V2: pipeline real (IA y notificaciones)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/pipeline.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env",
+            "env": { "PYTHONIOENCODING": "utf-8" },
+            "justMyCode": true
         }
     ]
 }
