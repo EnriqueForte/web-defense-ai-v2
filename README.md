@@ -10,7 +10,7 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 La aplicación actual utiliza Python, Flask, Jinja2 y Chart.js. La migración a React + Next.js está planificada y todavía no se ha iniciado. El nombre V2 identifica esta segunda versión del proyecto, no una migración ya terminada.
 
-Se han preparado documentación, configuración de VSCode y una comprobación estática de sintaxis. Las correcciones funcionales y la suite de regresión siguen pendientes según el plan.
+La fase 0 ya dispone de fixtures sintéticos, regresión aislada y respaldo restaurado. Los fallos conocidos permanecen señalados para la fase 1. Consultar resultados, instalación y límites en [la línea base](docs/FASE_0_LINEA_BASE.md).
 
 | Documento | Contenido |
 |---|---|
@@ -72,7 +72,7 @@ El contenedor `ai-engine` declarado en Compose permanece inactivo con `tail -f /
 
 ## Entorno y ejecución
 
-El entorno local revisado dispone de Python 3.11.9 y un entorno virtual con las dependencias del dashboard y CrewAI. En una instalación nueva, crear `.venv`, instalar las dependencias y configurar las variables tomando `.env.example` como referencia. `requirements.txt` todavía no declara Flask y contiene dependencias específicas de Windows: la instalación limpia debe estabilizarse en la fase 0; no se presenta como ya verificada.
+El entorno local revisado utiliza Python 3.11.9. `requirements.txt` incluye ahora Flask y limita pywin32 a Windows. Para las pruebas aisladas basta instalar `requirements-test.txt` y disponer de Node; ejecutar `python -B scripts/check_baseline.py`. No requiere `.env`, Docker ni claves. La [línea base](docs/FASE_0_LINEA_BASE.md) detalla la verificación de instalación y sus límites.
 
 Para copiar la plantilla sin sobrescribir una configuración existente:
 

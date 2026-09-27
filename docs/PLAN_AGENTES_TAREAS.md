@@ -4,6 +4,10 @@ Fecha: 26 de septiembre de 2026. Estado: revisión terminada y archivos básicos
 
 ## 1. Decisión y distinciones
 
+Actualización 27/09/2026: fase 0 completada por Codex de forma secuencial, sin crear
+subagentes. Véase [la entrega de línea base](FASE_0_LINEA_BASE.md). Las correcciones
+funcionales de fase 1 y la migración visual permanecen pendientes.
+
 Realizar todo el desarrollo, las pruebas, la documentación y la coordinación desde Codex sobre este repositorio. VSCode se utilizará de forma continua para abrir y revisar esos mismos archivos mientras avanza el desarrollo. La aplicación se visualizará ejecutándola y abriendo su dirección local en un navegador; abrir el código en un IDE no arranca la aplicación.
 
 Mantener los tres agentes CrewAI del producto, reforzar sus tareas y añadir validaciones deterministas. Para organizar la migración se proponen cuatro responsabilidades especializadas coordinadas desde este chat. No hace falta crear agentes en VSCode ni aumentar ahora el número de llamadas LLM de cada análisis.
@@ -123,8 +127,8 @@ Estados iniciales: **preparado** significa archivo creado; **pendiente** requier
 | C-02 | Verificar IDE al utilizarlo para consulta | Delivery / Quality | C-01 | Archivos y cambios visibles; no arranque automático del motor | Opcional; no bloquea desarrollo |
 | C-03 | Crear especialistas en VSCode | — | — | No aplica al flujo aclarado por el usuario | Retirado del alcance |
 | C-04 | Atajos de sintaxis, dashboard y depuración del IDE | Codex | Intérprete y extensiones locales | Configuración válida y comandos existentes; sin autoarranque | Preparado; interacción gráfica pendiente |
-| F0-01 | Convertir fallos previos en fixtures y pruebas | Backend / Quality, desde Codex | Repositorio y entorno local disponibles | Casos fallidos reproducibles sin Docker, IA ni notificaciones; cero pruebas no cuenta como éxito | Pendiente, fase 0 |
-| F0-02 | Dataset de referencia del motor y límites observables | Backend / Quality, desde Codex | Repositorio y entorno local disponibles | Casos normales, cinco ataques, evidencias ausentes y selección truncada etiquetados | Pendiente, fase 0 |
+| F0-01 | Convertir fallos previos en fixtures y pruebas | Codex | Repositorio y entorno local disponibles | Casos fallidos reproducibles sin Docker, IA ni notificaciones; cero pruebas no cuenta como éxito | Completada; 18 casos Python y 3 diagnósticos JS, 11 fallos conocidos |
+| F0-02 | Dataset de referencia del motor y límites observables | Codex | Repositorio y entorno local disponibles | Casos normales, cinco ataques, evidencias ausentes y selección truncada etiquetados | Completada; evaluación LLM real fuera de alcance |
 | F1-01 | Corregir fallos bloqueantes de interfaz anterior | Backend / Quality | F0-01 | Pruebas correspondientes aprobadas; retorno usable | Pendiente, fase 1 |
 | A-01 | Centralizar contratos de evidencia y resultado sin cambiar prompts | Backend / Quality | F0-02 | Validación determinista y adaptación del Markdown histórico; no atribución inventada | Pendiente, fase 2 |
 | A-02 | Prototipo aislado de tareas CrewAI con salidas estructuradas | Backend / Quality | A-01 | Respuestas simuladas válidas/inválidas, propagación de contexto y fallo controlado | Pendiente, evolución del motor |

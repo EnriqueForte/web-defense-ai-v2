@@ -2,6 +2,15 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "web-defense-ai V2: verificar línea base aislada",
+            "type": "process",
+            "command": "${command:python.interpreterPath}",
+            "args": ["-B", "scripts/check_baseline.py"],
+            "options": { "cwd": "${workspaceFolder}", "env": { "PYTHONIOENCODING": "utf-8" } },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
             "label": "web-defense-ai V2: verificar sintaxis Python",
             "type": "process",
             "command": "${command:python.interpreterPath}",

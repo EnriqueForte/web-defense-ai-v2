@@ -6,7 +6,9 @@ Todo el desarrollo, las pruebas y la coordinación se realizarán aquí en Codex
 VSCode se utilizará para abrir, visualizar y revisar el mismo proyecto local;
 su configuración no es un requisito para desarrollar ni iniciar una fase.
 La migración a React + Next.js está planificada,
-pero ninguna fase de implementación se ha iniciado. Trabajar sobre la tarea
+con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; consultar
+`docs/FASE_0_LINEA_BASE.md` para resultados y límites. La fase 1 y Next.js
+todavía no se han iniciado. Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 
@@ -66,8 +68,9 @@ El intérprete local observado es `.venv/Scripts/python.exe`. Los archivos
 de `.vscode/` ya contienen configuración Python; su carga en VSCode es opcional
 y no condiciona las comprobaciones realizadas desde Codex.
 `scripts/check_syntax.py` verifica sintaxis sin importar el motor.
-`tests/` no tiene todavía una suite de regresión. No informar que hay pruebas
-aprobadas cuando solo se ha comprobado sintaxis o se han usado simulaciones.
+`scripts/check_baseline.py` ejecuta la suite aislada de `tests/` y diagnósticos
+JavaScript con Node. Las marcas expectedFailure documentan defectos pendientes,
+no pruebas aprobadas. No confundir simulaciones con integración real.
 
 Para cada entrega informar: qué cambió, evidencia de validación, limitaciones,
 compatibilidad y reversión. Las instrucciones actuales del usuario prevalecen

@@ -1,0 +1,10 @@
+[
+  {"id":"normal","family":"normal","suspicious":false,"target":"/index.php","evidence":"Petición normal; no demuestra ausencia de ataques fuera de esta muestra."},
+  {"id":"sqli","family":"SQLi","suspicious":true,"target":"/item?id=1%27+UNION+SELECT","evidence":"Patrón SQL en URL; éxito desconocido."},
+  {"id":"xss","family":"XSS","suspicious":true,"target":"/search?q=%3Cscript%3Ealert(1)","evidence":"Patrón XSS; ejecución desconocida."},
+  {"id":"path","family":"Path Traversal","suspicious":true,"target":"/file?name=../../etc/passwd","evidence":"Patrón de recorrido; lectura efectiva desconocida."},
+  {"id":"cmd","family":"Command Injection","suspicious":true,"target":"/vulnerabilities/exec/?ip=127.0.0.1%3Bwhoami","evidence":"Patrón de comando; ejecución desconocida."},
+  {"id":"brute","family":"Fuerza bruta","suspicious":true,"target":"/vulnerabilities/brute/?username=test","evidence":"Ruta marcada por el filtro; una petición no demuestra fuerza bruta."},
+  {"id":"missing_body","family":"Evidencia ausente","suspicious":false,"target":"/login.php","method":"POST","evidence":"Sin cuerpo POST, credenciales ni resultado de autenticación; HTTP 200 no demuestra éxito."},
+  {"id":"malformed","family":"Malformada","suspicious":false,"raw":"entrada incompleta sin IP ni fecha","evidence":"No atribuir origen ni fecha."}
+]
