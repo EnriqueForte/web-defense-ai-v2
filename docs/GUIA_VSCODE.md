@@ -80,12 +80,20 @@ se ha corregido aún el fallo de pantalla sin reporte. Estos límites están
 documentados en el plan de migración; el ajuste del IDE no es un modo de datos
 simulados ni corrige esas funciones.
 
-## Evolución hacia Next.js
+## Visualizar la nueva interfaz Next.js
 
-Cuando se implemente `frontend/`, se añadirán sus comandos de desarrollo,
-compilación y verificación. No hay tareas ficticias de npm ni una carpeta de
-frontend vacía que sugiera que la migración ya se ha realizado. Se conserva la
-distribución Python para no alterar imports o rutas del motor.
+La tarea **web-defense-ai V2: interfaz Next.js de demostración** inicia la UI en
+`http://127.0.0.1:3000`, aislada de la red local. Usa Node en PATH y las
+dependencias ya instaladas en `frontend/node_modules`; no necesita iniciar Flask,
+Docker, CrewAI ni notificaciones. Su banner indica que las métricas son sintéticas.
+La tarea **verificar frontend** ejecuta ESLint, **comprobar tipos frontend** valida
+TypeScript y **compilar frontend** crea una build de producción. Ninguna se ejecuta
+al abrir VSCode. La pantalla de resumen es visual; los demás módulos y la conexión
+con `/api/v1` corresponden a fases posteriores.
+
+La estructura actual está bajo `frontend/src/app/`; su propio `AGENTS.md` conserva
+la guía de desarrollo generada por la versión instalada de Next.js. La distribución
+Python permanece en la raíz para no alterar imports o rutas del motor.
 
 ## Referencias
 

@@ -1,14 +1,15 @@
 # web-defense-ai V2 — Análisis y plan de migración a React + Next.js
 
-Fecha: 26 de septiembre de 2026. La denominación V2 identifica la segunda versión del proyecto; no implica que Next.js esté implementado. Base revisada: commit `f4262ef` y archivos locales del proyecto. Estado: propuesta de ejecución; la migración todavía no está implementada.
+Línea de base: 26 de septiembre de 2026. La denominación V2 identifica la segunda versión del proyecto. En esa revisión, Next.js aún no estaba implementado. La base revisada fue el commit `f4262ef` y los archivos locales; la actualización del 27 de septiembre registra el avance de las fases.
 
 Actualización previa a la ejecución: todo el desarrollo, las pruebas y la coordinación se realizarán en Codex. VSCode se usará para abrir y revisar el mismo proyecto local; no es una dependencia para iniciar las fases. El [plan de agentes y tareas](<F:/Proyectos ChatGpt/web-defense-ai V2/docs/PLAN_AGENTES_TAREAS.md>) añade el inventario de agentes CrewAI, responsabilidades de desarrollo y tareas con dependencias. Las mejoras del motor se evaluarán por separado del cambio de interfaz.
 
 ## 1. Decisión recomendada
 
-Actualización 27/09/2026: fases 0, 1 y 2 completadas en Windows/Python 3.11.
-El contrato versionado de lectura está documentado en
-[FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md); resultados de fase 0 en
+Actualización 27/09/2026: fases 0, 1 y 2 completadas; fase 3 visual implementada
+en Windows/Node 24. El contrato de lectura está documentado en
+[FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md) y la entrega visual en
+[FASE_3_BASE_VISUAL.md](FASE_3_BASE_VISUAL.md); resultados de fase 0 en
 [FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
 instalación limpia y restauración verificada.
 Las referencias a pruebas no versionadas al final describen la revisión inicial del día 26.

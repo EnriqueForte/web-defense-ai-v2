@@ -131,12 +131,12 @@ Estados iniciales: **preparado** significa archivo creado; **pendiente** requier
 | F0-02 | Dataset de referencia del motor y límites observables | Codex | Repositorio y entorno local disponibles | Casos normales, cinco ataques, evidencias ausentes y selección truncada etiquetados | Completada; evaluación LLM real fuera de alcance |
 | F1-01 | Corregir fallos bloqueantes de interfaz anterior | Codex | F0-01 | Pruebas correspondientes aprobadas; retorno usable | Completada; 26 casos Python y 3 comprobaciones JS aprobados |
 | F2-01 | Añadir API versionada de lectura, especificación OpenAPI y capturas estables | Codex | F1-01 | Contrato legado intacto; filtros/paginación/IDs seguros; escritores atómicos | Completada; 39 casos Python y 3 comprobaciones JS aprobados |
-| A-01 | Centralizar contratos de evidencia y resultado sin cambiar prompts | Backend / Quality | F0-02 | Validación determinista y adaptación del Markdown histórico; no atribución inventada | Pendiente, fase 2 |
+| A-01 | Centralizar contratos de evidencia y resultado sin cambiar prompts | Backend / Quality | F0-02 | Validación determinista y adaptación del Markdown histórico; no atribución inventada | Pendiente, evolución separada del motor; no incluida en F2-01 |
 | A-02 | Prototipo aislado de tareas CrewAI con salidas estructuradas | Backend / Quality | A-01 | Respuestas simuladas válidas/inválidas, propagación de contexto y fallo controlado | Pendiente, evolución del motor |
 | A-03 | Corregir instrucciones, selección y criterios del motor | Backend / Quality | A-02 y línea base | Comparación por categoría y trazabilidad; cambios de clasificación explicados | Pendiente, evolución del motor |
 | A-04 | Separar reporte narrativo, tabla y publicación | Backend / Quality | A-02 | Conteos del reporte y API coinciden; salida anterior conservada ante error | Pendiente, evolución del motor |
 | A-05 | Evaluar integración real y activar por configuración | Backend + Delivery / Quality | A-03, A-04 | Comparación de calidad/coste/latencia y retorno al flujo previo ensayado | Pendiente, evolución del motor |
-| F3-01 | Base visual Next.js con datos simulados | Frontend / Quality | Contrato de API de fase 2 | Componentes y estados conectables sin alterar motor | Pendiente, fase 3 |
+| F3-01 | Base visual Next.js con datos simulados | Codex | F2-01 | Consola de resumen, navegación, estados y demo adaptables; build, lint y tipos correctos; motor intacto | Completada; build Next y revisión visual en escritorio/móvil |
 | F4-01 | Conectar lectura y reportes | Frontend + Backend / Quality | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Pendiente, fase 4 |
 | F5-01 | Coordinación manual/periódica y publicación coherente | Backend / Quality + Delivery | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Pendiente, fase 5 |
 | F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01 | Se cumplen las condiciones de fase 6 del plan principal | Pendiente |
@@ -164,7 +164,7 @@ Cada tarea tendrá ID, objetivo, propietario, revisor, dependencias, archivos/co
 - Disponible: verificar sintaxis Python sin importar el motor ni generar reportes.
 - Ejecutar pruebas aisladas cuando exista una suite; detectar colección vacía.
 - Disponible: iniciar Flask en localhost para visualización o depuración. Pendiente: modo de datos de prueba con transportes externos deshabilitados.
-- Ejecutar comprobaciones y servidor frontend una vez que existan `frontend/` y sus scripts.
+- Disponible: arrancar y validar la base frontend desde tareas de VSCode; la lectura conectada sigue en fase 4.
 - Mantener ejecución real del motor y pipeline como operaciones manuales separadas, con nombres claros; no usar compuestos que los arranquen al abrir VSCode.
 
 Las tareas deben usar `cwd` explícito y el intérprete seleccionado; no insertar comandos hipotéticos que fallen porque todavía no hay tests o frontend. `.gitignore` permite versionar settings, launch, tasks y recomendaciones de extensiones; las preferencias adicionales del IDE permanecen excluidas.

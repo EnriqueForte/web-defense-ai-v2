@@ -35,6 +35,43 @@
             "runOptions": { "instanceLimit": 1 },
             "problemMatcher": [],
             "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: interfaz Next.js de demostración",
+            "type": "process",
+            "command": "node",
+            "args": ["node_modules/next/dist/bin/next", "dev", "--hostname", "127.0.0.1"],
+            "options": { "cwd": "${workspaceFolder}/frontend" },
+            "runOptions": { "instanceLimit": 1 },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: verificar frontend",
+            "type": "process",
+            "command": "node",
+            "args": ["node_modules/eslint/bin/eslint.js", "src/app"],
+            "options": { "cwd": "${workspaceFolder}/frontend" },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: comprobar tipos frontend",
+            "type": "process",
+            "command": "node",
+            "args": ["node_modules/typescript/bin/tsc", "--noEmit"],
+            "options": { "cwd": "${workspaceFolder}/frontend" },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: compilar frontend",
+            "type": "process",
+            "command": "node",
+            "args": ["node_modules/next/dist/bin/next", "build"],
+            "options": { "cwd": "${workspaceFolder}/frontend" },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
         }
     ]
 }

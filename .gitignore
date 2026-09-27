@@ -22,9 +22,10 @@ reports/historial/
 !.vscode/tasks.json
 !.vscode/extensions.json
 
-# Frontend futuro
+# Dependencias y salida generada de Next.js
 node_modules/
 .next/
+.pnpm-store/
 
 # Docker
 docker/*/data/

@@ -4,6 +4,8 @@
         "ms-python.vscode-pylance",
         "ms-python.debugpy",
         "ms-python.black-formatter",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss"
     ]
 }

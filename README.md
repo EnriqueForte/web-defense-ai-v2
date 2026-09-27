@@ -8,14 +8,15 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 ## Estado de esta versión
 
-La aplicación actual utiliza Python, Flask, Jinja2 y Chart.js. La migración a React + Next.js está planificada y todavía no se ha iniciado. El nombre V2 identifica esta segunda versión del proyecto, no una migración ya terminada.
+La aplicación operativa continúa en Python, Flask, Jinja2 y Chart.js. La nueva base visual se encuentra en `frontend/`, creada con Next.js 16, React 19 y TypeScript. Actualmente presenta datos sintéticos de demostración y todavía no consulta `/api/v1`; Flask sigue disponible como aplicación operativa.
 
-La fase 0 dejó fixtures sintéticos, regresión aislada y respaldo restaurado. La fase 1 corrigió los fallos prioritarios de la interfaz Flask. La fase 2 está preparando `/api/v1` y capturas coherentes; Next.js aún no se ha iniciado. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) y [el contrato de fase 2](docs/FASE_2_API_LECTURA.md).
+Las fases 0–3 completaron la línea base, estabilización de Flask, API versionada de lectura y base visual Next.js. La interfaz sigue desconectada y usa datos sintéticos. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md) y [la entrega visual de fase 3](docs/FASE_3_BASE_VISUAL.md).
 
 | Documento | Contenido |
 |---|---|
 | [Guía de VSCode](docs/GUIA_VSCODE.md) | Apertura, seguimiento de cambios, tareas y depuración |
 | [Plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) | Arquitectura, riesgos, fases, pruebas y reversión |
+| [Fase 3 — Base visual](docs/FASE_3_BASE_VISUAL.md) | Pantalla Next.js, datos sintéticos, validación y reversión |
 | [Plan de agentes y tareas](docs/PLAN_AGENTES_TAREAS.md) | Revisión de CrewAI, responsabilidades y backlog |
 | [Contexto de desarrollo](AGENTS.md) | Instrucciones compartidas para trabajar desde Codex |
 | [Repositorios y recuperación](docs/REPOSITORIOS.md) | Separación entre original y V2, remotos y copias locales |
@@ -139,7 +140,7 @@ web-defense-ai V2/
 └── docker-compose.yml
 ```
 
-Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. No se ha renombrado el repositorio remoto ni creado una aplicación frontend que todavía no existe.
+Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. La interfaz frontend de demostración vive en `frontend/` y todavía no está conectada al backend.
 
 ## Capturas de referencia
 

@@ -5,10 +5,11 @@
 Todo el desarrollo, las pruebas y la coordinación se realizarán aquí en Codex.
 VSCode se utilizará para abrir, visualizar y revisar el mismo proyecto local;
 su configuración no es un requisito para desarrollar ni iniciar una fase.
-La migración a React + Next.js está planificada,
+La migración a React + Next.js se ejecuta por fases,
 con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; consultar
-`docs/FASE_0_LINEA_BASE.md` para resultados y límites. Fase 1 de estabilización
-Flask y fase 2 de API de lectura completadas el 27/09/2026; Next.js todavía no se ha iniciado. Trabajar sobre la tarea
+`docs/FASE_0_LINEA_BASE.md` para resultados y límites. Fases 1 y 2 están completas;
+la fase 3 de base visual Next.js se completó el 27/09/2026. La UI usa datos sintéticos, aún no
+consume Flask ni modifica el motor. Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 
@@ -29,10 +30,9 @@ Leer según corresponda:
 - `dashboard/templates/` y `dashboard/static/`: interfaz actual.
 - `config/`: configuración, prompts y notificaciones.
 
-Objetivo previsto: conservar Python/CrewAI y Flask; añadir `frontend/` con
-Next.js, React y TypeScript. La carpeta `frontend/` aún no existe. La API `/api/v1`
-de lectura ya está disponible en Flask.
-No presentar componentes propuestos como implementados. La denominación oficial
+Conservar Python/CrewAI y Flask; `frontend/` contiene la base visual en Next.js,
+React y TypeScript. La API `/api/v1` está disponible en Flask, pero la UI aún no
+la consume. No presentar componentes propuestos como implementados. La denominación oficial
 es `web-defense-ai V2`; T3r0S3c identifica al autor, no el nombre de la app.
 
 ## Reglas de cambio
