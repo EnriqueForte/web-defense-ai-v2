@@ -21,6 +21,7 @@ reports/historial/
 !.vscode/launch.json
 !.vscode/tasks.json
 !.vscode/extensions.json
+!.vscode/run-frontend.ps1
 
 # Dependencias y salida generada de Next.js
 node_modules/

@@ -83,8 +83,12 @@ simulados ni corrige esas funciones.
 ## Visualizar la nueva interfaz Next.js
 
 La tarea **web-defense-ai V2: interfaz Next.js de demostración** inicia la UI en
-`http://127.0.0.1:3000`, aislada de la red local. Usa Node en PATH y las
-dependencias ya instaladas en `frontend/node_modules`; no necesita iniciar Flask,
+`http://127.0.0.1:3000`, aislada de la red local. Usa Node 24 o posterior y las
+dependencias ya instaladas en `frontend/node_modules`; las tareas ejecutan las
+herramientas locales mediante `.vscode/run-frontend.ps1`, sin requerir `pnpm` en
+el PATH de VSCode. El script busca Node en el PATH, en las instalaciones habituales
+de Windows y en el runtime local de Codex. Si no encuentra Node, instala Node.js 24
+o posterior y vuelve a abrir VSCode. No necesita iniciar Flask,
 Docker, CrewAI ni notificaciones. Su banner indica que las métricas son sintéticas.
 La tarea **verificar frontend** ejecuta ESLint, **comprobar tipos frontend** valida
 TypeScript y **compilar frontend** crea una build de producción. Ninguna se ejecuta
