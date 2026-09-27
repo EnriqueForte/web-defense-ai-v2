@@ -114,7 +114,7 @@ los archivos modificados desde `6be08bb`, preservando cambios posteriores y dato
 No es necesario restaurar logs para revertir esta fase. No restaurar copias encima
 de datos más recientes sin revisar previamente las diferencias.
 
-## Actualización: fase 1 iniciada
+## Cierre de fase 1
 
 F1-01 se completó el 27/09/2026 con correcciones para H01–H09. La suite original
 de 18 casos se convirtió en regresión y se amplió: la versión final verifica la
@@ -123,8 +123,16 @@ con una única consulta. Ejecución final: 26 casos Python aprobados y 3 comprob
 JavaScript aprobadas; sintaxis y dependencias correctas. No sustituye una prueba en
 navegador real ni integración de Docker.
 
+## Cierre de fase 2
+
+F2-01 incorporó el contrato Flask de solo lectura `/api/v1`, OpenAPI, capturas por
+archivo, errores versionados y publicación atómica en los escritores existentes.
+La suite ampliada ejecuta 39 casos Python y 3 diagnósticos JavaScript aprobados.
+El detalle, los límites de consistencia y la reversión están en
+[`FASE_2_API_LECTURA.md`](FASE_2_API_LECTURA.md). No se probó Docker activo,
+CrewAI, notificaciones ni exposición multiusuario.
+
 ## Siguiente fase
 
-Fase 1: estabilizar la interfaz Flask mediante H01–H09 y ampliar las pruebas de cada
-corrección. Mantener IA/prompts separados. La nueva interfaz Next.js empieza en fase 3,
-después de estabilizar el contrato de datos en fase 2. Esta entrega no inicia esas fases.
+Fase 3: preparar la base visual Next.js con datos simulados, manteniendo Flask y la API
+como ruta operativa. Mantener IA/prompts separados. Esta entrega no inicia la fase 3.

@@ -10,9 +10,11 @@ import time
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+from pathlib import Path
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process, LLM
 from config.prompts import PROMPT_ANALISTA
+from dashboard.services.read_store import atomic_write_text
 
 
 # Cargar variables de entorno desde .env
@@ -192,14 +194,8 @@ def main():
     # ----------------------------------------------------------
     # PASO 6: Guardar el reporte
     # ----------------------------------------------------------
-    os.makedirs(os.getenv("REPORT_PATH", "./reports/"), exist_ok=True)
-    ruta_reporte = os.path.join(
-        os.getenv("REPORT_PATH", "./reports/"),
-        "reporte_seguridad.md"
-    )
-
-    with open(ruta_reporte, "w", encoding="utf-8") as f:
-        f.write(str(resultado))
+    ruta_reporte = Path(os.getenv("REPORT_PATH", "./reports/")) / "reporte_seguridad.md"
+    atomic_write_text(ruta_reporte, str(resultado))
 
     print("\n" + "=" * 60)
     print(f"  ✅ Reporte guardado en: {ruta_reporte}")

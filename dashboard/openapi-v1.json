@@ -1,0 +1,131 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "web-defense-ai V2 Read API",
+    "version": "1.0.0",
+    "description": "API local de solo lectura. No ejecuta análisis, Docker ni notificaciones. Las fechas de eventos ausentes se representan como null."
+  },
+  "servers": [{ "url": "/api/v1" }],
+  "paths": {
+    "/estado": {
+      "get": {
+        "operationId": "getEstado",
+        "summary": "Estado compuesto desde una captura de archivos",
+        "responses": {
+          "200": { "description": "Estado disponible o degradado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EstadoResponse" } } } },
+          "500": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/salud": {
+      "get": {
+        "operationId": "getSalud",
+        "summary": "Salud de las fuentes locales observadas",
+        "responses": { "200": { "description": "Salud del servicio y estado de archivos", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/amenazas": {
+      "get": {
+        "operationId": "getAmenazas",
+        "parameters": [
+          { "name": "tipo", "in": "query", "schema": { "type": "string" } },
+          { "name": "severidad", "in": "query", "schema": { "type": "string", "enum": ["CRITICA", "ALTA", "MEDIA", "BAJA", "DESCONOCIDA"] } },
+          { "name": "ip", "in": "query", "schema": { "type": "string" } },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/PerPage" }
+        ],
+        "responses": {
+          "200": { "description": "Amenazas del reporte actual", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AmenazasResponse" } } } },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/reportes": {
+      "get": {
+        "operationId": "getReportes",
+        "parameters": [{ "$ref": "#/components/parameters/Page" }, { "$ref": "#/components/parameters/PerPage" }],
+        "responses": {
+          "200": { "description": "Reportes actuales e históricos paginados", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReportesResponse" } } } },
+          "400": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/reportes/{report_id}": {
+      "get": {
+        "operationId": "getReporte",
+        "parameters": [{ "name": "report_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }],
+        "responses": {
+          "200": { "description": "Markdown completo y metadatos", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "409": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Page": { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1, "default": 1 } },
+      "PerPage": { "name": "per_page", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 25 } }
+    },
+    "responses": {
+      "Error": { "description": "Error sin trazas ni secretos", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": { "type": "object", "required": ["code", "message", "request_id"], "properties": {
+            "code": { "type": "string" }, "message": { "type": "string" }, "request_id": { "type": "string" }
+          } }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "required": ["api_version", "snapshot_id", "captured_at", "health", "sources"],
+        "properties": {
+          "api_version": { "type": "string", "example": "1" },
+          "schema": { "type": "string" },
+          "snapshot_id": { "type": "string", "nullable": true },
+          "captured_at": { "type": "string", "format": "date-time" },
+          "consistency": { "type": "string" },
+          "health": { "type": "string", "enum": ["ok", "degraded", "unavailable"] },
+          "sources": { "type": "object" },
+          "report_id": { "type": "string", "nullable": true }
+        }
+      },
+      "Threat": {
+        "type": "object",
+        "required": ["id", "number", "severity", "type", "status", "source_ip", "event_time", "source_report_id"],
+        "properties": {
+          "id": { "type": "string" }, "number": { "type": "string" },
+          "severity": { "type": "string" }, "type": { "type": "string" },
+          "status": { "type": "string" }, "source_ip": { "type": "string" },
+          "event_time": { "type": "string", "format": "date-time", "nullable": true },
+          "source_report_id": { "type": "string", "nullable": true }
+        }
+      },
+      "EstadoResponse": {
+        "type": "object", "required": ["meta", "data"], "properties": {
+          "meta": { "$ref": "#/components/schemas/Meta" },
+          "data": { "type": "object", "required": ["stats", "threats", "threats_total", "threats_truncated", "recent_log", "source_ips", "timeline", "recent_reports"], "properties": {
+            "stats": { "type": "object" }, "threats": { "type": "array", "items": { "$ref": "#/components/schemas/Threat" } },
+            "threats_total": { "type": "integer" }, "threats_truncated": { "type": "boolean" },
+            "recent_log": { "type": "array", "items": { "type": "string" } },
+            "source_ips": { "type": "array", "items": { "type": "string" } },
+            "timeline": { "type": "object" }, "recent_reports": { "type": "array", "items": { "type": "object" } }
+          } }
+        }
+      },
+      "AmenazasResponse": { "type": "object", "required": ["meta", "data"], "properties": {
+        "meta": { "type": "object", "properties": { "api_version": { "type": "string" }, "snapshot_id": { "type": "string" }, "report_id": { "type": "string", "nullable": true }, "scope": { "type": "string" }, "total": { "type": "integer" }, "page": { "type": "integer" }, "per_page": { "type": "integer" } } },
+        "data": { "type": "array", "items": { "$ref": "#/components/schemas/Threat" } }
+      } },
+      "ReportesResponse": { "type": "object", "required": ["meta", "data"], "properties": {
+        "meta": { "type": "object", "properties": { "api_version": { "type": "string" }, "total": { "type": "integer" }, "page": { "type": "integer" }, "per_page": { "type": "integer" } } },
+        "data": { "type": "array", "items": { "type": "object", "required": ["id", "filename", "modified_at", "size_bytes", "current"] } }
+      } }
+    }
+  }
+}

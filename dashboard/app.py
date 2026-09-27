@@ -10,9 +10,13 @@ import re
 import sys
 import subprocess
 from pathlib import Path
-from datetime import datetime
-from flask import Flask, render_template, jsonify
+from datetime import datetime, timezone
+import hashlib
+import uuid
+from flask import Flask, render_template, jsonify, request, g
 from dotenv import load_dotenv
+from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
+from werkzeug.exceptions import HTTPException
 
 # Añadir raíz del proyecto al path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,6 +24,29 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 app = Flask(__name__)
+
+
+@app.before_request
+def asignar_request_id():
+    g.request_id = uuid.uuid4().hex
+
+
+@app.after_request
+def cabeceras_api(response):
+    response.headers["X-Request-ID"] = getattr(g, "request_id", "")
+    if request.path.startswith("/api/v1/") or request.path == "/api/estado":
+        response.headers["Cache-Control"] = "no-store, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+    return response
+
+
+@app.errorhandler(HTTPException)
+def error_http_api(error):
+    if request.path.startswith("/api/v1/"):
+        code = "not_found" if error.code == 404 else "method_not_allowed" if error.code == 405 else "http_error"
+        message = "No se encontró el recurso solicitado." if error.code == 404 else "La operación no está permitida."
+        return _api_error(error.code or 500, code, message)
+    return error
 
 # ============================================================
 # CONFIGURACIÓN
@@ -115,42 +142,39 @@ def parsear_amenazas(reporte: str) -> list[dict]:
     return amenazas
 
 
-def extraer_ips_del_log() -> list[str]:
+def extraer_ips_del_log(lineas: list[str] | None = None) -> list[str]:
     """
-    Extrae las IPs únicas del access.log ordenadas por frecuencia.
-    La IP más frecuente es la más probable atacante.
+    Extrae direcciones IP observadas en access.log, ordenadas por frecuencia.
+    La frecuencia no identifica por sí sola un origen como atacante.
     """
     from collections import Counter
     import re
 
-    ruta = Path(LOG_PATH)
-    if not ruta.exists():
-        return []
-
-    lineas = ruta.read_text(encoding="utf-8", errors="replace").splitlines()
+    if lineas is None:
+        captura = capture_file(Path(LOG_PATH))
+        lineas = captura.text.splitlines() if captura.text else []
     ips = []
 
     for linea in lineas:
-        # La IP siempre es el primer campo en el log de Apache
-        match = re.match(r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', linea)
-        if match:
-            ips.append(match.group(1))
+        campo = linea.split(maxsplit=1)[0] if linea.split(maxsplit=1) else ""
+        try:
+            ipaddress.ip_address(campo)
+            ips.append(campo)
+        except ValueError:
+            continue
 
     # Retornar IPs ordenadas por frecuencia (la más activa primero)
     contador = Counter(ips)
     return [ip for ip, _ in contador.most_common()]
 
 
-def obtener_timeline_ataques() -> dict:
+def obtener_timeline_ataques(lineas: list[str] | None = None) -> dict:
     import re
     from collections import defaultdict
 
-    ruta = Path(LOG_PATH)
-    if not ruta.exists():
-        return {"horas": [], "counts": [], "sqli": [],
-                "xss": [], "path": [], "brute": [], "cmd": []}
-
-    lineas = ruta.read_text(encoding="utf-8", errors="replace").splitlines()
+    if lineas is None:
+        captura = capture_file(Path(LOG_PATH))
+        lineas = captura.text.splitlines() if captura.text else []
 
     patrones_sqli  = ["union", "select", "%27", "or+1", "or+%27"]
     patrones_xss   = ["<script", "%3cscript", "alert(", "%3calert", "onerror"]
@@ -236,36 +260,181 @@ def obtener_estadisticas(amenazas: list[dict]) -> dict:
     }
 
 
-def obtener_historial() -> list[dict]:
-    """Lista los reportes históricos ordenados por fecha."""
-    if not HISTORIAL.exists():
+def _capturar_historial(limite: int | None = 5) -> list[dict]:
+    """Captura metadatos y contenido de reportes sin seguir enlaces simbólicos."""
+    if not HISTORIAL.exists() or HISTORIAL.is_symlink() or not HISTORIAL.is_dir():
         return []
-
-    # Mostrar solo los 5 más recientes en el dashboard
-    # El resto se conserva en disco en reports/historial/
-    archivos = sorted(HISTORIAL.glob("*.md"), reverse=True)[:5]
-    
+    archivos = [p for p in HISTORIAL.glob("*.md") if p.is_file() and not p.is_symlink()]
+    archivos.sort(key=lambda p: p.name, reverse=True)
+    if limite is not None:
+        archivos = archivos[:limite]
     historial = []
     for archivo in archivos:
-        contenido = archivo.read_text(encoding="utf-8", errors="replace")
-        amenazas  = parsear_amenazas(contenido)
+        captura = capture_file(archivo)
+        if captura.status != "available":
+            continue
+        partes = archivo.stem.split("_")
         historial.append({
-            "nombre"  : archivo.name,
-            "amenazas": len(amenazas),
-            "fecha"   : archivo.stem.split("_")[1] if "_" in archivo.stem else "-",
-            "hora"    : archivo.stem.split("_")[2] if len(archivo.stem.split("_")) > 2 else "-",
+            "nombre": archivo.name,
+            "amenazas": len(parsear_amenazas(captura.text or "")),
+            "fecha": partes[1] if len(partes) > 1 else "-",
+            "hora": partes[2] if len(partes) > 2 else "-",
+            "_captura": captura,
         })
-
     return historial
 
 
-def obtener_log_reciente() -> list[str]:
+def obtener_historial() -> list[dict]:
+    """Lista los cinco reportes históricos más recientes para el dashboard anterior."""
+    return [{key: value for key, value in item.items() if not key.startswith("_")}
+            for item in _capturar_historial(5)]
+
+
+def obtener_log_reciente(lineas: list[str] | None = None) -> list[str]:
     """Retorna las últimas 8 líneas del log."""
-    ruta = Path(LOG_PATH)
-    if not ruta.exists():
-        return ["Log no disponible"]
-    lineas = ruta.read_text(encoding="utf-8", errors="replace").splitlines()
+    if lineas is None:
+        captura = capture_file(Path(LOG_PATH))
+        if captura.status == "missing":
+            return ["Log no disponible"]
+        lineas = captura.text.splitlines() if captura.text else []
     return lineas[-8:] if lineas else []
+
+
+def _snapshot_estado() -> dict:
+    """Compone la respuesta desde una captura estable de cada archivo fuente."""
+    reporte = capture_file(REPORT_PATH / "reporte_seguridad.md")
+    log = capture_file(Path(LOG_PATH))
+    lineas_log = log.text.splitlines() if log.text is not None else []
+    amenazas = parsear_amenazas(reporte.text or "") if reporte.status == "available" else []
+    stats = obtener_estadisticas(amenazas)
+    historial_capturado = _capturar_historial(5)
+    historial = [{key: value for key, value in item.items() if not key.startswith("_")}
+                 for item in historial_capturado]
+
+    identity = json.dumps({
+        "report": reporte.digest,
+        "log": log.digest,
+        "history": [item["_captura"].file_id for item in historial_capturado],
+    }, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    snapshot_id = hashlib.sha256(identity).hexdigest()
+    sources = {
+        "report": {"status": reporte.status, "modified_at": reporte.modified_at},
+        "log": {"status": log.status, "modified_at": log.modified_at},
+    }
+    health = "ok" if all(item["status"] == "available" for item in sources.values()) else "degraded"
+    if any(item["status"] in ("error", "changing") for item in sources.values()):
+        health = "unavailable"
+
+    return {
+        "snapshot_id": snapshot_id,
+        "captured_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "health": health,
+        "sources": sources,
+        "report": reporte,
+        "log_capture": log,
+        "threats": amenazas,
+        "stats": stats,
+        "history": historial,
+        "history_captures": historial_capturado,
+        "log_lines": lineas_log,
+        "recent_log": obtener_log_reciente(lineas_log) if log.status == "available" else ["Log no disponible"],
+        "source_ips": extraer_ips_del_log(lineas_log),
+        "timeline": obtener_timeline_ataques(lineas_log),
+    }
+
+
+def _api_error(status: int, code: str, message: str):
+    return jsonify({"error": {"code": code, "message": message,
+                               "request_id": getattr(g, "request_id", "")}}), status
+
+
+def _threats_v1(snapshot: dict) -> list[dict]:
+    report_id = snapshot["report"].file_id
+    results = []
+    for index, threat in enumerate(snapshot["threats"], start=1):
+        identity = f"{report_id or 'no-report'}:{index}:{threat.get('numero', '-')}:"
+        threat_id = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:24]
+        results.append({
+            "id": threat_id,
+            "number": threat.get("numero", "-"),
+            "severity": threat.get("severidad", ""),
+            "type": threat.get("tipo", ""),
+            "status": threat.get("estado", "-"),
+            "source_ip": threat.get("ip", "-"),
+            "event_time": None,
+            "source_report_id": report_id,
+        })
+    return results
+
+
+def _state_v1(snapshot: dict) -> dict:
+    timeline = snapshot["timeline"]
+    periods = []
+    keys = ("sqli", "xss", "path", "brute", "cmd")
+    for index, period in enumerate(timeline["horas"]):
+        periods.append({"period": period, "count": timeline["counts"][index],
+                        "matches": {key: timeline[key][index] for key in keys}})
+    return {
+        "meta": {
+            "api_version": "1",
+            "schema": "web-defense-ai.estado.v1",
+            "snapshot_id": snapshot["snapshot_id"],
+            "captured_at": snapshot["captured_at"],
+            "consistency": "stable_file_captures",
+            "health": snapshot["health"],
+            "sources": snapshot["sources"],
+            "report_id": snapshot["report"].file_id,
+        },
+        "data": {
+            "stats": snapshot["stats"],
+            "threats": _threats_v1(snapshot)[:10],
+            "threats_total": len(snapshot["threats"]),
+            "threats_truncated": len(snapshot["threats"]) > 10,
+            "recent_log": snapshot["recent_log"],
+            "source_ips": snapshot["source_ips"][:5],
+            "timeline": {"source": "access.log", "meaning": "pattern_matches",
+                         "periods": periods},
+            "recent_reports": snapshot["history"],
+        },
+    }
+
+
+def _pagination(default_size: int = 25, max_size: int = 100):
+    try:
+        page = int(request.args.get("page", "1"))
+        per_page = int(request.args.get("per_page", str(default_size)))
+    except (TypeError, ValueError):
+        return None, _api_error(400, "invalid_pagination", "page y per_page deben ser números enteros.")
+    if page < 1 or per_page < 1 or per_page > max_size:
+        return None, _api_error(400, "invalid_pagination", f"page debe ser positivo y per_page estar entre 1 y {max_size}.")
+    return {"page": page, "per_page": per_page, "offset": (page - 1) * per_page}, None
+
+
+def _report_descriptor(path: Path, current: bool = False) -> dict | None:
+    if path.is_symlink() or not path.is_file():
+        return None
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+    modified = datetime.fromtimestamp(stat.st_mtime, timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    identity = f"{path.name}\0{stat.st_mtime_ns}\0{stat.st_ctime_ns}\0{stat.st_size}\0{stat.st_ino}".encode("utf-8")
+    return {"id": hashlib.sha256(identity).hexdigest(), "filename": path.name,
+            "modified_at": modified, "size_bytes": stat.st_size, "current": current,
+            "_path": path, "_modified_ns": stat.st_mtime_ns}
+
+
+def _catalogo_reportes() -> list[dict]:
+    reports = []
+    current = _report_descriptor(REPORT_PATH / "reporte_seguridad.md", current=True)
+    if current:
+        reports.append(current)
+    if HISTORIAL.exists() and not HISTORIAL.is_symlink():
+        for path in HISTORIAL.glob("*.md"):
+            descriptor = _report_descriptor(path)
+            if descriptor:
+                reports.append(descriptor)
+    return sorted(reports, key=lambda item: (item["_modified_ns"], item["filename"]), reverse=True)
 
 
 def limpiar_historial_antiguo(max_reportes: int = 20):
@@ -291,24 +460,14 @@ def limpiar_historial_antiguo(max_reportes: int = 20):
 @app.route("/")
 def index():
     """Página principal del dashboard."""
-    reporte_path = REPORT_PATH / "reporte_seguridad.md"
-    reporte      = ""
-    amenazas     = []
-    stats        = {"total": 0, "criticas": 0, "altas": 0, "medias": 0, "ips": 0}
-    ultimo_ciclo = "Sin datos"
-
-    if reporte_path.exists():
-        reporte  = reporte_path.read_text(encoding="utf-8", errors="replace")
-        amenazas = parsear_amenazas(reporte)
-        stats    = obtener_estadisticas(amenazas)
-        mtime    = datetime.fromtimestamp(reporte_path.stat().st_mtime)
-        ultimo_ciclo = mtime.strftime("%d/%m/%Y %H:%M:%S")
-
-    historial = obtener_historial()
-    log_lines = obtener_log_reciente()
-
-    stats.setdefault("bajas", 0)
-    stats.setdefault("desconocidas", 0)
+    snapshot = _snapshot_estado()
+    reporte = snapshot["report"].text or ""
+    amenazas = snapshot["threats"]
+    stats = snapshot["stats"]
+    historial = snapshot["history"]
+    log_lines = snapshot["recent_log"]
+    ultimo_ciclo = (datetime.fromtimestamp(snapshot["report"].modified_ns / 1_000_000_000)
+                    .strftime("%d/%m/%Y %H:%M:%S") if snapshot["report"].modified_ns else "Sin datos")
 
     return render_template(
         "index.html",
@@ -318,34 +477,111 @@ def index():
         log_lines    = log_lines,
         ultimo_ciclo = ultimo_ciclo,
         reporte_md   = reporte,
-        timeline     = obtener_timeline_ataques(),
+        timeline     = snapshot["timeline"],
     )
 
 
 @app.route("/api/estado")
 def api_estado():
     """API JSON del estado local; la consulta no sincroniza ni inicia procesos."""
-
-    reporte_path = REPORT_PATH / "reporte_seguridad.md"
-    amenazas     = []
-
-    if reporte_path.exists():
-        reporte  = reporte_path.read_text(encoding="utf-8", errors="replace")
-        amenazas = parsear_amenazas(reporte)
-
-    stats = obtener_estadisticas(amenazas)
-
-    ips_log = extraer_ips_del_log()
-
+    snapshot = _snapshot_estado()
     return jsonify({
-        "stats"    : stats,
-        "amenazas" : amenazas,
-        "historial": obtener_historial(),
-        "log"      : obtener_log_reciente(),
-        "ips_log"  : ips_log[:5],
-        "timeline" : obtener_timeline_ataques(),
+        "stats": snapshot["stats"],
+        "amenazas": snapshot["threats"],
+        "historial": snapshot["history"],
+        "log": snapshot["recent_log"],
+        "ips_log": snapshot["source_ips"][:5],
+        "timeline": snapshot["timeline"],
         "timestamp": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
     })
+
+
+@app.get("/api/v1/openapi.json")
+def api_v1_openapi():
+    """Contrato OpenAPI publicado junto con la versión inicial de lectura."""
+    return jsonify(json.loads((Path(__file__).parent / "openapi-v1.json").read_text(encoding="utf-8")))
+
+
+@app.get("/api/v1/estado")
+def api_v1_estado():
+    return jsonify(_state_v1(_snapshot_estado()))
+
+
+@app.get("/api/v1/salud")
+def api_v1_salud():
+    sources = {"report": inspect_file(REPORT_PATH / "reporte_seguridad.md"),
+               "log": inspect_file(Path(LOG_PATH))}
+    status = "ok" if all(item["status"] == "available" for item in sources.values()) else "degraded"
+    if any(item["status"] == "error" for item in sources.values()):
+        status = "unavailable"
+    return jsonify({"meta": {"api_version": "1",
+                              "captured_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")},
+                    "data": {"status": status, "sources": sources,
+                             "executor": "unobserved", "ingestion": "unobserved"}})
+
+
+@app.get("/api/v1/amenazas")
+def api_v1_amenazas():
+    pagination, error = _pagination()
+    if error:
+        return error
+    snapshot = _snapshot_estado()
+    items = _threats_v1(snapshot)
+    tipo = request.args.get("tipo", "").strip().casefold()
+    ip = request.args.get("ip", "").strip().casefold()
+    severidad = request.args.get("severidad", "").strip().upper().replace("Í", "I")
+    allowed = {"CRITICA", "ALTA", "MEDIA", "BAJA", "DESCONOCIDA"}
+    if severidad and severidad not in allowed:
+        return _api_error(400, "invalid_severity", "severidad debe ser CRITICA, ALTA, MEDIA, BAJA o DESCONOCIDA.")
+
+    if tipo:
+        items = [item for item in items if tipo in item["type"].casefold()]
+    if ip:
+        items = [item for item in items if ip == item["source_ip"].casefold()]
+    if severidad:
+        items = [item for item in items if (
+            item["severity"].upper().replace("Í", "I") == severidad
+            or (severidad == "DESCONOCIDA" and item["severity"].upper() not in {"CRITICA", "CRÍTICA", "ALTA", "MEDIA", "BAJA"})
+        )]
+    total = len(items)
+    start = pagination["offset"]
+    selected = items[start:start + pagination["per_page"]]
+    return jsonify({"meta": {"api_version": "1", "snapshot_id": snapshot["snapshot_id"],
+                              "report_id": snapshot["report"].file_id,
+                              "scope": "reporte_actual", "total": total,
+                              "page": pagination["page"], "per_page": pagination["per_page"]},
+                    "data": selected})
+
+
+@app.get("/api/v1/reportes")
+def api_v1_reportes():
+    pagination, error = _pagination(default_size=25, max_size=100)
+    if error:
+        return error
+    items = _catalogo_reportes()
+    total = len(items)
+    start = pagination["offset"]
+    visible = [{key: value for key, value in item.items() if not key.startswith("_")}
+               for item in items[start:start + pagination["per_page"]]]
+    return jsonify({"meta": {"api_version": "1", "total": total,
+                              "page": pagination["page"], "per_page": pagination["per_page"]},
+                    "data": visible})
+
+
+@app.get("/api/v1/reportes/<report_id>")
+def api_v1_reporte(report_id):
+    if not re.fullmatch(r"[a-f0-9]{64}", report_id):
+        return _api_error(400, "invalid_report_id", "El identificador del reporte no tiene un formato válido.")
+    match = next((item for item in _catalogo_reportes() if item["id"] == report_id), None)
+    if match is None:
+        return _api_error(404, "report_not_found", "No se encontró el reporte solicitado.")
+    captura = capture_file(match["_path"])
+    actual = _report_descriptor(match["_path"], current=match["current"])
+    if captura.status != "available" or actual is None or actual["id"] != report_id:
+        return _api_error(409, "report_changed", "El reporte cambió mientras se consultaba. Vuelve a cargar la lista.")
+    descriptor = {key: value for key, value in actual.items() if not key.startswith("_")}
+    return jsonify({"meta": {"api_version": "1", "report_id": report_id},
+                    "data": {"report": descriptor, "markdown": captura.text}})
 
 
 @app.route("/api/sincronizar", methods=["POST"])
@@ -353,10 +589,8 @@ def api_sincronizar():
     """Sincroniza el log desde Docker; no ejecuta IA ni notifica."""
     try:
         # Paso 1: Sincronizar log
-        Path(LOG_PATH).parent.mkdir(parents=True, exist_ok=True)
-        sync = subprocess.run(
-            ["docker", "cp", "dvwa-app:/var/log/apache2/access.log", LOG_PATH],
-            capture_output=True, text=True, timeout=15
+        sync = run_atomic_copy(
+            ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"], Path(LOG_PATH), timeout=15
         )
         if sync.returncode != 0:
             return jsonify({"ok": False, "error": "Error sincronizando log"}), 500

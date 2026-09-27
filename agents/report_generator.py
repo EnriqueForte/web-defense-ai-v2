@@ -4,7 +4,6 @@
 # Responsabilidad: Crear reporte ejecutivo con recomendaciones
 # ============================================================
 
-import os
 from crewai import Agent, Task
 from config.prompts import PROMPT_REPORTER
 
@@ -36,8 +35,6 @@ def crear_tarea_reporte(agente_reporter, tarea_analisis,
     Crea la tarea de generación del reporte ejecutivo.
     Recibe el output de los Agentes 1 y 2 como contexto.
     """
-    report_path = os.getenv("REPORT_PATH", "./reports/")
-
     return Task(
         description=(
             "Con base en el análisis y clasificación anteriores, genera un "
@@ -58,5 +55,4 @@ def crear_tarea_reporte(agente_reporter, tarea_analisis,
         ),
         agent=agente_reporter,
         context=[tarea_analisis, tarea_clasificacion],
-        output_file=f"{report_path}reporte_seguridad.md",
     )

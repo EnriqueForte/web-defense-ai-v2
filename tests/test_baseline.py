@@ -12,10 +12,12 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+import ast
 
 from agents.log_analyst import (
     analizar_fuerza_bruta, leer_log, pre_filtrar_lineas, preparar_log_para_agente,
 )
+from dashboard.services.read_store import atomic_write_text, capture_file, inspect_file, run_atomic_copy
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = json.loads((ROOT / "tests/fixtures/traffic.json").read_text(encoding="utf-8"))
@@ -44,6 +46,11 @@ class IsolatedCase(unittest.TestCase):
         stack.enter_context(patch("subprocess.Popen", side_effect=AssertionError("Proceso externo prohibido")))
         stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
         self.log = self.base / "access.log"
+
+    @staticmethod
+    def successful_copy(command, **_kwargs):
+        Path(command[-1]).write_text("synthetic atomic log", encoding="utf-8")
+        return subprocess.CompletedProcess(command, 0, "", "")
 
 
 class PreprocessingTests(IsolatedCase):
@@ -86,6 +93,74 @@ class PreprocessingTests(IsolatedCase):
         self.assertEqual(len(selected), 6)
 
 
+class ReadStoreTests(IsolatedCase):
+    def test_capture_reports_missing_and_stable_files(self):
+        missing = capture_file(self.base / "missing.md")
+        self.assertEqual(missing.status, "missing")
+        path = self.base / "reporte.md"
+        path.write_text("reporte sintético", encoding="utf-8")
+        captured = capture_file(path)
+        self.assertEqual(captured.status, "available")
+        self.assertEqual(captured.text, "reporte sintético")
+        self.assertEqual(len(captured.file_id), 64)
+        self.assertEqual(len(captured.digest), 64)
+
+    def test_atomic_write_replaces_complete_file(self):
+        path = self.base / "reports" / "current.md"
+        path.parent.mkdir()
+        path.write_text("anterior", encoding="utf-8")
+        atomic_write_text(path, "reporte completo\n")
+        self.assertEqual(path.read_text(encoding="utf-8"), "reporte completo\n")
+        self.assertEqual(list(path.parent.glob("*.tmp")), [])
+
+    def test_failed_atomic_replace_preserves_previous_report_and_cleans_temp(self):
+        path = self.base / "current.md"
+        path.write_text("último reporte válido", encoding="utf-8")
+        with patch("dashboard.services.read_store.os.replace", side_effect=OSError("reemplazo simulado")):
+            with self.assertRaises(OSError):
+                atomic_write_text(path, "contenido parcial")
+        self.assertEqual(path.read_text(encoding="utf-8"), "último reporte válido")
+        self.assertEqual(list(self.base.glob("*.tmp")), [])
+
+    def test_health_metadata_does_not_read_file_content(self):
+        path = self.base / "status.log"
+        path.write_text("synthetic", encoding="utf-8")
+        with patch.object(Path, "read_bytes", side_effect=AssertionError("health no debe leer el archivo")):
+            self.assertEqual(inspect_file(path)["status"], "available")
+
+    def test_external_copy_publishes_atomically_after_success(self):
+        target = self.base / "access.log"
+        target.write_text("last complete log", encoding="utf-8")
+        self.process.side_effect = self.successful_copy
+        result = run_atomic_copy(["synthetic-copy", "source"], target)
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(target.read_text(encoding="utf-8"), "synthetic atomic log")
+        self.assertEqual(list(self.base.glob("*.tmp")), [])
+
+    def test_failed_external_copy_keeps_previous_log(self):
+        target = self.base / "access.log"
+        target.write_text("last complete log", encoding="utf-8")
+        self.process.side_effect = None
+        self.process.return_value = subprocess.CompletedProcess([], 1, "", "synthetic failure")
+        result = run_atomic_copy(["synthetic-copy", "source"], target)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(target.read_text(encoding="utf-8"), "last complete log")
+        self.assertEqual(list(self.base.glob("*.tmp")), [])
+
+    def test_all_existing_report_writers_use_atomic_publication(self):
+        for filename in ("main.py", "pipeline.py"):
+            source = (ROOT / filename).read_text(encoding="utf-8")
+            tree = ast.parse(source, filename=filename)
+            calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+            self.assertTrue(any(isinstance(call.func, ast.Name) and call.func.id == "atomic_write_text"
+                                for call in calls), filename)
+        reporter = ast.parse((ROOT / "agents/report_generator.py").read_text(encoding="utf-8"))
+        task_calls = [node for node in ast.walk(reporter)
+                      if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "Task"]
+        self.assertTrue(task_calls)
+        self.assertFalse(any(keyword.arg == "output_file" for call in task_calls for keyword in call.keywords))
+
+
 class DashboardTests(IsolatedCase):
     def setUp(self):
         super().setUp()
@@ -112,11 +187,6 @@ class DashboardTests(IsolatedCase):
         self.assertIn(b"&lt;script&gt;", response.data)
         self.assertNotIn(b"<script>alert(1)</script>", response.data)
 
-    def test_legacy_state_contract_is_read_only(self):
-        data = self.client.get("/api/estado").get_json()
-        self.assertEqual(set(data), {"stats", "amenazas", "historial", "log", "ips_log", "timeline", "timestamp"})
-        self.process.assert_not_called()
-
     def test_report_routes_reject_invalid_and_missing_names(self):
         self.assertEqual(self.client.get("/report/no.txt").status_code, 400)
         self.assertEqual(self.client.get("/report/reporte_20260430.md").status_code, 404)
@@ -141,8 +211,7 @@ class DashboardTests(IsolatedCase):
         self.assertNotIn("FileNotFoundError", response.get_json()["error"])
 
     def test_h01_sync_does_not_claim_new_analysis(self):
-        self.process.side_effect = None
-        self.process.return_value = subprocess.CompletedProcess([], 0)
+        self.process.side_effect = self.successful_copy
         result = self.client.post("/api/sincronizar").get_json()
         self.assertNotIn("analisis completado", result["mensaje"].lower())
         self.assertFalse(result["analisis_ejecutado"])
@@ -151,8 +220,7 @@ class DashboardTests(IsolatedCase):
     def test_h01_sync_does_not_archive_or_notify_from_old_report(self):
         (self.base / "reporte_seguridad.md").write_text(report("192.0.2.9", "CRÍTICA"), encoding="utf-8")
         history = self.base / "historial"
-        self.process.side_effect = None
-        self.process.return_value = subprocess.CompletedProcess([], 0)
+        self.process.side_effect = self.successful_copy
         response = self.client.post("/api/sincronizar")
         self.assertTrue(response.get_json()["ok"])
         self.assertFalse(history.exists())
@@ -205,3 +273,109 @@ class DashboardTests(IsolatedCase):
 
     def test_h08_ipv6_origin_is_preserved(self):
         self.assertEqual(self.web.parsear_amenazas(report(ip="2001:db8::7"))[0]["ip"], "2001:db8::7")
+
+    def test_api_v1_state_has_versioned_snapshot_and_private_cache_headers(self):
+        report_path = self.base / "reporte_seguridad.md"
+        report_path.write_text(report(), encoding="utf-8")
+        self.log.unlink()
+        response = self.client.get("/api/v1/estado")
+        payload = response.get_json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(payload["meta"]["api_version"], "1")
+        self.assertEqual(payload["meta"]["schema"], "web-defense-ai.estado.v1")
+        self.assertEqual(len(payload["meta"]["snapshot_id"]), 64)
+        self.assertEqual(payload["meta"]["health"], "degraded")
+        self.assertIsNone(payload["data"]["threats"][0]["event_time"])
+        self.assertEqual(payload["data"]["threats"][0]["source_report_id"], payload["meta"]["report_id"])
+        self.assertEqual(response.headers["Cache-Control"], "no-store, max-age=0")
+        self.assertTrue(response.headers["X-Request-ID"])
+        self.process.assert_not_called()
+
+    def test_api_v1_snapshot_is_stable_and_changes_with_source_content(self):
+        report_path = self.base / "reporte_seguridad.md"
+        report_path.write_text(report(), encoding="utf-8")
+        first = self.client.get("/api/v1/estado").get_json()["meta"]["snapshot_id"]
+        again = self.client.get("/api/v1/estado").get_json()["meta"]["snapshot_id"]
+        self.assertEqual(first, again)
+        report_path.write_text(report(severity="CRÍTICA"), encoding="utf-8")
+        changed = self.client.get("/api/v1/estado").get_json()["meta"]["snapshot_id"]
+        self.assertNotEqual(first, changed)
+
+    def test_api_v1_captures_each_state_source_once(self):
+        capture = self.web.capture_file
+        with patch.object(self.web, "capture_file", wraps=capture) as wrapped:
+            self.client.get("/api/v1/estado")
+        requested = [call.args[0] for call in wrapped.call_args_list]
+        self.assertEqual(requested.count(self.base / "reporte_seguridad.md"), 1)
+        self.assertEqual(requested.count(Path(self.log)), 1)
+
+    def test_api_v1_threat_filtering_and_pagination(self):
+        rows = ("## AMENAZAS DETECTADAS\n| Línea | Severidad | Tipo | Estado | IP Origen |\n"
+                "| --- | --- | --- | --- | --- |\n"
+                "| 1 | ALTA | SQLi | Revisar | 192.0.2.10 |\n"
+                "| 2 | BAJA | XSS | Desconocido | 198.51.100.4 |\n")
+        (self.base / "reporte_seguridad.md").write_text(rows, encoding="utf-8")
+        response = self.client.get("/api/v1/amenazas?severidad=ALTA&per_page=1")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["meta"]["total"], 1)
+        self.assertEqual(response.get_json()["data"][0]["type"], "SQLi")
+        bad = self.client.get("/api/v1/amenazas?page=0")
+        self.assertEqual(bad.status_code, 400)
+        self.assertEqual(bad.get_json()["error"]["code"], "invalid_pagination")
+        self.assertEqual(bad.get_json()["error"]["request_id"], bad.headers["X-Request-ID"])
+
+    def test_api_v1_reports_are_fully_paginated_and_resolved_by_id(self):
+        history = self.base / "historial"
+        history.mkdir()
+        archive = history / "reporte_20260430_120000.md"
+        archive.write_text("## REPORTE SINTÉTICO\nContenido de fixture\n", encoding="utf-8")
+        listing = self.client.get("/api/v1/reportes?per_page=1").get_json()
+        self.assertEqual(listing["meta"]["total"], 1)
+        report_id = listing["data"][0]["id"]
+        self.assertEqual(len(report_id), 64)
+        detail = self.client.get(f"/api/v1/reportes/{report_id}")
+        self.assertEqual(detail.status_code, 200)
+        self.assertIn("Contenido de fixture", detail.get_json()["data"]["markdown"])
+        self.assertEqual(detail.headers["Cache-Control"], "no-store, max-age=0")
+        self.assertEqual(self.client.get("/api/v1/reportes/../secret").status_code, 404)
+
+    def test_api_v1_health_openapi_and_errors(self):
+        with patch.object(self.web, "capture_file", side_effect=AssertionError("salud no lee contenidos")):
+            health = self.client.get("/api/v1/salud").get_json()
+        self.assertEqual(health["data"]["status"], "degraded")
+        spec = self.client.get("/api/v1/openapi.json")
+        self.assertEqual(spec.status_code, 200)
+        contract = spec.get_json()
+        self.assertEqual(contract["openapi"], "3.0.3")
+        self.assertEqual(set(contract["paths"]), {
+            "/estado", "/salud", "/amenazas", "/reportes", "/reportes/{report_id}"
+        })
+        def collect_refs(node):
+            refs = []
+            if isinstance(node, dict):
+                if "$ref" in node:
+                    refs.append(node["$ref"])
+                for value in node.values():
+                    refs.extend(collect_refs(value))
+            elif isinstance(node, list):
+                for value in node:
+                    refs.extend(collect_refs(value))
+            return refs
+
+        references = collect_refs(contract)
+        self.assertTrue(references)
+        for reference in references:
+            self.assertTrue(reference.startswith("#/"), reference)
+            target = contract
+            for segment in reference[2:].split("/"):
+                segment = segment.replace("~1", "/").replace("~0", "~")
+                self.assertIn(segment, target, reference)
+                target = target[segment]
+        missing = self.client.get("/api/v1/no-existe")
+        self.assertEqual(missing.status_code, 404)
+        self.assertEqual(missing.get_json()["error"]["code"], "not_found")
+
+    def test_legacy_state_contract_remains_unchanged(self):
+        data = self.client.get("/api/estado").get_json()
+        self.assertEqual(set(data), {"stats", "amenazas", "historial", "log", "ips_log", "timeline", "timestamp"})
+        self.process.assert_not_called()

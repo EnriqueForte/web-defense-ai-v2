@@ -11,6 +11,7 @@ __pycache__/
 
 # Logs y reportes generados
 logs/*.log
+logs/.*.tmp
 reports/*.md
 reports/historial/
 

@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 from config.notifications import notificar_alerta_critica
+from dashboard.services.read_store import atomic_write_text, run_atomic_copy
 
 load_dotenv()
 
@@ -50,10 +51,9 @@ def sincronizar_log():
     """
     print(f"{Color.AZUL}🔄 Sincronizando log desde DVWA...{Color.RESET}")
     
-    resultado = subprocess.run(
-        ["docker", "cp", "dvwa-app:/var/log/apache2/access.log", LOG_PATH],
-        capture_output=True,
-        text=True
+    resultado = run_atomic_copy(
+        ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"],
+        Path(LOG_PATH), timeout=60
     )
     
     if resultado.returncode == 0:
@@ -156,7 +156,7 @@ def guardar_historial(reporte: str, numero_ciclo: int):
     historial_dir.mkdir(exist_ok=True)
     
     ruta_historial = historial_dir / f"reporte_{timestamp}_ciclo{numero_ciclo}.md"
-    ruta_historial.write_text(reporte, encoding="utf-8")
+    atomic_write_text(ruta_historial, reporte)
     
     print(f"{Color.AZUL}📁 Historial guardado: {ruta_historial.name}{Color.RESET}")
 

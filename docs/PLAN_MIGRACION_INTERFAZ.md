@@ -6,11 +6,12 @@ Actualización previa a la ejecución: todo el desarrollo, las pruebas y la coor
 
 ## 1. Decisión recomendada
 
-Actualización 27/09/2026: fase 0 completada en Windows/Python 3.11. Resultados y
-límites en [FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
-instalación limpia y restauración verificada. Los hallazgos siguientes permanecen
-fase 1 completada el 27/09/2026. Las referencias a pruebas
-no versionadas al final de este documento describen la revisión inicial del día 26.
+Actualización 27/09/2026: fases 0, 1 y 2 completadas en Windows/Python 3.11.
+El contrato versionado de lectura está documentado en
+[FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md); resultados de fase 0 en
+[FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
+instalación limpia y restauración verificada.
+Las referencias a pruebas no versionadas al final describen la revisión inicial del día 26.
 
 Fase 1: H01–H09 implementados y validados. La suite aislada ampliada
 valida la ruta vacía, sincronización honesta, consulta sin Docker, parser, severidades,
