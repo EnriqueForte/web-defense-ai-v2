@@ -52,7 +52,7 @@ para asistentes o terminales. `.env.example` sigue disponible en el explorador.
 También puede lanzarse con **Ctrl+Shift+B**. Comprueba la raíz y las carpetas
 Python del proyecto, incluida `scripts/`, sin iniciar Docker, IA o notificaciones.
 Devuelve un error si encuentra sintaxis inválida. No equivale a pruebas
-funcionales. La tarea **web-defense-ai V2: verificar línea base aislada** ejecuta
+funcionales. La tarea **web-defense-ai V2: verificar regresión aislada** ejecuta
 la suite Python y los diagnósticos JavaScript de fase 0. Requiere las dependencias
 de `requirements-test.txt` y Node en PATH. Los fallos conocidos se muestran como
 pendientes, no como comportamientos corregidos. Véase `FASE_0_LINEA_BASE.md`.

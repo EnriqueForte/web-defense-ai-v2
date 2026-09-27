@@ -1,7 +1,6 @@
 """Línea base sin Docker, credenciales, llamadas IA ni datos operativos.
 
-expectedFailure documenta defectos pendientes: NO equivale a prueba aprobada.
-Un arreglo inesperado hace fallar la suite hasta retirar esa marca.
+La suite verifica comportamientos corregidos de fase 1 con datos sintéticos.
 """
 import contextlib
 import importlib
@@ -100,14 +99,23 @@ class DashboardTests(IsolatedCase):
     def test_valid_report_and_dashboard(self):
         (self.base / "reporte_seguridad.md").write_text(report(), encoding="utf-8")
         self.assertEqual(self.web.parsear_amenazas(report())[0]["ip"], "192.0.2.10")
+        self.assertEqual(self.web.parsear_amenazas(report())[0]["timestamp"], "-")
         self.assertEqual(self.client.get("/").status_code, 200)
         self.process.assert_not_called()
 
-    def test_legacy_state_contract_with_simulated_copy(self):
-        self.process.side_effect = None
-        self.process.return_value = subprocess.CompletedProcess([], 0)
+    def test_report_content_is_server_escaped_before_client_render(self):
+        history = self.base / "historial"
+        history.mkdir()
+        (history / "reporte_sintetico.md").write_text("<script>alert(1)</script>", encoding="utf-8")
+        response = self.client.get("/report/reporte_sintetico.md")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"&lt;script&gt;", response.data)
+        self.assertNotIn(b"<script>alert(1)</script>", response.data)
+
+    def test_legacy_state_contract_is_read_only(self):
         data = self.client.get("/api/estado").get_json()
         self.assertEqual(set(data), {"stats", "amenazas", "historial", "log", "ips_log", "timeline", "timestamp"})
+        self.process.assert_not_called()
 
     def test_report_routes_reject_invalid_and_missing_names(self):
         self.assertEqual(self.client.get("/report/no.txt").status_code, 400)
@@ -120,45 +128,80 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(response.status_code, 500)
         self.assertFalse(response.get_json()["ok"])
 
-    @unittest.expectedFailure
+    def test_sync_timeout_has_gateway_timeout_status(self):
+        self.process.side_effect = subprocess.TimeoutExpired("docker cp", 15)
+        response = self.client.post("/api/sincronizar")
+        self.assertEqual(response.status_code, 504)
+        self.assertFalse(response.get_json()["ok"])
+
+    def test_sync_without_docker_has_service_unavailable_status(self):
+        self.process.side_effect = FileNotFoundError("docker")
+        response = self.client.post("/api/sincronizar")
+        self.assertEqual(response.status_code, 503)
+        self.assertNotIn("FileNotFoundError", response.get_json()["error"])
+
     def test_h01_sync_does_not_claim_new_analysis(self):
         self.process.side_effect = None
         self.process.return_value = subprocess.CompletedProcess([], 0)
         result = self.client.post("/api/sincronizar").get_json()
         self.assertNotIn("analisis completado", result["mensaje"].lower())
+        self.assertFalse(result["analisis_ejecutado"])
+        self.assertIn("no se ha ejecutado", result["mensaje"].lower())
 
-    @unittest.expectedFailure
+    def test_h01_sync_does_not_archive_or_notify_from_old_report(self):
+        (self.base / "reporte_seguridad.md").write_text(report("192.0.2.9", "CRÍTICA"), encoding="utf-8")
+        history = self.base / "historial"
+        self.process.side_effect = None
+        self.process.return_value = subprocess.CompletedProcess([], 0)
+        response = self.client.post("/api/sincronizar")
+        self.assertTrue(response.get_json()["ok"])
+        self.assertFalse(history.exists())
+        self.assertTrue((self.base / "reporte_seguridad.md").exists())
+
     def test_h02_empty_dashboard_renders(self):
         self.assertEqual(self.client.get("/").status_code, 200)
 
-    @unittest.expectedFailure
     def test_h05_state_read_does_not_call_docker(self):
-        self.process.side_effect = None
-        self.process.return_value = subprocess.CompletedProcess([], 0)
         self.client.get("/api/estado")
         self.process.assert_not_called()
 
-    @unittest.expectedFailure
     def test_h05_state_available_without_docker(self):
         self.process.side_effect = FileNotFoundError("Docker simulado no disponible")
         self.assertEqual(self.client.get("/api/estado").status_code, 200)
 
-    @unittest.expectedFailure
     def test_h06_low_is_not_medium(self):
         stats = self.web.obtener_estadisticas(self.web.parsear_amenazas(report(severity="BAJA")))
         self.assertEqual(stats["medias"], 0)
+        self.assertEqual(stats["bajas"], 1)
 
-    @unittest.expectedFailure
+    def test_h06_unknown_severity_is_not_counted_as_a_level(self):
+        stats = self.web.obtener_estadisticas(self.web.parsear_amenazas(report(severity="INDEFINIDA")))
+        self.assertEqual(stats["desconocidas"], 1)
+        self.assertEqual(stats["medias"], 0)
+
     def test_h07_empty_cell_preserves_columns(self):
         threat = self.web.parsear_amenazas(report(ip="198.51.100.7", state=""))[0]
         self.assertEqual(threat["ip"], "198.51.100.7")
-        self.assertIn(threat["estado"], (None, "", "-", "Desconocido"))
+        self.assertEqual(threat["estado"], "-")
 
-    @unittest.expectedFailure
+    def test_h07_reordered_columns_remain_aligned(self):
+        reordered = ("## AMENAZAS DETECTADAS\n"
+                     "| Tipo de Ataque | IP Origen | Estado | Severidad | Línea |\n"
+                     "| --- | --- | --- | --- | --- |\n"
+                     "| SQLi | 198.51.100.7 | | BAJA | 2 |\n")
+        threat = self.web.parsear_amenazas(reordered)[0]
+        self.assertEqual((threat["tipo"], threat["ip"], threat["estado"], threat["severidad"], threat["numero"]),
+                         ("SQLi", "198.51.100.7", "-", "BAJA", "2"))
+
     def test_h08_missing_ip_not_attributed_to_busy_host(self):
         self.assertIn(self.web.parsear_amenazas(report(ip="Desconocido"))[0]["ip"], (None, "-", "Desconocido"))
 
-    @unittest.expectedFailure
     def test_h09_timeline_chronological_across_months(self):
         self.log.write_text(line("/item?id=%27") + "\n" + line("/item?id=%27", "01/May/2026:00:00:00"), encoding="utf-8")
         self.assertEqual(self.web.obtener_timeline_ataques()["horas"], ["30/Apr/2026 23h", "01/May/2026 00h"])
+
+    def test_h08_invalid_ipv4_is_unknown(self):
+        self.assertEqual(self.web.parsear_amenazas(report(ip="999.1.1.1"))[0]["ip"], "-")
+
+    def test_h08_ipv6_origin_is_preserved(self):
+        self.assertEqual(self.web.parsear_amenazas(report(ip="2001:db8::7"))[0]["ip"], "2001:db8::7")

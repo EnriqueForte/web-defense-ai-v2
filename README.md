@@ -10,7 +10,7 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 La aplicación actual utiliza Python, Flask, Jinja2 y Chart.js. La migración a React + Next.js está planificada y todavía no se ha iniciado. El nombre V2 identifica esta segunda versión del proyecto, no una migración ya terminada.
 
-La fase 0 ya dispone de fixtures sintéticos, regresión aislada y respaldo restaurado. Los fallos conocidos permanecen señalados para la fase 1. Consultar resultados, instalación y límites en [la línea base](docs/FASE_0_LINEA_BASE.md).
+La fase 0 dejó fixtures sintéticos, regresión aislada y respaldo restaurado. La fase 1 estabiliza la interfaz Flask antes de la migración gradual. Consultar el alcance y el progreso en [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) y [la línea base](docs/FASE_0_LINEA_BASE.md).
 
 | Documento | Contenido |
 |---|---|

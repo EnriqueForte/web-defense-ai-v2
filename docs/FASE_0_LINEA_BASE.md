@@ -1,7 +1,8 @@
 # web-defense-ai V2 — Fase 0: línea base
 
 Fecha: 27/09/2026. Estado: **completada para el entorno local Windows/Python 3.11**.
-Punto de partida: `6be08bb`. No se ha iniciado la fase 1 ni la implementación de Next.js.
+Punto de partida: `6be08bb`. Al cerrar esta línea base, aún no se había iniciado
+la fase 1 ni la implementación de Next.js.
 Responsable: Codex, trabajo secuencial sin subagentes. F0-01 y F0-02 completadas.
 
 ## Entrega y aceptación
@@ -112,6 +113,13 @@ consiste en retirar los archivos de prueba/configuración de esta entrega o recu
 los archivos modificados desde `6be08bb`, preservando cambios posteriores y datos.
 No es necesario restaurar logs para revertir esta fase. No restaurar copias encima
 de datos más recientes sin revisar previamente las diferencias.
+
+## Actualización: fase 1 iniciada
+
+El 27/09/2026 comenzó F1-01. La entrega en curso corrige H01–H09. La suite original
+de 18 casos se convirtió en regresión y se amplió: la versión actual verifica la
+lectura DOM como texto, la limpieza del Markdown y la actualización del gráfico
+con una única consulta. El cierre de fase 1 se registrará tras la validación final.
 
 ## Siguiente fase
 

@@ -9,8 +9,14 @@ Actualización previa a la ejecución: todo el desarrollo, las pruebas y la coor
 Actualización 27/09/2026: fase 0 completada en Windows/Python 3.11. Resultados y
 límites en [FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
 instalación limpia y restauración verificada. Los hallazgos siguientes permanecen
-pendientes de corregir; la fase 1 todavía no ha empezado. Las referencias a pruebas
+fase 1 iniciada el 27/09/2026. Las referencias a pruebas
 no versionadas al final de este documento describen la revisión inicial del día 26.
+
+Progreso fase 1: H01–H09 implementados en esta entrega. La suite aislada ampliada
+valida la ruta vacía, sincronización honesta, consulta sin Docker, parser, severidades,
+IP y cronología. La vista de reportes filtra elementos y atributos no permitidos; las
+comprobaciones usan un DOM sintético y no sustituyen revisión en un navegador real.
+
 
 Migrar progresivamente la interfaz a **Next.js con React y TypeScript**, conservando **Flask como API y Python/CrewAI como motor de análisis**. Mantener ambos dashboards durante la transición y retirar las plantillas únicamente después de demostrar equivalencia funcional y ensayar la reversión.
 
@@ -68,11 +74,11 @@ La base MySQL pertenece a DVWA, no al sistema de incidentes. El servicio `ai-eng
 | Ruta | Función real | Compatibilidad que debe preservarse |
 |---|---|---|
 | `GET /` | Renderiza métricas, amenazas, timeline, cinco históricos y ocho líneas de log | Debe seguir disponible como retorno durante la transición |
-| `GET /api/estado` | Copia el log desde Docker y devuelve `stats`, `amenazas`, `historial`, `log`, `ips_log`, `timeline`, `timestamp` | Conservar los campos para el cliente antiguo; extraer el efecto de sincronización de forma controlada |
-| `POST /api/sincronizar` | Sincroniza logs, copia el reporte existente al historial y puede notificar | No invoca `main.py`; no se debe presentar como un análisis nuevo |
+| `GET /api/estado` | Lee archivos locales y devuelve `stats`, `amenazas`, `historial`, `log`, `ips_log`, `timeline`, `timestamp` | Consulta sin proceso Docker; se conservan los campos anteriores |
+| `POST /api/sincronizar` | Copia el log de Docker al archivo local | Informa que no ejecuta IA; no archiva reportes anteriores ni dispara avisos |
 | `GET /report/<nombre>` | Muestra Markdown histórico o actual, con validación del nombre | Mantener enlaces existentes y respuestas de archivo inexistente |
 
-El refresco previsto es de 15 segundos, pero métricas, tabla e historial se generan al cargar la página. El JavaScript refresca el terminal; el segundo bloque intenta actualizar el contador del timeline, sin actualizar sus datasets. El botón termina recargando toda la página.
+El refresco consulta el estado local cada 15 segundos con una llamada; actualiza terminal y series del timeline. Métricas, tabla e historial siguen representando el reporte disponible al cargar la página. El botón sincroniza el log y deja explícito que no ejecuta un análisis nuevo.
 
 ## 4. Hallazgos y riesgos priorizados
 

@@ -19,18 +19,18 @@
             </div>
             <div class="status-bar">
                 <span class="status-dot"></span>
-                <span class="status-text">SISTEMA ACTIVO</span>
+                <span class="status-text" id="estadoSistema">ESTADO LOCAL</span>
                 <span class="status-sep">|</span>
-                <span class="status-time">Ultimo analisis: {{ ultimo_ciclo }}</span>
+                <span class="status-time">Último reporte: {{ ultimo_ciclo }}</span>
                 <span class="status-sep">|</span>
-                <span class="status-time" id="cicloNum">Pipeline activo</span>
+                <span class="status-time" id="cicloNum">Sincronización manual</span>
             </div>
         </div>
-        <button class="btn-scan" id="btnAnalizar" onclick="ejecutarAnalisis()">
+        <button class="btn-scan" id="btnSincronizar" onclick="sincronizarLog()">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" class="btn-icon">
                 <polygon points="2,1 9,5 2,9" />
             </svg>
-            ANALIZAR AHORA
+            SINCRONIZAR LOG
         </button>
     </header>
 
@@ -64,7 +64,7 @@
             <div class="metric-card media" onclick="filtrarTabla('media')" style="cursor:pointer"></div>
         </div>
         <div class="metric-card ips">
-            <div class="metric-label">IPs ATACANTES</div>
+            <div class="metric-label">IPs DE ORIGEN</div>
             <div class="metric-value">{{ stats.ips }}</div>
             <div class="metric-sub">origen unico</div>
             <div class="metric-ghost">{{ stats.ips }}</div>
@@ -87,8 +87,8 @@
                         <th>TIPO DE ATAQUE</th>
                         <th>SEVERIDAD</th>
                         <th>ESTADO</th>
-                        <th>IP ORIGEN</th>
-                        <th>DETECCION</th>
+                        <th>IP DE ORIGEN</th>
+                        <th>FECHA OBSERVADA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,8 +102,12 @@
                             <span class="badge badge-critica">CRITICA</span>
                             {% elif 'ALTA' in a.severidad.upper() %}
                             <span class="badge badge-alta">ALTA</span>
-                            {% else %}
+                            {% elif 'MEDIA' in a.severidad.upper() %}
                             <span class="badge badge-media">MEDIA</span>
+                            {% elif 'BAJA' in a.severidad.upper() %}
+                            <span class="badge badge-investigar">BAJA</span>
+                            {% else %}
+                            <span class="badge badge-investigar">SIN CLASIFICAR</span>
                             {% endif %}
                         </td>
                         <td>
@@ -118,8 +122,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="5" class="td-empty">$ sin amenazas detectadas en el ultimo analisis_</td>
-                        <td class="td-ts">{{ a.timestamp }}</td>
+                        <td colspan="6" class="td-empty">$ sin amenazas en el reporte disponible_</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -200,7 +203,7 @@
     </div>
 
     <footer class="footer">
-        <span class="footer-text">web-defense-ai V2 · T3r0S3c &nbsp;|&nbsp; Pipeline activo &nbsp;|&nbsp; Proximo
+        <span class="footer-text">web-defense-ai V2 · T3r0S3c &nbsp;|&nbsp; Estado de archivos locales &nbsp;|&nbsp; Próximo
             refresco en</span>
         <div class="footer-right">
             <span class="footer-text" id="countDown">15s</span>
@@ -225,59 +228,25 @@
 
         setInterval(actualizarContador, 1000);
 
-        // Actualizar log cada 15 segundos sin recargar
-        async function actualizarLog() {
-            try {
-                const res = await fetch('/api/estado');
-                const data = await res.json();
-
-                const terminal = document.getElementById('logTerminal');
-                if (terminal && data.log) {
-                    terminal.innerHTML = data.log.map(linea => {
-                        const esAlerta = /sqli|union|passwd|script|%3c|traversal|brute|exec|whoami|%3b|%7c/i.test(linea);
-                        const prompt = esAlerta ? '!' : '$';
-                        const cls = esAlerta ? 'log-alert' : '';
-                        const promptCls = esAlerta ? 'log-prompt-alert' : 'log-prompt';
-                        return `<div class="log-line ${cls}">
-                      <span class="${promptCls}">${prompt}</span>
-                      ${linea}
-                    </div>`;
-                    }).join('');
-                    terminal.scrollTop = terminal.scrollHeight;
-                }
-
-                const timeEl = document.querySelector('.status-time');
-                if (timeEl) timeEl.textContent = 'Ultimo refresco: ' + data.timestamp;
-
-                countdown = 15;
-
-            } catch (e) {
-                console.log('Error actualizando log:', e);
-            }
-        }
-
-        // Ejecutar analisis manual
-        async function ejecutarAnalisis() {
-            const btn = document.getElementById('btnAnalizar');
+        async function sincronizarLog() {
+            const btn = document.getElementById('btnSincronizar');
             btn.disabled = true;
-            btn.innerHTML = '<span class="btn-icon">&#8987;</span> ANALIZANDO...';
-            mostrarToast('Iniciando analisis con agentes de IA...', 'info');
+            btn.textContent = 'SINCRONIZANDO...';
 
             try {
                 const res = await fetch('/api/sincronizar', { method: 'POST' });
                 const data = await res.json();
-                if (data.ok) {
-                    mostrarToast('Analisis completado. Recargando...', 'success');
-                    setTimeout(() => location.reload(), 2000);
+                if (res.ok && data.ok) {
+                    mostrarToast(data.mensaje, 'success');
+                    await actualizarLog();
                 } else {
                     mostrarToast('Error: ' + data.error, 'error');
-                    btn.disabled = false;
-                    btn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg> ANALIZAR AHORA';
                 }
             } catch (e) {
-                mostrarToast('Error de conexion', 'error');
+                mostrarToast('No se pudo sincronizar el log.', 'error');
+            } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg> ANALIZAR AHORA';
+                btn.textContent = 'SINCRONIZAR LOG';
             }
         }
 
@@ -287,10 +256,6 @@
             toast.className = 'toast toast-' + tipo + ' toast-visible';
             setTimeout(() => toast.className = 'toast', 3500);
         }
-
-        // Arrancar
-        actualizarLog();
-        setInterval(actualizarLog, 15000);
 
         const terminal = document.getElementById('logTerminal');
         if (terminal) terminal.scrollTop = terminal.scrollHeight;
@@ -370,12 +335,13 @@
         const timelineData = JSON.parse(
             document.getElementById('timeline-data').textContent
         );
+        let timelineChart = null;
 
         function iniciarTimeline(data) {
             const ctx = document.getElementById('timelineChart');
-            if (!ctx || !data.horas.length) return;
+            if (!ctx) return;
 
-            new Chart(ctx, {
+            timelineChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: data.horas,
@@ -450,6 +416,54 @@
 
         iniciarTimeline(timelineData);
 
+        async function actualizarLog() {
+            try {
+                const res = await fetch('/api/estado');
+                if (!res.ok) throw new Error('Estado HTTP ' + res.status);
+                const data = await res.json();
+                const terminal = document.getElementById('logTerminal');
+                if (terminal && Array.isArray(data.log)) {
+                    terminal.replaceChildren();
+                    data.log.forEach(linea => {
+                        const alert = /sqli|union|passwd|script|%3c|traversal|brute|exec|whoami|%3b|%7c/i.test(linea);
+                        const row = document.createElement('div');
+                        const prompt = document.createElement('span');
+                        row.className = 'log-line' + (alert ? ' log-alert' : '');
+                        prompt.className = alert ? 'log-prompt-alert' : 'log-prompt';
+                        prompt.textContent = alert ? '!' : '$';
+                        row.append(prompt, document.createTextNode(String(linea)));
+                        terminal.appendChild(row);
+                    });
+                    terminal.scrollTop = terminal.scrollHeight;
+                }
+
+                if (data.timeline) {
+                    if (timelineChart) {
+                        timelineChart.data.labels = data.timeline.horas;
+                        ['sqli', 'xss', 'path', 'brute', 'cmd'].forEach((key, index) => {
+                            timelineChart.data.datasets[index].data = data.timeline[key];
+                        });
+                        timelineChart.update();
+                    }
+                    const countEl = document.getElementById('timelineCount');
+                    if (countEl) countEl.textContent = data.timeline.horas.length + ' periodos';
+                }
+
+                const status = document.getElementById('estadoSistema');
+                if (status) status.textContent = 'ESTADO LOCAL DISPONIBLE';
+                const timeEl = document.querySelector('.status-time');
+                if (timeEl) timeEl.textContent = 'Consulta: ' + data.timestamp;
+                countdown = 15;
+            } catch (error) {
+                const status = document.getElementById('estadoSistema');
+                if (status) status.textContent = 'ERROR AL LEER ESTADO';
+                console.log('Error actualizando estado:', error);
+            }
+        }
+
+        actualizarLog();
+        setInterval(actualizarLog, 15000);
+
         // Leyenda custom
         const legendHtml = `
             <div style="display:flex;gap:16px;margin-top:8px;padding:0 4px;flex-wrap:wrap">
@@ -473,19 +487,6 @@
         const wrapper = document.querySelector('.timeline-wrapper');
         if (wrapper) wrapper.insertAdjacentHTML('beforeend', legendHtml);
 
-        // Actualizar timeline via API cada 15s
-        const originalActualizarLog = actualizarLog;
-        async function actualizarLog() {
-            await originalActualizarLog();
-            try {
-                const res = await fetch('/api/estado');
-                const data = await res.json();
-                if (data.timeline) {
-                    const countEl = document.getElementById('timelineCount');
-                    if (countEl) countEl.textContent = data.timeline.horas.length + ' periodos';
-                }
-            } catch (e) { }
-        }
     </script>
 
 </body>

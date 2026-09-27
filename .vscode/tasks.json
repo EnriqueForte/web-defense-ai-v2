@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "web-defense-ai V2: verificar línea base aislada",
+            "label": "web-defense-ai V2: verificar regresión aislada",
             "type": "process",
             "command": "${command:python.interpreterPath}",
             "args": ["-B", "scripts/check_baseline.py"],

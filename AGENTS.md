@@ -7,8 +7,8 @@ VSCode se utilizará para abrir, visualizar y revisar el mismo proyecto local;
 su configuración no es un requisito para desarrollar ni iniciar una fase.
 La migración a React + Next.js está planificada,
 con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; consultar
-`docs/FASE_0_LINEA_BASE.md` para resultados y límites. La fase 1 y Next.js
-todavía no se han iniciado. Trabajar sobre la tarea
+`docs/FASE_0_LINEA_BASE.md` para resultados y límites. La fase 1 de estabilización
+Flask está en curso; Next.js todavía no se ha iniciado. Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 

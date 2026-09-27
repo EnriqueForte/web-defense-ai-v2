@@ -5,6 +5,8 @@
 
 import os
 import json
+import ipaddress
+import re
 import sys
 import subprocess
 from pathlib import Path
@@ -40,8 +42,6 @@ def parsear_amenazas(reporte: str) -> list[dict]:
     lineas    = reporte.splitlines()
     en_tabla  = False
     cabeceras = []
-    ips_log   = extraer_ips_del_log()
-
     for linea in lineas:
         if "AMENAZAS DETECTADAS" in linea.upper():
             en_tabla  = True
@@ -51,40 +51,42 @@ def parsear_amenazas(reporte: str) -> list[dict]:
         if not en_tabla:
             continue
 
-        if "---" in linea:
-            continue
-
         # Leer cabeceras de la primera fila de la tabla
         if linea.startswith("|") and not cabeceras:
+            celdas = linea.split("|")[1:-1]
             cabeceras = [
                 c.strip().lower()
                 .replace("á","a").replace("é","e")
                 .replace("í","i").replace("ó","o")
                 .replace("ú","u").replace("ã","a")
                 .replace("lã\xadnea","linea")
-                for c in linea.split("|") if c.strip()
+                for c in celdas
             ]
             continue
 
         # Procesar filas de datos
         if linea.startswith("|") and cabeceras:
-            partes = [p.strip() for p in linea.split("|") if p.strip()]
+            partes = [p.strip() for p in linea.split("|")[1:-1]]
             if len(partes) < 3:
+                continue
+            if all(re.fullmatch(r":?-{3,}:?", p) for p in partes if p):
                 continue
 
             # Buscar índice de cada columna por nombre
             def idx(*nombres):
                 for nombre in nombres:
                     for i, cab in enumerate(cabeceras):
-                        if nombre in cab:
-                            return partes[i] if i < len(partes) else "-"
+                        if cab == nombre or cab.startswith(nombre + " "):
+                            return partes[i].strip() if i < len(partes) and partes[i].strip() else "-"
                 return "-"
 
             # Validar IP con regex
-            import re
-            ip_raw    = idx("ip", "origen")
-            ip_valida = bool(re.match(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$', ip_raw.strip('`')))
-            ip_final  = ip_raw.strip('`') if ip_valida else (ips_log[0] if ips_log else "-")
+            ip_raw = idx("ip", "origen").strip("`")
+            try:
+                ipaddress.ip_address(ip_raw)
+                ip_final = ip_raw
+            except ValueError:
+                ip_final = "-"
 
             # Normalizar severidad con encoding roto
             severidad_raw = idx("severidad")
@@ -102,7 +104,8 @@ def parsear_amenazas(reporte: str) -> list[dict]:
                 "tipo"     : idx("tipo"),
                 "estado"   : idx("estado"),
                 "ip"       : ip_final,
-                "timestamp": obtener_timestamp_reporte(),
+                # El Markdown no contiene fecha individual de este evento.
+                "timestamp": "-",
             })
 
         # Fin de tabla al encontrar otro heading
@@ -181,7 +184,16 @@ def obtener_timeline_ataques() -> dict:
         if es_brute: ataques[clave]["brute"] += 1
         if es_cmd:   ataques[clave]["cmd"]   += 1
 
-    horas = sorted(ataques.keys())
+    meses = {nombre: numero for numero, nombre in enumerate(
+        ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), 1
+    )}
+
+    def orden_temporal(clave):
+        fecha, hora = clave.split()
+        dia, mes, anio = fecha.split("/")
+        return (int(anio), meses.get(mes, 0), int(dia), int(hora[:-1]))
+
+    horas = sorted(ataques.keys(), key=orden_temporal)
 
     return {
         "horas" : horas,
@@ -205,15 +217,21 @@ def obtener_timestamp_reporte() -> str:
 
 def obtener_estadisticas(amenazas: list[dict]) -> dict:
     """Calcula estadísticas resumen de las amenazas."""
-    criticas = sum(1 for a in amenazas if "CRITICA" in a["severidad"].upper() or "CRÍTICA" in a["severidad"].upper())
-    altas    = sum(1 for a in amenazas if "ALTA" in a["severidad"].upper())
-    ips      = len(set(a["ip"] for a in amenazas if a["ip"] != "-"))
+    severidades = [a.get("severidad", "").strip().upper().replace("Í", "I") for a in amenazas]
+    criticas = sum(s == "CRITICA" for s in severidades)
+    altas = sum(s == "ALTA" for s in severidades)
+    medias = sum(s == "MEDIA" for s in severidades)
+    bajas = sum(s == "BAJA" for s in severidades)
+    reconocidas = criticas + altas + medias + bajas
+    ips = len({a.get("ip") for a in amenazas if a.get("ip") not in (None, "", "-")})
 
     return {
         "total"   : len(amenazas),
         "criticas": criticas,
         "altas"   : altas,
-        "medias"  : len(amenazas) - criticas - altas,
+        "medias"  : medias,
+        "bajas"   : bajas,
+        "desconocidas": len(amenazas) - reconocidas,
         "ips"     : ips,
     }
 
@@ -289,6 +307,9 @@ def index():
     historial = obtener_historial()
     log_lines = obtener_log_reciente()
 
+    stats.setdefault("bajas", 0)
+    stats.setdefault("desconocidas", 0)
+
     return render_template(
         "index.html",
         amenazas     = amenazas,
@@ -303,13 +324,7 @@ def index():
 
 @app.route("/api/estado")
 def api_estado():
-    """API JSON con el estado actual — sincroniza el log antes de leer."""
-    
-    # Sincronizar log desde Docker automáticamente
-    subprocess.run(
-        ["docker", "cp", "dvwa-app:/var/log/apache2/access.log", LOG_PATH],
-        capture_output=True, text=True
-    )
+    """API JSON del estado local; la consulta no sincroniza ni inicia procesos."""
 
     reporte_path = REPORT_PATH / "reporte_seguridad.md"
     amenazas     = []
@@ -320,7 +335,6 @@ def api_estado():
 
     stats = obtener_estadisticas(amenazas)
 
-    # IPs únicas del log real
     ips_log = extraer_ips_del_log()
 
     return jsonify({
@@ -328,7 +342,7 @@ def api_estado():
         "amenazas" : amenazas,
         "historial": obtener_historial(),
         "log"      : obtener_log_reciente(),
-        "ips_log"  : extraer_ips_del_log()[:5],
+        "ips_log"  : ips_log[:5],
         "timeline" : obtener_timeline_ataques(),
         "timestamp": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
     })
@@ -336,46 +350,27 @@ def api_estado():
 
 @app.route("/api/sincronizar", methods=["POST"])
 def api_sincronizar():
-    """Sincroniza el log desde Docker y ejecuta el análisis."""
+    """Sincroniza el log desde Docker; no ejecuta IA ni notifica."""
     try:
         # Paso 1: Sincronizar log
+        Path(LOG_PATH).parent.mkdir(parents=True, exist_ok=True)
         sync = subprocess.run(
             ["docker", "cp", "dvwa-app:/var/log/apache2/access.log", LOG_PATH],
-            capture_output=True, text=True
+            capture_output=True, text=True, timeout=15
         )
         if sync.returncode != 0:
             return jsonify({"ok": False, "error": "Error sincronizando log"}), 500
+        return jsonify({"ok": True, "analisis_ejecutado": False,
+                        "mensaje": "Log sincronizado. No se ha ejecutado un análisis."})
 
-        # Paso 2: Leer reporte, notificar y guardar historial
-        reporte_path = REPORT_PATH / "reporte_seguridad.md"
-        if reporte_path.exists():
-            from config.notifications import notificar_alerta_critica
-            from datetime import datetime
+    except FileNotFoundError:
+        return jsonify({"ok": False, "error": "No se encontró Docker para sincronizar el log."}), 503
+    except subprocess.TimeoutExpired:
+        return jsonify({"ok": False, "error": "La sincronización del log superó el tiempo límite."}), 504
 
-            reporte  = reporte_path.read_text(encoding="utf-8", errors="replace")
-            amenazas = parsear_amenazas(reporte)
-
-            # Guardar copia histórica
-            timestamp     = datetime.now().strftime("%Y%m%d_%H%M%S")
-            historial_dir = REPORT_PATH / "historial"
-            historial_dir.mkdir(exist_ok=True)
-            copia = historial_dir / f"reporte_{timestamp}.md"
-            copia.write_text(reporte, encoding="utf-8")
-            limpiar_historial_antiguo(max_reportes=50)
-
-            # Notificar amenazas críticas/altas
-            alertas = [
-                f"| {a['numero']} | {a['severidad']} | {a['tipo']} | {a['estado']} | {a['ip']} |"
-                for a in amenazas
-                if any(s in a["severidad"].upper() for s in ["CRITICA", "CRÍTICA", "ALTA", "MEDIA"])
-            ]
-            if alertas:
-                notificar_alerta_critica(alertas, ciclo=1)
-
-        return jsonify({"ok": True, "mensaje": "Analisis completado"})
-
-    except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 500
+    except Exception:
+        app.logger.exception("Fallo interno al sincronizar el log")
+        return jsonify({"ok": False, "error": "No se pudo completar la sincronización."}), 500
     
 @app.route("/report/<nombre>")
 def ver_reporte(nombre):

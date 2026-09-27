@@ -240,10 +240,46 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <script>
-        // Renderizar Markdown
         const body = document.getElementById('reportBody');
         const raw = body.textContent;
-        body.innerHTML = marked.parse(raw);
+
+        const tagsPermitidas = new Set([
+            'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'UL', 'OL', 'LI',
+            'BLOCKQUOTE', 'PRE', 'CODE', 'EM', 'STRONG', 'DEL', 'HR', 'BR',
+            'TABLE', 'THEAD', 'TBODY', 'TR', 'TH', 'TD', 'A'
+        ]);
+
+        function copiarNodoSeguro(nodo) {
+            if (nodo.nodeType === Node.TEXT_NODE) return document.createTextNode(nodo.nodeValue);
+            if (nodo.nodeType !== Node.ELEMENT_NODE) return null;
+
+            const etiqueta = nodo.tagName.toUpperCase();
+            if (!tagsPermitidas.has(etiqueta)) {
+                if (['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'SVG', 'MATH'].includes(etiqueta)) return null;
+                const fragmento = document.createDocumentFragment();
+                nodo.childNodes.forEach(hijo => {
+                    const seguro = copiarNodoSeguro(hijo);
+                    if (seguro) fragmento.appendChild(seguro);
+                });
+                return fragmento;
+            }
+
+            const seguro = document.createElement(etiqueta.toLowerCase());
+            if (etiqueta === 'A') {
+                const href = nodo.getAttribute('href') || '';
+                if (/^(https:\/\/|\/(?!\/)|#)/i.test(href)) seguro.setAttribute('href', href);
+                const title = nodo.getAttribute('title');
+                if (title) seguro.setAttribute('title', title);
+            }
+            nodo.childNodes.forEach(hijo => {
+                const hijoSeguro = copiarNodoSeguro(hijo);
+                if (hijoSeguro) seguro.appendChild(hijoSeguro);
+            });
+            return seguro;
+        }
+
+        const parseado = new DOMParser().parseFromString(marked.parse(raw), 'text/html');
+        body.replaceChildren(...Array.from(parseado.body.childNodes, copiarNodoSeguro).filter(Boolean));
 
         // Colorear celdas de severidad
         body.querySelectorAll('td').forEach(td => {
