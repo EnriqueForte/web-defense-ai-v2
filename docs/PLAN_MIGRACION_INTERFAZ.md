@@ -9,13 +9,14 @@ Actualización previa a la ejecución: todo el desarrollo, las pruebas y la coor
 Actualización 27/09/2026: fase 0 completada en Windows/Python 3.11. Resultados y
 límites en [FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
 instalación limpia y restauración verificada. Los hallazgos siguientes permanecen
-fase 1 iniciada el 27/09/2026. Las referencias a pruebas
+fase 1 completada el 27/09/2026. Las referencias a pruebas
 no versionadas al final de este documento describen la revisión inicial del día 26.
 
-Progreso fase 1: H01–H09 implementados en esta entrega. La suite aislada ampliada
+Fase 1: H01–H09 implementados y validados. La suite aislada ampliada
 valida la ruta vacía, sincronización honesta, consulta sin Docker, parser, severidades,
 IP y cronología. La vista de reportes filtra elementos y atributos no permitidos; las
 comprobaciones usan un DOM sintético y no sustituyen revisión en un navegador real.
+
 
 
 Migrar progresivamente la interfaz a **Next.js con React y TypeScript**, conservando **Flask como API y Python/CrewAI como motor de análisis**. Mantener ambos dashboards durante la transición y retirar las plantillas únicamente después de demostrar equivalencia funcional y ensayar la reversión.

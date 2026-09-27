@@ -116,10 +116,12 @@ de datos más recientes sin revisar previamente las diferencias.
 
 ## Actualización: fase 1 iniciada
 
-El 27/09/2026 comenzó F1-01. La entrega en curso corrige H01–H09. La suite original
-de 18 casos se convirtió en regresión y se amplió: la versión actual verifica la
+F1-01 se completó el 27/09/2026 con correcciones para H01–H09. La suite original
+de 18 casos se convirtió en regresión y se amplió: la versión final verifica la
 lectura DOM como texto, la limpieza del Markdown y la actualización del gráfico
-con una única consulta. El cierre de fase 1 se registrará tras la validación final.
+con una única consulta. Ejecución final: 26 casos Python aprobados y 3 comprobaciones
+JavaScript aprobadas; sintaxis y dependencias correctas. No sustituye una prueba en
+navegador real ni integración de Docker.
 
 ## Siguiente fase
 
