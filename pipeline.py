@@ -1,216 +1,159 @@
-# pipeline.py
-# ============================================================
-# web-defense-ai V2 — Pipeline automatizado
-# Ejecuta el análisis cada N minutos de forma continua
-# ============================================================
+"""Ejecutor local único para trabajos manuales y ciclos programados de V2.
 
-import os
-import time
-import subprocess
-from datetime import datetime
+Iniciar explícitamente con ``python pipeline.py``. No se arranca desde Flask.
+"""
+
+from datetime import datetime, timezone
 from pathlib import Path
-from dotenv import load_dotenv
-from config.notifications import notificar_alerta_critica
-from dashboard.services.read_store import atomic_write_text, run_atomic_copy
+import os
+import subprocess
+import sys
+import threading
+import time
+import uuid
 
-load_dotenv()
+from config.settings import INTERVALO_MINUTOS, LOG_PATH, REPORT_PATH
+from dashboard.services.analysis_jobs import JobStore, utc_now
+from dashboard.services.read_store import atomic_write_text, capture_file, run_atomic_copy
+from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
 
-# Importar configuración centralizada
-from config.settings import (
-    LOG_PATH, REPORT_PATH, INTERVALO_MINUTOS,
-    SEVERIDADES_CRITICAS
-)
 
-# ============================================================
-# COLORES PARA LA CONSOLA (sin dependencias externas)
-# ============================================================
-class Color:
-    ROJO    = "\033[91m"
-    VERDE   = "\033[92m"
-    AMARILLO= "\033[93m"
-    AZUL    = "\033[94m"
-    MAGENTA = "\033[95m"
-    CYAN    = "\033[96m"
-    RESET   = "\033[0m"
-    NEGRITA = "\033[1m"
+ROOT = Path(__file__).resolve().parent
 
-def imprimir_banner():
-    print(f"""
-{Color.CYAN}{Color.NEGRITA}
-╔══════════════════════════════════════════════════════════════╗
-║                      web-defense-ai V2                      ║
-║                    BY T3r0S3c                                ║
-║                   Pipeline automatizado                    ║
-╚══════════════════════════════════════════════════════════════╝
-{Color.RESET}""")
 
-def sincronizar_log():
-    """
-    Copia el access.log del contenedor DVWA al proyecto.
-    Equivalente a ejecutar sync_logs.ps1 desde Python.
-    """
-    print(f"{Color.AZUL}🔄 Sincronizando log desde DVWA...{Color.RESET}")
-    
-    resultado = run_atomic_copy(
-        ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"],
-        Path(LOG_PATH), timeout=60
-    )
-    
-    if resultado.returncode == 0:
-        # Contar líneas del log
-        lineas = Path(LOG_PATH).read_text(
-            encoding="utf-8", errors="replace"
-        ).splitlines()
-        print(f"{Color.VERDE}   ✅ Log sincronizado: {len(lineas)} líneas{Color.RESET}")
-        return True
-    else:
-        print(f"{Color.ROJO}   ❌ Error al sincronizar: {resultado.stderr}{Color.RESET}")
+def synchronize_log():
+    try:
+        result = run_atomic_copy(["docker", "cp", "dvwa-app:/var/log/apache2/access.log"],
+                                 Path(LOG_PATH), timeout=60)
+    except (OSError, subprocess.TimeoutExpired):
         return False
+    return result.returncode == 0
 
-def ejecutar_analisis():
-    """
-    Ejecuta main.py y captura el resultado.
-    Retorna el contenido del reporte generado.
-    """
-    print(f"{Color.AZUL}🤖 Ejecutando análisis con agentes de IA...{Color.RESET}")
-    
-    resultado = subprocess.run(
-        [os.path.join(".venv", "Scripts", "python.exe"), "main.py"],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        env={**os.environ, "PYTHONIOENCODING": "utf-8"}
-    )
-    
-    if resultado.returncode != 0:
-        print(f"{Color.ROJO}❌ Error en el análisis:{Color.RESET}")
-        print(resultado.stderr[-500:])  # Últimas 500 chars del error
-        return None
-    
-    return resultado.stdout
 
-def leer_reporte() -> str:
-    """
-    Lee el reporte más reciente generado por los agentes.
-    """
-    ruta = Path(REPORT_PATH) / "reporte_seguridad.md"
-    if ruta.exists():
-        return ruta.read_text(encoding="utf-8")
-    return ""
+def run_engine():
+    try:
+        result = subprocess.run([sys.executable, str(ROOT / "main.py")], cwd=ROOT,
+                                capture_output=True, text=True, encoding="utf-8", timeout=900,
+                                env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return result.returncode == 0
 
-def analizar_alertas_criticas(reporte: str) -> list[str]:
-    """
-    Escanea el reporte buscando amenazas críticas o altas
-    para mostrar alertas inmediatas en la consola.
-    """
-    alertas = []
-    lineas = reporte.splitlines()
-    
-    for linea in lineas:
-        for severidad in SEVERIDADES_CRITICAS:
-            if severidad in linea.upper() and "|" in linea:
-                alertas.append(linea.strip())
-                break
-    
-    return alertas
 
-def mostrar_resumen(reporte: str, numero_ciclo: int):
-    """
-    Muestra un resumen visual del reporte en la consola.
-    """
-    from config.notifications import notificar_alerta_critica  # ← import aquí
+def archive_report(report, job_id):
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    target = Path(REPORT_PATH) / "historial" / f"reporte_{stamp}_ciclo{job_id}.md"
+    atomic_write_text(target, report)
 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    print(f"\n{Color.CYAN}{'='*60}{Color.RESET}")
-    print(f"{Color.NEGRITA}Resumen del Ciclo #{numero_ciclo} - {timestamp}{Color.RESET}")
-    print(f"{Color.CYAN}{'='*60}{Color.RESET}")
-    
-    # Buscar y mostrar alertas criticas
-    alertas = analizar_alertas_criticas(reporte)
-    
-    if alertas:
-        print(f"\n{Color.ROJO}{Color.NEGRITA}ALERTAS DETECTADAS:{Color.RESET}")
-        for alerta in alertas[:10]:
-            if "CRITICA" in alerta.upper():
-                print(f"  {Color.ROJO}> {alerta}{Color.RESET}")
-            elif "ALTA" in alerta.upper():
-                print(f"  {Color.AMARILLO}> {alerta}{Color.RESET}")
-        
-        # Disparar notificaciones Telegram + Email
-        notificar_alerta_critica(alertas, numero_ciclo)  # notificaciones en telegram y correo
-    else:
-        print(f"\n{Color.VERDE}Sin amenazas criticas detectadas{Color.RESET}")
-    
-    # Mostrar ruta del reporte
-    ruta_reporte = Path(REPORT_PATH) / "reporte_seguridad.md"
-    print(f"\n{Color.VERDE}Reporte completo: {ruta_reporte}{Color.RESET}")
 
-def guardar_historial(reporte: str, numero_ciclo: int):
-    """
-    Guarda una copia histórica de cada reporte con timestamp.
-    Permite revisar la evolución de las amenazas en el tiempo.
-    """
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    historial_dir = Path(REPORT_PATH) / "historial"
-    historial_dir.mkdir(exist_ok=True)
-    
-    ruta_historial = historial_dir / f"reporte_{timestamp}_ciclo{numero_ciclo}.md"
-    atomic_write_text(ruta_historial, reporte)
-    
-    print(f"{Color.AZUL}📁 Historial guardado: {ruta_historial.name}{Color.RESET}")
+def send_alerts(store, job_id, report):
+    # Conteos de la misma tabla que expone el dashboard; no enviamos líneas del modelo.
+    from dashboard.app import parsear_amenazas
+    from config.notifications import enviar_email, enviar_telegram
 
-# ============================================================
-# BUCLE PRINCIPAL DEL PIPELINE
-# ============================================================
-def main():
-    imprimir_banner()
-    
-    print(f"{Color.AMARILLO}⚙️  Configuración:{Color.RESET}")
-    print(f"   Intervalo de análisis : {INTERVALO_MINUTOS} minutos")
-    print(f"   Log fuente            : {LOG_PATH}")
-    print(f"   Reportes en           : {REPORT_PATH}")
-    print(f"\n{Color.AMARILLO}Presiona Ctrl+C para detener el pipeline{Color.RESET}\n")
-    
-    numero_ciclo = 0
-    
-    while True:
-        numero_ciclo += 1
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        
-        print(f"\n{Color.MAGENTA}{'─'*60}")
-        print(f"🔁 CICLO #{numero_ciclo} — {timestamp}")
-        print(f"{'─'*60}{Color.RESET}\n")
-        
-        # PASO 1: Sincronizar log desde Docker
-        if not sincronizar_log():
-            print(f"{Color.AMARILLO}⏭️  Saltando ciclo por error de sincronización{Color.RESET}")
-            time.sleep(30)
+    severities = [item["severidad"].replace("Í", "I") for item in parsear_amenazas(report)]
+    critical = severities.count("CRITICA")
+    high = severities.count("ALTA")
+    if not critical and not high:
+        return
+    message = (f"web-defense-ai V2: análisis {job_id}; "
+               f"{critical} amenazas críticas, {high} altas. Consulta el reporte local.")
+    for destination, sender in (("telegram", lambda: enviar_telegram(message)),
+                                ("email", lambda: enviar_email("[web-defense-ai V2] Alerta de seguridad", message))):
+        if store.delivery(job_id, destination) is not None:
             continue
-        
-        # PASO 2: Ejecutar análisis con agentes
-        output = ejecutar_analisis()
-        
-        if output is None:
-            print(f"{Color.AMARILLO}⏭️  Saltando ciclo por error en el análisis{Color.RESET}")
-        else:
-            # PASO 3: Leer y mostrar resumen del reporte
-            reporte = leer_reporte()
-            
-            if reporte:
-                mostrar_resumen(reporte, numero_ciclo)
-                guardar_historial(reporte, numero_ciclo)
-            
-        # PASO 4: Esperar hasta el próximo ciclo
-        print(f"\n{Color.AZUL}⏳ Próximo análisis en {INTERVALO_MINUTOS} "
-              f"minuto(s)... (Ctrl+C para detener){Color.RESET}")
-        
-        time.sleep(INTERVALO_MINUTOS * 60)
+        store.delivery(job_id, destination, "attempting")
+        try:
+            delivered = sender()
+        except Exception:
+            delivered = False
+        store.delivery(job_id, destination, "sent" if delivered else "unknown")
+
+
+def execute_job(store, job, *, sync=synchronize_log, engine=run_engine, notify=send_alerts):
+    for _ in range(100):
+        try:
+            with exclusive_lock(store.path.with_suffix(".cycle.lock")):
+                return _execute_job_locked(store, job, sync=sync, engine=engine, notify=notify)
+        except AlreadyRunning:
+            time.sleep(.2)
+    store.finish(job["id"], "failed", "cycle_busy")
+
+
+def _execute_job_locked(store, job, *, sync, engine, notify):
+    job_id = job["id"]
+    report_path = Path(REPORT_PATH) / "reporte_seguridad.md"
+    try:
+        if not sync():
+            store.finish(job_id, "failed", "ingestion_failed")
+            return
+        store.phase(job_id, "analyzing", last_ingested_at=utc_now())
+        before = capture_file(report_path)
+        if not engine():
+            store.finish(job_id, "failed", "analysis_failed")
+            return
+        after = capture_file(report_path)
+        if (after.status != "available" or not after.text or
+                after.file_id == before.file_id):
+            store.finish(job_id, "failed", "no_new_report")
+            return
+        store.phase(job_id, "publishing", last_analyzed_at=utc_now(), report_id=after.file_id)
+        archive_report(after.text, job_id)
+        store.phase(job_id, "notifying")
+        notify(store, job_id, after.text)
+        store.finish(job_id, "succeeded", report_id=after.file_id)
+    except Exception:
+        store.reconcile_attempts(job_id)
+        store.finish(job_id, "failed", "internal_error")
+        raise
+
+
+def _heartbeat_loop(store, instance_id, stop):
+    while not stop.is_set():
+        try:
+            store.heartbeat(instance_id)
+        except Exception:
+            pass
+        stop.wait(2)
+
+
+def main():
+    os.chdir(ROOT)
+    store = JobStore()
+    lock_path = store.path.with_suffix(".worker.lock")
+    try:
+        with exclusive_lock(lock_path):
+            store.recover()
+            instance_id = uuid.uuid4().hex
+            stop = threading.Event()
+            heartbeat = threading.Thread(target=_heartbeat_loop, args=(store, instance_id, stop), daemon=True)
+            heartbeat.start()
+            interval = max(1, INTERVALO_MINUTOS) * 60
+            next_cycle = time.monotonic()
+            print("web-defense-ai V2: ejecutor coordinado activo; Ctrl+C para detener.")
+            try:
+                while True:
+                    if time.monotonic() >= next_cycle:
+                        store.enqueue("periodic")
+                        next_cycle = time.monotonic() + interval
+                    job = store.claim()
+                    if job:
+                        try:
+                            execute_job(store, job)
+                        except Exception:
+                            print(f"Trabajo {job['id']} falló; consulta el estado sin reintentar envíos ambiguos.")
+                    else:
+                        time.sleep(1)
+            finally:
+                stop.set()
+                heartbeat.join(timeout=3)
+    except AlreadyRunning:
+        print("Ya hay un ejecutor activo en este equipo.", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
     try:
-        main()
+        raise SystemExit(main())
     except KeyboardInterrupt:
-        print(f"\n\n{Color.AMARILLO}🛑 Pipeline detenido por el usuario{Color.RESET}")
-        print(f"{Color.VERDE}✅ Sistema de defensa desactivado correctamente{Color.RESET}\n")
+        print("Ejecutor detenido. El trabajo activo se reconciliará al reiniciar.")

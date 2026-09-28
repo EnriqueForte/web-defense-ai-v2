@@ -82,7 +82,8 @@ operaciones reales, claramente separadas.
 La consulta de estado del dashboard existente ya no sincroniza logs desde Docker.
 La sincronización es una acción separada y no ejecuta un análisis nuevo; la vista
 sin reporte también está corregida. Flask muestra los archivos locales disponibles,
-no un modo de datos simulados. El análisis manual coordinado sigue pendiente.
+no un modo de datos simulados. El análisis manual coordinado de fase 5 está
+desactivado por defecto y requiere iniciar el ejecutor real por separado.
 
 ## Visualizar la nueva interfaz Next.js
 
@@ -105,6 +106,16 @@ límites están en `FASE_4_LECTURA_CONECTADA.md`.
 La estructura actual está bajo `frontend/src/app/`; su propio `AGENTS.md` conserva
 la guía de desarrollo generada por la versión instalada de Next.js. La distribución
 Python permanece en la raíz para no alterar imports o rutas del motor.
+
+## Fase 5: análisis coordinado
+
+La tarea **lectura conectada** solo inicia Flask y Next.js. La acción manual de
+Next.js permanece desactivada por defecto y requiere un ejecutor independiente.
+La secuencia de puesta en marcha para el laboratorio, las variables y el retorno
+están en [FASE_5_ANALISIS_COORDINADO.md](FASE_5_ANALISIS_COORDINADO.md) y los
+criterios del piloto en [FASE_6_PILOTO.md](FASE_6_PILOTO.md). Iniciar
+`pipeline.py` puede contactar Docker, Groq y destinos de notificación; hacerlo
+únicamente como operación real y explícita, nunca como comprobación del IDE.
 
 ## Referencias
 

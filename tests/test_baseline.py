@@ -178,6 +178,25 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(self.client.get("/").status_code, 200)
         self.process.assert_not_called()
 
+    def test_primary_entry_disabled_keeps_flask_without_next_probe(self):
+        with patch.dict(os.environ, {"NEXT_PRIMARY_ENABLED": "0"}), \
+             patch.object(self.web, "_next_primary_ready", side_effect=AssertionError("Next no debe sondearse")):
+            response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_primary_entry_redirects_to_next_only_when_ready(self):
+        with patch.dict(os.environ, {"NEXT_PRIMARY_ENABLED": "1"}), \
+             patch.object(self.web, "_next_primary_ready", return_value=True):
+            response = self.client.get("/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["Location"], "http://127.0.0.1:3000/")
+
+    def test_primary_entry_falls_back_to_flask_when_next_is_unavailable(self):
+        with patch.dict(os.environ, {"NEXT_PRIMARY_ENABLED": "1"}), \
+             patch.object(self.web, "_next_primary_ready", return_value=False):
+            response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+
     def test_report_content_is_server_escaped_before_client_render(self):
         history = self.base / "historial"
         history.mkdir()
@@ -348,7 +367,8 @@ class DashboardTests(IsolatedCase):
         contract = spec.get_json()
         self.assertEqual(contract["openapi"], "3.0.3")
         self.assertEqual(set(contract["paths"]), {
-            "/estado", "/salud", "/amenazas", "/reportes", "/reportes/{report_id}"
+            "/estado", "/salud", "/amenazas", "/reportes", "/reportes/{report_id}",
+            "/analisis", "/analisis/actual", "/analisis/{job_id}"
         })
         def collect_refs(node):
             refs = []

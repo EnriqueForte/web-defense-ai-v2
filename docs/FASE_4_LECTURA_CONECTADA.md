@@ -33,10 +33,12 @@ En VSCode, **Terminal → Ejecutar tarea → web-defense-ai V2: lectura conectad
 (Flask + Next.js)**. Flask escucha en `127.0.0.1:5000` y Next.js en
 `127.0.0.1:3000`; abrir esta última dirección. Las tareas no arrancan solas.
 `frontend/next.config.ts` encamina `/api/v1/*` al Flask local, sin CORS ni
-credenciales en el navegador. Para comprobar la UI con fuentes sintéticas se
-puede iniciar `python -B tests/serve_phase4_fixture.py` en lugar del Flask
-habitual; `--empty` sirve un estado sin reporte ni log. No ejecutar ambos Flask
-a la vez en el puerto 5000.
+credenciales en el navegador. Para comprobar la UI con fuentes sintéticas, la
+fixture escucha por defecto en `127.0.0.1:5051`; iniciar
+`python -B tests/serve_phase4_fixture.py` y configurar
+`WEB_DEFENSE_API_PORT=5051` al lanzar Next.js. `--empty` sirve un estado sin
+reporte ni log. La fixture usa un puerto separado para no cruzarse con el Flask
+habitual.
 
 ## Verificación
 

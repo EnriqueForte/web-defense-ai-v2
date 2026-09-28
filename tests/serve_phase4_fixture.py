@@ -19,7 +19,10 @@ sys.path.insert(0, str(ROOT))
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--empty", action="store_true", help="Servir fuentes ausentes para comprobar la vista vacía")
+    parser.add_argument("--port", type=int, default=5051, help="Puerto local aislado (predeterminado: 5051)")
     args = parser.parse_args()
+    if not 1024 <= args.port <= 65535:
+        parser.error("el puerto debe estar entre 1024 y 65535")
     with tempfile.TemporaryDirectory(prefix="web-defense-ai-v2-phase4-") as directory:
         base = Path(directory)
         history = base / "historial"
@@ -48,9 +51,14 @@ def main():
             )
         os.environ["REPORT_PATH"] = str(base)
         os.environ["LOG_PATH"] = str(log)
+        os.environ["ANALYSIS_DB_PATH"] = str(base / "jobs.sqlite3")
+        os.environ["ANALYSIS_MANUAL_ENABLED"] = "0"
         with patch("dotenv.load_dotenv", return_value=False):
-            from dashboard.app import app
-        app.run(host="127.0.0.1", port=5000, debug=False, use_reloader=False)
+            import dashboard.app as web
+        # Fijar las fuentes explícitamente evita depender del momento en que
+        # config.settings haya sido importado o de un módulo ya almacenado.
+        with patch.multiple(web, REPORT_PATH=base, HISTORIAL=history, LOG_PATH=str(log)):
+            web.app.run(host="127.0.0.1", port=args.port, debug=False, use_reloader=False)
 
 
 if __name__ == "__main__":

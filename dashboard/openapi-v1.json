@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "web-defense-ai V2 Read API",
+    "title": "web-defense-ai V2 Local API",
     "version": "1.0.0",
-    "description": "API local de solo lectura. No ejecuta análisis, Docker ni notificaciones. Las fechas de eventos ausentes se representan como null."
+    "description": "Lecturas sin efectos y solicitud manual opcional a un ejecutor separado. La escritura solo se admite desde localhost cuando ANALYSIS_MANUAL_ENABLED=1. Las fechas de eventos ausentes se representan como null."
   },
   "servers": [{ "url": "/api/v1" }],
   "paths": {
@@ -50,6 +50,37 @@
         }
       }
     },
+    "/analisis/actual": {
+      "get": {
+        "operationId": "getAnalisisActual",
+        "summary": "Último trabajo y disponibilidad del ejecutor",
+        "responses": { "200": { "description": "Estado persistente o vacío", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/analisis/{job_id}": {
+      "get": {
+        "operationId": "getAnalisis",
+        "parameters": [{ "name": "job_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^[a-f0-9]{32}$" } }],
+        "responses": {
+          "200": { "description": "Estado y tiempos del trabajo", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/JobResponse" } } } },
+          "404": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/analisis": {
+      "post": {
+        "operationId": "postAnalisis",
+        "summary": "Solicitar análisis manual local e idempotente",
+        "parameters": [{ "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string", "maxLength": 80 } }],
+        "responses": {
+          "202": { "description": "Trabajo aceptado o solicitud repetida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/JobResponse" } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "409": { "description": "Hay otro trabajo activo", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/JobResponse" } } } },
+          "503": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/reportes/{report_id}": {
       "get": {
         "operationId": "getReporte",
@@ -72,6 +103,22 @@
       "Error": { "description": "Error sin trazas ni secretos", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
     },
     "schemas": {
+      "JobResponse": {
+        "type": "object", "required": ["meta", "data"], "properties": {
+          "meta": { "type": "object" },
+          "data": { "type": "object", "required": ["id", "kind", "status", "phase", "requested_at", "executor"], "properties": {
+            "id": { "type": "string" }, "kind": { "type": "string", "enum": ["manual", "periodic"] },
+            "status": { "type": "string", "enum": ["queued", "running", "succeeded", "failed", "interrupted"] },
+            "phase": { "type": "string" }, "requested_at": { "type": "string", "format": "date-time" },
+            "started_at": { "type": "string", "format": "date-time", "nullable": true },
+            "finished_at": { "type": "string", "format": "date-time", "nullable": true },
+            "last_ingested_at": { "type": "string", "format": "date-time", "nullable": true },
+            "last_analyzed_at": { "type": "string", "format": "date-time", "nullable": true },
+            "report_id": { "type": "string", "nullable": true }, "error_code": { "type": "string", "nullable": true },
+            "executor": { "type": "string", "enum": ["online", "offline", "unavailable"] }
+          } }
+        }
+      },
       "Error": {
         "type": "object",
         "required": ["error"],

@@ -39,3 +39,4 @@ build/
 
 # Copias locales de recuperacion de Git; nunca publicar
 .local-backups/
+.local-state/

@@ -9,14 +9,19 @@ La migración a React + Next.js se ejecuta por fases,
 con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; consultar
 `docs/FASE_0_LINEA_BASE.md` para resultados y límites. Fases 1 y 2 están completas;
 la fase 3 de base visual Next.js se completó el 27/09/2026 y la fase 4 de lectura
-conectada el 28/09/2026. La UI consulta `/api/v1` en modo lectura; Flask sigue
-disponible como retorno. La fase 5 de coordinación del análisis está pendiente.
+conectada el 28/09/2026. La fase 5 implementa coordinación local de análisis
+manual/periódico; la fase 6 prepara el piloto. La UI consulta `/api/v1` y
+Flask sigue disponible como retorno local. La acción manual está desactivada
+por defecto y Flask rechaza solicitudes que no proceden de loopback.
+La fase 7 prepara un conmutador reversible de entrada; permanece apagado
+hasta aprobar la fase 6.
 Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 
 Leer según corresponda:
 - `docs/PLAN_MIGRACION_INTERFAZ.md`: arquitectura, riesgos, fases y reversión.
+- `docs/FASE_7_ENTRADA_PRINCIPAL.md`: conmutador reversible; activación condicionada por fase 6.
 - `docs/PLAN_AGENTES_TAREAS.md`: desarrollo en Codex, agentes y tareas;
   VSCode permite seguir los cambios del mismo proyecto local.
 - `docs/GUIA_VSCODE.md`: apertura, seguimiento, tareas y depuración local.
@@ -28,6 +33,8 @@ Leer según corresponda:
 - `agents/threat_detector.py`: agente y tarea de clasificación.
 - `agents/report_generator.py`: agente y tarea de informe.
 - `pipeline.py`: sincronización, ejecución periódica e integraciones.
+- `dashboard/services/analysis_jobs.py`: trabajos persistentes e idempotencia.
+- `dashboard/services/runtime_lock.py`: exclusión local de procesos.
 - `dashboard/app.py`: Flask, rutas HTML/JSON y parsing de reportes.
 - `dashboard/templates/` y `dashboard/static/`: interfaz actual.
 - `config/`: configuración, prompts y notificaciones.

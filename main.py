@@ -130,6 +130,13 @@ def crear_tareas(agente_analista, agente_detective,
 # FUNCIÓN PRINCIPAL
 # ============================================================
 def main():
+    from dashboard.services.analysis_jobs import default_db_path
+    from dashboard.services.runtime_lock import exclusive_lock
+    with exclusive_lock(default_db_path().with_suffix(".engine.lock")):
+        return _run_analysis()
+
+
+def _run_analysis():
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 60)
     print("  🛡️  web-defense-ai V2 — T3r0S3c")
@@ -145,8 +152,7 @@ def main():
     resultado_lectura = preparar_log_para_agente(ruta_log)
     
     if "error" in resultado_lectura:
-        print(f"❌ Error: {resultado_lectura['error']}")
-        return
+        raise RuntimeError("No se pudo leer el log de entrada")
     
     stats = resultado_lectura["estadisticas"]
     contenido_log = resultado_lectura["contenido"]
@@ -195,7 +201,10 @@ def main():
     # PASO 6: Guardar el reporte
     # ----------------------------------------------------------
     ruta_reporte = Path(os.getenv("REPORT_PATH", "./reports/")) / "reporte_seguridad.md"
-    atomic_write_text(ruta_reporte, str(resultado))
+    contenido_reporte = str(resultado).strip()
+    if not contenido_reporte:
+        raise RuntimeError("El análisis no produjo un reporte")
+    atomic_write_text(ruta_reporte, contenido_reporte)
 
     print("\n" + "=" * 60)
     print(f"  ✅ Reporte guardado en: {ruta_reporte}")

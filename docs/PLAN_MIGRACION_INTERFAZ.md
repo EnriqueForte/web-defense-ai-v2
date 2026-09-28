@@ -1,16 +1,18 @@
 # web-defense-ai V2 — Análisis y plan de migración a React + Next.js
 
-Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al cierre del 28 de septiembre quedaron completadas las fases 0–4; la fase 5 de análisis e integraciones es la siguiente. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
+Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas; la preparación local de fase 6 está completada y el piloto sostenido aplazado hasta disponer de laboratorio aislado. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
 
 El desarrollo, las pruebas y la coordinación se realizan en Codex. VSCode abre y revisa el mismo proyecto local; no es una dependencia para iniciar las fases. El [plan de agentes y tareas](PLAN_AGENTES_TAREAS.md) reúne responsabilidades y dependencias. Las mejoras del motor se evalúan por separado del cambio de interfaz.
 
 ## 1. Decisión recomendada
 
-Estado 28/09/2026: fases 0–4 completadas; fase 5 pendiente. La interfaz de lectura
+Estado 28/09/2026: fases 0–4 completadas; fase 5 implementada localmente sin
+activar integraciones reales; la preparación de fase 6 está en curso. La interfaz de lectura
 se implementó en Windows/Node 24. El contrato de lectura está documentado en
 [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md) y la entrega visual en
 [FASE_3_BASE_VISUAL.md](FASE_3_BASE_VISUAL.md), la conexión en
-[FASE_4_LECTURA_CONECTADA.md](FASE_4_LECTURA_CONECTADA.md); resultados de fase 0 en
+[FASE_4_LECTURA_CONECTADA.md](FASE_4_LECTURA_CONECTADA.md) y la coordinación en
+[FASE_5_ANALISIS_COORDINADO.md](FASE_5_ANALISIS_COORDINADO.md); resultados de fase 0 en
 [FASE_0_LINEA_BASE.md](FASE_0_LINEA_BASE.md). Se incorporaron tests aislados,
 instalación limpia y restauración verificada.
 Los resultados de pruebas fallidas de la sección 12 describen la revisión inicial del día 26, no el comportamiento actual.
@@ -21,9 +23,9 @@ IP y cronología. La vista de reportes filtra elementos y atributos no permitido
 comprobaciones usan un DOM sintético y no sustituyen revisión en un navegador real.
 La migración progresiva utiliza **Next.js con React y TypeScript**, conserva **Flask como API y Python/CrewAI como motor de análisis**. Ambos dashboards conviven durante la transición; las plantillas se retirarán únicamente después de demostrar equivalencia funcional y ensayar la reversión.
 
-El proyecto separa el motor y la interfaz. Las fases 1 y 2 desacoplaron las lecturas de la sincronización de Docker y las notificaciones. Los reportes Markdown variables y la ausencia de coordinación de análisis siguen condicionando la integración futura.
+El proyecto separa el motor y la interfaz. Las fases 1 y 2 desacoplaron las lecturas de la sincronización de Docker y las notificaciones. La fase 5 incorporó coordinación local de análisis; los reportes Markdown variables y el piloto real siguen condicionando el despliegue.
 
-Secuencia: **pruebas, correcciones, API, base visual y lectura conectada completadas → integrar acciones reales (fase 5) → validar convivencia → cambiar la entrada principal**.
+Secuencia: **pruebas, correcciones, API, base visual y lectura conectada completadas → coordinación local de fase 5 implementada → validar integraciones y convivencia en piloto → cambiar la entrada principal**.
 
 Ninguna migración puede garantizar ausencia absoluta de fallos. Este plan reduce el riesgo mediante cambios pequeños, contratos verificables, una única ejecución del motor y reversión sin transformar los datos históricos.
 
@@ -162,7 +164,7 @@ Configurar expresamente el refresco y los reintentos: TanStack Query puede volve
 
 ### API versionada existente y acciones propuestas
 
-Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la especificación exacta está en [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md). Las rutas de análisis y el estado persistente son propuestas para la fase 5. `salud` informa metadatos de archivos y API; todavía no dispone de señal de un ejecutor coordinado.
+Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la especificación exacta está en [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md). La fase 5 añadió rutas de análisis, estado persistente y señal local del ejecutor en `salud`; la activación real está pendiente del piloto.
 
 | Endpoint nuevo | Datos / resultado | Regla |
 |---|---|---|
@@ -170,9 +172,9 @@ Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la espec
 | `GET /api/v1/amenazas` | Filtros por tipo/severidad/IP, paginación y alcance del reporte actual | Existe desde fase 2; no simula una base histórica de incidentes |
 | `GET /api/v1/reportes` | Históricos paginados, fecha de archivo y metadatos disponibles | No limita todo el acceso a los cinco elementos del dashboard |
 | `GET /api/v1/reportes/{id}` | Markdown y metadatos del reporte | Identificador resuelto en servidor, sin aceptar rutas arbitrarias |
-| `POST /api/v1/analisis` | `202` con identificador del trabajo | Autorización, clave de idempotencia y exclusión compartida con la programación |
+| `POST /api/v1/analisis` | `202` con identificador del trabajo | Localhost, conmutador desactivado por defecto, clave de idempotencia y exclusión compartida; autenticación central pendiente de fase 6 |
 | `GET /api/v1/analisis/{id}` | Estado, fase real, tiempos, resultado y error resumido | Sobrevive a reinicios; no inventa porcentaje de progreso |
-| `GET /api/v1/salud` | Metadatos ligeros de fuentes locales; señal del ejecutor pendiente | No hace llamadas pagadas ni envía mensajes para comprobar disponibilidad |
+| `GET /api/v1/salud` | Metadatos ligeros de fuentes locales y señal local del ejecutor | No hace llamadas pagadas ni envía mensajes para comprobar disponibilidad |
 
 Estados de trabajo: `queued`, `running`, `succeeded`, `failed`, `interrupted`; representar también resultado sin datos nuevos. Un POST duplicado con la misma clave devuelve el mismo trabajo. Una nueva solicitud incompatible con un trabajo activo devuelve un conflicto definido, sin crear una segunda ejecución. No reintentar automáticamente mutaciones por un error de conexión: consultar primero el identificador/idempotencia.
 
@@ -188,7 +190,7 @@ Las rutas anteriores y la forma JSON de `/api/estado` se conservaron. La correcc
 
 ## 6. Diseño propuesto: consola de ciberseguridad operativa
 
-La fase 3 implementó la composición visual con datos sintéticos. La fase 4 conectó resumen, amenazas, actividad y reportes a Flask; las acciones de análisis y los estados del ejecutor siguen pendientes de fases posteriores.
+La fase 3 implementó la composición visual con datos sintéticos. La fase 4 conectó resumen, amenazas, actividad y reportes a Flask; la fase 5 añadió la acción manual controlada y el estado del ejecutor. El piloto real sigue pendiente.
 
 Usar el nombre web-defense-ai V2 y conservar T3r0S3c como firma del autor, fondo azul oscuro, acentos cian/verde y terminal monoespaciado. Reservar rojo y ámbar para severidad; aumentar el contraste del texto secundario y reducir el ruido decorativo. El aspecto debe ayudar a investigar, con información legible y estado fiable.
 
@@ -219,9 +221,9 @@ Estimación orientativa formulada antes de iniciar la migración, para una perso
 | 4. Lectura conectada | Integrar métricas, amenazas, timeline, terminal y reportes; polling compartido; filtros persistentes y manejo de errores | Equivalencia con fixtures y capturas del mismo `snapshot_id`; reportes antiguos accesibles; no se duplican consultas por componente | Desactivar módulos nuevos o retornar a Flask | 4–6 días |
 | 5. Análisis e integraciones | Registro persistente de trabajos, un ejecutor, coordinación de ciclos/manual, idempotencia y notificaciones deduplicadas; conectar botón real | Doble clic o reintento no duplica trabajo; reinicio no muestra éxito falso; reporte nuevo publicado y notificaciones verificadas en entorno de prueba | Desactivar admisión manual; terminar/reconciliar trabajos activos; mantener un único programador | 4–6 días |
 | 6. Validación y despliegue piloto | Pruebas completas, carga representativa, autenticación si hay acceso compartido, empaquetado, observabilidad y ensayo de retorno | Sin fallos bloqueantes; restauración ensayada; estabilidad durante al menos 24–48 horas y diez ciclos completados, lo que tarde más | Cambiar entrada a Flask validado; conservar motor y datos | 3–5 días |
-| 7. Cambio principal y cierre | Next.js pasa a ser la entrada habitual; actualizar operación, registrar métricas y mantener retorno temporal | Recorridos aceptados; periodo sugerido de siete días de uso sin incidencias bloqueantes; decisión documentada de retirada | Reencaminar a Flask sin reconstruir ni convertir históricos | 1–2 días de trabajo + observación |
+| 7. Cambio principal y cierre | Preparar conmutador reversible; tras aceptar fase 6, Next.js pasa a ser la entrada habitual; actualizar operación, registrar métricas y mantener retorno temporal | Recorridos aceptados; periodo sugerido de siete días de uso sin incidencias bloqueantes; decisión documentada de retirada | Desactivar `NEXT_PRIMARY_ENABLED` y volver a Flask | 1–2 días de trabajo + observación |
 
-**Total orientativo inicial: 24–37 jornadas de trabajo**, aproximadamente 5–8 semanas laborables, más las ventanas de observación que no puedan solaparse. No es una fecha comprometida. La entrega de lectura está disponible desde la fase 4; la acción manual real y la sustitución principal requieren las fases siguientes.
+**Total orientativo inicial: 24–37 jornadas de trabajo**, aproximadamente 5–8 semanas laborables, más las ventanas de observación que no puedan solaparse. No es una fecha comprometida. La entrega de lectura está disponible desde la fase 4; la acción manual está implementada pero desactivada hasta el piloto, y la sustitución principal requiere las fases siguientes.
 
 ### Orden de cambios revisables
 
@@ -243,7 +245,7 @@ Antes de la fase 5, definir el cambio de autoridad: detener la admisión de cicl
 
 SQLite serviría inicialmente para trabajos, bloqueo duradero y registro de entregas, no para sustituir los reportes. Usar almacenamiento local persistente y transacciones; no un archivo compartido entre varios nodos. Recuperar trabajos que estaban `running` como interrumpidos o reconciliarlos con su resultado al reiniciar. La entrega exactamente una vez a servicios externos no se puede garantizar sin soporte del receptor: registrar estados ambiguos y evitar reenvíos ciegos tras un timeout.
 
-Desde la fase 2, `main.py` es el único responsable de publicar el reporte actual mediante sustitución atómica; `agents/report_generator.py` ya no escribe el destino final. La fase 5 debe coordinar trabajos manuales y periódicos para que no publiquen simultáneamente y conservar el reporte anterior si falla un análisis.
+Desde la fase 2, `main.py` es el único responsable de publicar el reporte actual mediante sustitución atómica; `agents/report_generator.py` ya no escribe el destino final. La fase 5 coordina trabajos manuales y periódicos con bloqueo local para que no publiquen simultáneamente y conserva el reporte anterior si falla el motor antes de publicar.
 
 La sincronización del log necesita la misma precaución: copiar a un archivo temporal y publicar al completarse, para que una consulta no observe una copia incompleta. Si más adelante API y ejecutor se alojan junto a DVWA, evaluar montar el volumen de logs en modo lectura en vez de depender de `docker cp`. Next.js no necesita acceso al socket Docker, a `.env` ni a los archivos brutos.
 
@@ -281,7 +283,7 @@ Condiciones para cambiar la entrada principal: todas las funciones existentes re
 ## 10. Reversión y operación
 
 1. Antes del piloto, conservar una versión ejecutable del Flask corregido, configuración de entrada anterior, dependencias fijadas y copia de datos con comprobación de integridad. Los secretos se respaldan por separado y nunca se versionan.
-2. Disponer de conmutadores de activación para interfaz nueva y admisión de análisis manual. Son elementos propuestos, todavía no existen.
+2. Disponer de conmutadores de activación para interfaz nueva y admisión de análisis manual. `ANALYSIS_MANUAL_ENABLED` controla ya la admisión; el conmutador para la entrada principal sigue pendiente.
 3. Revertir ante pantalla inutilizable, errores reiterados, discrepancias inexplicadas, trabajo duplicado, pérdida de datos o ejecución de contenido no confiable. Como umbral inicial de operación: tres fallos consecutivos de estado o más de 1 % de respuestas 5xx durante cinco minutos con tráfico suficiente; ajustar durante el piloto de fase 6.
 4. Si falla la interfaz, dirigir la entrada al Flask validado, manteniendo el backend compatible y el ejecutor. Objetivo inicial: retorno en menos de diez minutos, medido en el ensayo de la fase 6.
 5. Si falla la API nueva, desactivarla o volver a la versión compatible identificada. Verificar lecturas y salud; un cambio de interfaz no resuelve por sí solo una incidencia de backend.
@@ -321,4 +323,4 @@ Estos resultados son históricos: confirman problemas presentes el 26/09/2026, n
 
 La ruta de HTML no confiable se fundamentó en el código original inspeccionado. La fase 1 corrigió la representación del dashboard Flask. La fase 4 muestra el Markdown en React como texto y no ejecuta HTML ni enlaces del archivo. Si más adelante se añade formato enriquecido, deberá conservar esa política restrictiva.
 
-La siguiente unidad de implementación es **la fase 5: análisis e integraciones**. Debe coordinar un único ejecutor, trabajos persistentes y notificaciones deduplicadas antes de ofrecer una acción real desde Next.js. Flask permanece como retorno funcional.
+La preparación local de fase 6 restringe Flask a loopback y valida con datos sintéticos y notificaciones simuladas. El piloto real requiere laboratorio aislado y una ventana de observación de al menos 24–48 horas; hasta cumplir sus criterios, la acción manual permanece desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.

@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getApi, validState, type PageResponse, type Report, type ReportDetail, type StateResponse, type Threat } from "@/lib/api";
+import { getApi, requestAnalysis, validState, type AnalysisCurrent, type PageResponse, type Report, type ReportDetail, type StateResponse, type Threat } from "@/lib/api";
 
 type View = "Resumen" | "Amenazas" | "Reportes" | "Actividad";
 const views: View[] = ["Resumen", "Amenazas", "Reportes", "Actividad"];
@@ -46,6 +46,11 @@ export default function Home() {
   const [detail, setDetail] = useState<ReportDetail | null>(null);
   const [detailError, setDetailError] = useState("");
   const [mobileNav, setMobileNav] = useState(false);
+  const [analysis, setAnalysis] = useState<AnalysisCurrent["data"] | null>(null);
+  const [analysisError, setAnalysisError] = useState("");
+  const [analysisSubmitting, setAnalysisSubmitting] = useState(false);
+  const analysisKey = useRef<string | null>(null);
+  const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const snapshotId = state?.meta.snapshot_id;
 
   useEffect(() => {
@@ -105,6 +110,43 @@ export default function Home() {
     return () => { controller.abort(); window.clearInterval(timer); document.removeEventListener("visibilitychange", onVisible); };
   }, [loadState, refresh]);
 
+  const loadAnalysis = useCallback(async (signal?: AbortSignal) => {
+    try {
+      const response = await getApi<AnalysisCurrent>("analisis/actual", signal);
+      if (!signal?.aborted) { setAnalysis(response.data); setAnalysisError(""); }
+    } catch {
+      if (!signal?.aborted) setAnalysisError("No se pudo consultar el estado del ejecutor.");
+    }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    queueMicrotask(() => { if (!controller.signal.aborted) void loadAnalysis(controller.signal); });
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") void loadAnalysis(controller.signal);
+    }, 5000);
+    return () => { controller.abort(); window.clearInterval(timer); };
+  }, [loadAnalysis]);
+
+  async function startAnalysis() {
+    if (analysisSubmitting || !analysis?.manual_enabled || analysis.executor !== "online" ||
+        analysis.job?.status === "queued" || analysis.job?.status === "running") return;
+    setAnalysisSubmitting(true);
+    setAnalysisError("");
+    analysisKey.current ??= crypto.randomUUID();
+    try {
+      const result = await requestAnalysis(analysisKey.current);
+      setAnalysis((current) => current ? { ...current, job: result.job } : current);
+      analysisKey.current = null;
+      if (result.busy) setAnalysisError("Ya hay un análisis en curso. Se muestra el trabajo existente.");
+      else void loadAnalysis();
+    } catch (error) {
+      setAnalysisError(`${error instanceof Error ? error.message : "No se pudo enviar la solicitud."} Consulta el estado antes de reintentar; se conservará la misma clave.`);
+    } finally {
+      setAnalysisSubmitting(false);
+    }
+  }
+
   useEffect(() => {
     if (!hydrated || view !== "Amenazas" || !snapshotId) return;
     const controller = new AbortController();
@@ -154,7 +196,14 @@ export default function Home() {
     return () => controller.abort();
   }, [hydrated, view, reportId, refresh]);
 
-  function navigate(next: View) { setView(next); setMobileNav(false); if (next !== "Reportes") { setReportId(""); setDetail(null); } }
+  function navigate(next: View) {
+    setView(next);
+    setMobileNav(false);
+    if (window.matchMedia("(max-width: 650px)").matches) {
+      requestAnimationFrame(() => mobileMenuRef.current?.focus());
+    }
+    if (next !== "Reportes") { setReportId(""); setDetail(null); }
+  }
   function requestRefresh() { setRefresh((value) => value + 1); }
   const stats = state?.data.stats;
   const periods = state?.data.timeline.periods ?? [];
@@ -167,15 +216,25 @@ export default function Home() {
       <Link className="brand" href="/" aria-label="web-defense-ai V2, inicio"><span className="brand-mark">◇</span><span className="brand-name">web<span>defense</span><small>AI <b>V2</b></small></span></Link>
       <div className="workspace-switch"><div className="workspace-avatar">WD</div><div className="workspace-copy"><span>Workspace</span><strong>Laboratorio local</strong></div></div>
       <div className="nav-label">PLATAFORMA</div>
-      <nav className="primary-nav" aria-label="Navegación principal">{views.map((item) => <button key={item} className={`nav-link ${view === item ? "nav-active" : ""}`} aria-current={view === item ? "page" : undefined} onClick={() => navigate(item)}><span className="nav-glyph" aria-hidden="true">{item === "Resumen" ? "▦" : item === "Amenazas" ? "◇" : item === "Reportes" ? "▤" : "▥"}</span><span>{item}</span>{item === "Amenazas" && <span className="nav-count">{state?.data.threats_total ?? "—"}</span>}</button>)}</nav>
+      <nav id="primary-nav" className="primary-nav" aria-label="Navegación principal">{views.map((item) => <button key={item} className={`nav-link ${view === item ? "nav-active" : ""}`} aria-current={view === item ? "page" : undefined} onClick={() => navigate(item)}><span className="nav-glyph" aria-hidden="true">{item === "Resumen" ? "▦" : item === "Amenazas" ? "◇" : item === "Reportes" ? "▤" : "▥"}</span><span>{item}</span>{item === "Amenazas" && <span className="nav-count">{state?.data.threats_total ?? "—"}</span>}</button>)}</nav>
       <div className="sidebar-bottom"><div className="plan-card"><div className="plan-head"><span className="environment-dot" /> LECTURA LOCAL</div><strong>{connectionLabel}</strong><p>Datos de archivos observados por la API. No indica que el análisis esté activo.</p><div className="plan-foot"><span>Solo lectura</span><span>API v1</span></div></div></div>
     </aside>
 
     <section className="main-column">
-      <header className="topbar"><button className="mobile-menu icon-button" aria-label="Abrir menú" onClick={() => setMobileNav(!mobileNav)}>☰</button><div className="breadcrumbs"><span>Consola</span><span>›</span><strong>{view}</strong></div><div className="topbar-right"><span className={`environment ${state && !fresh ? "environment-warning" : ""}`}><span className="environment-dot" /> {state ? fresh ? "LECTURA LOCAL" : "REVISAR FUENTES" : "CONECTANDO"}</span></div></header>
+      <header className="topbar"><button ref={mobileMenuRef} className="mobile-menu icon-button" aria-label={mobileNav ? "Cerrar menú" : "Abrir menú"} aria-expanded={mobileNav} aria-controls="primary-nav" onClick={() => setMobileNav(!mobileNav)}>{mobileNav ? "×" : "☰"}</button><div className="breadcrumbs"><span>Consola</span><span>›</span><strong>{view}</strong></div><div className="topbar-right"><span className={`environment ${state && !fresh ? "environment-warning" : ""}`}><span className="environment-dot" /> {state ? fresh ? "LECTURA LOCAL" : "REVISAR FUENTES" : "CONECTANDO"}</span></div></header>
       <div className="content-wrap">
         <div className={`source-banner ${stateError ? "source-error" : ""}`} role="status"><strong>{stateError ? "Lectura interrumpida" : state?.meta.health === "ok" ? "Lectura conectada" : "Estado de fuentes"}</strong><span>{stateError ? `${stateError} ${state ? "Se conserva la última captura visible." : "Inicia Flask en 127.0.0.1:5000."}` : state ? `Captura ${state.meta.snapshot_id.slice(0, 12)} · ${state.meta.health === "ok" ? "archivos disponibles" : "faltan fuentes o están cambiando"}` : "Cargando datos del backend…"}</span></div>
         <section className="page-heading"><div><div className="eyebrow"><span className="eyebrow-line" /> CENTRO DE OPERACIONES</div><h1>{view === "Resumen" ? "Resumen de seguridad" : view}</h1><p>Lectura de archivos locales. Las coincidencias del log no demuestran ataques exitosos.</p></div><div className="heading-actions"><span className="updated-label">{state ? dateLabel(state.meta.captured_at) : "Sin captura"}</span><button className="button-secondary" onClick={requestRefresh}>↻ Actualizar</button></div></section>
+
+        {view === "Resumen" && <section className="panel analysis-panel" aria-label="Coordinación de análisis">
+          <div><div className="panel-kicker">EJECUTOR LOCAL</div><h2>Análisis coordinado</h2>
+            <p>{analysis?.executor === "online" ? "Ejecutor activo" : "Ejecutor no disponible"} · {analysis?.manual_enabled ? "solicitudes manuales habilitadas" : "solicitudes manuales desactivadas"}</p>
+            {analysis?.job && <p role="status">Último trabajo {analysis.job.id.slice(0, 12)} · {analysis.job.kind === "manual" ? "manual" : "periódico"} · {analysis.job.status} · {analysis.job.phase}{analysis.job.error_code ? ` · ${analysis.job.error_code}` : ""}</p>}
+            {analysis?.job && Object.keys(analysis.job.deliveries ?? {}).length > 0 && <p>Entregas: {Object.entries(analysis.job.deliveries).map(([destination, status]) => `${destination}: ${status}`).join(" · ")}</p>}
+            {analysisError && <p className="error-copy" role="alert">{analysisError}</p>}
+          </div>
+          <button className="button-secondary" disabled={!analysis?.manual_enabled || analysis.executor !== "online" || analysisSubmitting || analysis.job?.status === "queued" || analysis.job?.status === "running"} onClick={() => void startAnalysis()}>{analysisSubmitting ? "Solicitando…" : "Iniciar análisis"}</button>
+        </section>}
 
         {stateLoading && !state && <div className="panel state-panel" role="status">Cargando la primera captura…</div>}
         {!stateLoading && !state && <div className="panel state-panel">No hay datos disponibles. Comprueba que el dashboard Flask esté iniciado y vuelve a actualizar.</div>}
@@ -201,7 +260,7 @@ export default function Home() {
 
         {view === "Actividad" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG</div><h2>Actividad reciente</h2><p>Ventana limitada que entrega la API; no es un registro histórico completo</p></div></div><LogLines lines={state?.data.recent_log ?? []} /><p className="status-copy">Origen: {state?.meta.sources.log?.status ?? "sin lectura"} · última modificación {dateLabel(state?.meta.sources.log?.modified_at)}</p></section>}
 
-        <footer className="page-footer"><span>web-defense-ai V2 · Consola de lectura</span><span>Fase 4 · API v1 · Flask conserva la entrada anterior</span></footer>
+        <footer className="page-footer"><span>web-defense-ai V2 · Consola local</span><span>Fase 5 · API v1 · Flask conserva la entrada anterior</span></footer>
       </div>
     </section>
   </main>;

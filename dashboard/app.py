@@ -9,13 +9,17 @@ import ipaddress
 import re
 import sys
 import subprocess
+import sqlite3
+from http.client import HTTPConnection
 from pathlib import Path
 from datetime import datetime, timezone
 import hashlib
 import uuid
-from flask import Flask, render_template, jsonify, request, g
+from flask import Flask, render_template, jsonify, request, g, redirect
 from dotenv import load_dotenv
 from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
+from dashboard.services.analysis_jobs import JobStore, default_db_path
+from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
 from werkzeug.exceptions import HTTPException
 
 # Añadir raíz del proyecto al path
@@ -29,6 +33,10 @@ app = Flask(__name__)
 @app.before_request
 def asignar_request_id():
     g.request_id = uuid.uuid4().hex
+    if request.remote_addr not in {"127.0.0.1", "::1"}:
+        if request.path.startswith("/api/"):
+            return _api_error(403, "local_only", "El dashboard solo admite conexiones locales.")
+        return "Acceso local únicamente.", 403
 
 
 @app.after_request
@@ -460,6 +468,9 @@ def limpiar_historial_antiguo(max_reportes: int = 20):
 @app.route("/")
 def index():
     """Página principal del dashboard."""
+    if os.getenv("NEXT_PRIMARY_ENABLED") == "1" and _next_primary_ready():
+        return redirect("http://127.0.0.1:3000/", code=302)
+
     snapshot = _snapshot_estado()
     reporte = snapshot["report"].text or ""
     amenazas = snapshot["threats"]
@@ -479,6 +490,19 @@ def index():
         reporte_md   = reporte,
         timeline     = snapshot["timeline"],
     )
+
+
+def _next_primary_ready():
+    """Comprueba Next.js en loopback sin seguir redirecciones ni salir a red."""
+    connection = HTTPConnection("127.0.0.1", 3000, timeout=0.35)
+    try:
+        connection.request("GET", "/")
+        response = connection.getresponse()
+        return response.status == 200
+    except OSError:
+        return False
+    finally:
+        connection.close()
 
 
 @app.route("/api/estado")
@@ -517,7 +541,81 @@ def api_v1_salud():
     return jsonify({"meta": {"api_version": "1",
                               "captured_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")},
                     "data": {"status": status, "sources": sources,
-                             "executor": "unobserved", "ingestion": "unobserved"}})
+                             "executor": _executor_status(), "ingestion": "unobserved"}})
+
+
+def _executor_status():
+    db_path = default_db_path()
+    if not db_path.is_file() or not db_path.with_suffix(".worker.lock").is_file():
+        return "offline"
+    try:
+        worker = JobStore().worker()
+        if worker is None:
+            return "offline"
+        heartbeat = datetime.fromisoformat(worker["heartbeat_at"].replace("Z", "+00:00"))
+        if (datetime.now(timezone.utc) - heartbeat).total_seconds() > 10:
+            return "offline"
+        with exclusive_lock(db_path.with_suffix(".worker.lock")):
+            return "offline"
+    except AlreadyRunning:
+        return "online"
+    except (OSError, ValueError, sqlite3.Error):
+        return "unavailable"
+
+
+def _job_response(job, worker_status=None):
+    return {"meta": {"api_version": "1"}, "data": {
+        "id": job["id"], "kind": job["kind"], "status": job["status"],
+        "phase": job["phase"], "requested_at": job["requested_at"],
+        "started_at": job["started_at"], "finished_at": job["finished_at"],
+        "last_ingested_at": job["last_ingested_at"], "last_analyzed_at": job["last_analyzed_at"],
+        "report_id": job["report_id"], "error_code": job["error_code"],
+        "executor": worker_status if worker_status is not None else _executor_status(),
+        "deliveries": JobStore().deliveries(job["id"])}}
+
+
+@app.get("/api/v1/analisis/actual")
+def api_v1_analisis_actual():
+    job = JobStore().latest() if default_db_path().is_file() else None
+    return jsonify({"meta": {"api_version": "1"}, "data": {
+        "manual_enabled": os.getenv("ANALYSIS_MANUAL_ENABLED") == "1",
+        "executor": _executor_status(), "job": _job_response(job)["data"] if job else None}})
+
+
+@app.get("/api/v1/analisis/<job_id>")
+def api_v1_analisis_detalle(job_id):
+    if not re.fullmatch(r"[a-f0-9]{32}", job_id):
+        return _api_error(400, "invalid_job_id", "El identificador del trabajo no es válido.")
+    job = JobStore().get(job_id) if default_db_path().is_file() else None
+    if job is None:
+        return _api_error(404, "job_not_found", "No se encontró el trabajo.")
+    return jsonify(_job_response(job))
+
+
+@app.post("/api/v1/analisis")
+def api_v1_analisis_crear():
+    if request.remote_addr not in {"127.0.0.1", "::1"}:
+        return _api_error(403, "local_only", "El análisis manual solo admite solicitudes locales.")
+    origin = request.headers.get("Origin")
+    if origin and origin not in {"http://127.0.0.1:3000", "http://127.0.0.1:5000"}:
+        return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
+    if os.getenv("ANALYSIS_MANUAL_ENABLED") != "1":
+        return _api_error(403, "manual_disabled", "El análisis manual está desactivado.")
+    if _executor_status() != "online":
+        return _api_error(503, "executor_offline", "Inicia el ejecutor antes de solicitar un análisis.")
+    key = request.headers.get("Idempotency-Key")
+    if not key:
+        return _api_error(400, "missing_idempotency_key", "Falta la clave de idempotencia.")
+    try:
+        job, outcome = JobStore().enqueue("manual", key)
+    except ValueError:
+        return _api_error(400, "invalid_idempotency_key", "La clave de idempotencia no es válida.")
+    if outcome == "busy":
+        return jsonify(_job_response(job)), 409
+    response = jsonify(_job_response(job))
+    response.status_code = 202
+    response.headers["Location"] = f"/api/v1/analisis/{job['id']}"
+    return response
 
 
 @app.get("/api/v1/amenazas")
@@ -587,11 +685,14 @@ def api_v1_reporte(report_id):
 @app.route("/api/sincronizar", methods=["POST"])
 def api_sincronizar():
     """Sincroniza el log desde Docker; no ejecuta IA ni notifica."""
+    if _executor_status() == "online":
+        return jsonify({"ok": False, "error": "El ejecutor coordina la sincronización; deténlo antes de usar esta acción anterior."}), 409
     try:
         # Paso 1: Sincronizar log
-        sync = run_atomic_copy(
-            ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"], Path(LOG_PATH), timeout=15
-        )
+        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")):
+            sync = run_atomic_copy(
+                ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"], Path(LOG_PATH), timeout=15
+            )
         if sync.returncode != 0:
             return jsonify({"ok": False, "error": "Error sincronizando log"}), 500
         return jsonify({"ok": True, "analisis_ejecutado": False,
@@ -599,6 +700,8 @@ def api_sincronizar():
 
     except FileNotFoundError:
         return jsonify({"ok": False, "error": "No se encontró Docker para sincronizar el log."}), 503
+    except AlreadyRunning:
+        return jsonify({"ok": False, "error": "Hay una operación coordinada en curso."}), 409
     except subprocess.TimeoutExpired:
         return jsonify({"ok": False, "error": "La sincronización del log superó el tiempo límite."}), 504
 
@@ -628,6 +731,5 @@ def ver_reporte(nombre):
 # ARRANQUE
 # ============================================================
 if __name__ == "__main__":
-    print("\n  web-defense-ai V2 — Dashboard · T3r0S3c")
-    print("  Abre tu navegador en: http://localhost:5000\n")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    print("web-defense-ai V2 — dashboard local en http://127.0.0.1:5000")
+    app.run(debug=False, host="127.0.0.1", port=5000)

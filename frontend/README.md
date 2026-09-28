@@ -2,7 +2,9 @@
 
 Consola Next.js 16, React 19 y TypeScript conectada a la API de lectura `/api/v1`
 de Flask. El resumen, las amenazas, la actividad reciente y los reportes muestran
-archivos locales observados por el backend. No inician análisis ni notifican.
+archivos locales observados por el backend. La acción manual de fase 5 solo
+solicita un trabajo al ejecutor cuando está habilitada; las lecturas no inician
+análisis ni notifican.
 
 En VSCode, ejecuta **web-defense-ai V2: lectura conectada (Flask + Next.js)** y
 abre `http://127.0.0.1:3000`. Inicia Flask en `127.0.0.1:5000` y Next.js en
@@ -30,3 +32,5 @@ la ejecución de HTML procedente del reporte.
 La integración y la verificación sintética se detallan en
 [`docs/FASE_4_LECTURA_CONECTADA.md`](../docs/FASE_4_LECTURA_CONECTADA.md).
 Flask conserva su dashboard anterior como vía de retorno.
+La coordinación, activación y límites de la acción manual se documentan en
+[`docs/FASE_5_ANALISIS_COORDINADO.md`](../docs/FASE_5_ANALISIS_COORDINADO.md).

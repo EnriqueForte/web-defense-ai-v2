@@ -8,9 +8,9 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 ## Estado de esta versión
 
-El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; ya consulta `/api/v1` en modo lectura para mostrar el resumen, las amenazas, la actividad y los reportes. El análisis manual coordinado aún no está implementado.
+El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añade trabajos persistentes y una acción manual local desactivada por defecto. La preparación local de la fase 6 usa datos sintéticos; el piloto real está aplazado. La fase 7 prepara un conmutador de entrada que sigue apagado hasta aprobar ese piloto.
 
-Las fases 0–4 completaron la línea base, estabilización de Flask, API versionada, base visual y lectura conectada. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md) y [la entrega de fase 4](docs/FASE_4_LECTURA_CONECTADA.md).
+Las fases 0–4 completaron la línea base, estabilización de Flask, API versionada, base visual y lectura conectada. La fase 5 incorpora coordinación local comprobada con dobles de prueba. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la entrega de fase 4](docs/FASE_4_LECTURA_CONECTADA.md) y [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md).
 
 | Documento | Contenido |
 |---|---|
@@ -18,6 +18,9 @@ Las fases 0–4 completaron la línea base, estabilización de Flask, API versio
 | [Plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) | Arquitectura, riesgos, fases, pruebas y reversión |
 | [Fase 3 — Base visual](docs/FASE_3_BASE_VISUAL.md) | Pantalla Next.js, datos sintéticos, validación y reversión |
 | [Fase 4 — Lectura conectada](docs/FASE_4_LECTURA_CONECTADA.md) | Integración con Flask, filtros, reportes, validación y reversión |
+| [Fase 5 — Análisis coordinado](docs/FASE_5_ANALISIS_COORDINADO.md) | Trabajos, ejecutor único, acción manual, límites y activación |
+| [Fase 6 — Preparación del piloto](docs/FASE_6_PILOTO.md) | Acceso local, mediciones, ventana de observación y reversión |
+| [Fase 7 — Entrada principal](docs/FASE_7_ENTRADA_PRINCIPAL.md) | Conmutación reversible, verificación y retorno |
 | [Plan de agentes y tareas](docs/PLAN_AGENTES_TAREAS.md) | Revisión de CrewAI, responsabilidades y backlog |
 | [Contexto de desarrollo](AGENTS.md) | Instrucciones compartidas para trabajar desde Codex |
 | [Repositorios y recuperación](docs/REPOSITORIOS.md) | Separación entre original y V2, remotos y copias locales |
@@ -97,17 +100,17 @@ docker compose up -d
 .\sync_logs.ps1
 .\.venv\Scripts\python.exe main.py
 
-# Alternativa: pipeline periódico real, que puede enviar notificaciones
+# Alternativa: ejecutor periódico real de fase 5, que puede enviar notificaciones
 .\.venv\Scripts\python.exe pipeline.py
 ```
 
-No ejecutar análisis manual y pipeline simultáneamente sobre los mismos reportes mientras no exista coordinación de trabajos. Para visualizar Next.js con lectura de Flask, usar la tarea conjunta de ambos servidores; no hace falta iniciar CrewAI.
+No ejecutar `main.py` directamente mientras esté activo el ejecutor: ambos caminos comparten un bloqueo, pero el trabajo directo no aparecería en el registro de fase 5. Para visualizar Next.js con lectura de Flask, usar la tarea conjunta de ambos servidores; no hace falta iniciar CrewAI. La activación de la acción manual se explica en [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md).
 
 ## Funciones y límites conocidos
 
 El dashboard presenta métricas del reporte, tabla de amenazas, coincidencias de patrones por hora, cinco reportes históricos recientes y ocho líneas del log. El motor contempla SQLi, XSS, traversal, fuerza bruta e inyección de comandos, con las limitaciones de evidencia y muestreo descritas en los planes.
 
-La fase 1 corrigió la pantalla sin reporte, la recursión del timeline, el recuento de severidades y la representación insegura de logs y reportes. La fase 2 separó las consultas de estado de la sincronización con Docker y añadió `/api/v1` solo de lectura. La fase 4 conectó Next.js a esa API. El botón anterior sincroniza el log y comunica que no inicia un análisis nuevo; la coordinación del análisis manual y periódico corresponde a la fase 5.
+La fase 1 corrigió la pantalla sin reporte, la recursión del timeline, el recuento de severidades y la representación insegura de logs y reportes. La fase 2 separó las consultas de estado de la sincronización con Docker y añadió lecturas `/api/v1`. La fase 4 conectó Next.js a esa API. La fase 5 añadió trabajos coordinados y una solicitud manual opcional; el botón anterior solo sincroniza el log cuando el ejecutor está detenido.
 
 ## Estructura
 

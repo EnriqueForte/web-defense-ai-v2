@@ -45,6 +45,42 @@ export type PageResponse<T> = {
 
 export type ReportDetail = { meta: { report_id: string }; data: { report: Report; markdown: string } };
 
+export type AnalysisJob = {
+  id: string;
+  kind: "manual" | "periodic";
+  status: "queued" | "running" | "succeeded" | "failed" | "interrupted";
+  phase: string;
+  requested_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  last_ingested_at: string | null;
+  last_analyzed_at: string | null;
+  report_id: string | null;
+  error_code: string | null;
+  executor: "online" | "offline" | "unavailable";
+  deliveries: Record<string, "attempting" | "sent" | "failed" | "unknown">;
+};
+
+export type AnalysisCurrent = { meta: { api_version: string }; data: {
+  manual_enabled: boolean;
+  executor: "online" | "offline" | "unavailable";
+  job: AnalysisJob | null;
+} };
+
+export async function requestAnalysis(key: string): Promise<{ job: AnalysisJob; busy: boolean }> {
+  const response = await fetch("/api/v1/analisis", {
+    method: "POST", cache: "no-store",
+    headers: { Accept: "application/json", "Idempotency-Key": key },
+  });
+  const body = await response.json().catch(() => null);
+  if (response.status === 202 || response.status === 409) {
+    if (typeof body?.data?.id !== "string") throw new ApiError("Respuesta de trabajo inválida.", 502);
+    return { job: body.data as AnalysisJob, busy: response.status === 409 };
+  }
+  throw new ApiError(typeof body?.error?.message === "string" ? body.error.message :
+    `No se pudo solicitar el análisis (${response.status}).`, response.status);
+}
+
 export class ApiError extends Error {
   constructor(message: string, public status: number) { super(message); }
 }
