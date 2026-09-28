@@ -52,3 +52,9 @@ lectura de históricos con HTML tratado como texto y actividad con la fixture de
 fase 4. En móviles el panel lateral cerrado se excluye de la navegación por
 teclado; tras elegir una sección, el foco vuelve al control de menú. El ancho del
 documento no superó el viewport en 390, 768, 1280 y 1440 píxeles.
+
+La comprobación puntual de contraste corrigió la etiqueta de navegación, el
+nombre del espacio de trabajo, los encabezados de tabla y el pie de página. Los
+pares medidos quedan entre 5.38:1 y 6.03:1, y el foco por teclado muestra un
+borde visible de 2 píxeles. Es una revisión parcial de componentes visibles,
+no una certificación WCAG ni una auditoría automatizada completa.

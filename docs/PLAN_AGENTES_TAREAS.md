@@ -154,7 +154,7 @@ El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para c
 | Fases 0–4 completadas | Línea base, estabilización, API y Next.js conectado | Suite aislada, contrato `/api/v1` y vistas de lectura |
 | F5-01 implementada | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación local |
 | Pendiente externo: F6-01 | Piloto y retorno | Cuando haya laboratorio aislado: carga representativa, integración en destinos de prueba, observación de 24–48 horas y ensayo de retorno |
-| F7-01 en preparación | Conmutador de entrada reversible | Implementado y probado apagado/activo/Next no disponible; activación habitual pendiente de aceptación de fase 6 |
+| F7-01 en preparación | Conmutador de entrada reversible | Implementado y probado apagado/activo/Next no disponible; revisión de lectura, teclado y contraste local; activación habitual pendiente de aceptación de fase 6 |
 | Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |
 | Evolución aislada | A-02–A-04 fuera de la ruta operativa | Tres agentes mejorados y validaciones probadas con simulaciones |
 | Evaluación | A-05 en laboratorio previsto | Métricas y decisión de activar o conservar el flujo anterior |

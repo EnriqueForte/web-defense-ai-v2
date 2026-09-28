@@ -213,7 +213,7 @@ export default function Home() {
 
   return <main className="app-shell">
     <aside className={`sidebar ${mobileNav ? "sidebar-open" : ""}`}>
-      <Link className="brand" href="/" aria-label="web-defense-ai V2, inicio"><span className="brand-mark">◇</span><span className="brand-name">web<span>defense</span><small>AI <b>V2</b></small></span></Link>
+      <Link className="brand" href="/" aria-label="web-defense-ai V2, inicio"><span className="brand-mark" aria-hidden="true">◇</span><span className="brand-name">web<span>defense</span><small>AI <b>V2</b></small></span></Link>
       <div className="workspace-switch"><div className="workspace-avatar">WD</div><div className="workspace-copy"><span>Workspace</span><strong>Laboratorio local</strong></div></div>
       <div className="nav-label">PLATAFORMA</div>
       <nav id="primary-nav" className="primary-nav" aria-label="Navegación principal">{views.map((item) => <button key={item} className={`nav-link ${view === item ? "nav-active" : ""}`} aria-current={view === item ? "page" : undefined} onClick={() => navigate(item)}><span className="nav-glyph" aria-hidden="true">{item === "Resumen" ? "▦" : item === "Amenazas" ? "◇" : item === "Reportes" ? "▤" : "▥"}</span><span>{item}</span>{item === "Amenazas" && <span className="nav-count">{state?.data.threats_total ?? "—"}</span>}</button>)}</nav>
