@@ -8,8 +8,10 @@ su configuración no es un requisito para desarrollar ni iniciar una fase.
 La migración a React + Next.js se ejecuta por fases,
 con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; consultar
 `docs/FASE_0_LINEA_BASE.md` para resultados y límites. Fases 1 y 2 están completas;
-la fase 3 de base visual Next.js se completó el 27/09/2026. La UI usa datos sintéticos, aún no
-consume Flask ni modifica el motor. Trabajar sobre la tarea
+la fase 3 de base visual Next.js se completó el 27/09/2026 y la fase 4 de lectura
+conectada el 28/09/2026. La UI consulta `/api/v1` en modo lectura; Flask sigue
+disponible como retorno. La fase 5 de coordinación del análisis está pendiente.
+Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 
@@ -30,9 +32,9 @@ Leer según corresponda:
 - `dashboard/templates/` y `dashboard/static/`: interfaz actual.
 - `config/`: configuración, prompts y notificaciones.
 
-Conservar Python/CrewAI y Flask; `frontend/` contiene la base visual en Next.js,
-React y TypeScript. La API `/api/v1` está disponible en Flask, pero la UI aún no
-la consume. No presentar componentes propuestos como implementados. La denominación oficial
+Conservar Python/CrewAI y Flask; `frontend/` contiene la interfaz de lectura en
+Next.js, React y TypeScript. La UI consume la API `/api/v1` de Flask mediante un
+rewrite local. No presentar componentes propuestos como implementados. La denominación oficial
 es `web-defense-ai V2`; T3r0S3c identifica al autor, no el nombre de la app.
 
 ## Reglas de cambio

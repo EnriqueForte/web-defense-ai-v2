@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "web-defense-ai V2 | Consola de seguridad",
-  description: "Consola de ciberseguridad web-defense-ai V2. Interfaz en modo demostración con datos sintéticos.",
+  description: "Consola de ciberseguridad web-defense-ai V2 conectada en modo lectura a la API Flask.",
   applicationName: "web-defense-ai V2",
 };
 

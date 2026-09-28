@@ -1,12 +1,13 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Fecha: 26 de septiembre de 2026. Estado: revisión terminada y archivos básicos de contexto preparados. La migración y los cambios de lógica del motor siguen pendientes; la denominación visible y la estructura del IDE están actualizadas. Actualizado para reflejar la aclaración del usuario: todo el desarrollo se realiza en Codex. VSCode será el IDE de consulta continua; el documento se denomina ahora PLAN_AGENTES_TAREAS.md y sus enlaces se han actualizado.
+Revisión inicial: 26 de septiembre de 2026. Estado al 28/09/2026: fases 0–4 de la migración completadas; la fase 5 es la siguiente. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
 
 ## 1. Decisión y distinciones
 
-Actualización 27/09/2026: fase 0 completada por Codex de forma secuencial, sin crear
-subagentes. Véase [la entrega de línea base](FASE_0_LINEA_BASE.md). Las correcciones
-funcionales de fase 1 y la migración visual permanecen pendientes.
+Las fases 0–4 se completaron en Codex sin crear subagentes de desarrollo. Véanse
+[línea base](FASE_0_LINEA_BASE.md), [API de lectura](FASE_2_API_LECTURA.md) y
+[base visual](FASE_3_BASE_VISUAL.md). La [fase 4](FASE_4_LECTURA_CONECTADA.md)
+conectó Next.js con la API Flask en modo lectura.
 
 Realizar todo el desarrollo, las pruebas, la documentación y la coordinación desde Codex sobre este repositorio. VSCode se utilizará de forma continua para abrir y revisar esos mismos archivos mientras avanza el desarrollo. La aplicación se visualizará ejecutándola y abriendo su dirección local en un navegador; abrir el código en un IDE no arranca la aplicación.
 
@@ -32,19 +33,21 @@ El comando `code` está disponible en el entorno local. La estructura preparada 
 | `AGENTS.md` | Contexto y reglas del desarrollo en Codex | Actualizado |
 | `.vscode/settings.json` | Intérprete, UTF-8, formato manual y exclusiones | Actualizado |
 | `.vscode/extensions.json` | Extensiones recomendadas | Preparado; no implica instalación |
-| `.vscode/tasks.json` | Sintaxis y dashboard con recarga local | Preparado; sin arranque automático |
+| `.vscode/tasks.json` y `run-frontend.ps1` | Sintaxis, dashboards locales y verificaciones del frontend | Preparados; sin arranque automático |
 | `.vscode/launch.json` | Dashboard, motor y pipeline separados | Actualizado |
 | `scripts/check_syntax.py` | Comprobación estática sin ejecutar la aplicación | Preparado |
 
 No se necesitan agentes de desarrollo dentro del IDE. Se retiraron los archivos de configuración del IDE anterior creados durante esta planificación. Abrir el workspace, seleccionar el intérprete y consultar Control de código fuente para seguir los cambios. Evitar editar simultáneamente un archivo que Codex está modificando.
 
-La visualización web se hace en el navegador con el servidor local activo. Las tareas del IDE no corrigen los fallos funcionales existentes ni constituyen un entorno simulado; consultar los límites del dashboard en la guía. VSCode no condiciona el inicio de las fases de desarrollo en Codex.
+La visualización web se hace en el navegador con los servidores locales activos. La tarea Flask usa los archivos locales disponibles; la tarea conjunta abre también la interfaz Next.js de lectura. Las tareas del IDE no ejecutan análisis por sí mismas. VSCode no condiciona el inicio de las fases en Codex.
 
-## 3. Auditoría de agentes y tareas del producto
+## 3. Auditoría inicial de agentes y tareas del producto
+
+La tabla de hallazgos siguiente conserva la evaluación original del 26/09/2026. Desde la fase 2 el reporter ya no publica el archivo final por su cuenta: `main.py` lo publica de forma atómica. La línea base añadió fixtures de tráfico y pruebas aisladas, pero la calidad de las salidas LLM aún no se ha evaluado en una integración real.
 
 Se revisaron las construcciones `Agent`, `Task` y `Crew` mediante inspección del código y AST, sin ejecutar el motor. CrewAI instalado y declarado: 1.14.2. Los tres agentes usan `allow_delegation=False`, `max_iter=2` y el LLM recibido del orquestador. El Crew es secuencial.
 
-| Agente real | Definición / tarea | Entrada y dependencia | Salida actual | Evaluación |
+| Agente real | Definición / tarea | Entrada y dependencia | Salida observada al inicio | Evaluación inicial |
 |---|---|---|---|---|
 | Analista de logs | `main.py`, `crear_agentes()` / `crear_tareas()` | Texto ya seleccionado por `preparar_log_para_agente()` | Lista textual de líneas, tipo e indicador | Mantener; falta identidad estable de evidencia y salida validada |
 | Detective de amenazas | `agents/threat_detector.py` | `context=[tarea_analisis]` | Tabla Markdown de cinco columnas | Mantener; alinear categorías, incertidumbre y criterios con evidencia |
@@ -119,7 +122,7 @@ Por defecto, secuenciar las ediciones. Solo paralelizar después de fijar contra
 
 ## 6. Backlog previo y asignación concreta
 
-Estados iniciales: **preparado** significa archivo creado; **pendiente** requiere ejecución futura; **bloqueado por dependencia** describe orden técnico, no una solicitud automática de permiso.
+Estados del backlog: **preparado** significa archivo creado; **pendiente** requiere ejecución futura; **bloqueado por dependencia** describe orden técnico, no una solicitud automática de permiso.
 
 | ID | Trabajo | Responsable / revisor | Dependencia | Aceptación | Estado |
 |---|---|---|---|---|---|
@@ -137,19 +140,20 @@ Estados iniciales: **preparado** significa archivo creado; **pendiente** requier
 | A-04 | Separar reporte narrativo, tabla y publicación | Backend / Quality | A-02 | Conteos del reporte y API coinciden; salida anterior conservada ante error | Pendiente, evolución del motor |
 | A-05 | Evaluar integración real y activar por configuración | Backend + Delivery / Quality | A-03, A-04 | Comparación de calidad/coste/latencia y retorno al flujo previo ensayado | Pendiente, evolución del motor |
 | F3-01 | Base visual Next.js con datos simulados | Codex | F2-01 | Consola de resumen, navegación, estados y demo adaptables; build, lint y tipos correctos; motor intacto | Completada; build Next y revisión visual en escritorio/móvil |
-| F4-01 | Conectar lectura y reportes | Frontend + Backend / Quality | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Pendiente, fase 4 |
+| F4-01 | Conectar lectura y reportes | Codex | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Completada; integración con fixture y navegador local |
 | F5-01 | Coordinación manual/periódica y publicación coherente | Backend / Quality + Delivery | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Pendiente, fase 5 |
 | F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01 | Se cumplen las condiciones de fase 6 del plan principal | Pendiente |
 
-El prototipo A-02 puede desarrollarse aislado tras A-01; no es requisito para construir la interfaz. No activar el nuevo flujo del motor durante el mismo cambio operativo que el nuevo frontend. La opción preferida es mantener el motor original durante el primer cambio de interfaz y evaluar A-03–A-05 después de su estabilización. Las correcciones de representación y validación del API siguen siendo necesarias antes.
+El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para conectar la interfaz. No activar el nuevo flujo del motor durante el mismo cambio operativo que el nuevo frontend. La opción preferida es mantener el motor original durante el primer cambio de interfaz y evaluar A-03–A-05 después de su estabilización. La fase 4 validó el consumo y la representación segura de los datos del API en React con fixtures sintéticos.
 
-## 7. Ejecución prevista desde Codex
+## 7. Ejecución desde Codex: avances y próximos trabajos
 
 | Paso | Acción | Resultado verificable |
 |---|---|---|
-| Preparación actual | Documentar contexto, inventario y responsabilidades en Codex | Planes coherentes; cambios de denominación sin alterar la lógica |
-| Inicio controlado | Ejecutar F0-01/F0-02 desde Codex cuando se inicie la fase 0 | Línea base de pruebas y responsable inequívoco, sin depender de VSCode |
-| Contratos | Ejecutar A-01 dentro de fase 2 | Interfaz desacoplada del texto libre, con compatibilidad explícita |
+| Preparación completada | Contexto, inventario, denominación y responsabilidades | Planes y configuración de VSCode disponibles |
+| Fases 0–4 completadas | Línea base, estabilización, API y Next.js conectado | Suite aislada, contrato `/api/v1` y vistas de lectura |
+| Siguiente: F5-01 | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación |
+| Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |
 | Evolución aislada | A-02–A-04 fuera de la ruta operativa | Tres agentes mejorados y validaciones probadas con simulaciones |
 | Evaluación | A-05 en laboratorio previsto | Métricas y decisión de activar o conservar el flujo anterior |
 
@@ -162,12 +166,12 @@ Cada tarea tendrá ID, objetivo, propietario, revisor, dependencias, archivos/co
 ### Comandos actuales y ampliaciones posteriores
 
 - Disponible: verificar sintaxis Python sin importar el motor ni generar reportes.
-- Ejecutar pruebas aisladas cuando exista una suite; detectar colección vacía.
+- Disponible: ejecutar la suite de regresión aislada con `scripts/check_baseline.py`.
 - Disponible: iniciar Flask en localhost para visualización o depuración. Pendiente: modo de datos de prueba con transportes externos deshabilitados.
-- Disponible: arrancar y validar la base frontend desde tareas de VSCode; la lectura conectada sigue en fase 4.
+- Disponible: arrancar Flask y Next.js juntos desde la tarea de lectura conectada de VSCode.
 - Mantener ejecución real del motor y pipeline como operaciones manuales separadas, con nombres claros; no usar compuestos que los arranquen al abrir VSCode.
 
-Las tareas deben usar `cwd` explícito y el intérprete seleccionado; no insertar comandos hipotéticos que fallen porque todavía no hay tests o frontend. `.gitignore` permite versionar settings, launch, tasks y recomendaciones de extensiones; las preferencias adicionales del IDE permanecen excluidas.
+Las tareas usan `cwd` explícito. Las tareas Python invocan `.venv/Scripts/python.exe` mediante PowerShell, independientemente del intérprete seleccionado en el editor; las tareas Next.js resuelven Node mediante `run-frontend.ps1`. `.gitignore` permite versionar la configuración compartida y ese script; las preferencias adicionales del IDE permanecen excluidas.
 
 ## 8. Criterios de aceptación de la evolución del motor
 
@@ -180,4 +184,4 @@ Las tareas deben usar `cwd` explícito y el intérprete seleccionado; no inserta
 7. El cambio de flujo puede desactivarse por configuración sin borrar históricos. Los datos estructurados nuevos son aditivos y versionados.
 8. Los ensayos en paralelo son comparaciones de lectura o ejecuciones aisladas: nunca dos publicadores/notificadores para el mismo ciclo.
 
-No se ha creado un cuarto agente CrewAI, instalado especialistas de VSCode, cambiado prompts ni ejecutado fases. Todo el desarrollo continuará aquí en Codex. VSCode queda disponible para revisar los mismos archivos cuando el usuario lo desee, sin transferencias ni preparativos que bloqueen la migración.
+No se ha creado un cuarto agente CrewAI, instalado especialistas de VSCode ni cambiado prompts. Las fases 0–4 están cerradas; F5-01 y la evolución A-01–A-05 siguen pendientes. El desarrollo continuará en Codex y VSCode permitirá revisar los mismos archivos.

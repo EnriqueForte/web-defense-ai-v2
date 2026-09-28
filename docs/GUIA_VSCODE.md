@@ -41,6 +41,10 @@ Las extensiones se recomiendan, no se instalan automáticamente. Seleccionar
 predeterminada está adaptada al entorno Windows de este proyecto; si VSCode ya
 tiene otro intérprete guardado, hay que cambiar esa selección explícitamente.
 En otro sistema operativo, seleccionar su intérprete equivalente.
+Las tareas Python del proyecto invocan directamente `.venv/Scripts/python.exe`
+desde PowerShell; seleccionar el intérprete en el editor sirve para análisis y
+depuración, pero no cambia el ejecutable de esas tareas. Si falta `.venv`, crear
+el entorno e instalar las dependencias antes de iniciarlas.
 
 Las exclusiones de búsqueda reducen ruido y evitan mostrar datos operativos
 en búsquedas habituales; no impiden abrir archivos ni son una barrera de acceso
@@ -54,8 +58,9 @@ Python del proyecto, incluida `scripts/`, sin iniciar Docker, IA o notificacione
 Devuelve un error si encuentra sintaxis inválida. No equivale a pruebas
 funcionales. La tarea **web-defense-ai V2: verificar regresión aislada** ejecuta
 la suite Python y los diagnósticos JavaScript de fase 0. Requiere las dependencias
-de `requirements-test.txt` y Node en PATH. Los fallos conocidos se muestran como
-pendientes, no como comportamientos corregidos. Véase `FASE_0_LINEA_BASE.md`.
+de `requirements-test.txt` y Node en PATH. La suite actual comprueba las
+correcciones de fases 1 y 2 con datos sintéticos; no ejecuta el laboratorio real.
+Véanse `FASE_0_LINEA_BASE.md` y `FASE_2_API_LECTURA.md`.
 
 ## Visualizar la aplicación actual
 
@@ -65,8 +70,8 @@ el servidor activo hasta detenerlo desde la terminal o el menú de tareas.
 Escucha solo en la máquina local y desactiva el depurador web de Flask.
 
 Flask recarga el proceso cuando detecta cambios Python; al cambiar HTML o CSS,
-actualizar la página del navegador. Esto no es todavía la actualización
-instantánea de componentes que ofrecerá la futura interfaz Next.js.
+actualizar la página del navegador. La interfaz Next.js tiene recarga de desarrollo
+y consulta los datos de Flask mediante `/api/v1`.
 
 Para depurar con puntos de interrupción, seleccionar **web-defense-ai V2:
 dashboard local** y pulsar **F5**. Este perfil no usa recarga de proceso;
@@ -74,26 +79,28 @@ reiniciar la depuración tras modificar Python. No iniciar tarea y depuración
 al mismo tiempo en el puerto 5000. Los perfiles de análisis y pipeline son
 operaciones reales, claramente separadas.
 
-La configuración usa el dashboard existente: sus consultas de estado todavía
-sincronizan logs desde Docker y su botón puede enviar notificaciones. Tampoco
-se ha corregido aún el fallo de pantalla sin reporte. Estos límites están
-documentados en el plan de migración; el ajuste del IDE no es un modo de datos
-simulados ni corrige esas funciones.
+La consulta de estado del dashboard existente ya no sincroniza logs desde Docker.
+La sincronización es una acción separada y no ejecuta un análisis nuevo; la vista
+sin reporte también está corregida. Flask muestra los archivos locales disponibles,
+no un modo de datos simulados. El análisis manual coordinado sigue pendiente.
 
 ## Visualizar la nueva interfaz Next.js
 
-La tarea **web-defense-ai V2: interfaz Next.js de demostración** inicia la UI en
+La tarea **web-defense-ai V2: interfaz Next.js de lectura** inicia la UI en
 `http://127.0.0.1:3000`, aislada de la red local. Usa Node 24 o posterior y las
 dependencias ya instaladas en `frontend/node_modules`; las tareas ejecutan las
 herramientas locales mediante `.vscode/run-frontend.ps1`, sin requerir `pnpm` en
 el PATH de VSCode. El script busca Node en el PATH, en las instalaciones habituales
 de Windows y en el runtime local de Codex. Si no encuentra Node, instala Node.js 24
-o posterior y vuelve a abrir VSCode. No necesita iniciar Flask,
-Docker, CrewAI ni notificaciones. Su banner indica que las métricas son sintéticas.
+o posterior y vuelve a abrir VSCode. Para ver datos del backend, ejecutar
+**web-defense-ai V2: lectura conectada (Flask + Next.js)**, que inicia también Flask
+en `127.0.0.1:5000`. Si Flask no responde, la UI muestra el error y conserva la
+última captura disponible. No requiere iniciar Docker, CrewAI ni notificaciones.
 La tarea **verificar frontend** ejecuta ESLint, **comprobar tipos frontend** valida
 TypeScript y **compilar frontend** crea una build de producción. Ninguna se ejecuta
-al abrir VSCode. La pantalla de resumen es visual; los demás módulos y la conexión
-con `/api/v1` corresponden a fases posteriores.
+al abrir VSCode. Resumen, amenazas, reportes y actividad leen `/api/v1`; el análisis
+manual y la coordinación periódica corresponden a la fase 5. El contrato y los
+límites están en `FASE_4_LECTURA_CONECTADA.md`.
 
 La estructura actual está bajo `frontend/src/app/`; su propio `AGENTS.md` conserva
 la guía de desarrollo generada por la versión instalada de Next.js. La distribución

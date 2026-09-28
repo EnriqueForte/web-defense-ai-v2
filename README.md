@@ -8,15 +8,16 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 ## Estado de esta versión
 
-La aplicación operativa continúa en Python, Flask, Jinja2 y Chart.js. La nueva base visual se encuentra en `frontend/`, creada con Next.js 16, React 19 y TypeScript. Actualmente presenta datos sintéticos de demostración y todavía no consulta `/api/v1`; Flask sigue disponible como aplicación operativa.
+El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; ya consulta `/api/v1` en modo lectura para mostrar el resumen, las amenazas, la actividad y los reportes. El análisis manual coordinado aún no está implementado.
 
-Las fases 0–3 completaron la línea base, estabilización de Flask, API versionada de lectura y base visual Next.js. La interfaz sigue desconectada y usa datos sintéticos. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md) y [la entrega visual de fase 3](docs/FASE_3_BASE_VISUAL.md).
+Las fases 0–4 completaron la línea base, estabilización de Flask, API versionada, base visual y lectura conectada. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md) y [la entrega de fase 4](docs/FASE_4_LECTURA_CONECTADA.md).
 
 | Documento | Contenido |
 |---|---|
 | [Guía de VSCode](docs/GUIA_VSCODE.md) | Apertura, seguimiento de cambios, tareas y depuración |
 | [Plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) | Arquitectura, riesgos, fases, pruebas y reversión |
 | [Fase 3 — Base visual](docs/FASE_3_BASE_VISUAL.md) | Pantalla Next.js, datos sintéticos, validación y reversión |
+| [Fase 4 — Lectura conectada](docs/FASE_4_LECTURA_CONECTADA.md) | Integración con Flask, filtros, reportes, validación y reversión |
 | [Plan de agentes y tareas](docs/PLAN_AGENTES_TAREAS.md) | Revisión de CrewAI, responsabilidades y backlog |
 | [Contexto de desarrollo](AGENTS.md) | Instrucciones compartidas para trabajar desde Codex |
 | [Repositorios y recuperación](docs/REPOSITORIOS.md) | Separación entre original y V2, remotos y copias locales |
@@ -37,6 +38,7 @@ Se recomiendan extensiones de Python, Pylance, depuración, Black y YAML. Selecc
 |---|---|
 | Revisar sintaxis sin ejecutar el motor | Ctrl+Shift+B |
 | Ver dashboard con recarga local | Terminal → Ejecutar tarea → web-defense-ai V2: dashboard con recarga local |
+| Ver consola Next.js conectada | Terminal → Ejecutar tarea → web-defense-ai V2: lectura conectada (Flask + Next.js) |
 | Depurar el dashboard | Ejecutar y depurar → web-defense-ai V2: dashboard local → F5 |
 | Leer documentación renderizada | Abrir Markdown y pulsar Ctrl+Shift+V |
 
@@ -67,7 +69,7 @@ notificaciones mediante Telegram y SMTP.
 | Gráficos | Chart.js |
 | Laboratorio | Docker Compose, DVWA y MySQL para DVWA |
 | Alertas | Telegram Bot API y correo SMTP |
-| Interfaz prevista | React + Next.js + TypeScript |
+| Nueva interfaz de lectura | React + Next.js + TypeScript; consume `/api/v1` de Flask |
 
 El contenedor `ai-engine` declarado en Compose permanece inactivo con `tail -f /dev/null`; no arranca automáticamente el motor o el dashboard. La base MySQL pertenece al laboratorio DVWA.
 
@@ -99,13 +101,13 @@ docker compose up -d
 .\.venv\Scripts\python.exe pipeline.py
 ```
 
-No ejecutar análisis manual y pipeline simultáneamente sobre los mismos reportes mientras no exista coordinación de trabajos. Para visualizar cambios de interfaz basta con la tarea del dashboard; no hace falta iniciar otro motor.
+No ejecutar análisis manual y pipeline simultáneamente sobre los mismos reportes mientras no exista coordinación de trabajos. Para visualizar Next.js con lectura de Flask, usar la tarea conjunta de ambos servidores; no hace falta iniciar CrewAI.
 
 ## Funciones y límites conocidos
 
 El dashboard presenta métricas del reporte, tabla de amenazas, coincidencias de patrones por hora, cinco reportes históricos recientes y ocho líneas del log. El motor contempla SQLi, XSS, traversal, fuerza bruta e inyección de comandos, con las limitaciones de evidencia y muestreo descritas en los planes.
 
-La revisión detectó fallos previos que siguen pendientes: pantalla sin reporte, actualización del timeline, severidades, representación de contenido no confiable y consultas que sincronizan Docker. El botón actual de análisis reutiliza un reporte existente y puede notificar; no ejecuta un análisis nuevo. La configuración del IDE y el cambio de nombre no corrigen estos comportamientos.
+La fase 1 corrigió la pantalla sin reporte, la recursión del timeline, el recuento de severidades y la representación insegura de logs y reportes. La fase 2 separó las consultas de estado de la sincronización con Docker y añadió `/api/v1` solo de lectura. La fase 4 conectó Next.js a esa API. El botón anterior sincroniza el log y comunica que no inicia un análisis nuevo; la coordinación del análisis manual y periódico corresponde a la fase 5.
 
 ## Estructura
 
@@ -115,11 +117,17 @@ web-defense-ai V2/
 │   ├── settings.json                 # Ajustes del proyecto
 │   ├── extensions.json               # Extensiones recomendadas
 │   ├── tasks.json                    # Sintaxis y visualización local
+│   ├── run-frontend.ps1              # Tareas Next.js sin pnpm en PATH
 │   └── launch.json                   # Depuración y operaciones reales
 ├── docs/
 │   ├── GUIA_VSCODE.md
 │   ├── PLAN_MIGRACION_INTERFAZ.md
-│   └── PLAN_AGENTES_TAREAS.md
+│   ├── PLAN_AGENTES_TAREAS.md
+│   ├── FASE_0_LINEA_BASE.md
+│   ├── FASE_2_API_LECTURA.md
+│   ├── FASE_3_BASE_VISUAL.md
+│   └── FASE_4_LECTURA_CONECTADA.md
+├── frontend/                         # Next.js: lectura conectada a Flask
 ├── agents/                           # Preprocesamiento, detective y reporter
 ├── config/                           # Configuración, prompts y alertas
 ├── dashboard/
@@ -129,8 +137,8 @@ web-defense-ai V2/
 ├── logs/                             # Datos operativos excluidos de Git
 ├── reports/                          # Reporte actual e históricos
 ├── screenshots/                      # Capturas de referencia anteriores
-├── scripts/check_syntax.py           # Comprobación sin ejecutar módulos
-├── tests/                            # Suite de regresión pendiente
+├── scripts/                          # Sintaxis y regresión aislada
+├── tests/                            # 39 casos Python y 3 comprobaciones JS
 ├── AGENTS.md
 ├── web-defense-ai V2.code-workspace
 ├── main.py                           # Crew y agente analista
@@ -140,11 +148,11 @@ web-defense-ai V2/
 └── docker-compose.yml
 ```
 
-Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. La interfaz frontend de demostración vive en `frontend/` y todavía no está conectada al backend.
+Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. La interfaz Next.js vive en `frontend/` y consulta Flask mediante `/api/v1`; no accede a Docker, secretos ni archivos brutos.
 
 ## Capturas de referencia
 
-Estas imágenes corresponden al estado anterior del dashboard y pueden mostrar la denominación previa. No representan todavía el diseño previsto para V2; se actualizarán al validar la nueva interfaz.
+Estas imágenes corresponden al dashboard Flask anterior y pueden mostrar la denominación previa. La nueva base visual V2 está en `frontend/`; las capturas se actualizarán cuando la interfaz conectada quede validada.
 
 ![Dashboard anterior](screenshots/screenshot-1-dashboard.png)
 
