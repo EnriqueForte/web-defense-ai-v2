@@ -31,6 +31,22 @@
             "presentation": { "reveal": "always", "panel": "dedicated" }
         },
         {
+            "label": "web-defense-ai V2: dashboard con log DVWA",
+            "type": "shell",
+            "command": "& '${workspaceFolder}/.venv/Scripts/python.exe' -B -m flask --app dashboard.app run --host 127.0.0.1 --port 5000 --no-debugger",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PYTHONIOENCODING": "utf-8",
+                    "LOG_PATH": "${workspaceFolder}/.local-state/dvwa-lab/access.log",
+                    "ANALYSIS_MANUAL_ENABLED": "0"
+                }
+            },
+            "runOptions": { "instanceLimit": 1 },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
             "label": "web-defense-ai V2: interfaz Next.js de lectura",
             "type": "shell",
             "command": "& '${workspaceFolder}/.vscode/run-frontend.ps1' -Action dev",
@@ -43,6 +59,15 @@
             "label": "web-defense-ai V2: lectura conectada (Flask + Next.js)",
             "dependsOn": [
                 "web-defense-ai V2: dashboard con recarga local",
+                "web-defense-ai V2: interfaz Next.js de lectura"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
+            "label": "web-defense-ai V2: laboratorio DVWA (Flask + Next.js)",
+            "dependsOn": [
+                "web-defense-ai V2: dashboard con log DVWA",
                 "web-defense-ai V2: interfaz Next.js de lectura"
             ],
             "dependsOrder": "parallel",

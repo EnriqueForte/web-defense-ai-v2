@@ -1,9 +1,17 @@
 # Fase 6 — Validación y preparación del piloto
 
-Estado: preparación local completada con datos sintéticos y notificaciones
-simuladas. El piloto con Docker, proveedor IA y destinos de notificación reales,
-así como la observación continua de 24–48 horas, queda aplazado hasta disponer
-de un laboratorio aislado.
+Estado: la preparación local con datos sintéticos y notificaciones simuladas
+está completada. El Compose independiente de DVWA, MySQL y Mailpit se inició;
+se verificaron sus páginas en loopback, la captura de solicitudes SQLi y su
+lectura desde Flask y Next.js. La tarea de VSCode para iniciar ambos dashboards
+con el log del laboratorio está preparada, pero aún debe probarse desde VSCode.
+La integración controlada del motor/notificaciones, el piloto sostenido y la
+observación continua de 24–48 horas siguen pendientes.
+
+La puesta en marcha, detención, captura del log aislado y límites del entorno
+están en [la guía del laboratorio DVWA](LABORATORIO_DVWA_FASE_6.md). Esta
+preparación no cambia `docker-compose.yml` ni activa el motor. La comprobación
+manual del laboratorio no equivale al piloto integrado ni a su aceptación.
 
 ## Preparación local realizada
 
@@ -31,8 +39,10 @@ de un laboratorio aislado.
 
 ## Condiciones antes del piloto real
 
-1. Confirmar que DVWA está en un laboratorio local aislado, que el usuario
-   puede detenerlo y que ningún pipeline antiguo está activo.
+1. Repetir desde VSCode la tarea **laboratorio DVWA (Flask + Next.js)** y
+   confirmar que ambos dashboards leen la captura aislada. Ya se comprobó el
+   Compose en loopback y que el usuario puede detenerlo conservando la base.
+   Confirmar que ningún pipeline antiguo está activo.
 2. Preparar destinos de notificación de prueba, distintos de destinatarios
    operativos. No poner credenciales en el repositorio ni en esta conversación.
 3. Revisar `.env.example` y configurar las variables necesarias localmente;

@@ -1,0 +1,68 @@
+name: web-defense-ai-v2-lab
+
+services:
+  dvwa-db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: dvwa-lab-root
+      MYSQL_DATABASE: dvwa
+      MYSQL_USER: dvwa
+      MYSQL_PASSWORD: dvwa-lab-only
+    volumes:
+      - dvwa-db-data:/var/lib/mysql
+    networks:
+      - lab-internal
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  dvwa:
+    image: ghcr.io/digininja/dvwa:b496a5d
+    container_name: web-defense-ai-v2-lab-dvwa
+    depends_on:
+      dvwa-db:
+        condition: service_healthy
+    environment:
+      DB_SERVER: dvwa-db
+      DB_DATABASE: dvwa
+      DB_USER: dvwa
+      DB_PASSWORD: dvwa-lab-only
+    ports:
+      - "127.0.0.1:4280:80"
+    networks:
+      - lab-internal
+      - host-loopback
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mailpit:
+    image: axllent/mailpit:v1.31.1
+    ports:
+      - "127.0.0.1:8025:8025"
+      - "127.0.0.1:1025:1025"
+    networks:
+      - host-loopback
+    environment:
+      MP_MAX_MESSAGES: "500"
+      MP_SMTP_AUTH_ACCEPT_ANY: "true"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+
+networks:
+  lab-internal:
+    name: web-defense-ai-v2-lab-internal
+    driver: bridge
+    internal: true
+  host-loopback:
+    name: web-defense-ai-v2-lab-host-loopback
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+
+volumes:
+  dvwa-db-data:
+    name: web-defense-ai-v2-lab-dvwa-db

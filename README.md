@@ -8,7 +8,7 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 ## Estado de esta versión
 
-El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añade trabajos persistentes y una acción manual local desactivada por defecto. La preparación local de la fase 6 usa datos sintéticos; el piloto real está aplazado. La fase 7 prepara un conmutador de entrada que sigue apagado hasta aprobar ese piloto.
+El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añade trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6, el Compose de DVWA/Mailpit ya se inició y se comprobó la captura de actividad SQLi en ambas dashboards. Sigue pendiente probar el arranque mediante la tarea de VSCode, la integración completa del piloto y la observación sostenida. La fase 7 prepara un conmutador de entrada que sigue apagado hasta aprobar ese piloto.
 
 Las fases 0–4 completaron la línea base, estabilización de Flask, API versionada, base visual y lectura conectada. La fase 5 incorpora coordinación local comprobada con dobles de prueba. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la entrega de fase 4](docs/FASE_4_LECTURA_CONECTADA.md) y [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md).
 
@@ -20,6 +20,7 @@ Las fases 0–4 completaron la línea base, estabilización de Flask, API versio
 | [Fase 4 — Lectura conectada](docs/FASE_4_LECTURA_CONECTADA.md) | Integración con Flask, filtros, reportes, validación y reversión |
 | [Fase 5 — Análisis coordinado](docs/FASE_5_ANALISIS_COORDINADO.md) | Trabajos, ejecutor único, acción manual, límites y activación |
 | [Fase 6 — Preparación del piloto](docs/FASE_6_PILOTO.md) | Acceso local, mediciones, ventana de observación y reversión |
+| [Laboratorio DVWA aislado](docs/LABORATORIO_DVWA_FASE_6.md) | Inicio, detención, captura de logs y límites del Compose de piloto |
 | [Fase 7 — Entrada principal](docs/FASE_7_ENTRADA_PRINCIPAL.md) | Conmutación reversible, verificación y retorno |
 | [Plan de agentes y tareas](docs/PLAN_AGENTES_TAREAS.md) | Revisión de CrewAI, responsabilidades y backlog |
 | [Contexto de desarrollo](AGENTS.md) | Instrucciones compartidas para trabajar desde Codex |
@@ -90,21 +91,14 @@ if (-not (Test-Path -LiteralPath .env)) {
 
 Configurar localmente `GROQ_API_KEY`, rutas, intervalo y, si se usan, destinos de Telegram/SMTP. No versionar secretos. Algunos valores del motor aún están fijados en código; el plan recoge su consolidación.
 
-Las tareas de VSCode no ejecutan automáticamente análisis al abrir la carpeta. Cuando se quiera usar el laboratorio real, estas operaciones se realizan de forma explícita:
-
-```powershell
-# Laboratorio Docker
-docker compose up -d
-
-# Copiar el log y ejecutar un análisis real con el proveedor IA
-.\sync_logs.ps1
-.\.venv\Scripts\python.exe main.py
-
-# Alternativa: ejecutor periódico real de fase 5, que puede enviar notificaciones
-.\.venv\Scripts\python.exe pipeline.py
-```
-
-No ejecutar `main.py` directamente mientras esté activo el ejecutor: ambos caminos comparten un bloqueo, pero el trabajo directo no aparecería en el registro de fase 5. Para visualizar Next.js con lectura de Flask, usar la tarea conjunta de ambos servidores; no hace falta iniciar CrewAI. La activación de la acción manual se explica en [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md).
+El laboratorio DVWA aislado se inicia solo cuando se decida verificarlo, usando
+`scripts/start_dvwa_lab.ps1`; para detenerlo conservando sus volúmenes, usar
+`scripts/stop_dvwa_lab.ps1`. La [guía del laboratorio](docs/LABORATORIO_DVWA_FASE_6.md)
+describe los límites, la copia del log y la eliminación explícita de los datos
+del contenedor. Estas operaciones no inician Flask, CrewAI, el pipeline ni
+notificaciones. La fase 6 sigue pendiente de una integración controlada; no
+usar `main.py` o `pipeline.py` como comprobaciones de arranque. Para visualizar
+Next.js con lectura de Flask basta la tarea conjunta de ambos servidores.
 
 ## Funciones y límites conocidos
 
@@ -140,15 +134,16 @@ web-defense-ai V2/
 ├── logs/                             # Datos operativos excluidos de Git
 ├── reports/                          # Reporte actual e históricos
 ├── screenshots/                      # Capturas de referencia anteriores
-├── scripts/                          # Sintaxis y regresión aislada
-├── tests/                            # 39 casos Python y 3 comprobaciones JS
+├── scripts/                          # Verificación y utilidades del laboratorio local
+├── tests/                            # Suite aislada y comprobaciones JS
 ├── AGENTS.md
 ├── web-defense-ai V2.code-workspace
 ├── main.py                           # Crew y agente analista
 ├── pipeline.py                       # Ejecución periódica
 ├── sync_logs.ps1
 ├── requirements.txt
-└── docker-compose.yml
+├── compose.lab.yaml                  # DVWA y Mailpit aislados para fase 6
+└── docker-compose.yml                # Compose heredado, sin cambios por esta preparación
 ```
 
 Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. La interfaz Next.js vive en `frontend/` y consulta Flask mediante `/api/v1`; no accede a Docker, secretos ni archivos brutos.

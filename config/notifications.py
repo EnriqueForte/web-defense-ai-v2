@@ -33,6 +33,10 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
     destinatario = os.getenv("EMAIL_DESTINATARIO")
     smtp_server  = os.getenv("EMAIL_SMTP_SERVER", "smtp.gmail.com")
     smtp_port    = int(os.getenv("EMAIL_SMTP_PORT", "587"))
+    smtp_starttls_requested = os.getenv("EMAIL_SMTP_STARTTLS", "1").strip().lower() not in {"0", "false", "no"}
+    smtp_host = smtp_server.strip().lower()
+    smtp_is_loopback = smtp_host in {"localhost", "127.0.0.1", "::1", "[::1]"}
+    smtp_starttls = smtp_starttls_requested or not smtp_is_loopback
     if not all([remitente, password, destinatario]):
         print("Email no configurado en .env")
         return False
@@ -43,7 +47,8 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
     msg.attach(MIMEText(cuerpo, "plain", "utf-8"))
     try:
         with smtplib.SMTP(smtp_server, smtp_port) as s:
-            s.starttls()
+            if smtp_starttls:
+                s.starttls()
             s.login(remitente, password)
             s.sendmail(remitente, destinatario, msg.as_string())
         print(f"✅ Alerta enviada por email a {destinatario}")

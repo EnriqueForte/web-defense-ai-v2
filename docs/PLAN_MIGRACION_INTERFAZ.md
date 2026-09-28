@@ -1,13 +1,13 @@
 # web-defense-ai V2 — Análisis y plan de migración a React + Next.js
 
-Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas; la preparación local de fase 6 está completada y el piloto sostenido aplazado hasta disponer de laboratorio aislado. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
+Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas. Para fase 6, el Compose DVWA aislado se inició y se comprobó con capturas SQLi visibles en Flask y Next.js; falta probar el arranque mediante la tarea de VSCode y completar el piloto sostenido. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
 
 El desarrollo, las pruebas y la coordinación se realizan en Codex. VSCode abre y revisa el mismo proyecto local; no es una dependencia para iniciar las fases. El [plan de agentes y tareas](PLAN_AGENTES_TAREAS.md) reúne responsabilidades y dependencias. Las mejoras del motor se evalúan por separado del cambio de interfaz.
 
 ## 1. Decisión recomendada
 
 Estado 28/09/2026: fases 0–4 completadas; fase 5 implementada localmente sin
-activar integraciones reales; la preparación de fase 6 está en curso. La interfaz de lectura
+activar integraciones reales; el Compose aislado de fase 6 se comprobó manualmente y queda pendiente probar su tarea de inicio de VSCode. La interfaz de lectura
 se implementó en Windows/Node 24. El contrato de lectura está documentado en
 [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md) y la entrega visual en
 [FASE_3_BASE_VISUAL.md](FASE_3_BASE_VISUAL.md), la conexión en
@@ -25,7 +25,7 @@ La migración progresiva utiliza **Next.js con React y TypeScript**, conserva **
 
 El proyecto separa el motor y la interfaz. Las fases 1 y 2 desacoplaron las lecturas de la sincronización de Docker y las notificaciones. La fase 5 incorporó coordinación local de análisis; los reportes Markdown variables y el piloto real siguen condicionando el despliegue.
 
-Secuencia: **pruebas, correcciones, API, base visual y lectura conectada completadas → coordinación local de fase 5 implementada → validar integraciones y convivencia en piloto → cambiar la entrada principal**.
+Secuencia: **pruebas, correcciones, API, base visual y lectura conectada completadas → coordinación local de fase 5 implementada → validar el laboratorio y las integraciones en piloto → cambiar la entrada principal**.
 
 Ninguna migración puede garantizar ausencia absoluta de fallos. Este plan reduce el riesgo mediante cambios pequeños, contratos verificables, una única ejecución del motor y reversión sin transformar los datos históricos.
 
@@ -323,4 +323,4 @@ Estos resultados son históricos: confirman problemas presentes el 26/09/2026, n
 
 La ruta de HTML no confiable se fundamentó en el código original inspeccionado. La fase 1 corrigió la representación del dashboard Flask. La fase 4 muestra el Markdown en React como texto y no ejecuta HTML ni enlaces del archivo. Si más adelante se añade formato enriquecido, deberá conservar esa política restrictiva.
 
-La preparación local de fase 6 restringe Flask a loopback y valida con datos sintéticos y notificaciones simuladas. El piloto real requiere laboratorio aislado y una ventana de observación de al menos 24–48 horas; hasta cumplir sus criterios, la acción manual permanece desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.
+La preparación local de fase 6 restringe Flask a loopback y valida con datos sintéticos y notificaciones simuladas. El Compose DVWA/Mailpit se inició y se comprobó de forma local, incluida la captura y lectura de solicitudes SQLi; queda verificar el inicio desde la tarea de VSCode. El piloto real requiere completar la integración y una ventana de observación de al menos 24–48 horas; hasta cumplir sus criterios, la acción manual permanece desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.

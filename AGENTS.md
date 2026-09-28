@@ -10,7 +10,11 @@ con la fase 0 de línea base completada el 27/09/2026 en Windows/Python 3.11; co
 `docs/FASE_0_LINEA_BASE.md` para resultados y límites. Fases 1 y 2 están completas;
 la fase 3 de base visual Next.js se completó el 27/09/2026 y la fase 4 de lectura
 conectada el 28/09/2026. La fase 5 implementa coordinación local de análisis
-manual/periódico; la fase 6 prepara el piloto. La UI consulta `/api/v1` y
+manual/periódico; la fase 6 tiene preparado `compose.lab.yaml` para DVWA/MySQL
+y captura de correo local; el laboratorio ya se inició y se comprobó con
+capturas SQLi visibles en Flask y Next.js. Sigue pendiente verificar el
+arranque mediante la tarea de VSCode y completar el piloto y su observación.
+La UI consulta `/api/v1` y
 Flask sigue disponible como retorno local. La acción manual está desactivada
 por defecto y Flask rechaza solicitudes que no proceden de loopback.
 La fase 7 prepara un conmutador reversible de entrada; permanece apagado
