@@ -154,8 +154,8 @@ El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para c
 | Preparación completada | Contexto, inventario, denominación y responsabilidades | Planes y configuración de VSCode disponibles |
 | Fases 0–4 completadas | Línea base, estabilización, API y Next.js conectado | Suite aislada, contrato `/api/v1` y vistas de lectura |
 | F5-01 implementada | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación local |
-| Preparación F6-LAB-01 | Laboratorio DVWA aislado para pilotaje | Compose y tarea VSCode probados en loopback; captura legible por Flask/Next; faltan integración controlada y recorridos del piloto |
-| Pendiente externo: F6-01 | Piloto y retorno | Tras verificar el laboratorio: carga representativa, integración con destinos de prueba, observación de 24–48 horas y ensayo de retorno |
+| F6-LAB-01 completada | Laboratorio DVWA aislado para pilotaje | Compose y tarea VSCode probados en loopback; diez ciclos integrados y benchmark API completados |
+| F6-01 en curso | Piloto y retorno | Diez ciclos, medición p95 y retorno Flask completados; siete alertas confirmadas, tres `unknown`; observación de 24 horas iniciada |
 | F7-01 en preparación | Conmutador de entrada reversible | Implementado y probado apagado/activo/Next no disponible; revisión de lectura, teclado y contraste local; activación habitual pendiente de aceptación de fase 6 |
 | Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |
 | Evolución aislada | A-02–A-04 fuera de la ruta operativa | Tres agentes mejorados y validaciones probadas con simulaciones |

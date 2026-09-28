@@ -1,16 +1,28 @@
 # Fase 6 — Validación y preparación del piloto
 
-Estado: la preparación local con datos sintéticos y notificaciones simuladas
-está completada. También se completó un ciclo integrado del motor con una
-captura DVWA, reporte nuevo y alerta de correo recibida en Mailpit. El Compose independiente de DVWA, MySQL y Mailpit se inició;
-se verificaron sus páginas en loopback, la captura de solicitudes SQLi y su
-lectura desde Flask y Next.js. La tarea de VSCode para iniciar ambos dashboards
-con el log del laboratorio también se ejecutó correctamente. Siguen pendientes
-el piloto sostenido, diez ciclos reales, la medición con carga representativa,
-el ensayo de reversión y la observación continua de 24–48 horas. La primera
-integración detectó un modelo retirado; ahora los identificadores anteriores
-se sustituyen por el modelo vigente predeterminado y se pueden sobrescribir
-localmente.
+Estado: diez ciclos integrados terminaron correctamente el 28/09/2026 y
+publicaron diez reportes archivados. Se probaron DVWA/MySQL y Mailpit en
+loopback. Siete entregas de correo están confirmadas; tres intentos anteriores
+permanecen `unknown` porque se reinició Mailpit antes de poder revisarlos. Una
+alerta sintética posterior confirmó el envío tras corregir el falso estado
+causado por la codificación de consola. El retorno a Flask se ensayó con Next
+detenido: Flask respondió HTTP 200 en 53 ms y conservó salud `ok`. La ventana
+de observación de 24 horas comenzó el 28/09/2026 a las 17:27 UTC; la fase sigue
+abierta hasta validar su resumen.
+
+La medición local de la API con 88 y 10.000 líneas sintéticas pasó los
+objetivos p95 de estado (<500 ms) y filtro (<200 ms) con 1, 5 y 10 clientes,
+después de evitar que el filtro de amenazas recalcule métricas del log. La
+medición usó Windows 10 build 26200, Python 3.11.9, 16 procesadores lógicos y
+31 GB de memoria. Las latencias p95 (estado/filtro, milisegundos) fueron:
+
+| Log sintético | 1 cliente | 5 clientes | 10 clientes |
+|---|---:|---:|---:|
+| 88 líneas | 24.9 / 27.1 | 23.9 / 15.6 | 38.2 / 31.9 |
+| 10.000 líneas | 30.0 / 12.7 | 22.0 / 23.4 | 50.4 / 41.1 |
+
+La ruta de retorno Flask respondió HTTP 200 con Next.js detenido. El script reproducible es
+[`scripts/benchmark_phase6_api.py`](../scripts/benchmark_phase6_api.py).
 
 La puesta en marcha, detención, captura del log aislado y límites del entorno
 están en [la guía del laboratorio DVWA](LABORATORIO_DVWA_FASE_6.md). Esta
@@ -56,8 +68,8 @@ manual del laboratorio no equivale al piloto integrado ni a su aceptación.
    sincronización, publicación nueva, histórico, estado durable y cada destino
    de prueba. Si una entrega queda `unknown`, comprobar el receptor antes de
    intentar otra vez.
-6. Mantener el laboratorio bajo observación al menos 24–48 horas y completar
-   diez ciclos, lo que tarde más. Registrar duración, resultado, errores,
+6. Mantener el laboratorio bajo observación al menos 24–48 horas; diez ciclos
+   exitosos ya están registrados. Registrar duración, resultado, errores,
    reporte publicado y entrega de cada destino, sin copiar secretos o logs
    completos a los registros de desarrollo.
 7. Ensayar retorno: cerrar nuevas solicitudes, esperar o reconciliar el trabajo
@@ -77,6 +89,17 @@ termina tras un ciclo, tanto si tiene éxito como si falla. No activa el anális
 principal de Next.js. Revisar el estado durable y Mailpit antes de decidir
 cualquier repetición.
 
+El 28/09/2026 se completaron diez ciclos exitosos en el almacén aislado; los
+intentos fallidos no se cuentan. El límite de tokens por minuto de Groq exigió
+espaciar las llamadas. Tres entregas `unknown` no se reintentaron
+automáticamente. Seis mensajes de la última tanda se reconciliaron con Mailpit
+por hora de entrega. Un envío sintético posterior quedó confirmado como `sent`
+tras hacer los mensajes de consola compatibles con Windows. El monitor
+[`scripts/observe_phase6.ps1`](../scripts/observe_phase6.ps1) registra cada cinco
+minutos la salud de Flask, Next.js, DVWA, Mailpit y MySQL, sin ejecutar análisis
+ni guardar cuerpos de respuestas. Su resumen se guarda en
+`.local-state/phase6-pilot/observation/summary.json` al completar las 24 horas.
+
 La aplicación sigue restringida a un usuario local. No desplegarla en una red
 compartida: el guardado local no sustituye autenticación central para Flask,
 Next.js y el proxy. Si el alcance cambia a acceso compartido, primero se debe
@@ -84,14 +107,13 @@ añadir y validar esa protección en todas las rutas de lectura y escritura.
 
 ## Criterios de cierre
 
-La parte local de la fase queda completada por la suite automatizada con
-dobles. La fase de piloto/despliegue solo se cierra cuando se aprueban los
-recorridos del navegador, la medición de rendimiento con volúmenes de log y
-hardware representativos, diez ciclos reales y la ventana de estabilidad,
-los destinos de prueba, el reinicio y el ensayo de retorno. Las pruebas con
-dobles no cuentan como integración externa. No se ha hecho aún la medición
-representativa ni la observación de 24–48 horas; este documento no declara
-aprobado el piloto.
+La medición local, los diez ciclos y el ensayo de retorno ya están completados.
+El benchmark usa fixtures sintéticas y un servidor WSGI local, por lo que no
+representa el renderizado del navegador ni una carga de producción. Los tres
+estados `unknown` siguen documentados y no se reintentan sin evidencia del
+receptor. La fase continúa abierta hasta revisar el resumen de observación de
+24 horas; si registra fallos, se prolongará hasta 48 horas y se analizarán
+antes del cierre.
 
 ## Reversión
 

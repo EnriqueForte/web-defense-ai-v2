@@ -1,4 +1,5 @@
 import os
+import io
 import unittest
 from unittest.mock import Mock, patch
 
@@ -62,6 +63,15 @@ class EmailNotificationTransportTests(unittest.TestCase):
             self.assertFalse(notifications.enviar_email("Test", "Body"))
 
         smtp_factory.assert_not_called()
+
+    def test_local_email_success_does_not_depend_on_console_emoji_encoding(self):
+        output = io.TextIOWrapper(io.BytesIO(), encoding="cp1252")
+        with patch.dict(os.environ, self.environment, clear=True), \
+             patch("config.notifications.smtplib.SMTP", return_value=self.smtp), \
+             patch("sys.stdout", output):
+            self.assertTrue(notifications.enviar_email("Test", "Body"))
+
+        self.smtp.sendmail.assert_called_once()
 
     def test_starttls_cannot_be_disabled_for_non_loopback_host(self):
         environment = {

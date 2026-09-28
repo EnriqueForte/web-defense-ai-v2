@@ -111,8 +111,21 @@ lee ni muestra el valor de las claves. Si el reporte no contiene alertas altas
 o críticas, no se genera correo. `ANALYSIS_MANUAL_ENABLED` y la entrada Next.js
 principal permanecen desactivadas.
 
-Este ciclo no completa el piloto: aún se requieren diez ciclos, medición con
-carga representativa, observación de 24–48 horas y un ensayo de reversión.
+Este ciclo por sí solo no cierra el piloto. Los diez ciclos y la medición API
+ya están registrados; siguen pendientes la observación de 24–48 horas y el
+ensayo operativo de reversión.
+
+Para repetir la medición de la API sin Docker, credenciales ni llamadas al
+modelo, ejecuta:
+
+```powershell
+.\.venv\Scripts\python.exe -B scripts\benchmark_phase6_api.py
+```
+
+El benchmark crea reportes y logs sintéticos temporales, mide p95 con 1, 5 y
+10 clientes, comprueba la entrada Flask con Next.js desactivado y devuelve un
+código de error si supera los umbrales del plan. No usa ni sobrescribe los
+logs o reportes del piloto.
 
 ## Verificación y reversión
 

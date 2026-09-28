@@ -347,6 +347,32 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(bad.get_json()["error"]["code"], "invalid_pagination")
         self.assertEqual(bad.get_json()["error"]["request_id"], bad.headers["X-Request-ID"])
 
+    def test_threat_filter_skips_log_analytics_and_keeps_snapshot_identity(self):
+        (self.base / "reporte_seguridad.md").write_text(report(), encoding="utf-8")
+        state_id = self.client.get("/api/v1/estado").get_json()["meta"]["snapshot_id"]
+        with patch.object(self.web, "obtener_timeline_ataques",
+                          side_effect=AssertionError("el filtro no debe recalcular timeline")), \
+             patch.object(self.web, "extraer_ips_del_log",
+                          side_effect=AssertionError("el filtro no debe recalcular IPs")):
+            response = self.client.get("/api/v1/amenazas?severidad=ALTA")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["meta"]["snapshot_id"], state_id)
+
+    def test_log_views_are_reused_only_for_the_same_digest(self):
+        digest = f"synthetic-{self.base}"
+        timeline = self.web.obtener_timeline_ataques
+        ips = self.web.extraer_ips_del_log
+        with patch.object(self.web, "obtener_timeline_ataques", wraps=timeline) as timeline_spy, \
+             patch.object(self.web, "extraer_ips_del_log", wraps=ips) as ips_spy:
+            first = self.web._cached_log_views(digest, line("/first"))
+            second = self.web._cached_log_views(digest, line("/first"))
+            third = self.web._cached_log_views(digest + "-next", line("/second"))
+
+        self.assertEqual(first, second)
+        self.assertNotEqual(first, third)
+        self.assertEqual(timeline_spy.call_count, 2)
+        self.assertEqual(ips_spy.call_count, 2)
+
     def test_api_v1_reports_are_fully_paginated_and_resolved_by_id(self):
         history = self.base / "historial"
         history.mkdir()

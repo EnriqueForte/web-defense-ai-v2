@@ -10,6 +10,7 @@ import re
 import sys
 import subprocess
 import sqlite3
+import threading
 from http.client import HTTPConnection
 from pathlib import Path
 from datetime import datetime, timezone
@@ -308,11 +309,18 @@ def obtener_log_reciente(lineas: list[str] | None = None) -> list[str]:
     return lineas[-8:] if lineas else []
 
 
-def _snapshot_estado() -> dict:
+def _snapshot_estado(*, include_log_views: bool = True) -> dict:
     """Compone la respuesta desde una captura estable de cada archivo fuente."""
     reporte = capture_file(REPORT_PATH / "reporte_seguridad.md")
     log = capture_file(Path(LOG_PATH))
-    lineas_log = log.text.splitlines() if log.text is not None else []
+    if include_log_views and log.text is not None:
+        cached_lines, cached_ips, timeline = _cached_log_views(log.digest, log.text)
+        lineas_log = list(cached_lines)
+        source_ips = list(cached_ips)
+    else:
+        lineas_log = []
+        source_ips = []
+        timeline = {"horas": [], "sqli": [], "xss": [], "path": [], "brute": [], "cmd": [], "counts": []}
     amenazas = parsear_amenazas(reporte.text or "") if reporte.status == "available" else []
     stats = obtener_estadisticas(amenazas)
     historial_capturado = _capturar_historial(5)
@@ -345,10 +353,30 @@ def _snapshot_estado() -> dict:
         "history": historial,
         "history_captures": historial_capturado,
         "log_lines": lineas_log,
-        "recent_log": obtener_log_reciente(lineas_log) if log.status == "available" else ["Log no disponible"],
-        "source_ips": extraer_ips_del_log(lineas_log),
-        "timeline": obtener_timeline_ataques(lineas_log),
+        "recent_log": (obtener_log_reciente(lineas_log)
+                       if include_log_views and log.status == "available"
+                       else ["Log no disponible"] if log.status != "available" else []),
+        "source_ips": source_ips,
+        "timeline": timeline,
     }
+
+
+_LOG_VIEWS_LOCK = threading.Lock()
+_LOG_VIEWS_CACHE = None
+
+
+def _cached_log_views(digest: str | None, content: str):
+    """Reuse expensive timeline/IP scans while an immutable log snapshot is unchanged."""
+    global _LOG_VIEWS_CACHE
+    with _LOG_VIEWS_LOCK:
+        if _LOG_VIEWS_CACHE is not None and _LOG_VIEWS_CACHE[0] == digest:
+            return _LOG_VIEWS_CACHE[1]
+        lines = tuple(content.splitlines())
+        ips = tuple(extraer_ips_del_log(list(lines)))
+        timeline = obtener_timeline_ataques(list(lines))
+        views = (lines, ips, timeline)
+        _LOG_VIEWS_CACHE = (digest, views)
+        return views
 
 
 def _api_error(status: int, code: str, message: str):
@@ -623,7 +651,9 @@ def api_v1_amenazas():
     pagination, error = _pagination()
     if error:
         return error
-    snapshot = _snapshot_estado()
+    # Este recurso filtra filas del reporte; evita recorrer el log completo para
+    # calcular timeline e IPs y conserva los mismos hashes de la instantánea.
+    snapshot = _snapshot_estado(include_log_views=False)
     items = _threats_v1(snapshot)
     tipo = request.args.get("tipo", "").strip().casefold()
     ip = request.args.get("ip", "").strip().casefold()

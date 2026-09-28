@@ -13,10 +13,14 @@ conectada el 28/09/2026. La fase 5 implementa coordinación local de análisis
 manual/periódico; la fase 6 tiene preparado `compose.lab.yaml` para DVWA/MySQL
 y captura de correo local; el laboratorio ya se inició y se comprobó con
 capturas SQLi visibles en Flask y Next.js. La tarea de VSCode para iniciar
-ambos dashboards también fue comprobada. El 28/09/2026 se completó un ciclo
-integrado con reporte nuevo y correo de alerta recibido en Mailpit. Siguen
-pendientes diez ciclos reales, medición representativa, ensayo de reversión y
-observación continua de 24–48 horas.
+ambos dashboards también fue comprobada. El 28/09/2026 se completaron diez
+ciclos de análisis exitosos y se midió la API con logs sintéticos actuales y
+ampliados. El filtro de amenazas se optimizó para cumplir los objetivos p95.
+Siete entregas de correo están confirmadas y tres anteriores siguen `unknown`
+porque el Mailpit efímero se reinició antes de reconciliarlas. El retorno a
+Flask se ensayó con Next detenido (HTTP 200 en 53 ms). Una observación local de
+24 horas comenzó el 28/09/2026 a las 17:27 UTC; la fase sigue abierta hasta
+revisar su resumen.
 La UI consulta `/api/v1` y
 Flask sigue disponible como retorno local. La acción manual está desactivada
 por defecto y Flask rechaza solicitudes que no proceden de loopback.

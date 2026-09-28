@@ -19,12 +19,12 @@ def enviar_telegram(mensaje: str) -> bool:
     try:
         r = requests.post(url, json=payload, timeout=10)
         if r.status_code == 200:
-            print("✅ Alerta enviada por Telegram")
+            print("Alerta enviada por Telegram")
             return True
-        print(f"❌ Error Telegram: {r.text}")
+        print(f"Error Telegram: {r.text}")
         return False
     except Exception as e:
-        print(f"❌ Error Telegram: {e}")
+        print(f"Error Telegram: {e}")
         return False
 
 def enviar_email(asunto: str, cuerpo: str) -> bool:
@@ -52,10 +52,10 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
             if password:
                 s.login(remitente, password)
             s.sendmail(remitente, destinatario, msg.as_string())
-        print(f"✅ Alerta enviada por email a {destinatario}")
+        print(f"Alerta enviada por email a {destinatario}")
         return True
     except Exception as e:
-        print(f"❌ Error email: {e}")
+        print(f"Error email: {e}")
         return False
 
 def notificar_alerta_critica(alertas: list, ciclo: int) -> None:
