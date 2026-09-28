@@ -90,6 +90,30 @@ con Mailpit, el SMTP debe apuntar a `127.0.0.1:1025`; la opción
 sigue activo por defecto y no puede desactivarse para servidores que no sean de
 loopback. Usa remitente, destinatario y contraseña ficticios.
 
+## Un ciclo integrado de prueba
+
+Cuando DVWA y Mailpit estén activos y la clave del proveedor LLM ya esté
+configurada localmente, ejecuta desde PowerShell:
+
+```powershell
+.\scripts\run_phase6_cycle.ps1
+```
+
+El comando solicita un único análisis al proveedor configurado y puede consumir
+cuota. El modelo preferido se define en `LLM_MODEL` y los modelos alternativos,
+separados por comas, en `LLM_FALLBACK_MODELS`; `.env.example` propone los IDs
+Groq vigentes al preparar esta fase. Los modelos anteriores ya retirados se
+reemplazan por el predeterminado vigente. El proceso sobrescribe únicamente
+`.local-state/phase6-pilot/`: el log
+se vuelve a capturar desde DVWA, los reportes y SQLite quedan aislados, Telegram
+se omite y cualquier email se entrega solo a Mailpit con datos ficticios. No
+lee ni muestra el valor de las claves. Si el reporte no contiene alertas altas
+o críticas, no se genera correo. `ANALYSIS_MANUAL_ENABLED` y la entrada Next.js
+principal permanecen desactivadas.
+
+Este ciclo no completa el piloto: aún se requieren diez ciclos, medición con
+carga representativa, observación de 24–48 horas y un ensayo de reversión.
+
 ## Verificación y reversión
 
 La estructura se valida sin iniciar contenedores con:
@@ -102,7 +126,8 @@ Verificación local realizada el 28/09/2026: las imágenes arrancaron, DVWA y
 Mailpit respondieron en sus puertos de loopback, la sincronización produjo una
 captura con solicitudes SQLi y Flask/Next.js mostraron esas solicitudes. Esto
 no acredita integración con CrewAI, entrega SMTP, carga representativa ni una
-ventana de piloto sostenido. La tarea de VSCode que inicia ambos dashboards
-queda pendiente de comprobar. Para volver al entorno anterior, detén este
+ventana de piloto sostenido. Un ciclo integrado completó análisis y publicó el
+reporte; la alerta SMTP alcanzó Mailpit. La tarea de VSCode para iniciar ambos dashboards
+también se comprobó correctamente. Para volver al entorno anterior, detén este
 Compose y continúa usando Flask con sus datos locales; el Compose heredado y sus
 datos no forman parte de la pila nueva.

@@ -14,7 +14,7 @@ REPORT_PATH     = os.getenv("REPORT_PATH", "./reports/")
 
 # --- LLM ---
 GROQ_API_KEY    = os.getenv("GROQ_API_KEY")
-LLM_MODEL = os.getenv("LLM_MODEL", "groq/meta-llama/llama-4-scout-17b-16e-instruct")
+LLM_MODEL = os.getenv("LLM_MODEL", "groq/openai/gpt-oss-120b")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
 
 # --- Pipeline ---

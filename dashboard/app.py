@@ -124,7 +124,7 @@ def parsear_amenazas(reporte: str) -> list[dict]:
                 ip_final = "-"
 
             # Normalizar severidad con encoding roto
-            severidad_raw = idx("severidad")
+            severidad_raw = idx("severidad").strip().strip("*_` ")
             severidad_normalizada = (severidad_raw
                 .replace("CRÃTICA", "CRÍTICA")
                 .replace("CRÃ\x8dTICA", "CRÍTICA")

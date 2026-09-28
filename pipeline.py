@@ -22,6 +22,13 @@ ROOT = Path(__file__).resolve().parent
 
 
 def synchronize_log():
+    source = os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()
+    if source == "dvwa-lab":
+        from dashboard.services.dvwa_lab_capture import capture_access_log
+        return capture_access_log(Path(LOG_PATH)) is not None
+    if source != "legacy-docker":
+        return False
+
     try:
         result = run_atomic_copy(["docker", "cp", "dvwa-app:/var/log/apache2/access.log"],
                                  Path(LOG_PATH), timeout=60)
@@ -37,6 +44,16 @@ def run_engine():
                                 env={**os.environ, "PYTHONIOENCODING": "utf-8"})
     except (OSError, subprocess.TimeoutExpired):
         return False
+    if result.returncode != 0:
+        diagnostics_dir = os.getenv("ENGINE_DIAGNOSTICS_DIR")
+        if diagnostics_dir and result.stderr:
+            diagnostics = result.stderr
+            api_key = os.getenv("GROQ_API_KEY")
+            if api_key:
+                diagnostics = diagnostics.replace(api_key, "[REDACTED]")
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            target = Path(diagnostics_dir) / f"engine-failure-{stamp}-{uuid.uuid4().hex[:8]}.log"
+            atomic_write_text(target, diagnostics[-30000:])
     return result.returncode == 0
 
 
@@ -58,8 +75,14 @@ def send_alerts(store, job_id, report):
         return
     message = (f"web-defense-ai V2: análisis {job_id}; "
                f"{critical} amenazas críticas, {high} altas. Consulta el reporte local.")
-    for destination, sender in (("telegram", lambda: enviar_telegram(message)),
-                                ("email", lambda: enviar_email("[web-defense-ai V2] Alerta de seguridad", message))):
+    configured = os.getenv("NOTIFICATION_DESTINATIONS")
+    allowed = ({"telegram", "email"} if configured is None else
+               {item.strip().lower() for item in configured.split(",") if item.strip()})
+    senders = (("telegram", lambda: enviar_telegram(message)),
+               ("email", lambda: enviar_email("[web-defense-ai V2] Alerta de seguridad", message)))
+    for destination, sender in senders:
+        if destination not in allowed:
+            continue
         if store.delivery(job_id, destination) is not None:
             continue
         store.delivery(job_id, destination, "attempting")
@@ -117,13 +140,34 @@ def _heartbeat_loop(store, instance_id, stop):
         stop.wait(2)
 
 
-def main():
+def _run_single_cycle(store):
+    job, disposition = store.enqueue("periodic")
+    if disposition != "created":
+        print(f"No se inicia el ciclo único: {disposition}.", file=sys.stderr)
+        return 1
+    claimed = store.claim()
+    if claimed is None:
+        print("No se pudo reclamar el ciclo de prueba.", file=sys.stderr)
+        return 1
+    try:
+        execute_job(store, claimed)
+    except Exception:
+        print("El ciclo de prueba falló; revisa su estado local y no reenvíes entregas ambiguas.",
+              file=sys.stderr)
+    result = store.get(job["id"])
+    print(f"Ciclo único: {result['status']} (error={result['error_code'] or 'none'}).")
+    return 0 if result["status"] == "succeeded" else 1
+
+
+def main(*, once=False):
     os.chdir(ROOT)
     store = JobStore()
     lock_path = store.path.with_suffix(".worker.lock")
     try:
         with exclusive_lock(lock_path):
             store.recover()
+            if once:
+                return _run_single_cycle(store)
             instance_id = uuid.uuid4().hex
             stop = threading.Event()
             heartbeat = threading.Thread(target=_heartbeat_loop, args=(store, instance_id, stop), daemon=True)
@@ -153,7 +197,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--once", action="store_true",
+                        help="ejecuta un solo ciclo y termina; puede contactar el motor configurado")
+    args = parser.parse_args()
     try:
-        raise SystemExit(main())
+        raise SystemExit(main(once=args.once))
     except KeyboardInterrupt:
         print("Ejecutor detenido. El trabajo activo se reconciliará al reiniciar.")

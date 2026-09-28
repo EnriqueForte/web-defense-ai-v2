@@ -12,8 +12,11 @@ la fase 3 de base visual Next.js se completó el 27/09/2026 y la fase 4 de lectu
 conectada el 28/09/2026. La fase 5 implementa coordinación local de análisis
 manual/periódico; la fase 6 tiene preparado `compose.lab.yaml` para DVWA/MySQL
 y captura de correo local; el laboratorio ya se inició y se comprobó con
-capturas SQLi visibles en Flask y Next.js. Sigue pendiente verificar el
-arranque mediante la tarea de VSCode y completar el piloto y su observación.
+capturas SQLi visibles en Flask y Next.js. La tarea de VSCode para iniciar
+ambos dashboards también fue comprobada. El 28/09/2026 se completó un ciclo
+integrado con reporte nuevo y correo de alerta recibido en Mailpit. Siguen
+pendientes diez ciclos reales, medición representativa, ensayo de reversión y
+observación continua de 24–48 horas.
 La UI consulta `/api/v1` y
 Flask sigue disponible como retorno local. La acción manual está desactivada
 por defecto y Flask rechaza solicitudes que no proceden de loopback.

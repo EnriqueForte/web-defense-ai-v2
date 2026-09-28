@@ -1,6 +1,6 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Revisión inicial: 26 de septiembre de 2026. Estado al 28/09/2026: fases 0–4 completadas; fase 5 implementada y verificada con dobles; el laboratorio aislado de DVWA/Mailpit de fase 6 se inició y se comprobó con capturas SQLi visibles en Flask y Next.js. La tarea de VSCode para iniciar ambos dashboards aún debe probarse; el piloto sostenido sigue pendiente. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
+Revisión inicial: 26 de septiembre de 2026. Estado al 28/09/2026: fases 0–4 completadas; fase 5 implementada y verificada con dobles; el laboratorio aislado de DVWA/Mailpit de fase 6 se inició y se comprobó con capturas SQLi visibles en Flask y Next.js. La tarea de VSCode para iniciar ambos dashboards también funciona; el piloto sostenido sigue pendiente. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
 
 ## 1. Decisión y distinciones
 
@@ -142,7 +142,7 @@ Estados del backlog: **preparado** significa archivo creado; **pendiente** requi
 | F3-01 | Base visual Next.js con datos simulados | Codex | F2-01 | Consola de resumen, navegación, estados y demo adaptables; build, lint y tipos correctos; motor intacto | Completada; build Next y revisión visual en escritorio/móvil |
 | F4-01 | Conectar lectura y reportes | Codex | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Completada; integración con fixture y navegador local |
 | F5-01 | Coordinación manual/periódica y publicación coherente | Codex | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Implementada localmente; pruebas aisladas, piloto real en fase 6 |
-| F6-LAB-01 | Preparar laboratorio DVWA aislado y captura de logs de prueba | Codex | F5-01 | Red interna; puertos solo loopback; sin montaje del repositorio; correo en sink local; logs separados; inicio y detención documentados | Contenedores iniciados y detenidos; solicitudes SQLi capturadas y visibles en ambas dashboards; tarea de arranque VSCode pendiente de comprobar |
+| F6-LAB-01 | Preparar laboratorio DVWA aislado y captura de logs de prueba | Codex | F5-01 | Red interna; puertos solo loopback; sin montaje del repositorio; correo en sink local; logs separados; inicio y detención documentados | Contenedores y tarea de VSCode comprobados; solicitudes SQLi capturadas y visibles en ambas dashboards |
 | F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01, F6-LAB-01 | Se cumplen las condiciones de fase 6 del plan principal | Preparación local y pruebas sintéticas completadas; piloto sostenido e integraciones reales aplazadas |
 
 El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para conectar la interfaz. No activar el nuevo flujo del motor durante el mismo cambio operativo que el nuevo frontend. La opción preferida es mantener el motor original durante el primer cambio de interfaz y evaluar A-03–A-05 después de su estabilización. La fase 4 validó el consumo y la representación segura de los datos del API en React con fixtures sintéticos.
@@ -154,7 +154,7 @@ El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para c
 | Preparación completada | Contexto, inventario, denominación y responsabilidades | Planes y configuración de VSCode disponibles |
 | Fases 0–4 completadas | Línea base, estabilización, API y Next.js conectado | Suite aislada, contrato `/api/v1` y vistas de lectura |
 | F5-01 implementada | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación local |
-| Preparación F6-LAB-01 | Laboratorio DVWA aislado para pilotaje | Compose probado en loopback y captura legible por Flask/Next; comprobar la tarea de inicio en VSCode y los recorridos integrados |
+| Preparación F6-LAB-01 | Laboratorio DVWA aislado para pilotaje | Compose y tarea VSCode probados en loopback; captura legible por Flask/Next; faltan integración controlada y recorridos del piloto |
 | Pendiente externo: F6-01 | Piloto y retorno | Tras verificar el laboratorio: carga representativa, integración con destinos de prueba, observación de 24–48 horas y ensayo de retorno |
 | F7-01 en preparación | Conmutador de entrada reversible | Implementado y probado apagado/activo/Next no disponible; revisión de lectura, teclado y contraste local; activación habitual pendiente de aceptación de fase 6 |
 | Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |

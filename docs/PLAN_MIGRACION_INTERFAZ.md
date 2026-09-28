@@ -1,13 +1,13 @@
 # web-defense-ai V2 — Análisis y plan de migración a React + Next.js
 
-Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas. Para fase 6, el Compose DVWA aislado se inició y se comprobó con capturas SQLi visibles en Flask y Next.js; falta probar el arranque mediante la tarea de VSCode y completar el piloto sostenido. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
+Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas. Para fase 6, el Compose DVWA aislado y la tarea de VSCode se iniciaron y comprobaron con capturas SQLi visibles en Flask y Next.js; la integración y el piloto sostenido siguen pendientes. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
 
 El desarrollo, las pruebas y la coordinación se realizan en Codex. VSCode abre y revisa el mismo proyecto local; no es una dependencia para iniciar las fases. El [plan de agentes y tareas](PLAN_AGENTES_TAREAS.md) reúne responsabilidades y dependencias. Las mejoras del motor se evalúan por separado del cambio de interfaz.
 
 ## 1. Decisión recomendada
 
 Estado 28/09/2026: fases 0–4 completadas; fase 5 implementada localmente sin
-activar integraciones reales; el Compose aislado de fase 6 se comprobó manualmente y queda pendiente probar su tarea de inicio de VSCode. La interfaz de lectura
+activar integraciones reales; el Compose aislado de fase 6 y su tarea de inicio de VSCode están comprobados. La interfaz de lectura
 se implementó en Windows/Node 24. El contrato de lectura está documentado en
 [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md) y la entrega visual en
 [FASE_3_BASE_VISUAL.md](FASE_3_BASE_VISUAL.md), la conexión en
@@ -323,4 +323,4 @@ Estos resultados son históricos: confirman problemas presentes el 26/09/2026, n
 
 La ruta de HTML no confiable se fundamentó en el código original inspeccionado. La fase 1 corrigió la representación del dashboard Flask. La fase 4 muestra el Markdown en React como texto y no ejecuta HTML ni enlaces del archivo. Si más adelante se añade formato enriquecido, deberá conservar esa política restrictiva.
 
-La preparación local de fase 6 restringe Flask a loopback y valida con datos sintéticos y notificaciones simuladas. El Compose DVWA/Mailpit se inició y se comprobó de forma local, incluida la captura y lectura de solicitudes SQLi; queda verificar el inicio desde la tarea de VSCode. El piloto real requiere completar la integración y una ventana de observación de al menos 24–48 horas; hasta cumplir sus criterios, la acción manual permanece desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.
+La preparación local de fase 6 restringe Flask a loopback y valida con datos sintéticos y notificaciones simuladas. El Compose DVWA/Mailpit y la tarea de VSCode se iniciaron y comprobaron de forma local, incluida la captura y lectura de solicitudes SQLi. El piloto real requiere completar la integración y una ventana de observación de al menos 24–48 horas; hasta cumplir sus criterios, la acción manual permanece desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.

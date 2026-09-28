@@ -44,13 +44,17 @@ de la fase 6; no se ha ejecutado el motor real durante esta entrega.
 3. Iniciar Flask y Next.js con la tarea **lectura conectada** de VSCode.
    Iniciar el ejecutor explícitamente en otra terminal desde la raíz:
 
-   ```powershell
-   .\.venv\Scripts\python.exe -B pipeline.py
-   ```
+  ```powershell
+  .\.venv\Scripts\python.exe -B pipeline.py
+  ```
 
-   El ejecutor inicia el primer ciclo periódico al arrancar y luego usa
-   `INTERVALO_MINUTOS`. Los ciclos y el botón pueden contactar Docker, Groq,
-   Telegram y SMTP; no usar ese comando como prueba rutinaria.
+  El ejecutor inicia el primer ciclo periódico al arrancar y luego usa
+  `INTERVALO_MINUTOS`. Los ciclos y el botón pueden contactar Docker, Groq,
+  Telegram y SMTP; no usar ese comando como prueba rutinaria.
+
+   Para el ciclo aislado de fase 6 existe `scripts/run_phase6_cycle.ps1` y la
+   opción `pipeline.py --once`; el script configura captura DVWA, reportes y
+   SQLite locales, y limita correo a Mailpit.
 
 4. En el piloto, verificar reporte nuevo, archivo histórico, estado del trabajo
    y destinos de prueba. Si un envío queda `unknown`, conciliar con el

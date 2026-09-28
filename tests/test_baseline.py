@@ -280,6 +280,10 @@ class DashboardTests(IsolatedCase):
         self.assertEqual((threat["tipo"], threat["ip"], threat["estado"], threat["severidad"], threat["numero"]),
                          ("SQLi", "198.51.100.7", "-", "BAJA", "2"))
 
+    def test_h06_markdown_emphasis_is_removed_from_severity(self):
+        emphasized = report(severity="**ALTA**")
+        self.assertEqual(self.web.parsear_amenazas(emphasized)[0]["severidad"], "ALTA")
+
     def test_h08_missing_ip_not_attributed_to_busy_host(self):
         self.assertIn(self.web.parsear_amenazas(report(ip="Desconocido"))[0]["ip"], (None, "-", "Desconocido"))
 

@@ -40,6 +40,29 @@ class EmailNotificationTransportTests(unittest.TestCase):
         self.smtp.login.assert_called_once_with("sender@example.test", "lab-only-password")
         self.smtp.sendmail.assert_called_once()
 
+    def test_local_sink_can_accept_mailpit_without_authentication(self):
+        environment = {**self.environment, "EMAIL_PASSWORD": "", "EMAIL_SMTP_STARTTLS": "0"}
+        with patch.dict(os.environ, environment, clear=True), \
+             patch("config.notifications.smtplib.SMTP", return_value=self.smtp), \
+             patch("builtins.print"):
+            self.assertTrue(notifications.enviar_email("Test", "Body"))
+
+        self.smtp.login.assert_not_called()
+        self.smtp.sendmail.assert_called_once()
+
+    def test_non_loopback_sink_requires_a_password(self):
+        environment = {
+            **self.environment,
+            "EMAIL_PASSWORD": "",
+            "EMAIL_SMTP_SERVER": "smtp.example.test",
+        }
+        with patch.dict(os.environ, environment, clear=True), \
+             patch("config.notifications.smtplib.SMTP") as smtp_factory, \
+             patch("builtins.print"):
+            self.assertFalse(notifications.enviar_email("Test", "Body"))
+
+        smtp_factory.assert_not_called()
+
     def test_starttls_cannot_be_disabled_for_non_loopback_host(self):
         environment = {
             **self.environment,

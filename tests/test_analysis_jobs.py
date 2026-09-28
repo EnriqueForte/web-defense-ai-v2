@@ -95,6 +95,23 @@ class JobStoreTests(TestCase):
         self.assertNotIn("192.0.2.1", sink.messages["email"][0][1])
         self.assertEqual(self.store.deliveries(job["id"]), {"telegram": "sent", "email": "unknown"})
 
+    def test_email_only_destination_does_not_attempt_telegram(self):
+        from config import notifications
+        job, _ = self.store.enqueue("manual", "email-only")
+        self.store.claim()
+        report = ("## AMENAZAS DETECTADAS\n"
+                  "| Línea | Severidad | Tipo | Estado | IP Origen |\n"
+                  "| --- | --- | --- | --- | --- |\n"
+                  "| 1 | **ALTA** | SQLi | Intento | 192.0.2.1 |\n")
+        with patch.dict(os.environ, {"NOTIFICATION_DESTINATIONS": "email"}, clear=True), \
+             patch.object(notifications, "enviar_telegram") as telegram, \
+             patch.object(notifications, "enviar_email", return_value=True) as email:
+            pipeline.send_alerts(self.store, job["id"], report)
+
+        telegram.assert_not_called()
+        email.assert_called_once()
+        self.assertEqual(self.store.deliveries(job["id"]), {"email": "sent"})
+
     def test_analysis_requires_a_new_report_and_never_notifies_on_failure(self):
         report_dir = Path(self.temp.name) / "reports"
         report_dir.mkdir()

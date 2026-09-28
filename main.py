@@ -14,6 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process, LLM
 from config.prompts import PROMPT_ANALISTA
+from config.model_config import configured_model_candidates
 from dashboard.services.read_store import atomic_write_text
 
 
@@ -27,11 +28,7 @@ def get_llm_con_retry():
     """
     Intenta inicializar el LLM con reintento si hay rate limit.
     """
-    modelos = [
-        "groq/meta-llama/llama-4-scout-17b-16e-instruct",
-        "groq/llama-3.3-70b-versatile",
-        "groq/llama-3.1-8b-instant",
-    ]
+    modelos = configured_model_candidates()
     for modelo in modelos:
         try:
             llm = LLM(
@@ -51,12 +48,10 @@ def get_llm_con_retry():
 def get_llm():
     """
     Inicializa y retorna el modelo de lenguaje (LLM).
-    Usamos llama-3.3-70b-versatile para análisis de seguridad
-    porque necesitamos razonamiento preciso sobre patrones de ataque.
-    Si quiero utilizar menos tokens utilizamos el modelo groq/llama-3.1-8b-instant (mas rápido menos tokens)
+    Usa el modelo indicado por LLM_MODEL y los fallbacks configurados.
     """
     return LLM(
-        model="groq/meta-llama/llama-4-scout-17b-16e-instruct",
+        model=configured_model_candidates()[0],
         api_key=os.getenv("GROQ_API_KEY"),
         temperature=0.1,  # Baja temperatura = respuestas más precisas y consistentes
     )

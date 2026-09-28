@@ -37,7 +37,7 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
     smtp_host = smtp_server.strip().lower()
     smtp_is_loopback = smtp_host in {"localhost", "127.0.0.1", "::1", "[::1]"}
     smtp_starttls = smtp_starttls_requested or not smtp_is_loopback
-    if not all([remitente, password, destinatario]):
+    if not all([remitente, destinatario]) or (not password and not smtp_is_loopback):
         print("Email no configurado en .env")
         return False
     msg = MIMEMultipart()
@@ -49,7 +49,8 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
         with smtplib.SMTP(smtp_server, smtp_port) as s:
             if smtp_starttls:
                 s.starttls()
-            s.login(remitente, password)
+            if password:
+                s.login(remitente, password)
             s.sendmail(remitente, destinatario, msg.as_string())
         print(f"✅ Alerta enviada por email a {destinatario}")
         return True
