@@ -24,6 +24,8 @@ node node_modules/next/dist/bin/next build
 
 Next.js encamina `/api/v1/*` al Flask local mediante `next.config.ts`, por lo que
 el navegador consulta el mismo origen y no necesita CORS ni credenciales del motor.
+Los comandos `dev` y `start` vinculan Next.js a `127.0.0.1`; no publican la
+interfaz en la red local.
 El estado se lee cada 15 segundos cuando la pestaña está visible. Las listas y
 detalles se solicitan al abrirlos. Los filtros de amenazas y la selección de
 reportes se conservan en la URL. El Markdown se muestra como texto para impedir

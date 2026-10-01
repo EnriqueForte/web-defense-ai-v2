@@ -29,9 +29,9 @@ un ataque exitoso y una IP observada no equivale a un atacante.
 | 3. Indicadores | Componentes KPI y Lucide con nombres accesibles; solo métricas disponibles | Completada |
 | 4. Gráficos | Evaluar Recharts; distribución y series disponibles, estados vacíos y alternativa textual | Completada |
 | 5. Tablas | Densidad, filtros, evidencias y reportes; conservar paginación y presentación segura de texto | Completada |
-| 6. Adaptación y accesibilidad | Teclado, foco, reflujo equivalente a zoom 200 %, anchos intermedios y móvil; estados y contraste | Completada con límite de zoom indicado abajo |
+| 6. Adaptación y accesibilidad | Teclado, foco, reflujo equivalente a zoom 200 %, anchos intermedios y móvil; estados y contraste | Completada; zoom real confirmado por el usuario |
 | 7. Regresión | Pruebas de componentes, filtros, vistas, estados vacíos/error y compilación final | Completada |
-| 8. Seguridad y entrega | Revisar renderizado de datos no confiables, dependencias, límites locales y reversión | Pendiente |
+| 8. Seguridad y entrega | Revisar renderizado de datos no confiables, dependencias, límites locales y reversión | Completada el 01/10/2026 |
 
 Cada fase debe pasar lint, tipos/compilación y comprobaciones proporcionales al
 cambio antes de avanzar. Las bibliotecas propuestas se incorporarán cuando la
@@ -191,9 +191,9 @@ coincidencias. La cabecera muestra «SIN CONEXIÓN» cuando falla la lectura.
 Validación con fixture sintético: 320, 390, 650, 720, 768, 1024 y 1440 píxeles
 en el resumen, y 320/720/1024 en amenazas, reportes y actividad. El documento no
 desbordó horizontalmente; las tablas mantienen desplazamiento propio. El ancho
-útil de 720 px representa el reflujo de una ventana de 1440 px al 200 %, pero el
-navegador integrado no permitió aplicar el zoom real: queda una comprobación
-manual de ese gesto para la revisión final. En teclado se verificaron el enlace
+útil de 720 px representa el reflujo de una ventana de 1440 px al 200 %. El
+navegador integrado no permitió aplicar el zoom real durante la revisión inicial;
+el usuario confirmó después la prueba manual al 200 %. En teclado se verificaron el enlace
 «Saltar al contenido», el foco del gráfico, el menú móvil y su cierre con Escape
 y retorno del foco. La auditoría automatizada de texto visible en las cuatro
 vistas no detectó relaciones inferiores a 4,5:1; la mínima medida fue 6,92:1.
@@ -233,8 +233,49 @@ Verificaciones finales: `pnpm run test:ui` (6 grupos), `pnpm run lint`,
 (75 pruebas Python, 0 fallos conocidos pendientes, 3 comprobaciones JavaScript).
 El build final usa el destino habitual de API en el puerto 5000; durante el
 recorrido visual se aisló en el puerto 5051. No se ejecutó el motor ni se
-enviaron notificaciones. La comprobación real del zoom del navegador permanece
-pendiente según la limitación descrita en UI 6.
+enviaron notificaciones. El usuario confirmó la comprobación del zoom real del
+navegador al 200 % el 01/10/2026.
 
-La fase UI 8 queda pendiente para revisión de seguridad, dependencias, límites
-locales y reversión del rediseño.
+## Ajuste de navegación y autoría (01/10/2026)
+
+El logo de la consola devuelve al Resumen y limpia filtros, paginación y reporte
+seleccionado para restablecer el inicio. A petición del usuario, la autoría se
+trasladó desde el pie a la cabecera, con nombre, alias, rol de desarrollador y
+mantenedor, e iconos SVG accesibles para abrir GitHub y LinkedIn en pestañas
+nuevas. La cabecera conserva una sola fila: en tamaños estrechos oculta primero
+el rol y el breadcrumb antes de compactar la identidad. El pie queda como una franja
+compacta de estado: salud de las fuentes, API v1, entorno local, hora de captura
+cuando hay una captura y denominación del producto. No muestra versión de
+frontend/build porque esos valores no están disponibles como datos fiables.
+
+## Entrega de fase UI 8 — Seguridad y entrega (01/10/2026)
+
+La revisión del frontend no encontró `dangerouslySetInnerHTML`, `innerHTML`,
+`eval` ni construcción dinámica de código. Los campos de API y el Markdown/log
+se presentan como texto mediante React; la regresión de amenazas ya verifica
+que cargas de prueba con etiquetas y atributos hostiles queden escapadas. Los
+enlaces a GitHub y LinkedIn son destinos fijos y usan `rel="noopener noreferrer"`
+al abrir una pestaña nueva. No se exponen secretos ni credenciales del motor.
+
+Las dependencias directas siguen fijadas en `package.json` y `pnpm-lock.yaml`;
+no se añadieron paquetes en esta fase. `pnpm audit` consultado el 01/10/2026 no
+reportó vulnerabilidades conocidas. El proxy de `/api/v1` se limita a loopback,
+su puerto se valida en el rango permitido y utiliza 5000 como alternativa segura.
+Los scripts `dev` y `start` de Next.js quedan ligados explícitamente a
+`127.0.0.1`; antes, `start` usaba el valor predeterminado `0.0.0.0`.
+
+La API y el motor no cambiaron. Si la interfaz Next.js falla, la entrada local
+de Flask conserva su dashboard como retorno, descrito en
+[`FASE_7_ENTRADA_PRINCIPAL.md`](FASE_7_ENTRADA_PRINCIPAL.md). Para revertir una
+entrega de UI, revertir únicamente los cambios de `frontend/` y esta
+documentación, conservando Flask, datos, logs e históricos. No requiere borrar
+volúmenes ni restaurar secretos.
+
+Verificación final: `pnpm run test:ui` (6 grupos), `pnpm run lint`,
+`pnpm run build` con comprobación TypeScript, y la suite base con el intérprete
+`.venv` (75 pruebas Python y 3 comprobaciones JavaScript). El auditor de pnpm
+informó que no hay vulnerabilidades conocidas. El build de producción se inició
+temporalmente en el puerto 3101: respondió HTTP 200 y `netstat` confirmó escucha
+únicamente en `127.0.0.1`; el proceso de prueba se cerró al terminar.
+
+Con la fase UI 8 completada, queda cerrado el rediseño SOC planificado.
