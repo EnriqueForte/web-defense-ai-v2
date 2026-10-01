@@ -18,14 +18,18 @@ ciclos de análisis exitosos y se midió la API con logs sintéticos actuales y
 ampliados. El filtro de amenazas se optimizó para cumplir los objetivos p95.
 Siete entregas de correo están confirmadas y tres anteriores siguen `unknown`
 porque el Mailpit efímero se reinició antes de reconciliarlas. El retorno a
-Flask se ensayó con Next detenido (HTTP 200 en 53 ms). Una observación local de
-24 horas comenzó el 28/09/2026 a las 17:27 UTC; la fase sigue abierta hasta
-revisar su resumen.
+Flask se ensayó con Next detenido (HTTP 200 en 53 ms). El usuario cerró la fase
+6 el 29/09/2026 con 14 h 11 min 46 s de observación saludable (171 muestras,
+seis fallos previos durante recuperación); no se completaron las 24 horas ni se
+generó el resumen automático. La fase 7 comenzó el 01/10/2026: el usuario
+aceptó esa evidencia parcial para una activación local reversible. El
+conmutador sigue apagado por defecto y se habilita solo en la tarea local de
+Fase 7; la observación de uso para su cierre continúa pendiente.
 La UI consulta `/api/v1` y
 Flask sigue disponible como retorno local. La acción manual está desactivada
 por defecto y Flask rechaza solicitudes que no proceden de loopback.
-La fase 7 prepara un conmutador reversible de entrada; permanece apagado
-hasta aprobar la fase 6.
+La fase 7 prepara un conmutador reversible de entrada; consultar
+`docs/FASE_7_ENTRADA_PRINCIPAL.md` para la activación local y el retorno.
 Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.

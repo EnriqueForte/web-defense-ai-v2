@@ -1,14 +1,16 @@
 # web-defense-ai V2 — Análisis y plan de migración a React + Next.js
 
-Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Al 28 de septiembre se completaron las fases 0–4 y se implementó la coordinación local de fase 5 con pruebas aisladas. Para fase 6, el Compose DVWA aislado y la tarea de VSCode se iniciaron y comprobaron con capturas SQLi visibles en Flask y Next.js; la integración y el piloto sostenido siguen pendientes. La fase 7 prepara el conmutador reversible de entrada, que permanece apagado mientras no se cumpla la aceptación de fase 6. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
+Línea de base histórica: 26 de septiembre de 2026, commit `f4262ef`. La denominación V2 identifica la segunda versión del proyecto. Las fases 0–6 están cerradas; la fase 6 se cerró anticipadamente con diez ciclos, medición local, retorno a Flask y 14 h 11 min 46 s de observación saludable. No se completaron las 24 horas previstas ni se generó el resumen automático; consultar [FASE_6_PILOTO.md](FASE_6_PILOTO.md). El 01/10/2026 comenzó la fase 7: el usuario aceptó esa evidencia parcial para activar localmente el conmutador reversible. Sigue apagado por defecto y no hay despliegue compartido. Las secciones de revisión inicial conservan los hallazgos de aquella fecha y están identificadas como históricos.
 
 El desarrollo, las pruebas y la coordinación se realizan en Codex. VSCode abre y revisa el mismo proyecto local; no es una dependencia para iniciar las fases. El [plan de agentes y tareas](PLAN_AGENTES_TAREAS.md) reúne responsabilidades y dependencias. Las mejoras del motor se evalúan por separado del cambio de interfaz.
 
 ## 1. Decisión recomendada
 
-Estado 28/09/2026: fases 0–4 completadas; fase 5 implementada localmente sin
-activar integraciones reales; el Compose aislado de fase 6 y su tarea de inicio de VSCode están comprobados. La interfaz de lectura
-se implementó en Windows/Node 24. El contrato de lectura está documentado en
+Estado 01/10/2026: fases 0–6 cerradas; la fase 7 está en curso con entrada
+Next.js local reversible comprobada. La fase 6 fue aceptada anticipadamente
+con la observación parcial y sus límites documentados tras validar diez ciclos
+integrados, entregas locales, rendimiento y retorno a Flask.
+La interfaz de lectura se implementó en Windows/Node 24. El contrato de lectura está documentado en
 [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md) y la entrega visual en
 [FASE_3_BASE_VISUAL.md](FASE_3_BASE_VISUAL.md), la conexión en
 [FASE_4_LECTURA_CONECTADA.md](FASE_4_LECTURA_CONECTADA.md) y la coordinación en
@@ -23,9 +25,9 @@ IP y cronología. La vista de reportes filtra elementos y atributos no permitido
 comprobaciones usan un DOM sintético y no sustituyen revisión en un navegador real.
 La migración progresiva utiliza **Next.js con React y TypeScript**, conserva **Flask como API y Python/CrewAI como motor de análisis**. Ambos dashboards conviven durante la transición; las plantillas se retirarán únicamente después de demostrar equivalencia funcional y ensayar la reversión.
 
-El proyecto separa el motor y la interfaz. Las fases 1 y 2 desacoplaron las lecturas de la sincronización de Docker y las notificaciones. La fase 5 incorporó coordinación local de análisis; los reportes Markdown variables y el piloto real siguen condicionando el despliegue.
+El proyecto separa el motor y la interfaz. Las fases 1 y 2 desacoplaron las lecturas de la sincronización de Docker y las notificaciones. La fase 5 incorporó coordinación local de análisis; los reportes Markdown variables y la operación compartida siguen condicionando el despliegue.
 
-Secuencia: **pruebas, correcciones, API, base visual y lectura conectada completadas → coordinación local de fase 5 implementada → validar el laboratorio y las integraciones en piloto → cambiar la entrada principal**.
+Secuencia: **fases 0–6 completadas (fase 6 con cierre anticipado aceptado) → activación local reversible en fase 7 → observar el uso y decidir su cierre antes de cualquier ampliación de alcance**.
 
 Ninguna migración puede garantizar ausencia absoluta de fallos. Este plan reduce el riesgo mediante cambios pequeños, contratos verificables, una única ejecución del motor y reversión sin transformar los datos históricos.
 
@@ -164,7 +166,7 @@ Configurar expresamente el refresco y los reintentos: TanStack Query puede volve
 
 ### API versionada existente y acciones propuestas
 
-Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la especificación exacta está en [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md). La fase 5 añadió rutas de análisis, estado persistente y señal local del ejecutor en `salud`; la activación real está pendiente del piloto.
+Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la especificación exacta está en [FASE_2_API_LECTURA.md](FASE_2_API_LECTURA.md). La fase 5 añadió rutas de análisis, estado persistente y señal local del ejecutor en `salud`; el piloto local integrado se ejecutó en fase 6 y la acción permanece desactivada por defecto.
 
 | Endpoint nuevo | Datos / resultado | Regla |
 |---|---|---|
@@ -172,7 +174,7 @@ Los cinco endpoints GET de lectura de la tabla existen desde la fase 2; la espec
 | `GET /api/v1/amenazas` | Filtros por tipo/severidad/IP, paginación y alcance del reporte actual | Existe desde fase 2; no simula una base histórica de incidentes |
 | `GET /api/v1/reportes` | Históricos paginados, fecha de archivo y metadatos disponibles | No limita todo el acceso a los cinco elementos del dashboard |
 | `GET /api/v1/reportes/{id}` | Markdown y metadatos del reporte | Identificador resuelto en servidor, sin aceptar rutas arbitrarias |
-| `POST /api/v1/analisis` | `202` con identificador del trabajo | Localhost, conmutador desactivado por defecto, clave de idempotencia y exclusión compartida; autenticación central pendiente de fase 6 |
+| `POST /api/v1/analisis` | `202` con identificador del trabajo | Localhost, conmutador desactivado por defecto, clave de idempotencia y exclusión compartida; autenticación central necesaria antes de cualquier acceso compartido |
 | `GET /api/v1/analisis/{id}` | Estado, fase real, tiempos, resultado y error resumido | Sobrevive a reinicios; no inventa porcentaje de progreso |
 | `GET /api/v1/salud` | Metadatos ligeros de fuentes locales y señal local del ejecutor | No hace llamadas pagadas ni envía mensajes para comprobar disponibilidad |
 
@@ -190,7 +192,7 @@ Las rutas anteriores y la forma JSON de `/api/estado` se conservaron. La correcc
 
 ## 6. Diseño propuesto: consola de ciberseguridad operativa
 
-La fase 3 implementó la composición visual con datos sintéticos. La fase 4 conectó resumen, amenazas, actividad y reportes a Flask; la fase 5 añadió la acción manual controlada y el estado del ejecutor. El piloto real sigue pendiente.
+La fase 3 implementó la composición visual con datos sintéticos. La fase 4 conectó resumen, amenazas, actividad y reportes a Flask; la fase 5 añadió la acción manual controlada y el estado del ejecutor. La fase 6 validó el recorrido integrado en el laboratorio local; el uso compartido sigue fuera de alcance.
 
 Usar el nombre web-defense-ai V2 y conservar T3r0S3c como firma del autor, fondo azul oscuro, acentos cian/verde y terminal monoespaciado. Reservar rojo y ámbar para severidad; aumentar el contraste del texto secundario y reducir el ruido decorativo. El aspecto debe ayudar a investigar, con información legible y estado fiable.
 
@@ -222,6 +224,13 @@ Estimación orientativa formulada antes de iniciar la migración, para una perso
 | 5. Análisis e integraciones | Registro persistente de trabajos, un ejecutor, coordinación de ciclos/manual, idempotencia y notificaciones deduplicadas; conectar botón real | Doble clic o reintento no duplica trabajo; reinicio no muestra éxito falso; reporte nuevo publicado y notificaciones verificadas en entorno de prueba | Desactivar admisión manual; terminar/reconciliar trabajos activos; mantener un único programador | 4–6 días |
 | 6. Validación y despliegue piloto | Pruebas completas, carga representativa, autenticación si hay acceso compartido, empaquetado, observabilidad y ensayo de retorno | Sin fallos bloqueantes; restauración ensayada; estabilidad durante al menos 24–48 horas y diez ciclos completados, lo que tarde más | Cambiar entrada a Flask validado; conservar motor y datos | 3–5 días |
 | 7. Cambio principal y cierre | Preparar conmutador reversible; tras aceptar fase 6, Next.js pasa a ser la entrada habitual; actualizar operación, registrar métricas y mantener retorno temporal | Recorridos aceptados; periodo sugerido de siete días de uso sin incidencias bloqueantes; decisión documentada de retirada | Desactivar `NEXT_PRIMARY_ENABLED` y volver a Flask | 1–2 días de trabajo + observación |
+
+El 01/10/2026 el usuario aceptó expresamente la observación parcial de fase 6
+para **activar la entrada Next.js solo en el entorno local y con retorno a
+Flask**. Es una excepción documentada al criterio inicial de 24–48 horas, no
+una medición completada ni permiso para publicar la consola en una red
+compartida. La observación de uso y la decisión de cierre de fase 7 permanecen
+pendientes.
 
 **Total orientativo inicial: 24–37 jornadas de trabajo**, aproximadamente 5–8 semanas laborables, más las ventanas de observación que no puedan solaparse. No es una fecha comprometida. La entrega de lectura está disponible desde la fase 4; la acción manual está implementada pero desactivada hasta el piloto, y la sustitución principal requiere las fases siguientes.
 
@@ -283,7 +292,7 @@ Condiciones para cambiar la entrada principal: todas las funciones existentes re
 ## 10. Reversión y operación
 
 1. Antes del piloto, conservar una versión ejecutable del Flask corregido, configuración de entrada anterior, dependencias fijadas y copia de datos con comprobación de integridad. Los secretos se respaldan por separado y nunca se versionan.
-2. Disponer de conmutadores de activación para interfaz nueva y admisión de análisis manual. `ANALYSIS_MANUAL_ENABLED` controla ya la admisión; el conmutador para la entrada principal sigue pendiente.
+2. Disponer de conmutadores de activación para interfaz nueva y admisión de análisis manual. `ANALYSIS_MANUAL_ENABLED` controla la admisión y `NEXT_PRIMARY_ENABLED` controla la entrada; la tarea local de Fase 7 fija el segundo a `1` sin modificar `.env`.
 3. Revertir ante pantalla inutilizable, errores reiterados, discrepancias inexplicadas, trabajo duplicado, pérdida de datos o ejecución de contenido no confiable. Como umbral inicial de operación: tres fallos consecutivos de estado o más de 1 % de respuestas 5xx durante cinco minutos con tráfico suficiente; ajustar durante el piloto de fase 6.
 4. Si falla la interfaz, dirigir la entrada al Flask validado, manteniendo el backend compatible y el ejecutor. Objetivo inicial: retorno en menos de diez minutos, medido en el ensayo de la fase 6.
 5. Si falla la API nueva, desactivarla o volver a la versión compatible identificada. Verificar lecturas y salud; un cambio de interfaz no resuelve por sí solo una incidencia de backend.
@@ -323,4 +332,4 @@ Estos resultados son históricos: confirman problemas presentes el 26/09/2026, n
 
 La ruta de HTML no confiable se fundamentó en el código original inspeccionado. La fase 1 corrigió la representación del dashboard Flask. La fase 4 muestra el Markdown en React como texto y no ejecuta HTML ni enlaces del archivo. Si más adelante se añade formato enriquecido, deberá conservar esa política restrictiva.
 
-La fase 6 ya completó diez ciclos reales con datos DVWA, verificó notificaciones locales y midió las rutas de lectura con 88 y 10.000 líneas sintéticas. El filtro de amenazas se ajustó para cumplir los objetivos p95 con 1, 5 y 10 clientes. Quedan tres entregas SMTP `unknown` por la pérdida de mensajes al reiniciar Mailpit; no se repitieron sin evidencia. El retorno a Flask respondió HTTP 200 en 53 ms. Una observación local de 24 horas comenzó el 28/09/2026 a las 17:27 UTC; el cierre depende de revisar su resumen y extender a 48 horas si reporta fallos. La acción manual continúa desactivada. La fase 7 añade un conmutador de entrada inactivo por defecto y retorno a Flask cuando Next.js no responde a la solicitud que llega al dashboard Flask.
+La fase 6 completó diez ciclos reales con datos DVWA, verificó notificaciones locales y midió las rutas de lectura con 88 y 10.000 líneas sintéticas. El filtro de amenazas se ajustó para cumplir los objetivos p95 con 1, 5 y 10 clientes. Quedan tres entregas SMTP `unknown` por la pérdida de mensajes al reiniciar Mailpit; no se repitieron sin evidencia. El retorno a Flask respondió HTTP 200 en 53 ms. El usuario cerró la fase el 29/09/2026 tras 14 h 11 min 46 s saludables (171 muestras; intervalo máximo 301,2 s). Hubo seis fallos durante la recuperación anterior; no se completaron las 24 horas previstas ni se generó el resumen automático. Ver el detalle en [FASE_6_PILOTO.md](FASE_6_PILOTO.md). La acción manual continúa desactivada por defecto. El 01/10/2026 el usuario aceptó esa evidencia parcial para activar localmente el conmutador de fase 7. Su valor predeterminado sigue apagado, el retorno a Flask se ensayó y queda pendiente observar el uso antes de cerrar la fase.

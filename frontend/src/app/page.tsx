@@ -260,7 +260,7 @@ export default function Home() {
 
         {view === "Actividad" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG</div><h2>Actividad reciente</h2><p>Ventana limitada que entrega la API; no es un registro histórico completo</p></div></div><LogLines lines={state?.data.recent_log ?? []} /><p className="status-copy">Origen: {state?.meta.sources.log?.status ?? "sin lectura"} · última modificación {dateLabel(state?.meta.sources.log?.modified_at)}</p></section>}
 
-        <footer className="page-footer"><span>web-defense-ai V2 · Consola local</span><span>Fase 5 · API v1 · Flask conserva la entrada anterior</span></footer>
+        <footer className="page-footer"><span>web-defense-ai V2 · Consola local</span><span>API v1 · Flask disponible como retorno</span></footer>
       </div>
     </section>
   </main>;

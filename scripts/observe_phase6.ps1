@@ -2,7 +2,8 @@ param(
     [ValidateRange(1, 48)]
     [int]$DurationHours = 24,
     [ValidateRange(30, 3600)]
-    [int]$IntervalSeconds = 300
+    [int]$IntervalSeconds = 300,
+    [switch]$Resume
 )
 
 $ErrorActionPreference = 'Stop'
@@ -11,11 +12,40 @@ $observationDir = Join-Path $repoRoot '.local-state\phase6-pilot\observation'
 New-Item -ItemType Directory -Path $observationDir -Force | Out-Null
 $recordsPath = Join-Path $observationDir 'health.jsonl'
 $summaryPath = Join-Path $observationDir 'summary.json'
-$startedAt = [DateTimeOffset]::UtcNow
-$deadline = $startedAt.AddHours($DurationHours)
-$sampleCount = 0
-$failureCount = 0
 $encoding = [System.Text.UTF8Encoding]::new($false)
+
+if ($Resume) {
+    if (-not (Test-Path $recordsPath)) {
+        throw 'No se puede reanudar: no existe el registro health.jsonl.'
+    }
+    if (Test-Path $summaryPath) {
+        throw 'No se puede reanudar una observación que ya tiene summary.json.'
+    }
+    $existingLines = @(Get-Content -LiteralPath $recordsPath)
+    if ($existingLines.Count -eq 0) {
+        throw 'No se puede reanudar: el registro de salud está vacío.'
+    }
+    $existingRecords = @($existingLines | ForEach-Object {
+        ConvertFrom-Json -InputObject $_ -ErrorAction Stop
+    })
+    $startTimestampMatch = [regex]::Match($existingLines[0], '"timestamp_utc"\s*:\s*"([^"]+)"')
+    if (-not $startTimestampMatch.Success) {
+        throw 'No se puede reanudar: falta la marca timestamp_utc inicial.'
+    }
+    $startedAt = [DateTimeOffset]::Parse($startTimestampMatch.Groups[1].Value).ToUniversalTime()
+    $deadline = $startedAt.AddHours($DurationHours)
+    if ([DateTimeOffset]::UtcNow -ge $deadline) {
+        throw 'La ventana original ya alcanzó su fecha límite; no se extenderá al reanudar.'
+    }
+    $sampleCount = $existingRecords.Count
+    $failureCount = @($existingRecords | Where-Object { -not $_.ok }).Count
+}
+else {
+    $startedAt = [DateTimeOffset]::UtcNow
+    $deadline = $startedAt.AddHours($DurationHours)
+    $sampleCount = 0
+    $failureCount = 0
+}
 
 function Get-HttpStatus([string]$Uri) {
     try {
@@ -31,15 +61,25 @@ function Get-HttpStatus([string]$Uri) {
 }
 
 function Get-ContainerStatus([string]$Name) {
-    $value = & docker inspect --format '{{.State.Status}}' $Name 2>$null
-    if ($LASTEXITCODE -ne 0) { return 'unavailable' }
-    return [string]$value
+    try {
+        $value = & docker inspect --format '{{.State.Status}}' $Name 2>$null
+        if ($LASTEXITCODE -ne 0) { return 'unavailable' }
+        return [string]$value
+    }
+    catch {
+        return 'unavailable'
+    }
 }
 
 function Get-DatabaseHealth([string]$Name) {
-    $value = & docker inspect --format '{{.State.Health.Status}}' $Name 2>$null
-    if ($LASTEXITCODE -ne 0) { return 'unavailable' }
-    return [string]$value
+    try {
+        $value = & docker inspect --format '{{.State.Health.Status}}' $Name 2>$null
+        if ($LASTEXITCODE -ne 0) { return 'unavailable' }
+        return [string]$value
+    }
+    catch {
+        return 'unavailable'
+    }
 }
 
 while ([DateTimeOffset]::UtcNow -lt $deadline) {
@@ -97,6 +137,7 @@ $summary = [ordered]@{
     interval_seconds = $IntervalSeconds
     samples = $sampleCount
     failed_samples = $failureCount
+    resumed = [bool]$Resume
     complete = ([DateTimeOffset]::UtcNow -ge $deadline)
 }
 [System.IO.File]::WriteAllText($summaryPath, ($summary | ConvertTo-Json -Depth 3), $encoding)

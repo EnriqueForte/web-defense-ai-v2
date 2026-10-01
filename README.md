@@ -8,9 +8,9 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 ## Estado de esta versión
 
-El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La nueva interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añade trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6, el Compose de DVWA/Mailpit ya se inició y se comprobó la captura de actividad SQLi en ambas dashboards. Sigue pendiente probar el arranque mediante la tarea de VSCode, la integración completa del piloto y la observación sostenida. La fase 7 prepara un conmutador de entrada que sigue apagado hasta aprobar ese piloto.
+El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añadió trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6 se comprobaron el laboratorio DVWA/Mailpit, diez ciclos integrados, la carga de la API y el retorno a Flask. El usuario cerró anticipadamente esa fase el 29/09/2026 con 14 h 11 min 46 s saludables, sin completar las 24 horas previstas. La fase 7 está en curso: el 01/10/2026 se aceptó esa evidencia parcial para una activación local reversible. El conmutador permanece apagado por defecto; una tarea específica inicia Flask con Next.js como entrada sin editar `.env`.
 
-Las fases 0–4 completaron la línea base, estabilización de Flask, API versionada, base visual y lectura conectada. La fase 5 incorpora coordinación local comprobada con dobles de prueba. Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la entrega de fase 4](docs/FASE_4_LECTURA_CONECTADA.md) y [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md).
+Las fases 0–6 están cerradas; la fase 6 incluye los límites de observación descritos en [su acta](docs/FASE_6_PILOTO.md). Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md) y [el estado de la fase 7](docs/FASE_7_ENTRADA_PRINCIPAL.md).
 
 | Documento | Contenido |
 |---|---|
@@ -43,10 +43,18 @@ Se recomiendan extensiones de Python, Pylance, depuración, Black y YAML. Selecc
 | Revisar sintaxis sin ejecutar el motor | Ctrl+Shift+B |
 | Ver dashboard con recarga local | Terminal → Ejecutar tarea → web-defense-ai V2: dashboard con recarga local |
 | Ver consola Next.js conectada | Terminal → Ejecutar tarea → web-defense-ai V2: lectura conectada (Flask + Next.js) |
+| Usar Next.js como entrada local reversible | Terminal → Ejecutar tarea → web-defense-ai V2: entrada Next.js local (Fase 7) |
 | Depurar el dashboard | Ejecutar y depurar → web-defense-ai V2: dashboard local → F5 |
 | Leer documentación renderizada | Abrir Markdown y pulsar Ctrl+Shift+V |
 
 Abrir [el dashboard local](http://127.0.0.1:5000) después de iniciar su tarea. Las modificaciones de archivos se reflejan en VSCode; la página web debe actualizarse al cambiar HTML o CSS. El proceso Flask se recarga ante cambios Python en la tarea de visualización. El perfil de depuración usa reinicio manual.
+
+La tarea de Fase 7 hace que la misma dirección de Flask redirija a Next.js
+cuando ambos están disponibles. Si Next.js cae, una visita nueva vuelve al
+dashboard Flask. Para desactivar la redirección explícitamente, detener las
+terminales de Fase 7 y arrancar la tarea habitual de Flask; no ejecutar dos
+tareas Flask a la vez en el puerto 5000. El procedimiento y sus límites están
+en [FASE_7_ENTRADA_PRINCIPAL.md](docs/FASE_7_ENTRADA_PRINCIPAL.md).
 
 ## Arquitectura actual
 
@@ -96,7 +104,7 @@ El laboratorio DVWA aislado se inicia solo cuando se decida verificarlo, usando
 `scripts/stop_dvwa_lab.ps1`. La [guía del laboratorio](docs/LABORATORIO_DVWA_FASE_6.md)
 describe los límites, la copia del log y la eliminación explícita de los datos
 del contenedor. Estas operaciones no inician Flask, CrewAI, el pipeline ni
-notificaciones. La fase 6 sigue pendiente de una integración controlada; no
+notificaciones. La integración controlada de fase 6 ya se realizó; no
 usar `main.py` o `pipeline.py` como comprobaciones de arranque. Para visualizar
 Next.js con lectura de Flask basta la tarea conjunta de ambos servidores.
 

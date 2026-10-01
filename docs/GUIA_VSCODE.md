@@ -107,6 +107,21 @@ La estructura actual está bajo `frontend/src/app/`; su propio `AGENTS.md` conse
 la guía de desarrollo generada por la versión instalada de Next.js. La distribución
 Python permanece en la raíz para no alterar imports o rutas del motor.
 
+## Fase 7: entrada Next.js local y retorno
+
+La tarea **web-defense-ai V2: entrada Next.js local (Fase 7)** inicia Flask y
+Next.js en loopback. Flask recibe `NEXT_PRIMARY_ENABLED=1` y mantiene el
+análisis manual desactivado. Abrir `http://127.0.0.1:5000/`: si Next.js está
+disponible, la dirección redirige a `http://127.0.0.1:3000/`. Si Next.js deja
+de responder, una visita nueva a Flask muestra el dashboard anterior.
+
+Para volver al modo anterior, detener las dos terminales de Fase 7 y ejecutar
+**web-defense-ai V2: lectura conectada (Flask + Next.js)** o **dashboard con
+recarga local**. Ambas fijan `NEXT_PRIMARY_ENABLED=0` para Flask. No iniciar
+dos tareas Flask simultáneamente en el puerto 5000. La aceptación parcial de
+la observación de Fase 6 cubre solo esta activación local; consultar
+[el registro de Fase 7](FASE_7_ENTRADA_PRINCIPAL.md) antes de ampliar el uso.
+
 ## Fase 5: análisis coordinado
 
 La tarea **lectura conectada** solo inicia Flask y Next.js. La acción manual de

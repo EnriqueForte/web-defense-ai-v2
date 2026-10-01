@@ -112,8 +112,10 @@ o críticas, no se genera correo. `ANALYSIS_MANUAL_ENABLED` y la entrada Next.js
 principal permanecen desactivadas.
 
 Este ciclo por sí solo no cierra el piloto. Los diez ciclos y la medición API
-ya están registrados; siguen pendientes la observación de 24–48 horas y el
-ensayo operativo de reversión.
+ya están registrados; el usuario cerró posteriormente la Fase 6 con una
+observación parcial de 14 h 11 min 46 s saludables, sin completar las 24 horas
+previstas ni generar el resumen automático. El ensayo operativo de reversión sí
+se completó. Consulta [el registro y los límites del cierre](FASE_6_PILOTO.md).
 
 Para repetir la medición de la API sin Docker, credenciales ni llamadas al
 modelo, ejecuta:

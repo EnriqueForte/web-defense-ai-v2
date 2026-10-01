@@ -1,14 +1,31 @@
 # Fase 6 — Validación y preparación del piloto
 
-Estado: diez ciclos integrados terminaron correctamente el 28/09/2026 y
+Estado: cerrada anticipadamente el 29/09/2026 por decisión del usuario, con
+observación parcial documentada. Diez ciclos integrados terminaron correctamente el 28/09/2026 y
 publicaron diez reportes archivados. Se probaron DVWA/MySQL y Mailpit en
 loopback. Siete entregas de correo están confirmadas; tres intentos anteriores
 permanecen `unknown` porque se reinició Mailpit antes de poder revisarlos. Una
 alerta sintética posterior confirmó el envío tras corregir el falso estado
 causado por la codificación de consola. El retorno a Flask se ensayó con Next
 detenido: Flask respondió HTTP 200 en 53 ms y conservó salud `ok`. La ventana
-de observación de 24 horas comenzó el 28/09/2026 a las 17:27 UTC; la fase sigue
-abierta hasta validar su resumen.
+de observación de 24 horas comenzó el 28/09/2026 a las 20:23 UTC, después de
+descartar la ventana anterior por una interrupción prolongada entre muestras.
+Sus registros se conservan en
+`.local-state/phase6-pilot/observation/health.partial-20260928T172742Z.jsonl`.
+La ventana válida conservó su inicio del 28/09/2026 a las 20:23:28 UTC y se
+reanudó con `-Resume`; la observación anterior de las 17:27 UTC permanece
+archivada como parcial. El proceso volvió a interrumpirse después de la muestra
+del 29/09/2026 a las 03:26:45 UTC cuando Docker dejó de estar disponible. El
+mismo `health.jsonl` se reanudó a las 05:35 UTC y se amplió a 48 horas desde su
+marca inicial. Los registros de recuperación incluyen seis muestras fallidas.
+La última muestra disponible es del 29/09/2026 a las 20:15:37 UTC. Desde la
+primera muestra saludable posterior a la recuperación (06:03:51 UTC) se
+registraron 171 muestras consecutivas saludables durante 14 h 11 min 46 s,
+con un intervalo máximo entre muestras de 301,2 s. El usuario decidió terminar
+la observación antes de las 24 horas consecutivas inicialmente previstas. El
+monitor se detuvo y se conservó `health.jsonl`; al pararlo antes del plazo no
+se generó `summary.json`, por lo que esta aceptación no equivale a superar la
+ventana completa ni su resumen automático.
 
 La medición local de la API con 88 y 10.000 líneas sintéticas pasó los
 objetivos p95 de estado (<500 ms) y filtro (<200 ms) con 1, 5 y 10 clientes,
@@ -25,11 +42,12 @@ La ruta de retorno Flask respondió HTTP 200 con Next.js detenido. El script rep
 [`scripts/benchmark_phase6_api.py`](../scripts/benchmark_phase6_api.py).
 
 La puesta en marcha, detención, captura del log aislado y límites del entorno
-están en [la guía del laboratorio DVWA](LABORATORIO_DVWA_FASE_6.md). Esta
-preparación no cambia `docker-compose.yml` ni activa el motor. La comprobación
-manual del laboratorio no equivale al piloto integrado ni a su aceptación.
+están en [la guía del laboratorio DVWA](LABORATORIO_DVWA_FASE_6.md). El piloto
+usa el Compose aislado de DVWA y ejecuta los ciclos solo mediante el script
+acotado descrito abajo; no activa el programador de análisis ni la entrada
+principal de Next.js.
 
-## Preparación local realizada
+## Validaciones locales realizadas
 
 - El arranque directo de Flask queda ligado a `127.0.0.1` y sin depurador.
   Las rutas Flask rechazan clientes cuya dirección no sea loopback, incluidas
@@ -41,9 +59,10 @@ manual del laboratorio no equivale al piloto integrado ni a su aceptación.
   contenido y resultado de notificaciones capturadas en memoria, fallo de
   análisis y denegación de acceso remoto. Los transmisores de red están
   sustituidos por un receptor de prueba que no realiza conexiones.
-- La concurrencia sintética con 1, 5 y 10 clientes comprueba respuestas y
-  consistencia de captura; no mide p95 ni sustituye la carga con tamaños de
-  log y hardware representativos descrita en el plan principal.
+- El benchmark reproducible mide p95 con 1, 5 y 10 clientes y logs sintéticos
+  de 88 y 10.000 líneas; los resultados y el hardware figuran al inicio de
+  este documento. Es una carga local representativa, no una prueba de
+  producción.
 - La revisión conectada en navegador usa la fixture en el puerto aislado
   `5051`, mientras Next.js dirige su API local mediante
   `WEB_DEFENSE_API_PORT=5051`. Se recorrieron resumen, filtros, históricos y
@@ -53,28 +72,17 @@ manual del laboratorio no equivale al piloto integrado ni a su aceptación.
 - La base SQLite y bloqueos permanecen en almacenamiento local ignorado por
   Git. Las lecturas no inician trabajos ni hacen llamadas externas.
 
-## Condiciones antes del piloto real
+## Piloto local ejecutado
 
-1. Antes de iniciar una integración controlada, confirmar que ningún pipeline
-   antiguo esté activo. Ya se comprobó desde VSCode la tarea **laboratorio DVWA
-   (Flask + Next.js)**, el Compose en loopback y la detención conservando la base.
-2. Preparar destinos de notificación de prueba, distintos de destinatarios
-   operativos. No poner credenciales en el repositorio ni en esta conversación.
-3. Revisar `.env.example` y configurar las variables necesarias localmente;
-   `ANALYSIS_MANUAL_ENABLED` permanece en `0` hasta confirmar el entorno.
-4. Arrancar primero Flask y Next.js en loopback y comprobar lecturas, salud,
-   reporte actual, históricos y ruta de retorno Flask.
-5. Activar el ejecutor de forma explícita, medir un ciclo completo y verificar
-   sincronización, publicación nueva, histórico, estado durable y cada destino
-   de prueba. Si una entrega queda `unknown`, comprobar el receptor antes de
-   intentar otra vez.
-6. Mantener el laboratorio bajo observación al menos 24–48 horas; diez ciclos
-   exitosos ya están registrados. Registrar duración, resultado, errores,
-   reporte publicado y entrega de cada destino, sin copiar secretos o logs
-   completos a los registros de desarrollo.
-7. Ensayar retorno: cerrar nuevas solicitudes, esperar o reconciliar el trabajo
-   activo, detener un único ejecutor, apagar Next.js y confirmar que Flask y
-   los reportes siguen disponibles. Medir el tiempo de retorno.
+El 28/09/2026 se comprobó el Compose aislado y la tarea de arranque de Flask,
+Next.js y DVWA. Se usaron destinos ficticios en Mailpit; se verificaron diez
+ciclos integrados, reportes e historial, estados durables y entregas. Tres
+resultados antiguos permanecen `unknown` porque Mailpit había sido reiniciado;
+no se repitieron sin evidencia. También se midieron las API y se ensayó la
+reversión a Flask con Next.js detenido. La observación se cerró anticipadamente
+por decisión del usuario. La evidencia disponible y sus límites quedan
+registrados abajo; no se afirma que se haya cumplido el objetivo original de
+24 horas.
 
 ## Ciclo integrado acotado
 
@@ -97,8 +105,11 @@ por hora de entrega. Un envío sintético posterior quedó confirmado como `sent
 tras hacer los mensajes de consola compatibles con Windows. El monitor
 [`scripts/observe_phase6.ps1`](../scripts/observe_phase6.ps1) registra cada cinco
 minutos la salud de Flask, Next.js, DVWA, Mailpit y MySQL, sin ejecutar análisis
-ni guardar cuerpos de respuestas. Su resumen se guarda en
-`.local-state/phase6-pilot/observation/summary.json` al completar las 24 horas.
+ni guardar cuerpos de respuestas. La opción `-Resume` conserva la primera
+marca de tiempo y los contadores del registro existente; `-DurationHours` puede
+extender su fecha límite sin crear otro registro. Su resumen se guarda en
+`.local-state/phase6-pilot/observation/summary.json` al alcanzar el plazo
+configurado.
 
 La aplicación sigue restringida a un usuario local. No desplegarla en una red
 compartida: el guardado local no sustituye autenticación central para Flask,
@@ -111,9 +122,17 @@ La medición local, los diez ciclos y el ensayo de retorno ya están completados
 El benchmark usa fixtures sintéticas y un servidor WSGI local, por lo que no
 representa el renderizado del navegador ni una carga de producción. Los tres
 estados `unknown` siguen documentados y no se reintentan sin evidencia del
-receptor. La fase continúa abierta hasta revisar el resumen de observación de
-24 horas; si registra fallos, se prolongará hasta 48 horas y se analizarán
-antes del cierre.
+receptor. El usuario acepta cerrar la fase con la evidencia disponible: diez
+ciclos integrados, medición local, ensayo de retorno y un tramo final de 171
+muestras saludables en 14 h 11 min 46 s (intervalo máximo 301,2 s). El registro
+completo contiene seis fallos de disponibilidad durante la recuperación,
+todos antes de ese tramo saludable. La observación terminó por decisión del
+usuario antes de las 24 horas consecutivas requeridas inicialmente y no existe
+`summary.json`; por tanto, el cierre es una aceptación explícita de ese límite,
+no una certificación de estabilidad durante 24 horas. Los tres correos
+`unknown` siguen sin reconciliarse y no se reintentaron. La Fase 7 puede
+continuar en su preparación, pero este cierre anticipado por sí solo no cumple
+su criterio separado de 24–48 horas estables ni autoriza activar el conmutador.
 
 ## Reversión
 

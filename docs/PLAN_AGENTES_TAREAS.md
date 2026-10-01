@@ -1,6 +1,6 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Revisión inicial: 26 de septiembre de 2026. Estado al 28/09/2026: fases 0–4 completadas; fase 5 implementada y verificada con dobles; el laboratorio aislado de DVWA/Mailpit de fase 6 se inició y se comprobó con capturas SQLi visibles en Flask y Next.js. La tarea de VSCode para iniciar ambos dashboards también funciona; el piloto sostenido sigue pendiente. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
+Revisión inicial: 26 de septiembre de 2026. Estado al 01/10/2026: fases 0–6 completadas; fase 6 cerrada anticipadamente con diez ciclos integrados, medición local, retorno a Flask y 14 h 11 min 46 s saludables. No se alcanzaron las 24 horas ni se generó el resumen automático; ver [FASE_6_PILOTO.md](FASE_6_PILOTO.md). El usuario aceptó esa evidencia parcial para activar localmente en fase 7 el conmutador reversible, que sigue apagado por defecto. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
 
 ## 1. Decisión y distinciones
 
@@ -141,9 +141,9 @@ Estados del backlog: **preparado** significa archivo creado; **pendiente** requi
 | A-05 | Evaluar integración real y activar por configuración | Backend + Delivery / Quality | A-03, A-04 | Comparación de calidad/coste/latencia y retorno al flujo previo ensayado | Pendiente, evolución del motor |
 | F3-01 | Base visual Next.js con datos simulados | Codex | F2-01 | Consola de resumen, navegación, estados y demo adaptables; build, lint y tipos correctos; motor intacto | Completada; build Next y revisión visual en escritorio/móvil |
 | F4-01 | Conectar lectura y reportes | Codex | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Completada; integración con fixture y navegador local |
-| F5-01 | Coordinación manual/periódica y publicación coherente | Codex | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Implementada localmente; pruebas aisladas, piloto real en fase 6 |
+| F5-01 | Coordinación manual/periódica y publicación coherente | Codex | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Completada; pruebas aisladas y diez ciclos integrados en fase 6 |
 | F6-LAB-01 | Preparar laboratorio DVWA aislado y captura de logs de prueba | Codex | F5-01 | Red interna; puertos solo loopback; sin montaje del repositorio; correo en sink local; logs separados; inicio y detención documentados | Contenedores y tarea de VSCode comprobados; solicitudes SQLi capturadas y visibles en ambas dashboards |
-| F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01, F6-LAB-01 | Se cumplen las condiciones de fase 6 del plan principal | Preparación local y pruebas sintéticas completadas; piloto sostenido e integraciones reales aplazadas |
+| F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01, F6-LAB-01 | Diez ciclos, medición, retorno y observación documentada | Cerrada anticipadamente el 29/09/2026; 14 h 11 min 46 s saludables, sin resumen de 24 h; tres entregas `unknown` |
 
 El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para conectar la interfaz. No activar el nuevo flujo del motor durante el mismo cambio operativo que el nuevo frontend. La opción preferida es mantener el motor original durante el primer cambio de interfaz y evaluar A-03–A-05 después de su estabilización. La fase 4 validó el consumo y la representación segura de los datos del API en React con fixtures sintéticos.
 
@@ -153,10 +153,10 @@ El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para c
 |---|---|---|
 | Preparación completada | Contexto, inventario, denominación y responsabilidades | Planes y configuración de VSCode disponibles |
 | Fases 0–4 completadas | Línea base, estabilización, API y Next.js conectado | Suite aislada, contrato `/api/v1` y vistas de lectura |
-| F5-01 implementada | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación local |
+| F5-01 completada | Coordinar análisis manual y periódico | Un ejecutor, trabajos persistentes y deduplicación local; diez ciclos integrados |
 | F6-LAB-01 completada | Laboratorio DVWA aislado para pilotaje | Compose y tarea VSCode probados en loopback; diez ciclos integrados y benchmark API completados |
-| F6-01 en curso | Piloto y retorno | Diez ciclos, medición p95 y retorno Flask completados; siete alertas confirmadas, tres `unknown`; observación de 24 horas iniciada |
-| F7-01 en preparación | Conmutador de entrada reversible | Implementado y probado apagado/activo/Next no disponible; revisión de lectura, teclado y contraste local; activación habitual pendiente de aceptación de fase 6 |
+| F6-01 cerrada anticipadamente | Piloto y retorno | Diez ciclos, medición p95 y retorno Flask completados; siete alertas confirmadas, tres `unknown`; observación saludable de 14 h 11 min 46 s aceptada con ese límite |
+| F7-01 en curso | Conmutador de entrada reversible | Implementado y ensayado con fixture sintética; activación local reversible aceptada y verificada el 01/10/2026; observación de uso pendiente |
 | Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |
 | Evolución aislada | A-02–A-04 fuera de la ruta operativa | Tres agentes mejorados y validaciones probadas con simulaciones |
 | Evaluación | A-05 en laboratorio previsto | Métricas y decisión de activar o conservar el flujo anterior |
@@ -199,4 +199,4 @@ Las tareas usan `cwd` explícito. Las tareas Python invocan `.venv/Scripts/pytho
 7. El cambio de flujo puede desactivarse por configuración sin borrar históricos. Los datos estructurados nuevos son aditivos y versionados.
 8. Los ensayos en paralelo son comparaciones de lectura o ejecuciones aisladas: nunca dos publicadores/notificadores para el mismo ciclo.
 
-No se ha creado un cuarto agente CrewAI, instalado especialistas de VSCode ni cambiado prompts. Las fases 0–4 están cerradas; F5-01 está implementada localmente y pendiente de validación real en fase 6. La evolución A-01–A-05 sigue separada. El desarrollo continuará en Codex y VSCode permitirá revisar los mismos archivos.
+No se ha creado un cuarto agente CrewAI, instalado especialistas de VSCode ni cambiado prompts. Las fases 0–6 están cerradas, con aceptación anticipada y límites expresos en fase 6; F7-01 sigue en curso. La evolución A-01–A-05 permanece separada. El desarrollo continuará en Codex y VSCode permitirá revisar los mismos archivos.
