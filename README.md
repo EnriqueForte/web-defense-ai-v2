@@ -10,10 +10,13 @@ El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://gith
 
 El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añadió trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6 se comprobaron el laboratorio DVWA/Mailpit, diez ciclos integrados, la carga de la API y el retorno a Flask. El usuario cerró anticipadamente esa fase el 29/09/2026 con 14 h 11 min 46 s saludables, sin completar las 24 horas previstas. La fase 7 está en curso: el 01/10/2026 se aceptó esa evidencia parcial para una activación local reversible. El conmutador permanece apagado por defecto; una tarea específica inicia Flask con Next.js como entrada sin editar `.env`.
 
+El plan visual SOC es independiente de las fases de migración: sus fases UI 1–7 están completas. La fase UI 8 queda pendiente junto con la prueba del zoom real al 200 % en el navegador.
+
 Las fases 0–6 están cerradas; la fase 6 incluye los límites de observación descritos en [su acta](docs/FASE_6_PILOTO.md). Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md) y [el estado de la fase 7](docs/FASE_7_ENTRADA_PRINCIPAL.md).
 
 | Documento | Contenido |
 |---|---|
+| [Rediseño visual SOC](docs/REDISENO_UI_SOC.md) | Fases UI 1–7 completadas; límite de zoom y Fase UI 8 pendientes |
 | [Guía de VSCode](docs/GUIA_VSCODE.md) | Apertura, seguimiento de cambios, tareas y depuración |
 | [Plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) | Arquitectura, riesgos, fases, pruebas y reversión |
 | [Fase 3 — Base visual](docs/FASE_3_BASE_VISUAL.md) | Pantalla Next.js, datos sintéticos, validación y reversión |
@@ -88,6 +91,8 @@ El contenedor `ai-engine` declarado en Compose permanece inactivo con `tail -f /
 ## Entorno y ejecución
 
 El entorno local revisado utiliza Python 3.11.9. `requirements.txt` incluye ahora Flask y limita pywin32 a Windows. Para las pruebas aisladas basta instalar `requirements-test.txt` y disponer de Node; ejecutar `python -B scripts/check_baseline.py`. No requiere `.env`, Docker ni claves. La [línea base](docs/FASE_0_LINEA_BASE.md) detalla la verificación de instalación y sus límites.
+
+Las regresiones de los componentes de la interfaz se ejecutan desde `frontend/` con `pnpm run test:ui`.
 
 Para copiar la plantilla sin sobrescribir una configuración existente:
 

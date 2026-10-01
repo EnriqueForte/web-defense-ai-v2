@@ -9,9 +9,11 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:ui": "node scripts/test_ui_regression.mjs"
   },
   "dependencies": {
+    "lucide-react": "1.49.0",
     "next": "16.3.6",
     "react": "19.2.8",
     "react-dom": "19.2.8"

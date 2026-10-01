@@ -2,6 +2,12 @@
 
 ## Alcance actual
 
+El 01/10/2026 se completaron las fases UI 1–7 del rediseño SOC: tokens,
+estilos base, navegación, indicadores con Lucide, gráficos SVG/CSS, tablas,
+accesibilidad y regresión de componentes. La prueba de zoom real queda pendiente;
+detalles en `docs/REDISENO_UI_SOC.md`. No se cambiaron los contratos ni el motor.
+Sus fases visuales son independientes de la fase 7 de migración, aún abierta.
+
 Todo el desarrollo, las pruebas y la coordinación se realizarán aquí en Codex.
 VSCode se utilizará para abrir, visualizar y revisar el mismo proyecto local;
 su configuración no es un requisito para desarrollar ni iniciar una fase.
