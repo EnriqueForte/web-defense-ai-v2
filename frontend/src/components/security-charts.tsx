@@ -2,6 +2,10 @@ import type { StateResponse } from "@/lib/api";
 
 type Period = StateResponse["data"]["timeline"]["periods"][number];
 const format = (value: number) => new Intl.NumberFormat("es-ES").format(value);
+const periodLabel = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", timeZone: "Europe/Madrid" }).format(date) + " (Madrid)";
+};
 const categories = [
   ["sqli", "SQLi"], ["xss", "XSS"], ["path", "Rutas"],
   ["brute", "Fuerza bruta"], ["cmd", "Comandos"],
@@ -48,21 +52,21 @@ export function TimelineChart({ periods, available }: { periods: Period[]; avail
   const maximum = Math.max(1, ...periods.map((item) => item.count));
   const ceiling = Math.max(2, Math.ceil(maximum / 2) * 2);
   return <>
-    <div className="timeline-unit">Coincidencias por periodo · escala 0–{format(ceiling)}</div>
+    <div className="timeline-unit">Coincidencias por periodo · hora local Europe/Madrid · escala 0–{format(ceiling)}</div>
     <div className="timeline-plot">
       <div className="timeline-axis"><span>{format(ceiling)}</span><span>{format(ceiling / 2)}</span><span>0</span></div>
       <div className="timeline-scroll" tabIndex={0} role="region" aria-label="Gráfico de coincidencias por periodo; desplazamiento horizontal disponible"><div className="timeline-columns" aria-hidden="true">
-        {periods.map((item, index) => <div className="timeline-column" key={`${item.period}-${index}`} title={`${item.period}: ${format(item.count)}`}>
+        {periods.map((item, index) => <div className="timeline-column" key={`${item.period}-${index}`} title={`${periodLabel(item.period)}: ${format(item.count)}`}>
           <div className="timeline-bar-space"><div className="timeline-bar" style={{ height: `${item.count / ceiling * 100}%` }}><span>{format(item.count)}</span></div></div>
-          <span className="timeline-period">{item.period}</span>
+          <span className="timeline-period">{periodLabel(item.period)}</span>
         </div>)}
       </div></div>
     </div>
     <p className="chart-help">{format(periods.length)} periodos disponibles. No se completan intervalos ausentes.</p>
     <ul className="pattern-summary" aria-label="Coincidencias por patrón">{categories.map(([key, label]) => <li key={key}><span>{label}</span><strong>{format(periods.reduce((sum, item) => sum + (item.matches[key] ?? 0), 0))}</strong></li>)}</ul>
     <details className="chart-data"><summary>Consultar datos por periodo</summary><div className="table-scroll" tabIndex={0} role="region" aria-label="Datos por periodo">
-      <table><caption className="sr-only">Coincidencias de patrones en el registro de acceso</caption><thead><tr><th scope="col">Periodo</th><th scope="col">Total</th>{categories.map(([key, label]) => <th scope="col" key={key}>{label}</th>)}</tr></thead>
-        <tbody>{periods.map((item, index) => <tr key={`${item.period}-${index}`}><th scope="row">{item.period}</th><td>{format(item.count)}</td>{categories.map(([key]) => <td key={key}>{format(item.matches[key] ?? 0)}</td>)}</tr>)}</tbody>
+      <table><caption className="sr-only">Coincidencias de patrones en el registro de acceso, en hora local Europe/Madrid</caption><thead><tr><th scope="col">Periodo (Madrid)</th><th scope="col">Total</th>{categories.map(([key, label]) => <th scope="col" key={key}>{label}</th>)}</tr></thead>
+        <tbody>{periods.map((item, index) => <tr key={`${item.period}-${index}`}><th scope="row">{periodLabel(item.period)}</th><td>{format(item.count)}</td>{categories.map(([key]) => <td key={key}>{format(item.matches[key] ?? 0)}</td>)}</tr>)}</tbody>
       </table>
     </div></details>
   </>;

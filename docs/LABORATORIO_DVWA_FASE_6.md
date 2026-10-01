@@ -79,8 +79,11 @@ localmente `LOG_PATH=./.local-state/dvwa-lab/access.log` y reinicia Flask. En
 VSCode puedes iniciar la tarea **web-defense-ai V2: laboratorio DVWA (Flask +
 Next.js)**: usa esa ruta y mantiene `ANALYSIS_MANUAL_ENABLED=0`. Detén primero
 cualquier Flask que ya ocupe el puerto 5000. Sincroniza de nuevo después de
-cada tanda de solicitudes para actualizar la captura. No copies datos reales ni
-secretos al laboratorio.
+cada tanda de solicitudes para actualizar la captura. La consola consulta el
+archivo local cada 15 segundos, pero no vuelve a consultar Docker ni sincroniza
+el contenedor automáticamente. La hora Apache se interpreta usando el
+desplazamiento guardado en el log y se presenta en hora Europe/Madrid. No copies
+datos reales ni secretos al laboratorio.
 
 Mailpit solo captura correo que se configure expresamente. No actives el
 ejecutor ni `ANALYSIS_MANUAL_ENABLED` hasta completar las revisiones de fase 6
@@ -110,6 +113,15 @@ se omite y cualquier email se entrega solo a Mailpit con datos ficticios. No
 lee ni muestra el valor de las claves. Si el reporte no contiene alertas altas
 o críticas, no se genera correo. `ANALYSIS_MANUAL_ENABLED` y la entrada Next.js
 principal permanecen desactivadas.
+
+Las respuestas de límite de cuota (HTTP 429) se reintentan como máximo dos veces
+por modelo, respetando el tiempo indicado por Groq o usando esperas progresivas.
+El presupuesto total de espera por llamada es 45 segundos; agotado ese margen,
+se prueba el siguiente modelo configurado. Estos límites se pueden ajustar con
+`LLM_RATE_LIMIT_RETRIES`, `LLM_RATE_LIMIT_BACKOFF_SECONDS` y
+`LLM_RATE_LIMIT_MAX_WAIT_SECONDS` en el entorno local. Una petición rechazada
+por otro motivo no se reintenta. El ciclo sigue pudiendo consumir cuota y un
+límite del proveedor puede impedir completarlo incluso con el modelo alternativo.
 
 Este ciclo por sí solo no cierra el piloto. Los diez ciclos y la medición API
 ya están registrados; el usuario cerró posteriormente la Fase 6 con una

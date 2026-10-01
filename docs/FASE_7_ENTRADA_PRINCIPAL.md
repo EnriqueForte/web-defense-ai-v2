@@ -40,10 +40,13 @@ detener primero cualquier servidor que ocupe los puertos 5000 y 3000:
    **web-defense-ai V2: lectura conectada (Flask + Next.js)**. Estas tareas
    fijan `NEXT_PRIMARY_ENABLED=0` en Flask.
 
-La observación de uso sugerida de siete días en el plan sigue pendiente para
-dar por cerrada la Fase 7. No hay una monitorización nueva en marcha; registrar
-incidencias y comprobar la reversión antes de decidir la configuración habitual
-para futuras sesiones.
+El 01/10/2026 se inició el periodo de observación de uso con la configuración
+equivalente a esta tarea. La entrada Flask devolvió `302` hacia Next.js (`200`);
+ambas API respondieron con la misma captura, salud `ok` y la admisión de análisis
+manual permaneció desactivada. Los dos listeners se confirmaron en loopback.
+Esto es una comprobación inicial, no completa los siete días ni constituye una
+monitorización automatizada. Durante el uso, registrar incidencias; al finalizar
+el periodo, repetir la comprobación de retorno a Flask antes de cerrar la fase.
 
 ## Retorno
 

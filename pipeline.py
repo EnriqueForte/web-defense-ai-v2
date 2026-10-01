@@ -159,7 +159,12 @@ def _run_single_cycle(store):
     return 0 if result["status"] == "succeeded" else 1
 
 
-def main(*, once=False):
+def periodic_cycle_due(*, manual_only, now, next_cycle):
+    """Return whether the worker should enqueue a scheduled cycle now."""
+    return not manual_only and now >= next_cycle
+
+
+def main(*, once=False, manual_only=False):
     os.chdir(ROOT)
     store = JobStore()
     lock_path = store.path.with_suffix(".worker.lock")
@@ -173,13 +178,15 @@ def main(*, once=False):
             heartbeat = threading.Thread(target=_heartbeat_loop, args=(store, instance_id, stop), daemon=True)
             heartbeat.start()
             interval = max(1, INTERVALO_MINUTOS) * 60
-            next_cycle = time.monotonic()
-            print("web-defense-ai V2: ejecutor coordinado activo; Ctrl+C para detener.")
+            next_cycle = time.monotonic() + interval
+            mode = "solo solicitudes manuales" if manual_only else "ciclos periódicos y manuales"
+            print(f"web-defense-ai V2: ejecutor activo ({mode}); Ctrl+C para detener.")
             try:
                 while True:
-                    if time.monotonic() >= next_cycle:
+                    now = time.monotonic()
+                    if periodic_cycle_due(manual_only=manual_only, now=now, next_cycle=next_cycle):
                         store.enqueue("periodic")
-                        next_cycle = time.monotonic() + interval
+                        next_cycle = now + interval
                     job = store.claim()
                     if job:
                         try:
@@ -201,8 +208,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--once", action="store_true",
                         help="ejecuta un solo ciclo y termina; puede contactar el motor configurado")
+    parser.add_argument("--manual-only", action="store_true",
+                        help="espera solicitudes manuales del dashboard sin lanzar ciclos periódicos")
     args = parser.parse_args()
     try:
-        raise SystemExit(main(once=args.once))
+        raise SystemExit(main(once=args.once, manual_only=args.manual_only))
     except KeyboardInterrupt:
         print("Ejecutor detenido. El trabajo activo se reconciliará al reiniciar.")

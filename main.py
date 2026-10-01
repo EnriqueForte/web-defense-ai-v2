@@ -13,8 +13,10 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="repla
 from pathlib import Path
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process, LLM
+from pydantic import Field
 from config.prompts import PROMPT_ANALISTA
 from config.model_config import configured_model_candidates
+from config.llm_resilience import call_with_model_fallback
 from dashboard.services.read_store import atomic_write_text
 
 
@@ -24,25 +26,64 @@ load_dotenv()
 # ============================================================
 # CONFIGURACIÓN DEL MODELO DE LENGUAJE
 # ============================================================
+class RateLimitResilientLLM(LLM):
+    """CrewAI LLM with bounded rate-limit retries and configured model fallback."""
+
+    candidate_models: list[str] = Field(default_factory=list, exclude=True)
+    rate_limit_retries: int = Field(default=2, exclude=True)
+    rate_limit_backoff_seconds: float = Field(default=10.0, exclude=True)
+    rate_limit_max_wait_seconds: float = Field(default=45.0, exclude=True)
+
+    def call(self, messages, tools=None, callbacks=None, available_functions=None,
+             from_task=None, from_agent=None, response_model=None):
+        def invoke():
+            return super(RateLimitResilientLLM, self).call(
+                messages, tools=tools, callbacks=callbacks,
+                available_functions=available_functions, from_task=from_task,
+                from_agent=from_agent, response_model=response_model,
+            )
+
+        def select_model(model):
+            if self.model != model:
+                print(f"   Cambiando al modelo alternativo configurado: {model}")
+                self.model = model
+
+        return call_with_model_fallback(
+            invoke, self.candidate_models or [self.model], select_model,
+            retries=self.rate_limit_retries,
+            backoff_seconds=self.rate_limit_backoff_seconds,
+            max_wait_seconds=self.rate_limit_max_wait_seconds,
+        )
+
+
 def get_llm_con_retry():
     """
-    Intenta inicializar el LLM con reintento si hay rate limit.
+    Construye el LLM con reintentos de rate limit limitados por llamada.
     """
     modelos = configured_model_candidates()
-    for modelo in modelos:
+    try:
+        retries = int(os.getenv("LLM_RATE_LIMIT_RETRIES", "2"))
+        backoff = float(os.getenv("LLM_RATE_LIMIT_BACKOFF_SECONDS", "10"))
+        max_wait = float(os.getenv("LLM_RATE_LIMIT_MAX_WAIT_SECONDS", "45"))
+    except ValueError as error:
+        raise ValueError("La política de reintentos LLM debe usar valores numéricos.") from error
+    for index, modelo in enumerate(modelos):
         try:
-            llm = LLM(
+            return RateLimitResilientLLM(
                 model=modelo,
                 api_key=os.getenv("GROQ_API_KEY"),
                 temperature=0.1,
+                additional_params={"max_retries": 0},
+                candidate_models=modelos[index:],
+                rate_limit_retries=retries,
+                rate_limit_backoff_seconds=backoff,
+                rate_limit_max_wait_seconds=max_wait,
             )
-            print(f"   Modelo activo: {modelo}")
-            return llm
-        except Exception as e:
-            print(f"   Modelo {modelo} no disponible, probando siguiente...")
+        except Exception:
+            print(f"   Modelo {modelo} no disponible al inicializar; probando el siguiente.")
             time.sleep(2)
             continue
-    raise Exception("Ningun modelo disponible")
+    raise RuntimeError("Ningún modelo configurado pudo inicializarse.")
 
 
 def get_llm():
@@ -50,11 +91,7 @@ def get_llm():
     Inicializa y retorna el modelo de lenguaje (LLM).
     Usa el modelo indicado por LLM_MODEL y los fallbacks configurados.
     """
-    return LLM(
-        model=configured_model_candidates()[0],
-        api_key=os.getenv("GROQ_API_KEY"),
-        temperature=0.1,  # Baja temperatura = respuestas más precisas y consistentes
-    )
+    return get_llm_con_retry()
 
 # ============================================================
 # DEFINICIÓN DE AGENTES

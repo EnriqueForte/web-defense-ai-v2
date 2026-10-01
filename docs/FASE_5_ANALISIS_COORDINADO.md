@@ -42,15 +42,20 @@ de la fase 6; no se ha ejecutado el motor real durante esta entrega.
    esa consola fuera de `127.0.0.1`: la autenticación central corresponde a
    la fase 6.
 3. Iniciar Flask y Next.js con la tarea **lectura conectada** de VSCode.
-   Iniciar el ejecutor explícitamente en otra terminal desde la raíz:
+   Para una demostración iniciada desde el botón, activar `ANALYSIS_MANUAL_ENABLED=1`
+   solo en el entorno local de Flask, reiniciarlo y arrancar el ejecutor en modo
+   manual desde otra terminal:
 
   ```powershell
-  .\.venv\Scripts\python.exe -B pipeline.py
+  .\.venv\Scripts\python.exe -B pipeline.py --manual-only
   ```
 
-  El ejecutor inicia el primer ciclo periódico al arrancar y luego usa
-  `INTERVALO_MINUTOS`. Los ciclos y el botón pueden contactar Docker, Groq,
-  Telegram y SMTP; no usar ese comando como prueba rutinaria.
+  Este modo solo procesa trabajos que solicite el dashboard; no inicia un
+  ciclo periódico al arrancar. El botón puede contactar Docker, Groq y los
+  destinos de notificación habilitados, así que úsalo con datos y destinos de
+  laboratorio. Para operar el planificador habitual, inicia `pipeline.py`
+  sin `--manual-only`; este modo inicia ciclos periódicos además de aceptar
+  solicitudes manuales.
 
    Para el ciclo aislado de fase 6 existe `scripts/run_phase6_cycle.ps1` y la
    opción `pipeline.py --once`; el script configura captura DVWA, reportes y

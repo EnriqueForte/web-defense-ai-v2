@@ -4,9 +4,11 @@
 # ============================================================
 
 import os
+import re
 import time
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import unquote_plus
 
 
 # ============================================================
@@ -139,24 +141,25 @@ def analizar_fuerza_bruta(lineas: list[str],
     lineas_fuerza_bruta = []
     
     for linea in lineas:
-        # Solo nos interesan los POST al login
-        if "POST" in linea and "login" in linea.lower():
-            partes = linea.split()
-            if len(partes) < 4:
-                continue
-            
-            ip = partes[0]
-            
-            # Extraer timestamp: [22/Apr/2026:10:17:01
-            try:
-                timestamp_str = partes[3].strip("[")
-                timestamp = datetime.strptime(
-                    timestamp_str, 
-                    "%d/%b/%Y:%H:%M:%S"
-                )
-                intentos_login[ip].append((timestamp, linea))
-            except (ValueError, IndexError):
-                continue
+        match = re.match(r'^([^ ]+) [^ ]+ [^ ]+ \[([^\]]+)\] "([A-Z]+) ([^ ]+) HTTP/', linea)
+        if not match:
+            continue
+        ip, method, target = match.group(1), match.group(3), unquote_plus(match.group(4)).lower()
+        dvwa_brute_submission = (
+            "/vulnerabilities/brute/" in target and
+            method in {"GET", "POST"} and "username=" in target and "password=" in target
+        )
+        traditional_login_submission = method == "POST" and "login" in target
+        if not (dvwa_brute_submission or traditional_login_submission):
+            continue
+
+        try:
+            # El desplazamiento horario no cambia el intervalo entre intentos.
+            timestamp_str = match.group(2).split()[0]
+            timestamp = datetime.strptime(timestamp_str, "%d/%b/%Y:%H:%M:%S")
+            intentos_login[ip].append((timestamp, linea))
+        except (ValueError, IndexError):
+            continue
     
     # Analizar frecuencia por IP
     for ip, intentos in intentos_login.items():
@@ -178,7 +181,8 @@ def analizar_fuerza_bruta(lineas: list[str],
                 lineas_fuerza_bruta.extend(lineas_fb)
                 break
     
-    return list(set(lineas_fuerza_bruta))  # Eliminar duplicados
+    selected = set(lineas_fuerza_bruta)
+    return [linea for linea in lineas if linea in selected]
 
 
 def preparar_log_para_agente(ruta_log: str) -> dict:

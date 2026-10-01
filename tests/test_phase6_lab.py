@@ -51,6 +51,16 @@ class DvwaLabCaptureTests(unittest.TestCase):
 
 
 class SingleCycleTests(unittest.TestCase):
+    def test_manual_only_worker_never_schedules_periodic_cycle(self):
+        self.assertFalse(pipeline.periodic_cycle_due(
+            manual_only=True, now=1000, next_cycle=0,
+        ))
+
+    def test_regular_worker_schedules_periodic_cycle_when_due(self):
+        self.assertTrue(pipeline.periodic_cycle_due(
+            manual_only=False, now=1000, next_cycle=0,
+        ))
+
     def test_single_cycle_finishes_once_and_returns_success(self):
         with tempfile.TemporaryDirectory() as temp:
             store = JobStore(Path(temp) / "analysis.sqlite3")

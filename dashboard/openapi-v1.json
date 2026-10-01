@@ -156,9 +156,10 @@
       "EstadoResponse": {
         "type": "object", "required": ["meta", "data"], "properties": {
           "meta": { "$ref": "#/components/schemas/Meta" },
-          "data": { "type": "object", "required": ["stats", "threats", "threats_total", "threats_truncated", "recent_log", "source_ips", "timeline", "recent_reports"], "properties": {
+          "data": { "type": "object", "required": ["stats", "threats", "threats_total", "threats_truncated", "recent_log", "recent_events", "source_ips", "timeline", "recent_reports"], "properties": {
             "stats": { "type": "object" }, "threats": { "type": "array", "items": { "$ref": "#/components/schemas/Threat" } },
             "threats_total": { "type": "integer" }, "threats_truncated": { "type": "boolean" },
+            "recent_events": { "type": "array", "items": { "type": "object", "required": ["id", "observed_at", "category", "source_ip", "method", "path", "http_status"], "properties": { "id": { "type": "string" }, "observed_at": { "type": "string", "format": "date-time" }, "category": { "type": "string" }, "source_ip": { "type": "string", "nullable": true }, "method": { "type": "string" }, "path": { "type": "string" }, "http_status": { "type": "integer" } } } },
             "recent_log": { "type": "array", "items": { "type": "string" } },
             "source_ips": { "type": "array", "items": { "type": "string" } },
             "timeline": { "type": "object" }, "recent_reports": { "type": "array", "items": { "type": "object" } }

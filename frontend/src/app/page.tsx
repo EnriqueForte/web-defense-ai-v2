@@ -6,14 +6,14 @@ import { Activity, FileText, LayoutDashboard, Menu, Network, RefreshCw, Shield, 
 import { ThreatTable } from "@/components/threat-table";
 import { MetricCard } from "@/components/metric-card";
 import { SeverityChart, TimelineChart } from "@/components/security-charts";
-import { getApi, requestAnalysis, validState, type AnalysisCurrent, type PageResponse, type Report, type ReportDetail, type StateResponse, type Threat } from "@/lib/api";
+import { getApi, requestAnalysis, validState, type AnalysisCurrent, type ObservedEvent, type PageResponse, type Report, type ReportDetail, type StateResponse, type Threat } from "@/lib/api";
 
 type View = "Resumen" | "Amenazas" | "Reportes" | "Actividad";
 const views: View[] = ["Resumen", "Amenazas", "Reportes", "Actividad"];
 const viewDescriptions: Record<View, string> = {
   Resumen: "Visión general del reporte actual y de los patrones observados en el log.",
-  Amenazas: "Explora y filtra las amenazas clasificadas en el reporte actual.",
-  Reportes: "Consulta el reporte actual y los archivos históricos disponibles.",
+  Amenazas: "Consulta eventos observados en el log y amenazas clasificadas en el último informe.",
+  Reportes: "Consulta los informes generados; su fecha corresponde al archivo, no a cada evento.",
   Actividad: "Revisa las últimas líneas disponibles del registro de acceso.",
 };
 const navigationIcons = { Resumen: LayoutDashboard, Amenazas: ShieldAlert, Reportes: FileText, Actividad: Activity };
@@ -28,6 +28,12 @@ function dateLabel(value: string | null | undefined) {
 }
 
 function number(value: number) { return new Intl.NumberFormat("es-ES").format(value); }
+
+function ObservedEvents({ items }: { items: ObservedEvent[] }) {
+  return <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG · EUROPE/MADRID</div><h2>Eventos observados recientemente</h2><p>Coincidencias del registro; tras cada tanda en DVWA, sincroniza el log. La consola vuelve a leerlo cada 15 segundos. No confirma que un ataque tuviera éxito.</p></div></div>
+    {!items.length ? <p className="empty-copy">No hay eventos recientes que coincidan con los patrones vigilados.</p> : <div className="table-scroll event-table-wrap" tabIndex={0} role="region" aria-label="Eventos observados; desplazamiento horizontal disponible"><table><thead><tr><th>FECHA LOCAL</th><th>OBSERVACIÓN</th><th>IP OBSERVADA</th><th>SOLICITUD</th><th>HTTP</th></tr></thead><tbody>{items.map((item) => <tr key={item.id}><td>{dateLabel(item.observed_at)}</td><td>{item.category}</td><td>{item.source_ip ?? "Desconocida"}</td><td><code>{item.method} {item.path}</code></td><td>{item.http_status}</td></tr>)}</tbody></table></div>}
+  </section>;
+}
 
 function GithubMark() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.06c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.24-1.64-1.24-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .1.76 2.03 3.14 1.44.1-.72.4-1.22.69-1.5-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.56 0c2.1-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.23-5.1 5.51.4.35.75 1.03.75 2.08V22c0 .29.2.63.77.52A11.1 11.1 0 0 0 12 .9Z" /></svg>;
@@ -54,6 +60,7 @@ export default function Home() {
   const [threatError, setThreatError] = useState("");
   const [threatLoading, setThreatLoading] = useState(false);
   const [reports, setReports] = useState<PageResponse<Report> | null>(null);
+  const reportsRef = useRef<PageResponse<Report> | null>(null);
   const [reportError, setReportError] = useState("");
   const [reportLoading, setReportLoading] = useState(false);
   const [detail, setDetail] = useState<ReportDetail | null>(null);
@@ -217,6 +224,13 @@ export default function Home() {
     queueMicrotask(() => { if (!controller.signal.aborted) { setReportLoading(true); setReportError(""); } });
     void getApi<PageResponse<Report>>(`reportes?page=${reportPage}&per_page=20`, controller.signal)
       .then((result) => {
+        const wasCurrentReportSelected = reportsRef.current?.data.some((item) => item.id === reportId && item.current) ?? false;
+        const newestCurrent = result.data.find((item) => item.current);
+        reportsRef.current = result;
+        if (wasCurrentReportSelected && newestCurrent && newestCurrent.id !== reportId) {
+          setReportId(newestCurrent.id);
+          setDetail(null);
+        }
         const last = Math.max(1, Math.ceil(result.meta.total / 20));
         if (reportPage > last) { setReportPage(last); return; }
         setReports(result);
@@ -224,7 +238,7 @@ export default function Home() {
       .catch((error) => { if (!controller.signal.aborted) setReportError(error instanceof Error ? error.message : "No se pudieron leer los reportes."); })
       .finally(() => { if (!controller.signal.aborted) setReportLoading(false); });
     return () => controller.abort();
-  }, [hydrated, view, reportPage, refresh, snapshotId]);
+  }, [hydrated, view, reportPage, refresh, snapshotId, reportId]);
 
   useEffect(() => {
     if (!hydrated || view !== "Reportes" || !reportId) return;
@@ -296,9 +310,9 @@ export default function Home() {
           <section className="summary-bottom"><article className="panel"><div className="panel-header"><div><div className="panel-kicker">LECTURA RECIENTE</div><h2>Terminal</h2></div></div><LogLines lines={state.data.recent_log} /></article><article className="panel"><div className="panel-header"><div><div className="panel-kicker">ARCHIVO</div><h2>Reportes recientes</h2></div></div>{state.data.recent_reports.length ? <ul className="simple-list">{state.data.recent_reports.map((item, index) => <li key={`${item.nombre}-${index}`}><span>{item.nombre}</span><small>{item.amenazas} amenazas · fecha del evento no verificada</small></li>)}</ul> : <p className="empty-copy">No hay reportes históricos disponibles.</p>}<button className="plain-link" onClick={() => navigate("Reportes")}>Explorar todos los reportes →</button></article></section>
         </>}
 
-        {view === "Amenazas" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">REPORTE ACTUAL</div><h2>Amenazas</h2><p>Filtros y página guardados en la dirección del navegador</p></div></div><div className="filter-row"><label>Severidad<select value={severity} onChange={(event) => { setSeverity(event.target.value); setPage(1); }}><option value="Todas">Todas</option>{severityCodes.map((code) => <option key={code} value={code}>{names[code]}</option>)}</select></label><label>Tipo<input value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }} placeholder="Buscar tipo" /></label><label>IP exacta<input value={ipFilter} onChange={(event) => { setIpFilter(event.target.value); setPage(1); }} placeholder="IP observada" /></label><button className="button-secondary filter-reset" disabled={severity === "Todas" && !typeFilter && !ipFilter} onClick={() => { setSeverity("Todas"); setTypeFilter(""); setIpFilter(""); setPage(1); }}>Limpiar filtros</button></div><p className="filter-context">{severity === "Todas" && !typeFilter && !ipFilter ? "Sin filtros activos" : `Filtros activos: ${[severity !== "Todas" ? names[severity] : "", typeFilter ? `Tipo: ${typeFilter}` : "", ipFilter ? `IP: ${ipFilter}` : ""].filter(Boolean).join(" · ")}`}</p>{threatLoading && <p className="status-copy" role="status">Consultando amenazas…</p>}{threatError && <p className="status-copy error-copy" role="alert">{threatError}</p>}{!threatLoading && !threatError && threats && <><p className="status-copy" role="status">{number(threats.meta.total)} coincidencias · captura {threats.meta.snapshot_id?.slice(0, 12)} · página {threats.meta.page}</p><ThreatTable items={threats.data} dateLabel={dateLabel} sourceAvailable={reportAvailable} /><Pager page={page} total={threats.meta.total} size={25} change={setPage} /></>}</section>}
+        {view === "Amenazas" && <><ObservedEvents items={state?.data.recent_events ?? []} /><section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">CLASIFICACIÓN DEL ÚLTIMO INFORME</div><h2>Amenazas clasificadas</h2><p>Esta tabla cambia cuando se genera un informe nuevo; los eventos observados aparecen arriba.</p></div></div><div className="filter-row"><label>Severidad<select value={severity} onChange={(event) => { setSeverity(event.target.value); setPage(1); }}><option value="Todas">Todas</option>{severityCodes.map((code) => <option key={code} value={code}>{names[code]}</option>)}</select></label><label>Tipo<input value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }} placeholder="Buscar tipo" /></label><label>IP exacta<input value={ipFilter} onChange={(event) => { setIpFilter(event.target.value); setPage(1); }} placeholder="IP observada" /></label><button className="button-secondary filter-reset" disabled={severity === "Todas" && !typeFilter && !ipFilter} onClick={() => { setSeverity("Todas"); setTypeFilter(""); setIpFilter(""); setPage(1); }}>Limpiar filtros</button></div><p className="filter-context">{severity === "Todas" && !typeFilter && !ipFilter ? "Sin filtros activos" : `Filtros activos: ${[severity !== "Todas" ? names[severity] : "", typeFilter ? `Tipo: ${typeFilter}` : "", ipFilter ? `IP: ${ipFilter}` : ""].filter(Boolean).join(" · ")}`}</p>{threatLoading && <p className="status-copy" role="status">Consultando amenazas…</p>}{threatError && <p className="status-copy error-copy" role="alert">{threatError}</p>}{!threatLoading && !threatError && threats && <><p className="status-copy" role="status">{number(threats.meta.total)} coincidencias · captura {threats.meta.snapshot_id?.slice(0, 12)} · página {threats.meta.page}</p><ThreatTable items={threats.data} dateLabel={dateLabel} sourceAvailable={reportAvailable} /><Pager page={page} total={threats.meta.total} size={25} change={setPage} /></>}</section></>}
 
-        {view === "Reportes" && <section className="reports-layout"><article className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes</h2><p>Archivos disponibles; fecha de modificación, no fecha del evento</p></div></div>{reportLoading && <p className="status-copy" role="status">Cargando catálogo…</p>}{reportError && <p className="status-copy error-copy" role="alert">{reportError}</p>}{!reportLoading && !reportError && reports && <>{reports.data.length ? <ul className="report-list">{reports.data.map((item) => <li key={item.id}><button aria-pressed={reportId === item.id} className={reportId === item.id ? "selected-report" : ""} onClick={() => { setDetail(null); setReportId(item.id); }}><strong>{item.current ? "Reporte actual" : item.filename}</strong><small>{dateLabel(item.modified_at)} · {number(item.size_bytes)} bytes</small></button></li>)}</ul> : <p className="empty-copy">No hay reportes disponibles.</p>}<Pager page={reportPage} total={reports.meta.total} size={20} change={setReportPage} /></>}</article><article className="panel report-detail"><div className="panel-header"><div><div className="panel-kicker">LECTURA SEGURA</div><h2>{detail?.data.report.filename ?? "Selecciona un reporte"}</h2></div></div>{detailError && <p className="status-copy error-copy" role="alert">{detailError} Actualiza el catálogo si el archivo cambió.</p>}{reportId && !detail && !detailError && <p className="status-copy" role="status">Abriendo reporte…</p>}{detail && <><p className="status-copy">Modificado: {dateLabel(detail.data.report.modified_at)}</p><pre className="report-markdown" tabIndex={0} aria-label="Contenido del reporte en texto">{detail.data.markdown}</pre></>}{!reportId && <p className="empty-copy">Elige un reporte para leer su contenido. El Markdown se muestra como texto, sin ejecutar HTML.</p>}</article></section>}
+        {view === "Reportes" && <><section className="reports-layout"><article className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes</h2><p>Archivos disponibles; fecha local de modificación, no fecha de cada evento</p></div></div>{reportLoading && <p className="status-copy" role="status">Cargando catálogo…</p>}{reportError && <p className="status-copy error-copy" role="alert">{reportError}</p>}{!reportLoading && !reportError && reports && <>{reports.data.length ? <ul className="report-list">{reports.data.map((item) => <li key={item.id}><button aria-pressed={reportId === item.id} className={reportId === item.id ? "selected-report" : ""} onClick={() => { setDetail(null); setReportId(item.id); }}><strong>{item.current ? "Reporte actual" : item.filename}</strong><small>{dateLabel(item.modified_at)} · {number(item.size_bytes)} bytes</small></button></li>)}</ul> : <p className="empty-copy">No hay reportes disponibles.</p>}<Pager page={reportPage} total={reports.meta.total} size={20} change={setReportPage} /></>}</article><article className="panel report-detail"><div className="panel-header"><div><div className="panel-kicker">LECTURA SEGURA</div><h2>{detail?.data.report.filename ?? "Selecciona un reporte"}</h2></div></div>{detailError && <p className="status-copy error-copy" role="alert">{detailError} Actualiza el catálogo si el archivo cambió.</p>}{reportId && !detail && !detailError && <p className="status-copy" role="status">Abriendo reporte…</p>}{detail && <><p className="status-copy">Modificado: {dateLabel(detail.data.report.modified_at)}</p><pre className="report-markdown" tabIndex={0} aria-label="Contenido del reporte en texto">{detail.data.markdown}</pre></>}{!reportId && <p className="empty-copy">Elige un reporte para leer su contenido. Los eventos recientes del log se muestran abajo; aparecerán en el informe cuando se ejecute un análisis.</p>}</article></section><ObservedEvents items={state?.data.recent_events ?? []} /></>}
 
         {view === "Actividad" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG</div><h2>Actividad reciente</h2><p>Ventana limitada que entrega la API; no es un registro histórico completo</p></div></div><LogLines lines={state?.data.recent_log ?? []} /><p className="status-copy">Origen: {state?.meta.sources.log?.status ?? "sin lectura"} · última modificación {dateLabel(state?.meta.sources.log?.modified_at)}</p></section>}
 

@@ -9,6 +9,16 @@ export type Threat = {
   source_report_id: string | null;
 };
 
+export type ObservedEvent = {
+  id: string;
+  observed_at: string;
+  category: string;
+  source_ip: string | null;
+  method: string;
+  path: string;
+  http_status: number;
+};
+
 export type Report = {
   id: string;
   filename: string;
@@ -31,6 +41,7 @@ export type StateResponse = {
     threats: Threat[];
     threats_total: number;
     threats_truncated: boolean;
+    recent_events: ObservedEvent[];
     recent_log: string[];
     source_ips: string[];
     timeline: { source: string; meaning: string; periods: { period: string; count: number; matches: Record<string, number> }[] };
@@ -102,5 +113,6 @@ export async function getApi<T>(path: string, signal?: AbortSignal): Promise<T> 
 export function validState(value: StateResponse): boolean {
   return value.meta.api_version === "1" && typeof value.meta.snapshot_id === "string" &&
     typeof value.data.stats?.total === "number" && Array.isArray(value.data.threats) &&
-    Array.isArray(value.data.recent_log) && Array.isArray(value.data.timeline?.periods);
+    Array.isArray(value.data.recent_log) && Array.isArray(value.data.recent_events) &&
+    Array.isArray(value.data.timeline?.periods);
 }

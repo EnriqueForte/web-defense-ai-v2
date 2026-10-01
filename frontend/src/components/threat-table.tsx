@@ -21,7 +21,7 @@ export function ThreatTable({ items, dateLabel, sourceAvailable = true }: { item
         </td>
         <td>{item.source_ip && item.source_ip !== "-" ? item.source_ip : "Desconocida"}</td>
         <td><span className={`severity-badge severity-${severity(item.severity).toLowerCase()}`}>{names[severity(item.severity)]}</span></td>
-        <td>{item.status || "No disponible"}</td><td>{item.event_time ? dateLabel(item.event_time) : "No disponible"}</td>
+        <td>{item.status || "No disponible"}</td><td>{item.event_time ? dateLabel(item.event_time) : "Sin dato en el reporte"}</td>
       </tr>)}</tbody>
     </table>
   </div>;

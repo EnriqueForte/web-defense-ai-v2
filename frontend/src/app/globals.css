@@ -142,6 +142,9 @@ h1 { margin: var(--space-2) 0; font-size: var(--text-title); font-weight: 650; l
 .chart-empty span { font-size: var(--text-xs); }
 .incidents-heading { padding: var(--space-5); }
 .table-scroll { max-width: 100%; overflow-x: auto; }
+.event-table-wrap { max-height: 520px; }
+.event-table-wrap code { white-space: nowrap; color: var(--cyan); font-size: var(--text-xs); }
+.event-table-wrap td { vertical-align: top; }
 .threat-table { max-height: 620px; }
 .threat-table thead { position: sticky; top: 0; z-index: 1; }
 .threat-table td { vertical-align: top; }

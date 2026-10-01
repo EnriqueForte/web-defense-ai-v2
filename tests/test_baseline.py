@@ -34,6 +34,14 @@ def report(ip="192.0.2.10", severity="ALTA", state="Desconocido"):
             f"| 1 | {severity} | SQLi | {state} | {ip} |\n")
 
 
+def report_with_event_rows(rows):
+    return ("## AMENAZAS DETECTADAS\n"
+            "| Fecha/hora del evento | Línea | Severidad | Tipo | Estado | IP Origen |\n"
+            "| --- | --- | --- | --- | --- | --- |\n" +
+            "".join(f"| {date} | {number} | ALTA | {kind} | Investigar | {ip} |\n"
+                   for date, number, kind, ip in rows))
+
+
 class IsolatedCase(unittest.TestCase):
     def setUp(self):
         stack = self.enterContext(contextlib.ExitStack())
@@ -75,6 +83,16 @@ class PreprocessingTests(IsolatedCase):
         spread = [line("/login.php", f"30/Apr/2026:23:{i:02d}:00", "POST") for i in range(5)]
         self.assertEqual(analizar_fuerza_bruta(spread), [])
         self.assertEqual(analizar_fuerza_bruta(["POST login sin fecha"]), [])
+
+    def test_dvwa_brute_force_get_requests_use_five_attempt_threshold(self):
+        attempts = [
+            f'192.0.2.10 - - [01/May/2026:12:00:0{i} +0200] "GET /vulnerabilities/brute/?username=admin&password=bad{i}&Login=Login HTTP/1.1" 302 100'
+            for i in range(5)
+        ]
+        self.assertEqual(analizar_fuerza_bruta(attempts), attempts)
+        self.assertEqual(analizar_fuerza_bruta(attempts[:4]), [])
+        page_view = '192.0.2.10 - - [01/May/2026:12:00:00 +0200] "GET /vulnerabilities/brute/ HTTP/1.1" 200 100'
+        self.assertEqual(analizar_fuerza_bruta([page_view] + attempts[:4]), [])
 
     def test_current_selection_limit_is_observable(self):
         # Caracterización, no garantía de calidad: solo últimas 100, cinco altas.
@@ -177,6 +195,21 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(self.web.parsear_amenazas(report())[0]["timestamp"], "-")
         self.assertEqual(self.client.get("/").status_code, 200)
         self.process.assert_not_called()
+
+    def test_event_timestamp_is_validated_and_normalized_to_utc(self):
+        parsed = self.web.parsear_amenazas(report_with_event_rows([
+            ("30/Apr/2026:23:00:00 +0000", "2", "SQLi", "192.0.2.10")]))[0]
+        self.assertEqual(self.web.normalizar_fecha_evento(parsed["timestamp"]), "2026-04-30T23:00:00Z")
+        self.assertIsNone(self.web.normalizar_fecha_evento("ayer por la tarde"))
+
+    def test_threats_are_ordered_by_most_recent_verified_event(self):
+        report_path = self.base / "reporte_seguridad.md"
+        report_path.write_text(report_with_event_rows([
+            ("30/Apr/2026:23:00:00 +0000", "1", "Antigua", "192.0.2.10"),
+            ("2026-05-01T00:00:00Z", "2", "Reciente", "192.0.2.11"),
+            ("-", "3", "Sin fecha", "192.0.2.12")]), encoding="utf-8")
+        payload = self.client.get("/api/v1/amenazas").get_json()
+        self.assertEqual([item["type"] for item in payload["data"]], ["Reciente", "Antigua", "Sin fecha"])
 
     def test_primary_entry_disabled_keeps_flask_without_next_probe(self):
         with patch.dict(os.environ, {"NEXT_PRIMARY_ENABLED": "0"}), \
@@ -289,7 +322,19 @@ class DashboardTests(IsolatedCase):
 
     def test_h09_timeline_chronological_across_months(self):
         self.log.write_text(line("/item?id=%27") + "\n" + line("/item?id=%27", "01/May/2026:00:00:00"), encoding="utf-8")
-        self.assertEqual(self.web.obtener_timeline_ataques()["horas"], ["30/Apr/2026 23h", "01/May/2026 00h"])
+        self.assertEqual(self.web.obtener_timeline_ataques()["horas"], ["2026-04-30T23:00:00Z", "2026-05-01T00:00:00Z"])
+
+    def test_dvwa_events_are_sorted_and_converted_to_utc(self):
+        lines = [
+            '192.0.2.8 - - [01/May/2026:00:01:00 +0200] "GET /vulnerabilities/brute/?username=admin&password=no HTTP/1.1" 200 100',
+            '192.0.2.9 - - [01/May/2026:00:03:00 +0200] "GET /vulnerabilities/brute/?username=admin&password=bad HTTP/1.1" 302 100',
+        ]
+        events = self.web.obtener_eventos_recientes(lines)
+        self.assertEqual([event["source_ip"] for event in events], ["192.0.2.9", "192.0.2.8"])
+        self.assertEqual(events[0]["observed_at"], "2026-04-30T22:03:00Z")
+        self.assertEqual(events[0]["category"], "Fuerza bruta")
+        self.assertEqual(events[0]["http_status"], 302)
+        self.assertEqual(events[0]["path"], "/vulnerabilities/brute/")
 
     def test_h08_invalid_ipv4_is_unknown(self):
         self.assertEqual(self.web.parsear_amenazas(report(ip="999.1.1.1"))[0]["ip"], "-")
@@ -309,10 +354,19 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(len(payload["meta"]["snapshot_id"]), 64)
         self.assertEqual(payload["meta"]["health"], "degraded")
         self.assertIsNone(payload["data"]["threats"][0]["event_time"])
+        self.assertEqual(payload["data"]["recent_events"], [])
         self.assertEqual(payload["data"]["threats"][0]["source_report_id"], payload["meta"]["report_id"])
         self.assertEqual(response.headers["Cache-Control"], "no-store, max-age=0")
         self.assertTrue(response.headers["X-Request-ID"])
         self.process.assert_not_called()
+
+    def test_api_v1_state_includes_recent_events_from_log(self):
+        (self.base / "reporte_seguridad.md").write_text(report(), encoding="utf-8")
+        response = self.client.get("/api/v1/estado")
+        payload = response.get_json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(payload["data"]["recent_events"][0]["category"], "SQL injection")
+        self.assertEqual(payload["data"]["recent_events"][0]["observed_at"], "2026-04-30T23:00:00Z")
 
     def test_api_v1_snapshot_is_stable_and_changes_with_source_content(self):
         report_path = self.base / "reporte_seguridad.md"
@@ -387,6 +441,24 @@ class DashboardTests(IsolatedCase):
         self.assertIn("Contenido de fixture", detail.get_json()["data"]["markdown"])
         self.assertEqual(detail.headers["Cache-Control"], "no-store, max-age=0")
         self.assertEqual(self.client.get("/api/v1/reportes/../secret").status_code, 404)
+
+    def test_report_catalog_pins_current_and_hides_identical_archive_copy(self):
+        history = self.base / "historial"
+        history.mkdir()
+        current_text = "## Informe actual\nHallazgo sintético\n"
+        (self.base / "reporte_seguridad.md").write_text(current_text, encoding="utf-8")
+        (history / "reporte_20261001_120000_cicloactual.md").write_text(
+            current_text, encoding="utf-8")
+        (history / "reporte_20260930_120000_cicloanterior.md").write_text(
+            "## Informe anterior\nHallazgo previo\n", encoding="utf-8")
+
+        listing = self.client.get("/api/v1/reportes").get_json()
+
+        self.assertEqual(listing["meta"]["total"], 2)
+        self.assertTrue(listing["data"][0]["current"])
+        self.assertEqual(listing["data"][0]["filename"], "reporte_seguridad.md")
+        self.assertEqual(listing["data"][1]["filename"],
+                         "reporte_20260930_120000_cicloanterior.md")
 
     def test_api_v1_health_openapi_and_errors(self):
         with patch.object(self.web, "capture_file", side_effect=AssertionError("salud no lee contenidos")):

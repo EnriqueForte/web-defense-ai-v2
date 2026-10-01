@@ -100,6 +100,74 @@
             "problemMatcher": []
         },
         {
+            "label": "web-defense-ai V2: Flask para análisis manual DVWA",
+            "type": "shell",
+            "command": "& '${workspaceFolder}/.venv/Scripts/python.exe' -B -m flask --app dashboard.app run --host 127.0.0.1 --port 5000 --no-debugger",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PYTHONIOENCODING": "utf-8",
+                    "LOG_PATH": "${workspaceFolder}/.local-state/dvwa-lab/access.log",
+                    "LOG_SYNC_SOURCE": "dvwa-lab",
+                    "REPORT_PATH": ".local-state/phase6-pilot/reports",
+                    "ENGINE_DIAGNOSTICS_DIR": ".local-state/phase6-pilot/diagnostics",
+                    "ANALYSIS_DB_PATH": ".local-state/phase6-pilot/analysis.sqlite3",
+                    "ANALYSIS_MANUAL_ENABLED": "1",
+                    "NEXT_PRIMARY_ENABLED": "0",
+                    "NOTIFICATION_DESTINATIONS": "email",
+                    "TELEGRAM_BOT_TOKEN": "",
+                    "TELEGRAM_CHAT_ID": "",
+                    "EMAIL_REMITENTE": "web-defense-ai-v2-lab@example.test",
+                    "EMAIL_PASSWORD": "",
+                    "EMAIL_DESTINATARIO": "security-lab@example.test",
+                    "EMAIL_SMTP_SERVER": "127.0.0.1",
+                    "EMAIL_SMTP_PORT": "1025",
+                    "EMAIL_SMTP_STARTTLS": "0"
+                }
+            },
+            "runOptions": { "instanceLimit": 1 },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: ejecutor manual DVWA",
+            "type": "shell",
+            "command": "& '${workspaceFolder}/.venv/Scripts/python.exe' -B pipeline.py --manual-only",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "PYTHONIOENCODING": "utf-8",
+                    "LOG_PATH": "${workspaceFolder}/.local-state/dvwa-lab/access.log",
+                    "LOG_SYNC_SOURCE": "dvwa-lab",
+                    "REPORT_PATH": ".local-state/phase6-pilot/reports",
+                    "ENGINE_DIAGNOSTICS_DIR": ".local-state/phase6-pilot/diagnostics",
+                    "ANALYSIS_DB_PATH": ".local-state/phase6-pilot/analysis.sqlite3",
+                    "INTERVALO_MINUTOS": "1440",
+                    "NOTIFICATION_DESTINATIONS": "email",
+                    "TELEGRAM_BOT_TOKEN": "",
+                    "TELEGRAM_CHAT_ID": "",
+                    "EMAIL_REMITENTE": "web-defense-ai-v2-lab@example.test",
+                    "EMAIL_PASSWORD": "",
+                    "EMAIL_DESTINATARIO": "security-lab@example.test",
+                    "EMAIL_SMTP_SERVER": "127.0.0.1",
+                    "EMAIL_SMTP_PORT": "1025",
+                    "EMAIL_SMTP_STARTTLS": "0"
+                }
+            },
+            "runOptions": { "instanceLimit": 1 },
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "web-defense-ai V2: dashboard DVWA para prueba manual",
+            "dependsOn": [
+                "web-defense-ai V2: Flask para análisis manual DVWA",
+                "web-defense-ai V2: interfaz Next.js de lectura"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
             "label": "web-defense-ai V2: verificar frontend",
             "type": "shell",
             "command": "& '${workspaceFolder}/.vscode/run-frontend.ps1' -Action lint",

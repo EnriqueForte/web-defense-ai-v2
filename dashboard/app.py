@@ -16,6 +16,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import hashlib
 import uuid
+from urllib.parse import unquote_plus, urlsplit
 from flask import Flask, render_template, jsonify, request, g, redirect
 from dotenv import load_dotenv
 from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
@@ -140,15 +141,83 @@ def parsear_amenazas(reporte: str) -> list[dict]:
                 "tipo"     : idx("tipo"),
                 "estado"   : idx("estado"),
                 "ip"       : ip_final,
-                # El Markdown no contiene fecha individual de este evento.
-                "timestamp": "-",
+                "timestamp": idx("fecha/hora del evento", "fecha del evento", "timestamp", "fecha hora"),
             })
 
         # Fin de tabla al encontrar otro heading
         if en_tabla and linea.startswith("##") and "AMENAZAS" not in linea.upper():
             en_tabla = False
 
-    return amenazas
+    return sorted(amenazas, key=lambda item: (
+        normalizar_fecha_evento(item.get("timestamp")) is not None,
+        normalizar_fecha_evento(item.get("timestamp")) or "",
+    ), reverse=True)
+
+
+def normalizar_fecha_evento(valor: str | None) -> str | None:
+    """Valida marcas explícitas del reporte y normaliza a UTC; no deduce fechas."""
+    if not valor or valor.strip() in {"-", "—", "N/A", "No disponible"}:
+        return None
+    texto = valor.strip().strip("`[] ").strip()
+    try:
+        fecha = datetime.fromisoformat(texto.replace("Z", "+00:00"))
+    except ValueError:
+        try:
+            fecha = datetime.strptime(texto, "%d/%b/%Y:%H:%M:%S %z")
+        except ValueError:
+            return None
+    if fecha.tzinfo is None:
+        return None
+    return fecha.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def parsear_fecha_access_log(linea: str) -> datetime | None:
+    """Lee la hora Apache con su offset y devuelve una fecha consciente de zona."""
+    match = re.search(r"\[([^\]]+)\]", linea)
+    if not match:
+        return None
+    try:
+        return datetime.strptime(match.group(1), "%d/%b/%Y:%H:%M:%S %z")
+    except ValueError:
+        return None
+
+
+def obtener_eventos_recientes(lineas: list[str], limite: int = 100) -> list[dict]:
+    """Extrae observaciones de patrones del access log sin afirmar éxito de ataque."""
+    eventos = []
+    for index, linea in enumerate(lineas):
+        match = re.match(r'^([^ ]+) [^ ]+ [^ ]+ \[[^\]]+\] "([A-Z]+) ([^ ]+) HTTP/[^\"]+" (\d{3})', linea)
+        if not match:
+            continue
+        timestamp = parsear_fecha_access_log(linea)
+        if timestamp is None:
+            continue
+        ip, method, target, status = match.groups()
+        try:
+            ip = str(ipaddress.ip_address(ip))
+        except ValueError:
+            ip = None
+        decoded = unquote_plus(target).casefold()
+        category = None
+        if "/vulnerabilities/brute/" in decoded and method == "GET" and "username=" in decoded and "password=" in decoded:
+            category = "Fuerza bruta"
+        elif "%27" in target.casefold() or any(pattern in decoded for pattern in ("union select", "select ", "' or '", "or 1=1")):
+            category = "SQL injection"
+        elif any(pattern in decoded for pattern in ("<script", "alert(", "onerror", "javascript:")):
+            category = "XSS"
+        elif any(pattern in decoded for pattern in ("../", "..\\", "/etc/passwd")):
+            category = "Traversal de rutas"
+        elif any(pattern in decoded for pattern in (";cat ", "|cat ", "&&whoami", ";whoami")):
+            category = "Inyección de comandos"
+        if category is None:
+            continue
+        request_path = urlsplit(target).path[:180]
+        observed_at = timestamp.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+        identity = hashlib.sha256(f"{index}\0{linea}".encode("utf-8", errors="replace")).hexdigest()[:24]
+        eventos.append({"id": identity, "observed_at": observed_at, "category": category,
+                        "source_ip": ip, "method": method, "path": request_path, "http_status": int(status)})
+    eventos.sort(key=lambda item: item["observed_at"], reverse=True)
+    return eventos[:limite]
 
 
 def extraer_ips_del_log(lineas: list[str] | None = None) -> list[str]:
@@ -194,6 +263,7 @@ def obtener_timeline_ataques(lineas: list[str] | None = None) -> dict:
     ataques = defaultdict(lambda: {
         "sqli": 0, "xss": 0, "path": 0, "brute": 0, "cmd": 0
     })
+    periodos = {}
 
     for linea in lineas:
         ll = linea.lower()
@@ -206,27 +276,19 @@ def obtener_timeline_ataques(lineas: list[str] | None = None) -> dict:
         if not any([es_sqli, es_xss, es_path, es_brute, es_cmd]):
             continue
 
-        match = re.search(r'\[(\d{2}/\w+/\d{4}):(\d{2}):', linea)
-        if not match:
+        timestamp = parsear_fecha_access_log(linea)
+        if not timestamp:
             continue
-
-        clave = f"{match.group(1)} {match.group(2)}h"
+        hora_utc = timestamp.astimezone(timezone.utc).replace(minute=0, second=0, microsecond=0)
+        clave = hora_utc.isoformat(timespec="seconds").replace("+00:00", "Z")
+        periodos[clave] = hora_utc
         if es_sqli:  ataques[clave]["sqli"]  += 1
         if es_xss:   ataques[clave]["xss"]   += 1
         if es_path:  ataques[clave]["path"]  += 1
         if es_brute: ataques[clave]["brute"] += 1
         if es_cmd:   ataques[clave]["cmd"]   += 1
 
-    meses = {nombre: numero for numero, nombre in enumerate(
-        ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), 1
-    )}
-
-    def orden_temporal(clave):
-        fecha, hora = clave.split()
-        dia, mes, anio = fecha.split("/")
-        return (int(anio), meses.get(mes, 0), int(dia), int(hora[:-1]))
-
-    horas = sorted(ataques.keys(), key=orden_temporal)
+    horas = sorted(ataques.keys(), key=lambda clave: periodos[clave])
 
     return {
         "horas" : horas,
@@ -275,12 +337,16 @@ def _capturar_historial(limite: int | None = 5) -> list[dict]:
         return []
     archivos = [p for p in HISTORIAL.glob("*.md") if p.is_file() and not p.is_symlink()]
     archivos.sort(key=lambda p: p.name, reverse=True)
-    if limite is not None:
-        archivos = archivos[:limite]
+    current = capture_file(REPORT_PATH / "reporte_seguridad.md")
+    current_content = current.content if current.status == "available" else None
     historial = []
     for archivo in archivos:
         captura = capture_file(archivo)
         if captura.status != "available":
+            continue
+        # Cada análisis archiva una copia exacta del informe actual. No contar
+        # esa misma publicación dos veces en las vistas de históricos.
+        if current_content is not None and captura.content == current_content:
             continue
         partes = archivo.stem.split("_")
         historial.append({
@@ -290,6 +356,8 @@ def _capturar_historial(limite: int | None = 5) -> list[dict]:
             "hora": partes[2] if len(partes) > 2 else "-",
             "_captura": captura,
         })
+        if limite is not None and len(historial) >= limite:
+            break
     return historial
 
 
@@ -314,13 +382,14 @@ def _snapshot_estado(*, include_log_views: bool = True) -> dict:
     reporte = capture_file(REPORT_PATH / "reporte_seguridad.md")
     log = capture_file(Path(LOG_PATH))
     if include_log_views and log.text is not None:
-        cached_lines, cached_ips, timeline = _cached_log_views(log.digest, log.text)
+        cached_lines, cached_ips, timeline, recent_events = _cached_log_views(log.digest, log.text)
         lineas_log = list(cached_lines)
         source_ips = list(cached_ips)
     else:
         lineas_log = []
         source_ips = []
         timeline = {"horas": [], "sqli": [], "xss": [], "path": [], "brute": [], "cmd": [], "counts": []}
+        recent_events = []
     amenazas = parsear_amenazas(reporte.text or "") if reporte.status == "available" else []
     stats = obtener_estadisticas(amenazas)
     historial_capturado = _capturar_historial(5)
@@ -357,6 +426,7 @@ def _snapshot_estado(*, include_log_views: bool = True) -> dict:
                        if include_log_views and log.status == "available"
                        else ["Log no disponible"] if log.status != "available" else []),
         "source_ips": source_ips,
+        "recent_events": recent_events,
         "timeline": timeline,
     }
 
@@ -374,7 +444,8 @@ def _cached_log_views(digest: str | None, content: str):
         lines = tuple(content.splitlines())
         ips = tuple(extraer_ips_del_log(list(lines)))
         timeline = obtener_timeline_ataques(list(lines))
-        views = (lines, ips, timeline)
+        recent_events = tuple(obtener_eventos_recientes(list(lines)))
+        views = (lines, ips, timeline, recent_events)
         _LOG_VIEWS_CACHE = (digest, views)
         return views
 
@@ -397,10 +468,12 @@ def _threats_v1(snapshot: dict) -> list[dict]:
             "type": threat.get("tipo", ""),
             "status": threat.get("estado", "-"),
             "source_ip": threat.get("ip", "-"),
-            "event_time": None,
+            "event_time": normalizar_fecha_evento(threat.get("timestamp")),
             "source_report_id": report_id,
         })
-    return results
+    # Las amenazas con fecha verificable aparecen primero; las antiguas que no
+    # incluyen fecha quedan al final conservando su orden original.
+    return sorted(results, key=lambda item: (item["event_time"] is not None, item["event_time"] or ""), reverse=True)
 
 
 def _state_v1(snapshot: dict) -> dict:
@@ -427,6 +500,7 @@ def _state_v1(snapshot: dict) -> dict:
             "threats_total": len(snapshot["threats"]),
             "threats_truncated": len(snapshot["threats"]) > 10,
             "recent_log": snapshot["recent_log"],
+            "recent_events": snapshot["recent_events"],
             "source_ips": snapshot["source_ips"][:5],
             "timeline": {"source": "access.log", "meaning": "pattern_matches",
                          "periods": periods},
@@ -461,16 +535,27 @@ def _report_descriptor(path: Path, current: bool = False) -> dict | None:
 
 
 def _catalogo_reportes() -> list[dict]:
-    reports = []
     current = _report_descriptor(REPORT_PATH / "reporte_seguridad.md", current=True)
+    reports = []
+    current_content = None
     if current:
         reports.append(current)
+        captured_current = capture_file(current["_path"])
+        if captured_current.status == "available":
+            current_content = captured_current.content
+    history = []
     if HISTORIAL.exists() and not HISTORIAL.is_symlink():
         for path in HISTORIAL.glob("*.md"):
             descriptor = _report_descriptor(path)
             if descriptor:
-                reports.append(descriptor)
-    return sorted(reports, key=lambda item: (item["_modified_ns"], item["filename"]), reverse=True)
+                if current_content is not None and descriptor["size_bytes"] == len(current_content):
+                    captured_history = capture_file(descriptor["_path"])
+                    if (captured_history.status == "available"
+                            and captured_history.content == current_content):
+                        continue
+                history.append(descriptor)
+    history.sort(key=lambda item: (item["_modified_ns"], item["filename"]), reverse=True)
+    return reports + history
 
 
 def limpiar_historial_antiguo(max_reportes: int = 20):
