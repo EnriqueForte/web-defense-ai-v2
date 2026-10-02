@@ -38,5 +38,12 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "css.validate": false,
-    "html.validate.styles": false
+    "html.validate.styles": false,
+    "python-envs.pythonProjects": [
+        {
+            "path": ".",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }
