@@ -40,6 +40,22 @@ Trabajar sobre la tarea
 solicitada por el usuario; un documento de planificación no autoriza por sí
 solo ejecutar todas sus fases. Actualizar este estado al iniciar una fase.
 
+La mejora de configuración del proveedor LLM se implementó el 02/10/2026. Su
+alcance es una configuración por instalación autoalojada, con Groq
+predeterminado y OpenRouter opcional; no introduce cuentas ni credenciales por
+usuario en una instancia compartida. El guardado local en `.env` respeta los
+bloqueos de análisis y no devuelve claves. La revisión estática de Python,
+ESLint, TypeScript y OpenAPI pasó; no se inició el motor ni se contactaron
+proveedores. Seguimiento y límites en `docs/CONFIGURACION_PROVEEDOR_LLM.md`.
+
+El 02/10/2026 se inició el seguimiento de la integración OpenRouter tras un
+`analysis_failed` en un análisis manual. El diagnóstico local señaló que el
+cliente nativo de CrewAI envió `max_retries` como parámetro de completado y el
+SDK lo rechazó. `main.py` fuerza para OpenRouter la ruta LiteLLM, que conserva
+el adaptador de reintentos propio. El usuario confirmó después dos análisis
+manuales exitosos con OpenRouter el 02/10/2026; el segundo tardó 10 min 57 s
+y generó un reporte nuevo. No ejecutar el motor como comprobación rutinaria.
+
 Leer según corresponda:
 - `docs/PLAN_MIGRACION_INTERFAZ.md`: arquitectura, riesgos, fases y reversión.
 - `docs/FASE_7_ENTRADA_PRINCIPAL.md`: conmutador reversible; activación condicionada por fase 6.
@@ -60,9 +76,10 @@ Leer según corresponda:
 - `dashboard/templates/` y `dashboard/static/`: interfaz actual.
 - `config/`: configuración, prompts y notificaciones.
 
-Conservar Python/CrewAI y Flask; `frontend/` contiene la interfaz de lectura en
-Next.js, React y TypeScript. La UI consume la API `/api/v1` de Flask mediante un
-rewrite local. No presentar componentes propuestos como implementados. La denominación oficial
+Conservar Python/CrewAI y Flask; `frontend/` contiene la interfaz en Next.js,
+React y TypeScript. La UI consume la API `/api/v1` de Flask mediante un rewrite
+local; las lecturas de datos siguen siendo de solo lectura y la configuración
+LLM tiene su ruta local restringida. No presentar componentes propuestos como implementados. La denominación oficial
 es `web-defense-ai V2`; T3r0S3c identifica al autor, no el nombre de la app.
 
 ## Reglas de cambio

@@ -74,9 +74,29 @@ export type AnalysisJob = {
 
 export type AnalysisCurrent = { meta: { api_version: string }; data: {
   manual_enabled: boolean;
+  llm_ready: boolean;
+  llm_provider: string;
   executor: "online" | "offline" | "unavailable";
   job: AnalysisJob | null;
 } };
+
+export type LLMProviderOption = {
+  id: string;
+  label: string;
+  default_model: string;
+  free_models: string[];
+  api_key_configured: boolean;
+};
+
+export type LLMSettings = {
+  provider: string;
+  model: string;
+  pricing_mode: "free" | "paid";
+  api_key_configured: boolean;
+  providers: LLMProviderOption[];
+};
+
+export type LLMSettingsResponse = { meta: { api_version: string }; data: LLMSettings };
 
 export async function requestAnalysis(key: string): Promise<{ job: AnalysisJob; busy: boolean }> {
   const response = await fetch("/api/v1/analisis", {
@@ -104,6 +124,23 @@ export async function getApi<T>(path: string, signal?: AbortSignal): Promise<T> 
     throw new ApiError(typeof message === "string" ? message : `La lectura falló (${response.status}).`, response.status);
   }
   const body: unknown = await response.json();
+  if (!body || typeof body !== "object" || !("meta" in body) || !("data" in body)) {
+    throw new ApiError("La respuesta de la API no tiene el formato esperado.", 502);
+  }
+  return body as T;
+}
+
+export async function putApi<T>(path: string, value: unknown): Promise<T> {
+  const response = await fetch(`/api/v1/${path}`, {
+    method: "PUT", cache: "no-store",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify(value),
+  });
+  const body = await response.json().catch(() => null);
+  if (!response.ok) {
+    const message = body?.error?.message;
+    throw new ApiError(typeof message === "string" ? message : `No se pudo guardar (${response.status}).`, response.status);
+  }
   if (!body || typeof body !== "object" || !("meta" in body) || !("data" in body)) {
     throw new ApiError("La respuesta de la API no tiene el formato esperado.", 502);
   }

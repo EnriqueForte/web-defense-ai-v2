@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process, LLM
 from pydantic import Field
 from config.prompts import PROMPT_ANALISTA
-from config.model_config import configured_model_candidates
+from config.model_config import resolve_llm_settings
 from config.llm_resilience import call_with_model_fallback
 from dashboard.services.read_store import atomic_write_text
 
@@ -60,25 +60,29 @@ def get_llm_con_retry():
     """
     Construye el LLM con reintentos de rate limit limitados por llamada.
     """
-    modelos = configured_model_candidates()
-    try:
-        retries = int(os.getenv("LLM_RATE_LIMIT_RETRIES", "2"))
-        backoff = float(os.getenv("LLM_RATE_LIMIT_BACKOFF_SECONDS", "10"))
-        max_wait = float(os.getenv("LLM_RATE_LIMIT_MAX_WAIT_SECONDS", "45"))
-    except ValueError as error:
-        raise ValueError("La política de reintentos LLM debe usar valores numéricos.") from error
+    settings = resolve_llm_settings()
+    if not settings["api_key_configured"]:
+        raise RuntimeError(f"Configura una clave API para el proveedor {settings['provider_label']}.")
+    modelos = settings["candidates"]
     for index, modelo in enumerate(modelos):
         try:
-            return RateLimitResilientLLM(
-                model=modelo,
-                api_key=os.getenv("GROQ_API_KEY"),
-                temperature=0.1,
-                additional_params={"max_retries": 0},
-                candidate_models=modelos[index:],
-                rate_limit_retries=retries,
-                rate_limit_backoff_seconds=backoff,
-                rate_limit_max_wait_seconds=max_wait,
-            )
+            options = {
+                "model": modelo,
+                "api_key": settings["api_key"],
+                "temperature": settings["temperature"],
+                "additional_params": {"max_retries": 0},
+                "candidate_models": modelos[index:],
+                "rate_limit_retries": settings["rate_limit_retries"],
+                "rate_limit_backoff_seconds": settings["rate_limit_backoff_seconds"],
+                "rate_limit_max_wait_seconds": settings["rate_limit_max_wait_seconds"],
+            }
+            if settings["base_url"]:
+                options["base_url"] = settings["base_url"]
+            if settings["provider"] == "openrouter":
+                # Keep our retry wrapper: CrewAI's native OpenRouter factory
+                # treats its custom fields as completion API parameters.
+                options["is_litellm"] = True
+            return RateLimitResilientLLM(**options)
         except Exception:
             print(f"   Modelo {modelo} no disponible al inicializar; probando el siguiente.")
             time.sleep(2)

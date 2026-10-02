@@ -3,7 +3,7 @@
   "info": {
     "title": "web-defense-ai V2 Local API",
     "version": "1.0.0",
-    "description": "Lecturas sin efectos y solicitud manual opcional a un ejecutor separado. La escritura solo se admite desde localhost cuando ANALYSIS_MANUAL_ENABLED=1. Las fechas de eventos ausentes se representan como null."
+    "description": "API local de lectura, configuración LLM por instalación y solicitud manual opcional a un ejecutor separado. La configuración LLM solo se escribe desde localhost y se guarda en el .env local; nunca devuelve claves. La solicitud manual conserva el control ANALYSIS_MANUAL_ENABLED=1; el dashboard solo habilita esa acción si hay una clave configurada. Las fechas de eventos ausentes se representan como null."
   },
   "servers": [{ "url": "/api/v1" }],
   "paths": {
@@ -22,6 +22,30 @@
         "operationId": "getSalud",
         "summary": "Salud de las fuentes locales observadas",
         "responses": { "200": { "description": "Salud del servicio y estado de archivos", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/configuracion/llm": {
+      "get": {
+        "operationId": "getConfiguracionLLM",
+        "summary": "Leer proveedor, modelo y estado de credenciales sin revelar claves",
+        "responses": {
+          "200": { "description": "Configuración local segura para mostrar en el dashboard", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LLMSettingsResponse" } } } },
+          "403": { "$ref": "#/components/responses/Error" }
+        }
+      },
+      "put": {
+        "operationId": "putConfiguracionLLM",
+        "summary": "Guardar proveedor, modelo y clave para esta instalación local",
+        "description": "Requiere una solicitud JSON desde un origen localhost autorizado. El cambio se escribe atómicamente en .env y se rechaza mientras haya un análisis activo. Una clave vacía conserva la clave ya guardada.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LLMSettingsInput" } } } },
+        "responses": {
+          "200": { "description": "Configuración guardada; ninguna clave se devuelve", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LLMSettingsResponse" } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "409": { "$ref": "#/components/responses/Error" },
+          "415": { "$ref": "#/components/responses/Error" },
+          "500": { "$ref": "#/components/responses/Error" }
+        }
       }
     },
     "/amenazas": {
@@ -103,6 +127,36 @@
       "Error": { "description": "Error sin trazas ni secretos", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
     },
     "schemas": {
+      "LLMSettingsInput": {
+        "type": "object", "additionalProperties": false,
+        "required": ["provider", "model", "pricing_mode"],
+        "properties": {
+          "provider": { "type": "string", "enum": ["groq", "openrouter"] },
+          "model": { "type": "string", "maxLength": 256 },
+          "pricing_mode": { "type": "string", "enum": ["free", "paid"] },
+          "api_key": { "type": "string", "maxLength": 4096, "description": "Clave nueva; vacío u omitido conserva la existente." }
+        }
+      },
+      "LLMProviderStatus": {
+        "type": "object", "required": ["id", "label", "default_model", "free_models", "api_key_configured"],
+        "properties": {
+          "id": { "type": "string", "enum": ["groq", "openrouter"] },
+          "label": { "type": "string" }, "default_model": { "type": "string" },
+          "free_models": { "type": "array", "items": { "type": "string" } },
+          "api_key_configured": { "type": "boolean" }
+        }
+      },
+      "LLMSettingsResponse": {
+        "type": "object", "required": ["meta", "data"], "properties": {
+          "meta": { "type": "object", "properties": { "api_version": { "type": "string" } } },
+          "data": { "type": "object", "required": ["provider", "model", "pricing_mode", "api_key_configured", "providers"], "properties": {
+            "provider": { "type": "string", "enum": ["groq", "openrouter"] },
+            "model": { "type": "string" }, "pricing_mode": { "type": "string", "enum": ["free", "paid"] },
+            "api_key_configured": { "type": "boolean" },
+            "providers": { "type": "array", "items": { "$ref": "#/components/schemas/LLMProviderStatus" } }
+          } }
+        }
+      },
       "JobResponse": {
         "type": "object", "required": ["meta", "data"], "properties": {
           "meta": { "type": "object" },

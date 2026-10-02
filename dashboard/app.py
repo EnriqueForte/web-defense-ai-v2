@@ -22,6 +22,7 @@ from dotenv import load_dotenv
 from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
 from dashboard.services.analysis_jobs import JobStore, default_db_path
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
+from dashboard.services.llm_settings import InvalidLLMSettings, public_llm_settings, save_llm_settings
 from werkzeug.exceptions import HTTPException
 
 # Añadir raíz del proyecto al path
@@ -657,6 +658,35 @@ def api_v1_salud():
                              "executor": _executor_status(), "ingestion": "unobserved"}})
 
 
+@app.get("/api/v1/configuracion/llm")
+def api_v1_configuracion_llm():
+    return jsonify({"meta": {"api_version": "1"}, "data": public_llm_settings()})
+
+
+@app.put("/api/v1/configuracion/llm")
+def api_v1_configuracion_llm_actualizar():
+    if request.remote_addr not in {"127.0.0.1", "::1"}:
+        return _api_error(403, "local_only", "La configuración solo admite solicitudes locales.")
+    origin = request.headers.get("Origin")
+    allowed_origins = {
+        "http://127.0.0.1:3000", "http://127.0.0.1:5000",
+        "http://localhost:3000", "http://localhost:5000",
+    }
+    if origin not in allowed_origins:
+        return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
+    if not request.is_json:
+        return _api_error(415, "json_required", "Envía la configuración como JSON.")
+    try:
+        settings = save_llm_settings(request.get_json(silent=True))
+    except InvalidLLMSettings as error:
+        return _api_error(400, "invalid_llm_config", str(error))
+    except AlreadyRunning:
+        return _api_error(409, "analysis_active", "La configuración no se cambió porque hay un análisis activo.")
+    except (OSError, RuntimeError):
+        return _api_error(500, "llm_config_save_failed", "No se pudo guardar la configuración local.")
+    return jsonify({"meta": {"api_version": "1"}, "data": settings})
+
+
 def _executor_status():
     db_path = default_db_path()
     if not db_path.is_file() or not db_path.with_suffix(".worker.lock").is_file():
@@ -690,8 +720,10 @@ def _job_response(job, worker_status=None):
 @app.get("/api/v1/analisis/actual")
 def api_v1_analisis_actual():
     job = JobStore().latest() if default_db_path().is_file() else None
+    llm = public_llm_settings()
     return jsonify({"meta": {"api_version": "1"}, "data": {
         "manual_enabled": os.getenv("ANALYSIS_MANUAL_ENABLED") == "1",
+        "llm_ready": llm["api_key_configured"], "llm_provider": llm["provider"],
         "executor": _executor_status(), "job": _job_response(job)["data"] if job else None}})
 
 

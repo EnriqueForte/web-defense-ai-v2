@@ -13,6 +13,7 @@ import time
 import uuid
 
 from config.settings import INTERVALO_MINUTOS, LOG_PATH, REPORT_PATH
+from config.model_config import configured_provider_keys
 from dashboard.services.analysis_jobs import JobStore, utc_now
 from dashboard.services.read_store import atomic_write_text, capture_file, run_atomic_copy
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
@@ -48,9 +49,9 @@ def run_engine():
         diagnostics_dir = os.getenv("ENGINE_DIAGNOSTICS_DIR")
         if diagnostics_dir and result.stderr:
             diagnostics = result.stderr
-            api_key = os.getenv("GROQ_API_KEY")
-            if api_key:
-                diagnostics = diagnostics.replace(api_key, "[REDACTED]")
+            for api_key in configured_provider_keys():
+                if api_key:
+                    diagnostics = diagnostics.replace(api_key, "[REDACTED]")
             stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
             target = Path(diagnostics_dir) / f"engine-failure-{stamp}-{uuid.uuid4().hex[:8]}.log"
             atomic_write_text(target, diagnostics[-30000:])

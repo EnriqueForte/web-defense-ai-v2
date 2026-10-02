@@ -79,7 +79,7 @@ notificaciones mediante Telegram y SMTP.
 | Área | Tecnología actual |
 |---|---|
 | Motor | Python 3.11 y CrewAI 1.14.2 declarado |
-| Modelos | Proveedor Groq; modelos configurados en el código actual |
+| Modelos | Groq por defecto y OpenRouter opcional; configuración local por instalación |
 | Dashboard | Flask + Jinja2 + JavaScript |
 | Gráficos | Chart.js |
 | Laboratorio | Docker Compose, DVWA y MySQL para DVWA |
@@ -102,7 +102,9 @@ if (-not (Test-Path -LiteralPath .env)) {
 }
 ```
 
-Configurar localmente `GROQ_API_KEY`, rutas, intervalo y, si se usan, destinos de Telegram/SMTP. No versionar secretos. Algunos valores del motor aún están fijados en código; el plan recoge su consolidación.
+La pantalla **Configuración** del dashboard permite elegir Groq (predeterminado) u OpenRouter, seleccionar un modelo del catálogo o indicar un identificador propio y guardar la clave API de esta instalación. El backend local la escribe en `.env`; la clave no vuelve al navegador ni se envía a un servicio central. `.env` es texto sin cifrar, está excluido de Git y el dashboard debe permanecer en localhost. No versionar ni compartir ese archivo.
+
+Las opciones marcadas como gratuitas dependen de la disponibilidad y límites vigentes del proveedor. Un modelo personalizado puede generar cargos; el selector no conoce el saldo ni el plan de la cuenta. Para añadir proveedores, modelos gratuitos o fallbacks, consultar [Configuración local del proveedor LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md). Rutas, intervalo y destinos opcionales de Telegram/SMTP siguen configurándose localmente.
 
 El laboratorio DVWA aislado se inicia solo cuando se decida verificarlo, usando
 `scripts/start_dvwa_lab.ps1`; para detenerlo conservando sus volúmenes, usar

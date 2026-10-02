@@ -2,21 +2,23 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Activity, FileText, LayoutDashboard, Menu, Network, RefreshCw, Shield, ShieldAlert, TriangleAlert, X } from "lucide-react";
+import { Activity, FileText, LayoutDashboard, Menu, Network, RefreshCw, Settings2, Shield, ShieldAlert, TriangleAlert, X } from "lucide-react";
 import { ThreatTable } from "@/components/threat-table";
 import { MetricCard } from "@/components/metric-card";
+import { LLMSettings } from "@/components/llm-settings";
 import { SeverityChart, TimelineChart } from "@/components/security-charts";
 import { getApi, requestAnalysis, validState, type AnalysisCurrent, type ObservedEvent, type PageResponse, type Report, type ReportDetail, type StateResponse, type Threat } from "@/lib/api";
 
-type View = "Resumen" | "Amenazas" | "Reportes" | "Actividad";
-const views: View[] = ["Resumen", "Amenazas", "Reportes", "Actividad"];
+type View = "Resumen" | "Amenazas" | "Reportes" | "Actividad" | "Configuración";
+const views: View[] = ["Resumen", "Amenazas", "Reportes", "Actividad", "Configuración"];
 const viewDescriptions: Record<View, string> = {
   Resumen: "Visión general del reporte actual y de los patrones observados en el log.",
   Amenazas: "Consulta eventos observados en el log y amenazas clasificadas en el último informe.",
   Reportes: "Consulta los informes generados; su fecha corresponde al archivo, no a cada evento.",
   Actividad: "Revisa las últimas líneas disponibles del registro de acceso.",
+  Configuración: "Elige proveedor y modelo LLM para esta instalación local.",
 };
-const navigationIcons = { Resumen: LayoutDashboard, Amenazas: ShieldAlert, Reportes: FileText, Actividad: Activity };
+const navigationIcons = { Resumen: LayoutDashboard, Amenazas: ShieldAlert, Reportes: FileText, Actividad: Activity, Configuración: Settings2 };
 const severities = ["Todas", "CRITICA", "ALTA", "MEDIA", "BAJA", "DESCONOCIDA"];
 const names: Record<string, string> = { CRITICA: "Crítica", ALTA: "Alta", MEDIA: "Media", BAJA: "Baja", DESCONOCIDA: "Desconocida" };
 const severityCodes = ["CRITICA", "ALTA", "MEDIA", "BAJA", "DESCONOCIDA"];
@@ -176,7 +178,7 @@ export default function Home() {
   }, [loadAnalysis]);
 
   async function startAnalysis() {
-    if (analysisSubmitting || !analysis?.manual_enabled || analysis.executor !== "online" ||
+    if (analysisSubmitting || !analysis?.manual_enabled || !analysis.llm_ready || analysis.executor !== "online" ||
         analysis.job?.status === "queued" || analysis.job?.status === "running") return;
     setAnalysisSubmitting(true);
     setAnalysisError("");
@@ -273,7 +275,7 @@ export default function Home() {
       <div className="workspace-switch"><div className="workspace-avatar" aria-hidden="true">WD</div><div className="workspace-copy"><span>ENTORNO</span><strong>Laboratorio local</strong></div></div>
       <div className="nav-label">PLATAFORMA</div>
       <nav id="primary-nav" className="primary-nav" aria-label="Navegación principal">{views.map((item) => { const Icon = navigationIcons[item]; return <button key={item} className={`nav-link ${view === item ? "nav-active" : ""}`} aria-current={view === item ? "page" : undefined} onClick={() => navigate(item)}><span className="nav-glyph" aria-hidden="true"><Icon size={19} strokeWidth={1.75} /></span><span>{item}</span>{item === "Amenazas" && <span className="nav-count">{state?.data.threats_total ?? "—"}</span>}</button>; })}</nav>
-      <div className="sidebar-bottom"><div className="plan-card"><div className="plan-head"><span className="environment-dot" /> LECTURA LOCAL</div><strong>{connectionLabel}</strong><p>Datos de archivos observados por la API. No indica que el análisis esté activo.</p><div className="plan-foot"><span>Solo lectura</span><span>API v1</span></div></div></div>
+      <div className="sidebar-bottom"><div className="plan-card"><div className="plan-head"><span className="environment-dot" /> ENTORNO LOCAL</div><strong>{connectionLabel}</strong><p>Datos de archivos observados por la API. No indica que el análisis esté activo.</p><div className="plan-foot"><span>Configuración local</span><span>API v1</span></div></div></div>
     </aside>
 
     <div className="main-column" inert={mobileNav}>
@@ -285,11 +287,12 @@ export default function Home() {
         {view === "Resumen" && <section className="panel analysis-panel" aria-label="Coordinación de análisis">
           <div><div className="panel-kicker">EJECUTOR LOCAL</div><h2>Análisis coordinado</h2>
             <p>{analysis?.executor === "online" ? "Ejecutor activo" : "Ejecutor no disponible"} · {analysis?.manual_enabled ? "solicitudes manuales habilitadas" : "solicitudes manuales desactivadas"}</p>
+            {analysis && <p>{analysis.llm_ready ? `LLM configurado: ${analysis.llm_provider}` : "Configura una clave API en Configuración para iniciar análisis."}</p>}
             {analysis?.job && <p role="status">Último trabajo {analysis.job.id.slice(0, 12)} · {analysis.job.kind === "manual" ? "manual" : "periódico"} · {analysis.job.status} · {analysis.job.phase}{analysis.job.error_code ? ` · ${analysis.job.error_code}` : ""}</p>}
             {analysis?.job && Object.keys(analysis.job.deliveries ?? {}).length > 0 && <p>Entregas: {Object.entries(analysis.job.deliveries).map(([destination, status]) => `${destination}: ${status}`).join(" · ")}</p>}
             {analysisError && <p className="error-copy" role="alert">{analysisError}</p>}
           </div>
-          <button className="button-secondary" disabled={!analysis?.manual_enabled || analysis.executor !== "online" || analysisSubmitting || analysis.job?.status === "queued" || analysis.job?.status === "running"} onClick={() => void startAnalysis()}>{analysisSubmitting ? "Solicitando…" : "Iniciar análisis"}</button>
+          <button className="button-secondary" disabled={!analysis?.manual_enabled || !analysis.llm_ready || analysis.executor !== "online" || analysisSubmitting || analysis.job?.status === "queued" || analysis.job?.status === "running"} onClick={() => void startAnalysis()}>{analysisSubmitting ? "Solicitando…" : "Iniciar análisis"}</button>
         </section>}
 
         {stateLoading && !state && <div className="panel state-panel" role="status">Cargando la primera captura…</div>}
@@ -315,6 +318,8 @@ export default function Home() {
         {view === "Reportes" && <><section className="reports-layout"><article className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes</h2><p>Archivos disponibles; fecha local de modificación, no fecha de cada evento</p></div></div>{reportLoading && <p className="status-copy" role="status">Cargando catálogo…</p>}{reportError && <p className="status-copy error-copy" role="alert">{reportError}</p>}{!reportLoading && !reportError && reports && <>{reports.data.length ? <ul className="report-list">{reports.data.map((item) => <li key={item.id}><button aria-pressed={reportId === item.id} className={reportId === item.id ? "selected-report" : ""} onClick={() => { setDetail(null); setReportId(item.id); }}><strong>{item.current ? "Reporte actual" : item.filename}</strong><small>{dateLabel(item.modified_at)} · {number(item.size_bytes)} bytes</small></button></li>)}</ul> : <p className="empty-copy">No hay reportes disponibles.</p>}<Pager page={reportPage} total={reports.meta.total} size={20} change={setReportPage} /></>}</article><article className="panel report-detail"><div className="panel-header"><div><div className="panel-kicker">LECTURA SEGURA</div><h2>{detail?.data.report.filename ?? "Selecciona un reporte"}</h2></div></div>{detailError && <p className="status-copy error-copy" role="alert">{detailError} Actualiza el catálogo si el archivo cambió.</p>}{reportId && !detail && !detailError && <p className="status-copy" role="status">Abriendo reporte…</p>}{detail && <><p className="status-copy">Modificado: {dateLabel(detail.data.report.modified_at)}</p><pre className="report-markdown" tabIndex={0} aria-label="Contenido del reporte en texto">{detail.data.markdown}</pre></>}{!reportId && <p className="empty-copy">Elige un reporte para leer su contenido. Los eventos recientes del log se muestran abajo; aparecerán en el informe cuando se ejecute un análisis.</p>}</article></section><ObservedEvents items={state?.data.recent_events ?? []} /></>}
 
         {view === "Actividad" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG</div><h2>Actividad reciente</h2><p>Ventana limitada que entrega la API; no es un registro histórico completo</p></div></div><LogLines lines={state?.data.recent_log ?? []} /><p className="status-copy">Origen: {state?.meta.sources.log?.status ?? "sin lectura"} · última modificación {dateLabel(state?.meta.sources.log?.modified_at)}</p></section>}
+
+        {view === "Configuración" && <LLMSettings />}
 
         <footer className="system-status-bar" aria-label="Estado del sistema"><div className="system-status-items"><span className={`system-status-item system-health ${stateError || (state && state.meta.health !== "ok") ? "status-warning" : ""}`}><span className="environment-dot" aria-hidden="true" /><span className="status-label">ESTADO</span><strong className="status-value">{stateError ? "SIN CONEXIÓN" : state ? state.meta.health === "ok" ? "FUENTES DISPONIBLES" : "FUENTES INCOMPLETAS" : "CONECTANDO"}</strong></span><span className="system-status-item"><span className="status-label">API</span><span className="status-value">v1</span></span><span className="system-status-item"><span className="status-label">ENTORNO</span><span className="status-value">LOCAL</span></span><span className="system-status-item status-capture"><span className="status-label">CAPTURA</span><span className="status-value">{state ? dateLabel(state.meta.captured_at) : "SIN CAPTURA"}</span></span></div><span className="system-status-brand">WEB-DEFENSE-AI V2</span></footer>
       </main>
