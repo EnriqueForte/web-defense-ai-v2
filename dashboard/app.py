@@ -20,6 +20,8 @@ from urllib.parse import unquote_plus, urlsplit
 from flask import Flask, render_template, jsonify, request, g, redirect
 from dotenv import load_dotenv
 from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
+from dashboard.services.active_report import capture_current, capture_current_details, inspect_current
+from agents.structured_reporting import event_period, render_markdown
 from dashboard.services.analysis_jobs import JobStore, default_db_path
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
 from dashboard.services.llm_settings import InvalidLLMSettings, public_llm_settings, save_llm_settings
@@ -31,6 +33,18 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 load_dotenv()
 
 app = Flask(__name__)
+app.config.update(TRUSTED_HOSTS=["localhost", "127.0.0.1", "[::1]"],
+                  MAX_CONTENT_LENGTH=16 * 1024)
+
+LOCAL_BROWSER_ORIGINS = {
+    "http://127.0.0.1:3000", "http://127.0.0.1:5000",
+    "http://localhost:3000", "http://localhost:5000",
+}
+
+
+def _local_origin_allowed(*, required=True):
+    origin = request.headers.get("Origin")
+    return origin in LOCAL_BROWSER_ORIGINS or (origin is None and not required)
 
 
 @app.before_request
@@ -45,6 +59,8 @@ def asignar_request_id():
 @app.after_request
 def cabeceras_api(response):
     response.headers["X-Request-ID"] = getattr(g, "request_id", "")
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Referrer-Policy"] = "same-origin"
     if request.path.startswith("/api/v1/") or request.path == "/api/estado":
         response.headers["Cache-Control"] = "no-store, max-age=0"
         response.headers["Pragma"] = "no-cache"
@@ -53,11 +69,24 @@ def cabeceras_api(response):
 
 @app.errorhandler(HTTPException)
 def error_http_api(error):
-    if request.path.startswith("/api/v1/"):
-        code = "not_found" if error.code == 404 else "method_not_allowed" if error.code == 405 else "http_error"
-        message = "No se encontró el recurso solicitado." if error.code == 404 else "La operación no está permitida."
+    if request.path.startswith("/api/"):
+        code = ("not_found" if error.code == 404 else "method_not_allowed" if error.code == 405
+                else "request_too_large" if error.code == 413 else "http_error")
+        message = ("No se encontró el recurso solicitado." if error.code == 404
+                   else "La solicitud supera el límite de tamaño." if error.code == 413
+                   else "La operación no está permitida.")
         return _api_error(error.code or 500, code, message)
     return error
+
+
+@app.errorhandler(Exception)
+def error_interno(error):
+    # No exception messages/tracebacks: transports or configuration errors can
+    # contain credentials, URLs, SQL details or untrusted input.
+    app.logger.error("Fallo interno del dashboard; respuesta sin detalles sensibles.")
+    if request.path.startswith("/api/"):
+        return _api_error(500, "internal_error", "No se pudo completar la operación local.")
+    return "No se pudo completar la operación local.", 500, {"Content-Type": "text/plain; charset=utf-8"}
 
 # ============================================================
 # CONFIGURACIÓN
@@ -202,7 +231,9 @@ def obtener_eventos_recientes(lineas: list[str], limite: int = 100) -> list[dict
         category = None
         if "/vulnerabilities/brute/" in decoded and method == "GET" and "username=" in decoded and "password=" in decoded:
             category = "Fuerza bruta"
-        elif "%27" in target.casefold() or any(pattern in decoded for pattern in ("union select", "select ", "' or '", "or 1=1")):
+        # An encoded apostrophe alone is not a SQL indicator: XSS and ordinary
+        # names can contain it. Require the decoded SQL pattern itself.
+        elif any(pattern in decoded for pattern in ("union select", "select ", "' or '", "or 1=1")):
             category = "SQL injection"
         elif any(pattern in decoded for pattern in ("<script", "alert(", "onerror", "javascript:")):
             category = "XSS"
@@ -304,9 +335,9 @@ def obtener_timeline_ataques(lineas: list[str] | None = None) -> dict:
 
 def obtener_timestamp_reporte() -> str:
     """Retorna la fecha de modificación del reporte actual."""
-    ruta = REPORT_PATH / "reporte_seguridad.md"
-    if ruta.exists():
-        mtime = datetime.fromtimestamp(ruta.stat().st_mtime)
+    captured = capture_current(REPORT_PATH)
+    if captured.modified_ns is not None:
+        mtime = datetime.fromtimestamp(captured.modified_ns / 1_000_000_000)
         return mtime.strftime("%d/%m %H:%M")
     return "--/-- --:--"
 
@@ -332,13 +363,14 @@ def obtener_estadisticas(amenazas: list[dict]) -> dict:
     }
 
 
-def _capturar_historial(limite: int | None = 5) -> list[dict]:
+def _capturar_historial(limite: int | None = 5, *, current: CapturedFile | None = None) -> list[dict]:
     """Captura metadatos y contenido de reportes sin seguir enlaces simbólicos."""
     if not HISTORIAL.exists() or HISTORIAL.is_symlink() or not HISTORIAL.is_dir():
         return []
     archivos = [p for p in HISTORIAL.glob("*.md") if p.is_file() and not p.is_symlink()]
     archivos.sort(key=lambda p: p.name, reverse=True)
-    current = capture_file(REPORT_PATH / "reporte_seguridad.md")
+    if current is None:
+        current = capture_current(REPORT_PATH)
     current_content = current.content if current.status == "available" else None
     historial = []
     for archivo in archivos:
@@ -380,10 +412,10 @@ def obtener_log_reciente(lineas: list[str] | None = None) -> list[str]:
 
 def _snapshot_estado(*, include_log_views: bool = True) -> dict:
     """Compone la respuesta desde una captura estable de cada archivo fuente."""
-    reporte = capture_file(REPORT_PATH / "reporte_seguridad.md")
+    reporte, structured_result = capture_current_details(REPORT_PATH)
     log = capture_file(Path(LOG_PATH))
     if include_log_views and log.text is not None:
-        cached_lines, cached_ips, timeline, recent_events = _cached_log_views(log.digest, log.text)
+        cached_lines, cached_ips, timeline, recent_events, log_period = _cached_log_views(log.digest, log.text)
         lineas_log = list(cached_lines)
         source_ips = list(cached_ips)
     else:
@@ -391,9 +423,10 @@ def _snapshot_estado(*, include_log_views: bool = True) -> dict:
         source_ips = []
         timeline = {"horas": [], "sqli": [], "xss": [], "path": [], "brute": [], "cmd": [], "counts": []}
         recent_events = []
+        log_period = {"first_at": None, "last_at": None, "undated_lines": 0}
     amenazas = parsear_amenazas(reporte.text or "") if reporte.status == "available" else []
     stats = obtener_estadisticas(amenazas)
-    historial_capturado = _capturar_historial(5)
+    historial_capturado = _capturar_historial(5, current=reporte)
     historial = [{key: value for key, value in item.items() if not key.startswith("_")}
                  for item in historial_capturado]
 
@@ -423,11 +456,13 @@ def _snapshot_estado(*, include_log_views: bool = True) -> dict:
         "history": historial,
         "history_captures": historial_capturado,
         "log_lines": lineas_log,
+        "log_period": dict(log_period),
         "recent_log": (obtener_log_reciente(lineas_log)
                        if include_log_views and log.status == "available"
                        else ["Log no disponible"] if log.status != "available" else []),
         "source_ips": source_ips,
         "recent_events": recent_events,
+        "structured_result": structured_result,
         "timeline": timeline,
     }
 
@@ -446,7 +481,11 @@ def _cached_log_views(digest: str | None, content: str):
         ips = tuple(extraer_ips_del_log(list(lines)))
         timeline = obtener_timeline_ataques(list(lines))
         recent_events = tuple(obtener_eventos_recientes(list(lines)))
-        views = (lines, ips, timeline, recent_events)
+        dates = sorted(date.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+                       for line in lines if (date := parsear_fecha_access_log(line)) is not None)
+        period = {"first_at": dates[0] if dates else None, "last_at": dates[-1] if dates else None,
+                  "undated_lines": len(lines) - len(dates)}
+        views = (lines, ips, timeline, recent_events, period)
         _LOG_VIEWS_CACHE = (digest, views)
         return views
 
@@ -458,6 +497,9 @@ def _api_error(status: int, code: str, message: str):
 
 def _threats_v1(snapshot: dict) -> list[dict]:
     report_id = snapshot["report"].file_id
+    structured = snapshot.get("structured_result")
+    periods = {",".join(str(o["line_number"]) for o in f["observations"]): event_period(f["observations"])
+               for f in structured["findings"]} if structured else {}
     results = []
     for index, threat in enumerate(snapshot["threats"], start=1):
         identity = f"{report_id or 'no-report'}:{index}:{threat.get('numero', '-')}:"
@@ -471,10 +513,12 @@ def _threats_v1(snapshot: dict) -> list[dict]:
             "source_ip": threat.get("ip", "-"),
             "event_time": normalizar_fecha_evento(threat.get("timestamp")),
             "source_report_id": report_id,
+            **periods.get(threat.get("numero", "-"), {}),
         })
     # Las amenazas con fecha verificable aparecen primero; las antiguas que no
     # incluyen fecha quedan al final conservando su orden original.
-    return sorted(results, key=lambda item: (item["event_time"] is not None, item["event_time"] or ""), reverse=True)
+    return sorted(results, key=lambda item: (bool(item.get("event_time_end") or item["event_time"]),
+                                            item.get("event_time_end") or item["event_time"] or ""), reverse=True)
 
 
 def _state_v1(snapshot: dict) -> dict:
@@ -501,6 +545,7 @@ def _state_v1(snapshot: dict) -> dict:
             "threats_total": len(snapshot["threats"]),
             "threats_truncated": len(snapshot["threats"]) > 10,
             "recent_log": snapshot["recent_log"],
+            "log_period": snapshot["log_period"],
             "recent_events": snapshot["recent_events"],
             "source_ips": snapshot["source_ips"][:5],
             "timeline": {"source": "access.log", "meaning": "pattern_matches",
@@ -536,12 +581,13 @@ def _report_descriptor(path: Path, current: bool = False) -> dict | None:
 
 
 def _catalogo_reportes() -> list[dict]:
-    current = _report_descriptor(REPORT_PATH / "reporte_seguridad.md", current=True)
+    captured = capture_current(REPORT_PATH)
+    current = _report_descriptor(captured.path, current=True) if captured.status == "available" else None
     reports = []
     current_content = None
     if current:
         reports.append(current)
-        captured_current = capture_file(current["_path"])
+        captured_current = captured
         if captured_current.status == "available":
             current_content = captured_current.content
     history = []
@@ -647,7 +693,7 @@ def api_v1_estado():
 
 @app.get("/api/v1/salud")
 def api_v1_salud():
-    sources = {"report": inspect_file(REPORT_PATH / "reporte_seguridad.md"),
+    sources = {"report": inspect_current(REPORT_PATH),
                "log": inspect_file(Path(LOG_PATH))}
     status = "ok" if all(item["status"] == "available" for item in sources.values()) else "degraded"
     if any(item["status"] == "error" for item in sources.values()):
@@ -667,12 +713,7 @@ def api_v1_configuracion_llm():
 def api_v1_configuracion_llm_actualizar():
     if request.remote_addr not in {"127.0.0.1", "::1"}:
         return _api_error(403, "local_only", "La configuración solo admite solicitudes locales.")
-    origin = request.headers.get("Origin")
-    allowed_origins = {
-        "http://127.0.0.1:3000", "http://127.0.0.1:5000",
-        "http://localhost:3000", "http://localhost:5000",
-    }
-    if origin not in allowed_origins:
+    if not _local_origin_allowed():
         return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
     if not request.is_json:
         return _api_error(415, "json_required", "Envía la configuración como JSON.")
@@ -741,8 +782,8 @@ def api_v1_analisis_detalle(job_id):
 def api_v1_analisis_crear():
     if request.remote_addr not in {"127.0.0.1", "::1"}:
         return _api_error(403, "local_only", "El análisis manual solo admite solicitudes locales.")
-    origin = request.headers.get("Origin")
-    if origin and origin not in {"http://127.0.0.1:3000", "http://127.0.0.1:5000"}:
+    # Preserve local CLI clients using Idempotency-Key without Origin.
+    if not _local_origin_allowed(required=False):
         return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
     if os.getenv("ANALYSIS_MANUAL_ENABLED") != "1":
         return _api_error(403, "manual_disabled", "El análisis manual está desactivado.")
@@ -820,18 +861,22 @@ def api_v1_reporte(report_id):
     match = next((item for item in _catalogo_reportes() if item["id"] == report_id), None)
     if match is None:
         return _api_error(404, "report_not_found", "No se encontró el reporte solicitado.")
-    captura = capture_file(match["_path"])
+    captura, structured = capture_current_details(REPORT_PATH) if match["current"] else (capture_file(match["_path"]), None)
     actual = _report_descriptor(match["_path"], current=match["current"])
-    if captura.status != "available" or actual is None or actual["id"] != report_id:
+    if (captura.status != "available" or captura.path != match["_path"]
+            or actual is None or actual["id"] != report_id):
         return _api_error(409, "report_changed", "El reporte cambió mientras se consultaba. Vuelve a cargar la lista.")
     descriptor = {key: value for key, value in actual.items() if not key.startswith("_")}
     return jsonify({"meta": {"api_version": "1", "report_id": report_id},
-                    "data": {"report": descriptor, "markdown": captura.text}})
+                    "data": {"report": descriptor, "markdown": captura.text,
+                             **({"display_markdown": render_markdown(structured)} if structured else {})}})
 
 
 @app.route("/api/sincronizar", methods=["POST"])
 def api_sincronizar():
     """Sincroniza el log desde Docker; no ejecuta IA ni notifica."""
+    if not _local_origin_allowed():
+        return jsonify({"ok": False, "error": "El origen de la solicitud no está autorizado."}), 403
     if _executor_status() == "online":
         return jsonify({"ok": False, "error": "El ejecutor coordina la sincronización; deténlo antes de usar esta acción anterior."}), 409
     try:
@@ -860,15 +905,20 @@ def api_sincronizar():
 def ver_reporte(nombre):
     """Muestra un reporte histórico en formato legible."""
     import re
+    if nombre == "reporte_seguridad.md":
+        captured = capture_current(REPORT_PATH)
+        if captured.status != "available":
+            return "Reporte no encontrado.", 404, {"Content-Type": "text/plain; charset=utf-8"}
+        return render_template("report.html", contenido=captured.text, nombre=nombre)
     # Acepta nombres como: reporte_20260427_133534.md
     if not re.match(r'^reporte_[\w]+\.md$', nombre):
-        return f"Archivo no valido: {nombre}", 400
+        return "Archivo no valido.", 400, {"Content-Type": "text/plain; charset=utf-8"}
 
     ruta = HISTORIAL / nombre
     if not ruta.exists():
         ruta = REPORT_PATH / nombre
         if not ruta.exists():
-            return f"Reporte no encontrado: {nombre}", 404
+            return "Reporte no encontrado.", 404, {"Content-Type": "text/plain; charset=utf-8"}
 
     contenido = ruta.read_text(encoding="utf-8", errors="replace")
     return render_template("report.html", contenido=contenido, nombre=nombre)

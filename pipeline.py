@@ -14,9 +14,11 @@ import uuid
 
 from config.settings import INTERVALO_MINUTOS, LOG_PATH, REPORT_PATH
 from config.model_config import configured_provider_keys
+from config.notification_delivery import deliver_notification
 from dashboard.services.analysis_jobs import JobStore, utc_now
 from dashboard.services.read_store import atomic_write_text, capture_file, run_atomic_copy
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
+from dashboard.services.active_report import capture_current
 
 
 ROOT = Path(__file__).resolve().parent
@@ -38,11 +40,12 @@ def synchronize_log():
     return result.returncode == 0
 
 
-def run_engine():
+def run_engine(*, analysis_id=None):
     try:
         result = subprocess.run([sys.executable, str(ROOT / "main.py")], cwd=ROOT,
                                 capture_output=True, text=True, encoding="utf-8", timeout=900,
-                                env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+                                env={**os.environ, "PYTHONIOENCODING": "utf-8",
+                                     **({"STRUCTURED_ANALYSIS_ID": analysis_id} if analysis_id else {})})
     except (OSError, subprocess.TimeoutExpired):
         return False
     if result.returncode != 0:
@@ -67,7 +70,6 @@ def archive_report(report, job_id):
 def send_alerts(store, job_id, report):
     # Conteos de la misma tabla que expone el dashboard; no enviamos líneas del modelo.
     from dashboard.app import parsear_amenazas
-    from config.notifications import enviar_email, enviar_telegram
 
     severities = [item["severidad"].replace("Í", "I") for item in parsear_amenazas(report)]
     critical = severities.count("CRITICA")
@@ -79,16 +81,14 @@ def send_alerts(store, job_id, report):
     configured = os.getenv("NOTIFICATION_DESTINATIONS")
     allowed = ({"telegram", "email"} if configured is None else
                {item.strip().lower() for item in configured.split(",") if item.strip()})
-    senders = (("telegram", lambda: enviar_telegram(message)),
-               ("email", lambda: enviar_email("[web-defense-ai V2] Alerta de seguridad", message)))
-    for destination, sender in senders:
+    for destination in ("telegram", "email"):
         if destination not in allowed:
             continue
         if store.delivery(job_id, destination) is not None:
             continue
         store.delivery(job_id, destination, "attempting")
         try:
-            delivered = sender()
+            delivered = deliver_notification(destination, message)
         except Exception:
             delivered = False
         store.delivery(job_id, destination, "sent" if delivered else "unknown")
@@ -106,17 +106,16 @@ def execute_job(store, job, *, sync=synchronize_log, engine=run_engine, notify=s
 
 def _execute_job_locked(store, job, *, sync, engine, notify):
     job_id = job["id"]
-    report_path = Path(REPORT_PATH) / "reporte_seguridad.md"
     try:
         if not sync():
             store.finish(job_id, "failed", "ingestion_failed")
             return
         store.phase(job_id, "analyzing", last_ingested_at=utc_now())
-        before = capture_file(report_path)
-        if not engine():
+        before = capture_current(REPORT_PATH)
+        if not (engine(analysis_id=job_id) if engine is run_engine else engine()):
             store.finish(job_id, "failed", "analysis_failed")
             return
-        after = capture_file(report_path)
+        after = capture_current(REPORT_PATH)
         if (after.status != "available" or not after.text or
                 after.file_id == before.file_id):
             store.finish(job_id, "failed", "no_new_report")

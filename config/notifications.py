@@ -5,6 +5,7 @@ import requests
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
+from config.notification_delivery import bounded_seconds
 
 load_dotenv()
 
@@ -21,10 +22,11 @@ def enviar_telegram(mensaje: str) -> bool:
         if r.status_code == 200:
             print("Alerta enviada por Telegram")
             return True
-        print(f"Error Telegram: {r.text}")
+        print(f"Error Telegram: HTTP {r.status_code}")
         return False
-    except Exception as e:
-        print(f"Error Telegram: {e}")
+    except Exception:
+        # Transport exceptions can contain the URL, including the bot token.
+        print("Error Telegram: fallo de transporte.")
         return False
 
 def enviar_email(asunto: str, cuerpo: str) -> bool:
@@ -32,7 +34,13 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
     password     = os.getenv("EMAIL_PASSWORD", "").replace(" ", "")
     destinatario = os.getenv("EMAIL_DESTINATARIO")
     smtp_server  = os.getenv("EMAIL_SMTP_SERVER", "smtp.gmail.com")
-    smtp_port    = int(os.getenv("EMAIL_SMTP_PORT", "587"))
+    try:
+        smtp_port = int(os.getenv("EMAIL_SMTP_PORT", "587"))
+        if not 1 <= smtp_port <= 65535:
+            raise ValueError
+    except (TypeError, ValueError):
+        print("Error email: puerto SMTP inválido.")
+        return False
     smtp_starttls_requested = os.getenv("EMAIL_SMTP_STARTTLS", "1").strip().lower() not in {"0", "false", "no"}
     smtp_host = smtp_server.strip().lower()
     smtp_is_loopback = smtp_host in {"localhost", "127.0.0.1", "::1", "[::1]"}
@@ -46,7 +54,8 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
     msg["To"]      = destinatario
     msg.attach(MIMEText(cuerpo, "plain", "utf-8"))
     try:
-        with smtplib.SMTP(smtp_server, smtp_port) as s:
+        timeout = bounded_seconds("EMAIL_SMTP_TIMEOUT_SECONDS", 10, 60)
+        with smtplib.SMTP(smtp_server, smtp_port, timeout=timeout) as s:
             if smtp_starttls:
                 s.starttls()
             if password:
@@ -54,8 +63,8 @@ def enviar_email(asunto: str, cuerpo: str) -> bool:
             s.sendmail(remitente, destinatario, msg.as_string())
         print(f"Alerta enviada por email a {destinatario}")
         return True
-    except Exception as e:
-        print(f"Error email: {e}")
+    except Exception:
+        print("Error email: fallo de transporte.")
         return False
 
 def notificar_alerta_critica(alertas: list, ciclo: int) -> None:

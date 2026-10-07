@@ -18,6 +18,7 @@ export function LLMSettings() {
     const controller = new AbortController();
     getApi<LLMSettingsResponse>("configuracion/llm", controller.signal)
       .then((response) => {
+        if (controller.signal.aborted) return;
         setSettings(response.data);
         setProviderId(response.data.provider);
         setPricingMode(response.data.pricing_mode);

@@ -81,7 +81,12 @@ class JobStoreTests(TestCase):
                   "| --- | --- | --- | --- | --- |\n"
                   "| 1 | CRÍTICA | SQLi | Intento | 192.0.2.1 |\n")
         sink = SimulatedNotificationSink()
-        with patch.object(notifications, "enviar_telegram", side_effect=sink.telegram) as telegram, \
+        def simulated_delivery(destination, message):
+            if destination == "telegram":
+                return notifications.enviar_telegram(message)
+            return notifications.enviar_email("[web-defense-ai V2] Alerta de seguridad", message)
+        with patch.object(pipeline, "deliver_notification", side_effect=simulated_delivery), \
+             patch.object(notifications, "enviar_telegram", side_effect=sink.telegram) as telegram, \
              patch.object(notifications, "enviar_email", side_effect=sink.email) as email:
             pipeline.send_alerts(self.store, job["id"], report)
             pipeline.send_alerts(self.store, job["id"], report)
@@ -104,12 +109,11 @@ class JobStoreTests(TestCase):
                   "| --- | --- | --- | --- | --- |\n"
                   "| 1 | **ALTA** | SQLi | Intento | 192.0.2.1 |\n")
         with patch.dict(os.environ, {"NOTIFICATION_DESTINATIONS": "email"}, clear=True), \
-             patch.object(notifications, "enviar_telegram") as telegram, \
-             patch.object(notifications, "enviar_email", return_value=True) as email:
+             patch.object(pipeline, "deliver_notification", return_value=True) as send:
             pipeline.send_alerts(self.store, job["id"], report)
 
-        telegram.assert_not_called()
-        email.assert_called_once()
+        send.assert_called_once()
+        self.assertEqual(send.call_args.args[0], "email")
         self.assertEqual(self.store.deliveries(job["id"]), {"email": "sent"})
 
     def test_analysis_requires_a_new_report_and_never_notifies_on_failure(self):
@@ -206,17 +210,28 @@ class AnalysisApiTests(TestCase):
         with patch.object(self.web, "_executor_status", return_value="offline"):
             self.assertEqual(self.client.post("/api/v1/analisis", headers={"Idempotency-Key": "one"}).status_code, 503)
 
+    def test_manual_origin_policy_accepts_localhost_and_preserves_cli(self):
+        with patch.object(self.web, "_executor_status", return_value="online"):
+            for origin in ("http://localhost:3000", "http://localhost:5000", None):
+                headers = {"Idempotency-Key": "same-local-request"}
+                if origin is not None:
+                    headers["Origin"] = origin
+                self.assertEqual(self.client.post("/api/v1/analisis", headers=headers).status_code, 202)
+            for origin in ("", "null", "https://untrusted.example"):
+                self.assertEqual(self.client.post("/api/v1/analisis", headers={
+                    "Origin": origin, "Idempotency-Key": "rejected"}).status_code, 403)
+
     def test_legacy_sync_cannot_race_with_executor(self):
         with patch.object(self.web, "_executor_status", return_value="online"), \
              patch.object(self.web, "run_atomic_copy", side_effect=AssertionError("sincronización duplicada")):
-            self.assertEqual(self.client.post("/api/sincronizar").status_code, 409)
+            self.assertEqual(self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"}).status_code, 409)
 
     def test_legacy_sync_rejects_cycle_lock_even_before_heartbeat(self):
         lock = Path(os.environ["ANALYSIS_DB_PATH"]).with_suffix(".cycle.lock")
         with exclusive_lock(lock), \
              patch.object(self.web, "_executor_status", return_value="offline"), \
              patch.object(self.web, "run_atomic_copy", side_effect=AssertionError("sincronización duplicada")):
-            self.assertEqual(self.client.post("/api/sincronizar").status_code, 409)
+            self.assertEqual(self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"}).status_code, 409)
 
     def test_executor_signal_requires_live_lock_and_heartbeat(self):
         path = Path(os.environ["ANALYSIS_DB_PATH"])

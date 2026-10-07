@@ -6,6 +6,15 @@ El desarrollo, las pruebas y la coordinación se realizan en Codex. VSCode abre 
 
 ## 1. Decisión recomendada
 
+Actualización del 06/10/2026: fase 7 cerrada para entrada local reversible.
+El usuario confirmó uso de las cuatro vistas sin incidencias bloqueantes;
+el ensayo actual conservó API/reporte y retorno Flask en 357,4 ms, y el respaldo
+de aplicación pasó restauración e integridad. Flask se mantiene como respaldo,
+sin activación predeterminada ni despliegue compartido. No se completó la ventana
+sugerida de siete días; el cierre no afirma observación continua. Consultar
+[Entrega 3](ENTREGA_3_OPERACION_CIERRE_LOCAL.md). Los párrafos de estado del
+01/10 siguientes son evidencia histórica.
+
 Estado 01/10/2026: fases 0–6 cerradas; la fase 7 está en curso con entrada
 Next.js local reversible comprobada. La fase 6 fue aceptada anticipadamente
 con la observación parcial y sus límites documentados tras validar diez ciclos

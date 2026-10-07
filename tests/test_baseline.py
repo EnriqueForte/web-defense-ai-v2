@@ -13,6 +13,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import ast
+from urllib.parse import quote
 
 from agents.log_analyst import (
     analizar_fuerza_bruta, leer_log, pre_filtrar_lineas, preparar_log_para_agente,
@@ -196,6 +197,47 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(self.client.get("/").status_code, 200)
         self.process.assert_not_called()
 
+    def test_only_local_hosts_are_accepted_including_next_proxy_and_ipv6(self):
+        for host in ('localhost', 'localhost:3000', '127.0.0.1:5000', '[::1]:5000'):
+            with self.subTest(host=host):
+                response = self.client.get('/api/v1/estado', headers={'Host': host})
+                self.assertEqual(response.status_code, 200)
+        for host in ('untrusted.example', 'localhost.evil.example', '127.0.0.1.evil.example'):
+            with self.subTest(host=host):
+                response = self.client.get('/api/v1/estado', headers={'Host': host})
+                self.assertEqual(response.status_code, 400)
+                self.assertIsNotNone(response.get_json()['error']['code'])
+                self.assertNotIn(host, response.get_data(as_text=True))
+
+    def test_oversized_configuration_never_reaches_the_writer(self):
+        with patch.object(self.web, 'save_llm_settings') as writer:
+            response = self.client.put('/api/v1/configuracion/llm',
+                                       data='x' * (16 * 1024 + 1), content_type='application/json',
+                                       headers={'Origin': 'http://127.0.0.1:3000'})
+        self.assertEqual(response.status_code, 413)
+        self.assertEqual(response.get_json()['error']['code'], 'request_too_large')
+        writer.assert_not_called()
+
+    def test_internal_errors_are_json_or_plain_text_without_exception_details(self):
+        secret = 'SYNTHETIC-secret-must-not-leak'
+        with patch.object(self.web, '_snapshot_estado', side_effect=RuntimeError(secret)), \
+                patch.object(self.web.app.logger, 'error') as logger:
+            api = self.client.get('/api/v1/estado')
+            html = self.client.get('/')
+        self.assertEqual(api.status_code, 500)
+        self.assertEqual(api.get_json()['error']['code'], 'internal_error')
+        self.assertEqual(html.status_code, 500)
+        self.assertTrue(html.content_type.startswith('text/plain'))
+        self.assertNotIn(secret, api.get_data(as_text=True) + html.get_data(as_text=True))
+        self.assertNotIn(secret, str(logger.call_args_list))
+        self.assertTrue(all(not call.kwargs.get('exc_info') for call in logger.call_args_list))
+
+    def test_security_headers_preserve_api_read_cache_policy(self):
+        response = self.client.get('/api/v1/estado')
+        self.assertEqual(response.headers['X-Content-Type-Options'], 'nosniff')
+        self.assertEqual(response.headers['Referrer-Policy'], 'same-origin')
+        self.assertEqual(response.headers['Cache-Control'], 'no-store, max-age=0')
+
     def test_event_timestamp_is_validated_and_normalized_to_utc(self):
         parsed = self.web.parsear_amenazas(report_with_event_rows([
             ("30/Apr/2026:23:00:00 +0000", "2", "SQLi", "192.0.2.10")]))[0]
@@ -243,28 +285,51 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(self.client.get("/report/no.txt").status_code, 400)
         self.assertEqual(self.client.get("/report/reporte_20260430.md").status_code, 404)
 
+    def test_report_error_never_reflects_hostile_html(self):
+        payload = '<img src=x onerror=alert(1)>'
+        response = self.client.get('/report/' + quote(payload, safe=''))
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.mimetype, "text/plain")
+        self.assertNotIn(payload, response.get_data(as_text=True))
+
+    def test_sync_rejects_missing_foreign_and_null_origins_before_io(self):
+        for origin in (None, "https://untrusted.example", "null", "", "http://localhost:5000.evil.example"):
+            with self.subTest(origin=origin):
+                headers = {} if origin is None else {"Origin": origin}
+                self.assertEqual(self.client.post("/api/sincronizar", headers=headers).status_code, 403)
+        self.process.assert_not_called()
+
+    def test_sync_accepts_each_local_browser_origin(self):
+        self.process.side_effect = self.successful_copy
+        for origin in ("http://127.0.0.1:3000", "http://127.0.0.1:5000",
+                       "http://localhost:3000", "http://localhost:5000"):
+            with self.subTest(origin=origin):
+                response = self.client.post("/api/sincronizar", headers={"Origin": origin})
+                self.assertEqual(response.status_code, 200)
+                self.assertFalse(response.json["analisis_ejecutado"])
+
     def test_sync_failure_is_reported(self):
         self.process.side_effect = None
         self.process.return_value = subprocess.CompletedProcess([], 1)
-        response = self.client.post("/api/sincronizar")
+        response = self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"})
         self.assertEqual(response.status_code, 500)
         self.assertFalse(response.get_json()["ok"])
 
     def test_sync_timeout_has_gateway_timeout_status(self):
         self.process.side_effect = subprocess.TimeoutExpired("docker cp", 15)
-        response = self.client.post("/api/sincronizar")
+        response = self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"})
         self.assertEqual(response.status_code, 504)
         self.assertFalse(response.get_json()["ok"])
 
     def test_sync_without_docker_has_service_unavailable_status(self):
         self.process.side_effect = FileNotFoundError("docker")
-        response = self.client.post("/api/sincronizar")
+        response = self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"})
         self.assertEqual(response.status_code, 503)
         self.assertNotIn("FileNotFoundError", response.get_json()["error"])
 
     def test_h01_sync_does_not_claim_new_analysis(self):
         self.process.side_effect = self.successful_copy
-        result = self.client.post("/api/sincronizar").get_json()
+        result = self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"}).get_json()
         self.assertNotIn("analisis completado", result["mensaje"].lower())
         self.assertFalse(result["analisis_ejecutado"])
         self.assertIn("no se ha ejecutado", result["mensaje"].lower())
@@ -273,7 +338,7 @@ class DashboardTests(IsolatedCase):
         (self.base / "reporte_seguridad.md").write_text(report("192.0.2.9", "CRÍTICA"), encoding="utf-8")
         history = self.base / "historial"
         self.process.side_effect = self.successful_copy
-        response = self.client.post("/api/sincronizar")
+        response = self.client.post("/api/sincronizar", headers={"Origin": "http://127.0.0.1:5000"})
         self.assertTrue(response.get_json()["ok"])
         self.assertFalse(history.exists())
         self.assertTrue((self.base / "reporte_seguridad.md").exists())
@@ -362,11 +427,27 @@ class DashboardTests(IsolatedCase):
 
     def test_api_v1_state_includes_recent_events_from_log(self):
         (self.base / "reporte_seguridad.md").write_text(report(), encoding="utf-8")
+        self.log.write_text(line('/item?id=1+UNION+SELECT+1'), encoding="utf-8")
         response = self.client.get("/api/v1/estado")
         payload = response.get_json()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(payload["data"]["recent_events"][0]["category"], "SQL injection")
         self.assertEqual(payload["data"]["recent_events"][0]["observed_at"], "2026-04-30T23:00:00Z")
+
+    def test_recent_events_encoded_xss_is_not_sql_from_apostrophe(self):
+        self.log.write_text(line('/search?name=%3Cscript%3Ealert%28%27fixture%27%29%3C%2Fscript%3E'), encoding="utf-8")
+        payload = self.client.get("/api/v1/estado").get_json()
+        self.assertEqual([item["category"] for item in payload["data"]["recent_events"]], ["XSS"])
+
+    def test_recent_events_ordinary_encoded_apostrophe_has_no_sql_support(self):
+        self.log.write_text(line('/search?name=O%27Brien'), encoding="utf-8")
+        payload = self.client.get("/api/v1/estado").get_json()
+        self.assertEqual(payload["data"]["recent_events"], [])
+
+    def test_recent_events_sql_tautology_still_matches_without_encoded_quote(self):
+        self.log.write_text(line('/search?id=1+or+1%3D1'), encoding="utf-8")
+        payload = self.client.get("/api/v1/estado").get_json()
+        self.assertEqual([item["category"] for item in payload["data"]["recent_events"]], ["SQL injection"])
 
     def test_api_v1_snapshot_is_stable_and_changes_with_source_content(self):
         report_path = self.base / "reporte_seguridad.md"
@@ -379,12 +460,30 @@ class DashboardTests(IsolatedCase):
         self.assertNotEqual(first, changed)
 
     def test_api_v1_captures_each_state_source_once(self):
+        from dashboard.services import active_report
         capture = self.web.capture_file
-        with patch.object(self.web, "capture_file", wraps=capture) as wrapped:
+        with patch.object(self.web, "capture_file", wraps=capture) as wrapped, \
+                patch.object(active_report, "capture_file", wraps=capture) as current_wrapped:
             self.client.get("/api/v1/estado")
-        requested = [call.args[0] for call in wrapped.call_args_list]
+        requested = [call.args[0] for call in wrapped.call_args_list + current_wrapped.call_args_list]
         self.assertEqual(requested.count(self.base / "reporte_seguridad.md"), 1)
         self.assertEqual(requested.count(Path(self.log)), 1)
+
+    def test_same_text_republication_preserves_content_snapshot_but_changes_publication_ids(self):
+        path = self.base / "reporte_seguridad.md"
+        atomic_write_text(path, report())
+        first = self.client.get('/api/v1/estado').get_json()
+        original_time = path.stat().st_mtime_ns
+        atomic_write_text(path, report())
+        os.utime(path, ns=(original_time + 1_000_000_000, original_time + 1_000_000_000))
+        second = self.client.get('/api/v1/estado').get_json()
+        self.assertEqual(first['meta']['snapshot_id'], second['meta']['snapshot_id'])
+        self.assertNotEqual(first['meta']['report_id'], second['meta']['report_id'])
+        threats = self.client.get('/api/v1/amenazas').get_json()
+        self.assertEqual(threats['meta']['report_id'], second['meta']['report_id'])
+        self.assertTrue(all(t['source_report_id'] == second['meta']['report_id'] for t in threats['data']))
+        self.assertEqual(self.client.get('/api/v1/reportes/' + first['meta']['report_id']).status_code, 404)
+        self.assertEqual(self.client.get('/api/v1/reportes/' + second['meta']['report_id']).status_code, 200)
 
     def test_api_v1_threat_filtering_and_pagination(self):
         rows = ("## AMENAZAS DETECTADAS\n| Línea | Severidad | Tipo | Estado | IP Origen |\n"
@@ -470,7 +569,7 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(contract["openapi"], "3.0.3")
         self.assertEqual(set(contract["paths"]), {
             "/estado", "/salud", "/amenazas", "/reportes", "/reportes/{report_id}",
-            "/analisis", "/analisis/actual", "/analisis/{job_id}"
+            "/analisis", "/analisis/actual", "/analisis/{job_id}", "/configuracion/llm"
         })
         def collect_refs(node):
             refs = []

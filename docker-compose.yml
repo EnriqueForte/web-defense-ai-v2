@@ -1,4 +1,7 @@
 # docker-compose.yml
+# LEGACY: retained for compatibility. The supported local pilot uses compose.lab.yaml.
+# This file publishes port 8080 without a loopback restriction; do not use it
+# as the default installation or publish it on an Internet-facing host.
 # ============================================================
 # web-defense-ai V2 — Sistema de defensa web con agentes de IA
 # Infraestructura de laboratorio de la segunda version

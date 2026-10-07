@@ -110,7 +110,7 @@
         "operationId": "getReporte",
         "parameters": [{ "name": "report_id", "in": "path", "required": true, "schema": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }],
         "responses": {
-          "200": { "description": "Markdown completo y metadatos", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "200": { "description": "Markdown original y metadatos; display_markdown opcional ofrece una vista derivada con intervalos sin modificar el archivo", "content": { "application/json": { "schema": { "type": "object", "properties": { "data": { "type": "object", "required": ["report", "markdown"], "properties": { "report": { "type": "object" }, "markdown": { "type": "string" }, "display_markdown": { "type": "string" } } } } } } } },
           "400": { "$ref": "#/components/responses/Error" },
           "404": { "$ref": "#/components/responses/Error" },
           "409": { "$ref": "#/components/responses/Error" }
@@ -204,6 +204,9 @@
           "severity": { "type": "string" }, "type": { "type": "string" },
           "status": { "type": "string" }, "source_ip": { "type": "string" },
           "event_time": { "type": "string", "format": "date-time", "nullable": true },
+          "event_time_start": { "type": "string", "format": "date-time", "nullable": true, "description": "Primera hora observada en las evidencias del grupo estructurado" },
+          "event_time_end": { "type": "string", "format": "date-time", "nullable": true, "description": "Última hora observada; no implica actividad continua entre extremos" },
+          "event_time_missing_count": { "type": "integer", "minimum": 0 },
           "source_report_id": { "type": "string", "nullable": true }
         }
       },
@@ -214,7 +217,12 @@
             "stats": { "type": "object" }, "threats": { "type": "array", "items": { "$ref": "#/components/schemas/Threat" } },
             "threats_total": { "type": "integer" }, "threats_truncated": { "type": "boolean" },
             "recent_events": { "type": "array", "items": { "type": "object", "required": ["id", "observed_at", "category", "source_ip", "method", "path", "http_status"], "properties": { "id": { "type": "string" }, "observed_at": { "type": "string", "format": "date-time" }, "category": { "type": "string" }, "source_ip": { "type": "string", "nullable": true }, "method": { "type": "string" }, "path": { "type": "string" }, "http_status": { "type": "integer" } } } },
-            "recent_log": { "type": "array", "items": { "type": "string" } },
+              "recent_log": { "type": "array", "items": { "type": "string" } },
+              "log_period": { "type": "object", "description": "Fechas de peticiones presentes en la copia del log; distintas de su fecha de modificación", "properties": {
+                "first_at": { "type": "string", "format": "date-time", "nullable": true },
+                "last_at": { "type": "string", "format": "date-time", "nullable": true },
+                "undated_lines": { "type": "integer", "minimum": 0 }
+              } },
             "source_ips": { "type": "array", "items": { "type": "string" } },
             "timeline": { "type": "object" }, "recent_reports": { "type": "array", "items": { "type": "object" } }
           } }

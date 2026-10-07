@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Activity, FileText, LayoutDashboard, Menu, Network, RefreshCw, Settings2, Shield, ShieldAlert, TriangleAlert, X } from "lucide-react";
 import { ThreatTable } from "@/components/threat-table";
+import { refreshedReportSelection } from "@/lib/report-selection";
+import { startReadPolling } from "@/lib/read-polling";
 import { MetricCard } from "@/components/metric-card";
 import { LLMSettings } from "@/components/llm-settings";
 import { SeverityChart, TimelineChart } from "@/components/security-charts";
@@ -26,13 +28,13 @@ const severityCodes = ["CRITICA", "ALTA", "MEDIA", "BAJA", "DESCONOCIDA"];
 function dateLabel(value: string | null | undefined) {
   if (!value) return "Fecha no disponible";
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? "Fecha no disponible" : new Intl.DateTimeFormat("es-ES", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Madrid" }).format(date) + " (Madrid)";
+  return Number.isNaN(date.getTime()) ? "Fecha no disponible" : new Intl.DateTimeFormat("es-ES", { dateStyle: "medium", timeStyle: "medium", timeZone: "Europe/Madrid" }).format(date) + " (Madrid)";
 }
 
 function number(value: number) { return new Intl.NumberFormat("es-ES").format(value); }
 
 function ObservedEvents({ items }: { items: ObservedEvent[] }) {
-  return <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG · EUROPE/MADRID</div><h2>Eventos observados recientemente</h2><p>Coincidencias del registro; tras cada tanda en DVWA, sincroniza el log. La consola vuelve a leerlo cada 15 segundos. No confirma que un ataque tuviera éxito.</p></div></div>
+  return <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG · EUROPE/MADRID</div><h2>Eventos observados recientemente</h2><p>Coincidencias del registro; tras cada tanda en DVWA, sincroniza el log. La consola vuelve a leer la copia local periódicamente. No confirma que un ataque tuviera éxito.</p></div></div>
     {!items.length ? <p className="empty-copy">No hay eventos recientes que coincidan con los patrones vigilados.</p> : <div className="table-scroll event-table-wrap" tabIndex={0} role="region" aria-label="Eventos observados; desplazamiento horizontal disponible"><table><thead><tr><th>FECHA LOCAL</th><th>OBSERVACIÓN</th><th>IP OBSERVADA</th><th>SOLICITUD</th><th>HTTP</th></tr></thead><tbody>{items.map((item) => <tr key={item.id}><td>{dateLabel(item.observed_at)}</td><td>{item.category}</td><td>{item.source_ip ?? "Desconocida"}</td><td><code>{item.method} {item.path}</code></td><td>{item.http_status}</td></tr>)}</tbody></table></div>}
   </section>;
 }
@@ -71,11 +73,13 @@ export default function Home() {
   const [analysis, setAnalysis] = useState<AnalysisCurrent["data"] | null>(null);
   const [analysisError, setAnalysisError] = useState("");
   const [analysisSubmitting, setAnalysisSubmitting] = useState(false);
+  const [analysisRefresh, setAnalysisRefresh] = useState(0);
   const analysisKey = useRef<string | null>(null);
   const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const snapshotId = state?.meta.snapshot_id;
+  const publicationId = state?.meta.report_id;
 
   useEffect(() => { document.title = `${view} · web-defense-ai V2`; }, [view]);
 
@@ -151,12 +155,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    queueMicrotask(() => { if (!controller.signal.aborted) void loadState(controller.signal); });
-    const timer = window.setInterval(() => { if (document.visibilityState === "visible") void loadState(controller.signal); }, 15000);
-    const onVisible = () => { if (document.visibilityState === "visible") void loadState(controller.signal); };
+    const polling = startReadPolling(loadState, 15000, () => document.visibilityState === "visible");
+    const onVisible = () => { if (document.visibilityState === "visible") void polling.request(); };
     document.addEventListener("visibilitychange", onVisible);
-    return () => { controller.abort(); window.clearInterval(timer); document.removeEventListener("visibilitychange", onVisible); };
+    return () => { polling.stop(); document.removeEventListener("visibilitychange", onVisible); };
   }, [loadState, refresh]);
 
   const loadAnalysis = useCallback(async (signal?: AbortSignal) => {
@@ -169,13 +171,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    queueMicrotask(() => { if (!controller.signal.aborted) void loadAnalysis(controller.signal); });
-    const timer = window.setInterval(() => {
-      if (document.visibilityState === "visible") void loadAnalysis(controller.signal);
-    }, 5000);
-    return () => { controller.abort(); window.clearInterval(timer); };
-  }, [loadAnalysis]);
+    const polling = startReadPolling(loadAnalysis, 5000, () => document.visibilityState === "visible");
+    const onVisible = () => { if (document.visibilityState === "visible") void polling.request(); };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => { polling.stop(); document.removeEventListener('visibilitychange', onVisible); };
+  }, [loadAnalysis, analysisRefresh]);
 
   async function startAnalysis() {
     if (analysisSubmitting || !analysis?.manual_enabled || !analysis.llm_ready || analysis.executor !== "online" ||
@@ -188,7 +188,7 @@ export default function Home() {
       setAnalysis((current) => current ? { ...current, job: result.job } : current);
       analysisKey.current = null;
       if (result.busy) setAnalysisError("Ya hay un análisis en curso. Se muestra el trabajo existente.");
-      else void loadAnalysis();
+      else setAnalysisRefresh((value) => value + 1);
     } catch (error) {
       setAnalysisError(`${error instanceof Error ? error.message : "No se pudo enviar la solicitud."} Consulta el estado antes de reintentar; se conservará la misma clave.`);
     } finally {
@@ -206,7 +206,8 @@ export default function Home() {
     queueMicrotask(() => { if (!controller.signal.aborted) { setThreatLoading(true); setThreatError(""); } });
     void getApi<PageResponse<Threat>>(`amenazas?${params}`, controller.signal)
       .then((result) => {
-        if (result.meta.snapshot_id !== snapshotId) {
+        if (controller.signal.aborted) return;
+        if (result.meta.snapshot_id !== snapshotId || result.meta.report_id !== publicationId) {
           setThreatError("La captura cambió durante la lectura. Actualiza para comparar los datos.");
           setThreats(null);
           return;
@@ -218,7 +219,7 @@ export default function Home() {
       .catch((error) => { if (!controller.signal.aborted) setThreatError(error instanceof Error ? error.message : "No se pudieron leer las amenazas."); })
       .finally(() => { if (!controller.signal.aborted) setThreatLoading(false); });
     return () => controller.abort();
-  }, [hydrated, view, page, severity, typeFilter, ipFilter, snapshotId]);
+  }, [hydrated, view, page, severity, typeFilter, ipFilter, snapshotId, publicationId]);
 
   useEffect(() => {
     if (!hydrated || view !== "Reportes" || !snapshotId) return;
@@ -226,11 +227,11 @@ export default function Home() {
     queueMicrotask(() => { if (!controller.signal.aborted) { setReportLoading(true); setReportError(""); } });
     void getApi<PageResponse<Report>>(`reportes?page=${reportPage}&per_page=20`, controller.signal)
       .then((result) => {
-        const wasCurrentReportSelected = reportsRef.current?.data.some((item) => item.id === reportId && item.current) ?? false;
-        const newestCurrent = result.data.find((item) => item.current);
+        if (controller.signal.aborted) return;
+        const nextSelection = refreshedReportSelection(reportId, reportsRef.current?.data ?? [], result.data);
         reportsRef.current = result;
-        if (wasCurrentReportSelected && newestCurrent && newestCurrent.id !== reportId) {
-          setReportId(newestCurrent.id);
+        if (nextSelection !== reportId) {
+          setReportId(nextSelection);
           setDetail(null);
         }
         const last = Math.max(1, Math.ceil(result.meta.total / 20));
@@ -240,14 +241,14 @@ export default function Home() {
       .catch((error) => { if (!controller.signal.aborted) setReportError(error instanceof Error ? error.message : "No se pudieron leer los reportes."); })
       .finally(() => { if (!controller.signal.aborted) setReportLoading(false); });
     return () => controller.abort();
-  }, [hydrated, view, reportPage, refresh, snapshotId, reportId]);
+  }, [hydrated, view, reportPage, refresh, snapshotId, publicationId, reportId]);
 
   useEffect(() => {
     if (!hydrated || view !== "Reportes" || !reportId) return;
     const controller = new AbortController();
     queueMicrotask(() => { if (!controller.signal.aborted) setDetailError(""); });
     void getApi<ReportDetail>(`reportes/${reportId}`, controller.signal)
-      .then(setDetail)
+      .then((result) => { if (!controller.signal.aborted) setDetail(result); })
       .catch((error) => { if (!controller.signal.aborted) setDetailError(error instanceof Error ? error.message : "No se pudo abrir el reporte."); });
     return () => controller.abort();
   }, [hydrated, view, reportId, refresh]);
@@ -264,7 +265,7 @@ export default function Home() {
   const logAvailable = state?.meta.sources.log?.status === "available";
   const periods = state?.data.timeline.periods ?? [];
   const fresh = !stateError && state?.meta.health === "ok";
-  const connectionLabel = stateError ? "Sin conexión con Flask" : !state ? "Conectando a Flask" : state.meta.health === "ok" ? "Fuentes disponibles" : "Fuentes incompletas";
+  const connectionLabel = stateError ? "Lectura de Flask no disponible" : !state ? "Conectando a Flask" : state.meta.health === "ok" ? "Fuentes disponibles" : "Fuentes incompletas";
 
   return <div className="app-shell">
     <a className="skip-link" href="#main-content" inert={mobileNav}>Saltar al contenido</a>
@@ -279,11 +280,12 @@ export default function Home() {
     </aside>
 
     <div className="main-column" inert={mobileNav}>
-      <header className="topbar"><button ref={mobileMenuRef} className="mobile-menu icon-button" aria-label={mobileNav ? "Cerrar menú" : "Abrir menú"} aria-expanded={mobileNav} aria-controls="navigation-panel" onClick={() => setMobileNav(!mobileNav)}>{mobileNav ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}</button><nav className="breadcrumbs" aria-label="Ubicación"><span>Consola SOC</span><span aria-hidden="true">/</span><strong aria-current="page">{view}</strong></nav><div className="topbar-right"><div className="author-profile"><div className="author-copy"><span className="author-name">Enrique Forte</span><span className="author-handle">@T3r0S3c</span></div><span className="author-role">Developer &amp; Maintainer</span><nav className="author-social" aria-label="Perfiles de Enrique Forte"><a href="https://github.com/EnriqueForte" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Enrique Forte (abre en una pestaña nueva)" title="GitHub"><GithubMark /></a><a href="https://linkedin.com/in/enriqueforte" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Enrique Forte (abre en una pestaña nueva)" title="LinkedIn"><LinkedinMark /></a></nav></div><span className={`environment ${stateError || (state && !fresh) ? "environment-warning" : ""}`}><span className="environment-dot" /> {stateError ? "SIN CONEXIÓN" : state ? fresh ? "LECTURA LOCAL" : "REVISAR FUENTES" : "CONECTANDO"}</span></div></header>
+      <header className="topbar"><button ref={mobileMenuRef} className="mobile-menu icon-button" aria-label={mobileNav ? "Cerrar menú" : "Abrir menú"} aria-expanded={mobileNav} aria-controls="navigation-panel" onClick={() => setMobileNav(!mobileNav)}>{mobileNav ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}</button><nav className="breadcrumbs" aria-label="Ubicación"><span>Consola SOC</span><span aria-hidden="true">/</span><strong aria-current="page">{view}</strong></nav><div className="topbar-right"><div className="author-profile"><div className="author-copy"><span className="author-name">Enrique Forte</span><span className="author-handle">@T3r0S3c</span></div><span className="author-role">Developer &amp; Maintainer</span><nav className="author-social" aria-label="Perfiles de Enrique Forte"><a href="https://github.com/EnriqueForte" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Enrique Forte (abre en una pestaña nueva)" title="GitHub"><GithubMark /></a><a href="https://linkedin.com/in/enriqueforte" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Enrique Forte (abre en una pestaña nueva)" title="LinkedIn"><LinkedinMark /></a></nav></div><span className={`environment ${stateError || (state && !fresh) ? "environment-warning" : ""}`}><span className="environment-dot" /> {stateError ? "SIN LECTURA" : state ? fresh ? "LECTURA LOCAL" : "REVISAR FUENTES" : "CONECTANDO"}</span></div></header>
       <main id="main-content" className="content-wrap" tabIndex={-1}>
-        <div className={`source-banner ${stateError ? "source-error" : ""}`} role={stateError ? "alert" : "status"}><strong>{stateError ? "Lectura interrumpida" : state?.meta.health === "ok" ? "Lectura conectada" : "Estado de fuentes"}</strong><span>{stateError ? `${stateError} ${state ? "Se conserva la última captura visible." : "Inicia Flask en 127.0.0.1:5000."}` : state ? `Captura ${state.meta.snapshot_id.slice(0, 12)} · ${state.meta.health === "ok" ? "archivos disponibles" : "faltan fuentes o están cambiando"}` : "Cargando datos del backend…"}</span></div>
+        <div className={`source-banner ${stateError ? "source-error" : ""}`} role={stateError ? "alert" : "status"}><strong>{stateError ? "Lectura interrumpida" : state?.meta.health === "ok" ? "Lectura conectada" : "Estado de fuentes"}</strong><span>{stateError ? `${stateError} ${state ? "Se conserva la última captura visible." : "Comprueba el servicio local y vuelve a actualizar."}` : state ? `Captura ${state.meta.snapshot_id.slice(0, 12)} · ${state.meta.health === "ok" ? "archivos disponibles" : "faltan fuentes o están cambiando"}` : "Cargando datos del backend…"}</span></div>
         <section className="page-heading"><div><div className="eyebrow"><span className="eyebrow-line" /> CENTRO DE OPERACIONES</div><h1 ref={headingRef} tabIndex={-1}>{view === "Resumen" ? "Resumen de seguridad" : view}</h1><p>{viewDescriptions[view]}</p></div><div className="heading-actions"><span className="updated-label"><span>Última captura</span>{state ? dateLabel(state.meta.captured_at) : "Sin captura"}</span><button className="button-secondary" onClick={requestRefresh}><RefreshCw size={15} aria-hidden="true" /> Actualizar</button></div></section>
 
+        <p className="status-copy">Última petición fechada en el log: {dateLabel(state?.data.log_period?.last_at)}. Última copia del log: {dateLabel(state?.meta.sources.log?.modified_at)}. Actualizar vuelve a leer la copia local; no genera tráfico ni inicia un análisis.</p>
         {view === "Resumen" && <section className="panel analysis-panel" aria-label="Coordinación de análisis">
           <div><div className="panel-kicker">EJECUTOR LOCAL</div><h2>Análisis coordinado</h2>
             <p>{analysis?.executor === "online" ? "Ejecutor activo" : "Ejecutor no disponible"} · {analysis?.manual_enabled ? "solicitudes manuales habilitadas" : "solicitudes manuales desactivadas"}</p>
@@ -315,13 +317,13 @@ export default function Home() {
 
         {view === "Amenazas" && <><ObservedEvents items={state?.data.recent_events ?? []} /><section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">CLASIFICACIÓN DEL ÚLTIMO INFORME</div><h2>Amenazas clasificadas</h2><p>Esta tabla cambia cuando se genera un informe nuevo; los eventos observados aparecen arriba.</p></div></div><div className="filter-row"><label>Severidad<select value={severity} onChange={(event) => { setSeverity(event.target.value); setPage(1); }}><option value="Todas">Todas</option>{severityCodes.map((code) => <option key={code} value={code}>{names[code]}</option>)}</select></label><label>Tipo<input value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }} placeholder="Buscar tipo" /></label><label>IP exacta<input value={ipFilter} onChange={(event) => { setIpFilter(event.target.value); setPage(1); }} placeholder="IP observada" /></label><button className="button-secondary filter-reset" disabled={severity === "Todas" && !typeFilter && !ipFilter} onClick={() => { setSeverity("Todas"); setTypeFilter(""); setIpFilter(""); setPage(1); }}>Limpiar filtros</button></div><p className="filter-context">{severity === "Todas" && !typeFilter && !ipFilter ? "Sin filtros activos" : `Filtros activos: ${[severity !== "Todas" ? names[severity] : "", typeFilter ? `Tipo: ${typeFilter}` : "", ipFilter ? `IP: ${ipFilter}` : ""].filter(Boolean).join(" · ")}`}</p>{threatLoading && <p className="status-copy" role="status">Consultando amenazas…</p>}{threatError && <p className="status-copy error-copy" role="alert">{threatError}</p>}{!threatLoading && !threatError && threats && <><p className="status-copy" role="status">{number(threats.meta.total)} coincidencias · captura {threats.meta.snapshot_id?.slice(0, 12)} · página {threats.meta.page}</p><ThreatTable items={threats.data} dateLabel={dateLabel} sourceAvailable={reportAvailable} /><Pager page={page} total={threats.meta.total} size={25} change={setPage} /></>}</section></>}
 
-        {view === "Reportes" && <><section className="reports-layout"><article className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes</h2><p>Archivos disponibles; fecha local de modificación, no fecha de cada evento</p></div></div>{reportLoading && <p className="status-copy" role="status">Cargando catálogo…</p>}{reportError && <p className="status-copy error-copy" role="alert">{reportError}</p>}{!reportLoading && !reportError && reports && <>{reports.data.length ? <ul className="report-list">{reports.data.map((item) => <li key={item.id}><button aria-pressed={reportId === item.id} className={reportId === item.id ? "selected-report" : ""} onClick={() => { setDetail(null); setReportId(item.id); }}><strong>{item.current ? "Reporte actual" : item.filename}</strong><small>{dateLabel(item.modified_at)} · {number(item.size_bytes)} bytes</small></button></li>)}</ul> : <p className="empty-copy">No hay reportes disponibles.</p>}<Pager page={reportPage} total={reports.meta.total} size={20} change={setReportPage} /></>}</article><article className="panel report-detail"><div className="panel-header"><div><div className="panel-kicker">LECTURA SEGURA</div><h2>{detail?.data.report.filename ?? "Selecciona un reporte"}</h2></div></div>{detailError && <p className="status-copy error-copy" role="alert">{detailError} Actualiza el catálogo si el archivo cambió.</p>}{reportId && !detail && !detailError && <p className="status-copy" role="status">Abriendo reporte…</p>}{detail && <><p className="status-copy">Modificado: {dateLabel(detail.data.report.modified_at)}</p><pre className="report-markdown" tabIndex={0} aria-label="Contenido del reporte en texto">{detail.data.markdown}</pre></>}{!reportId && <p className="empty-copy">Elige un reporte para leer su contenido. Los eventos recientes del log se muestran abajo; aparecerán en el informe cuando se ejecute un análisis.</p>}</article></section><ObservedEvents items={state?.data.recent_events ?? []} /></>}
+        {view === "Reportes" && <><section className="reports-layout"><article className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes</h2><p>Archivos disponibles; fecha local de modificación, no fecha de cada evento</p></div></div>{reportLoading && <p className="status-copy" role="status">Cargando catálogo…</p>}{reportError && <p className="status-copy error-copy" role="alert">{reportError}</p>}{!reportLoading && !reportError && reports && <>{reports.data.length ? <ul className="report-list">{reports.data.map((item) => <li key={item.id}><button aria-pressed={reportId === item.id} className={reportId === item.id ? "selected-report" : ""} onClick={() => { setDetail(null); setReportId(item.id); }}><strong>{item.current ? "Reporte actual" : item.filename}</strong><small>{dateLabel(item.modified_at)} · {number(item.size_bytes)} bytes</small></button></li>)}</ul> : <p className="empty-copy">No hay reportes disponibles.</p>}<Pager page={reportPage} total={reports.meta.total} size={20} change={setReportPage} /></>}</article><article className="panel report-detail"><div className="panel-header"><div><div className="panel-kicker">LECTURA SEGURA</div><h2>{detail?.data.report.filename ?? "Selecciona un reporte"}</h2></div></div>{detailError && <p className="status-copy error-copy" role="alert">{detailError} Actualiza el catálogo si el archivo cambió.</p>}{reportId && !detail && !detailError && <p className="status-copy" role="status">Abriendo reporte…</p>}{detail && <><p className="status-copy">Archivo publicado: {dateLabel(detail.data.report.modified_at)}</p>{detail.data.display_markdown && <p className="status-copy">Vista de lectura con intervalos de fechas de las evidencias. El archivo original se conserva.</p>}<pre className="report-markdown" tabIndex={0} aria-label="Contenido del reporte en texto">{detail.data.display_markdown ?? detail.data.markdown}</pre></>}{!reportId && <p className="empty-copy">Elige un reporte para leer su contenido. Los eventos recientes del log se muestran abajo; aparecerán en el informe cuando se ejecute un análisis.</p>}</article></section><ObservedEvents items={state?.data.recent_events ?? []} /></>}
 
         {view === "Actividad" && <section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">ACCESS.LOG</div><h2>Actividad reciente</h2><p>Ventana limitada que entrega la API; no es un registro histórico completo</p></div></div><LogLines lines={state?.data.recent_log ?? []} /><p className="status-copy">Origen: {state?.meta.sources.log?.status ?? "sin lectura"} · última modificación {dateLabel(state?.meta.sources.log?.modified_at)}</p></section>}
 
         {view === "Configuración" && <LLMSettings />}
 
-        <footer className="system-status-bar" aria-label="Estado del sistema"><div className="system-status-items"><span className={`system-status-item system-health ${stateError || (state && state.meta.health !== "ok") ? "status-warning" : ""}`}><span className="environment-dot" aria-hidden="true" /><span className="status-label">ESTADO</span><strong className="status-value">{stateError ? "SIN CONEXIÓN" : state ? state.meta.health === "ok" ? "FUENTES DISPONIBLES" : "FUENTES INCOMPLETAS" : "CONECTANDO"}</strong></span><span className="system-status-item"><span className="status-label">API</span><span className="status-value">v1</span></span><span className="system-status-item"><span className="status-label">ENTORNO</span><span className="status-value">LOCAL</span></span><span className="system-status-item status-capture"><span className="status-label">CAPTURA</span><span className="status-value">{state ? dateLabel(state.meta.captured_at) : "SIN CAPTURA"}</span></span></div><span className="system-status-brand">WEB-DEFENSE-AI V2</span></footer>
+        <footer className="system-status-bar" aria-label="Estado del sistema"><div className="system-status-items"><span className={`system-status-item system-health ${stateError || (state && state.meta.health !== "ok") ? "status-warning" : ""}`}><span className="environment-dot" aria-hidden="true" /><span className="status-label">ESTADO</span><strong className="status-value">{stateError ? "SIN LECTURA" : state ? state.meta.health === "ok" ? "FUENTES DISPONIBLES" : "FUENTES INCOMPLETAS" : "CONECTANDO"}</strong></span><span className="system-status-item"><span className="status-label">API</span><span className="status-value">v1</span></span><span className="system-status-item"><span className="status-label">ENTORNO</span><span className="status-value">LOCAL</span></span><span className="system-status-item status-capture"><span className="status-label">CAPTURA</span><span className="status-value">{state ? dateLabel(state.meta.captured_at) : "SIN CAPTURA"}</span></span></div><span className="system-status-brand">WEB-DEFENSE-AI V2</span></footer>
       </main>
     </div>
   </div>;

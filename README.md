@@ -4,19 +4,28 @@ Segunda versión de la aplicación de ciberseguridad defensiva de **T3r0S3c**. A
 
 **Desarrollo en Codex; seguimiento continuo de los archivos en VSCode.** Ambos utilizan la misma carpeta local. La denominación oficial de la aplicación es **web-defense-ai V2**; T3r0S3c se conserva como autor.
 
-El repositorio de esta versión es [EnriqueForte/web-defense-ai-v2](https://github.com/EnriqueForte/web-defense-ai-v2), privado y configurado como `origin`. El [repositorio original](https://github.com/EnriqueForte/web-defense-ai) se conserva independiente y sin modificaciones. Véase [la separación de repositorios](docs/REPOSITORIOS.md).
+El destino de esta versión es [EnriqueForte/web-defense-ai-v2](https://github.com/EnriqueForte/web-defense-ai-v2), configurado como `origin`. Se prepara para distribuir el código por GitHub y permitir que cada persona lo clone y lo ejecute en su propia instalación. El [repositorio original](https://github.com/EnriqueForte/web-defense-ai) se conserva independiente y sin modificaciones. Véase [la separación de repositorios](docs/REPOSITORIOS.md).
+
+La distribución utiliza la licencia MIT existente. El dashboard admite acceso
+local: cada instalación configura sus credenciales y datos. Compartir el código
+no habilita un servicio público del dashboard. Windows/Python 3.11 es el entorno
+validado; la instalación Linux/macOS todavía no se ha comprobado.
+Consulta la [guía de instalación para clonación](docs/INSTALACION_AUTOALOJADA.md)
+y sus pendientes de validación antes de la publicación de una versión final.
 
 ## Estado de esta versión
 
-El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añadió trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6 se comprobaron el laboratorio DVWA/Mailpit, diez ciclos integrados, la carga de la API y el retorno a Flask. El usuario cerró anticipadamente esa fase el 29/09/2026 con 14 h 11 min 46 s saludables, sin completar las 24 horas previstas. La fase 7 está en curso: el 01/10/2026 se aceptó esa evidencia parcial para una activación local reversible. El conmutador permanece apagado por defecto; una tarea específica inicia Flask con Next.js como entrada sin editar `.env`.
+El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añadió trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6 se comprobaron el laboratorio DVWA/Mailpit, diez ciclos integrados, la carga de la API y el retorno a Flask. El usuario cerró anticipadamente esa fase el 29/09/2026 con 14 h 11 min 46 s saludables, sin completar las 24 horas previstas. La fase 7 se cerró para el alcance local reversible el 06/10/2026, con confirmación de uso y un nuevo ensayo de retorno, sin completar los siete días sugeridos. El conmutador permanece apagado por defecto; una tarea específica inicia Flask con Next.js como entrada sin editar `.env`.
 
-El plan visual SOC es independiente de las fases de migración: sus fases UI 1–7 están completas. La fase UI 8 queda pendiente junto con la prueba del zoom real al 200 % en el navegador.
+El plan visual SOC es independiente de las fases de migración: sus fases UI 1–8 están completas, incluida seguridad/entrega. El usuario confirmó el zoom real al 200 % el 01/10/2026. La fase 7 de migración quedó cerrada en su alcance local reversible; Flask se conserva como respaldo.
 
-Las fases 0–6 están cerradas; la fase 6 incluye los límites de observación descritos en [su acta](docs/FASE_6_PILOTO.md). Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md) y [el estado de la fase 7](docs/FASE_7_ENTRADA_PRINCIPAL.md).
+El 06/10/2026 se completó la primera entrega del desarrollo derivado de la [revisión integral](docs/REVISION_INTEGRAL_2026_10_06.md). Corrige rutas Flask y diagnósticos Telegram, recupera la regresión OpenAPI, incorpora pruebas aisladas de configuración LLM y unifica el lint completo. Su validación y límites se registran en [Seguridad y línea base](docs/ENTREGA_1_SEGURIDAD_LINEA_BASE.md). Las mejoras del motor A-01–A-05 y las siguientes entregas permanecen pendientes.
+
+Las fases 0–7 están cerradas para el alcance local, con los límites de observación registrados; la fase 6 incluye los límites de observación descritos en [su acta](docs/FASE_6_PILOTO.md). Consultar [el plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md), [el contrato de fase 2](docs/FASE_2_API_LECTURA.md), [la fase 5](docs/FASE_5_ANALISIS_COORDINADO.md) y [el estado de la fase 7](docs/FASE_7_ENTRADA_PRINCIPAL.md).
 
 | Documento | Contenido |
 |---|---|
-| [Rediseño visual SOC](docs/REDISENO_UI_SOC.md) | Fases UI 1–7 completadas; límite de zoom y Fase UI 8 pendientes |
+| [Rediseño visual SOC](docs/REDISENO_UI_SOC.md) | Fases UI 1–8 cerradas; zoom real al 200 % confirmado |
 | [Guía de VSCode](docs/GUIA_VSCODE.md) | Apertura, seguimiento de cambios, tareas y depuración |
 | [Plan de migración](docs/PLAN_MIGRACION_INTERFAZ.md) | Arquitectura, riesgos, fases, pruebas y reversión |
 | [Fase 3 — Base visual](docs/FASE_3_BASE_VISUAL.md) | Pantalla Next.js, datos sintéticos, validación y reversión |
@@ -28,6 +37,126 @@ Las fases 0–6 están cerradas; la fase 6 incluye los límites de observación 
 | [Plan de agentes y tareas](docs/PLAN_AGENTES_TAREAS.md) | Revisión de CrewAI, responsabilidades y backlog |
 | [Contexto de desarrollo](AGENTS.md) | Instrucciones compartidas para trabajar desde Codex |
 | [Repositorios y recuperación](docs/REPOSITORIOS.md) | Separación entre original y V2, remotos y copias locales |
+
+La [entrega 2](docs/ENTREGA_2_DEPENDENCIAS_EJECUCION.md) añade parches transitivos
+del frontend, declara LiteLLM y verifica una instalación Python limpia con 155
+paquetes fijados. Las notificaciones coordinadas tienen timeout SMTP y plazo
+total por destino. El audit de producción pasa; queda un aviso de braces en
+desarrollo sin corrección publicada. La `.venv` operativa se conserva con cuatro
+diferencias conocidas; su transición sigue pendiente. A-01–A-05 no se
+cierran por estas correcciones.
+
+La [entrega 3](docs/ENTREGA_3_OPERACION_CIERRE_LOCAL.md) registra el cierre local
+de fase 7, un nuevo ensayo de retorno a Flask y respaldo/restauración verificados
+de logs, reportes y SQLite del piloto. `scripts/backup_operational.py --list`
+muestra la cobertura y `scripts/backup_operational.py` crea una copia nueva
+sin sobrescribir datos. Se conservan Flask, los conmutadores y los límites de
+observación. La siguiente línea de desarrollo es A-01/A-02.
+
+La [entrega 4](docs/ENTREGA_4_CONTRATOS_PROTOTIPO.md) completa A-01/A-02 en
+alcance aislado: contratos de evidencia/resultados, adaptación histórica y
+tareas CrewAI estructuradas verificadas con respuestas simuladas. El motor
+operativo continúa con su flujo anterior; A-03–A-05 siguen pendientes.
+
+La [entrega 5](docs/ENTREGA_5_PREPARACION_PUBLICACION.md) completa A-03/A-04 en
+alcance aislado: selección equilibrada, agregados UTC, criterios trazables,
+tabla/conteos deterministas y publicación por generaciones validada. El motor
+operativo anterior permanece activo; integración y evaluación real son A-05.
+
+La [entrega 6](docs/ENTREGA_6_INTEGRACION_EVALUACION.md) implementa la
+integración reversible del motor estructurado con coordinador y Flask.
+Validación: 179 pruebas Python, tres diagnósticos JS y seis escenarios CrewAI
+con doble LLM. El modo `legacy` permanece predeterminado. A-05 continúa abierta:
+el análisis sintético gratuito autorizado fue rechazado por autenticación en
+OpenRouter y no generó un reporte. Falta evaluación real y aceptación para activar.
+La revisión posterior detectó que la ruta de conversión CrewAI omitía la clave
+y URL suministradas. Ese defecto está corregido y verificado offline; el fallo
+anterior no demuestra una clave incorrecta. Siete escenarios CrewAI aprobados;
+la repetición real con el adaptador corregido terminó con ValueError tras dos
+llamadas y 50,031 s, sin el error de autenticación en la cadena registrada y sin
+publicar informe. Falta precisar la causa y completar la evaluación.
+Ya se añadió diagnóstico por etapa sin respuestas ni secretos; validación actual:
+186 pruebas Python, tres diagnósticos JS y nueve escenarios CrewAI offline.
+La nueva instrumentación aún no se ha usado en otra llamada real.
+Posteriormente el usuario autorizó otra prueba real con diagnóstico: falló en
+detección porque el adaptador devolvió 0 caracteres (una llamada, 35,516 s).
+No se alcanzaron guardas ni publicación. Falta precisar el origen de esa respuesta
+vacía; no se activó el motor estructurado ni se enviaron notificaciones.
+La captura de metadatos de completado ya está preparada: motivo de finalización,
+modelo informado y tokens, sin contenido ni claves. Validación actual: 192
+pruebas Python, tres JS y 11 escenarios CrewAI/LiteLLM offline. Falta obtener
+esos metadatos en otra prueba real autorizada; el modo operativo sigue `legacy`.
+La prueba real posterior informó `finish_reason=length`, límite de 2048 tokens
+y ausencia de texto final. Se preparó un límite de 8192 **solo para el evaluador
+sintético**, aún sin repetir con ese ajuste. Se conserva la configuración operativa.
+La repetición con 8192 obtuvo JSON en la primera llamada, rechazado por IDs
+inválidos/duplicados; el reintento agotó la salida. Se alineó el esquema y se
+explicitaron las restricciones de IDs (structured-prototype-3), con 13 escenarios
+SDK offline aprobados. Falta otra evaluación autorizada; no se publicó informe.
+La siguiente evaluación autorizada completó el flujo y generó JSON/Markdown
+validados en la carpeta aislada: cuatro llamadas y 57,625 s. Encontró las cinco
+familias, con un falso positivo low/other sobre la petición normal. A-05 sigue
+abierta por calidad y aceptación; el modo operativo continúa en `legacy`.
+El seguimiento de calidad endurece las guardas de `other` para impedir ese
+hallazgo sin soporte y conserva la incertidumbre de evidencia no interpretable.
+También reconcilia el uso desde los metadatos, separando el acumulador SDK y sus
+discrepancias. 203 pruebas Python, tres JS y 15 escenarios SDK offline aprobados;
+falta verificar estos ajustes con el proveedor. No se cambió el modo operativo.
+El 07/10/2026 pasó la verificación real de esos ajustes: cinco familias, sin
+falso positivo sobre /index.html, cuatro llamadas/81 s y métricas de tokens
+conciliadas. Se prepararon ocho casos separados para ampliar la evaluación;
+el evaluador permite escoger uno sin lanzar un lote. 208 pruebas Python,
+tres JS y 15 escenarios offline aprobados. La ampliación requiere acotar las
+llamadas y A-05 sigue abierta; no se activó el motor estructurado.
+El lote ampliado autorizado del 07/10/2026 pasó los siete casos de familias,
+con 23 de 42 llamadas. La revisión detectó narrativa insuficiente y latencia
+alta en el caso normal; el resumen sin hallazgos ahora se genera desde Python,
+con alcance y limitaciones, validado sin nuevas llamadas. 211 pruebas Python,
+tres JS y 15 escenarios SDK aislados aprobados. [Resultados y límites](docs/EVALUACION_AMPLIADA_A05_2026_10_07.md).
+La aceptación y activación siguen pendientes; el modo operativo permanece legacy.
+La [optimización sin hallazgos](docs/OPTIMIZACION_A05_SIN_HALLAZGOS.md) elimina
+las llamadas de clasificación y narrativa cuando la detección validada devuelve
+cero candidatos, conservando las tareas y guardas. 212 pruebas Python, tres JS
+y 17 escenarios offline aprobados; una llamada de SDK simulada para el recorrido
+normal completo. Falta medir con el proveedor; no se activó el motor ni se
+hicieron nuevas llamadas reales.
+La siguiente muestra normal autorizada completó el flujo optimizado en 24 s
+con dos llamadas de detección y las dos tareas restantes locales. La entrada es
+igual a la muestra previa de 475,829 s, pero los modelos variaron; no es un p95.
+Los límites 8192/60 se alinearon en la fábrica estructurada y el evaluador, sin
+alterar legacy. Guardas/hashes y adaptadores offline verificados; no se activó.
+La [propuesta de activación local](docs/ACTIVACION_LOCAL_A05.md) prepara un
+perfil compartido de Flask/worker con `.p2`, preflight y arranque solo mediante
+`--start`. La comprobación del piloto pasó; análisis manual y notificaciones
+quedan apagados. 223 pruebas Python en ambos entornos y 17 escenarios offline
+aprobados. Después, el usuario aceptó y se arrancaron Flask/worker con el perfil
+piloto estructurado; `.env` no cambia. Ejecutor online y cuatro rutas API HTTP 200,
+sin nuevos trabajos; salud unavailable hasta el primer informe estructurado.
+Respaldo/restauración de 17 archivos verificados. Primer análisis y observación
+operativa pendientes; detalles en la propuesta actualizada.
+El [primer análisis autorizado del coordinador](docs/PRIMER_ANALISIS_COORDINADOR_A05.md)
+terminó correctamente en 157 s: ingesta DVWA, publicación e histórico verificados,
+salud ok y cero notificaciones. Seleccionó 30 de 112 líneas; los cinco grupos
+son indicadores, sin confirmar explotación. Manual sigue desactivado;
+observación operativa y aceptación final pendientes.
+La [revisión de las cuatro vistas](docs/REVISION_VISTAS_A05_2026_10_07.md)
+verificó el informe en Next y corrigió un evento XSS etiquetado como SQLi por
+una comilla codificada. 226 pruebas Python y tres diagnósticos JS aprobados;
+motor e informe intactos. Consola local en http://127.0.0.1:3000, con análisis
+manual desactivado y aceptación del usuario pendiente para este informe.
+La [corrección de fechas y referencias](docs/FECHAS_REFERENCIAS_A05_2026_10_07.md)
+muestra intervalos observados y «Líneas del log», conservando los archivos
+originales. La recaptura contiene peticiones del 1–2 de octubre, ninguna de hoy;
+la UI distingue fecha de petición de fecha de copia. 227 pruebas Python,
+siete grupos UI y tipos/lint aprobados. La aceptación A-05 sigue pendiente.
+El [refresco por publicación](docs/REFRESCO_PUBLICACIONES_2026_10_07.md) corrige
+referencias obsoletas al republicar el mismo texto y evita aplicar lecturas
+canceladas. 228 pruebas Python y nueve grupos UI aprobados; sin nuevos análisis.
+Quedan robustez completa de solicitudes/polling y aceptación final de A-05.
+La [robustez de lecturas](docs/ROBUSTEZ_LECTURAS_2026_10_07.md) se completó
+después: contratos de respuesta, espera acotada a 10 s y sondeo sin solapamiento
+por canal. 14 grupos UI, tipos/lint y siete lecturas API reales aprobados;
+fallos probados con dobles, sin nuevos análisis. A-05 conserva aceptación pendiente.
 
 ## Abrir el proyecto en VSCode
 
@@ -72,8 +201,8 @@ DVWA / Apache → volumen Docker → sincronización → logs/access.log
                                                        ↓
                                               Dashboard Flask
 
-El pipeline y determinadas acciones del dashboard pueden enviar
-notificaciones mediante Telegram y SMTP.
+El ejecutor puede enviar notificaciones mediante Telegram y SMTP.
+La sincronización anterior del dashboard solo copia el log.
 ```
 
 | Área | Tecnología actual |
@@ -93,6 +222,13 @@ El contenedor `ai-engine` declarado en Compose permanece inactivo con `tail -f /
 El entorno local revisado utiliza Python 3.11.9. `requirements.txt` incluye ahora Flask y limita pywin32 a Windows. Para las pruebas aisladas basta instalar `requirements-test.txt` y disponer de Node; ejecutar `python -B scripts/check_baseline.py`. No requiere `.env`, Docker ni claves. La [línea base](docs/FASE_0_LINEA_BASE.md) detalla la verificación de instalación y sus límites.
 
 Las regresiones de los componentes de la interfaz se ejecutan desde `frontend/` con `pnpm run test:ui`.
+
+Para la instalación completa actual usar `requirements.txt` junto con
+`constraints-windows-py311-delivery2.txt`, en un entorno nuevo de ruta corta.
+`scripts/check_environment.py` detecta diferencias de versión sin importar el
+motor; `scripts/check_llm_adapter.py` construye el adaptador OpenRouter offline.
+La instantánea de fase 0 permanece como evidencia histórica. Consultar la
+entrega 2 antes de cambiar el intérprete utilizado en operación.
 
 Para copiar la plantilla sin sobrescribir una configuración existente:
 

@@ -39,7 +39,7 @@ switch ($Action) {
     }
     "lint" {
         $cli = Join-Path $frontendRoot "node_modules\eslint\bin\eslint.js"
-        $arguments = @($cli, "src/app")
+        $arguments = @($cli)
     }
     "typecheck" {
         $cli = Join-Path $frontendRoot "node_modules\typescript\bin\tsc"

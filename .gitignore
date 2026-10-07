@@ -10,10 +10,10 @@ __pycache__/
 !.env.example
 
 # Logs y reportes generados
-logs/*.log
-logs/.*.tmp
-reports/*.md
-reports/historial/
+logs/*
+!logs/.gitkeep
+reports/*
+!reports/.gitkeep
 
 # VSCode: compartir configuracion del proyecto, excluir preferencias adicionales
 .vscode/*
@@ -40,3 +40,5 @@ build/
 # Copias locales de recuperacion de Git; nunca publicar
 .local-backups/
 .local-state/
+# Short Windows path for isolated full dependency validation (LiteLLM assets).
+.p2/

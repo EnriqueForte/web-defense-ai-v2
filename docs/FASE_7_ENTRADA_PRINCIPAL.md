@@ -1,5 +1,17 @@
 # Fase 7 — Preparación de la entrada principal
 
+Estado al 06/10/2026: F7-01 cerrada para el alcance local reversible.
+El usuario confirmó que utilizó Resumen, Amenazas, Reportes y Actividad sin
+incidencias bloqueantes. Se repitió el ensayo de retorno con Flask y Next.js
+reales y fixture sintética: entrada 302, Next 200, capturas iguales, retorno
+Flask 200 en 357,4 ms, API/reporte 200 y conmutador apagado 200.
+Se conservan Flask como respaldo y los conmutadores apagados por defecto.
+No se completaron los siete días sugeridos: el cierre se apoya en la
+confirmación de uso y el ensayo, sin afirmar observación continua o aceptación
+de un despliegue compartido. Detalle, respaldo y límites en
+[Entrega 3 — Operación y cierre local](ENTREGA_3_OPERACION_CIERRE_LOCAL.md).
+Los apartados siguientes conservan la evidencia inicial del 01/10/2026.
+
 Estado al 01/10/2026: Fase 7 en curso. El usuario aceptó la evidencia parcial
 de Fase 6 (14 h 11 min 46 s saludables) para una activación **local y
 reversible**. El conmutador sigue desactivado por defecto en `.env.example`;

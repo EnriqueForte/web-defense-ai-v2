@@ -57,7 +57,11 @@ def main():
             import dashboard.app as web
         # Fijar las fuentes explícitamente evita depender del momento en que
         # config.settings haya sido importado o de un módulo ya almacenado.
-        with patch.multiple(web, REPORT_PATH=base, HISTORIAL=history, LOG_PATH=str(log)):
+        with patch.multiple(web, REPORT_PATH=base, HISTORIAL=history, LOG_PATH=str(log)), \
+             patch("config.model_config.load_local_env", return_value={}), \
+             patch.dict(os.environ, {"LLM_PROVIDER": "groq", "LLM_MODEL": "groq/openai/gpt-oss-120b",
+                                     "LLM_CONFIG_SOURCE": "", "LLM_PRICING_MODE": "free",
+                                     "LLM_FALLBACK_MODELS": "", "GROQ_API_KEY": "", "OPENROUTER_API_KEY": ""}):
             web.app.run(host="127.0.0.1", port=args.port, debug=False, use_reloader=False)
 
 

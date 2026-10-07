@@ -17,7 +17,7 @@ Desde una terminal en `frontend/`, tras instalar las dependencias fijadas en
 
 ```powershell
 node node_modules/next/dist/bin/next dev --hostname 127.0.0.1
-node node_modules/eslint/bin/eslint.js src/app
+node node_modules/eslint/bin/eslint.js
 node node_modules/typescript/bin/tsc --noEmit
 node node_modules/next/dist/bin/next build
 ```

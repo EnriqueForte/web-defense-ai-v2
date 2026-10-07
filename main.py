@@ -56,7 +56,7 @@ class RateLimitResilientLLM(LLM):
         )
 
 
-def get_llm_con_retry():
+def get_llm_con_retry(*, max_tokens=None, timeout=None):
     """
     Construye el LLM con reintentos de rate limit limitados por llamada.
     """
@@ -76,6 +76,10 @@ def get_llm_con_retry():
                 "rate_limit_backoff_seconds": settings["rate_limit_backoff_seconds"],
                 "rate_limit_max_wait_seconds": settings["rate_limit_max_wait_seconds"],
             }
+            if max_tokens is not None:
+                options["max_tokens"] = max_tokens
+            if timeout is not None:
+                options["timeout"] = timeout
             if settings["base_url"]:
                 options["base_url"] = settings["base_url"]
             if settings["provider"] == "openrouter":
@@ -173,6 +177,14 @@ def main():
 
 
 def _run_analysis():
+    from agents.structured_engine import (engine_mode, read_input, run_structured,
+                                          STRUCTURED_MAX_TOKENS, STRUCTURED_REQUEST_TIMEOUT_SECONDS)
+    if engine_mode() == "structured":
+        text = read_input(os.getenv("LOG_PATH", "./logs/access.log"))
+        llm = get_llm_con_retry(max_tokens=STRUCTURED_MAX_TOKENS, timeout=STRUCTURED_REQUEST_TIMEOUT_SECONDS)
+        run_structured(text, llm, os.getenv("REPORT_PATH", "./reports"),
+                       analysis_id=os.getenv("STRUCTURED_ANALYSIS_ID"), config=os.environ)
+        return
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 60)
     print("  🛡️  web-defense-ai V2 — T3r0S3c")

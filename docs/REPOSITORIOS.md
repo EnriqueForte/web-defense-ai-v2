@@ -1,5 +1,11 @@
 # web-defense-ai V2 — Repositorios y recuperación
 
+Actualización de objetivo 07/10/2026: el usuario quiere distribuir V2 por GitHub
+para clonación y uso en instalaciones propias. El destino origin se conserva;
+la publicación final y el cambio de visibilidad, si hiciera falta, siguen
+pendientes de verificar el paquete/historial. Los apartados siguientes registran
+la separación privada inicial y no afirman que ya se haya hecho público.
+
 ## Separación de versiones
 
 El proyecto original permanece en `https://github.com/EnriqueForte/web-defense-ai`.
