@@ -20,6 +20,7 @@ function element(tag) {
     replaceChildren(...items) { this.childNodes = []; this.children = []; this.append(...items); },
     setAttribute(key, value) { this.attrs[key] = value; },
     getAttribute(key) { return this.attrs[key] || null; },
+    addEventListener(name, handler) { this.listeners ??= {}; this.listeners[name] = handler; },
     querySelectorAll() { return []; },
     insertAdjacentHTML() {},
     update() { this.updated = true; },
@@ -29,6 +30,9 @@ function element(tag) {
 }
 
 const terminal = element('div');
+const syncButton = element('button');
+const metricControl = element('div');
+metricControl.dataset = { filter: 'alta' };
 const chartCanvas = element('canvas');
 const labels = element('span');
 const status = element('span');
@@ -41,10 +45,10 @@ const chartNode = { data: { labels: [], datasets: Array.from({ length: 5 }, () =
 let fetchCount = 0;
 const ctx = vm.createContext({
   document: {
-    getElementById: id => ({ logTerminal: terminal, 'timeline-data': timelineElement,
+    getElementById: id => ({ btnSincronizar: syncButton, logTerminal: terminal, 'timeline-data': timelineElement,
       timelineChart: chartCanvas, timelineCount: labels, estadoSistema: status, reportBody: null }[id] || null),
     querySelector: selector => selector === '.timeline-wrapper' ? timelineWrapper : selector === '.status-time' ? time : null,
-    querySelectorAll: () => [],
+    querySelectorAll: selector => selector === '[data-filter]' ? [metricControl] : [],
     createElement: tag => element(tag),
     createTextNode: value => ({ nodeType: 3, nodeValue: String(value), textContent: String(value) }),
     createDocumentFragment: () => element('fragment'),
@@ -72,6 +76,8 @@ ctx.DOMParser = function () { return { parseFromString: () => ({ body: { childNo
 
 (async () => {
   vm.runInContext(main, ctx, { timeout: 1000 });
+  assert.equal(syncButton.listeners.click, ctx.sincronizarLog);
+  assert.equal(typeof metricControl.listeners.click, 'function');
   vm.runInContext(timeline, ctx, { timeout: 1000 });
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(fetchCount, 1, 'El panel consulta el estado una sola vez por ciclo');
@@ -82,7 +88,8 @@ ctx.DOMParser = function () { return { parseFromString: () => ({ body: { childNo
   assert.equal(labels.textContent, '1 periodos');
 
   const reportBody = element('div');
-  reportBody.textContent = 'reporte sintético';
+  reportBody.textContent = '\n        reporte sintético\n    ';
+  ctx.marked.parse = raw => { assert.equal(raw, 'reporte sintético'); return raw; };
   ctx.document.getElementById = id => id === 'reportBody' ? reportBody : null;
   const reportScript = scripts('report.html').find(s => s.includes('copiarNodoSeguro'));
   assert.ok(reportScript, 'No se encontró el renderizado seguro del reporte');

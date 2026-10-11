@@ -26,7 +26,7 @@
                 <span class="status-time" id="cicloNum">Sincronización manual</span>
             </div>
         </div>
-        <button class="btn-scan" id="btnSincronizar" onclick="sincronizarLog()">
+        <button class="btn-scan" id="btnSincronizar">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" class="btn-icon">
                 <polygon points="2,1 9,5 2,9" />
             </svg>
@@ -40,35 +40,35 @@
             <div class="metric-value">{{ stats.total }}</div>
             <div class="metric-sub">ultimo ciclo</div>
             <div class="metric-ghost">{{ stats.total }}</div>
-            <div class="metric-card total" onclick="filtrarTabla('total')" style="cursor:pointer"></div>
+            <div class="metric-card total" data-filter="total" style="cursor:pointer"></div>
         </div>
         <div class="metric-card critica">
             <div class="metric-label">CRITICAS</div>
             <div class="metric-value">{{ stats.criticas }}</div>
             <div class="metric-sub">accion inmediata</div>
             <div class="metric-ghost">{{ stats.criticas }}</div>
-            <div class="metric-card critica" onclick="filtrarTabla('critica')" style="cursor:pointer"></div>
+            <div class="metric-card critica" data-filter="critica" style="cursor:pointer"></div>
         </div>
         <div class="metric-card alta">
             <div class="metric-label">ALTAS</div>
             <div class="metric-value">{{ stats.altas }}</div>
             <div class="metric-sub">revisar hoy</div>
             <div class="metric-ghost">{{ stats.altas }}</div>
-            <div class="metric-card alta" onclick="filtrarTabla('alta')" style="cursor:pointer"></div>
+            <div class="metric-card alta" data-filter="alta" style="cursor:pointer"></div>
         </div>
         <div class="metric-card media">
             <div class="metric-label">MEDIA</div>
             <div class="metric-value">{{ stats.medias }}</div>
             <div class="metric-sub">investigar</div>
             <div class="metric-ghost">{{ stats.medias }}</div>
-            <div class="metric-card media" onclick="filtrarTabla('media')" style="cursor:pointer"></div>
+            <div class="metric-card media" data-filter="media" style="cursor:pointer"></div>
         </div>
         <div class="metric-card ips">
             <div class="metric-label">IPs DE ORIGEN</div>
             <div class="metric-value">{{ stats.ips }}</div>
             <div class="metric-sub">origen unico</div>
             <div class="metric-ghost">{{ stats.ips }}</div>
-            <div class="metric-card ips" onclick="filtrarTabla('ips')" style="cursor:pointer"></div>
+            <div class="metric-card ips" data-filter="ips" style="cursor:pointer"></div>
         </div>
     </section>
 
@@ -160,7 +160,7 @@
             </div>
             <div class="historial-list">
                 {% for item in historial %}
-                <a href="/report/{{ item.nombre }}" target="_blank" style="text-decoration:none">
+                <a href="/report/{{ item.nombre }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none">
                     <div class="historial-item">
                         <div class="historial-info">
                             <span class="historial-nombre">{{ item.fecha }} {{ item.hora }}</span>
@@ -215,7 +215,11 @@
 
     <div class="toast" id="toast"></div>
 
-    <script>
+    <script nonce="{{ csp_nonce }}">
+        document.getElementById('btnSincronizar').addEventListener('click', sincronizarLog);
+        document.querySelectorAll('[data-filter]').forEach(control => {
+            control.addEventListener('click', () => filtrarTabla(control.dataset.filter));
+        });
         let countdown = 15;
 
         // Contador regresivo en footer
@@ -312,7 +316,7 @@
         }
     </script>
 
-    <script id="timeline-data" type="application/json">
+    <script id="timeline-data" type="application/json" nonce="{{ csp_nonce }}">
     {
         "horas"  : {{ timeline.horas  | tojson }},
         "counts" : {{ timeline.counts | tojson }},
@@ -324,8 +328,8 @@
     }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-    <script>
+    <script src="/static/vendor/chart.js-4.4.1.umd.js"></script>
+    <script nonce="{{ csp_nonce }}">
 
         // ============================================================
         // TIMELINE DE ATAQUES — Chart.js

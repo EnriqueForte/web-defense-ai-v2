@@ -1,0 +1,3 @@
+# Preserve npm-distribution bytes and their recorded SHA-256 on all platforms.
+dashboard/static/vendor/*.umd.js -text
+dashboard/static/vendor/*.LICENSE.md -text

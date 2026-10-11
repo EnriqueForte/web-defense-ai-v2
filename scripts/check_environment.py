@@ -50,7 +50,7 @@ def compare(pins):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--requirements", type=Path, default=ROOT / "requirements.txt")
-    parser.add_argument("--constraints", type=Path, default=ROOT / "constraints-windows-py311-delivery2.txt")
+    parser.add_argument("--constraints", type=Path, default=ROOT / "constraints-py311.txt")
     args = parser.parse_args()
     try:
         pins = read_pins(args.requirements)

@@ -3,7 +3,6 @@
    Tema: Cybersecurity Dark Enhanced
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@600;700&family=Inter:wght@400;500&display=swap');
 
 :root {
     --bg-primary: #080c14;
@@ -22,9 +21,9 @@
     --text-dark: #2a3f5a;
     --border: #111827;
     --border-bright: #1a2535;
-    --font-display: 'Rajdhani', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
-    --font-body: 'Inter', sans-serif;
+    --font-display: system-ui, 'Segoe UI', sans-serif;
+    --font-mono: Consolas, monospace;
+    --font-body: system-ui, 'Segoe UI', sans-serif;
 }
 
 * {

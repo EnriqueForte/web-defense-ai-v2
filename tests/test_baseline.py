@@ -13,6 +13,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import ast
+import re
 from urllib.parse import quote
 
 from agents.log_analyst import (
@@ -198,16 +199,43 @@ class DashboardTests(IsolatedCase):
         self.process.assert_not_called()
 
     def test_only_local_hosts_are_accepted_including_next_proxy_and_ipv6(self):
-        for host in ('localhost', 'localhost:3000', '127.0.0.1:5000', '[::1]:5000'):
+        # Older Werkzeug's client cookie helpers reject invalid URL ports
+        # before/after WSGI. Exercise the raw application with these headers.
+        from werkzeug.test import EnvironBuilder, run_wsgi_app
+        from contextlib import closing
+        def host_response(host):
+            with closing(EnvironBuilder(path='/api/v1/estado')) as builder:
+                environ = builder.get_environ()
+                environ['REMOTE_ADDR'] = '127.0.0.1'
+                environ['HTTP_HOST'] = host
+                body, status, headers = run_wsgi_app(self.web.app, environ, buffered=True)
+            return self.web.app.response_class(body, status=status, headers=headers)
+        for host in ('localhost', 'localhost:3000', '127.0.0.1:5000',
+                     '[::1]', '[::1]:5000', '[::1]:1', '[::1]:65535'):
             with self.subTest(host=host):
-                response = self.client.get('/api/v1/estado', headers={'Host': host})
+                response = host_response(host)
                 self.assertEqual(response.status_code, 200)
-        for host in ('untrusted.example', 'localhost.evil.example', '127.0.0.1.evil.example'):
+        for host in ('untrusted.example', 'localhost.evil.example', '127.0.0.1.evil.example',
+                     '[::2]', '[::ffff:127.0.0.1]', '[::1]:0', '[::1]:65536',
+                     '[::1]:05000', '[::1]:999999', '[::1].evil.example',
+                     '[::1]:5000.evil.example', '[::1]:-1', '[::1]:+5000'):
             with self.subTest(host=host):
-                response = self.client.get('/api/v1/estado', headers={'Host': host})
+                response = host_response(host)
                 self.assertEqual(response.status_code, 400)
                 self.assertIsNotNone(response.get_json()['error']['code'])
                 self.assertNotIn(host, response.get_data(as_text=True))
+
+    def test_ipv6_loopback_urls_preserve_the_original_authority(self):
+        from flask import url_for
+        with self.web.app.test_request_context('/api/v1/estado',
+                                               headers={'Host': '[::1]:5000'}):
+            self.assertEqual(url_for('static', filename='style.css', _external=True),
+                             'http://[::1]:5000/static/style.css')
+
+    def test_ipv6_loopback_requires_its_explicit_allowlist_entry(self):
+        with patch.dict(self.web.app.config, TRUSTED_HOSTS=['localhost', '127.0.0.1']):
+            self.assertEqual(self.client.get('/api/v1/estado',
+                                             headers={'Host': '[::1]:5000'}).status_code, 400)
 
     def test_oversized_configuration_never_reaches_the_writer(self):
         with patch.object(self.web, 'save_llm_settings') as writer:
@@ -237,6 +265,41 @@ class DashboardTests(IsolatedCase):
         self.assertEqual(response.headers['X-Content-Type-Options'], 'nosniff')
         self.assertEqual(response.headers['Referrer-Policy'], 'same-origin')
         self.assertEqual(response.headers['Cache-Control'], 'no-store, max-age=0')
+
+    def test_fallback_csp_nonce_and_local_resources(self):
+        with patch.dict(os.environ, {'NEXT_PRIMARY_ENABLED':'0'}):
+            first = self.client.get('/')
+            second = self.client.get('/')
+        html = first.get_data(as_text=True)
+        policy = first.headers['Content-Security-Policy']
+        nonce = re.search(r"'nonce-([^']+)'", policy).group(1)
+        self.assertNotEqual(policy,second.headers['Content-Security-Policy'])
+        self.assertIn('frame-ancestors \'none\'',policy)
+        self.assertNotIn("script-src 'self' 'unsafe-inline'",policy)
+        self.assertNotIn('onclick=',html)
+        self.assertNotIn('cdnjs.cloudflare.com',html)
+        self.assertIn('/static/vendor/chart.js-4.4.1.umd.js',html)
+        for attributes,source in re.findall(r'<script([^>]*)>(.*?)</script>',html,re.S):
+            if 'src=' not in attributes:
+                self.assertIn(f'nonce="{nonce}"',attributes)
+        self.assertEqual(first.headers['X-Frame-Options'],'DENY')
+
+    def test_report_resources_are_local_and_vendor_hashes_match(self):
+        import hashlib
+        (self.base/'reporte_seguridad.md').write_text(report(),encoding='utf-8')
+        page=self.client.get('/report/reporte_seguridad.md').get_data(as_text=True)
+        self.assertNotIn('fonts.googleapis.com',page)
+        self.assertNotIn('cdnjs.cloudflare.com',page)
+        self.assertIn('/static/vendor/marked-9.1.6.umd.js',page)
+        css=self.client.get('/static/style.css').get_data(as_text=True)
+        self.assertNotIn('@import',css)
+        manifest=json.loads((ROOT/'dashboard/static/vendor/manifest.json').read_text())
+        for package in manifest:
+            self.assertEqual(package['license'],'MIT')
+            for name,digest in package['files_sha256'].items():
+                response=self.client.get('/static/vendor/'+name)
+                self.assertEqual(response.status_code,200)
+                self.assertEqual(hashlib.sha256(response.data).hexdigest(),digest)
 
     def test_event_timestamp_is_validated_and_normalized_to_utc(self):
         parsed = self.web.parsear_amenazas(report_with_event_rows([

@@ -6,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>web-defense-ai V2 — {{ nombre }}</title>
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@600;700&family=Inter:wght@400;500&display=swap"
-        rel="stylesheet">
-    <style>
+<style>
         :root {
             --bg: #080c14;
             --bg-card: #0d1420;
@@ -238,10 +234,10 @@
         {{ contenido }}
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
-    <script>
+    <script src="/static/vendor/marked-9.1.6.umd.js"></script>
+    <script nonce="{{ csp_nonce }}">
         const body = document.getElementById('reportBody');
-        const raw = body.textContent;
+        const raw = body.textContent.trim();
 
         const tagsPermitidas = new Set([
             'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'UL', 'OL', 'LI',

@@ -1,0 +1,4 @@
+# Install tools in the project venv before resolving application dependencies.
+# Do not install into the system Python or an active operational environment.
+pip==26.2.1
+setuptools==83.0.0

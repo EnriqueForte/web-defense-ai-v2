@@ -52,7 +52,7 @@ class IntegrationTests(TestCase):
             engine_mode({"ANALYSIS_ENGINE_MODE": "typo"})
 
     def test_main_routes_structured_input_without_running_legacy_agents(self):
-        import agents.structured_engine as service
+        import agents.operational_diagnostics as service
         source = Path(__file__).resolve().parents[1] / "main.py"
         tree = ast.parse(source.read_text(encoding="utf-8"))
         function = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "_run_analysis")
@@ -63,17 +63,20 @@ class IntegrationTests(TestCase):
         exec(compile(ast.Module(body=[function], type_ignores=[]), str(source), "exec"), namespace)
         with patch.dict(os.environ, {"LOG_PATH": "synthetic.log", "REPORT_PATH": str(self.root),
                                      "STRUCTURED_ANALYSIS_ID": ID}), \
-                patch.object(service, "read_input", return_value=TEXT), \
-                patch.object(service, "run_structured") as runner:
+                patch.object(service, "run_operational_analysis") as runner:
             namespace["_run_analysis"]()
-            self.assertEqual(runner.call_args.args, (TEXT, llm, str(self.root)))
+            self.assertEqual(runner.call_args.args, ('synthetic.log', str(self.root), llm_factory))
             self.assertEqual(runner.call_args.kwargs["analysis_id"], ID)
-            llm_factory.assert_called_once_with(max_tokens=service.STRUCTURED_MAX_TOKENS,
-                                                timeout=service.STRUCTURED_REQUEST_TIMEOUT_SECONDS)
+            llm_factory.assert_not_called()
+            runner.side_effect = ValueError('SYNTHETIC-secret-error-body')
+            with self.assertRaisesRegex(RuntimeError, '^structured_analysis_failed') as raised:
+                namespace['_run_analysis']()
+            self.assertNotIn('SYNTHETIC-secret-error-body', str(raised.exception))
 
     def test_engine_subprocess_receives_job_identity(self):
         import pipeline
-        with patch.object(pipeline.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as process:
+        with patch.object(pipeline, 'REPORT_PATH', self.root), \
+                patch.object(pipeline.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as process:
             self.assertTrue(pipeline.run_engine(analysis_id=ID))
         self.assertEqual(process.call_args.kwargs["env"]["STRUCTURED_ANALYSIS_ID"], ID)
         self.assertEqual(process.call_args.kwargs["env"]["ANALYSIS_ENGINE_MODE"], "structured")

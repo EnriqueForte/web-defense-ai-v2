@@ -42,3 +42,7 @@ build/
 .local-state/
 # Short Windows path for isolated full dependency validation (LiteLLM assets).
 .p2/
+# Isolated security dependency validation; never operational without acceptance.
+.p3/
+# Fresh installation rehearsal, short path for Windows dependency assets.
+.i1/

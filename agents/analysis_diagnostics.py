@@ -16,13 +16,14 @@ CODES = set("invalid_fields invalid_text invalid_text_encoding invalid_list outp
             "invalid_sampling_limit sampling_limit_exceeded empty_evidence input_too_large invalid_input_encoding "
             "linked_publication_path invalid_publication_manifest invalid_generation generation_manifest_mismatch "
             "generation_digest_mismatch generation_analysis_mismatch publication_unavailable "
-            "other_without_observation unobserved_other_state".split())
+            "other_without_observation unobserved_other_state empty_detection_with_observed_indicators".split())
 ERROR_TYPES = set("ValueError RuntimeError ValidationError ContractError InstructorRetryException RetryError "
                   "AuthenticationError OpenRouterException HTTPStatusError TimeoutError ConnectionError "
                   "APITimeoutError RateLimitError AssertionError OSError KeyError TypeError JSONDecodeError".split())
 VALIDATION_TYPES = set("json_invalid missing extra_forbidden literal_error string_type list_type dict_type "
                        "string_too_long string_too_short too_long too_short int_type value_error".split())
 TRACE_FILES = {"structured_engine.py", "structured_prototype.py", "evaluate_structured_openrouter.py",
+               "operational_diagnostics.py", "main.py", "pipeline.py",
                "evidence_contracts.py", "evidence_preparation.py", "structured_reporting.py",
                "structured_publication.py", "crew_agent_executor.py", "agent_utils.py", "task.py",
                "converter.py", "internal_instructor.py", "llm.py"}

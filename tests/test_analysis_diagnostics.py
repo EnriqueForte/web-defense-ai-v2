@@ -52,9 +52,11 @@ class DiagnosticsTests(TestCase):
         diagnostic = AnalysisDiagnostics()
         diagnostic.phase(SECRET)
         diagnostic.guard("detection", ContractError("invalid_evidence_reference"))
+        diagnostic.guard("detection", ContractError("empty_detection_with_observed_indicators"))
         diagnostic.guard(SECRET, ContractError(SECRET))
         self.assertEqual(diagnostic.snapshot()["stage"], "unknown")
         self.assertEqual(diagnostic.snapshot()["events"][1]["contract_code"], "invalid_evidence_reference")
+        self.assertEqual(diagnostic.snapshot()["events"][2]["contract_code"], "empty_detection_with_observed_indicators")
         self.assertNotIn(SECRET, json.dumps(diagnostic.snapshot()))
 
     def test_checkpoint_bounds_and_detached_snapshot(self):

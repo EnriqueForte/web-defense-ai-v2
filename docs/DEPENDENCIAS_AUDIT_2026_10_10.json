@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "status": "compatible_updates_verified; step_1_not_fully_closed",
+  "python": {
+    "scanner": "pip-audit 2.10.1",
+    "service": "PyPI",
+    "before_contract_packages": 155,
+    "before_entries": 162,
+    "before_distinct_ids": 100,
+    "after_installed_packages": 158,
+    "after_entries": 36,
+    "after_distinct_ids": 22,
+    "counts_are_database_entries_not_unique_exploitable_vulnerabilities": true,
+    "residual": [
+      {
+        "package": "chromadb",
+        "version": "1.1.1",
+        "database_entries": 5,
+        "advisories": [
+          {
+            "id": "PYSEC-2026-311",
+            "aliases": [
+              "GHSA-f4j7-r4q5-qw2c",
+              "CVE-2026-45829"
+            ],
+            "fix_versions": []
+          },
+          {
+            "id": "PYSEC-2026-3814",
+            "aliases": [
+              "GHSA-36p7-vc44-83pf",
+              "CVE-2026-45833"
+            ],
+            "fix_versions": []
+          },
+          {
+            "id": "PYSEC-2026-3815",
+            "aliases": [
+              "CVE-2026-45831",
+              "GHSA-xph7-9rjv-w5fr"
+            ],
+            "fix_versions": []
+          },
+          {
+            "id": "PYSEC-2026-3813",
+            "aliases": [
+              "CVE-2026-45830",
+              "GHSA-2wm9-hf6c-p5cr"
+            ],
+            "fix_versions": []
+          }
+        ],
+        "scope_review": "server endpoints; no Chroma service deployed by this project; database reports no fix",
+        "status": "retained_and_documented; not suppressed from audit"
+      },
+      {
+        "package": "json-repair",
+        "version": "0.25.3",
+        "database_entries": 1,
+        "advisories": [
+          {
+            "id": "GHSA-xf7x-x43h-rpqh",
+            "aliases": [],
+            "fix_versions": [
+              "0.60.1"
+            ]
+          }
+        ],
+        "scope_review": "SchemaRepairer and loads(schema=...); installed 0.25.3 has neither the class nor schema parameter",
+        "status": "retained_and_documented; not suppressed from audit"
+      },
+      {
+        "package": "litellm",
+        "version": "1.83.0",
+        "database_entries": 24,
+        "advisories": [
+          {
+            "id": "PYSEC-2026-2602",
+            "aliases": [
+              "GHSA-xqmj-j6mv-4862",
+              "CVE-2026-42203"
+            ],
+            "fix_versions": [
+              "1.83.7"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-391",
+            "aliases": [
+              "CVE-2026-42208",
+              "GHSA-r75f-5x8p-qvmc"
+            ],
+            "fix_versions": [
+              "1.83.7"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-2599",
+            "aliases": [
+              "GHSA-v4p8-mg3p-g94g",
+              "CVE-2026-42271"
+            ],
+            "fix_versions": [
+              "1.83.7"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-2601",
+            "aliases": [
+              "GHSA-wxxx-gvqv-xp7p",
+              "CVE-2026-40217"
+            ],
+            "fix_versions": [
+              "1.83.10"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-388",
+            "aliases": [
+              "CVE-2026-49468",
+              "GHSA-4xpc-pv4p-pm3w"
+            ],
+            "fix_versions": [
+              "1.84.0"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-2600",
+            "aliases": [
+              "GHSA-wpfp-gwwc-vwq6",
+              "CVE-2026-47102"
+            ],
+            "fix_versions": [
+              "1.83.10"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-2598",
+            "aliases": [
+              "CVE-2026-47101",
+              "GHSA-qrc4-49gv-mv9m"
+            ],
+            "fix_versions": [
+              "1.83.14"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3477",
+            "aliases": [
+              "GHSA-5jmr-gcrj-2c9q",
+              "CVE-2026-59820"
+            ],
+            "fix_versions": [
+              "1.83.7"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3479",
+            "aliases": [
+              "GHSA-7488-6r32-c95q",
+              "CVE-2026-59822"
+            ],
+            "fix_versions": [
+              "1.84.0"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3476",
+            "aliases": [
+              "CVE-2026-59819",
+              "GHSA-4g5m-c9r5-49xf"
+            ],
+            "fix_versions": [
+              "1.83.10"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-4066",
+            "aliases": [
+              "GHSA-3cv6-jpf6-8222",
+              "CVE-2026-84377"
+            ],
+            "fix_versions": [
+              "1.88.6",
+              "1.89.7",
+              "1.90.7",
+              "1.91.5",
+              "1.92.2",
+              "1.93.2",
+              "1.94.3",
+              "1.95.1",
+              "1.96.2"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3861",
+            "aliases": [
+              "CVE-2026-37004",
+              "GHSA-6wvf-77m9-58rm"
+            ],
+            "fix_versions": [
+              "1.83.7"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-4067",
+            "aliases": [
+              "CVE-2026-12773",
+              "GHSA-4jcj-7x88-m979"
+            ],
+            "fix_versions": [
+              "1.84.0"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-4070",
+            "aliases": [
+              "CVE-2026-59823",
+              "GHSA-hx8v-g79f-8w5f"
+            ],
+            "fix_versions": [
+              "1.83.9"
+            ]
+          }
+        ],
+        "scope_review": "reported proxy/server features; project uses client completion, not a deployed LiteLLM proxy; per-advisory review remains required",
+        "status": "retained_and_documented; not suppressed from audit"
+      },
+      {
+        "package": "mcp",
+        "version": "1.26.0",
+        "database_entries": 6,
+        "advisories": [
+          {
+            "id": "PYSEC-2026-3481",
+            "aliases": [
+              "CVE-2026-52870",
+              "GHSA-hvrp-rf83-w775"
+            ],
+            "fix_versions": [
+              "1.27.2"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3482",
+            "aliases": [
+              "CVE-2026-52869",
+              "GHSA-jpw9-pfvf-9f58"
+            ],
+            "fix_versions": [
+              "1.27.2"
+            ]
+          },
+          {
+            "id": "PYSEC-2026-3483",
+            "aliases": [
+              "CVE-2026-59950",
+              "GHSA-vj7q-gjh5-988w"
+            ],
+            "fix_versions": [
+              "1.28.1"
+            ]
+          }
+        ],
+        "scope_review": "server session, experimental tasks and WebSocket transports; project does not deploy an MCP server",
+        "status": "retained_and_documented; not suppressed from audit"
+      }
+    ]
+  },
+  "frontend": {
+    "next": "16.3.8",
+    "eslint_config_next": "16.3.8",
+    "pnpm": "11.19.0",
+    "production": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "all": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0
+    },
+    "residual": {
+      "package": "braces",
+      "version": "3.0.3",
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "status": "development_only; no published 3.0.4 verified; not suppressed"
+    }
+  },
+  "vendor": {
+    "versions": {
+      "chart.js": "4.4.1",
+      "marked": "9.1.6"
+    },
+    "audit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "status": "no_known_advisories_in_query; does_not_prove_absence_of_vulnerabilities"
+  },
+  "images": {
+    "status": "not_scanned_windows_application_control_blocked_trivy",
+    "scanner_release": "0.75.0",
+    "verified_zip_sha256": "4e43bd71a30f51aee39525f60f2b47043af77eb8df8fe082aae4372b69c6660f",
+    "recommended_lab": [
+      "mariadb:10.11",
+      "ghcr.io/digininja/dvwa:b496a5d",
+      "axllent/mailpit:v1.31.1"
+    ],
+    "legacy_base_images": [
+      "mysql:8.0",
+      "vulnerables/web-dvwa:latest",
+      "python:3.11-slim"
+    ],
+    "docker_or_containers_started": false
+  },
+  "no_provider_calls_notifications_or_operational_restarts": true
+}

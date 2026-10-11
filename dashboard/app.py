@@ -16,8 +16,9 @@ from pathlib import Path
 from datetime import datetime, timezone
 import hashlib
 import uuid
+import secrets
 from urllib.parse import unquote_plus, urlsplit
-from flask import Flask, render_template, jsonify, request, g, redirect
+from flask import render_template, jsonify, request, g, redirect
 from dotenv import load_dotenv
 from dashboard.services.read_store import CapturedFile, capture_file, inspect_file, run_atomic_copy
 from dashboard.services.active_report import capture_current, capture_current_details, inspect_current
@@ -25,6 +26,7 @@ from agents.structured_reporting import event_period, render_markdown
 from dashboard.services.analysis_jobs import JobStore, default_db_path
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
 from dashboard.services.llm_settings import InvalidLLMSettings, public_llm_settings, save_llm_settings
+from dashboard.services.local_hosts import LocalHostFlask
 from werkzeug.exceptions import HTTPException
 
 # Añadir raíz del proyecto al path
@@ -32,7 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 load_dotenv()
 
-app = Flask(__name__)
+app = LocalHostFlask(__name__)
 app.config.update(TRUSTED_HOSTS=["localhost", "127.0.0.1", "[::1]"],
                   MAX_CONTENT_LENGTH=16 * 1024)
 
@@ -50,6 +52,7 @@ def _local_origin_allowed(*, required=True):
 @app.before_request
 def asignar_request_id():
     g.request_id = uuid.uuid4().hex
+    g.csp_nonce = secrets.token_urlsafe(24)
     if request.remote_addr not in {"127.0.0.1", "::1"}:
         if request.path.startswith("/api/"):
             return _api_error(403, "local_only", "El dashboard solo admite conexiones locales.")
@@ -61,10 +64,24 @@ def cabeceras_api(response):
     response.headers["X-Request-ID"] = getattr(g, "request_id", "")
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "same-origin"
+    nonce = getattr(g, 'csp_nonce', '')
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        f"script-src 'self' 'nonce-{nonce}'; "
+        "style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; "
+        "connect-src 'self'; object-src 'none'; base-uri 'none'; "
+        "frame-ancestors 'none'; form-action 'self'"
+    )
+    response.headers["X-Frame-Options"] = "DENY"
     if request.path.startswith("/api/v1/") or request.path == "/api/estado":
         response.headers["Cache-Control"] = "no-store, max-age=0"
         response.headers["Pragma"] = "no-cache"
     return response
+
+
+@app.context_processor
+def contexto_csp():
+    return {"csp_nonce": getattr(g, 'csp_nonce', '')}
 
 
 @app.errorhandler(HTTPException)

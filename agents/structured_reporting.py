@@ -1,14 +1,70 @@
-"""Deterministic facts/table and scoped no-finding summary for the optional lane."""
+"""Deterministic facts, scope and reviewed mitigations for the structured lane."""
+from collections import Counter
 import html
 from agents.evidence_contracts import assemble_result
 from agents.evidence_preparation import validate_observed_classification, RULE_VERSION
-REPORT_FORMAT_VERSION = "structured-report-3"
+REPORT_FORMAT_VERSION = "structured-report-4"
+NARRATIVE_POLICY_VERSION = "grounded-narrative-1"
 
 SEVERITY_LABELS = {"critical": "CRITICA", "high": "ALTA", "medium": "MEDIA", "low": "BAJA", "unknown": "DESCONOCIDA"}
 TYPE_LABELS = {"sql_injection": "SQLi", "xss": "XSS", "path_traversal": "Path Traversal",
                "command_injection": "Command Injection", "brute_force": "Fuerza Bruta", "other": "Otro"}
 STATE_LABELS = {"observed_indicator": "Indicador observado", "requires_investigation": "Requiere investigación",
                "probable_false_positive": "Posible falso positivo"}
+
+# Reviewed against OWASP; advice is conditional, never a claim of a deployed fix.
+# Source links and review scope are recorded in docs/NARRATIVA_VALIDADA_A05_2026_10_10.md.
+MITIGATIONS = {
+    "sql_injection": "Revisar las consultas asociadas a estas peticiones y usar consultas parametrizadas "
+                     "para los valores, evitando concatenar entradas en SQL.",
+    "xss": "Revisar dónde se reflejan los datos y aplicar codificación de salida según el contexto. "
+           "Si la aplicación acepta HTML, sanearlo con una biblioteca mantenida.",
+    "path_traversal": "Limitar la selección de archivos a identificadores permitidos y comprobar que "
+                      "la ruta resuelta permanezca dentro del directorio autorizado.",
+    "command_injection": "Preferir APIs que no invoquen comandos del sistema. Si un proceso es imprescindible, "
+                         "separar comando y argumentos y validar las entradas con una lista permitida.",
+    "brute_force": "Revisar los intentos por cuenta y aplicar limitación de intentos de autenticación; "
+                   "valorar autenticación multifactor y evitar bloqueos indiscriminados.",
+    "other": "Verificar formato, fecha y solicitud de estas referencias y contrastarlas con eventos de "
+             "aplicación antes de clasificar la actividad o elegir una mitigación específica.",
+}
+
+
+def findings_narrative(result, prepared):
+    """Use only validated enumerations/counts; never raw targets or model reasons."""
+    findings = result["findings"]
+    bundle = prepared.bundle
+    families = Counter(finding["pattern"] for finding in findings)
+    states = Counter(finding["state"] for finding in findings)
+    total = len(findings)
+    groups = "1 grupo de hallazgos" if total == 1 else f"{total} grupos de hallazgos"
+    verb = "Se clasificó" if total == 1 else "Se clasificaron"
+    summary = (f"{verb} {groups} con referencias en {len(bundle.items)} líneas seleccionadas "
+               f"de {bundle.total_lines}; se omitieron {bundle.omitted_lines}. ")
+    summary += "Patrones: " + "; ".join(f"{TYPE_LABELS[pattern]}: {families[pattern]}"
+                                       for pattern in TYPE_LABELS if families[pattern]) + ". "
+    summary += "Severidades: " + "; ".join(f"{SEVERITY_LABELS[severity]}: {count}"
+                                          for severity, count in result["counts"].items() if count) + ". "
+    summary += "Estados: " + "; ".join(f"{STATE_LABELS[state]}: {states[state]}"
+                                      for state in STATE_LABELS if states[state]) + ". "
+    observed = {(pattern, identifier) for identifier, patterns in prepared.indicators.items() for pattern in patterns}
+    covered = {(finding["pattern"], identifier) for finding in findings for identifier in finding["evidence_ids"]}
+    missing = len(observed - covered)
+    if missing:
+        remaining = "Queda 1 referencia" if missing == 1 else f"Quedan {missing} referencias"
+        summary += (f"{remaining} de patrón observado sin representar en estos grupos; "
+                    "revisar posibles omisiones. ")
+    summary += ("Este alcance no confirma explotación exitosa ni permite descartar actividad fuera de la selección. "
+                "Las medidas propuestas deben revisarse según la aplicación antes de aplicarlas.")
+    recommendations = []
+    for finding in findings:
+        prefix = ("Verificar el contexto y documentar el posible falso positivo antes de cambiar controles. "
+                  if finding["state"] == "probable_false_positive" else
+                  "Correlacionar las referencias con eventos de aplicación para determinar su alcance. ")
+        recommendations.append({"candidate_id": finding["candidate_id"],
+                                "text": prefix + MITIGATIONS[finding["pattern"]]})
+    return {"schema_version": bundle.schema_version, "analysis_id": bundle.analysis_id,
+            "summary": summary, "recommendations": recommendations}
 
 
 def no_findings_narrative(bundle, *, preparation=None):
@@ -46,13 +102,16 @@ def compose(prepared, detection, classification, narrative, *, model, prompt_ver
     result = assemble_result(prepared.bundle, detection, classification, narrative, model=model, prompt_version=prompt_version)
     result["report_format_version"] = REPORT_FORMAT_VERSION
     # Validate the model's contract first; don't turn malformed JSON into a report.
-    # For no candidates, only Python may describe the evidence scope and limits.
+    # Only Python publishes facts and reviewed advice. The model's narrative
+    # still has to pass its original contract; it is never silently repaired.
     if not result["findings"]:
         narrative = no_findings_narrative(prepared.bundle, preparation=prepared)
         result["narrative"] = narrative
         result["narrative_source"] = "python_scope"
     else:
-        result["narrative_source"] = "llm_contract_validated_semantics_pending"
+        result["narrative"] = findings_narrative(result, prepared)
+        result["narrative_source"] = "python_validated_facts"
+    result["narrative_policy_version"] = NARRATIVE_POLICY_VERSION
     result["preparation"] = prepared.context()
     result["rule_version"] = RULE_VERSION
     return result, render_markdown(result)

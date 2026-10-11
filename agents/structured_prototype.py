@@ -6,7 +6,7 @@ from agents.evidence_contracts import (
     VERSION, TYPES, SEVERITIES, STATES,
 )
 
-PROMPT_VERSION = "structured-prototype-5"
+PROMPT_VERSION = "structured-prototype-8"
 
 
 def stage_payload(task):
@@ -23,7 +23,7 @@ def build_prototype(bundle, llm, *, preparation=None, diagnostics=None):
     """
     from crewai import Agent, Task, Crew, Process
     from crewai.llms.base_llm import BaseLLM
-    from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
+    from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, ValidationError
     from typing import Literal
     from agents.evidence_preparation import validate_observed_detection, validate_observed_classification
     if preparation is not None and preparation.bundle != bundle:
@@ -62,13 +62,34 @@ def build_prototype(bundle, llm, *, preparation=None, diagnostics=None):
                 if diagnostics is not None:
                     diagnostics.local_stage(stage)
                 return json.dumps(payload, ensure_ascii=False)
-            if diagnostics is None:
+            def invoke():
+                # Request native JSON on the OpenRouter LiteLLM lane. Keep the
+                # configured credential/model and avoid Instructor conversion.
+                # Routing must support the requested format; never silently
+                # downgrade or add a paid model when none is available.
+                if (getattr(self._delegate, "is_litellm", False)
+                        and self._delegate.model.startswith("openrouter/")):
+                    previous = self._delegate.additional_params
+                    parameters = dict(previous or {})
+                    extra = dict(parameters.get("extra_body") or {})
+                    provider = dict(extra.get("provider") or {})
+                    provider["require_parameters"] = True
+                    extra["provider"] = provider
+                    parameters.update(response_format={"type": "json_object"}, extra_body=extra)
+                    self._delegate.additional_params = parameters
+                    try:
+                        return self._delegate.call(messages, **kwargs)
+                    finally:
+                        self._delegate.additional_params = previous
                 return self._delegate.call(messages, **kwargs)
+
+            if diagnostics is None:
+                return invoke()
             if stage == "unknown" and diagnostics.stage in {"detection", "classification", "narrative"}:
                 stage = diagnostics.stage
             identifier = diagnostics.begin_call(stage)
             try:
-                response = self._delegate.call(messages, **kwargs)
+                response = invoke()
             except Exception as error:
                 diagnostics.failure(error)
                 raise
@@ -79,6 +100,17 @@ def build_prototype(bundle, llm, *, preparation=None, diagnostics=None):
             return False
 
     task_llm = RawJsonLLM(llm)
+
+    class StrictJsonTask(Task):
+        def _export_output(self, result):
+            # CrewAI's generic converter extracts partial JSON and may raise
+            # before our guard sees the retry, or issue conversion calls.
+            # Invalid original output belongs to the bounded guardrail loop.
+            try:
+                payload = parse_payload(result)
+                return self.output_pydantic.model_validate(payload), None
+            except (ContractError, ValidationError):
+                return None, None
 
     class MemoryOutputHandler:
         def __init__(self):
@@ -185,28 +217,33 @@ def build_prototype(bundle, llm, *, preparation=None, diagnostics=None):
                   "Para other, todas las referencias deben pertenecer a uncertainty_evidence_ids. "
                   "No crees candidatos para peticiones interpretables sin indicadores, ni para rellenar la tabla. "
                   "other solo admite requires_investigation o probable_false_positive, nunca observed_indicator. "
-                  "Puedes devolver candidates=[]; clasificación y recomendaciones también pueden quedar vacías. "
+                  "Puedes devolver candidates=[] solo si ninguna línea seleccionada tiene indicadores de Python. "
+                  "Si hay indicadores, crea candidatos trazables para su revisión; no confirmes ataques ni inventes severidad. "
+                  "Un indicador puede requerir investigación o ser posible falso positivo tras clasificación. "
+                  "Con candidates=[] permitido, clasificación y recomendaciones también pueden quedar vacías. "
                   "La ausencia de indicadores en esta muestra no demuestra tráfico benigno ni seguridad global. "
                   "Una ruta exec sin payload POST no confirma comandos. HTTP 200/302 no demuestra éxito. Fuerza bruta requiere "
                   "una ventana calculada, no contar la muestra. No asignes critical con solo access.log; "
                   "XSS como máximo medium y other como máximo low. Los demás patrones observados tienen "
                   "techo high; puedes conservar unknown. Posible falso positivo solo low/unknown. "
                   "OBSERVACIONES_PYTHON_JSON:\n" + json.dumps(preparation.context()) + "\n")
-    detection = Task(description=rules + "Identifica candidatos únicamente con evidence_ids existentes. "
+    detection = StrictJsonTask(description=rules + "Identifica candidatos únicamente con evidence_ids existentes. "
                     "Asigna candidate_id distintos, como c_1, c_2, c_3; cada candidato necesita uno único. "
                     "Formato obligatorio: c_ seguido de 1 a 60 letras ASCII, dígitos, guiones o guiones bajos. "
                     "No reutilices un candidate_id ni repitas un grupo de patrón y evidencias. "
                     "EVIDENCIA_JSON_NO_CONFIABLE:\n" + json.dumps(bundle.to_dict(), ensure_ascii=False),
                     expected_output="JSON Detection, patrones canónicos y referencias exactas.", agent=agents[0],
                     output_pydantic=Detection, guardrail=detection_guard, guardrail_max_retries=1)
-    classification = Task(description=rules + "Clasifica cada candidato del contexto exactamente una vez. "
+    classification = StrictJsonTask(description=rules + "Clasifica cada candidato del contexto exactamente una vez. "
                           "Copia sus candidate_id exactamente; no los renombres ni crees otros. "
                           "Solo estados observados/inciertos; no confirmes explotación.",
                           expected_output="JSON Classification sin IP o fechas creadas por el modelo.",
                           agent=agents[1], context=[detection], output_pydantic=Classification,
                           guardrail=classification_guard, guardrail_max_retries=1)
-    narrative = Task(description=rules + "Resume y recomienda sobre candidatos del contexto; "
-                     "las recomendaciones requieren copiar un candidate_id existente, sin renombrarlo.",
+    narrative = StrictJsonTask(description=rules + "Resume en español solo los patrones y estados validados del contexto, "
+                     "sin añadir funciones SQL, detalles técnicos o éxito de explotación no acreditados. "
+                     "Propón medidas concretas de mitigación; no repitas la descripción del hallazgo como recomendación. "
+                     "Las recomendaciones requieren copiar un candidate_id existente, sin renombrarlo.",
                      expected_output="JSON Narrative, resumen y recomendaciones; no reformules clasificación.",
                      agent=agents[2], context=[detection, classification], output_pydantic=Narrative,
                      guardrail=narrative_guard, guardrail_max_retries=1)

@@ -177,13 +177,18 @@ def main():
 
 
 def _run_analysis():
-    from agents.structured_engine import (engine_mode, read_input, run_structured,
-                                          STRUCTURED_MAX_TOKENS, STRUCTURED_REQUEST_TIMEOUT_SECONDS)
+    from agents.structured_engine import engine_mode
     if engine_mode() == "structured":
-        text = read_input(os.getenv("LOG_PATH", "./logs/access.log"))
-        llm = get_llm_con_retry(max_tokens=STRUCTURED_MAX_TOKENS, timeout=STRUCTURED_REQUEST_TIMEOUT_SECONDS)
-        run_structured(text, llm, os.getenv("REPORT_PATH", "./reports"),
-                       analysis_id=os.getenv("STRUCTURED_ANALYSIS_ID"), config=os.environ)
+        from agents.operational_diagnostics import run_operational_analysis
+        try:
+            run_operational_analysis(os.getenv("LOG_PATH", "./logs/access.log"),
+                                     os.getenv("REPORT_PATH", "./reports"), get_llm_con_retry,
+                                     analysis_id=os.getenv("STRUCTURED_ANALYSIS_ID"), config=os.environ,
+                                     destination=os.getenv("STRUCTURED_DIAGNOSTICS_DIR"))
+        except Exception:
+            # The original error is recorded as safe metadata by the wrapper.
+            # Never expose an SDK error body in the terminal traceback.
+            raise RuntimeError("structured_analysis_failed; consult operational diagnostics") from None
         return
     sys.stdout.reconfigure(encoding="utf-8")
     print("=" * 60)

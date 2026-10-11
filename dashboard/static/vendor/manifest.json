@@ -1,0 +1,26 @@
+[
+  {
+    "package": "chart.js",
+    "version": "4.4.1",
+    "license": "MIT",
+    "metadata_url": "https://registry.npmjs.org/chart.js/4.4.1",
+    "tarball": "https://registry.npmjs.org/chart.js/-/chart.js-4.4.1.tgz",
+    "integrity": "sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==",
+    "files_sha256": {
+      "chart.js-4.4.1.umd.js": "74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3",
+      "chart.js-4.4.1.LICENSE.md": "5a0877ad6d818529be4f33009d0942cdf7e2ed7656156f4aba7308459a546030"
+    }
+  },
+  {
+    "package": "marked",
+    "version": "9.1.6",
+    "license": "MIT",
+    "metadata_url": "https://registry.npmjs.org/marked/9.1.6",
+    "tarball": "https://registry.npmjs.org/marked/-/marked-9.1.6.tgz",
+    "integrity": "sha512-jcByLnIFkd5gSXZmjNvS1TlmRhCXZjIzHYlaGkPlLIekG55JDR2Z4va9tZwCiP+/RDERiNhMOFu01xd6O5ct1Q==",
+    "files_sha256": {
+      "marked-9.1.6.umd.js": "7c66f176a063823075e5c070fda98972bef5a3a20aa44f1446c66aa4cb80a91d",
+      "marked-9.1.6.LICENSE.md": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c"
+    }
+  }
+]

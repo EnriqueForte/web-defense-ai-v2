@@ -1,5 +1,15 @@
 # A-05 — Propuesta concreta de activación local reversible
 
+Seguimiento más reciente: [diagnóstico real del 10/10](DIAGNOSTICO_REAL_A05_2026_10_10.md)
+verificado, revisión operativa anterior aceptada por el usuario. A-05 sigue abierta
+por la omisión observada en la detección; botón manual desactivado y worker
+restaurado con nueva identidad. No ampliar llamadas a partir de esta acta.
+
+Estado vigente 10/10/2026: la [operación del Paso 2](OPERACION_A05_2026_10_10.md)
+inició el mismo piloto en `.p3` con el contrato nuevo y Next 16.3.8, sin análisis
+nuevos. Los comandos `.p2`, PID y resultados de abajo son históricos; comprobar
+el estado vigente antes de repetirlos. A-05 sigue abierta por aceptación final.
+
 Fecha: 07/10/2026. **Aceptada y ejecutada localmente.** No cierra A-05.
 El usuario pidió continuar con pendientes; esta entrega prepara la operación
 para que la aceptación sea una decisión sobre rutas, procesos y límites concretos.

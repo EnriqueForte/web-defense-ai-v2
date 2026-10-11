@@ -104,6 +104,18 @@ def main():
             observed_result = result_from_tasks(bundle, observed_tasks, model="scripted-offline", preparation=prepared)
             assert observed_result["preparation"]["indicators"][bundle.items[0].evidence_id] == ["sql_injection"]
             assert observed_llm.calls == 3
+            # A contract-valid but invented narrative must not reach publication.
+            invented_narrative = deepcopy(narrative)
+            invented_narrative['summary'] = 'SUBSTRING confirmed exploitation'
+            invented_narrative['recommendations'][0]['text'] = 'Multiple requests containing SQL patterns'
+            grounded_llm, grounded_crew, grounded_tasks = execute([detection, classification, invented_narrative], prepared)
+            grounded_crew.kickoff()
+            grounded_result = result_from_tasks(bundle, grounded_tasks, model='scripted-offline', preparation=prepared)
+            assert grounded_llm.calls == 3 and all(task.output.pydantic is not None for task in grounded_tasks)
+            assert grounded_result['narrative_source'] == 'python_validated_facts'
+            assert 'SUBSTRING' not in grounded_result['narrative']['summary']
+            assert 'consultas parametrizadas' in grounded_result['narrative']['recommendations'][0]['text']
+            assert 'Multiple requests' not in grounded_result['narrative']['recommendations'][0]['text']
             critical = deepcopy(classification)
             critical["classifications"][0]["severity"] = "critical"
             unsupported_llm, unsupported_crew, unsupported_tasks = execute([detection, critical, critical], prepared)
@@ -121,7 +133,10 @@ def main():
             class Probe(BaseModel):
                 summary: str
             delegate = LLM(model="openrouter/openrouter/free", is_litellm=True,
-                           api_key="synthetic-test-key", base_url="https://openrouter.ai/api/v1")
+                           api_key="synthetic-test-key", base_url="https://openrouter.ai/api/v1",
+                           additional_params={"max_retries": 0, "extra_body": {
+                               "provider": {"order": ["synthetic-provider"]}}})
+            original_parameters = delegate.additional_params
             probe_diagnostic = AnalysisDiagnostics()
             probe_crew, probe_tasks = build_prototype(bundle, delegate, preparation=prepared, diagnostics=probe_diagnostic)
             response = ModelResponse(choices=[{"index": 0, "finish_reason": "stop",
@@ -139,6 +154,10 @@ def main():
             assert output == '{"summary":"synthetic"}' and completion.call_count == 1
             assert completion.call_args.kwargs["api_key"] == "synthetic-test-key"
             assert completion.call_args.kwargs["base_url"] == "https://openrouter.ai/api/v1"
+            assert completion.call_args.kwargs["response_format"] == {"type": "json_object"}
+            assert completion.call_args.kwargs["extra_body"]["provider"]["require_parameters"] is True
+            assert completion.call_args.kwargs["extra_body"]["provider"]["order"] == ["synthetic-provider"]
+            assert delegate.additional_params is original_parameters
             assert probe_diagnostic.snapshot()["events"][-1]["output_status"] == "schema_valid"
             assert probe_diagnostic.snapshot()["stage"] == "detection"
             assert "synthetic-test-key" not in json.dumps(probe_diagnostic.snapshot())
@@ -158,6 +177,16 @@ def main():
             completed = next(event for event in probe_diagnostic.snapshot()["events"] if event["event"] == "completion_returned")
             assert completed["response_model"] == "vendor/synthetic-model:free"
             assert completed["finish_reason"] == "stop" and completed["usage"]["reasoning_tokens"] == 0
+            with patch('litellm.completion', side_effect=RuntimeError('synthetic-transport-error')):
+                try:
+                    probe_crew.agents[0].llm.call([{'role': 'user', 'content': 'Synthetic JSON probe'}],
+                                                response_model=Probe, from_task=probe_tasks[0])
+                except Exception:
+                    assert delegate.additional_params is original_parameters
+                    assert original_parameters == {'max_retries': 0, 'extra_body': {
+                        'provider': {'order': ['synthetic-provider']}}}
+                else:
+                    raise AssertionError('Transport exception was swallowed')
             # Empty content with a length limit is visible before CrewAI converts None to ''.
             empty_response = ModelResponse(model="vendor/synthetic-model:free", choices=[{
                 "index": 0, "finish_reason": "length", "message": {
@@ -206,6 +235,45 @@ def main():
                 with patch.dict(os.environ, {"ANALYSIS_ENGINE_MODE": "legacy"}):
                     assert capture_current(report_root).text == "Legacy preserved"
                 assert capture_current(report_root).file_id == published.file_id
+                # Invalid classification output must reach both strict guards,
+                # without CrewAI extracting partial JSON or making conversion calls.
+                classification_secret = 'synthetic-classification-content-never-persist'
+                malformed = 'prose {"private": "' + classification_secret + '"}'
+                recovered = ScriptedLLM(model='scripted-classification-retry', responses=[
+                    json.dumps(detection), malformed, json.dumps(classification), json.dumps(narrative)])
+                recovered_diagnostic = AnalysisDiagnostics()
+                with patch('crewai.task.convert_to_model', side_effect=AssertionError('Conversion call prohibited')):
+                    run_structured(bundle.items[0].raw, recovered, report_root,
+                                   analysis_id=analysis_id, config={}, diagnostics=recovered_diagnostic)
+                assert recovered.calls == 4
+                events = recovered_diagnostic.snapshot()['events']
+                assert len([event for event in events if event.get('stage') == 'classification'
+                            and event.get('contract_code') == 'invalid_json']) == 1
+                assert any(event.get('stage') == 'classification' and event.get('accepted') for event in events)
+                previous_publication = capture_current(report_root).file_id
+                for bad_classification in (malformed, json.dumps({'schema_version': '1', 'analysis_id': analysis_id,
+                                                                 'classifications': [{'unexpected': 'field'}]})):
+                    failed_classification = ScriptedLLM(model='scripted-classification-invalid', responses=[
+                        json.dumps(detection), bad_classification, bad_classification])
+                    failed_diagnostic = AnalysisDiagnostics()
+                    try:
+                        with patch('crewai.task.convert_to_model', side_effect=AssertionError('Conversion call prohibited')):
+                            run_structured(bundle.items[0].raw, failed_classification, report_root,
+                                           analysis_id=analysis_id, config={}, diagnostics=failed_diagnostic)
+                    except Exception as error:
+                        assert type(error).__name__ != 'ValidationError'
+                        assert failed_classification.calls == 3
+                        events = failed_diagnostic.snapshot()['events']
+                        rejected = [event for event in events if event.get('stage') == 'classification'
+                                    and event.get('event') == 'guard' and not event.get('accepted')]
+                        assert len(rejected) == 2
+                        assert not any(event.get('stage') in {'narrative', 'publication'} for event in events)
+                        assert classification_secret not in json.dumps(failed_diagnostic.snapshot())
+                        assert capture_current(report_root).file_id == previous_publication
+                    else:
+                        raise AssertionError('Invalid classification was published')
+                # Restore the test's reference after the successful retry publication.
+                published = capture_current(report_root)
                 # Actual CrewAI path for an empty provider response; no live connection.
                 class EmptyLLM(BaseLLM):
                     calls: int = 0
@@ -274,6 +342,48 @@ def main():
                            for event in repaired_diagnostic.snapshot()["events"])
                 # Nonempty normal input can finish with no candidates and no invented threat.
                 empty_detection = {"schema_version": "1", "analysis_id": analysis_id, "candidates": []}
+                # Selected indicators cannot be silently published as an empty detection.
+                corrected_empty = ScriptedLLM(model="scripted-empty-corrected", responses=[json.dumps(value) for value in
+                    (empty_detection, valid_detection, classification, narrative)])
+                corrected_diagnostic = AnalysisDiagnostics()
+                run_structured(mixed_text, corrected_empty, report_root, analysis_id=analysis_id,
+                               config={}, diagnostics=corrected_diagnostic)
+                assert corrected_empty.calls == 4
+                assert len(load_current(report_root / "structured")[1]["findings"]) == 1
+                assert any(event.get("contract_code") == "empty_detection_with_observed_indicators"
+                           for event in corrected_diagnostic.snapshot()["events"])
+                # Real SDK + operational wrapper: two empty responses exhaust the
+                # existing single guard retry, record failure, keep the prior pointer.
+                from agents.operational_diagnostics import run_operational_analysis
+                refusal_input = report_root / "refusal-input.log"
+                refusal_input.write_text(mixed_text, encoding="utf-8")
+                pointer_before = (report_root / "structured/current.json").read_bytes()
+                sdk_refusal = LLM(model="openrouter/openrouter/free", is_litellm=True,
+                                  api_key="synthetic-test-key", base_url="https://openrouter.ai/api/v1",
+                                  timeout=60, max_tokens=8192, additional_params={"max_retries": 0})
+                refused_response = ModelResponse(model="vendor/synthetic-model:free", choices=[{
+                    "index": 0, "finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(empty_detection)}}],
+                    usage={"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30,
+                           "completion_tokens_details": {"reasoning_tokens": 0}})
+                existing_receipts = set((report_root / "analysis-diagnostics").glob("*/receipt.json"))
+                with patch("litellm.completion", return_value=refused_response) as refused_completions:
+                    try:
+                        run_operational_analysis(refusal_input, report_root, lambda **kwargs: sdk_refusal,
+                                                 analysis_id=analysis_id, config={}, secrets_factory=lambda: ("synthetic-test-key",))
+                    except Exception:
+                        pass
+                    else:
+                        raise AssertionError("Empty detection with observed indicators was published")
+                new_receipts = set((report_root / "analysis-diagnostics").glob("*/receipt.json")) - existing_receipts
+                assert len(new_receipts) == 1 and refused_completions.call_count == 2
+                refusal_receipt = json.loads(next(iter(new_receipts)).read_text(encoding="utf-8"))
+                assert refusal_receipt["status"] == "failed" and refusal_receipt["generation"] is None
+                assert refusal_receipt["logical_calls"] == refusal_receipt["transport_attempts_observed"] == 2
+                assert [event["contract_code"] for event in refusal_receipt["diagnostics"]["events"]
+                        if event["event"] == "guard"] == ["empty_detection_with_observed_indicators"] * 2
+                assert not any(event["event"] == "local_stage" for event in refusal_receipt["diagnostics"]["events"])
+                assert (report_root / "structured/current.json").read_bytes() == pointer_before
+                assert "synthetic-test-key" not in json.dumps(refusal_receipt)
                 normal_llm = ScriptedLLM(model="scripted-normal", responses=[json.dumps(empty_detection)])
                 normal_diagnostic = AnalysisDiagnostics()
                 run_structured(normal_text, normal_llm, report_root, analysis_id=analysis_id, config={}, diagnostics=normal_diagnostic)
@@ -304,13 +414,40 @@ def main():
                 assert not usage["usage_discrepancies"]
                 assert all(task.output.pydantic is not None for task in sdk_crew.tasks)
                 assert load_current(report_root / "structured")[1]["narrative_source"] == "python_scope"
+                # Operational wrapper observes the real SDK lane, with all transport
+                # responses scripted and network still blocked by the outer context.
+                from agents.operational_diagnostics import run_operational_analysis
+                operational_llm = LLM(model="openrouter/openrouter/free", is_litellm=True,
+                                      api_key="synthetic-test-key", base_url="https://openrouter.ai/api/v1",
+                                      timeout=60, max_tokens=8192, additional_params={"max_retries": 0})
+                operational_response = ModelResponse(model="vendor/synthetic-model:free", choices=[{
+                    "index": 0, "finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(empty_detection)}}],
+                    usage={"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30,
+                           "completion_tokens_details": {"reasoning_tokens": 2}})
+                input_path = report_root / 'synthetic-input.log'
+                input_path.write_text(normal_text, encoding='utf-8')
+                existing_operational_receipts = set((report_root / 'analysis-diagnostics').glob('*/receipt.json'))
+                with patch('litellm.completion', return_value=operational_response) as observed:
+                    operational_manifest, _ = run_operational_analysis(input_path, report_root,
+                        lambda **options: operational_llm, analysis_id=analysis_id, config={},
+                        secrets_factory=lambda: ('synthetic-test-key',))
+                receipt_paths = list(set((report_root / 'analysis-diagnostics').glob('*/receipt.json')) - existing_operational_receipts)
+                assert len(receipt_paths) == 1
+                operational_receipt = json.loads(receipt_paths[0].read_text(encoding='utf-8'))
+                assert observed.call_count == 1 and operational_receipt['logical_calls'] == 1
+                assert operational_receipt['usage']['total_tokens'] == 30
+                assert operational_receipt['usage']['reasoning_tokens'] == 2
+                assert operational_receipt['generation'] == operational_manifest['generation']
+                assert operational_receipt['attempts'][0]['stage'] == 'detection'
+                assert operational_receipt['attempts'][0]['response_model'] == 'vendor/synthetic-model:free'
+                assert 'synthetic-test-key' not in receipt_paths[0].read_text(encoding='utf-8')
                 # Incomplete evidence also keeps a scope warning, not a benign verdict.
                 incomplete_llm = ScriptedLLM(model="scripted-incomplete", responses=[json.dumps(empty_detection)])
                 run_structured("uninterpretable synthetic record", incomplete_llm, report_root,
                                analysis_id=analysis_id, config={})
                 incomplete_result = load_current(report_root / "structured")[1]
                 assert incomplete_llm.calls == 1 and "no permite descartar" in incomplete_result["narrative"]["summary"]
-        print("CrewAI/LiteLLM aislados: 17 escenarios aprobados, incluida ruta sin candidatos con una sola llamada y contabilidad SDK; sin proveedor.")
+        print("CrewAI/LiteLLM aislados: 25 escenarios aprobados, incluido formato JSON nativo y reintento de clasificación sin conversión parcial; sin proveedor.")
     return 0
 
 

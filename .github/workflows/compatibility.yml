@@ -1,0 +1,55 @@
+name: Windows and Linux compatibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installation-and-offline-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      GROQ_API_KEY: ""
+      OPENROUTER_API_KEY: ""
+      ANALYSIS_MANUAL_ENABLED: "0"
+      NOTIFICATION_DESTINATIONS: ""
+      CREWAI_TRACING_ENABLED: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Install frontend package manager
+        run: npm install --global pnpm@11.19.0
+      - name: Install from shared contract
+        run: python -B scripts/setup_installation.py --install --frontend
+      - name: Offline Python and browser contracts
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then PYTHON=.p2/Scripts/python.exe; else PYTHON=.p2/bin/python; fi
+          "$PYTHON" -B scripts/check_syntax.py
+          "$PYTHON" -B scripts/check_baseline.py
+          "$PYTHON" -B scripts/check_local_http.py
+          "$PYTHON" -B scripts/check_structured_prototype.py
+      - name: Frontend validation and production build
+        working-directory: frontend
+        run: |
+          pnpm run lint
+          pnpm exec tsc --noEmit
+          pnpm run test:ui
+          pnpm run build

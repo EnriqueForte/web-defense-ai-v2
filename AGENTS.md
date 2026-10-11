@@ -2,6 +2,291 @@
 
 ## Alcance actual
 
+Publicación Git autorizada 11/10/2026: usuario pidió commit y push de todo lo
+desarrollado tras detener servicios. Destino verificado origin/main en
+EnriqueForte/web-defense-ai-v2; original-readonly conserva push bloqueado.
+Fetch previo HEAD/origin/main sin divergencia. Revisión de202 archivos candidatos
+y385 blobs/30commits alcanzables: exclusiones privadas y formatos específicos
+de credenciales sin hallazgos, no auditoría exhaustiva. Vendor hashes íntegros;
+.env/datos/entornos/.local-state/.local-backups/.i1 excluidos. Lote incluye
+diagnósticos/narrativa/formato A-05, refresco UI, endurecimiento local,
+dependencias, instalación y CI preparado con límites documentados. Validaciones
+locales recientes268Python/3JS/25SDK/15UI/lint/tipos/build/navegador conservadas.
+Servicios permanecen detenidos, sin nuevos análisis/proveedor/Docker/envíos.
+No afirmar CI real/Parrot/auditorías residuales completadas por publicar código.
+Resultado de commit/push se verifica en Git al terminar esta tarea.
+
+Parada solicitada 11/10/2026 antes de futuro commit/push: Next, Flask y worker
+manual-only detenidos, cadenas propias verificadas por exe/args/fecha/parentesco
+y consolas auxiliares conhost identificadas. Cero jobs activos antes de cerrar
+admisión y parar worker; taskkill de árboles propios y ausencia posterior
+comprobados. PID Next3632/Flask15840→19388→33696→29408/worker32856→10616→32520→4592
+ya históricos; no reutilizar ni reiniciar durante preparación Git. Puertos
+127.0.0.1 3000/5000/4280/8025/1025/8080 libres por bind, locks worker/cycle libres
+sin borrar archivos. 29jobs/14entregas/filas/hashes log/puntero/report/result y
+.envmetadatos preservados. Sin nuevos análisis/LLM/Docker/envíos, borrado de datos,
+cambio de conmutadores persistentes, commit o push. Registro
+docs/PARADA_SERVICIOS_2026_10_11.md, recibos .local-state/shutdown-20261011.
+Entradas de activación anteriores son históricas: estado actual todo detenido.
+Usuario dejó commit/push para después; esta operación solo realizó la parada.
+
+Refresco indicadores 11/10/2026: usuario confirma análisis funciona; job manual
+297cfc8a4c5d4eb2bdd0a81b409b3382 succeeded/report nuevo938dbff10379, prototype8/
+report4/python_validated_facts leído, sin job del agente. API directa/proxy y JSON
+coinciden5grupos high4/medium1/IP1, log68 coincidencias. Misma distribución previa:
+no afirmar congelamiento indefinido ni aumentar conteos artificialmente.
+Home enlaza nueva ingesta/publicación con refresco de estado mediante
+analysisSourcesChanged, sin bucle por misma lectura; conserva cancelación/polling.
+Fecha/referencia visibles y nota grupos/no acumulados. Lint/tipos15UI/build y
+navegador simulado: log10→20, tarjetas2/1/1/10→5/4/2/20, SVG50/50→80/20,
+publicación igualconteos referencia nueva aprobados; real5/4/1/68 y consola0.
+Solo Next propio28120 verificado reemplazado por3632 (17:26:47UTC), loopback3000,
+API5000; build anterior respaldado en recibos. Flask29408/worker conservados;
+verificar identidad futura. 29jobs/ceroactivos/14entregas/filas/hashlog/puntero/
+report/result/.envmetadatos preservados. Puertos test60202/60203 cerrados,
+sin nuevos jobs/LLM/Docker/envíos o cambio manual. Registro
+docs/REFRESCO_INDICADORES_2026_10_11.md y .local-state/ui-refresh-20261011.
+No cerrar calidad semántica/A-05 global por este éxito; ingesta histórica sin
+causa, Linux/Parrot/CI/residuales independientes pendientes. Sin commit/push.
+
+Corrección formato manual A-05 offline 11/10/2026, después de instalación limpia
+Windows por petición del usuario: prototype8/StrictJsonTask valida JSON original
+sin conversión parcial CrewAI; salidas inválidas alcanzan ambas guardas y solo
+un reintento, nunca publica fallos. OpenRouter LiteLLM solicita json_object y
+extra_body.provider.require_parameterstrue, restaura parámetros incluso alfallar,
+sin cambiar modelos/claves/legacy/otrosproveedores/contratos/tres tareas.
+268Python3JS .p3,71sintaxis,25SDK offline .p3/.p2/.venv/.i1 nuevo aprobados;
+clasificación inválida→válida4llamadas, dobleinválida3incldetección conserva
+publicación, sin conversor ni contenido privado en recibos. .i1 solo2fuentes
+actualizadas tras snapshotWindows; su manifiesto197 anterior no es el posterior.
+28jobs17succeeded11failed/ceroactivos,entregas11sent3unknown,puntero/hashes/log151
+preservados. Sin nueva llamada real/Docker/envíos/reinicios/.env/commit/push.
+Futuro hijo main carga8; no afirmar recarga activa o éxito real. A-05 abierta
+por verificación real y primer ingestion_failed de causa desconocida; require
+parameters puede fallar si no hay endpoint compatible, no relajar por ello.
+Registro docs/CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md, recibos incidencia.
+Manual previo sigue habilitado/worker manual-only; no reactivar ni iniciar jobs
+de comprobación sin alcance expreso. Linux/Parrot/CI/residuales siguen pendientes.
+
+Instalación limpia Windows 11/10/2026: usuario pidió avanzar en el siguiente
+pendiente independiente y corregir después la incidencia manual. Copia197 archivos
+con hashes en .i1 excluida, sin .env/entornos/node_modules/datos/Git previos.
+Python3.11.9/Node24.21.0/pnpm11.19.0 local, entorno .i1/.p2 nuevo158pines0diff,
+pipcheck e instalador completo repetido/envplantilla preservada aprobados.
+268Python/3JS/71sintaxis/21SDK offline/adaptador, lint/tipos/14UI, buildTurbopack,
+HTTP sintético y producción/proxy7rutas/9assets/retorno aprobados. Caché de build
+fallida apartada; caché nueva y pnpm posteriores pasan, sin cambio producto.
+Bloqueos sandbox repetidos con permiso; SDK inicial pendiente detenido por
+identidad. Servicios efímeros65056/65057 cerrados; piloto28jobs/entregas11sent3unknown,
+hashlog/puntero y fuentes197 preservados. No .env operativo/LLM/Docker/envíos,
+reinicios operativos/commit/push. Copia limpia local NO clon remoto/CI/navegador.
+WSL solo docker-desktop; Linux/Parrot pendientes de VM real y datos solicitados
+al usuario. Windows local comprobado, distribución completa sigue abierta.
+Registro docs/INSTALACION_LIMPIA_WINDOWS_2026_10_11.md, recibos
+.local-state/clean-install-20261011; .i1 solo prueba, no activar como operativo.
+La incidencia A-05 sigue abierta, y la petición del usuario permite avanzar
+estas comprobaciones independientes antes de corregirla.
+
+Incidencia manual A-05 revisada 11/10/2026: dos jobs iniciados por usuario.
+b2d7ac776fd84215be43f38d7932dd94 ingestion_failed antes del motor, sin detalle
+para atribuir causa. 331efe77ad3c40fb8eb876f8b84bf260 analysis_failed en
+clasificación: detección rechazada brute_without_shared_window y aceptada en
+reintento; dos salidas clasificación JSON inválidas, ValidationError conversión
+CrewAI/Pydantic del reintento. Cuatro llamadas/147,671s motor, sin AuthenticationError
+registrado ni narrativa/publicación. No inferir rechazo por modelo/longitud;
+respuestas crudas no retenidas. 61802 tokens informados/reasoning8821 vs SDK0,
+warnings reasoning_exceeds_completion en3/4. 28jobs17succeeded11failed/ceroactivos,
+entregas11sent3unknown intactas, cero entregas de fallidos; generación4b37542
+y hashes report/result preservados. Log actual151 líneas del usuario: no restaurar
+a112. Revisión SQLite ro/recibos/código; sin nuevas llamadas/jobs/Docker/envíos,
+reinicios, cambio .env/modelo/manual o corrección funcional. A-05 abierta por
+robustez clasificación/conversión, diagnóstico ingesta y recorrido completo;
+no seguir otras fases como si estuviera resuelto. Registro
+docs/INCIDENCIA_ANALISIS_MANUAL_A05_2026_10_11.md, evidencia
+.local-state/a05-incident-20261011. Los clics del usuario no autorizan al agente
+a repetir llamadas reales. Activación previa sigue vigente, no reactivar/reiniciar.
+
+Activación manual A-05 aceptada 11/10/2026: usuario aceptó expresamente vista
+previa y habilitar botón, sin iniciar análisis/ciclos/envíos. Servicios estaban
+detenidos/puertos libres; .p3 158/0, preflight y respaldo30 archivos
+operational-20261011T162246002052Z verificados. Perfil pilot/structured/manual=1,
+worker manual-only/destinos vacíos, Next16.3.8 producción en loopback.
+API directa/proxy saludok/online/llm_ready/manualtrue; POST sin clave400 y origen
+ajeno403 sin enqueue. 59 hashes/26 jobs/entregas11sent3unknown/generación y .env
+metadatos preservados, cero activos/heartbeat avanza. Computer Use detuvo revisión
+visual por políticaURL no soportada en FirefoxWindows: no afirmar botón visto
+o pulsado. Cadenas Flask15840/19388/33696/29408, worker32856/10616/32520/4592,
+Next28120: verificar identidad/fecha/argumentos antes de operar, PIDprevios históricos.
+Sin LLM/Docker/envíos/jobs nuevos, .env/entrada principal/commit/push intactos.
+Vista aceptada no publicada sobre informe vigente; futuro main carga prototype7/
+report4. A-05 abierta por recorrido operativo final autorizado (ingesta/publicación)
+y uso visual; esta activación no autoriza al agente nuevos análisis.
+Registro docs/ACTIVACION_MANUAL_A05_2026_10_11.md y recibos
+.local-state/a05-manual-20261011. Reversión con parada propia/controlada y perfil
+sin enable-manual; no restaurar datos por admisión. Pendientes independientes intactos.
+
+Corrección narrativa A-05 offline 10/10/2026: prototype-7/report-4/policy
+grounded-narrative-1 publica resumen español desde familias/conteos/estados/alcance
+validados y mitigaciones por candidato desde catálogo revisado con OWASP. No usa
+texto/motivos libres del LLM en esa narrativa. Contrato original sigue obligatorio;
+tres tareas y llamadas positivas CrewAI conservadas, sin ahorro declarado.
+Narrative_source python_validated_facts (python_scope sin hallazgos), quality
+semantic_evaluation_pending conservada. Advierte cobertura parcial, falsos positivos
+y alcance; no certifica explotación. 268 Python/3 JS en .p3/.p2/.venv, 21 SDK
+offline .p3, 71 sintaxis/diff aprobados; ajuste gramatical final repetido .p3.
+Vista previa offline desde hechos del último job, sin publicar ni duplicar logs;
+informe actual/26 jobs/entregas/hashes/.envmetadatos preservados. Sin reinicios,
+nuevos jobs/LLM/Docker/envíos o activar manual. A-05 abierta por revisión/aceptación
+y validación operativa final autorizada; ingesta del botón no probada aquí.
+Registro docs/NARRATIVA_VALIDADA_A05_2026_10_10.md. No afirmar recarga de servicios
+activos; futuro main hijo carga código nuevo. Autorizaciones previas utilizadas.
+
+Evaluación real corrección A-05 10/10/2026: job autorizado único
+4b37542ec9f6494d9982e4591ac8529e succeeded en 287,188 s, cinco llamadas/intentos;
+brute_without_shared_window e invalid_json corregidos por reintentos existentes.
+Cinco grupos SQLi/XSS/brute×3, altos4/medio1, todos requires_investigation, 26/26
+indicadores seleccionados cubiertos. Fuentes observed-access-3/prototype-6,
+misma copia/30 seleccionadas de112, sin Docker/envíos/repetición del job.
+97710 tokens informados; reasoning20621 vs SDK0, warning intento3 reasoning8847
+supera completion8192; no afirmar cero ni deadline60s (transporte154,641/71,891s).
+Checkpoint/receipt/process/hash/API aprobados; detección no fue vacía en este
+ensayo, rama nueva de vacío cubierta offline. Modelos distintos: no atribuir
+éxito solo al cambio. **A-05 abierta por narrativa/aceptación**: SUBSTRING sin
+soporte en referencias; recomendaciones reiteran observaciones, texto inglés.
+No nueva llamada autorizada; manual=0. Worker restaurado cadena
+23412/17220/24240/26404 (.p3/pilot/structured/manual-only/destinos vacíos), verificar
+identidad; Flask24400/Next1312 conservados, saludok, cero trabajos activos.
+26 jobs (25 previos intactos), entregas11sent/3unknown, hashes/copia/.envmetadatos
+preservados. Respaldo26 archivos operational-20261010T205248588078Z verificado.
+Registro docs/EVALUACION_CORRECCION_A05_2026_10_10.md; recibos
+.local-state/a05-guard-real-20261010. Siguiente A-05: anclar narrativa y mejorar
+mitigaciones antes de aceptación/habilitación. No commit/push.
+
+Corrección omisión A-05 implementada offline 10/10/2026: observed-access-3 /
+structured-prototype-6 rechaza candidates=[] cuando la selección tiene indicadores
+Python, código seguro empty_detection_with_observed_indicators. Reintento de guarda
+existente=1; persistencia del vacío falla sin reemplazar publicación ni ejecutar
+etapas locales de cero hallazgos. Normal sin indicadores conserva camino local;
+falso positivo explícito permitido. No garantiza cobertura parcial ni semántica.
+261 Python y tres JS en .p3/.p2/.venv, 20 SDK offline .p3 y 70 sintaxis aprobados.
+Datos/jobs/generación y .env metadatos preservados; sin nuevos jobs/proveedor,
+reinicios/Docker/envíos o habilitación manual. A-05 abierta por nueva evaluación
+real autorizada y aceptación. Hijo main nuevo cargará guardas; no afirmar recarga
+de servicios activos. Registro docs/CORRECCION_OMISION_A05_2026_10_10.md.
+La autorización real anterior ya se utilizó; no repetir sin alcance nuevo.
+
+Diagnóstico real A-05 10/10/2026 autorizado expresamente: un job sobre copia
+existente, OpenRouter/free, sin Docker/envíos/repeticiones. Usuario aceptó revisión
+UI anterior; no atribuir aceptación del nuevo resultado. Job
+5fc8c314bed04e4eac504f3d2ae45f67 succeeded en 10,719 s, una llamada/intento,
+checkpoint/receipt/process y hashes/IDs verificados. Modelo informado
+nvidia/nemotron-3-super-120b-a12b:free; 13379 tokens, reasoning 601 vs SDK 0
+discrepancia explícita. **Calidad A-05 abierta**: cero hallazgos pese a indicadores
+Python en 26 líneas, mismas 30 líneas que dieron cinco grupos antes; narrativa
+Python advierte omisiones. No certificar benignidad ni atribuir causa a versiones.
+No otra llamada autorizada. Worker restaurado .p3/pilot/structured/manual-only,
+manual=0/notificaciones vacías; cadena 12448/30468/34140/10268, verificar identidad.
+Flask 24400 y Next 1312 conservados; salud ok, 25 jobs (24 previos intactos),
+entregas 11 sent/3 unknown intactas, .env metadatos sin cambios. Respaldo de 22
+archivos operational-20261010T160708765122Z verificado. Siguiente A-05: revisar
+omisión antes de habilitar manual; instalación limpia y residuales independientes.
+Registro docs/DIAGNOSTICO_REAL_A05_2026_10_10.md. La operación anterior sigue abajo
+como evidencia previa; sus PID worker/conteos/publicación ya son históricos.
+
+Paso 2 operación A-05 ejecutado 10/10/2026: desde servicios detenidos/puertos
+libres, respaldo operational-20261010T152912622677Z de 22 archivos restaurado
+aislado/verificado. Perfil piloto structured activo ahora en .p3 (158/0),
+manual=0, destinos vacíos, worker manual-only; Next 16.3.8 producción loopback.
+API directa/proxy/retorno/headers/Host y cuatro vistas revisadas, filtro Alta=4,
+actual=5, botón manual deshabilitado, cero errores de consola capturados.
+Observación 60,671 s/siete muestras: salud ok, online, heartbeat avanzando,
+queued/running=0. 51 hashes/datos/generación, 24 jobs y entregas 11 sent/3 unknown
+preservados; .env solo metadatos sin cambios. Coordinador nuevo cargado al
+arrancar; wrapper/recibos reales se ejercitarán con otro job autorizado, sin
+métricas retroactivas. Sin análisis/LLM/Docker/envíos nuevos, commit/push o cambio
+de conmutador. Lanzadores Flask 21276/worker 22380; efectivos Flask 24400,
+worker 24916, Next 1312: comprobar identidad/fecha/cadena antes de operar.
+A-05 abierta por aceptación final y validación real diagnóstica si se autoriza;
+no ampliar llamadas por esta operación. Registro docs/OPERACION_A05_2026_10_10.md.
+Paso 1 residual sigue abierto; siguiente trabajo independiente instalación
+limpia Windows/Linux y Parrot. Las entradas siguientes son históricas.
+
+Paso 1 Dependencias, entrega compatible 10/10/2026: Next/ESLint 16.3.8, 23
+actualizaciones Python, langchain-protocol nuevo y bootstrap pip/setuptools fijado.
+Nuevo contrato común/snapshot Windows: .p3 158 pines/0 diferencias; .p2 y .venv
+conservados, ahora 26/29 diferencias frente al nuevo contrato, no activar sin
+transición operativa. 257 Python y tres JS en los tres entornos, 70 sintaxis,
+lint/tipos/14 UI/build original aislado, 18 SDK offline y HTTP sintético aprobados.
+Compatibilidad IPv6 con Werkzeug 3.1.9 corregida mediante allowlist explícita,
+sin reescribir Host/global config, hosts ajenos y puertos inválidos cubiertos.
+Audit frontend producción/vendor 0; desarrollo braces 1 sin parche publicado.
+Python 162 entradas/100 IDs inicialmente, 36/22 IDs finales en Chroma/json-repair/
+LiteLLM/MCP, alcance y restricciones documentados, sin suprimir avisos. Trivy
+oficial/hash verificado bloqueado por Control de aplicaciones; imágenes NO
+escaneadas, sin desactivar protección. Paso 1 sigue abierto por esos residuales
+y escaneo efectivo; Linux/Parrot y A-05 continúan pendientes. Registro y JSON:
+docs/DEPENDENCIAS_2026_10_10.md y docs/DEPENDENCIAS_AUDIT_2026_10_10.json.
+Sin .env/LLM/Docker/notificaciones/reinicios o publicación; cambios previos
+preservados. Las entradas siguientes son evidencia histórica, no contrato actual.
+
+Revisión nueva 08/10/2026: docs/REVISION_PROYECTO_2026_10_08.md consolida
+estado y pendientes sin iniciar implementación. 254 Python y tres JS en .p2/.venv,
+69 archivos sintaxis, lint/tipos/14 grupos UI, build aislado, 18 SDK offline y
+HTTP sintético aprobados. .p2 155 pines/0 diferencias; .venv conserva cuatro.
+Audit actual reabre R-03: Next 16.3.6 tiene seis avisos (1 alto/4 moderados/1 bajo),
+corrección indicada 16.3.8; desarrollo añade braces. Condiciones de aplicabilidad
+revisadas, sin afirmar explotación. A-01–A-04 y F7 local ya completadas; A-05
+abierta por carga diagnóstica/observación/aceptación. Pendientes instalación limpia
+Windows/Linux/Parrot, auditorías Python/vendor/imágenes/historial, resumen documental
+y entrega GitHub/CI real. Sin LLM/Docker/notificaciones, reinicios o cambio de .env,
+versiones/producto intactos. Cambios previos preservados; sin commit/push nuevo.
+
+Aclaración Linux 07/10/2026: el usuario usa Parrot OS en VMware. Añadido como
+caso prioritario de validación real, pendiente de versión/arquitectura/herramientas
+y pruebas en esa VM. Ubuntu CI no acredita todas las distribuciones. Instalador
+sin gestor de paquetes específico, disco local de VM y navegador dentro de ella;
+no exposición al anfitrión ni reutilización de entornos Windows. Guía ampliada
+docs/INSTALACION_AUTOALOJADA.md; no afirmar Parrot probado por esta documentación.
+
+Portabilidad Windows/Linux iniciada 07/10/2026 por solicitud explícita: objetivo
+Ubuntu 24.04 x86_64/Python 3.11 además de Windows. Instalador común por plan,
+--install/--frontend/--init-env explícitos, rutas Scripts/bin y .env preservado;
+contrato constraints-py311.txt compartido derivado de Windows sin cambiar pines.
+Preflight usa ese contrato; --enable-manual explícito no encola, worker manual-only.
+254 Python ambos entornos Windows y tres JS, metadatos .p2 155/0, HTTP efímero
+sintético aprobado. Matriz GitHub Windows/Ubuntu preparada, NO ejecutada/publicada.
+No afirmar soporte Linux validado: WSL solo docker-desktop, sin Ubuntu disponible;
+faltan instalación limpia Linux y freeze adicional si resuelve otros paquetes.
+Guía docs/INSTALACION_AUTOALOJADA.md y registro
+docs/PORTABILIDAD_WINDOWS_LINUX_2026_10_07.md. Sin instalación/reinicio operativo,
+.env/jobs/LLM/Docker/notificaciones intactos; A-05 y publicación siguen pendientes.
+
+Endurecimiento del retorno local 07/10/2026: Chart.js 4.4.1/marked 9.1.6
+vendorizados con MIT, integridad oficial/hash y bytes preservados por Git;
+Google Fonts/CDN retirados. Flask CSP con nonce por respuesta, listeners sin
+onclick, objetos/base/marcos bloqueados; estilos inline conservados. Next CSP
+parcial objetos/base/marcos y cabeceras, sin afirmar CSP completa de scripts.
+Markdown elimina sangría exterior de plantilla. 245 Python ambos entornos,
+tres JS, 14 grupos UI, tipos/lint y 66 archivos de sintaxis aprobados. Navegador
+sintético: gráfico/informe locales, sin recursos externos ni errores de consola.
+Registro docs/ENDURECIMIENTO_RETORNO_LOCAL_2026_10_07.md. Servicios operativos
+no recargados, .env intacto, sin jobs/LLM/Docker/notificaciones o publicación.
+Pendientes clonación limpia, revisión de dependencias/historial y cierre A-05.
+
+Diagnóstico operativo structured implementado 07/10/2026: wrapper main y carpeta
+REPORT_PATH/analysis-diagnostics/<job>-<uuid> con checkpoint/receipt/process JSON.
+Etapas/llamadas lógicas y hasta 100 intentos LiteLLM correlacionados; SDK aparte,
+discrepancias/null si uso incompleto, native sin metadata no se convierte a cero.
+Timeout del coordinador conserva checkpoint y estado process_timeout sin afirmar
+terminación de descendientes. Sin stdout/stderr crudos en structured ni mensajes
+de excepción/credenciales/contenido; main error constante. Legacy/API/modelos/
+límites/guardas intactos. 243 Python ambos entornos, tres JS, 66 archivos sintaxis
+y 18 escenarios SDK offline aprobados, incluido wrapper real con doble completado.
+Registro docs/DIAGNOSTICO_OPERATIVO_2026_10_07.md. Piloto no reiniciado, .env intacto,
+sin llamadas reales nuevas/notificaciones. Falta cargar coordinador en worker
+mediante operación de reinicio documentada y evaluar con alcance autorizado;
+no atribuir métricas retroactivas al primer job. A-05 abierta.
+
 Objetivo aclarado por usuario 07/10/2026: distribuir código en GitHub para que
 cada persona clone/ejecute su instalación, no dashboard público central. Destino
 V2 origin conservado, licencia MIT intacta; publicación/visibilidad no cambiadas.

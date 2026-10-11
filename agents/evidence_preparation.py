@@ -7,7 +7,7 @@ from urllib.parse import unquote_plus, urlsplit, parse_qs
 from agents.evidence_contracts import (ContractError, EvidenceBundle, build_evidence, parse_evidence,
                                       validate_detection, validate_classification)
 
-RULE_VERSION = "observed-access-2"
+RULE_VERSION = "observed-access-3"
 PATTERNS = {
     "sql_injection": re.compile(r"\bunion\s+(?:all\s+)?select\b|(?:\bor\b|\band\b)\s+['\"]?1['\"]?\s*=\s*['\"]?1|(?:\bsleep|\bbenchmark)\s*\(", re.I),
     "xss": re.compile(r"<\s*(?:script|svg|img)\b|\bon(?:error|load)\s*=|javascript\s*:", re.I),
@@ -155,6 +155,10 @@ def prepare_evidence(text, analysis_id, *, config=None, max_items=30, max_select
 
 def validate_observed_detection(payload, prepared):
     validate_detection(payload, prepared.bundle)
+    # Pattern matches require explicit review; never silently publish zero findings
+    # over selected indicators. Candidates can retain uncertainty/false positives.
+    if not payload["candidates"] and any(prepared.indicators.values()):
+        raise ContractError("empty_detection_with_observed_indicators")
     evidence = {item.evidence_id: item for item in prepared.bundle.items}
     for candidate in payload["candidates"]:
         pattern = candidate["pattern"]

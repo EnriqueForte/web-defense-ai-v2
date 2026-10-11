@@ -15,6 +15,72 @@ y sus pendientes de validación antes de la publicación de una versión final.
 
 ## Estado de esta versión
 
+El [refresco de indicadores del 11/10/2026](docs/REFRESCO_INDICADORES_2026_10_11.md)
+actualiza el resumen al observar una nueva ingesta/publicación y muestra la fecha
+y referencia del informe. Pruebas UI y navegador aprobadas; frontend actualizado
+sin análisis nuevos. El trabajo manual del usuario publicó prototype-8/report-4.
+El total y círculo reflejan grupos del informe actual, sin acumular peticiones:
+una publicación nueva puede mantener la misma distribución.
+
+La [instalación limpia Windows del 11/10/2026](docs/INSTALACION_LIMPIA_WINDOWS_2026_10_11.md)
+pasó instalación, pruebas offline, build, producción/proxy y retorno en una copia
+local sin entornos ni datos anteriores. Linux/Parrot, clonación remota y CI
+siguen pendientes. Después se aplicó la [corrección de formato del análisis manual](docs/CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md):
+JSON nativo solicitado a OpenRouter y validación local sin conversión parcial
+de CrewAI. Pasaron 25 escenarios SDK offline; no se repitió el proveedor real.
+A-05 sigue abierta por esa comprobación y por el primer fallo de ingesta cuya
+causa no quedó registrada. Manual permanece habilitado en el piloto.
+
+Las entradas siguientes son registros históricos; sus conmutadores y pendientes
+corresponden a la fecha de cada operación.
+
+La [activación manual del 11/10/2026](docs/ACTIVACION_MANUAL_A05_2026_10_11.md)
+deja admisión manual habilitada en el piloto con worker online, sin ciclos
+automáticos o notificaciones. El usuario aceptó la vista previa; no se inició
+un análisis ni se reescribió el informe vigente. API/condiciones del botón
+verificadas; revisión visual limitada por la herramienta. A-05 conserva pendientes
+de recorrido final con ingesta/publicación y confirmación de uso en navegador.
+
+La [corrección narrativa del 10/10/2026](docs/NARRATIVA_VALIDADA_A05_2026_10_10.md)
+publica hechos validados y medidas revisadas en español, manteniendo las tres
+tareas CrewAI y sus contratos. Pasaron 268 pruebas y 21 escenarios SDK offline.
+Hay una vista previa local sobre los hallazgos del último job; el informe vigente
+no se reescribió. A-05 sigue pendiente de revisión/aceptación y operación final
+autorizada; manual permanece desactivado.
+
+La [evaluación real de la corrección](docs/EVALUACION_CORRECCION_A05_2026_10_10.md)
+publicó cinco grupos coherentes con las referencias en un único job autorizado
+(4 min 47 s/cinco llamadas). Diagnósticos, hashes y API verificados. A-05 continúa
+abierta por narrativa/aceptación: un detalle del resumen carece de soporte y las
+recomendaciones reiteran observaciones. Worker restaurado; manual desactivado.
+
+La [corrección de omisión del 10/10/2026](docs/CORRECCION_OMISION_A05_2026_10_10.md)
+rechaza detecciones vacías cuando la selección contiene indicadores de Python.
+Pasaron 261 pruebas en los tres entornos y 20 escenarios SDK offline; el ensayo
+real posterior se registra arriba. Los informes anteriores se conservan y el
+botón manual sigue desactivado hasta revisar el resultado del piloto.
+
+El [diagnóstico real del 10/10/2026](docs/DIAGNOSTICO_REAL_A05_2026_10_10.md)
+verificó los recibos del motor/coordinador en un único análisis autorizado. El
+usuario aceptó la revisión operativa previa, pero A-05 mantiene un pendiente de
+calidad: la nueva detección devolvió cero hallazgos pese a indicadores Python en
+26 líneas de la misma muestra. El informe advierte omisiones; el botón manual
+sigue desactivado y el worker está restaurado. No se repitió el análisis.
+
+El [Paso 2 operativo del 10/10/2026](docs/OPERACION_A05_2026_10_10.md) deja el
+piloto structured activo en `.p3` y Next 16.3.8 en producción local. Las lecturas,
+cuatro vistas y un minuto de observación pasaron, con datos conservados,
+admisión manual desactivada y sin análisis o envíos nuevos. A-05 sigue pendiente
+de aceptación final; los diagnósticos de otro análisis real necesitan un alcance
+autorizado. La instalación limpia final en Windows/Linux y Parrot sigue pendiente.
+
+El [Paso 1 de dependencias del 10/10/2026](docs/DEPENDENCIAS_2026_10_10.md)
+actualiza Next/ESLint a 16.3.8 y el contrato Python compartido. La validación aislada
+usa `.p3`, con 158 pines; los entornos anteriores se conservan y requieren transición
+explícita. Producción frontend y vendor pasan audit; Python/braces mantienen avisos
+documentados y el escaneo de imágenes está pendiente por Control de aplicaciones
+de Windows. Los párrafos de entregas anteriores son registros históricos.
+
 El motor continúa en Python/CrewAI y Flask conserva su dashboard anterior. La interfaz en `frontend/` usa Next.js 16, React 19 y TypeScript; consulta `/api/v1` para mostrar el resumen, las amenazas, la actividad y los reportes. La fase 5 añadió trabajos persistentes y una acción manual local desactivada por defecto. En la fase 6 se comprobaron el laboratorio DVWA/Mailpit, diez ciclos integrados, la carga de la API y el retorno a Flask. El usuario cerró anticipadamente esa fase el 29/09/2026 con 14 h 11 min 46 s saludables, sin completar las 24 horas previstas. La fase 7 se cerró para el alcance local reversible el 06/10/2026, con confirmación de uso y un nuevo ensayo de retorno, sin completar los siete días sugeridos. El conmutador permanece apagado por defecto; una tarea específica inicia Flask con Next.js como entrada sin editar `.env`.
 
 El plan visual SOC es independiente de las fases de migración: sus fases UI 1–8 están completas, incluida seguridad/entrega. El usuario confirmó el zoom real al 200 % el 01/10/2026. La fase 7 de migración quedó cerrada en su alcance local reversible; Flask se conserva como respaldo.
@@ -157,6 +223,10 @@ La [robustez de lecturas](docs/ROBUSTEZ_LECTURAS_2026_10_07.md) se completó
 después: contratos de respuesta, espera acotada a 10 s y sondeo sin solapamiento
 por canal. 14 grupos UI, tipos/lint y siete lecturas API reales aprobados;
 fallos probados con dobles, sin nuevos análisis. A-05 conserva aceptación pendiente.
+El [diagnóstico operativo](docs/DIAGNOSTICO_OPERATIVO_2026_10_07.md) añade recibos
+seguros por ejecución structured, metadatos LiteLLM por intento y reconciliación
+con SDK. 243 pruebas Python y 18 escenarios SDK offline aprobados. No se hicieron
+llamadas reales ni se reinició el worker; carga y comprobación operativa pendientes.
 
 ## Abrir el proyecto en VSCode
 
@@ -223,8 +293,11 @@ El entorno local revisado utiliza Python 3.11.9. `requirements.txt` incluye ahor
 
 Las regresiones de los componentes de la interfaz se ejecutan desde `frontend/` con `pnpm run test:ui`.
 
-Para la instalación completa actual usar `requirements.txt` junto con
-`constraints-windows-py311-delivery2.txt`, en un entorno nuevo de ruta corta.
+Para la instalación completa actual usar el instalador común, `requirements.txt`
+y `constraints-py311.txt`, en un entorno nuevo de ruta corta. Primero prepara las
+herramientas fijadas en `requirements-bootstrap.txt` dentro del venv.
+`constraints-windows-py311-dependencies-20261010.txt` registra la validación Windows
+actual; la instantánea de entrega 2 se conserva como evidencia histórica.
 `scripts/check_environment.py` detecta diferencias de versión sin importar el
 motor; `scripts/check_llm_adapter.py` construye el adaptador OpenRouter offline.
 La instantánea de fase 0 permanece como evidencia histórica. Consultar la
@@ -300,6 +373,16 @@ web-defense-ai V2/
 Se conservan los nombres de módulos, rutas de datos y contenedores para mantener su compatibilidad. La interfaz Next.js vive en `frontend/` y consulta Flask mediante `/api/v1`; no accede a Docker, secretos ni archivos brutos.
 
 ## Capturas de referencia
+
+La [guía de instalación Windows y Linux](docs/INSTALACION_AUTOALOJADA.md) utiliza
+un instalador Python común y comandos de arranque para ambos sistemas.
+La [matriz de compatibilidad](docs/PORTABILIDAD_WINDOWS_LINUX_2026_10_07.md) está
+preparada; la ejecución real en Ubuntu y la clonación limpia final siguen pendientes.
+
+El [endurecimiento del retorno local](docs/ENDURECIMIENTO_RETORNO_LOCAL_2026_10_07.md)
+incorpora recursos Flask locales con licencias e integridad verificadas, elimina
+fuentes/CDN externos y añade CSP y protección contra marcos. Incluye pruebas y
+límites de la política aplicada a Flask y Next.
 
 Estas imágenes corresponden al dashboard Flask anterior y pueden mostrar la denominación previa. La nueva base visual V2 está en `frontend/`; las capturas se actualizarán cuando la interfaz conectada quede validada.
 

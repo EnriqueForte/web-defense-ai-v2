@@ -17,7 +17,7 @@ from dashboard.services.structured_publication import load_current
 from agents.evidence_contracts import ContractError
 
 
-def build_plan(root, profile="pilot", mode="legacy", *, python=None):
+def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manual=False):
     if profile not in PROFILES or mode not in {"legacy", "structured"}:
         raise ValueError("invalid_local_profile")
     root = Path(root).absolute()
@@ -28,7 +28,7 @@ def build_plan(root, profile="pilot", mode="legacy", *, python=None):
                    "LOG_PATH": str(paths["log"]), "REPORT_PATH": str(paths["reports"]),
                    "ANALYSIS_DB_PATH": str(paths["db"]),
                    "LOG_SYNC_SOURCE": "dvwa-lab" if profile == "pilot" else "legacy-docker",
-                   "ANALYSIS_MANUAL_ENABLED": "0", "NOTIFICATION_DESTINATIONS": ""}
+                   "ANALYSIS_MANUAL_ENABLED": "1" if enable_manual else "0", "NOTIFICATION_DESTINATIONS": ""}
     return {"profile": profile, "mode": mode, "cwd": str(root), "environment_overrides": environment,
             "commands": {"flask": [interpreter, "-B", "-m", "flask", "--app", "dashboard.app", "run",
                                      "--host", "127.0.0.1", "--port", "5000", "--no-debugger"],
@@ -84,14 +84,14 @@ def port_available():
         return False
 
 
-def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pins=None):
+def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pins=None, enable_manual=False):
     if component not in {"all", "flask", "worker"}:
         raise ValueError("invalid_component")
     root = Path(root).absolute()
-    plan = build_plan(root, profile, mode)
+    plan = build_plan(root, profile, mode, enable_manual=enable_manual)
     if pins is None:
         pins = read_pins(ROOT / "requirements.txt")
-        for name, expected in read_pins(ROOT / "constraints-windows-py311-delivery2.txt").items():
+        for name, expected in read_pins(ROOT / "constraints-py311.txt").items():
             if name in pins and pins[name] != expected:
                 raise ValueError("environment_contract_conflict")
             pins[name] = expected
@@ -133,7 +133,7 @@ def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pin
             "report_source": {"kind": source, "status": current},
             "notes": ["No procesos iniciados por la comprobación; no reserva el estado de forma atómica.",
                       "La fuente estructurada puede faltar hasta el primer análisis válido; no copiar fixtures a reports.",
-                      "Manual y notificaciones desactivados; no se validan credenciales ni se consulta Docker."]}
+                      "Notificaciones desactivadas; manual requiere --enable-manual; no se validan credenciales ni Docker."]}
 
 
 def main():
@@ -142,9 +142,10 @@ def main():
     parser.add_argument("--mode", choices=("legacy", "structured"), default="legacy")
     parser.add_argument("--component", choices=("all", "flask", "worker"), default="all")
     parser.add_argument("--start", action="store_true", help="explicitly start one component after preflight; requires operational authorization")
+    parser.add_argument("--enable-manual", action="store_true", help="admitir solicitudes de análisis; no encola ningún trabajo por sí solo")
     args = parser.parse_args()
     try:
-        result = readiness(profile=args.profile, mode=args.mode, component=args.component)
+        result = readiness(profile=args.profile, mode=args.mode, component=args.component, enable_manual=args.enable_manual)
         print(json.dumps(result, indent=2, ensure_ascii=False), flush=True)
         if not args.start:
             return 0 if result["ready"] else 1

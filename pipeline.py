@@ -41,13 +41,32 @@ def synchronize_log():
 
 
 def run_engine(*, analysis_id=None):
+    environment = {**os.environ, "PYTHONIOENCODING": "utf-8",
+                   **({"STRUCTURED_ANALYSIS_ID": analysis_id} if analysis_id else {})}
+    structured = environment.get("ANALYSIS_ENGINE_MODE", "legacy").strip().lower() == "structured"
+    if structured:
+        from agents.operational_diagnostics import diagnostic_destination
+        identifier = analysis_id or uuid.uuid4().hex
+        try:
+            destination = diagnostic_destination(REPORT_PATH, identifier)
+        except (ValueError, OSError):
+            return False
+        environment.update(STRUCTURED_ANALYSIS_ID=identifier, STRUCTURED_DIAGNOSTICS_DIR=str(destination))
     try:
         result = subprocess.run([sys.executable, str(ROOT / "main.py")], cwd=ROOT,
                                 capture_output=True, text=True, encoding="utf-8", timeout=900,
-                                env={**os.environ, "PYTHONIOENCODING": "utf-8",
-                                     **({"STRUCTURED_ANALYSIS_ID": analysis_id} if analysis_id else {})})
-    except (OSError, subprocess.TimeoutExpired):
+                                env=environment)
+    except subprocess.TimeoutExpired:
+        if structured:
+            _record_structured_process(destination, identifier, "process_timeout")
         return False
+    except OSError:
+        if structured:
+            _record_structured_process(destination, identifier, "process_error")
+        return False
+    if structured:
+        _record_structured_process(destination, identifier, "succeeded" if result.returncode == 0 else "failed")
+        return result.returncode == 0
     if result.returncode != 0:
         diagnostics_dir = os.getenv("ENGINE_DIAGNOSTICS_DIR")
         if diagnostics_dir and result.stderr:
@@ -59,6 +78,20 @@ def run_engine(*, analysis_id=None):
             target = Path(diagnostics_dir) / f"engine-failure-{stamp}-{uuid.uuid4().hex[:8]}.log"
             atomic_write_text(target, diagnostics[-30000:])
     return result.returncode == 0
+
+
+def _record_structured_process(destination, analysis_id, status):
+    # Separate coordinator outcome preserves the child's incomplete checkpoint
+    # on timeout. Never copy stdout/stderr or rewrite the engine receipt.
+    from dashboard.services.structured_publication import _directory
+    from agents.evidence_contracts import ContractError
+    import json
+    try:
+        atomic_write_text(_directory(Path(destination) / "process.json"), json.dumps({
+            "schema_version": "1", "analysis_id": analysis_id, "process_status": status,
+            "recorded_at": utc_now()}))
+    except (OSError, ContractError):
+        pass
 
 
 def archive_report(report, job_id):

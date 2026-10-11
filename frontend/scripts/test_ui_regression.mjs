@@ -165,6 +165,20 @@ const validThreat = { id: hex(24), number: '1', severity: 'ALTA', type: 'SQLi', 
 const validReport = { id: hex(64), filename: 'report.md', modified_at: at, size_bytes: 10, current: true };
 const validJob = { id: hex(32), kind: 'manual', status: 'succeeded', phase: 'finished', requested_at: at,
   started_at: at, finished_at: at, last_ingested_at: at, last_analyzed_at: at, report_id: hex(64), error_code: null, executor: 'online', deliveries: {} };
+const { analysisSourcesChanged } = loadTsx('src/lib/analysis-refresh.ts');
+const runningJob = { ...validJob, id: 'b'.repeat(32), status: 'running', phase: 'analyzing',
+  finished_at: null, last_analyzed_at: null, report_id: null };
+assert.equal(analysisSourcesChanged(validJob, runningJob), true, 'new ingestion refreshes log data');
+assert.equal(analysisSourcesChanged(runningJob, { ...runningJob }), false, 'same running job must not restart source reads');
+const completedJob = { ...runningJob, status: 'succeeded', phase: 'finished', finished_at: at,
+  last_analyzed_at: at, report_id: 'b'.repeat(64) };
+assert.equal(analysisSourcesChanged(runningJob, completedJob), true, 'completion immediately refreshes cards and chart');
+assert.equal(analysisSourcesChanged(completedJob, { ...completedJob }), false, 'same completion must not loop');
+assert.equal(analysisSourcesChanged(completedJob, { ...completedJob, id: 'c'.repeat(32), report_id: 'c'.repeat(64) }), true,
+  'new publication refreshes even when counts or content are identical');
+assert.equal(analysisSourcesChanged(validJob, { ...runningJob, status: 'failed', last_ingested_at: null }), false);
+assert.equal(analysisSourcesChanged(null, null), false);
+checks++;
 const validSettings = { provider: 'openrouter', model: 'openrouter/openrouter/free', pricing_mode: 'free', api_key_configured: false,
   providers: [{ id: 'openrouter', label: 'OpenRouter', default_model: 'openrouter/openrouter/free', free_models: ['openrouter/openrouter/free'], api_key_configured: false }] };
 const envelope = (data, extra = {}) => ({ meta: { api_version: '1', ...extra }, data });

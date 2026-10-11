@@ -6,6 +6,7 @@ import { Activity, FileText, LayoutDashboard, Menu, Network, RefreshCw, Settings
 import { ThreatTable } from "@/components/threat-table";
 import { refreshedReportSelection } from "@/lib/report-selection";
 import { startReadPolling } from "@/lib/read-polling";
+import { analysisSourcesChanged } from "@/lib/analysis-refresh";
 import { MetricCard } from "@/components/metric-card";
 import { LLMSettings } from "@/components/llm-settings";
 import { SeverityChart, TimelineChart } from "@/components/security-charts";
@@ -75,6 +76,7 @@ export default function Home() {
   const [analysisSubmitting, setAnalysisSubmitting] = useState(false);
   const [analysisRefresh, setAnalysisRefresh] = useState(0);
   const analysisKey = useRef<string | null>(null);
+  const observedAnalysis = useRef<AnalysisCurrent["data"]["job"]>(null);
   const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -164,7 +166,13 @@ export default function Home() {
   const loadAnalysis = useCallback(async (signal?: AbortSignal) => {
     try {
       const response = await getApi<AnalysisCurrent>("analisis/actual", signal);
-      if (!signal?.aborted) { setAnalysis(response.data); setAnalysisError(""); }
+      if (!signal?.aborted) {
+        const sourcesChanged = analysisSourcesChanged(observedAnalysis.current, response.data.job);
+        observedAnalysis.current = response.data.job;
+        setAnalysis(response.data);
+        setAnalysisError("");
+        if (sourcesChanged) setRefresh((value) => value + 1);
+      }
     } catch {
       if (!signal?.aborted) setAnalysisError("No se pudo consultar el estado del ejecutor.");
     }
@@ -301,8 +309,9 @@ export default function Home() {
         {!stateLoading && !state && <div className="panel state-panel">No hay datos disponibles. Comprueba que el dashboard Flask esté iniciado y vuelve a actualizar.</div>}
 
         {view === "Resumen" && state && <>
+          <p className="status-copy">Informe actual: {reportAvailable ? dateLabel(state.meta.sources.report.modified_at) : "No disponible"}{publicationId && <> · Referencia {publicationId.slice(0, 12)}</>}. Los indicadores corresponden a esta publicación.</p>
           <section className="metric-grid" aria-label="Indicadores del reporte actual">
-            <MetricCard label="Amenazas del reporte" value={reportAvailable ? number(stats?.total ?? 0) : "—"} note={reportAvailable ? "Amenazas clasificadas; no incluye históricos." : "Reporte no disponible en esta captura."} source="Reporte actual" icon={ShieldAlert} tone="cyan" />
+            <MetricCard label="Amenazas del reporte" value={reportAvailable ? number(stats?.total ?? 0) : "—"} note={reportAvailable ? "Grupos clasificados; no acumula solicitudes ni históricos." : "Reporte no disponible en esta captura."} source="Reporte actual" icon={ShieldAlert} tone="cyan" />
             <MetricCard label="Críticas y altas" value={reportAvailable ? number((stats?.criticas ?? 0) + (stats?.altas ?? 0)) : "—"} note={reportAvailable ? "Suma de severidades crítica y alta." : "Reporte no disponible en esta captura."} source="Reporte actual" icon={TriangleAlert} tone="amber" />
             <MetricCard label="IP observadas en reporte" value={reportAvailable ? number(stats?.ips ?? 0) : "—"} note={reportAvailable ? "IP observadas; no equivale a atacantes." : "Reporte no disponible en esta captura."} source="Reporte actual" icon={Network} tone="violet" />
             <MetricCard label="Coincidencias en log" value={logAvailable ? number(periods.reduce((sum, item) => sum + item.count, 0)) : "—"} note={logAvailable ? "Coincidencias de patrones; pueden solaparse." : "Registro de acceso no disponible en esta captura."} source="Registro de acceso" icon={Activity} tone="green" />
