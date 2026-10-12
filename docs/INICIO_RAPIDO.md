@@ -94,5 +94,7 @@ mismo recorrido desde una instalación nueva en [Windows y Ubuntu CI](https://gi
 para el commit `c82441c`, ya publicado. Después, el usuario confirmó instalación,
 arranque unificado y navegación en [Parrot](VALIDACION_PARROT_2026_10_12.md).
 El cierre dejó los puertos libres tras una espera; el comprobador indicó ocupado
-antes de ella. El ajuste posterior de puertos aún requiere validación Linux/Parrot
-y no queda cubierto por aquella ejecución de CI.
+antes de ella. El [ajuste posterior de puertos](CORRECCION_PUERTOS_2026_10_12.md)
+del commit `2a73ff0` pasó después en [Windows y Ubuntu CI](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38237671713),
+incluida la regresión de conexiones residuales y reinicio inmediato en Linux.
+La confirmación del reinicio inmediato en la VM Parrot sigue pendiente.

@@ -73,9 +73,11 @@ Recibos `actions-c82441cc054746a013f2b71321c099b93f6d8ddd.json` y
 
 El nuevo comando fue probado después en la VM del usuario: instalación, arranque,
 navegación y cierre con puertos libres después de esperar. El aviso de puerto
-ocupado tras cerrar y su corrección local se documentan en
+ocupado tras cerrar y su corrección publicada `2a73ff0` se documentan en
 [el seguimiento Parrot](VALIDACION_PARROT_2026_10_12.md) y
 [el ajuste de puertos](CORRECCION_PUERTOS_2026_10_12.md).
+El ajuste pasó después en Windows/Ubuntu CI (run38237671713), incluyendo la
+regresión TIME_WAIT Linux; falta confirmar reinicio inmediato en la VM Parrot.
 La actualización documental `f8318d6` llevó `[skip ci]`; no se atribuye
 una nueva ejecución al commit que únicamente registra el resultado anterior.
 

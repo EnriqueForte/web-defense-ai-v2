@@ -78,6 +78,7 @@ No se recibió una captura del SHA actualizado; no se certifica ese SHA en la VM
 
 La duración de la espera no se midió. No se capturó el estado de sockets durante
 el fallo; TIME_WAIT es una explicación compatible, no una causa probada de ese
-episodio. Se preparó una [corrección del comprobador](CORRECCION_PUERTOS_2026_10_12.md)
-en el repositorio local. Esa corrección todavía no se ha ensayado en la VM.
+episodio. La [corrección del comprobador](CORRECCION_PUERTOS_2026_10_12.md)
+se publicó como `2a73ff0` y pasó Windows/Ubuntu CI, incluida la regresión real
+de sockets residuales en Ubuntu. Esa corrección todavía no se ha ensayado en la VM.
 No se solicitaron motor, proveedor, Docker ni notificaciones para este recorrido.

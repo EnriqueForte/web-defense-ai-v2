@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+Corrección puertos publicada/CI aprobada 12/10/2026: commit2a73ff0
+(2a73ff043298bccd5419298a491a28b59ec56411), run38237671713/attempt1,
+Windows-latest y Ubuntu24.04 completed/success; estados/logs finales revisados.
+Instalación nueva158Windows/157Linux sin diferencias,78sintaxis,3JS,HTTPsintético,
+25SDKoffline,lint/tipos/15UI,build y smokeAPI/proxy200/ejecutoroffline/cierrelibre.
+Ubuntu289Python aprobados incluida regresión real TIME_WAIT/reinicio inmediato;
+Windows288aprobados y1Linuxomitido. Origin/mainV2 publicado, originalintacto.
+Actualización siguiente documental [skip ci]; código probado2a73ff0. Confirmación
+VMParrot del reinicio inmediato pendiente: pull --ff-only, start, Ctrl+C,
+check inmediato y start; no requiere reinstalar/build por este ajuste Python.
+Sin análisis/LLM/Docker/envíos ni servicios operativosWindows iniciados.
+Registro docs/CORRECCION_PUERTOS_2026_10_12.md, recibos launcher-20261012 ignorados.
+La entrada siguiente conserva el estado previo a publicar y completar CI.
+
 Seguimiento Parrot y puertos 12/10/2026: usuario confirma instalador unificado
 157pines/0diferencias/build y existing_preserved, start consola lista y navegación.
 Tras cierre, check rechazó3000 tres veces; luego ss sin listeners/TIME_WAIT y
