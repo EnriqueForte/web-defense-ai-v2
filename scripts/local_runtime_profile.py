@@ -1,10 +1,10 @@
 """Plan or explicitly start one local component; never loads/prints dotenv or secrets."""
 import argparse
+import errno
 from contextlib import closing
 import json
 import os
 from pathlib import Path
-import socket
 import sqlite3
 import subprocess
 import sys
@@ -15,6 +15,7 @@ from scripts.backup_operational import PROFILES, checked_path
 from scripts.check_environment import read_pins, compare
 from dashboard.services.structured_publication import load_current
 from agents.evidence_contracts import ContractError
+from scripts.local_port import probe_port
 
 
 def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manual=False):
@@ -77,11 +78,10 @@ def active_jobs(path):
 
 def port_available():
     try:
-        with socket.socket() as probe:
-            probe.bind(("127.0.0.1", 5000))
+        probe_port(5000)
         return True
-    except OSError:
-        return False
+    except OSError as error:
+        return False if error.errno == errno.EADDRINUSE else None
 
 
 def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pins=None, enable_manual=False):
@@ -124,6 +124,8 @@ def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pin
         blockers.append("active_jobs_or_unreadable_store")
     if free_port is False:
         blockers.append("flask_port_in_use")
+    elif free_port is None and component in {"all", "flask"}:
+        blockers.append("flask_port_unverified")
     if current == "invalid":
         blockers.append("invalid_current_generation")
     return {"ready": not blockers, "plan": plan, "component": component, "blockers": blockers,

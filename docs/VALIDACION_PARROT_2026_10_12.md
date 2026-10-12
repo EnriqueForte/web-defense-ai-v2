@@ -4,7 +4,9 @@ El usuario clonó `EnriqueForte/web-defense-ai-v2` en el disco local de su VM
 y ejecutó las instrucciones desde una terminal de Parrot. Evidencia: capturas
 aportadas en la conversación y confirmación explícita de navegación correcta.
 No se dispuso de acceso remoto a la VM ni se obtuvieron logs completos.
-El commit comprobado fue `df40ad8`, con `main` y `origin/main` coincidentes.
+El commit comprobado en el ensayo inicial fue `df40ad8`, con `main` y `origin/main`
+coincidentes. El ensayo posterior del lanzador unificado se recoge al final;
+su SHA no aparece en las nuevas capturas.
 
 ## Entorno y preparación
 
@@ -44,8 +46,8 @@ la nueva interfaz. No fue necesario cambiar código para resolver la incidencia.
 El estado final «Fuentes incompletas» corresponde a la ausencia de logs e informes
 en este clon. No hay datos del mantenedor copiados. Manual deshabilitado y worker
 sin arrancar; no se solicitaron llamadas reales al proveedor, Docker o envíos.
-Las terminales Flask y Next quedaron abiertas según las instrucciones; no se
-ha comprobado su continuidad ni su parada después de la confirmación del usuario.
+Las terminales Flask y Next quedaron abiertas al terminar el ensayo inicial.
+La comprobación posterior del cierre corresponde al lanzador unificado descrito abajo.
 
 ## Alcance y siguiente entrega
 
@@ -56,8 +58,26 @@ Falta capturar un inventario completo Linux y fijar dependencias adicionales;
 `uvloop==0.23.0` se observó en Ubuntu CI, no se ha verificado su versión en esta VM.
 
 La batería de pruebas pertenece a la validación de desarrollo. Para usuarios,
-el instalador actual automatiza las dependencias del proyecto, pero requiere
-Python 3.11, Node 24 y pnpm 11.19.0 previamente disponibles. El build y el arranque
-de Flask/Next siguen siendo pasos separados. Simplificar requisitos, preparación,
-build, arranque y diagnóstico inicial mediante un asistente sigue pendiente;
-no se presenta como una función implementada en esta entrega documental.
+el instalador unificado posterior automatiza dependencias y build, pero requiere
+Python 3.11, Node 24 y pnpm 11.19.0 previamente disponibles.
+
+## Ensayo posterior: instalación y arranque unificados
+
+Tras indicar actualización a `f8318d6`, el usuario aportó estas evidencias.
+No se recibió una captura del SHA actualizado; no se certifica ese SHA en la VM.
+
+- Instalación finalizada: pip check correcto, 157 paquetes fijados sin diferencias,
+  pnpm 11.19.0, build Next 16.3.8 y `existing_preserved` para configuración existente.
+- `python3 webdefense.py start` confirmó «Consola lista» en 127.0.0.1:3000.
+  El usuario confirmó que la web funciona y que cambió entre vistas.
+- Tras indicar Ctrl+C, dejó de cargar la web. Tres comprobaciones `check`
+  mostraron puerto 3000 ocupado: el reinicio inmediato no quedó validado.
+- Más tarde `ss -ltnp` y `ss -tan state time-wait`, filtrados por 3000/5000,
+  mostraron únicamente cabeceras. `python3 webdefense.py check` terminó preparado.
+  Queda confirmado el cierre con puertos libres después de la espera.
+
+La duración de la espera no se midió. No se capturó el estado de sockets durante
+el fallo; TIME_WAIT es una explicación compatible, no una causa probada de ese
+episodio. Se preparó una [corrección del comprobador](CORRECCION_PUERTOS_2026_10_12.md)
+en el repositorio local. Esa corrección todavía no se ha ensayado en la VM.
+No se solicitaron motor, proveedor, Docker ni notificaciones para este recorrido.

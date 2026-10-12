@@ -76,9 +76,12 @@ class LocalRuntimeProfileTests(TestCase):
         self.assertEqual(runtime.existing_lock_status(lock), "free")
 
     def test_port_required_for_flask_but_not_for_worker_with_flask_already_running(self):
-        with patch.object(runtime, "port_available", return_value=False):
-            self.assertIn("flask_port_in_use", self.check(component="flask")["blockers"])
-            self.assertTrue(self.check(component="worker")["ready"])
+        for available, blocker in ((False, "flask_port_in_use"), (None, "flask_port_unverified")):
+            with self.subTest(available=available), patch.object(runtime, "port_available", return_value=available):
+                result = self.check(component="flask")
+                self.assertIn(blocker, result["blockers"])
+                self.assertFalse(result["ready"])
+                self.assertTrue(self.check(component="worker")["ready"])
 
     def test_environment_differences_and_corrupt_pointer_block_start(self):
         with patch.object(runtime, "compare", return_value=[("mock", "2", "1")]):

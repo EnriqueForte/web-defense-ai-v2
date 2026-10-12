@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 import signal
-import socket
+import errno
 import sys
 import time
 from urllib.error import URLError
@@ -19,14 +19,16 @@ from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
 from scripts.backup_operational import checked_path
 from scripts.local_runtime_profile import readiness
 from scripts.process_owner import ProcessOwner
+from scripts.local_port import probe_port
 
 
 def require_free_port(port):
     try:
-        with socket.socket() as probe:
-            probe.bind(("127.0.0.1", port))
-    except OSError:
-        raise ValueError(f"El puerto {port} está ocupado. Cierra la instancia anterior antes de iniciar.") from None
+        probe_port(port)
+    except OSError as error:
+        if error.errno == errno.EADDRINUSE:
+            raise ValueError(f"El puerto {port} está ocupado. Cierra la instancia anterior antes de iniciar.") from None
+        raise ValueError(f"No se pudo comprobar el puerto {port}. Revisa los permisos de red local.") from None
 
 
 def require_build(root):
@@ -55,6 +57,7 @@ def preflight(root, mode):
                   "runtime_lock_active_or_unknown": "hay un bloqueo de operación activo",
                   "active_jobs_or_unreadable_store": "hay trabajos activos o la base no se puede leer",
                   "flask_port_in_use": "el puerto 5000 está ocupado",
+                  "flask_port_unverified": "no se pudo comprobar el puerto 5000; revisa los permisos de red local",
                   "invalid_current_generation": "la publicación actual no es válida"}
         raise ValueError("; ".join(labels.get(code, code) for code in state["blockers"]))
     return state["plan"]

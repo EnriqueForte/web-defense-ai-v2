@@ -5,10 +5,11 @@ from pathlib import Path
 import re
 import shutil
 import signal
-import socket
+import errno
 import sqlite3
 import subprocess
 import sys
+from scripts.local_port import probe_port
 
 ROOT = Path(__file__).resolve().parent
 GUIDE = "docs/INICIO_RAPIDO.md"
@@ -26,10 +27,11 @@ def install_lock_path(root):
 def require_stopped():
     for port in (5000, 3000):
         try:
-            with socket.socket() as probe:
-                probe.bind(("127.0.0.1", port))
-        except OSError:
-            raise ValueError(f"El puerto {port} está ocupado. Detén la consola antes de instalar.") from None
+            probe_port(port)
+        except OSError as error:
+            if error.errno == errno.EADDRINUSE:
+                raise ValueError(f"El puerto {port} está ocupado. Detén la consola antes de instalar.") from None
+            raise ValueError(f"No se pudo comprobar el puerto {port}. Revisa los permisos de red local.") from None
 
 
 @contextmanager

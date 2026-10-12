@@ -1,5 +1,6 @@
 """User entry and lifecycle regression; synthetic children, never an analysis worker."""
 import contextlib
+import errno
 import io
 import json
 import os
@@ -11,13 +12,15 @@ import sys
 from tempfile import TemporaryDirectory
 import time
 from types import SimpleNamespace
-from unittest import TestCase
+from unittest import TestCase, skipUnless
 from unittest.mock import patch
 
 import webdefense as cli
 from scripts import setup_installation as setup
 from scripts import start_application as start
 from scripts.process_owner import ProcessOwner
+from scripts.local_port import probe_port
+from scripts import local_runtime_profile as runtime
 
 
 class UserEntryTests(TestCase):
@@ -103,6 +106,69 @@ class UserEntryTests(TestCase):
 
 
 class LauncherTests(TestCase):
+    def test_reusable_active_listener_is_rejected_and_preserved(self):
+        for host in ("127.0.0.1", "0.0.0.0"):
+            with self.subTest(host=host), socket.socket() as listener:
+                listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                listener.bind((host, 0))
+                listener.settimeout(2)
+                listener.listen()
+                port = listener.getsockname()[1]
+                with self.assertRaises(OSError):
+                    probe_port(port)
+                with socket.create_connection(("127.0.0.1", port), timeout=1):
+                    accepted, _ = listener.accept()
+                    accepted.close()
+
+    def test_free_port_probe_releases_its_listener(self):
+        with socket.socket() as reservation:
+            reservation.bind(("127.0.0.1", 0))
+            port = reservation.getsockname()[1]
+        probe_port(port)
+        with socket.socket() as replacement:
+            replacement.bind(("127.0.0.1", port))
+            replacement.listen()
+
+    @skipUnless(sys.platform == "linux", "Real Linux TIME_WAIT regression runs in Ubuntu CI")
+    def test_closed_http_connection_does_not_block_immediate_restart(self):
+        with socket.socket() as listener:
+            listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            listener.bind(("127.0.0.1", 0))
+            listener.listen()
+            port = listener.getsockname()[1]
+            with socket.create_connection(("127.0.0.1", port), timeout=2) as client:
+                connection, _ = listener.accept()
+                with connection:
+                    connection.settimeout(2)
+                    # Server closes first, leaving server-side TIME_WAIT after FIN/ACK.
+                    connection.shutdown(socket.SHUT_WR)
+                    self.assertEqual(client.recv(1), b"")
+                    client.shutdown(socket.SHUT_WR)
+                    self.assertEqual(connection.recv(1), b"")
+        with socket.socket() as old_probe:
+            with self.assertRaises(OSError) as caught:
+                old_probe.bind(("127.0.0.1", port))
+            self.assertEqual(caught.exception.errno, errno.EADDRINUSE)
+        start.require_free_port(port)
+        with patch.object(cli, "probe_port", side_effect=lambda _: probe_port(port)):
+            cli.require_stopped()
+        with patch.object(runtime, "probe_port", side_effect=lambda _: probe_port(port)):
+            self.assertTrue(runtime.port_available())
+        # A real reusable HTTP listener can immediately bind again, too.
+        with socket.socket() as replacement:
+            replacement.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            replacement.bind(("127.0.0.1", port))
+            replacement.listen()
+
+    def test_permission_error_is_not_reported_as_occupied_port(self):
+        for module, check in ((start, lambda: start.require_free_port(3000)), (cli, cli.require_stopped)):
+            with self.subTest(module=module.__name__), \
+                    patch.object(module, "probe_port", side_effect=PermissionError(errno.EACCES, "synthetic")):
+                with self.assertRaisesRegex(ValueError, "permisos"):
+                    check()
+        with patch.object(runtime, "probe_port", side_effect=PermissionError(errno.EACCES, "synthetic")):
+            self.assertIsNone(runtime.port_available())
+
     def test_missing_build_or_wrong_proxy_rejected(self):
         with TemporaryDirectory() as folder:
             root = Path(folder)

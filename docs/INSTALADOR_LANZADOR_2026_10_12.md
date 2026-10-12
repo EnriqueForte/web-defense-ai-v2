@@ -71,10 +71,13 @@ proxy HTTP200, ejecutor offline y cierre con puertos libres en ambas plataformas
 Recibos `actions-c82441cc054746a013f2b71321c099b93f6d8ddd.json` y
 `ci-successful-checks.json` bajo el directorio local de esta entrega.
 
-El nuevo comando en Parrot sigue pendiente de actualizar y probar en la VM del
-usuario. Su ensayo previo con órdenes separadas conserva el alcance del commit
-df40ad8. La actualización documental posterior lleva `[skip ci]`; no se atribuye
-una nueva ejecución al commit que únicamente registra este resultado.
+El nuevo comando fue probado después en la VM del usuario: instalación, arranque,
+navegación y cierre con puertos libres después de esperar. El aviso de puerto
+ocupado tras cerrar y su corrección local se documentan en
+[el seguimiento Parrot](VALIDACION_PARROT_2026_10_12.md) y
+[el ajuste de puertos](CORRECCION_PUERTOS_2026_10_12.md).
+La actualización documental `f8318d6` llevó `[skip ci]`; no se atribuye
+una nueva ejecución al commit que únicamente registra el resultado anterior.
 
 ## Límites y reversión
 

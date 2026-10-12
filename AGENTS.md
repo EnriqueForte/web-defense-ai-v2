@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+Seguimiento Parrot y puertos 12/10/2026: usuario confirma instalador unificado
+157pines/0diferencias/build y existing_preserved, start consola lista y navegación.
+Tras cierre, check rechazó3000 tres veces; luego ss sin listeners/TIME_WAIT y
+check preparado. Cierre tras espera acreditado, duración/causa transitoria no
+capturadas; no afirmar TIME_WAIT probado ni SHA actualizado observado en VM.
+Corrección local: scripts/local_port.py compartido install/start/perfilFlask,
+reutilización POSIX y reserva exclusiva Windows sin listener externo; no mata
+procesos ni cambia TCP. Errores no EADDRINUSE bloquean como no verificados.
+289casos Windows (288aprobados/1Linuxomitido),3JS,78sintaxis/diff; smoke aislado.i1
+API/proxy200,ejecutoroffline,cierre puertoslibres. Regresión real TIME_WAIT Linux
+preparada, pendiente CI/Parrot. Sin servicios operativos/LLM/Docker/envíos;
+sin commit/push de este ajuste. Registros docs/CORRECCION_PUERTOS_2026_10_12.md
+y docs/VALIDACION_PARROT_2026_10_12.md. Entradas inferiores históricas.
+
 Instalador/lanzador publicado y CI real aprobada 12/10/2026: commitc82441c
 (c82441cc054746a013f2b71321c099b93f6d8ddd), run38234970879/attempt1,
 Windows-latest y Ubuntu24.04 completed/success. Instalación nueva mediante

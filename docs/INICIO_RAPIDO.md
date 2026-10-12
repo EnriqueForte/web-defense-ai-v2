@@ -91,7 +91,8 @@ no forman parte de cada arranque del usuario.
 El nuevo instalador y lanzador se ensayaron en una copia aislada de Windows,
 incluido build, API directa/proxy y cierre con puertos libres. Después pasó el
 mismo recorrido desde una instalación nueva en [Windows y Ubuntu CI](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38234970879),
-para el commit `c82441c`, ya publicado. La prueba del comando unificado en Parrot
-sigue pendiente de actualizar y ejecutar en esa VM.
-El [ensayo Parrot anterior](VALIDACION_PARROT_2026_10_12.md) utilizó comandos
-separados y no se atribuye retroactivamente al nuevo lanzador.
+para el commit `c82441c`, ya publicado. Después, el usuario confirmó instalación,
+arranque unificado y navegación en [Parrot](VALIDACION_PARROT_2026_10_12.md).
+El cierre dejó los puertos libres tras una espera; el comprobador indicó ocupado
+antes de ella. El ajuste posterior de puertos aún requiere validación Linux/Parrot
+y no queda cubierto por aquella ejecución de CI.
