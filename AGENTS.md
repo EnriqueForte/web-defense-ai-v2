@@ -2,6 +2,21 @@
 
 ## Alcance actual
 
+Instalador/lanzador publicado y CI real aprobada 12/10/2026: commitc82441c
+(c82441cc054746a013f2b71321c099b93f6d8ddd), run38234970879/attempt1,
+Windows-latest y Ubuntu24.04 completed/success. Instalación nueva mediante
+webdefense.py install/build, contrato158Windows/157Linux sin diferencias,
+77sintaxis,285Python/3JS,HTTPsintético,25SDK,lint/tipos/15UI aprobados.
+Smoke comandoúnico: Flask/proxy200,ejecutoroffline,cierre puertoslibres en ambos;
+logs finales comprobados. Origin/main V2 verificado, repositorio original
+intacto. Actualización siguiente solo documental [skip ci]; código probado
+corresponde a c82441c. Nuevo flujo Parrot pendiente del usuario (anterior df40ad8
+con órdenes separadas aprobado); guiar parada de sus dos terminales, pull
+--ff-only, install y start. Requisitos globales siguen previos. 29jobs/14entregas/
+hashes/.envmetadatos Windows preservados. Registro y URL de CI en
+docs/INSTALADOR_LANZADOR_2026_10_12.md; recibos .local-state/launcher-20261012.
+La entrada siguiente conserva el estado previo a la publicación.
+
 Entrada simplificada implementada localmente 12/10/2026: webdefense.py
 install/start/check, descubrimientoPython3.11/venv/ensurepip y requisitos
 Node>=24/pnpm11.19.0 antes de mutación. Instala contrato/frontend/build y

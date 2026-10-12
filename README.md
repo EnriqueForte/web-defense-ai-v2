@@ -21,8 +21,9 @@ La [entrada simplificada](docs/INICIO_RAPIDO.md) prepara dependencias y build co
 `python3 webdefense.py install` y arranca Flask/Next en una terminal con
 `python3 webdefense.py start` (Windows: `py` en lugar de `python3`). Requiere
 Python3.11/Node24/pnpm11.19.0 disponibles. Arranque de lectura; análisis y laboratorio
-se configuran aparte. [Ensayo Windows y límites](docs/INSTALADOR_LANZADOR_2026_10_12.md);
-la nueva matriz CI y el comando unificado en Parrot quedan por verificar.
+se configuran aparte. [Validación y límites](docs/INSTALADOR_LANZADOR_2026_10_12.md):
+el nuevo flujo pasó en Windows y Ubuntu CI, incluido cierre con puertos libres.
+El comando unificado en la VM Parrot queda por verificar.
 
 La [validación Parrot del 12/10/2026](docs/VALIDACION_PARROT_2026_10_12.md)
 confirma instalación, pruebas offline, build, arranque y API directa/proxy HTTP200.

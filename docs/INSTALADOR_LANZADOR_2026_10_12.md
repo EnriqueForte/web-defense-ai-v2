@@ -55,9 +55,26 @@ después: 29 trabajos, 14 entregas, cero activos, hashes de log/publicación y
 metadatos de `.env` operativos intactos. No se arrancaron servicios operativos
 del mantenedor. Los servicios de ensayo quedaron detenidos.
 
-La matriz CI ahora usa el instalador completo y prueba arranque/cierre. No se
-afirma una nueva ejecución CI ni el nuevo flujo en Parrot hasta verificarlos.
-Las verificaciones de la versión anterior conservan sus propios commits/alcance.
+## Publicación y validación remota
+
+El commit `c82441cc054746a013f2b71321c099b93f6d8ddd` se publicó en `origin/main`
+del repositorio V2. La [ejecución 38234970879](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38234970879)
+terminó con success en su primer intento, tanto en Windows-latest como en Ubuntu
+24.04. Los estados y los logs finales se revisaron antes de indicar la actualización
+en Parrot.
+
+Ambos runners completaron instalación nueva mediante `webdefense.py install`,
+pip check, contrato sin diferencias (158 pines Windows/157 Linux), build Next,
+77 archivos de sintaxis, 285 Python/tres JS, HTTP sintético, 25 escenarios SDK,
+lint/tipos y 15 grupos UI. El smoke del comando unificado confirmó API directa/
+proxy HTTP200, ejecutor offline y cierre con puertos libres en ambas plataformas.
+Recibos `actions-c82441cc054746a013f2b71321c099b93f6d8ddd.json` y
+`ci-successful-checks.json` bajo el directorio local de esta entrega.
+
+El nuevo comando en Parrot sigue pendiente de actualizar y probar en la VM del
+usuario. Su ensayo previo con órdenes separadas conserva el alcance del commit
+df40ad8. La actualización documental posterior lleva `[skip ci]`; no se atribuye
+una nueva ejecución al commit que únicamente registra este resultado.
 
 ## Límites y reversión
 

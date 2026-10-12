@@ -281,8 +281,8 @@ runners; no acredita Parrot ni arranque/proxy Next en Linux.
 
 - Freeze/pines Linux adicionales y auditorías; Windows/Ubuntu CI y el ensayo
   guiado de instalación/lectura Parrot aprobados dentro de sus respectivos alcances.
-- Verificar en CI y Parrot la nueva entrada simplificada; la preparación de
-  requisitos globales sigue siendo un paso previo del usuario.
+- Verificar en Parrot la nueva entrada simplificada, ya aprobada en Windows/
+  Ubuntu CI; la preparación de requisitos globales sigue siendo un paso previo.
 - Laboratorio Docker, ingesta y análisis real en la VM Parrot.
 - Cierre de calidad/observación A-05 y diagnóstico del motor operativo.
 - Procedimiento definitivo de arranque/análisis, conservación y recuperación.

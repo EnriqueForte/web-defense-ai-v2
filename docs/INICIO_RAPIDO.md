@@ -89,8 +89,9 @@ no forman parte de cada arranque del usuario.
 ## Alcance comprobado
 
 El nuevo instalador y lanzador se ensayaron en una copia aislada de Windows,
-incluido build, API directa/proxy y cierre con puertos libres. La matriz CI se
-actualiza para ejercitar este recorrido en Windows y Ubuntu; la nueva ejecución
-y la prueba del comando unificado en Parrot siguen pendientes de publicación.
+incluido build, API directa/proxy y cierre con puertos libres. Después pasó el
+mismo recorrido desde una instalación nueva en [Windows y Ubuntu CI](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38234970879),
+para el commit `c82441c`, ya publicado. La prueba del comando unificado en Parrot
+sigue pendiente de actualizar y ejecutar en esa VM.
 El [ensayo Parrot anterior](VALIDACION_PARROT_2026_10_12.md) utilizó comandos
 separados y no se atribuye retroactivamente al nuevo lanzador.
