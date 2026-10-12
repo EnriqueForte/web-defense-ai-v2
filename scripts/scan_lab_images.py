@@ -44,7 +44,7 @@ def summarize_report(label, report):
 def scan(trivy, folder):
     folder.mkdir(parents=True, exist_ok=True)
     cache = folder / "cache"
-    version = subprocess.run([trivy, "--version"], capture_output=True, text=True, timeout=30, check=True)
+    version = subprocess.run([trivy, "--cache-dir", str(cache), "--version"], capture_output=True, text=True, timeout=30, check=True)
     (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
     rows = []
     for label, (scope, reference) in IMAGES.items():
@@ -63,7 +63,7 @@ def scan(trivy, folder):
                    "status": "scan_failed", "no_zero_vulnerabilities_claimed": True}
         rows.append(row)
         print(f"Resultado {label}: {row['status']}", flush=True)
-    version = subprocess.run([trivy, "--version"], capture_output=True, text=True, timeout=30, check=True)
+    version = subprocess.run([trivy, "--cache-dir", str(cache), "--version"], capture_output=True, text=True, timeout=30, check=True)
     (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
     summary = {"schema_version": 1, "captured_at": datetime.now(timezone.utc).isoformat(),
                "scanner_version_output": version.stdout, "images": rows,
