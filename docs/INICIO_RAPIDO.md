@@ -86,6 +86,11 @@ El modo de informes predeterminado es legacy; para leer publicaciones structured
 Las pruebas completas Python/SDK/UI son verificaciones de desarrollo y CI;
 no forman parte de cada arranque del usuario.
 
+Si necesitas verificar también que no hay paquetes adicionales en `.p2`,
+en Linux ejecuta `.p2/bin/python -B scripts/check_environment.py --strict`.
+En Windows utiliza `.p2/Scripts/python.exe`. La [guía del contrato Linux](CONTRATO_LINUX_2026_10_12.md)
+explica cómo guardar el inventario completo para diagnosticar una instalación.
+
 ## Alcance comprobado
 
 El nuevo instalador y lanzador se ensayaron en una copia aislada de Windows,

@@ -64,7 +64,10 @@ El instalador Linux excluye `pywin32` por marcador y resolvió adicionalmente
 Los mensajes de instalación informan 158 paquetes en cada plataforma. Esta
 revisión de los logs no sustituye a un `pip freeze` de Linux; capturar y fijar
 sus dependencias adicionales sigue pendiente para reproducibilidad completa.
-No se modifican ahora los pines a partir de una matriz ya aprobada.
+Ese es el estado histórico de esta ejecución. El [seguimiento posterior](CONTRATO_LINUX_2026_10_12.md)
+fijó uvloop por plataforma y comprobó ambos inventarios completos mediante
+freeze/metadatos/contrato en la nueva ejecución38239653979; aquella evidencia
+no se atribuye retroactivamente a esta matriz.
 
 ## Alcance y pendientes
 

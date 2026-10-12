@@ -2,6 +2,21 @@
 
 ## Alcance actual
 
+Contrato Linux publicado/CI/inventarios completos verificados 12/10/2026:
+commit8cd7310 (8cd7310366af66066949ea0a8a03b4ae6505cef9),run38239653979/attempt1,
+Windows-latest/Ubuntu24.04completedsuccess. Artefactosdescargados freeze--all y
+metadatos158paquetes porOS coinciden exactamente con contrato/hash,0deriva/0extras.
+WindowsPython3.11.9/pywin32311; LinuxPython3.11.17/uvloop0.23.0,marcadorlinuxfijado.
+Snapshot constraints-linux-py311-20261012.txt conserva bytesLinuxCI verificados,
+no aplicadoWindows; reglaGit específica sin conversión. Captura/pinextraUbuntu
+completados, comprobación inventarioVMParrot pendiente mediante pull/pipcheck/
+check_environment--strict/snapshot_environment. Ambasinstalaciones/build/80sintaxis/
+3JS/HTTPsintético/25SDK/linttipos15UI/smoke200offlinecierrelibre;Ubuntu295Python,
+Windows294aprobados1Linuxomitido. Siguienteactualización solo recibos/docs[skip ci],
+códigoCI8cd7310. Sin servicios/datos operativosWindows modificados ni LLM/Docker/
+envíos. Registro docs/CONTRATO_LINUX_2026_10_12.md,reciboslinux-contract-20261012.
+Entradas inferiores conservan el estado previo a publicación/verificación.
+
 Contrato Linux ampliado localmente 12/10/2026: uvloop0.23.0 observado antes en
 Ubuntu ahora fijado con marcadorlinux en requirements/constraints;158pines por
 plataforma,Windowsversionesintactas. Instaladorcomprueba--strict y rechaza extras

@@ -1,3 +1,5 @@
 # Preserve npm-distribution bytes and their recorded SHA-256 on all platforms.
 dashboard/static/vendor/*.umd.js -text
 dashboard/static/vendor/*.LICENSE.md -text
+# Preserve the exact bytes/hash of the verified Ubuntu CI freeze receipt.
+constraints-linux-py311-20261012.txt -text

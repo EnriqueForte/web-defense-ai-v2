@@ -39,9 +39,12 @@ El laboratorio Docker, ingesta y análisis real en esa VM siguen pendientes.
 No se afirma soporte de todas las distribuciones Linux, ARM o macOS.
 Ambos sistemas utilizan `constraints-py311.txt`; las instantáneas con nombre
 Windows se mantienen como evidencia histórica. Los marcadores excluyen pywin32
-en Linux; el resolutor puede añadir dependencias propias de esa plataforma.
-En el runner Ubuntu se observó `uvloop==0.23.0` adicional; capturar el freeze
-Linux y fijar esa dependencia sigue pendiente para reproducibilidad completa.
+en Linux; `uvloop==0.23.0` queda fijado solo para Linux desde el 12/10.
+La instalación comprueba también paquetes adicionales con `--strict`.
+La [captura completa verificada de Ubuntu CI](CONTRATO_LINUX_2026_10_12.md)
+contiene 158 distribuciones, sin diferencias ni adicionales fuera del contrato;
+Windows conserva sus 158 versiones. La comprobación completa en Parrot sigue
+pendiente y no se deduce de la instalación de Ubuntu.
 
 ## Preparar una instalación nueva
 

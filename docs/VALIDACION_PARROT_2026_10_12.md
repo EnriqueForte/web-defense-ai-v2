@@ -54,8 +54,9 @@ La comprobación posterior del cierre corresponde al lanzador unificado descrito
 Quedan acreditados instalación, pruebas offline, build, arranque y lectura en
 esta VM Parrot. No se acredita Docker/DVWA, ingesta ni análisis real en Parrot,
 otras distribuciones/versiones/arquitecturas o calidad semántica A-05.
-Falta capturar un inventario completo Linux y fijar dependencias adicionales;
-`uvloop==0.23.0` se observó en Ubuntu CI, no se ha verificado su versión en esta VM.
+El [seguimiento del contrato Linux](CONTRATO_LINUX_2026_10_12.md) capturó el
+inventario completo Ubuntu y fijó `uvloop==0.23.0`. Falta verificar el inventario
+completo y esa versión en esta VM; no se atribuye el freeze Ubuntu a Parrot.
 
 La batería de pruebas pertenece a la validación de desarrollo. Para usuarios,
 el instalador unificado posterior automatiza dependencias y build, pero requiere
