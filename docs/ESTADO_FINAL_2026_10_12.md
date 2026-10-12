@@ -20,7 +20,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | Auditorías actuales, revisión/migración de paquetes residuales, imágenes del laboratorio/base e historial | Informes con versiones/digests/base/fecha, revisión de condiciones, parches compatibles o riesgos explícitamente documentados; fallos de scanner separados de resultados |
+| Seguridad | Auditorías y escaneo ya completados; quedan migración de paquetes residuales, infraestructura de imágenes e historial | Informes con versiones/digests/base/fecha ya recibidos; parches compatibles o riesgos explícitamente documentados y validación final |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
 | Configuración/interfaz | Validación global de valores y E2E de guardar/recargar/desmontar Configuración | Errores comprensibles y pruebas de efectos completos; helpers/dobles existentes no acreditan todo el recorrido |
@@ -40,9 +40,11 @@ semántica pendiente y la revisión del recorrido manual según
 ## Seguridad en curso
 
 Auditorías PyPI/npm actualizadas el 12/10: producción frontend/vendor sin avisos,
-braces de desarrollo con un aviso y Python36entradas en cuatro paquetes para
-cada inventario completo de158. Trivy Windows sigue bloqueado por Control de
-aplicaciones; se prepara escaneo remoto en Ubuntu CI sin iniciar contenedores.
+braces de desarrollo con un aviso y Python 36 entradas en cuatro paquetes para
+cada inventario completo de 158. Las 22 fichas primarias fueron revisadas.
+Trivy Linux completó el escaneo remoto de las seis referencias en Ubuntu CI con
+digests/fecha de base, sin iniciar contenedores. Todas presentan avisos; no se
+declara cierre de seguridad. CI de compatibilidad final pasó en ambos sistemas.
 Los resultados y decisiones se registran en [seguimiento de seguridad](SEGURIDAD_2026_10_12.md).
 
 La CSP completa de scripts Next, retención automatizada, soporte de otras

@@ -2,6 +2,25 @@
 
 ## Alcance actual
 
+Auditorías/escaneo efectivo completados12/10/2026: código3ea20a9
+(3ea20a95214f32c1f748986f4f84dbec5a498395), scanrun38242912010attempt1success,
+6referenciaslinuxamd64/digests/reportesverificados,artifact11744271076descargado.
+Trivy0.75/hashoficial,DBv2Updated12Oct09:47:21UTC/Downloaded11:29:12/captura11:29:39.
+MariaDB98entradas1crítica25altas,DVWA3571/15/257,Mailpit20/0/4;legacyMySQL255/1/100,
+DVWA1575/254/551Debian9.5EOSL,Python175/0/46. Hallazgosporpaquete no exploits,
+no atribuir todoDVWA a fallosintencionados; infraestructura requiere revisión.
+PythonWindows/Linux158:36entradas22IDs/cuatro paquetes;22fichasprimarias revisadas,
+caminosservidores/SchemaRepairer noobservados, avisosconservadossinexenciones.
+Npmprod/vendor0,bracesdev1sinparche; migraciónCrewAIcompatible abierta por rangos.
+CIrun38242912062mismoSHAWindows/Ubuntusuccess:158strict/freeze/build82sintaxis3JS/
+HTTP25SDKlinttipos15UI/smoke200offlinecierre;Ubuntu298Python,Windows297+1omitido.
+Primer scanrun38242250320sinfechaDB porcacheversión distinta; finalcorrige/metadatos.
+Resumen vigente docs/ESTADO_FINAL_2026_10_12.md y seguridadMD/JSON; queda seguridad
+residual/A05/Parrotlab/configE2E/operaciónrecuperación/entregafinal. Sin cambios
+versionesproducto/Compose/volúmenes,serviciosoperativos/env/LLM/Dockerlocal/envíos.
+Siguiente commit solo registros/docs[skip ci], códigoCI3ea20a9; recibossecurity-20261012.
+Entradas inferiores históricas.
+
 Revisión seguridad iniciada12/10/2026: resumen vigente docs/ESTADO_FINAL_2026_10_12.md
 con seisbloquespendientes (seguridad,A05,recorridoParrot,configE2E,operaciónrecuperación,
 entregafinal); instalación/lanzador/pinesLinux ya cerrados en su alcance.

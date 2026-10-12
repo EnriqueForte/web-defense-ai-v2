@@ -4,6 +4,10 @@ Seguimiento posterior: la [operación del Paso 2](OPERACION_A05_2026_10_10.md)
 activó `.p3` y actualizó la instalación real del frontend con estas dependencias.
 Las afirmaciones de aislamiento y ausencia de arranque de esta acta describen
 la entrega del Paso 1, anterior a esa operación. Los avisos residuales siguen abiertos.
+El [seguimiento del 12/10](SEGURIDAD_2026_10_12.md) actualizó ambas auditorías
+Python y npm/vendor, revisó las 22 fichas y completó el escaneo de las seis
+referencias remotas con Trivy Linux/digests/base. Quedan migración e infraestructura,
+según ese registro; el bloqueo Windows y el escaneo pendiente de esta acta son históricos.
 
 ## Resultado
 

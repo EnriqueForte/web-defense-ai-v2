@@ -1,0 +1,1536 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-12",
+  "status": "audits_completed; residual_security_work_open",
+  "python": {
+    "scanner": "pip-audit2.10.1/PyPI",
+    "inventories": [
+      {
+        "platform": "windows",
+        "packages": 158,
+        "entries": 36,
+        "principal_ids": 22,
+        "residual": [
+          {
+            "package": "chromadb",
+            "version": "1.1.1",
+            "entries": 5,
+            "principal_ids": 4,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-311",
+                "aliases": [
+                  "GHSA-f4j7-r4q5-qw2c",
+                  "CVE-2026-45829"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-f4j7-r4q5-qw2c",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 1.0.0, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: ejecución de modelos externos con confianza en código remoto.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3813",
+                "aliases": [
+                  "GHSA-2wm9-hf6c-p5cr",
+                  "CVE-2026-45830"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-2wm9-hf6c-p5cr",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: aislamiento de operaciones entre tenants.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3814",
+                "aliases": [
+                  "GHSA-36p7-vc44-83pf",
+                  "CVE-2026-45833"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-36p7-vc44-83pf",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: actualización autenticada de colecciones con modelos externos y confianza en código remoto.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3815",
+                "aliases": [
+                  "CVE-2026-45831",
+                  "GHSA-xph7-9rjv-w5fr"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-xph7-9rjv-w5fr",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.5.0, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: autorización contextual de permisos por tenant, base y colección.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "json-repair",
+            "version": "0.25.3",
+            "entries": 1,
+            "principal_ids": 1,
+            "reviews": [
+              {
+                "id": "GHSA-xf7x-x43h-rpqh",
+                "aliases": [],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "0.60.1"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-xf7x-x43h-rpqh",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "json-repair"
+                    },
+                    "vulnerable_version_range": "< 0.60.1",
+                    "first_patched_version": "0.60.1",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "SchemaRepairer y loads(schema=...) con referencias circulares no confiables.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "litellm",
+            "version": "1.83.0",
+            "entries": 24,
+            "principal_ids": 14,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-2598",
+                "aliases": [
+                  "GHSA-qrc4-49gv-mv9m",
+                  "CVE-2026-47101"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.14"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-qrc4-49gv-mv9m",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.14",
+                    "first_patched_version": "1.83.14",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: generación de claves con rutas superiores a los permisos del usuario.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2599",
+                "aliases": [
+                  "GHSA-v4p8-mg3p-g94g",
+                  "CVE-2026-42271"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-v4p8-mg3p-g94g",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.74.2, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: pruebas de MCP stdio que ejecutan comandos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2600",
+                "aliases": [
+                  "CVE-2026-47102",
+                  "GHSA-wpfp-gwwc-vwq6"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-wpfp-gwwc-vwq6",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: actualización de roles por usuarios con acceso al endpoint.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2601",
+                "aliases": [
+                  "GHSA-wxxx-gvqv-xp7p",
+                  "CVE-2026-40217"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-wxxx-gvqv-xp7p",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.81.8, < 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: ejecución de código de guardrails con privilegios administrativos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2602",
+                "aliases": [
+                  "GHSA-xqmj-j6mv-4862",
+                  "CVE-2026-42203"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-xqmj-j6mv-4862",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.80.5, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: acceso a pruebas de plantillas de prompts.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3476",
+                "aliases": [
+                  "GHSA-4g5m-c9r5-49xf",
+                  "CVE-2026-59819"
+                ],
+                "severity": "low",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4g5m-c9r5-49xf",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: prueba de conexión con referencias OIDC a archivos locales.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3477",
+                "aliases": [
+                  "CVE-2026-59820",
+                  "GHSA-5jmr-gcrj-2c9q"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-5jmr-gcrj-2c9q",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: carga y extracción de archivos de Skills.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3479",
+                "aliases": [
+                  "GHSA-7488-6r32-c95q",
+                  "CVE-2026-59822"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-7488-6r32-c95q",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: autenticación del endpoint MCP HTTP y fallback OAuth2.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3861",
+                "aliases": [
+                  "GHSA-6wvf-77m9-58rm",
+                  "CVE-2026-37004"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-6wvf-77m9-58rm",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: renderizado de plantillas en el endpoint de prueba de prompts.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-388",
+                "aliases": [
+                  "GHSA-4xpc-pv4p-pm3w",
+                  "CVE-2026-49468"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4xpc-pv4p-pm3w",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: decisión de autenticación basada en Host sin normalizar.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-391",
+                "aliases": [
+                  "CVE-2026-42208",
+                  "GHSA-r75f-5x8p-qvmc"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-r75f-5x8p-qvmc",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.81.16, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: verificación de claves contra su base de datos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4066",
+                "aliases": [
+                  "GHSA-3cv6-jpf6-8222",
+                  "CVE-2026-84377"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.88.6",
+                  "1.89.7",
+                  "1.90.7",
+                  "1.91.5",
+                  "1.92.2",
+                  "1.93.2",
+                  "1.94.3",
+                  "1.95.1",
+                  "1.96.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.88.6",
+                    "first_patched_version": "1.88.6",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.89.0, < 1.89.7",
+                    "first_patched_version": "1.89.7",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.90.0, < 1.90.7",
+                    "first_patched_version": "1.90.7",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.91.0, < 1.91.5",
+                    "first_patched_version": "1.91.5",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.92.0, < 1.92.2",
+                    "first_patched_version": "1.92.2",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.93.0, < 1.93.2",
+                    "first_patched_version": "1.93.2",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.94.0, < 1.94.3",
+                    "first_patched_version": "1.94.3",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.95.0, < 1.95.1",
+                    "first_patched_version": "1.95.1",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.96.0, < 1.96.2",
+                    "first_patched_version": "1.96.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: parámetros de conexión no confiables que redirigen llamadas con credenciales del operador.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4067",
+                "aliases": [
+                  "GHSA-4jcj-7x88-m979",
+                  "CVE-2026-12773"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4jcj-7x88-m979",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy MCP: verificación de autenticación del servidor.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4070",
+                "aliases": [
+                  "GHSA-hx8v-g79f-8w5f",
+                  "CVE-2026-59823"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.83.9"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-hx8v-g79f-8w5f",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "<= 1.83.8",
+                    "first_patched_version": "1.83.9",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: parámetros de conexión anidados en user_config.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "mcp",
+            "version": "1.26.0",
+            "entries": 6,
+            "principal_ids": 3,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-3481",
+                "aliases": [
+                  "CVE-2026-52870",
+                  "GHSA-hvrp-rf83-w775"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.27.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-hvrp-rf83-w775",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": ">= 1.23.0, <= 1.27.1",
+                    "first_patched_version": "1.27.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP: operaciones sobre tareas experimentales de otras sesiones.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3482",
+                "aliases": [
+                  "GHSA-jpw9-pfvf-9f58",
+                  "CVE-2026-52869"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.27.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": "<= 1.27.1",
+                    "first_patched_version": "1.27.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP HTTP: vinculación de la sesión al principal autenticado.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3483",
+                "aliases": [
+                  "GHSA-vj7q-gjh5-988w",
+                  "CVE-2026-59950"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.28.1"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-vj7q-gjh5-988w",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": "< 1.28.1",
+                    "first_patched_version": "1.28.1",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP WebSocket: validación de Host y Origin.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          }
+        ],
+        "raw_report_sha256": "11cc2bf8e0a53a5756521e148ce5f98274134ebaff418a874e91a787949e7010"
+      },
+      {
+        "platform": "linux",
+        "packages": 158,
+        "entries": 36,
+        "principal_ids": 22,
+        "residual": [
+          {
+            "package": "chromadb",
+            "version": "1.1.1",
+            "entries": 5,
+            "principal_ids": 4,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-311",
+                "aliases": [
+                  "CVE-2026-45829",
+                  "GHSA-f4j7-r4q5-qw2c"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-f4j7-r4q5-qw2c",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 1.0.0, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: ejecución de modelos externos con confianza en código remoto.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3813",
+                "aliases": [
+                  "GHSA-2wm9-hf6c-p5cr",
+                  "CVE-2026-45830"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-2wm9-hf6c-p5cr",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: aislamiento de operaciones entre tenants.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3814",
+                "aliases": [
+                  "CVE-2026-45833",
+                  "GHSA-36p7-vc44-83pf"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-36p7-vc44-83pf",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: actualización autenticada de colecciones con modelos externos y confianza en código remoto.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3815",
+                "aliases": [
+                  "GHSA-xph7-9rjv-w5fr",
+                  "CVE-2026-45831"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [],
+                "primary_url": "https://github.com/advisories/GHSA-xph7-9rjv-w5fr",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "chromadb"
+                    },
+                    "vulnerable_version_range": ">= 0.5.0, <= 1.5.9",
+                    "first_patched_version": null,
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor Chroma: autorización contextual de permisos por tenant, base y colección.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "json-repair",
+            "version": "0.25.3",
+            "entries": 1,
+            "principal_ids": 1,
+            "reviews": [
+              {
+                "id": "GHSA-xf7x-x43h-rpqh",
+                "aliases": [],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "0.60.1"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-xf7x-x43h-rpqh",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "json-repair"
+                    },
+                    "vulnerable_version_range": "< 0.60.1",
+                    "first_patched_version": "0.60.1",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "SchemaRepairer y loads(schema=...) con referencias circulares no confiables.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "litellm",
+            "version": "1.83.0",
+            "entries": 24,
+            "principal_ids": 14,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-2598",
+                "aliases": [
+                  "GHSA-qrc4-49gv-mv9m",
+                  "CVE-2026-47101"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.14"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-qrc4-49gv-mv9m",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.14",
+                    "first_patched_version": "1.83.14",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: generación de claves con rutas superiores a los permisos del usuario.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2599",
+                "aliases": [
+                  "GHSA-v4p8-mg3p-g94g",
+                  "CVE-2026-42271"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-v4p8-mg3p-g94g",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.74.2, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: pruebas de MCP stdio que ejecutan comandos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2600",
+                "aliases": [
+                  "GHSA-wpfp-gwwc-vwq6",
+                  "CVE-2026-47102"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-wpfp-gwwc-vwq6",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: actualización de roles por usuarios con acceso al endpoint.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2601",
+                "aliases": [
+                  "GHSA-wxxx-gvqv-xp7p",
+                  "CVE-2026-40217"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-wxxx-gvqv-xp7p",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.81.8, < 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: ejecución de código de guardrails con privilegios administrativos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-2602",
+                "aliases": [
+                  "GHSA-xqmj-j6mv-4862",
+                  "CVE-2026-42203"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-xqmj-j6mv-4862",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.80.5, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: acceso a pruebas de plantillas de prompts.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3476",
+                "aliases": [
+                  "GHSA-4g5m-c9r5-49xf",
+                  "CVE-2026-59819"
+                ],
+                "severity": "low",
+                "pypi_fix_versions": [
+                  "1.83.10"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4g5m-c9r5-49xf",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.10",
+                    "first_patched_version": "1.83.10",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: prueba de conexión con referencias OIDC a archivos locales.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3477",
+                "aliases": [
+                  "GHSA-5jmr-gcrj-2c9q",
+                  "CVE-2026-59820"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-5jmr-gcrj-2c9q",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: carga y extracción de archivos de Skills.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3479",
+                "aliases": [
+                  "CVE-2026-59822",
+                  "GHSA-7488-6r32-c95q"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-7488-6r32-c95q",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: autenticación del endpoint MCP HTTP y fallback OAuth2.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3861",
+                "aliases": [
+                  "CVE-2026-37004",
+                  "GHSA-6wvf-77m9-58rm"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-6wvf-77m9-58rm",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: renderizado de plantillas en el endpoint de prueba de prompts.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-388",
+                "aliases": [
+                  "CVE-2026-49468",
+                  "GHSA-4xpc-pv4p-pm3w"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4xpc-pv4p-pm3w",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: decisión de autenticación basada en Host sin normalizar.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-391",
+                "aliases": [
+                  "CVE-2026-42208",
+                  "GHSA-r75f-5x8p-qvmc"
+                ],
+                "severity": "critical",
+                "pypi_fix_versions": [
+                  "1.83.7"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-r75f-5x8p-qvmc",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.81.16, < 1.83.7",
+                    "first_patched_version": "1.83.7",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: verificación de claves contra su base de datos.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4066",
+                "aliases": [
+                  "GHSA-3cv6-jpf6-8222",
+                  "CVE-2026-84377"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.88.6",
+                  "1.89.7",
+                  "1.90.7",
+                  "1.91.5",
+                  "1.92.2",
+                  "1.93.2",
+                  "1.94.3",
+                  "1.95.1",
+                  "1.96.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.88.6",
+                    "first_patched_version": "1.88.6",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.89.0, < 1.89.7",
+                    "first_patched_version": "1.89.7",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.90.0, < 1.90.7",
+                    "first_patched_version": "1.90.7",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.91.0, < 1.91.5",
+                    "first_patched_version": "1.91.5",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.92.0, < 1.92.2",
+                    "first_patched_version": "1.92.2",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.93.0, < 1.93.2",
+                    "first_patched_version": "1.93.2",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.94.0, < 1.94.3",
+                    "first_patched_version": "1.94.3",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.95.0, < 1.95.1",
+                    "first_patched_version": "1.95.1",
+                    "vulnerable_functions": []
+                  },
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": ">= 1.96.0, < 1.96.2",
+                    "first_patched_version": "1.96.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: parámetros de conexión no confiables que redirigen llamadas con credenciales del operador.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4067",
+                "aliases": [
+                  "CVE-2026-12773",
+                  "GHSA-4jcj-7x88-m979"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.84.0"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-4jcj-7x88-m979",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "< 1.84.0",
+                    "first_patched_version": "1.84.0",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy MCP: verificación de autenticación del servidor.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-4070",
+                "aliases": [
+                  "CVE-2026-59823",
+                  "GHSA-hx8v-g79f-8w5f"
+                ],
+                "severity": "medium",
+                "pypi_fix_versions": [
+                  "1.83.9"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-hx8v-g79f-8w5f",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "litellm"
+                    },
+                    "vulnerable_version_range": "<= 1.83.8",
+                    "first_patched_version": "1.83.9",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Proxy: parámetros de conexión anidados en user_config.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          },
+          {
+            "package": "mcp",
+            "version": "1.26.0",
+            "entries": 6,
+            "principal_ids": 3,
+            "reviews": [
+              {
+                "id": "PYSEC-2026-3481",
+                "aliases": [
+                  "CVE-2026-52870",
+                  "GHSA-hvrp-rf83-w775"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.27.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-hvrp-rf83-w775",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": ">= 1.23.0, <= 1.27.1",
+                    "first_patched_version": "1.27.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP: operaciones sobre tareas experimentales de otras sesiones.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3482",
+                "aliases": [
+                  "GHSA-jpw9-pfvf-9f58",
+                  "CVE-2026-52869"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.27.2"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": "<= 1.27.1",
+                    "first_patched_version": "1.27.2",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP HTTP: vinculación de la sesión al principal autenticado.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              },
+              {
+                "id": "PYSEC-2026-3483",
+                "aliases": [
+                  "CVE-2026-59950",
+                  "GHSA-vj7q-gjh5-988w"
+                ],
+                "severity": "high",
+                "pypi_fix_versions": [
+                  "1.28.1"
+                ],
+                "primary_url": "https://github.com/advisories/GHSA-vj7q-gjh5-988w",
+                "primary_affected_packages": [
+                  {
+                    "package": {
+                      "ecosystem": "pip",
+                      "name": "mcp"
+                    },
+                    "vulnerable_version_range": "< 1.28.1",
+                    "first_patched_version": "1.28.1",
+                    "vulnerable_functions": []
+                  }
+                ],
+                "condition_review": "Servidor MCP WebSocket: validación de Host y Origin.",
+                "status": "path_not_observed_in_project; retained_in_audit; upgrade_unresolved"
+              }
+            ]
+          }
+        ],
+        "raw_report_sha256": "676e83266b596a27f762898e54b5ca548cee985290a9a38beb1f85f952124028"
+      }
+    ],
+    "scope_limit": "Static inspection and upstream conditions; no exploitation test or global safety claim; no IDs suppressed"
+  },
+  "frontend": {
+    "production": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "all": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0
+    },
+    "vendor": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "braces_publication": {
+    "latest": "3.0.3",
+    "3.0.4_published": false
+  },
+  "images": {
+    "schema_version": 1,
+    "captured_at": "2026-10-12T11:29:39.072528+00:00",
+    "scanner_version_output": "Version: 0.75.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-10-12 09:47:21.509023105 +0000 UTC\n  NextUpdate: 2026-10-13 09:47:21.509022788 +0000 UTC\n  DownloadedAt: 2026-10-12 11:29:12.185749432 +0000 UTC\n",
+    "images": [
+      {
+        "label": "lab-mariadb",
+        "scope": "recommended",
+        "requested_reference": "mariadb:10.11",
+        "status": "scanned",
+        "repo_digests": [
+          "mariadb@sha256:7db29378d4fdab73f8123bbc2b48905c90d1a4b00cf848b028f1e81e623257f2"
+        ],
+        "image_id": "sha256:41096ae9913468679bb5e05bbc19f44edcaf0eae45d67fcde224ffdeda9d3a1f",
+        "os": {
+          "Family": "ubuntu",
+          "Name": "22.04"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 25,
+          "LOW": 28,
+          "MEDIUM": 39,
+          "UNKNOWN": 5
+        },
+        "distinct_vulnerability_ids": 86,
+        "entries_with_fix": 68,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "21a0a4e04e34e4652e1229559b11da74ae039cf3e319656760dc0e6a0d3cc51b",
+        "total_package_entries": 98
+      },
+      {
+        "label": "lab-dvwa",
+        "scope": "recommended",
+        "requested_reference": "ghcr.io/digininja/dvwa:b496a5d",
+        "status": "scanned",
+        "repo_digests": [
+          "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6"
+        ],
+        "image_id": "sha256:7c65cc0145a5c4d3e8fcd226b37c46df6d041d76eaa9f83e7eb067beb5f89e40",
+        "os": {
+          "Family": "debian",
+          "Name": "13.6"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 15,
+          "HIGH": 257,
+          "LOW": 1151,
+          "MEDIUM": 2131,
+          "UNKNOWN": 17
+        },
+        "distinct_vulnerability_ids": 2660,
+        "entries_with_fix": 1442,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "54098890f852b4b56116c1d6680487ad8082861e6eff48620020c01fdd1697a7",
+        "total_package_entries": 3571
+      },
+      {
+        "label": "lab-mailpit",
+        "scope": "recommended",
+        "requested_reference": "axllent/mailpit:v1.31.1",
+        "status": "scanned",
+        "repo_digests": [
+          "axllent/mailpit@sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365"
+        ],
+        "image_id": "sha256:eb6a74c41b32eb13f088b299bfc73677a9c6583d551620db150607c62f481675",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.1"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 4,
+          "LOW": 1,
+          "MEDIUM": 8,
+          "UNKNOWN": 7
+        },
+        "distinct_vulnerability_ids": 15,
+        "entries_with_fix": 19,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "5da2e74ca58e42a943db553c4b2e360533db7eac524348fea0c67d8f2aaf23ef",
+        "total_package_entries": 20
+      },
+      {
+        "label": "legacy-mysql",
+        "scope": "legacy",
+        "requested_reference": "mysql:8.0",
+        "status": "scanned",
+        "repo_digests": [
+          "mysql@sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b"
+        ],
+        "image_id": "sha256:6cd09145362dfe6831b14545de3d5fd6cc75c37cfd6ef8561429c1fc73518b39",
+        "os": {
+          "Family": "oracle",
+          "Name": "9.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 100,
+          "LOW": 10,
+          "MEDIUM": 139,
+          "UNKNOWN": 5
+        },
+        "distinct_vulnerability_ids": 204,
+        "entries_with_fix": 254,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "bde39880a26df906c91bf81dcaedababa2169fb74c3ffc649c37b3c1caf064ad",
+        "total_package_entries": 255
+      },
+      {
+        "label": "legacy-dvwa",
+        "scope": "legacy",
+        "requested_reference": "vulnerables/web-dvwa:latest",
+        "status": "scanned",
+        "repo_digests": [
+          "vulnerables/web-dvwa@sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7"
+        ],
+        "image_id": "sha256:ab0d83586b6e8799bb549ab91914402e47e3bcc7eea0c5cdf43755d56150cc6a",
+        "os": {
+          "Family": "debian",
+          "Name": "9.5",
+          "EOSL": true
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 254,
+          "HIGH": 551,
+          "LOW": 116,
+          "MEDIUM": 642,
+          "UNKNOWN": 12
+        },
+        "distinct_vulnerability_ids": 439,
+        "entries_with_fix": 1380,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "a2d7f56d05fac1507b9b876c59c20e5a45e23d8805263f5418d0ac1d37070093",
+        "total_package_entries": 1575
+      },
+      {
+        "label": "legacy-python",
+        "scope": "legacy",
+        "requested_reference": "python:3.11-slim",
+        "status": "scanned",
+        "repo_digests": [
+          "python@sha256:e88e9763f943ec1834f992a4b51e0f24500486803e8bc534e5767af9ea65f6ce"
+        ],
+        "image_id": "sha256:541096ae9b05d3b850341b78790e2ed31e94d5aa0ea086933c6ff0c09ffa2e63",
+        "os": {
+          "Family": "debian",
+          "Name": "13.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 46,
+          "LOW": 62,
+          "MEDIUM": 64,
+          "UNKNOWN": 3
+        },
+        "distinct_vulnerability_ids": 82,
+        "entries_with_fix": 11,
+        "counts_are_package_findings_not_proven_exploits": true,
+        "report_sha256": "1c945a739b513dcb8dc8fbaa2b6bbe2122cfb5d6ea93f9aca571ffc0ea89d62c",
+        "total_package_entries": 175
+      }
+    ],
+    "source": "remote_registry",
+    "local_installed_images_not_verified": true,
+    "containers_started": false,
+    "findings_fail_policy": "review_required; all severities retained",
+    "code_commit": "3ea20a95214f32c1f748986f4f84dbec5a498395",
+    "run_id": 38242912010,
+    "artifact_id": 11744271076,
+    "scanner_archive_sha256": "c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f",
+    "run_url": "https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38242912010"
+  },
+  "no_provider_calls_notifications_or_operational_restarts": true
+}

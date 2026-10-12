@@ -283,10 +283,10 @@ runners; no acredita Parrot ni arranque/proxy Next en Linux.
 
 ## Cierre de distribución pendiente
 
-- Freeze/pines Linux adicionales y auditorías; Windows/Ubuntu CI y el ensayo
-  guiado de instalación/lectura Parrot aprobados dentro de sus respectivos alcances.
-- Verificar en Parrot la nueva entrada simplificada, ya aprobada en Windows/
-  Ubuntu CI; la preparación de requisitos globales sigue siendo un paso previo.
+- Auditorías actualizadas y escaneo efectivo de imágenes completados;
+  [seguridad residual](SEGURIDAD_2026_10_12.md) conserva migraciones/actualizaciones pendientes.
+- Freeze/pines Linux y entrada simplificada comprobados también en Parrot;
+  la preparación de requisitos globales sigue siendo un paso previo.
 - Laboratorio Docker, ingesta y análisis real en la VM Parrot.
 - Cierre de calidad/observación A-05 y diagnóstico del motor operativo.
 - Procedimiento definitivo de arranque/análisis, conservación y recuperación.
