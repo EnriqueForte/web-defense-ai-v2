@@ -46,3 +46,5 @@ build/
 .p3/
 # Fresh installation rehearsal, short path for Windows dependency assets.
 .i1/
+# Isolated CrewAI migration candidate; never an operational environment.
+.p4/

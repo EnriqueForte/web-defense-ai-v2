@@ -71,11 +71,11 @@ class InstallationTests(TestCase):
             install.assert_not_called()
             configure.assert_not_called()
 
-    def test_shared_pins_match_windows_contract_with_platform_markers(self):
+    def test_shared_pins_match_observed_windows_snapshot_with_platform_markers(self):
         for platform in ("win32", "linux"):
             with patch.object(contract.sys, "platform", platform):
                 shared = contract.read_pins(setup.ROOT / "constraints-py311.txt")
-                historical = contract.read_pins(setup.ROOT / "constraints-windows-py311-dependencies-20261010.txt")
+                historical = contract.read_pins(setup.ROOT / "constraints-windows-py311-crewai-20261012.txt")
                 if platform == "linux":
                     historical["uvloop"] = "0.23.0"
                 self.assertEqual(shared, historical)

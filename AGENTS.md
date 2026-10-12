@@ -2,6 +2,22 @@
 
 ## Alcance actual
 
+Migración CrewAI local12/10/2026: .p4 aislado172pines/0diferencias/0extras,
+13versionesactualizadas/14adiciones;CrewAI1.15.27,core/cli1.15.27,LiteLLM1.105.0,
+jsonrepair0.60.1,MCP1.28.1,Chroma1.5.9,pydanticsettings2.14.2,OTEL1.42/0.63b0.
+Auditoría completa172:5entradas/4IDs Chroma sinfix;antes36/22/cuatro paquetes,
+sin supresión ni cierreglobalseguridad. PrimerLitellm1.96.2/166 rechazadooffline
+porcl100kfaltante enwheel:socketbloqueado,ningunaconexión;1.105wheel/hashasset
+verificadoy25SDKofflinepasaron,sin tokenizadordoble/cachéglobal preparada.
+298casosWindows297aprobados1Linuxomitido,3JS;adaptadores8192/60 y HTTPsintético,
+82sintaxis/diff,10testsinstalación repetidos. Contrato común/snapshotWindowsnuevo
+actualizados,old snapshotsconservados; .p2/.p3/.venv paquetesintactos,.p3drift27.
+29jobs14entregas0activos/hashlog/publicación/.envmetadatos antes/después iguales.
+Sin serviciosoperativos/LLM/Docker/envíos; .p4noactivado. PendientesCIlimpiaWin/
+Ubuntu y actualizaciónParrot, calidadA05/Chroma/braces/imágenes independientes.
+Registro docs/MIGRACION_CREWAI_2026_10_12.md,recibosmigration-20261012ignorados.
+Entradas inferiores históricas.
+
 Auditorías/escaneo efectivo completados12/10/2026: código3ea20a9
 (3ea20a95214f32c1f748986f4f84dbec5a498395), scanrun38242912010attempt1success,
 6referenciaslinuxamd64/digests/reportesverificados,artifact11744271076descargado.
