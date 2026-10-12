@@ -55,8 +55,8 @@ Quedan acreditados instalación, pruebas offline, build, arranque y lectura en
 esta VM Parrot. No se acredita Docker/DVWA, ingesta ni análisis real en Parrot,
 otras distribuciones/versiones/arquitecturas o calidad semántica A-05.
 El [seguimiento del contrato Linux](CONTRATO_LINUX_2026_10_12.md) capturó el
-inventario completo Ubuntu y fijó `uvloop==0.23.0`. Falta verificar el inventario
-completo y esa versión en esta VM; no se atribuye el freeze Ubuntu a Parrot.
+inventario completo Ubuntu y fijó `uvloop==0.23.0`. La comprobación posterior
+del inventario en esta VM también pasó, según el apartado final.
 
 La batería de pruebas pertenece a la validación de desarrollo. Para usuarios,
 el instalador unificado posterior automatiza dependencias y build, pero requiere
@@ -104,5 +104,18 @@ del ajuste en esta VM, con esos límites de evidencia. El último estado visible
 es consola detenida y preflight preparado; no se afirma servicio activo.
 
 La instalación, lectura entre vistas, arranque y cierre del flujo unificado quedan
-aceptados en esta VM. Docker/ingesta/análisis real y dependencias adicionales Linux
-siguen fuera de esta validación.
+aceptados en esta VM. Docker/ingesta/análisis real siguen fuera de esta validación;
+el inventario Linux se comprobó posteriormente.
+
+## Contrato completo e inventario de dependencias
+
+Nueva captura del usuario: commit `86c21b5`, con main/originmain/originHEAD
+coincidentes. `.p2/bin/python -m pip check` termina sin requisitos rotos;
+`check_environment.py --strict` informa158pines/0diferencias/0adicionalessinfixar;
+`snapshot_environment.py` informa instantánea158/0diferencias/0adicionales.
+
+El contrato Linux completo y la exportación del inventario quedan comprobados en
+esta VM, incluyendo uvloop0.23.0 por la validación estricta. No se recibieron
+los archivos exportados ni su hash desde la VM: la evidencia recibida es la
+captura de ejecución satisfactoria. El freeze Ubuntu conservado sigue siendo
+evidencia independiente. No fue necesario reinstalar paquetes para esta prueba.

@@ -43,8 +43,9 @@ en Linux; `uvloop==0.23.0` queda fijado solo para Linux desde el 12/10.
 La instalación comprueba también paquetes adicionales con `--strict`.
 La [captura completa verificada de Ubuntu CI](CONTRATO_LINUX_2026_10_12.md)
 contiene 158 distribuciones, sin diferencias ni adicionales fuera del contrato;
-Windows conserva sus 158 versiones. La comprobación completa en Parrot sigue
-pendiente y no se deduce de la instalación de Ubuntu.
+Windows conserva sus 158 versiones. El usuario comprobó después el inventario
+estricto y la exportación en Parrot7.3: 158 paquetes, cero diferencias y cero
+adicionales, según la evidencia de esa VM en el seguimiento enlazado.
 
 ## Preparar una instalación nueva
 

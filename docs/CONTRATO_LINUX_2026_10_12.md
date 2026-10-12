@@ -40,7 +40,7 @@ No es un lockfile de artefactos binarios con hashes ni acredita todas las arquit
   faltantes/deriva/duplicados, rechazo de URLs sin salida sensible y ruta de exportación.
 
 Recibos locales `.local-state/linux-contract-20261012/`. La comprobación final
-del inventario en la VM Parrot sigue pendiente; resultados remotos abajo.
+del inventario en Parrot se completó después, según la captura descrita al final.
 No se han instalado paquetes ni arrancado servicios operativos Windows por esta
 entrega. Sin proveedor, análisis real, Docker o notificaciones.
 
@@ -73,8 +73,8 @@ Ambos runners completaron instalación/build, pip check/contrato estricto,
 snapshot, 80 archivos sintaxis, tres JS, HTTP sintético, 25 SDK offline,
 lint/tipos/15 UI y smoke API directa/proxy200,ejecutoroffline,cierrepuertoslibres.
 Ubuntu aprobó295Python; Windows294 y omitió el caso Linux específico. La captura
-y pin adicional Linux quedan completados para Ubuntu; verificar el mismo
-inventario en Parrot sigue pendiente. La actualización siguiente guarda recibos
+y pin adicional Linux quedan completados para Ubuntu. La comprobación posterior
+del inventario Parrot también pasó, según el registro inferior. La actualización que guardó recibos
 y documentación con `[skip ci]`; no se atribuye otra CI a ese commit.
 
 ## Comprobación en Parrot después de publicar
@@ -91,3 +91,24 @@ git pull --ff-only
 La comprobación esperada es 158 pines, cero diferencias y cero adicionales.
 Si uvloop difiere o falta, revisar primero la salida antes de modificar el entorno.
 El freeze obtenido de Ubuntu no se atribuye automáticamente a la VM del usuario.
+
+## Confirmación en Parrot
+
+El usuario aportó una captura del clon actualizado a `86c21b5` con `HEAD -> main`,
+`origin/main` y `origin/HEAD` coincidentes. Se muestran las tres órdenes y resultados:
+
+- `pip check`: No broken requirements found.
+- `check_environment.py --strict`: 158 paquetes fijados, cero diferencias y
+  cero paquetes adicionales sin fijar.
+- `snapshot_environment.py`: instantánea de 158 paquetes, cero diferencias y
+  cero adicionales sin fijar.
+
+El contrato Linux, incluido uvloop0.23.0, pasó la comprobación estricta en esa VM.
+La salida del exportador acredita su comparación freeze/metadatos/contrato y
+exportación satisfactoria. No se recibieron los archivos del inventario ni su hash
+desde Parrot; no se afirma haber revisado directamente sus bytes ni se le atribuye
+el hash Ubuntu. Python3.11.17 procede de las capturas anteriores del mismo entorno.
+
+Queda completado este pendiente de pines e inventario para Ubuntu CI y la VM
+Parrot probada, conservando las versiones Windows. No amplía el alcance a otras
+distribuciones/arquitecturas, auditorías de seguridad, Docker o análisis real.

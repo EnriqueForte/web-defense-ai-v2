@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+Contrato/inventario Parrot completado 12/10/2026: capturausuario verifica
+86c21b5/main/originmain/originHEAD, pipcheckcorrecto,158pines0diferencias0extras
+con check_environment--strict y snapshot158/0diferencias/0adicionales. uvloop0.23.0
+queda verificado mediante contratoestricto; no reinstalación solicitada. No se
+recibieron archivosfreeze/hashVM, no afirmar revisión de sus bytes ni atribuir
+hashUbuntu. Python3.11.17 consta en evidencia anterior del mismoentorno.
+Pendiente pines/inventarioLinux cerrado para UbuntuCI y estaVMParrot, sin ampliar
+soporte general ni cierreseguridad. Quedan avisosdependencias/escaneoimágenes/
+calidadsemánticaA05 y laboratorioingestarealVM independientes. Sin servicios/
+paquetes/datos operativosWindows modificados ni LLM/Docker/envíos nuevos.
+Actualización solo documental [skip ci], código probado sigue8cd7310/run38239653979.
+Registros docs/CONTRATO_LINUX_2026_10_12.md y docs/VALIDACION_PARROT_2026_10_12.md.
+Entradas inferiores históricas.
+
 Contrato Linux publicado/CI/inventarios completos verificados 12/10/2026:
 commit8cd7310 (8cd7310366af66066949ea0a8a03b4ae6505cef9),run38239653979/attempt1,
 Windows-latest/Ubuntu24.04completedsuccess. Artefactosdescargados freeze--all y
