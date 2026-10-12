@@ -1,0 +1,89 @@
+"""Scan declared image references remotely; never start containers or use local Docker."""
+import argparse
+from collections import Counter
+from datetime import datetime, timezone
+import json
+from pathlib import Path
+import re
+import subprocess
+
+IMAGES = {
+    "lab-mariadb": ("recommended", "mariadb:10.11"),
+    "lab-dvwa": ("recommended", "ghcr.io/digininja/dvwa:b496a5d"),
+    "lab-mailpit": ("recommended", "axllent/mailpit:v1.31.1"),
+    "legacy-mysql": ("legacy", "mysql:8.0"),
+    "legacy-dvwa": ("legacy", "vulnerables/web-dvwa:latest"),
+    "legacy-python": ("legacy", "python:3.11-slim"),
+}
+
+
+def summarize_report(label, report):
+    scope, reference = IMAGES[label]
+    if report.get("SchemaVersion") != 2 or report.get("ArtifactType") != "container_image" or report.get("ArtifactName") != reference:
+        raise ValueError("Unsupported image report")
+    metadata = report["Metadata"]
+    digests = metadata.get("RepoDigests", [])
+    if not digests or not all(re.fullmatch(r"[^\s@]+@sha256:[a-f0-9]{64}", value) for value in digests):
+        raise ValueError("Image report lacks resolved digests")
+    counts = Counter()
+    ids = set()
+    fixed_entries = 0
+    for result in report.get("Results", []):
+        for vulnerability in result.get("Vulnerabilities", []) or []:
+            counts[vulnerability["Severity"]] += 1
+            ids.add(vulnerability["VulnerabilityID"])
+            fixed_entries += bool(vulnerability.get("FixedVersion"))
+    return {"label": label, "scope": scope, "requested_reference": reference,
+            "status": "scanned", "repo_digests": digests,
+            "image_id": metadata.get("ImageID"), "os": metadata.get("OS"),
+            "platform": "linux/amd64", "entries_by_severity": dict(sorted(counts.items())),
+            "distinct_vulnerability_ids": len(ids), "entries_with_fix": fixed_entries,
+            "counts_are_package_findings_not_proven_exploits": True}
+
+
+def scan(trivy, folder):
+    folder.mkdir(parents=True, exist_ok=True)
+    cache = folder / "cache"
+    version = subprocess.run([trivy, "--version"], capture_output=True, text=True, timeout=30, check=True)
+    (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
+    rows = []
+    for label, (scope, reference) in IMAGES.items():
+        print(f"Escaneando {label}: {reference}", flush=True)
+        destination = folder / f"{label}.json"
+        try:
+            result = subprocess.run([trivy, "image", "--image-src", "remote", "--platform", "linux/amd64",
+                "--scanners", "vuln", "--cache-dir", str(cache), "--timeout", "10m", "--exit-code", "0",
+                "--format", "json", "--output", str(destination), reference],
+                capture_output=True, timeout=660)
+            if result.returncode:
+                raise ValueError("Scanner failed")
+            row = summarize_report(label, json.loads(destination.read_text(encoding="utf-8")))
+        except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError):
+            row = {"label": label, "scope": scope, "requested_reference": reference,
+                   "status": "scan_failed", "no_zero_vulnerabilities_claimed": True}
+        rows.append(row)
+        print(f"Resultado {label}: {row['status']}", flush=True)
+    version = subprocess.run([trivy, "--version"], capture_output=True, text=True, timeout=30, check=True)
+    (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
+    summary = {"schema_version": 1, "captured_at": datetime.now(timezone.utc).isoformat(),
+               "scanner_version_output": version.stdout, "images": rows,
+               "source": "remote_registry", "local_installed_images_not_verified": True,
+               "containers_started": False, "findings_fail_policy": "review_required; all severities retained"}
+    (folder / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    return 1 if any(row["status"] != "scanned" for row in rows) else 0
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--trivy", default="trivy")
+    parser.add_argument("--output-dir", type=Path, default=Path(".local-state/image-audit"))
+    args = parser.parse_args()
+    try:
+        return scan(args.trivy, args.output_dir)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        print("Scanner no disponible; no se acredita auditoría de imágenes.")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

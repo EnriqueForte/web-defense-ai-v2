@@ -17,19 +17,25 @@ y sus pendientes de validación antes de la publicación de una versión final.
 
 ## Estado de esta versión
 
+Consulta el [resumen vigente de pendientes para la versión final](docs/ESTADO_FINAL_2026_10_12.md).
+El lanzador y el contrato completo de158paquetes por plataforma ya pasaron
+Windows/Ubuntu CI y la comprobación guiada en Parrot. Las entradas fechadas
+inferiores conservan estados históricos; los pendientes actuales están en ese resumen.
+
 La [entrada simplificada](docs/INICIO_RAPIDO.md) prepara dependencias y build con
 `python3 webdefense.py install` y arranca Flask/Next en una terminal con
 `python3 webdefense.py start` (Windows: `py` en lugar de `python3`). Requiere
 Python3.11/Node24/pnpm11.19.0 disponibles. Arranque de lectura; análisis y laboratorio
 se configuran aparte. [Validación y límites](docs/INSTALADOR_LANZADOR_2026_10_12.md):
 el nuevo flujo pasó en Windows y Ubuntu CI, incluido cierre con puertos libres.
-El comando unificado en la VM Parrot queda por verificar.
+El comando unificado y el ajuste de puertos también fueron aceptados en Parrot.
 
 La [validación Parrot del 12/10/2026](docs/VALIDACION_PARROT_2026_10_12.md)
 confirma instalación, pruebas offline, build, arranque y API directa/proxy HTTP200.
 El usuario confirmó navegación correcta; faltan fuentes en el clon nuevo.
-Docker, ingesta/análisis real en esa VM e inventario/pines Linux adicionales
-siguen pendientes. Evidencia por capturas y
+Docker e ingesta/análisis real en esa VM siguen pendientes. El inventario/pines
+Linux adicionales se completó después en [el contrato Linux](docs/CONTRATO_LINUX_2026_10_12.md).
+Evidencia por capturas y
 confirmación del usuario, sin acceso remoto a la VM.
 
 La [validación CI del 12/10/2026](docs/VALIDACION_CI_2026_10_12.md) pasó en
@@ -37,7 +43,8 @@ Windows y Ubuntu 24.04 desde checkout e instalación nueva: 269 Python, tres JS,
 25 escenarios SDK, 15 grupos UI, lint/tipos y build. Se corrigió una prueba que
 heredaba destinos de notificación vacíos; el producto conserva ese valor seguro.
 Parrot y el arranque/proxy Linux se comprobaron después, según el registro anterior.
-Queda fijar la dependencia adicional Linux observada en CI (`uvloop`).
+`uvloop==0.23.0` está fijado para Linux y el inventario completo se verificó
+después en ambos runners y Parrot, según el contrato Linux enlazado.
 Los servicios del mantenedor en Windows están detenidos.
 
 El [refresco de indicadores del 11/10/2026](docs/REFRESCO_INDICADORES_2026_10_11.md)

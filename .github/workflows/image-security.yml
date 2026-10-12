@@ -1,0 +1,45 @@
+name: Remote laboratory image inventory
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/image-security.yml
+      - scripts/scan_lab_images.py
+
+permissions:
+  contents: read
+
+jobs:
+  remote-image-scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Download verified Trivy Linux release
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/trivy-tool"
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/trivy-tool/trivy.tar.gz" https://github.com/aquasecurity/trivy/releases/download/v0.75.0/trivy_0.75.0_Linux-64bit.tar.gz
+          echo 'c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f  '"$RUNNER_TEMP/trivy-tool/trivy.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/trivy-tool/trivy.tar.gz" -C "$RUNNER_TEMP/trivy-tool" trivy
+      - name: Scan declared images from remote registries
+        run: python -B scripts/scan_lab_images.py --trivy "$RUNNER_TEMP/trivy-tool/trivy"
+      - name: Save image reports and resolved digests
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: remote-image-security
+          path: |
+            .local-state/image-audit/*.json
+            .local-state/image-audit/scanner-version.txt
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

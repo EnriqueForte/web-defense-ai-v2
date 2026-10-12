@@ -2,6 +2,19 @@
 
 ## Alcance actual
 
+Revisión seguridad iniciada12/10/2026: resumen vigente docs/ESTADO_FINAL_2026_10_12.md
+con seisbloquespendientes (seguridad,A05,recorridoParrot,configE2E,operaciónrecuperación,
+entregafinal); instalación/lanzador/pinesLinux ya cerrados en su alcance.
+Audits158Windows/158Linux,pip-audit2.10.1/PyPI:36entradas/22IDs/cuatro paquetes
+retenidos; primerWindows fallócacheglobal,repetidoaisladoJSONválido. Npmprod/vendor0,
+desarrollo1alto braces,sinparchepublicado3.0.4. CrewAI1.14.3 requierejsonrepair~0.25,
+mcp~1.26,litellm~1.83; migración/revisiónindividualpendiente,no forzaractualizaciones.
+ScannerTrivyLinux0.75.0/hashoficialverificado,workflowUbuntu remoto6referencias
+preparado,digests/severidades/fallos separados,sinDockerlocal/contenedores.3tests
+offline nuevos/82sintaxis aprobados; escaneoreal/CI/publicaciónpendientes.
+Sin motor/LLM/envíos/reiniciooperativo/env leído. Registros docs/SEGURIDAD_2026_10_12.md,
+recibossecurity-20261012ignorados. Entradas inferiores históricas.
+
 Contrato/inventario Parrot completado 12/10/2026: capturausuario verifica
 86c21b5/main/originmain/originHEAD, pipcheckcorrecto,158pines0diferencias0extras
 con check_environment--strict y snapshot158/0diferencias/0adicionales. uvloop0.23.0
