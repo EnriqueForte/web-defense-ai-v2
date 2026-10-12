@@ -10,18 +10,34 @@ La distribución utiliza la licencia MIT existente. El dashboard admite acceso
 local: cada instalación configura sus credenciales y datos. Compartir el código
 no habilita un servicio público del dashboard. Windows/Python 3.11 está validado
 localmente; instalación y pruebas offline también pasan en Windows y Ubuntu
-24.04 en CI. Parrot en VMware y macOS todavía no se han comprobado.
+24.04 en CI. Parrot 7.3 x86_64 en VMware pasó instalación, pruebas y lectura
+mediante validación guiada con el usuario; macOS no se ha comprobado.
 Consulta la [guía de instalación para clonación](docs/INSTALACION_AUTOALOJADA.md)
 y sus pendientes de validación antes de la publicación de una versión final.
 
 ## Estado de esta versión
 
+La [entrada simplificada](docs/INICIO_RAPIDO.md) prepara dependencias y build con
+`python3 webdefense.py install` y arranca Flask/Next en una terminal con
+`python3 webdefense.py start` (Windows: `py` en lugar de `python3`). Requiere
+Python3.11/Node24/pnpm11.19.0 disponibles. Arranque de lectura; análisis y laboratorio
+se configuran aparte. [Ensayo Windows y límites](docs/INSTALADOR_LANZADOR_2026_10_12.md);
+la nueva matriz CI y el comando unificado en Parrot quedan por verificar.
+
+La [validación Parrot del 12/10/2026](docs/VALIDACION_PARROT_2026_10_12.md)
+confirma instalación, pruebas offline, build, arranque y API directa/proxy HTTP200.
+El usuario confirmó navegación correcta; faltan fuentes en el clon nuevo.
+Docker, ingesta/análisis real en esa VM e inventario/pines Linux adicionales
+siguen pendientes. Evidencia por capturas y
+confirmación del usuario, sin acceso remoto a la VM.
+
 La [validación CI del 12/10/2026](docs/VALIDACION_CI_2026_10_12.md) pasó en
 Windows y Ubuntu 24.04 desde checkout e instalación nueva: 269 Python, tres JS,
 25 escenarios SDK, 15 grupos UI, lint/tipos y build. Se corrigió una prueba que
 heredaba destinos de notificación vacíos; el producto conserva ese valor seguro.
-Quedan Parrot en VMware, arranque/proxy Next en Linux y fijar la dependencia
-adicional Linux observada (`uvloop`). Los servicios locales están detenidos.
+Parrot y el arranque/proxy Linux se comprobaron después, según el registro anterior.
+Queda fijar la dependencia adicional Linux observada en CI (`uvloop`).
+Los servicios del mantenedor en Windows están detenidos.
 
 El [refresco de indicadores del 11/10/2026](docs/REFRESCO_INDICADORES_2026_10_11.md)
 actualiza el resumen al observar una nueva ingesta/publicación y muestra la fecha
@@ -33,7 +49,7 @@ una publicación nueva puede mantener la misma distribución.
 La [instalación limpia Windows del 11/10/2026](docs/INSTALACION_LIMPIA_WINDOWS_2026_10_11.md)
 pasó instalación, pruebas offline, build, producción/proxy y retorno en una copia
 local sin entornos ni datos anteriores. El checkout e instalación Windows/Ubuntu
-en CI se acreditaron después; Parrot sigue pendiente.
+en CI y el ensayo guiado Parrot se acreditaron después.
 Después se aplicó la [corrección de formato del análisis manual](docs/CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md):
 JSON nativo solicitado a OpenRouter y validación local sin conversión parcial
 de CrewAI. Pasaron 25 escenarios SDK offline; no se repitió el proveedor real.
@@ -387,7 +403,8 @@ La [guía de instalación Windows y Linux](docs/INSTALACION_AUTOALOJADA.md) util
 un instalador Python común y comandos de arranque para ambos sistemas.
 La [matriz de compatibilidad](docs/PORTABILIDAD_WINDOWS_LINUX_2026_10_07.md)
 pasó posteriormente en [Windows y Ubuntu 24.04](docs/VALIDACION_CI_2026_10_12.md).
-Parrot en VMware y el arranque/proxy Next en Linux siguen pendientes.
+El [ensayo guiado Parrot](docs/VALIDACION_PARROT_2026_10_12.md) acredita después
+instalación y lectura en esa VM, incluido el arranque/proxy Next.
 
 El [endurecimiento del retorno local](docs/ENDURECIMIENTO_RETORNO_LOCAL_2026_10_07.md)
 incorpora recursos Flask locales con licencias e integridad verificadas, elimina

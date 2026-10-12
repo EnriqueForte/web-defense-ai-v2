@@ -2,6 +2,41 @@
 
 ## Alcance actual
 
+Entrada simplificada implementada localmente 12/10/2026: webdefense.py
+install/start/check, descubrimientoPython3.11/venv/ensurepip y requisitos
+Node>=24/pnpm11.19.0 antes de mutación. Instala contrato/frontend/build y
+preserva .env; bloquea puertos, operación/trabajos activos y concurrencia.
+Start usa .p2/pilot/legacy lectura, comprueba build/proxy/contrato y espera
+Flask5000/Next3000 HTTP200. Sin worker/manual/LLM/Docker/envíos; structured
+solo opción de lectura. Dueño de procesos WindowsJob/compuerta y gruposPOSIX,
+limpieza por caída/timeout/Ctrl+C, logs ignorados por ejecución.
+285Python/3JS,77sintaxis/diff aprobados .p3; instalación completa reutilizando
+copia aislada .i1 y buildNext16.3.8 pasó con pnpm11.19.0 aislado. Smoke real
+en .i1 confirmó APIs200/ejecutoroffline/cierre puertoslibres; no atribuir
+instalación desde cero a este ensayo. 29jobs/14entregas/hashes/.envmetadatos
+operativos preservados, no serviciosWindows operativos iniciados. Workflow
+actualizado para nuevo flujo, ejecución CI/publicación/nuevo comando Parrot
+pendientes. Herramientas globales todavía requieren preparación del usuario.
+Registros docs/INICIO_RAPIDO.md y docs/INSTALADOR_LANZADOR_2026_10_12.md;
+recibos .local-state/launcher-20261012. Cambios locales sin commit/push de
+esta entrega; aceptación Parrot previa solo cubre arranque separado df40ad8.
+
+Validación guiada Parrot completada 12/10/2026 para instalación/lectura: usuario
+en VMware26.0.1, Parrot7.3echo/x86_64, clon local df40ad8/main/originmain.
+Capturas confirman Python3.11.17/Node24.21.0/npm11.19.0/pnpm11.19.0,
+pipcheck correcto157pines/0diferencias,269Python/3JS/25SDKoffline,HTTPsintético,
+lint/tipos/15UI/buildNext16.3.8; salida sintaxis no visible, no atribuirla.
+APIFlask5000 y proxyNext3000 HTTP200; usuario acepta cuatro vistas y Resumen
+visible, fuentes incompletas por clon vacío. 500 inicial era Flask inaccesible,
+resuelto al arrancarlo sin cambio código. Perfilpilot/legacy/manual0/destinos
+vacíos, sin worker/LLM/Docker/envíos solicitados. Evidencia facilitada por usuario,
+no acceso directoVM/logscompletos. TerminalesVM dejadas abiertas, continuidad no
+verificada; serviciosWindows no iniciados aquí. Docker/ingesta/análisis realVM,
+freeze/pines extraLinux y simplificación primerarranque siguen pendientes.
+Registro docs/VALIDACION_PARROT_2026_10_12.md. No afirmar automatización de
+prerrequisitos/build/arranque completa; esta entrega solo documenta evidencia.
+Estados anteriores que dicen Parrot pendiente son históricos.
+
 Validación CI completada 12/10/2026: run38224024703/attempt1 del commit
 96d190c56109504c9475edf1f9bbe59ec0d078bd, Windows-latest y Ubuntu24.04
 completed/success. Checkout/instalación nueva, pipcheck/contrato Windows158 y

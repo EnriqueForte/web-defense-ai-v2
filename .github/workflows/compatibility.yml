@@ -36,8 +36,8 @@ jobs:
           node-version: "24"
       - name: Install frontend package manager
         run: npm install --global pnpm@11.19.0
-      - name: Install from shared contract
-        run: python -B scripts/setup_installation.py --install --frontend
+      - name: User installation and production build
+        run: python -B webdefense.py install
       - name: Offline Python and browser contracts
         shell: bash
         run: |
@@ -46,10 +46,14 @@ jobs:
           "$PYTHON" -B scripts/check_baseline.py
           "$PYTHON" -B scripts/check_local_http.py
           "$PYTHON" -B scripts/check_structured_prototype.py
-      - name: Frontend validation and production build
+      - name: Frontend validation
         working-directory: frontend
         run: |
           pnpm run lint
           pnpm exec tsc --noEmit
           pnpm run test:ui
-          pnpm run build
+      - name: Unified launcher and shutdown
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then PYTHON=.p2/Scripts/python.exe; else PYTHON=.p2/bin/python; fi
+          "$PYTHON" -B scripts/check_application_start.py --isolated-root .

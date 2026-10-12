@@ -10,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def installation_plan(root=ROOT, *, platform=None, frontend=False):
+def installation_plan(root=ROOT, *, platform=None, frontend=False, build=False):
     platform = platform or sys.platform
     if platform not in {"win32", "linux"}:
         raise ValueError("Solo Windows y Linux están contemplados")
@@ -33,11 +33,15 @@ def installation_plan(root=ROOT, *, platform=None, frontend=False):
         [str(interpreter), "-B", str(root / "scripts/check_environment.py")],
     ])
     frontend_commands = []
+    if build and not frontend:
+        raise ValueError("El build requiere --frontend")
     if frontend:
         pnpm = shutil.which("pnpm")
         if pnpm is None:
             raise ValueError("Instala pnpm 11.19.0 y Node 24 antes de usar --frontend")
         frontend_commands = [[pnpm, "install", "--frozen-lockfile"]]
+        if build:
+            frontend_commands.append([pnpm, "run", "build"])
     return {"platform": platform, "cwd": str(root), "python": str(interpreter),
             "commands": commands, "frontend_commands": frontend_commands,
             "frontend_cwd": str(root / "frontend")}
@@ -55,7 +59,8 @@ def execute(plan):
     for command in plan["commands"]:
         subprocess.run(command, cwd=plan["cwd"], check=True)
     for command in plan["frontend_commands"]:
-        subprocess.run(command, cwd=plan["frontend_cwd"], check=True)
+        subprocess.run(command, cwd=plan["frontend_cwd"], check=True,
+                       env={**os.environ, "NEXT_TELEMETRY_DISABLED": "1", "WEB_DEFENSE_API_PORT": "5000"})
 
 
 def initialize_env(root=ROOT):
@@ -75,6 +80,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--install", action="store_true", help="crear/reutilizar .p2 e instalar dependencias fijadas")
     parser.add_argument("--frontend", action="store_true", help="incluir pnpm install --frozen-lockfile")
+    parser.add_argument("--build", action="store_true", help="compilar la interfaz para el arranque de producción")
     parser.add_argument("--init-env", action="store_true", help="con --install: crear .env solo si no existe")
     args = parser.parse_args()
     try:
@@ -82,12 +88,14 @@ def main():
             raise ValueError("Ejecuta este instalador con Python 3.11")
         if args.init_env and not args.install:
             raise ValueError("--init-env requiere --install")
-        plan = installation_plan(frontend=args.frontend)
+        plan = installation_plan(frontend=args.frontend, build=args.build)
         print(json.dumps(plan, indent=2, ensure_ascii=False), flush=True)
         if args.install:
             execute(plan)
             if args.init_env:
                 print(initialize_env())
+            if args.build:
+                print("Instalación completada. Inicia con: python webdefense.py start")
         return 0
     except (OSError, ValueError, subprocess.CalledProcessError) as error:
         print(f"Instalación no completada: {error}", file=sys.stderr)

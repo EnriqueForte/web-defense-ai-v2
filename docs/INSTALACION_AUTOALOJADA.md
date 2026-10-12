@@ -1,10 +1,15 @@
 # Instalación propia desde GitHub — Windows y Linux
 
+Para usuarios nuevos, consulta [Inicio rápido](INICIO_RAPIDO.md): instalación
+con `webdefense.py install` y arranque en una terminal con `webdefense.py start`.
+Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado.
+
 Ensayo limpio local Windows del 11/10/2026 aprobado sobre una copia del código
 actual sin entornos ni datos del mantenedor: [evidencia y límites](INSTALACION_LIMPIA_WINDOWS_2026_10_11.md).
 Checkout e instalación nueva en Windows y Ubuntu 24.04 aprobados en GitHub
 Actions el 12/10/2026: [evidencia CI y límites](VALIDACION_CI_2026_10_12.md).
-Parrot en VMware y arranque/proxy Next en Linux continúan pendientes.
+Parrot 7.3 x86_64 en VMware pasó instalación, pruebas offline, build y lectura
+con API directa/proxy HTTP200: [ensayo guiado del 12/10](VALIDACION_PARROT_2026_10_12.md).
 
 Contrato actualizado el 10/10/2026: [Paso 1 Dependencias](DEPENDENCIAS_2026_10_10.md).
 El instalador prepara pip/setuptools desde `requirements-bootstrap.txt` antes
@@ -17,8 +22,8 @@ en CI se limita a Ubuntu 24.04 x86_64.
 
 Objetivo: clonar web-defense-ai V2 y usarlo en el entorno de cada persona.
 El destino es EnriqueForte/web-defense-ai-v2; el código está publicado y el
-checkout limpio pasó en CI. La versión final y el ensayo en Parrot siguen
-pendientes. No se cambió la visibilidad del
+checkout limpio pasó en CI. La versión final sigue pendiente; el ensayo guiado
+Parrot acreditó instalación y lectura. No se cambió la visibilidad del
 repositorio en esta entrega. Se conserva la licencia MIT de LICENSE.
 
 ## Entorno comprobado
@@ -29,7 +34,8 @@ solo para el laboratorio DVWA, no para pruebas aisladas o lectura de la consola.
 El soporte Linux contempla Parrot OS x86_64 en VMware como caso de uso del usuario
 y Ubuntu 24.04 x86_64 como entorno inicial de CI, con Python 3.11 y Docker Engine
 con Compose v2 para el laboratorio. La instalación y pruebas offline pasaron en
-Ubuntu CI; faltan Parrot, arranque/proxy Next en Linux y laboratorio Docker allí.
+Ubuntu CI y Parrot 7.3 en la VM del usuario; allí también pasó arranque/proxy Next.
+El laboratorio Docker, ingesta y análisis real en esa VM siguen pendientes.
 No se afirma soporte de todas las distribuciones Linux, ARM o macOS.
 Ambos sistemas utilizan `constraints-py311.txt`; las instantáneas con nombre
 Windows se mantienen como evidencia histórica. Los marcadores excluyen pywin32
@@ -75,9 +81,9 @@ pnpm --version
 
 Si falta una herramienta, prepararla según esa versión de Parrot; no asumir
 que su `python3` predeterminado es 3.11 ni añadir repositorios Ubuntu a Parrot.
-Después utiliza los comandos Linux de esta guía. La aceptación pendiente en
-Parrot/VMware incluye instalación nueva, pip check/pines, pruebas offline,
-arranque HTTP sintético, build Next y lectura desde el navegador de la VM.
+Después utiliza los comandos Linux de esta guía. La aceptación realizada en
+Parrot 7.3/VMware incluye instalación nueva, pip check/pines, pruebas offline,
+HTTP sintético, build Next y lectura desde el navegador de esa VM.
 El laboratorio Docker se comprueba aparte, sin llamadas LLM rutinarias.
 
 Después de que la versión esté publicada/accesible, desde PowerShell:
@@ -273,8 +279,11 @@ runners; no acredita Parrot ni arranque/proxy Next en Linux.
 
 ## Cierre de distribución pendiente
 
-- Ensayo de instalación/uso en Parrot, arranque/proxy Next en Linux, freeze/pines
-  Linux adicionales y auditorías pendientes; Windows/Ubuntu CI y sus builds aprobados.
+- Freeze/pines Linux adicionales y auditorías; Windows/Ubuntu CI y el ensayo
+  guiado de instalación/lectura Parrot aprobados dentro de sus respectivos alcances.
+- Verificar en CI y Parrot la nueva entrada simplificada; la preparación de
+  requisitos globales sigue siendo un paso previo del usuario.
+- Laboratorio Docker, ingesta y análisis real en la VM Parrot.
 - Cierre de calidad/observación A-05 y diagnóstico del motor operativo.
 - Procedimiento definitivo de arranque/análisis, conservación y recuperación.
 - Completar auditoría de archivos/historial; la revisión acotada previa al push
