@@ -2,6 +2,18 @@
 
 ## Alcance actual
 
+Contrato Linux ampliado localmente 12/10/2026: uvloop0.23.0 observado antes en
+Ubuntu ahora fijado con marcadorlinux en requirements/constraints;158pines por
+plataforma,Windowsversionesintactas. Instaladorcomprueba--strict y rechaza extras
+sin borrar; snapshot_environment compara metadatos completos/pipfreeze--all/
+contrato y exporta solo nombresversiones/conteos/hash a estadoignorado. CI guarda
+dos archivos explícitos porOS como artefactos30días.294PythonWindowsaprobados/
+1Linuxomitido,3JS,80sintaxis/diff; freezeWindows158/0diferencias/0extras.
+Pendientes publicación/CIUbuntu y capturaLinux real, después comprobaciónParrot.
+No paquetes/servicios operativosWindows modificados, sin análisis/LLM/Docker/envíos.
+Registro docs/CONTRATO_LINUX_2026_10_12.md; recibos linux-contract-20261012 ignorados.
+Entradas inferiores históricas.
+
 Aceptación Parrot del ajuste de puertos 12/10/2026: tras indicar pull a e1f7383
 (docs; códigoCI2a73ff0), usuario confirma «perfecto ya funciona correctamente».
 Captura check preparado/start consola lista/Ctrl+C consola detenida/check preparado,

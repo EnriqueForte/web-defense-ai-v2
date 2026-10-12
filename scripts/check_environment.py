@@ -1,12 +1,12 @@
 """Compare installed package metadata with pinned files without importing engines."""
 import argparse
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError, version, distributions
 from pathlib import Path
 import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PIN = re.compile(r'''^([A-Za-z0-9_.-]+)(?:\[[A-Za-z0-9_.,-]+\])?==([^\s;]+)(?:;\s*sys_platform\s*==\s*["']win32["'])?$''')
+PIN = re.compile(r'''^([A-Za-z0-9_.-]+)(?:\[[A-Za-z0-9_.,-]+\])?==([^\s;]+)(?:;\s*sys_platform\s*==\s*(["'])(win32|linux)\3)?$''')
 
 
 def read_pins(path, chain=()):
@@ -24,7 +24,7 @@ def read_pins(path, chain=()):
             match = PIN.fullmatch(line)
             if match is None:
                 raise ValueError(f"Requisito no fijado o no admitido: {path.name}:{number}")
-            if ";" in line and sys.platform != "win32":
+            if match[4] and sys.platform != match[4]:
                 continue
             name = re.sub(r"[-_.]+", "-", match[1]).lower()
             incoming = {name: match[2]}
@@ -47,10 +47,26 @@ def compare(pins):
     return failures
 
 
+def installed_pins():
+    """Only names/versions, never direct URLs, paths, credentials or imports."""
+    pins = {}
+    for distribution in distributions():
+        name = distribution.metadata.get("Name", "")
+        value = distribution.version
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", name) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9.!+_-]*", value):
+            raise ValueError("Metadatos de paquete no admitidos")
+        name = re.sub(r"[-_.]+", "-", name).lower()
+        if name in pins:
+            raise ValueError(f"Paquete duplicado en el entorno: {name}")
+        pins[name] = value
+    return pins
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--requirements", type=Path, default=ROOT / "requirements.txt")
     parser.add_argument("--constraints", type=Path, default=ROOT / "constraints-py311.txt")
+    parser.add_argument("--strict", action="store_true", help="rechazar también paquetes fuera del contrato")
     args = parser.parse_args()
     try:
         pins = read_pins(args.requirements)
@@ -60,14 +76,19 @@ def main():
                 raise ValueError(f"Contrato y constraints difieren para {name}")
             pins[name] = expected
         failures = compare(pins)
+        extras = sorted(set(installed_pins()) - set(pins)) if args.strict else []
     except (OSError, ValueError) as error:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1
     for name, expected, installed in failures:
         print(f"DIFERENCIA {name}: declarado={expected}; instalado={installed}")
     print(f"Entorno: {len(pins)} paquetes fijados; {len(failures)} diferencias.")
+    if args.strict:
+        for name in extras:
+            print(f"ADICIONAL {name}: fuera del contrato")
+        print(f"Inventario completo: {len(extras)} paquetes adicionales sin fijar.")
     print("Solo metadatos; no importa el motor ni contacta servicios.")
-    return 1 if failures else 0
+    return 1 if failures or extras else 0
 
 
 if __name__ == "__main__":

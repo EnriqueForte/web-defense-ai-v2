@@ -30,7 +30,7 @@ def installation_plan(root=ROOT, *, platform=None, frontend=False, build=False):
         [str(interpreter), "-m", "pip", "install", "-r", str(root / "requirements.txt"),
          "-c", str(root / "constraints-py311.txt")],
         [str(interpreter), "-m", "pip", "check"],
-        [str(interpreter), "-B", str(root / "scripts/check_environment.py")],
+        [str(interpreter), "-B", str(root / "scripts/check_environment.py"), "--strict"],
     ])
     frontend_commands = []
     if build and not frontend:

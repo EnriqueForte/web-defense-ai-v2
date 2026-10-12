@@ -75,8 +75,12 @@ class InstallationTests(TestCase):
         for platform in ("win32", "linux"):
             with patch.object(contract.sys, "platform", platform):
                 shared = contract.read_pins(setup.ROOT / "constraints-py311.txt")
-                self.assertEqual(shared, contract.read_pins(setup.ROOT / "constraints-windows-py311-dependencies-20261010.txt"))
+                historical = contract.read_pins(setup.ROOT / "constraints-windows-py311-dependencies-20261010.txt")
+                if platform == "linux":
+                    historical["uvloop"] = "0.23.0"
+                self.assertEqual(shared, historical)
                 self.assertEqual("pywin32" in shared, platform == "win32")
+                self.assertEqual("uvloop" in shared, platform == "linux")
 
     def test_bootstrap_failure_stops_before_application_install_or_frontend(self):
         with TemporaryDirectory() as directory:

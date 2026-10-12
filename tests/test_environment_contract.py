@@ -1,9 +1,12 @@
 """Pin comparison catches drift, extras, includes and missing packages."""
 from importlib.metadata import PackageNotFoundError
+import contextlib
+import io
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 from unittest.mock import patch
+from types import SimpleNamespace
 from scripts import check_environment as contract
 
 
@@ -39,3 +42,28 @@ class EnvironmentContractTests(TestCase):
             path.write_text('pywin32==311; sys_platform == "win32"\n', encoding="utf-8")
             with patch.object(contract.sys, "platform", "linux"):
                 self.assertEqual(contract.read_pins(path), {})
+
+    def test_linux_pin_is_enforced_only_on_linux_and_markers_are_restricted(self):
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "pins.txt"
+            path.write_text('uvloop==0.23.0; sys_platform == "linux"\npywin32==311; sys_platform == "win32"\n')
+            for platform, expected in (("linux", {"uvloop": "0.23.0"}), ("win32", {"pywin32": "311"})):
+                with patch.object(contract.sys, "platform", platform):
+                    self.assertEqual(contract.read_pins(path), expected)
+            for marker in ('sys_platform != "win32"', 'sys_platform == "linux\'', 'os_name == "posix"'):
+                path.write_text("uvloop==0.23.0; " + marker)
+                with self.assertRaises(ValueError):
+                    contract.read_pins(path)
+
+    def test_strict_comparison_rejects_unpinned_packages_without_removing_them(self):
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "pins.txt"
+            path.write_text("example==1\n")
+            with patch.object(contract.sys, "argv", ["check", "--requirements", str(path), "--constraints", str(path), "--strict"]), \
+                    patch.object(contract, "version", return_value="1"), \
+                    patch.object(contract, "distributions", return_value=[
+                        SimpleNamespace(metadata={"Name": "example"}, version="1"),
+                        SimpleNamespace(metadata={"Name": "Unpinned_extra"}, version="2")]), \
+                    contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(contract.main(), 1)
+                self.assertIn("ADICIONAL unpinned-extra", output.getvalue())

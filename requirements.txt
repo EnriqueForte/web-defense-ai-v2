@@ -142,6 +142,7 @@ urllib3==2.8.0
 uuid_utils==0.14.1
 uv==0.11.15
 uvicorn==0.45.0
+uvloop==0.23.0; sys_platform == "linux"
 watchfiles==1.1.1
 websocket-client==1.9.0
 websockets==16.0
