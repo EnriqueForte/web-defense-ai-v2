@@ -80,5 +80,28 @@ La duración de la espera no se midió. No se capturó el estado de sockets dura
 el fallo; TIME_WAIT es una explicación compatible, no una causa probada de ese
 episodio. La [corrección del comprobador](CORRECCION_PUERTOS_2026_10_12.md)
 se publicó como `2a73ff0` y pasó Windows/Ubuntu CI, incluida la regresión real
-de sockets residuales en Ubuntu. Esa corrección todavía no se ha ensayado en la VM.
+de sockets residuales en Ubuntu. Su ensayo posterior en la VM se recoge a continuación.
 No se solicitaron motor, proveedor, Docker ni notificaciones para este recorrido.
+
+## Confirmación posterior del ajuste de puertos
+
+Tras indicar `git pull --ff-only` hasta `e1f7383` (documentación; código probado
+`2a73ff0`) y el recorrido de cierre/comprobación/arranque inmediato, el usuario
+confirmó «perfecto ya funciona correctamente». La captura muestra:
+
+1. `python3 webdefense.py check`: «Preparado».
+2. `python3 webdefense.py start`: «Consola lista» en 127.0.0.1:3000.
+3. Ctrl+C: «Consola detenida».
+4. `python3 webdefense.py check`: «Preparado», sin aviso de puerto ocupado.
+
+Entre comandos aparecen dos intentos de ejecutar una ruta Windows en zsh,
+rechazados como comando inexistente; las órdenes de la herramienta terminan
+correctamente. No se midió la demora entre comandos, ni se recibió la salida
+Git del SHA actualizado. El segundo arranque después del último check no aparece
+en la captura. La aceptación explícita del usuario completa la validación guiada
+del ajuste en esta VM, con esos límites de evidencia. El último estado visible
+es consola detenida y preflight preparado; no se afirma servicio activo.
+
+La instalación, lectura entre vistas, arranque y cierre del flujo unificado quedan
+aceptados en esta VM. Docker/ingesta/análisis real y dependencias adicionales Linux
+siguen fuera de esta validación.

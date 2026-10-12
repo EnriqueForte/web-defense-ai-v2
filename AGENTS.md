@@ -2,6 +2,18 @@
 
 ## Alcance actual
 
+Aceptación Parrot del ajuste de puertos 12/10/2026: tras indicar pull a e1f7383
+(docs; códigoCI2a73ff0), usuario confirma «perfecto ya funciona correctamente».
+Captura check preparado/start consola lista/Ctrl+C consola detenida/check preparado,
+sin aviso ocupado; rutaWindows pegada en zsh falló sin afectar órdenes correctas.
+No demora medida, SHAactualizado no visible, segundo arranque posterior al último
+check no capturado. Aceptación completa recorrido guiado de esta VM con esos
+límites; no ampliar a Docker/ingesta/LLM/calidadA05 ni otras distros. Estado final
+visible VMdetenida/preflight preparado; serviciosWindows operativos no iniciados.
+Siguientes pendientes independientes: freeze/pines extraLinux, seguridad residual/
+imágenes y calidadA05. Registros docs/VALIDACION_PARROT_2026_10_12.md y
+docs/CORRECCION_PUERTOS_2026_10_12.md. Entradas siguientes históricas.
+
 Corrección puertos publicada/CI aprobada 12/10/2026: commit2a73ff0
 (2a73ff043298bccd5419298a491a28b59ec56411), run38237671713/attempt1,
 Windows-latest y Ubuntu24.04 completed/success; estados/logs finales revisados.

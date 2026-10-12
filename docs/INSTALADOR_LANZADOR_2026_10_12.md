@@ -77,7 +77,8 @@ ocupado tras cerrar y su corrección publicada `2a73ff0` se documentan en
 [el seguimiento Parrot](VALIDACION_PARROT_2026_10_12.md) y
 [el ajuste de puertos](CORRECCION_PUERTOS_2026_10_12.md).
 El ajuste pasó después en Windows/Ubuntu CI (run38237671713), incluyendo la
-regresión TIME_WAIT Linux; falta confirmar reinicio inmediato en la VM Parrot.
+regresión TIME_WAIT Linux. El usuario confirmó después el recorrido guiado en Parrot;
+su captura muestra check/start/Ctrl+C/check correctos, según el seguimiento enlazado.
 La actualización documental `f8318d6` llevó `[skip ci]`; no se atribuye
 una nueva ejecución al commit que únicamente registra el resultado anterior.
 

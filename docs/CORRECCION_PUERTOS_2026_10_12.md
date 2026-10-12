@@ -41,7 +41,8 @@ externos. No se cambian políticas TCP del sistema ni se añaden esperas fijas.
   `.i1/.local-state/launcher-smoke/result.json`; servicios de prueba detenidos.
 - Regresión Linux preparada: conexión real cerrada primero por servidor, bind
   antiguo rechazado, nuevos comprobadores aceptados y nuevo listener inmediato.
-  Se omite en Windows; pasó después en Ubuntu CI. Confirmación Parrot pendiente.
+  Se omite en Windows; pasó después en Ubuntu CI. Usuario confirmó también el
+  recorrido guiado en Parrot según el registro enlazado al final.
 
 No se iniciaron servicios operativos, análisis, llamadas a proveedores, Docker
 ni notificaciones. Pruebas con datos temporales y sockets sintéticos. La CI
@@ -65,5 +66,11 @@ Recibos ignorados bajo `.local-state/launcher-20261012/`:
 `actions-2a73ff043298bccd5419298a491a28b59ec56411.json`,
 `run-38237671713-logs.zip` y `ci-checks-38237671713.json`.
 La actualización documental posterior usa `[skip ci]`; el código comprobado
-corresponde a `2a73ff0`. La confirmación de reinicio inmediato en la VM Parrot
-sigue pendiente; no se exige reinstalar dependencias ni recompilar por este ajuste Python.
+corresponde a `2a73ff0`. No se exige reinstalar dependencias ni recompilar por
+este ajuste Python.
+
+El usuario confirmó después funcionamiento correcto en Parrot. La captura muestra
+check preparado, arranque listo, Ctrl+C con consola detenida y otro check preparado,
+sin aviso de ocupación. No se midió demora ni se capturó otro arranque después del
+último check o el SHA Git actualizado. La confirmación completa el recorrido guiado
+en esa VM; [evidencia y límites](VALIDACION_PARROT_2026_10_12.md).
