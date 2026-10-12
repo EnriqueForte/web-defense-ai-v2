@@ -12,6 +12,9 @@ Parrot 7.3 x86_64 en VMware pasó instalación, pruebas offline, build y lectura
 con API directa/proxy HTTP200: [ensayo guiado del 12/10](VALIDACION_PARROT_2026_10_12.md).
 
 Contrato actualizado el 10/10/2026: [Paso 1 Dependencias](DEPENDENCIAS_2026_10_10.md).
+La [migración del 12/10](MIGRACION_CREWAI_2026_10_12.md) fija ahora 172 pines por
+plataforma, con instalación/SDK/lanzador limpios aprobados en Windows/Ubuntu CI;
+la actualización del entorno existente en Parrot requiere el recorrido de esa guía.
 El instalador prepara pip/setuptools desde `requirements-bootstrap.txt` antes
 de instalar `requirements.txt` con `constraints-py311.txt`. Validación Windows
 aislada en `.p3`, 158 pines; `.p2/.venv` del mantenedor conservan el contrato
@@ -43,9 +46,10 @@ en Linux; `uvloop==0.23.0` queda fijado solo para Linux desde el 12/10.
 La instalación comprueba también paquetes adicionales con `--strict`.
 La [captura completa verificada de Ubuntu CI](CONTRATO_LINUX_2026_10_12.md)
 contiene 158 distribuciones, sin diferencias ni adicionales fuera del contrato;
-Windows conserva sus 158 versiones. El usuario comprobó después el inventario
+Windows conservaba sus 158 versiones en aquella entrega. El usuario comprobó después el inventario
 estricto y la exportación en Parrot7.3: 158 paquetes, cero diferencias y cero
-adicionales, según la evidencia de esa VM en el seguimiento enlazado.
+adicionales, según la evidencia de esa VM en el seguimiento enlazado. La migración
+posterior tiene 172 pines; no se atribuye a la VM hasta actualizar y comprobar allí.
 
 ## Preparar una instalación nueva
 

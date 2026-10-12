@@ -1,5 +1,12 @@
 # Revisión de seguridad e imágenes — 12/10/2026
 
+Seguimiento posterior: la [migración CrewAI](MIGRACION_CREWAI_2026_10_12.md)
+actualiza el contrato de 158 a 172 pines y pasó instalación limpia/SDK/lanzador en
+Windows/Ubuntu CI. La auditoría completa posterior mantiene cinco entradas/cuatro IDs
+solo en Chroma1.5.9. Las 36 entradas y restricciones de CrewAI1.14.3 descritas
+en esta acta corresponden al inventario previo; avisos de imágenes/braces y
+alcance de seguridad permanecen independientes.
+
 ## Auditorías de paquetes actuales
 
 Se auditó el contrato completo de 158 paquetes Windows y el freeze de 158 Linux,

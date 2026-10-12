@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+MigraciónCrewAI publicada/CI/inventarios verificados12/10/2026: códigof02bf24
+(f02bf245c24797621ff6c62a9bdfb9eb059eb9b7),run38255739335/attempt1Windows/Ubuntu
+completedsuccess,estados/logs/artifacts11749837740Win11750017346Linuxverificados.
+172strict/freeze0deriva0extras/build82sintaxis3JS/HTTP25SDK/linttipos15UI/smoke
+API/proxy200offlinecierrelibre;Ubuntu298Python,Windows297+1Linuxomitido.
+CrewAI/core/cli1.15.27,Lite1.105,JSONrepair0.60.1,MCP1.28.1,Chroma1.5.9;
+13versiones/14adiciones,Windows.P4yCI172,LinuxCI172. Auditorías completasWin/
+Linux5entradas4IDsChroma sinfix,antes36/22/cuatro paquetes,no supresión.
+PrimerLite1.96.2fallóoffline porassetfaltante,1.105wheel/hashassetverificados y
+SDKconredbloqueadopasó. SnapshotWindows172observadoP4 yLinux172bytesCI preservados,
+old158históricos;hashes/recibos docs/MIGRACION_CREWAI_2026_10_12.md/JSON.
+PróximoParrot: consoladetenida,pull,python3webdefense.pyinstall,pipcheck/strict172/
+snapshot yusolectura,confirmaciónpendiente. Noactivar.P4comopiloto,.p2/.p3/.venv
+operativosconservados,.p3drift27.29jobs14entregas/hashlogreport/.envmetadatosintactos.
+SinLLM/Docker/envíos/serviciosoperativos nuevos. Seguridadglobal/A05/infraimágenes
+independientes; siguientecommitsoloactas/recibos[skip ci],códigoCIf02bf24.
+Entradas inferiores históricas.
+
 Migración CrewAI local12/10/2026: .p4 aislado172pines/0diferencias/0extras,
 13versionesactualizadas/14adiciones;CrewAI1.15.27,core/cli1.15.27,LiteLLM1.105.0,
 jsonrepair0.60.1,MCP1.28.1,Chroma1.5.9,pydanticsettings2.14.2,OTEL1.42/0.63b0.

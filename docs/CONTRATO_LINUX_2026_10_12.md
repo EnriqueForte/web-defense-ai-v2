@@ -1,5 +1,10 @@
 # Contrato e inventario Python Linux — 12/10/2026
 
+Este registro acredita el contrato de 158 pines probado en CI y Parrot. La
+[migración CrewAI posterior](MIGRACION_CREWAI_2026_10_12.md) pasó en Windows/Ubuntu
+con 172 pines y conserva las instantáneas anteriores; confirmar esa actualización
+en Parrot sigue pendiente. El contrato actual está en constraints-py311.txt.
+
 ## Problema y cambio
 
 La instalación Ubuntu CI anterior resolvía `uvloop==0.23.0` además de los 157

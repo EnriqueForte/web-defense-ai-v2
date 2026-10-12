@@ -9,8 +9,9 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
 - Instalación y build con una orden, arranque Flask/Next con otra y cierre por Ctrl+C.
 - Clon/instalación limpia y CI Windows/Ubuntu; validación guiada Parrot7.3/VMware.
 - Corrección de comprobación de puertos y aceptación del recorrido en Parrot.
-- 158 pines por plataforma e inventario completo: freeze/metadatos/contrato,
-  uvloop Linux fijado, comprobación estricta/exportación aprobadas en Parrot.
+- Contrato inicial de 158 pines/inventario completo y uvloop Linux aprobados en Parrot.
+  La [migración posterior CrewAI](MIGRACION_CREWAI_2026_10_12.md) pasó Windows/Ubuntu
+  desde instalación nueva con 172 pines; actualizar y comprobar Parrot sigue pendiente.
 - Código y evidencias publicados en el repositorio V2; original independiente.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
@@ -20,7 +21,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | Auditorías y escaneo ya completados; quedan migración de paquetes residuales, infraestructura de imágenes e historial | Informes con versiones/digests/base/fecha ya recibidos; parches compatibles o riesgos explícitamente documentados y validación final |
+| Seguridad | Auditorías/escaneo y migración CrewAI completados en Windows/Ubuntu; quedan Chroma/braces, actualización Parrot, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
 | Configuración/interfaz | Validación global de valores y E2E de guardar/recargar/desmontar Configuración | Errores comprensibles y pruebas de efectos completos; helpers/dobles existentes no acreditan todo el recorrido |
@@ -40,8 +41,9 @@ semántica pendiente y la revisión del recorrido manual según
 ## Seguridad en curso
 
 Auditorías PyPI/npm actualizadas el 12/10: producción frontend/vendor sin avisos,
-braces de desarrollo con un aviso y Python 36 entradas en cuatro paquetes para
-cada inventario completo de 158. Las 22 fichas primarias fueron revisadas.
+braces de desarrollo con un aviso y Python 36 entradas/cuatro paquetes en el
+contrato de 158. Las 22 fichas primarias fueron revisadas. La migración posterior
+reduce a cinco entradas/cuatro IDs en Chroma, con 172 pines y CI Windows/Ubuntu aprobada.
 Trivy Linux completó el escaneo remoto de las seis referencias en Ubuntu CI con
 digests/fecha de base, sin iniciar contenedores. Todas presentan avisos; no se
 declara cierre de seguridad. CI de compatibilidad final pasó en ambos sistemas.

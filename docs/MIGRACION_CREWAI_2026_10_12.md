@@ -2,6 +2,8 @@
 
 ## Resultado local y selección
 
+La migración pasó primero en `.p4` y después desde una instalación nueva en
+Windows y Ubuntu CI. El contrato publicado fija 172 paquetes por plataforma.
 Se resolvió e instaló un candidato completo en `.p4`, entorno nuevo de prueba.
 Pasa pip check, contrato estricto de 172 paquetes sin diferencias/adicionales,
 regresión Python/JS, los 25 escenarios CrewAI/LiteLLM offline, construcción de
@@ -55,6 +57,9 @@ cinco entradas en Chroma 1.5.9, cuatro IDs principales, sin corrección declarad
 Antes: 36 entradas/22 IDs/cuatro paquetes. No son recuentos de explotaciones
 probadas. JSON Repair/LiteLLM/MCP no aparecen como avisos en esta consulta.
 No se suprimió ningún aviso ni se declara seguridad global cerrada.
+El inventario Linux de 172 pines da también cinco entradas/cuatro IDs en Chroma;
+su mapa coincide con el freeze observado después en CI. El [recibo de auditoría](MIGRACION_CREWAI_AUDIT_2026_10_12.json)
+conserva versiones, cambios, avisos y resultados por plataforma.
 
 - Windows `.p4`: pip check y 172 pines/0 diferencias/0 adicionales.
 - Freeze completo/metadatos/contrato y hash coincidentes.
@@ -79,8 +84,29 @@ servicios operativos del mantenedor. El guardrail y las tres tareas no cambian.
 
 ## Validación remota y actualización del usuario
 
-Instalación limpia, SDK y lanzador Windows/Ubuntu con el contrato nuevo están
-pendientes de CI. No se atribuye al nuevo contrato la CI anterior de 158 pines.
+Commit `f02bf245c24797621ff6c62a9bdfb9eb059eb9b7`,
+[CI 38255739335](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38255739335),
+attempt 1: Windows-latest y Ubuntu24.04 completaron con success. Estados, logs
+finales y ambos artefactos de inventario se descargaron y verificaron.
+
+Cada runner completó instalación nueva y build, pip check/172 pines estrictos
+sin diferencias/adicionales, freeze completo, 82 archivos de sintaxis, tres JS,
+HTTP sintético, 25 SDK offline, lint/tipos/15 UI y smoke API directa/proxy HTTP200,
+ejecutor offline y cierre con puertos libres. Ubuntu aprobó 298 Python; Windows 297 y omitió
+el caso específico Linux. La red del SDK permanece bloqueada también en CI.
+
+Inventarios verificados: Windows Python3.11.9/artefacto11749837740 y
+Linux Python3.11.17/artefacto11750017346, 172 paquetes cada uno. Freeze/metadatos/
+contrato coinciden. SHA-256 Windows:
+`4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d`;
+Linux: `2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa`.
+La [instantánea Linux nueva](../constraints-linux-py311-crewai-20261012.txt)
+conserva los bytes del artefacto con regla Git sin conversión de línea.
+Recibos de artefactos en `.local-state/linux-contract-20261012/artifacts-38255739335/`
+y logs/resumen de ejecución en `.local-state/launcher-20261012/`.
+
+La actualización siguiente solo registra esos resultados/recibos con `[skip ci]`;
+el código comprobado es f02bf24. No se atribuye al nuevo contrato la CI anterior de 158 pines.
 No se acredita análisis real con proveedor ni calidad semántica A-05 por pruebas
 con respuestas simuladas. Chroma, braces de desarrollo y riesgos de imágenes
 conservan sus pendientes independientes.
