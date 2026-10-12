@@ -85,7 +85,8 @@ class JobStoreTests(TestCase):
             if destination == "telegram":
                 return notifications.enviar_telegram(message)
             return notifications.enviar_email("[web-defense-ai V2] Alerta de seguridad", message)
-        with patch.object(pipeline, "deliver_notification", side_effect=simulated_delivery), \
+        with patch.dict(os.environ, {"NOTIFICATION_DESTINATIONS": "telegram,email"}), \
+             patch.object(pipeline, "deliver_notification", side_effect=simulated_delivery), \
              patch.object(notifications, "enviar_telegram", side_effect=sink.telegram) as telegram, \
              patch.object(notifications, "enviar_email", side_effect=sink.email) as email:
             pipeline.send_alerts(self.store, job["id"], report)
@@ -99,6 +100,20 @@ class JobStoreTests(TestCase):
         self.assertNotIn("192.0.2.1", sink.messages["telegram"][0])
         self.assertNotIn("192.0.2.1", sink.messages["email"][0][1])
         self.assertEqual(self.store.deliveries(job["id"]), {"telegram": "sent", "email": "unknown"})
+
+    def test_empty_destinations_do_not_attempt_delivery_or_create_receipts(self):
+        job, _ = self.store.enqueue("manual", "notifications-off")
+        self.store.claim()
+        report = ("## AMENAZAS DETECTADAS\n"
+                  "| Línea | Severidad | Tipo | Estado | IP Origen |\n"
+                  "| --- | --- | --- | --- | --- |\n"
+                  "| 1 | ALTA | SQLi | Intento | 192.0.2.1 |\n")
+        with patch.dict(os.environ, {"NOTIFICATION_DESTINATIONS": ""}), \
+             patch.object(pipeline, "deliver_notification") as send:
+            pipeline.send_alerts(self.store, job["id"], report)
+            pipeline.send_alerts(self.store, job["id"], report)
+        send.assert_not_called()
+        self.assertEqual(self.store.deliveries(job["id"]), {})
 
     def test_email_only_destination_does_not_attempt_telegram(self):
         from config import notifications

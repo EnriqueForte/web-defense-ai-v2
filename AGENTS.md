@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+Validación CI iniciada 12/10/2026 como siguiente pendiente tras push. Run real
+38161180993 del commit bbc6b28: instalación compartida pasó Windows/Ubuntu24.04,
+ambos fallaron mismo test de destinos/deduplicación, frontend skipped. Fixture
+heredaba NOTIFICATION_DESTINATIONS vacío seguro de CI y esperaba envíos simulados.
+Reproducción local268/1fallo; corregido contexto test con telegram,email y añadido
+caso destinosvacíos/no recibos. 269Python3JS con envvacío aprobados, sin cambio
+producto/workflow/configuración operativa. Lectura Actions con authGit interna,
+sin secretos en salida ni token reenviado a almacenamiento logs. Servicios
+siguen detenidos, sin jobs reales/LLM/Docker/envíos. Revalidación remota pendiente
+de resultado; no afirmar matriz pasada, Linux/Parrot general o build CI hasta
+comprobarlos. Registro docs/VALIDACION_CI_2026_10_12.md, recibos
+.local-state/ci-review-20261012. Prueba Windows local y publicación anterior
+conservadas; ámbitos de seguridad/A-05/Parrot independientes.
+
 Publicación Git autorizada 11/10/2026: usuario pidió commit y push de todo lo
 desarrollado tras detener servicios. Destino verificado origin/main en
 EnriqueForte/web-defense-ai-v2; original-readonly conserva push bloqueado.
