@@ -8,12 +8,20 @@ El destino de esta versión es [EnriqueForte/web-defense-ai-v2](https://github.c
 
 La distribución utiliza la licencia MIT existente. El dashboard admite acceso
 local: cada instalación configura sus credenciales y datos. Compartir el código
-no habilita un servicio público del dashboard. Windows/Python 3.11 es el entorno
-validado; la instalación Linux/macOS todavía no se ha comprobado.
+no habilita un servicio público del dashboard. Windows/Python 3.11 está validado
+localmente; instalación y pruebas offline también pasan en Windows y Ubuntu
+24.04 en CI. Parrot en VMware y macOS todavía no se han comprobado.
 Consulta la [guía de instalación para clonación](docs/INSTALACION_AUTOALOJADA.md)
 y sus pendientes de validación antes de la publicación de una versión final.
 
 ## Estado de esta versión
+
+La [validación CI del 12/10/2026](docs/VALIDACION_CI_2026_10_12.md) pasó en
+Windows y Ubuntu 24.04 desde checkout e instalación nueva: 269 Python, tres JS,
+25 escenarios SDK, 15 grupos UI, lint/tipos y build. Se corrigió una prueba que
+heredaba destinos de notificación vacíos; el producto conserva ese valor seguro.
+Quedan Parrot en VMware, arranque/proxy Next en Linux y fijar la dependencia
+adicional Linux observada (`uvloop`). Los servicios locales están detenidos.
 
 El [refresco de indicadores del 11/10/2026](docs/REFRESCO_INDICADORES_2026_10_11.md)
 actualiza el resumen al observar una nueva ingesta/publicación y muestra la fecha
@@ -24,8 +32,9 @@ una publicación nueva puede mantener la misma distribución.
 
 La [instalación limpia Windows del 11/10/2026](docs/INSTALACION_LIMPIA_WINDOWS_2026_10_11.md)
 pasó instalación, pruebas offline, build, producción/proxy y retorno en una copia
-local sin entornos ni datos anteriores. Linux/Parrot, clonación remota y CI
-siguen pendientes. Después se aplicó la [corrección de formato del análisis manual](docs/CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md):
+local sin entornos ni datos anteriores. El checkout e instalación Windows/Ubuntu
+en CI se acreditaron después; Parrot sigue pendiente.
+Después se aplicó la [corrección de formato del análisis manual](docs/CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md):
 JSON nativo solicitado a OpenRouter y validación local sin conversión parcial
 de CrewAI. Pasaron 25 escenarios SDK offline; no se repitió el proveedor real.
 A-05 sigue abierta por esa comprobación y por el primer fallo de ingesta cuya
@@ -376,8 +385,9 @@ Se conservan los nombres de módulos, rutas de datos y contenedores para mantene
 
 La [guía de instalación Windows y Linux](docs/INSTALACION_AUTOALOJADA.md) utiliza
 un instalador Python común y comandos de arranque para ambos sistemas.
-La [matriz de compatibilidad](docs/PORTABILIDAD_WINDOWS_LINUX_2026_10_07.md) está
-preparada; la ejecución real en Ubuntu y la clonación limpia final siguen pendientes.
+La [matriz de compatibilidad](docs/PORTABILIDAD_WINDOWS_LINUX_2026_10_07.md)
+pasó posteriormente en [Windows y Ubuntu 24.04](docs/VALIDACION_CI_2026_10_12.md).
+Parrot en VMware y el arranque/proxy Next en Linux siguen pendientes.
 
 El [endurecimiento del retorno local](docs/ENDURECIMIENTO_RETORNO_LOCAL_2026_10_07.md)
 incorpora recursos Flask locales con licencias e integridad verificadas, elimina

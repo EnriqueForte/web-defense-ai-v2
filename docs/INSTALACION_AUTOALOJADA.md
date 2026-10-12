@@ -2,7 +2,9 @@
 
 Ensayo limpio local Windows del 11/10/2026 aprobado sobre una copia del código
 actual sin entornos ni datos del mantenedor: [evidencia y límites](INSTALACION_LIMPIA_WINDOWS_2026_10_11.md).
-Linux/Parrot, clonación remota y CI real continúan pendientes.
+Checkout e instalación nueva en Windows y Ubuntu 24.04 aprobados en GitHub
+Actions el 12/10/2026: [evidencia CI y límites](VALIDACION_CI_2026_10_12.md).
+Parrot en VMware y arranque/proxy Next en Linux continúan pendientes.
 
 Contrato actualizado el 10/10/2026: [Paso 1 Dependencias](DEPENDENCIAS_2026_10_10.md).
 El instalador prepara pip/setuptools desde `requirements-bootstrap.txt` antes
@@ -10,11 +12,13 @@ de instalar `requirements.txt` con `constraints-py311.txt`. Validación Windows
 aislada en `.p3`, 158 pines; `.p2/.venv` del mantenedor conservan el contrato
 anterior y no deben actualizarse mientras sus servicios estén activos. `.p3`
 no se activa automáticamente. Persisten avisos documentados y falta el escaneo
-de imágenes; no se declara cierre de seguridad ni instalación Linux acreditada.
+de imágenes; no se declara cierre de seguridad. La instalación Linux acreditada
+en CI se limita a Ubuntu 24.04 x86_64.
 
 Objetivo: clonar web-defense-ai V2 y usarlo en el entorno de cada persona.
-El destino es EnriqueForte/web-defense-ai-v2; la publicación final y el ensayo
-desde una clonación limpia siguen pendientes. No se cambió la visibilidad del
+El destino es EnriqueForte/web-defense-ai-v2; el código está publicado y el
+checkout limpio pasó en CI. La versión final y el ensayo en Parrot siguen
+pendientes. No se cambió la visibilidad del
 repositorio en esta entrega. Se conserva la licencia MIT de LICENSE.
 
 ## Entorno comprobado
@@ -24,11 +28,14 @@ frontend/package.json. Docker Desktop con contenedores Linux es necesario
 solo para el laboratorio DVWA, no para pruebas aisladas o lectura de la consola.
 El soporte Linux contempla Parrot OS x86_64 en VMware como caso de uso del usuario
 y Ubuntu 24.04 x86_64 como entorno inicial de CI, con Python 3.11 y Docker Engine
-con Compose v2. Aún falta ejecutar sus instalaciones y pruebas reales; no se afirma
-validación completa de Linux ni soporte de todas sus distribuciones, ARM o macOS.
+con Compose v2 para el laboratorio. La instalación y pruebas offline pasaron en
+Ubuntu CI; faltan Parrot, arranque/proxy Next en Linux y laboratorio Docker allí.
+No se afirma soporte de todas las distribuciones Linux, ARM o macOS.
 Ambos sistemas utilizan `constraints-py311.txt`; las instantáneas con nombre
 Windows se mantienen como evidencia histórica. Los marcadores excluyen pywin32
 en Linux; el resolutor puede añadir dependencias propias de esa plataforma.
+En el runner Ubuntu se observó `uvloop==0.23.0` adicional; capturar el freeze
+Linux y fijar esa dependencia sigue pendiente para reproducibilidad completa.
 
 ## Preparar una instalación nueva
 
@@ -258,18 +265,21 @@ docker compose --file compose.lab.yaml stop
 
 `.github/workflows/compatibility.yml` prepara instalación desde checkout,
 pip check, comparación de pines, tests Python/JS, HTTP sintético, SDK offline y
-build Next en Windows y Ubuntu 24.04. Se ejecutará al publicar cambios, en PR
-o manualmente en GitHub. No contiene claves de proveedor, llamadas reales o
-arranque Docker. Hasta que existan ejecuciones aprobadas, no equivale a una
-certificación de Linux ni a una instalación limpia ya realizada del contenido final.
+build Next en Windows y Ubuntu 24.04. Se ejecuta al publicar cambios, en PR
+o manualmente en GitHub. La [ejecución 38224024703](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38224024703)
+del commit `96d190c` pasó en ambos sistemas. No contiene claves de proveedor,
+llamadas reales o arranque Docker. Acredita instalación y pruebas en esos
+runners; no acredita Parrot ni arranque/proxy Next en Linux.
 
 ## Cierre de distribución pendiente
 
-- Ensayo de clonación/instalación limpia del contenido final, build final y auditorías.
+- Ensayo de instalación/uso en Parrot, arranque/proxy Next en Linux, freeze/pines
+  Linux adicionales y auditorías pendientes; Windows/Ubuntu CI y sus builds aprobados.
 - Cierre de calidad/observación A-05 y diagnóstico del motor operativo.
 - Procedimiento definitivo de arranque/análisis, conservación y recuperación.
-- Revisión de archivos e historial a publicar para excluir secretos/datos locales.
+- Completar auditoría de archivos/historial; la revisión acotada previa al push
+  conserva su alcance documentado.
 - Documentación final, versión y publicación solo al destino V2.
 
-La guía no declara ya completadas esas verificaciones ni solicita acceso a
-credenciales de quien clone el proyecto.
+Los pendientes de esta lista no se presentan como completados por CI. Cada
+persona configura sus credenciales dentro de su propia instalación.

@@ -2,6 +2,22 @@
 
 ## Alcance actual
 
+Validación CI completada 12/10/2026: run38224024703/attempt1 del commit
+96d190c56109504c9475edf1f9bbe59ec0d078bd, Windows-latest y Ubuntu24.04
+completed/success. Checkout/instalación nueva, pipcheck/contrato Windows158 y
+Linux157pines/0diferencias, 71sintaxis, 269Python/3JS, HTTPFlask sintético,
+25SDKoffline, lint/tipos/15UI/buildNext16.3.8 aprobados en ambos. Logs finales
+revisados, incluidos comandos intermedios Windows frontend. Linux añade
+uvloop0.23.0 no fijado en contrato; inventario de instalación no es freeze,
+captura/pin adicional pendiente. Corrección limitada a testdeduplicación con
+destinosmock explícitos y testdestinosvacíos/no recibos; producto/env intactos.
+No arranque/proxyNext Linux ni ParrotVMware acreditados; seguridad/imágenes/
+calidadA05 independientes. Servicios conservados detenidos, sin jobs reales/
+LLM/Docker/envíos. Registro docs/VALIDACION_CI_2026_10_12.md y recibos ignorados
+.local-state/ci-review-20261012. Actualización posterior solo documental con
+[skip ci]; no atribuir nueva ejecución al commit de documentación. La entrada
+de inicio siguiente conserva el estado histórico previo a esta aprobación.
+
 Validación CI iniciada 12/10/2026 como siguiente pendiente tras push. Run real
 38161180993 del commit bbc6b28: instalación compartida pasó Windows/Ubuntu24.04,
 ambos fallaron mismo test de destinos/deduplicación, frontend skipped. Fixture
