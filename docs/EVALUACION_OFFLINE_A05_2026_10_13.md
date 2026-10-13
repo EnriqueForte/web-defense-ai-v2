@@ -44,8 +44,9 @@ En Windows, desde la raíz, con el entorno de validación aislado disponible:
 ```
 
 En una instalación Linux se usa `.p2/bin/python -B scripts/check_a05_offline.py`.
-La nueva matriz está preparada en el workflow Windows/Ubuntu; **todavía no ha
-sido publicada ni ejecutada en CI**. No se atribuye la CI anterior a estos cambios.
+La nueva matriz pasó posteriormente en Windows/Ubuntu para el commit `c7df36a`,
+según el cierre de CI al final de esta acta. La validación local inicial anterior
+a publicar y las comprobaciones remotas se distinguen en sus recibos.
 
 El comando solo genera fixtures y publicaciones dentro de una carpeta nueva
 de `.local-state/a05-offline-review/`, sin resolver configuración LLM ni leer
@@ -96,18 +97,84 @@ ni atribuye los hashes de un recibo anterior a una comprobación nueva.
 
 ## Siguiente cierre
 
-1. Publicar este candidato y revisar una CI Windows/Ubuntu propia de su SHA;
-   la CI anterior sigue acreditando únicamente el código ya publicado.
-2. Delimitar y autorizar un ensayo con proveedor para comprobar detección,
+1. Delimitar y autorizar un ensayo con proveedor para comprobar detección,
    clasificación, formato y narrativa actuales, incluyendo un caso de la misma
    familia y negativos representativos. Revisar ambos tipos de métricas,
    referencias, estados/severidades, guardas, hashes, llamadas y consumo. Cada
    invocación del evaluador existente tiene máximo seis intentos lógicos y
    600 segundos externos; un resultado publicado no acredita calidad por sí solo.
-3. Aceptar el resultado con sus límites y completar por separado la ingesta y
+2. Aceptar el resultado con sus límites y completar por separado la ingesta y
    el recorrido del laboratorio en Parrot. La causa histórica de
    `ingestion_failed` sigue sin acreditarse; no se declara resuelta offline.
 
 Seguridad residual/historial, operación/recuperación y entrega final conservan
 sus pendientes en [el resumen vigente](ESTADO_FINAL_2026_10_12.md). La revisión
 de A-05 no acepta esos riesgos ni acredita restauración o laboratorio real.
+
+## Publicación y CI verificadas
+
+Código publicado `c7df36afd92250f69fc3b7ae4fecb5f6ecf9f64b` en `origin/main`
+del repositorio V2. [CI 38411563805](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38411563805),
+attempt 1: workflow y jobs Windows-latest/Ubuntu24.04 `completed/success`.
+Estados, pasos y logs finales descargados y revisados el 13/10/2026.
+
+Ambos completaron instalación nueva/build, pip check, contrato y freeze de
+172 paquetes, cero diferencias y cero extras. Ubuntu aprobó 314 pruebas Python;
+Windows aprobó 313 y omitió una regresión exclusiva Linux. También aprobaron
+89 archivos de sintaxis, tres comprobaciones JS, HTTP sintético, 25 escenarios
+SDK offline, lint/tipos/17 grupos UI, nueve E2E de Configuración por OS
+(Ubuntu 9,6 s/Windows 15,5 s) y smoke API/proxy 200/ejecutor offline/cierre de
+puertos. Los tiempos E2E no son tiempos de build o de análisis LLM.
+
+Se descargaron los dos artefactos A-05 y se verificaron sus 13 casos y siete
+controles, incluyendo cada veredicto, código de rechazo y conservación de
+publicación. Sus métricas, checks y hashes de JSON/Markdown coinciden con el
+recibo local; solo las identidades aleatorias de generación se excluyeron de la
+comparación. Se han revisado los resúmenes descargados; no se afirma haber
+descargado los bytes JSON/Markdown de cada publicación remota, que no forman
+parte del artefacto de resumen.
+
+| Artefacto | ID | Comprobación |
+| --- | --- | --- |
+| A-05 Ubuntu | 11821147866 | 13/7 aprobados, métricas/checks/hashes iguales al recibo local |
+| A-05 Windows | 11822051481 | 13/7 aprobados, métricas/checks/hashes iguales al recibo local |
+| Inventario Python Ubuntu | 11822681266 | Freeze y metadatos completos, 172/0/0, uvloop0.23.0 |
+| Inventario Python Windows | 11822241512 | Freeze y metadatos completos, 172/0/0, pywin32311 |
+
+Los bytes de ambos freeze coinciden con el contrato por plataforma y con el
+SHA-256 de sus metadatos. Ubuntu:
+`2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa`;
+Windows: `4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d`.
+
+Antes de publicar se revisaron 240 archivos candidatos y 594 blobs/52 commits
+alcanzables para exclusiones privadas y formatos específicos de credenciales,
+sin coincidencias. Los ocho archivos del índice correspondían al candidato
+revisado y los hashes vendor coincidían. **Es una revisión acotada**, no la
+auditoría exhaustiva de archivos/historial pendiente en seguridad/entrega.
+
+Durante esta publicación se compararon lecturas operativas antes/después:
+29 trabajos, 14 entregas y cero activos; las filas consultadas y hashes del log,
+puntero, informe y resultado coinciden. Metadatos de `.env` conservados, sin
+leer sus bytes. No hubo servicios operativos nuevos, proveedor, Docker ni envíos.
+Recibos, ZIP de logs, artefactos y verificación en
+`.local-state/a05-ci-20261013/`; no se publican esos archivos ignorados.
+
+El commit posterior de actas usa `[skip ci]`; el código probado por esta CI
+sigue siendo `c7df36a`. A-05 continúa abierta por semántica del proveedor,
+comprobación manual/ingesta y aceptación con límites.
+
+## Propuesta concreta para el siguiente ensayo real
+
+Pendiente de autorización: tres invocaciones secuenciales y aisladas del
+evaluador existente, casos `same_family`, `mixed` y `normal`. Solo fixtures
+sintéticas y el router gratuito configurado `openrouter/openrouter/free`, sin
+fallback pagado, datos operativos, Docker o envíos. Máximo seis intentos lógicos
+y 600 segundos externos por caso: 18 intentos lógicos como límite total; no
+se repite un caso fallido ni se amplía el lote automáticamente. Las solicitudes
+internas del transporte pueden diferir de los intentos lógicos registrados.
+
+Se revisarían cobertura por familias y por línea, selección completa,
+referencias, incertidumbre/severidades, narrativa/medidas, guardas, hashes,
+latencia y consumo informado. El éxito técnico no sustituiría la revisión y
+aceptación de calidad. Este plan no inicia servicios, worker o admisión manual;
+el recorrido de ingesta real Parrot permanece separado.

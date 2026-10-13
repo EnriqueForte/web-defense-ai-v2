@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+Publicación A-05 offline verificada 13/10/2026: códigoc7df36a
+(c7df36afd92250f69fc3b7ae4fecb5f6ecf9f64b),CI38411563805attempt1Windows/Ubuntu
+completed/success,estados/logs finales revisados. Matriz13casos7rechazos porOS;
+artefactos11822051481Win/11821147866Ubuntu descargados: métricas/checks/hashes
+publicación coinciden con recibo local, UUIDgeneración excluido; bytes informes
+remotos no incluidos en esos resúmenes. Inventarios11822241512Win11822681266Linux
+freeze/metadatos172/0/0verificados;Ubuntu314Python/Windows313+1omitido,
+89sintaxis3JS/HTTP25SDK/linttipos17UI/9E2EporOS/smoke200offlinecierrelibre.
+240candidatos594blobs52commits revisados formatoscredenciales/exclusiones sin
+hallazgos, alcance acotado; seguridad exhaustiva pendiente. Antes/después29jobs/
+14entregas0activos/filasconsultadas/hashlogpublicaciónreportresult/.envmetadatos
+iguales, sin leer .envbytes. Sin serviciosoperativos/LLM/Docker/envíos nuevos.
+Siguiente commit solo actas[skip ci], códigoCIc7df36a. A05abierta: propuesta real
+same_family/mixed/normal secuencialesmáx18intentoslógicos/600s porcaso requiere
+autorización concreta; no repetir automáticamente. Registro
+docs/EVALUACION_OFFLINE_A05_2026_10_13.md, recibos a05-ci-20261013 ignorados.
+Entrada inferior conserva el estado previo a publicación/CI de este candidato.
+
 Avance A-05 offline 13/10/2026: matriz reproducible 13casos/7rechazos aprobada,
 hashes de publicaciones sintéticas verificados/preservados; etiquetas escritas
 a mano y métrica patrón–línea detectan omisiones ocultas por familias. same_family
