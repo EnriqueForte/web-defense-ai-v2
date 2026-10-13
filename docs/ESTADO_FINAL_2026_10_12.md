@@ -25,7 +25,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
-| Configuración/interfaz | Validación global de valores y E2E de guardar/recargar/desmontar Configuración | Errores comprensibles y pruebas de efectos completos; helpers/dobles existentes no acreditan todo el recorrido |
+| Configuración/interfaz | Validación de los cuatro números del ejecutor implementada; queda E2E de guardar/recargar/desmontar Configuración | Errores comprensibles comprobados; helpers/dobles existentes no acreditan todo el recorrido del formulario |
 | Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
 
@@ -33,8 +33,9 @@ La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.
 No se presenta el clon de lectura como prueba del análisis real o laboratorio.
 
-`config/settings.py` mantiene conversiones directas float/int al importar;
-los valores inválidos requieren una validación comprensible pendiente. R-15
+La [validación global del ejecutor](CONFIGURACION_GLOBAL_2026_10_13.md) reemplaza
+las conversiones directas de `config/settings.py`: errores por variable y rechazo
+antes de crear estado, con regresión offline aprobada. R-15
 conserva el E2E de los efectos de Configuración. A-05 mantiene la evaluación
 semántica pendiente y la revisión del recorrido manual según
 [formato manual](CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md).

@@ -5,8 +5,10 @@
 
 import os
 from dotenv import load_dotenv
+from config.global_settings import resolve_global_numbers
 
 load_dotenv()
+_numbers = resolve_global_numbers(os.environ)
 
 # --- Rutas ---
 LOG_PATH        = os.getenv("LOG_PATH", "./logs/access.log")
@@ -15,12 +17,12 @@ REPORT_PATH     = os.getenv("REPORT_PATH", "./reports/")
 # --- LLM ---
 GROQ_API_KEY    = os.getenv("GROQ_API_KEY")
 LLM_MODEL = os.getenv("LLM_MODEL", "groq/openai/gpt-oss-120b")
-LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
+LLM_TEMPERATURE = _numbers["LLM_TEMPERATURE"]
 
 # --- Pipeline ---
-INTERVALO_MINUTOS   = int(os.getenv("INTERVALO_MINUTOS", "3"))
-MAX_LINEAS_LOG      = int(os.getenv("MAX_LINEAS_LOG", "100"))
-UMBRAL_FUERZA_BRUTA = int(os.getenv("UMBRAL_FUERZA_BRUTA", "5"))
+INTERVALO_MINUTOS   = _numbers["INTERVALO_MINUTOS"]
+MAX_LINEAS_LOG      = _numbers["MAX_LINEAS_LOG"]
+UMBRAL_FUERZA_BRUTA = _numbers["UMBRAL_FUERZA_BRUTA"]
 
 # --- Alertas ---
 # Severidades que disparan alerta inmediata en consola

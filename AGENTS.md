@@ -2,6 +2,17 @@
 
 ## Alcance actual
 
+Configuración global 13/10/2026: config/global_settings valida cuatro números
+de config/settings (temperatura finita 0–2, intervalo positivo/segundos finitos,
+líneas 1–1000, umbral 1–100). Worker CLI rechaza con salida 2 y mensajes por
+variable sin imprimir valores/traceback antes de crear estado o heartbeat.
+Cinco pruebas nuevas; línea base .p4 303 casos (302 Windows +1 Linux omitido),
+3 JS/84 sintaxis. Sandbox bloqueó reemplazos temporales/sockets; repetición
+autorizada pasó. Resolver LLM, preparación legacy, datos y entornos operativos
+sin cambios; sin servicios operativos/LLM/Docker/envíos. CI/publicación del código
+pendientes; E2E Configuración/R-15 y demás bloques siguen abiertos. Registro
+docs/CONFIGURACION_GLOBAL_2026_10_13.md, recibos config-validation-20261013.
+
 Actualización Parrot: evidencia recibida 13/10/2026. Capturas muestran instalación
 completada/existing_preserved, CrewAI 1.15.27 y build Next 16.3.8 correcto;
 pip check sin errores, strict/snapshot 172 paquetes, 0 diferencias y 0 extras.

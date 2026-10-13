@@ -12,7 +12,14 @@ import threading
 import time
 import uuid
 
-from config.settings import INTERVALO_MINUTOS, LOG_PATH, REPORT_PATH
+from config.global_settings import InvalidGlobalSettings
+try:
+    from config.settings import INTERVALO_MINUTOS, LOG_PATH, REPORT_PATH
+except InvalidGlobalSettings as error:
+    if __name__ != "__main__":
+        raise
+    print(str(error), file=sys.stderr)
+    raise SystemExit(2) from None
 from config.model_config import configured_provider_keys
 from config.notification_delivery import deliver_notification
 from dashboard.services.analysis_jobs import JobStore, utc_now
