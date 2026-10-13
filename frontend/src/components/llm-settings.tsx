@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { getApi, putApi, type LLMSettingsResponse } from "@/lib/api";
 
 export function LLMSettings() {
@@ -13,9 +13,12 @@ export function LLMSettings() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const lifetime = useRef<AbortController | null>(null);
+  const saveInFlight = useRef(false);
 
   useEffect(() => {
     const controller = new AbortController();
+    lifetime.current = controller;
     getApi<LLMSettingsResponse>("configuracion/llm", controller.signal)
       .then((response) => {
         if (controller.signal.aborted) return;
@@ -28,7 +31,7 @@ export function LLMSettings() {
         if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : "No se pudo leer la configuración.");
       })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
-    return () => controller.abort();
+    return () => { controller.abort(); lifetime.current = null; };
   }, []);
 
   const provider = useMemo(
@@ -57,6 +60,9 @@ export function LLMSettings() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const controller = lifetime.current;
+    if (!controller || controller.signal.aborted || saveInFlight.current) return;
+    saveInFlight.current = true;
     setSaving(true);
     setError("");
     setNotice("");
@@ -66,7 +72,8 @@ export function LLMSettings() {
         model: model.trim(),
         pricing_mode: pricingMode,
         api_key: apiKey,
-      });
+      }, controller.signal);
+      if (controller.signal.aborted) return;
       setSettings(response.data);
       setProviderId(response.data.provider);
       setPricingMode(response.data.pricing_mode);
@@ -74,9 +81,9 @@ export function LLMSettings() {
       setApiKey("");
       setNotice("Configuración guardada. Se usará en el próximo análisis.");
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "No se pudo guardar la configuración.");
+      if (!controller.signal.aborted) setError(reason instanceof Error ? reason.message : "No se pudo guardar la configuración.");
     } finally {
-      setSaving(false);
+      if (!controller.signal.aborted) { saveInFlight.current = false; setSaving(false); }
     }
   }
 

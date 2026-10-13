@@ -67,6 +67,26 @@ jobs:
           pnpm run lint
           pnpm exec tsc --noEmit
           pnpm run test:ui
+      - name: Install isolated E2E browser
+        run: node frontend/node_modules/@playwright/test/cli.js install chromium --only-shell --with-deps
+      - name: Synthetic settings end-to-end
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then PYTHON=.p2/Scripts/python.exe; else PYTHON=.p2/bin/python; fi
+          "$PYTHON" -B scripts/check_settings_e2e.py
+      - name: Save failed synthetic E2E diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: settings-e2e-failure-${{ matrix.os }}
+          path: |
+            .local-state/settings-e2e/*/results/**
+            .local-state/settings-e2e/*/build.log
+            .local-state/settings-e2e/*/flask.log
+            .local-state/settings-e2e/*/next.log
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Unified launcher and shutdown
         shell: bash
         run: |

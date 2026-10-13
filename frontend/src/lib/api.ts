@@ -159,21 +159,42 @@ export async function getApi<T>(path: string, signal?: AbortSignal, timeoutMs = 
   }
 }
 
-export async function putApi<T>(path: string, value: unknown): Promise<T> {
-  const response = await fetch(`/api/v1/${path}`, {
-    method: "PUT", cache: "no-store",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-    body: JSON.stringify(value),
+export async function putApi<T>(path: string, value: unknown, signal?: AbortSignal, timeoutMs = READ_TIMEOUT_MS): Promise<T> {
+  signal?.throwIfAborted();
+  const controller = new AbortController();
+  const cancel = () => controller.abort(signal?.reason);
+  signal?.addEventListener("abort", cancel, { once: true });
+  let onAbort: () => void = () => {};
+  const canceled = new Promise<never>((_, reject) => {
+    onAbort = () => reject(controller.signal.reason);
+    controller.signal.addEventListener("abort", onAbort, { once: true });
   });
-  const body = await response.json().catch(() => null);
-  if (!response.ok) {
-    const message = body?.error?.message;
-    throw new ApiError(typeof message === "string" ? message : `No se pudo guardar (${response.status}).`, response.status);
+  const timer = setTimeout(() => controller.abort(new ApiError(
+    "El guardado superó el límite de espera. Vuelve a consultar la configuración antes de reintentar.", 408)), timeoutMs);
+  async function write(): Promise<T> {
+    const response = await fetch(`/api/v1/${path}`, {
+      method: "PUT", cache: "no-store", signal: controller.signal,
+      headers: { Accept: "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify(value),
+    });
+    controller.signal.throwIfAborted();
+    const body = await response.json().catch(() => null);
+    controller.signal.throwIfAborted();
+    if (!response.ok) {
+      const message = body?.error?.message;
+      throw new ApiError(typeof message === "string" ? message : `No se pudo guardar (${response.status}).`, response.status);
+    }
+    if (!validReadResponse(path, body)) {
+      throw new ApiError("La respuesta de la API no tiene el formato esperado.", 502);
+    }
+    return body as T;
   }
-  if (!validReadResponse(path, body)) {
-    throw new ApiError("La respuesta de la API no tiene el formato esperado.", 502);
+  try { return await Promise.race([write(), canceled]); }
+  finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", cancel);
+    controller.signal.removeEventListener("abort", onAbort);
   }
-  return body as T;
 }
 
 export function validState(value: unknown): boolean {

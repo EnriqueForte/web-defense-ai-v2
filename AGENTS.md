@@ -2,6 +2,18 @@
 
 ## Alcance actual
 
+E2E Configuración iniciado 13/10/2026: LLMSettings cancela GET/PUT al desmontar,
+guarda concurrente bloqueada, PUT límite 10s/cuerpo; timeout pide releer y no
+reenvía/ni revierte guardado ya confirmado. Playwright1.64.0 dev fijado, lockfile
+verificado pnpm11.19.0. Supervisor build webpack separado, proxy Next/Flask real,
+puertos efímeros/cierre ProcessOwner; fixture.env sintético y conexiones salientes
+bloqueadas, sin datos operativos/LLM/Docker/envíos. Nueve casos Chromium preparados.
+Local .p4:303 Python(302+1Linuxomitido)/3JS/lint/tipos/17UI/86sintaxis aprobados;
+build/servidores/cierre local pasó, Chromium bloqueado CodeIntegrity3077/3033
+antes de ejecutar casos; no alterar política. CI E2E Windows/Ubuntu preparada,
+publicación/revisión pendientes; R-15 no cerrado todavía. Registro
+docs/CONFIGURACION_E2E_2026_10_13.md; recibos settings-e2e ignorados.
+
 Configuración global 13/10/2026: config/global_settings valida cuatro números
 de config/settings (temperatura finita 0–2, intervalo positivo/segundos finitos,
 líneas 1–1000, umbral 1–100). Worker CLI rechaza con salida 2 y mensajes por

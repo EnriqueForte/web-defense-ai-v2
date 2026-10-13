@@ -141,7 +141,7 @@ assert.equal(refreshedReportSelection(oldCurrent.id, [oldCurrent], [historical])
 assert.equal(refreshedReportSelection("", [oldCurrent], [newCurrent]), "");
 checks++;
 
-const { getApi } = loadTsx("src/lib/api.ts");
+const { getApi, putApi } = loadTsx("src/lib/api.ts");
 const originalFetch = globalThis.fetch;
 try {
   const controller = new AbortController();
@@ -160,6 +160,37 @@ try {
 }
 checks++;
 const { validReadResponse } = loadTsx("src/lib/api-contracts.ts");
+
+try {
+  const controller = new AbortController();
+  let finishBody;
+  const body = new Promise((resolve) => { finishBody = resolve; });
+  let fetchSignal;
+  globalThis.fetch = async (_url, options) => {
+    fetchSignal = options.signal;
+    return { ok: true, json: () => body };
+  };
+  const pending = putApi("configuracion/llm", { provider: "groq" }, controller.signal);
+  await Promise.resolve();
+  controller.abort();
+  await assert.rejects(pending, (error) => error.name === "AbortError");
+  assert.equal(fetchSignal.aborted, true);
+  finishBody({ meta: { api_version: "1" }, data: null });
+} finally { globalThis.fetch = originalFetch; }
+checks++;
+
+try {
+  const controller = new AbortController();
+  controller.abort();
+  globalThis.fetch = () => { throw new Error("Pre-aborted save must not contact API"); };
+  await assert.rejects(putApi("configuracion/llm", {}, controller.signal), (error) => error.name === "AbortError");
+  let fetchSignal;
+  globalThis.fetch = (_url, options) => { fetchSignal = options.signal; return new Promise(() => {}); };
+  await assert.rejects(putApi("configuracion/llm", {}, undefined, 5), (error) =>
+    error.status === 408 && error.message.includes("Vuelve a consultar"));
+  assert.equal(fetchSignal.aborted, true);
+} finally { globalThis.fetch = originalFetch; }
+checks++;
 const hex = (n) => 'a'.repeat(n), at = '2026-10-07T12:00:00Z';
 const validThreat = { id: hex(24), number: '1', severity: 'ALTA', type: 'SQLi', status: 'Indicador observado', source_ip: null, event_time: null, source_report_id: hex(64) };
 const validReport = { id: hex(64), filename: 'report.md', modified_at: at, size_bytes: 10, current: true };
