@@ -25,7 +25,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
-| Configuración/interfaz | Validación de los cuatro números del ejecutor implementada; queda E2E de guardar/recargar/desmontar Configuración | Errores comprensibles comprobados; helpers/dobles existentes no acreditan todo el recorrido del formulario |
+| Configuración/interfaz | Validación de los cuatro números del ejecutor aprobada en Windows/Ubuntu; queda E2E de guardar/recargar/desmontar Configuración | Errores comprensibles comprobados; helpers/dobles existentes no acreditan todo el recorrido del formulario |
 | Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
 

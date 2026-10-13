@@ -26,6 +26,11 @@ El 13/10 el usuario confirmó actualización, inventario 172/0/0, navegación y 
 correctos en su VM Parrot. Las entradas fechadas
 inferiores conservan estados históricos; los pendientes actuales están en ese resumen.
 
+El 13/10 se completó la [validación de configuración global del ejecutor](docs/CONFIGURACION_GLOBAL_2026_10_13.md):
+los cuatro parámetros numéricos se rechazan con errores por variable antes de crear
+estado si son inválidos. CI Windows/Ubuntu aprobada; el recorrido completo del
+formulario de Configuración sigue pendiente.
+
 La [entrada simplificada](docs/INICIO_RAPIDO.md) prepara dependencias y build con
 `python3 webdefense.py install` y arranca Flask/Next en una terminal con
 `python3 webdefense.py start` (Windows: `py` en lugar de `python3`). Requiere

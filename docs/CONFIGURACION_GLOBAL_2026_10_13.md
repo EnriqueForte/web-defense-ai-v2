@@ -44,4 +44,30 @@ Recibos ignorados: `.local-state/config-validation-20261013/`. No se modifica
 el `.env` operativo ni se inicia el worker operativo, Docker, análisis real,
 proveedor o notificaciones. El E2E de guardar/recargar/desmontar Configuración
 (R-15), A-05, laboratorio Parrot y seguridad residual conservan sus pendientes.
-La validación CI de esta entrega se registrará después de revisar sus resultados.
+
+## Publicación y CI comprobada
+
+Código `710a34bbdd2fcae5b9ede171a025f88b59cb7b20`,
+[CI 38377769557](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38377769557),
+attempt 1: Windows-latest y Ubuntu24.04 completaron con success. Se revisaron
+los estados finales, logs de comprobación y artefactos de ambos sistemas.
+
+Ambos completaron instalación nueva/build, pip check/172 pines estrictos sin
+diferencias ni extras, 84 archivos de sintaxis, tres JS, HTTP sintético,
+25 escenarios SDK offline, lint/tipos/15 UI y smoke del lanzador con API directa
+y proxy HTTP200, ejecutor offline y puertos libres al cerrar. Ubuntu aprobó los
+303 casos Python; Windows aprobó 302 y omitió el caso TIME_WAIT exclusivo Linux.
+
+Artefactos de inventario 11802305796 (Windows Python3.11.9) y 11801918324
+(Ubuntu Python3.11.17): 172 paquetes cada uno, metadatos/freeze/contrato
+coincidentes. Sus hashes freeze coinciden con los ya conservados en la
+[migración CrewAI](MIGRACION_CREWAI_2026_10_12.md); no hubo cambio de dependencias.
+Recibos en `.local-state/launcher-20261012/` y
+`.local-state/linux-contract-20261012/artifacts-38377769557/`.
+
+El estado operativo local coincide con el último recibo de la migración:
+29 trabajos, 14 entregas, cero activos, mismos hashes log/publicación/informe/
+resultado y metadatos de `.env`. Comparación registrada en
+`.local-state/migration-20261012/invariants-configuration-20261013.json`.
+La actualización documental posterior usa `[skip ci]`; la CI corresponde al
+código 710a34b. El nuevo código no se ha ejecutado operativamente en la VM Parrot.

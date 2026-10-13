@@ -9,8 +9,15 @@ variable sin imprimir valores/traceback antes de crear estado o heartbeat.
 Cinco pruebas nuevas; línea base .p4 303 casos (302 Windows +1 Linux omitido),
 3 JS/84 sintaxis. Sandbox bloqueó reemplazos temporales/sockets; repetición
 autorizada pasó. Resolver LLM, preparación legacy, datos y entornos operativos
-sin cambios; sin servicios operativos/LLM/Docker/envíos. CI/publicación del código
-pendientes; E2E Configuración/R-15 y demás bloques siguen abiertos. Registro
+sin cambios; sin servicios operativos/LLM/Docker/envíos. Código publicado
+710a34bbdd2fcae5b9ede171a025f88b59cb7b20, CI 38377769557/attempt1 Windows/Ubuntu
+success con logs/estados/artefactos revisados: 172 strict/freeze 0/0,
+Ubuntu303 Python/Windows302+1omitido, 84 sintaxis/3JS/HTTP/25SDK/lint/tipos/15UI,
+smoke API/proxy200/ejecutoroffline/cierrelibre. Artefactos11802305796Win y
+11801918324Linux verificados, hashes freeze iguales a migración previa.
+Estado operativo igual al último recibo:29jobs/14entregas/0activos/hashes y
+.envmetadatos preservados. Siguiente commit solo actas [skip ci]; código CI710a34b.
+VM no ha probado este ajuste; E2E Configuración/R-15 y demás bloques siguen abiertos. Registro
 docs/CONFIGURACION_GLOBAL_2026_10_13.md, recibos config-validation-20261013.
 
 Actualización Parrot: evidencia recibida 13/10/2026. Capturas muestran instalación
