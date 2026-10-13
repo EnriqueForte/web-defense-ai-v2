@@ -121,5 +121,24 @@ python3 webdefense.py install
 ```
 
 Se espera 172 pines y cero diferencias/adicionales. La actualización conserva
-`.env` existente; no inicia worker, proveedor ni análisis. Confirmación en Parrot
-pendiente; no se prescribe actualizar mientras haya trabajos/servicios activos.
+`.env` existente; no inicia worker, proveedor ni análisis. El recorrido en Parrot
+se confirmó posteriormente, según la evidencia siguiente.
+
+## Evidencia recibida de Parrot — 13/10/2026
+
+Las capturas del usuario muestran la actualización a CrewAI 1.15.27, instalación
+completada con `existing_preserved` y build Next 16.3.8 correcto. Después,
+`pip check` no encuentra requisitos rotos; la comprobación estricta y la
+instantánea informan 172 paquetes, cero diferencias y cero adicionales sin fijar.
+
+La captura siguiente muestra `python3 webdefense.py start` con «Consola lista» en
+127.0.0.1:3000, cierre mediante Ctrl+C con «Consola detenida» y
+`python3 webdefense.py check` con «Preparado», sin aviso de puerto ocupado.
+El último estado visible de esta VM es detenido y preparado para arrancar.
+
+El usuario confirmó después que las vistas también cargaron correctamente.
+Queda aceptado el recorrido guiado de actualización y lectura en esta VM.
+Las capturas no muestran el SHA Git actual ni contienen los archivos exportados
+o sus hashes; no se atribuyen a la VM los bytes del inventario Ubuntu de CI.
+Esta evidencia cubre instalación, inventario declarado, arranque y cierre en
+lectura local; no acredita ingesta Docker, análisis con proveedor ni calidad A-05.

@@ -119,3 +119,24 @@ esta VM, incluyendo uvloop0.23.0 por la validación estricta. No se recibieron
 los archivos exportados ni su hash desde la VM: la evidencia recibida es la
 captura de ejecución satisfactoria. El freeze Ubuntu conservado sigue siendo
 evidencia independiente. No fue necesario reinstalar paquetes para esta prueba.
+
+## Actualización CrewAI — evidencia del 13/10/2026
+
+Las nuevas capturas muestran instalación completada, `existing_preserved`,
+CrewAI 1.15.27 y build Next 16.3.8 correcto. La comprobación posterior de pip
+termina sin requisitos rotos; `check_environment.py --strict` y
+`snapshot_environment.py` informan 172 paquetes, cero diferencias y cero extras.
+
+El siguiente recorrido queda visible: `python3 webdefense.py start` anuncia la
+consola lista en 127.0.0.1:3000; Ctrl+C anuncia consola detenida; el `check`
+posterior anuncia preparado sin aviso de puerto ocupado. El estado final visible
+es detenido y preparado. No se midió el intervalo entre cierre y comprobación.
+
+El usuario confirmó que las vistas también cargaron correctamente tras esta
+migración. Queda aceptado el recorrido de instalación, lectura, arranque y cierre
+con el contrato de 172 paquetes en esta VM.
+El SHA Git actualizado no aparece y no se recibieron los archivos freeze ni sus
+hashes de esta VM. La aceptación de navegación anterior se conserva como evidencia
+histórica, y la nueva confirmación acredita el recorrido posterior a la actualización. Véase el
+[registro de migración](MIGRACION_CREWAI_2026_10_12.md). Docker, ingesta y análisis
+real con proveedor siguen pendientes por separado.

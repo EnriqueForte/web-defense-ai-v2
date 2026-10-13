@@ -1,7 +1,22 @@
 {
   "schema_version": 1,
   "date": "2026-10-12",
-  "status": "windows_and_ubuntu_clean_ci_verified; parrot_update_pending",
+  "status": "windows_and_ubuntu_clean_ci_verified; parrot_update_and_read_navigation_accepted",
+  "parrot_user_evidence": {
+    "received_date": "2026-10-13",
+    "source": "user_screenshots_and_explicit_navigation_confirmation",
+    "packages": 172,
+    "differences": 0,
+    "additional_unpinned": 0,
+    "pip_check": "passed",
+    "build": "passed",
+    "start_ctrl_c_check": "passed",
+    "navigation": "accepted_by_user",
+    "last_visible_state": "stopped_and_preflight_ready",
+    "git_sha_observed": false,
+    "freeze_bytes_or_hash_received": false,
+    "docker_ingestion_or_real_provider_analysis_verified": false
+  },
   "code_commit": "f02bf245c24797621ff6c62a9bdfb9eb059eb9b7",
   "resolution": {
     "packages": 172,

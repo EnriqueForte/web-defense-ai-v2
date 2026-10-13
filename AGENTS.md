@@ -2,6 +2,17 @@
 
 ## Alcance actual
 
+Actualización Parrot: evidencia recibida 13/10/2026. Capturas muestran instalación
+completada/existing_preserved, CrewAI 1.15.27 y build Next 16.3.8 correcto;
+pip check sin errores, strict/snapshot 172 paquetes, 0 diferencias y 0 extras.
+Start consola lista 127.0.0.1:3000, Ctrl+C consola detenida y check preparado
+sin aviso ocupado. Estado final visible VM detenida/preflight preparado;
+intervalo de cierre no medido, SHA actualizado no visible, freeze/hashes VM no
+recibidos. Usuario confirma navegación correcta tras migración: recorrido de
+actualización/lectura aceptado en esta VM, sin trasladar hashes Ubuntu. Registros migración y
+validación Parrot actualizados; sin servicios Windows, LLM, Docker o envíos nuevos.
+Entradas inferiores históricas.
+
 MigraciónCrewAI publicada/CI/inventarios verificados12/10/2026: códigof02bf24
 (f02bf245c24797621ff6c62a9bdfb9eb059eb9b7),run38255739335/attempt1Windows/Ubuntu
 completedsuccess,estados/logs/artifacts11749837740Win11750017346Linuxverificados.

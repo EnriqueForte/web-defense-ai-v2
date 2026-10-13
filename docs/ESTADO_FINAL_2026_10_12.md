@@ -11,7 +11,8 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
 - Corrección de comprobación de puertos y aceptación del recorrido en Parrot.
 - Contrato inicial de 158 pines/inventario completo y uvloop Linux aprobados en Parrot.
   La [migración posterior CrewAI](MIGRACION_CREWAI_2026_10_12.md) pasó Windows/Ubuntu
-  desde instalación nueva con 172 pines; actualizar y comprobar Parrot sigue pendiente.
+  desde instalación nueva con 172 pines. El 13/10 el usuario acreditó actualización,
+  inventario 172/0/0, arranque/cierre y navegación correcta en su VM Parrot.
 - Código y evidencias publicados en el repositorio V2; original independiente.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
@@ -21,7 +22,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | Auditorías/escaneo y migración CrewAI completados en Windows/Ubuntu; quedan Chroma/braces, actualización Parrot, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
+| Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
 | Configuración/interfaz | Validación global de valores y E2E de guardar/recargar/desmontar Configuración | Errores comprensibles y pruebas de efectos completos; helpers/dobles existentes no acreditan todo el recorrido |

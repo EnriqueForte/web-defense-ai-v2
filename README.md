@@ -22,7 +22,8 @@ El lanzador y el contrato inicial de 158 paquetes por plataforma pasaron
 Windows/Ubuntu CI y Parrot. La [migración CrewAI](docs/MIGRACION_CREWAI_2026_10_12.md)
 posterior fija 172 pines y pasó instalación/SDK/lanzador en Windows/Ubuntu CI,
 reduciendo la auditoría Python de 36 entradas/cuatro paquetes a cinco solo en Chroma.
-Actualizar y comprobar esta migración en Parrot sigue pendiente. Las entradas fechadas
+El 13/10 el usuario confirmó actualización, inventario 172/0/0, navegación y cierre
+correctos en su VM Parrot. Las entradas fechadas
 inferiores conservan estados históricos; los pendientes actuales están en ese resumen.
 
 La [entrada simplificada](docs/INICIO_RAPIDO.md) prepara dependencias y build con
