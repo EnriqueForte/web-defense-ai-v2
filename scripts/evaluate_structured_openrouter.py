@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 # Shared structured limits; the legacy factory keeps its previous defaults.
 from agents.structured_engine import STRUCTURED_MAX_TOKENS, STRUCTURED_REQUEST_TIMEOUT_SECONDS
 EVALUATION_MAX_TOKENS = STRUCTURED_MAX_TOKENS
-from agents.evaluation_fixtures import CASES, fixture, score_patterns
+from agents.evaluation_fixtures import CASES, fixture, score_patterns, score_evidence
 
 
 @contextlib.contextmanager
@@ -97,6 +97,7 @@ def _evaluate(destination, diagnostics, *, case="mixed"):
         _, result, _ = load_current(destination / "structured")
         diagnostics.phase("metrics")
         scores = score_patterns(result["findings"], case)
+        scores.update(score_evidence(result["findings"], result["evidence"], case))
         return {"status": "succeeded", "calls": llm.calls, "seconds": round(time.monotonic() - started, 3),
                 "model": settings["model"], "generation": manifest["generation"],
                 **scores,

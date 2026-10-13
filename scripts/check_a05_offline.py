@@ -1,0 +1,145 @@
+"""Reproducible synthetic A-05 review; no provider, settings, jobs or lab access."""
+from copy import deepcopy
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import socket
+import sys
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from agents.evaluation_fixtures import CASES, fixture, expected_evidence_pairs, score_patterns, score_evidence
+from agents.evidence_contracts import ContractError
+from agents.evidence_preparation import prepare_evidence
+from dashboard.services.structured_publication import publish, load_current
+
+ID = "e" * 32
+MODEL_TEXT = "SYNTHETIC_UNSUPPORTED_EXPLOITATION_CLAIM"
+
+
+def authored_payloads(prepared, case):
+    """Simulated responses use authored labels, never detector output as oracle."""
+    required, _ = expected_evidence_pairs(case)
+    groups = {}
+    for pattern, number in sorted(required):
+        for item in prepared.bundle.items:
+            if item.line_number == number:
+                groups.setdefault(pattern, []).append(item.evidence_id)
+    candidates = [{"candidate_id": f"c_{index}", "pattern": pattern, "evidence_ids": refs,
+                   "reason": MODEL_TEXT} for index, (pattern, refs) in enumerate(sorted(groups.items()), 1)]
+    detection = {"schema_version": "1", "analysis_id": ID, "candidates": candidates}
+    classification = {"schema_version": "1", "analysis_id": ID, "classifications": [
+        {"candidate_id": item["candidate_id"], "severity": "unknown", "state": "requires_investigation",
+         "reason": MODEL_TEXT} for item in candidates]}
+    narrative = {"schema_version": "1", "analysis_id": ID, "summary": MODEL_TEXT,
+                 "recommendations": [{"candidate_id": item["candidate_id"], "text": MODEL_TEXT}
+                                     for item in candidates]}
+    return detection, classification, narrative
+
+
+def fingerprints(root):
+    return {str(path.relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in root.rglob("*") if path.is_file()}
+
+
+def review_matrix(destination):
+    destination = Path(destination)
+    reviews = []
+    specifications = [(case, case, {}) for case in CASES]
+    specifications += [("incomplete_other", "incomplete", {}), ("false_positive", "same_family", {}),
+                       ("partial_same_family", "same_family", {}),
+                       ("selection_limit", "same_family", {"max_items": 1})]
+    for name, case, selection in specifications:
+        prepared = prepare_evidence(fixture(case)["text"], ID, config={}, **selection)
+        payloads = authored_payloads(prepared, case)
+        detection, classification, narrative = payloads
+        if name == "incomplete_other":
+            detection["candidates"] = [{"candidate_id": "c_1", "pattern": "other", "reason": MODEL_TEXT,
+                                        "evidence_ids": [prepared.bundle.items[0].evidence_id]}]
+            classification["classifications"] = [{"candidate_id": "c_1", "severity": "unknown",
+                                                   "state": "requires_investigation", "reason": MODEL_TEXT}]
+        elif name == "false_positive":
+            classification["classifications"][0].update(state="probable_false_positive", severity="low")
+        elif name == "partial_same_family":
+            detection["candidates"][0]["evidence_ids"] = detection["candidates"][0]["evidence_ids"][:1]
+        publication = destination / name
+        publish(publication, prepared, *payloads, model="offline-authored-responses", prompt_version="a05-review-1")
+        manifest, result, markdown = load_current(publication)  # verifies artifact hashes
+        scores = {**score_patterns(result["findings"], case), **score_evidence(result["findings"], result["evidence"], case)}
+        checks = {"families": scores["pattern_expectations_met"],
+                  "evidence_verdict": scores["evidence_expectations_met"] == (name != "partial_same_family"),
+                  "selection_verdict": scores["fixture_fully_selected"] == (name != "selection_limit"),
+                  "counts": sum(result["counts"].values()) == len(result["findings"]),
+                  "quality_pending": result["quality"] == "semantic_evaluation_pending",
+                  "grounded_text": MODEL_TEXT not in markdown and MODEL_TEXT not in json.dumps(result["narrative"]),
+                  "narrative_source": result["narrative_source"] == (
+                      "python_validated_facts" if result["findings"] else "python_scope"),
+                  "recommendation_refs": {item["candidate_id"] for item in result["narrative"]["recommendations"]}
+                      == {item["candidate_id"] for item in result["findings"]}}
+        if name == "partial_same_family":
+            checks["omission_warning"] = "Queda 1 referencia" in result["narrative"]["summary"]
+        if name == "false_positive":
+            checks["cautious_false_positive"] = "antes de cambiar controles" in result["narrative"]["recommendations"][0]["text"]
+        reviews.append({"name": name, "checks": checks, "passed": all(checks.values()),
+                        "generation": manifest["generation"], "sha256": manifest["sha256"], **scores})
+
+    prepared = prepare_evidence(fixture("mixed")["text"], ID, config={})
+    valid = authored_payloads(prepared, "mixed")
+    publication = destination / "guard_controls"
+    publish(publication, prepared, *valid, model="offline-authored-responses", prompt_version="a05-review-1")
+    baseline = fingerprints(publication)
+    controls = []
+    for name, code in (("empty_detection", "empty_detection_with_observed_indicators"),
+                       ("foreign_reference", "invalid_evidence_reference"),
+                       ("normal_reference", "pattern_without_observation"),
+                       ("unsupported_severity", "severity_without_support"),
+                       ("false_positive_severity", "inconsistent_false_positive_severity"),
+                       ("missing_classification", "incomplete_or_foreign_classification"),
+                       ("invalid_narrative", "invalid_text")):
+        detection, classification, narrative = deepcopy(valid)
+        if name == "empty_detection":
+            detection["candidates"] = []
+        elif name in {"foreign_reference", "normal_reference"}:
+            detection["candidates"][0]["evidence_ids"] = [
+                "e_foreign" if name == "foreign_reference" else prepared.bundle.items[-1].evidence_id]
+        elif name == "unsupported_severity":
+            classification["classifications"][0]["severity"] = "critical"
+        elif name == "false_positive_severity":
+            classification["classifications"][0].update(state="probable_false_positive", severity="medium")
+        elif name == "missing_classification":
+            classification["classifications"] = []
+        else:
+            narrative["summary"] = ""
+        observed_code = None
+        try:
+            publish(publication, prepared, detection, classification, narrative,
+                    model="offline-authored-responses", prompt_version="a05-review-1")
+        except ContractError as error:
+            observed_code = str(error)
+        preserved = baseline == fingerprints(publication)
+        controls.append({"name": name, "expected_code": code, "observed_code": observed_code,
+                         "publication_preserved": preserved, "passed": code == observed_code and preserved})
+    return {"schema_version": "1", "scope": "offline_authored_responses_not_provider_semantic_acceptance",
+            "provider_calls": 0, "cases": reviews, "guard_controls": controls,
+            "passed": all(item["passed"] for item in (*reviews, *controls))}
+
+
+def main():
+    destination = ROOT / ".local-state/a05-offline-review" / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    destination.mkdir(parents=True, exist_ok=False)
+    # Any accidental network addition must fail, including framework telemetry.
+    with patch.object(socket.socket, "connect", side_effect=RuntimeError("offline_network_forbidden")), \
+            patch.object(socket, "create_connection", side_effect=RuntimeError("offline_network_forbidden")):
+        report = review_matrix(destination)
+    (destination / "review.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"A-05 offline: {len(report['cases'])} casos; {len(report['guard_controls'])} controles; "
+          f"passed={report['passed']}; llamadas proveedor=0")
+    print(f"Evidence: {destination / 'review.json'}")
+    return 0 if report["passed"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

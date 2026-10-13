@@ -2,6 +2,19 @@
 
 ## Alcance actual
 
+Avance A-05 offline 13/10/2026: matriz reproducible 13casos/7rechazos aprobada,
+hashes de publicaciones sintéticas verificados/preservados; etiquetas escritas
+a mano y métrica patrón–línea detectan omisiones ocultas por familias. same_family
+nuevo, selección/omisión respuesta separadas, negativos null/other opcional.
+314Python(.p4:313aprobados+1Linuxomitido),3JS/25SDKoffline/89sintaxis/diff; primer sandbox
+bloqueó os.replace temporal, repetición autorizada pasó. Sin proveedor/Docker/
+envíos/servicios operativos/datos/env/pines modificados ni nueva lectura de
+inventario operativo. CI matriz preparada, sin commit/push/ejecución remota nueva;
+código CI vigente f876317. A05 sigue abierta por evaluación del proveedor,
+verificación manual/ingesta y aceptación; demás pendientes conservados.
+Registro docs/EVALUACION_OFFLINE_A05_2026_10_13.md, recibos a05-offline-review y
+a05-review-20261013 ignorados. Esta evaluación no acredita semántica del LLM.
+
 E2E Configuración completado 13/10/2026: código f8763178605e976e37982350adc702b225d89fc5,
 CI 38383079313/attempt1 Windows/Ubuntu success, estados/logs finales revisados.
 9 Chromium E2E aprobados por OS (Win9.5s/Ubuntu8.7s), guardado real sintético,

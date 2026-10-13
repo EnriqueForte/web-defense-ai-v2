@@ -26,7 +26,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
-| Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
+| Calidad A-05 | Matriz offline por evidencia completada el 13/10; quedan CI del candidato, evaluación con proveedor y comprobación final del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
 | Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
@@ -42,6 +42,13 @@ E2E del formulario en Chromium con Flask/proxy reales y persistencia sintética;
 se cierra en ese alcance, sin acreditar uso con un proveedor real. A-05 mantiene la evaluación
 semántica pendiente y la revisión del recorrido manual según
 [formato manual](CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md).
+
+El 13/10 se añadió una [revisión A-05 offline reproducible](EVALUACION_OFFLINE_A05_2026_10_13.md):
+13 casos con respuestas sintéticas y siete controles de rechazo/conservación de
+publicación. La evaluación incorpora cobertura por pares de patrón–línea además
+de familias, separando omisiones de selección y de respuesta. Esto verifica el
+evaluador y las guardas; no acredita calidad del proveedor ni cierra A-05.
+CI de estos cambios y ensayo real con alcance concreto siguen pendientes.
 
 ## Seguridad en curso
 

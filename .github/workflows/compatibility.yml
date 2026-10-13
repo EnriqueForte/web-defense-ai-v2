@@ -61,6 +61,20 @@ jobs:
           "$PYTHON" -B scripts/check_baseline.py
           "$PYTHON" -B scripts/check_local_http.py
           "$PYTHON" -B scripts/check_structured_prototype.py
+      - name: A-05 synthetic evidence and publication review
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then PYTHON=.p2/Scripts/python.exe; else PYTHON=.p2/bin/python; fi
+          "$PYTHON" -B scripts/check_a05_offline.py
+      - name: Save synthetic A-05 review
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: a05-offline-review-${{ matrix.os }}
+          path: .local-state/a05-offline-review/**/review.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 30
       - name: Frontend validation
         working-directory: frontend
         run: |
