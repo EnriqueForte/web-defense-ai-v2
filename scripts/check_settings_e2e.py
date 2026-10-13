@@ -1,24 +1,47 @@
 """Build a separate frontend and run Chromium against synthetic Flask settings."""
 
 from contextlib import ExitStack
+import errno
 import json
 import os
 from pathlib import Path
 import shutil
 import socket
+import subprocess
 import sys
+import time
 from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.process_owner import ProcessOwner
 from scripts.start_application import wait_http, require_free_port
+from scripts.local_port import probe_port
 
 
 def free_port():
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))
         return listener.getsockname()[1]
+
+
+def wait_free_ports(ports, timeout=10):
+    """Wait for owned process shutdown; keep the strict platform bind probe."""
+    deadline = time.monotonic() + timeout
+    while True:
+        busy = []
+        for port in ports:
+            try:
+                probe_port(port)
+            except OSError as error:
+                if error.errno != errno.EADDRINUSE:
+                    raise
+                busy.append(port)
+        if not busy:
+            return
+        if time.monotonic() >= deadline:
+            raise RuntimeError(f"Los puertos de pruebas siguen sin estar disponibles tras el cierre: {busy}")
+        time.sleep(.1)
 
 
 def main():
@@ -80,8 +103,23 @@ def main():
         result = owner.spawn([node, str(playwright_cli), "test"], cwd=frontend, env=env, log=sys.stdout)
         code = result.wait(timeout=240)
     # Require cleanup by the owner before declaring the run complete.
-    for port in (api_port, ui_port):
-        require_free_port(port)
+    try:
+        wait_free_ports((api_port, ui_port))
+    except (OSError, RuntimeError):
+        # Diagnose only the two test ports; never kill or disclose other connections.
+        rows = []
+        if os.name == "nt":
+            try:
+                tcp = subprocess.run(["netstat", "-ano", "-p", "tcp"], capture_output=True, timeout=5)
+                for line in tcp.stdout.decode(errors="replace").splitlines():
+                    parts = line.split()
+                    if len(parts) == 5 and parts[0] == "TCP" and any(parts[1].endswith(f":{port}") for port in (api_port, ui_port)):
+                        rows.append({"local": parts[1], "state": parts[3], "pid": parts[4]})
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+        (folder / "result.json").write_text(json.dumps({"exit_code": code, "api_port": api_port,
+            "ui_port": ui_port, "shutdown": "not_verified_free", "test_port_tcp_rows": rows}, indent=2), encoding="utf-8")
+        raise
     (folder / "result.json").write_text(json.dumps({"exit_code": code, "api_port": api_port,
         "ui_port": ui_port, "shutdown": "ports_free", "data": "synthetic_only"}, indent=2), encoding="utf-8")
     print(f"Configuración E2E: salida {code}; cierre con puertos libres. Recibos: {folder}")

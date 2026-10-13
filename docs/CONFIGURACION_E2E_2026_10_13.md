@@ -79,7 +79,19 @@ eventos Code Integrity 3077/3033 relativos a su ejecutable confirman bloqueo de
 Windows. Ningún caso E2E llegó a ejecutarse allí. No se cambia esa política.
 Recibo del ensayo: `.local-state/settings-e2e/0d751955ffc24b1a9a7e75cc5ecc1f09/`.
 
-La matriz Windows/Ubuntu incorpora instalación del navegador y ensayo E2E;
-resultado remoto pendiente de publicación y revisión. R-15 conserva abierto
-el cierre hasta comprobar esos resultados. No se acredita análisis real,
+Primer código publicado `d0e61c799c9c51fd58f4e3ba30845598aceaf00d`,
+[CI 38380953611](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38380953611):
+los nueve casos E2E pasaron en ambos sistemas (Ubuntu 7.7s, Windows 9.4s).
+Ubuntu completó el job; Windows falló después de las pruebas en el probe
+inmediato de disponibilidad de un puerto tras cerrar los procesos propios.
+No hay captura de estado TCP para atribuir la causa exacta.
+
+El supervisor de pruebas conserva el probe estricto y ahora espera hasta 10s
+por la disponibilidad verificable de sus dos puertos, únicamente después de
+cerrar ProcessOwner. No reutiliza servidores previos ni mata procesos ajenos.
+La admisión inicial sigue rechazando inmediatamente puertos ocupados. Tres
+pruebas comprueban cierre transitorio, bloqueo persistente y error de permiso
+desconocido (este último falla sin reintento). Nueva CI pendiente de publicación
+y revisión; R-15 conserva abierto el cierre completo hasta comprobarla.
+No se acredita análisis real,
 calidad semántica A-05, laboratorio Parrot ni seguridad residual por este ensayo.

@@ -84,6 +84,7 @@ jobs:
             .local-state/settings-e2e/*/build.log
             .local-state/settings-e2e/*/flask.log
             .local-state/settings-e2e/*/next.log
+            .local-state/settings-e2e/*/result.json
           include-hidden-files: true
           if-no-files-found: ignore
           retention-days: 7

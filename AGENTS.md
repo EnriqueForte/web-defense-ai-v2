@@ -11,7 +11,11 @@ bloqueadas, sin datos operativos/LLM/Docker/envíos. Nueve casos Chromium prepar
 Local .p4:303 Python(302+1Linuxomitido)/3JS/lint/tipos/17UI/86sintaxis aprobados;
 build/servidores/cierre local pasó, Chromium bloqueado CodeIntegrity3077/3033
 antes de ejecutar casos; no alterar política. CI E2E Windows/Ubuntu preparada,
-publicación/revisión pendientes; R-15 no cerrado todavía. Registro
+primera CI38380953611/d0e61c7:9E2E pasan ambos;Ubuntu job success, Windows falla
+después por probe inmediato ocupado tras cierre propio, causaTCP no capturada.
+Supervisor espera máximo10s conservando probeestricto tras cierre; admisión
+inicial intacta, permisos desconocidos fallan,3 pruebas cleanup aprobadas.
+Nueva publicación/CI pendiente; R-15 no cerrado todavía. Registro
 docs/CONFIGURACION_E2E_2026_10_13.md; recibos settings-e2e ignorados.
 
 Configuración global 13/10/2026: config/global_settings valida cuatro números
