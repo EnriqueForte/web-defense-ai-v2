@@ -71,3 +71,7 @@ resultado y metadatos de `.env`. Comparación registrada en
 `.local-state/migration-20261012/invariants-configuration-20261013.json`.
 La actualización documental posterior usa `[skip ci]`; la CI corresponde al
 código 710a34b. El nuevo código no se ha ejecutado operativamente en la VM Parrot.
+
+Actualización posterior: el [E2E de Configuración](CONFIGURACION_E2E_2026_10_13.md)
+cerró R-15 con nueve casos Chromium en Windows/Ubuntu. La CI de esta acta de
+validación numérica sigue siendo la ejecución 38377769557.

@@ -14,6 +14,9 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   desde instalación nueva con 172 pines. El 13/10 el usuario acreditó actualización,
   inventario 172/0/0, arranque/cierre y navegación correcta en su VM Parrot.
 - Código y evidencias publicados en el repositorio V2; original independiente.
+- Validación numérica del ejecutor y [recorrido E2E de Configuración](CONFIGURACION_E2E_2026_10_13.md):
+  nueve casos Chromium en Windows/Ubuntu CI, con guardado sintético, recarga,
+  desmontaje/cancelación, errores y cierre de puertos comprobados el 13/10.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -25,7 +28,6 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Evaluación semántica y comprobación final de las correcciones del análisis manual | Casos representativos, evidencia/guardas/publicación y aceptación con límites; nuevas llamadas reales requieren alcance concreto |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
-| Configuración/interfaz | Validación de los cuatro números del ejecutor aprobada en Windows/Ubuntu; queda E2E de guardar/recargar/desmontar Configuración | Errores comprensibles comprobados; helpers/dobles existentes no acreditan todo el recorrido del formulario |
 | Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
 
@@ -35,8 +37,9 @@ No se presenta el clon de lectura como prueba del análisis real o laboratorio.
 
 La [validación global del ejecutor](CONFIGURACION_GLOBAL_2026_10_13.md) reemplaza
 las conversiones directas de `config/settings.py`: errores por variable y rechazo
-antes de crear estado, con regresión offline aprobada. R-15
-conserva el E2E de los efectos de Configuración. A-05 mantiene la evaluación
+antes de crear estado, con regresión offline aprobada. R-15 dispone ahora del
+E2E del formulario en Chromium con Flask/proxy reales y persistencia sintética;
+se cierra en ese alcance, sin acreditar uso con un proveedor real. A-05 mantiene la evaluación
 semántica pendiente y la revisión del recorrido manual según
 [formato manual](CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md).
 

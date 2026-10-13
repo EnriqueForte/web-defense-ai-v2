@@ -95,3 +95,32 @@ desconocido (este último falla sin reintento). Nueva CI pendiente de publicaci�
 y revisión; R-15 conserva abierto el cierre completo hasta comprobarla.
 No se acredita análisis real,
 calidad semántica A-05, laboratorio Parrot ni seguridad residual por este ensayo.
+
+## Cierre comprobado
+
+Código `f8763178605e976e37982350adc702b225d89fc5`,
+[CI 38383079313](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38383079313),
+attempt 1: Windows-latest y Ubuntu24.04 completaron con success. Se revisaron
+estados y logs finales. Los nueve casos E2E pasaron en ambos (Windows 9.5s,
+Ubuntu 8.7s), y el supervisor confirmó salida 0/cierre con puertos libres.
+Estos tiempos corresponden a las pruebas del formulario, no al build completo.
+
+Ambos completaron instalación nueva, build normal, pip check/172 pines estrictos,
+87 archivos de sintaxis, tres JS, HTTP sintético, 25 escenarios SDK offline,
+lint/tipos/17 UI y smoke normal con API directa/proxy HTTP200, ejecutor offline
+y cierre libre. Ubuntu aprobó 306 Python; Windows 305 más uno exclusivo Linux
+omitido. La regresión local final también aprobó 305 más uno omitido.
+El build normal de CI conserva Turbopack; el ensayo del navegador compila webpack
+en una carpeta separada. No se afirma que sus chunks sean idénticos.
+
+R-15 queda cerrado en el alcance del recorrido sintético de Configuración y los
+efectos descritos. No se inicia un análisis para comprobar la clave ni se prueba
+la conexión real a un proveedor. Esta evidencia del navegador procede de CI;
+el bloqueo de Chromium local se conserva y la VM Parrot no ha repetido este E2E.
+
+El estado operativo local coincide con el recibo anterior: 29 trabajos, 14
+entregas, cero activos, mismos hashes de log/publicación/informe/resultado y
+metadatos de `.env`. Recibo final en
+`.local-state/migration-20261012/invariants-settings-e2e-final-20261013.json`.
+Logs y resúmenes CI en `.local-state/launcher-20261012/`. El commit documental
+posterior usa `[skip ci]`; el código de la CI aprobada sigue siendo f876317.

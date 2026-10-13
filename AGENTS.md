@@ -2,21 +2,23 @@
 
 ## Alcance actual
 
-E2E Configuración iniciado 13/10/2026: LLMSettings cancela GET/PUT al desmontar,
-guarda concurrente bloqueada, PUT límite 10s/cuerpo; timeout pide releer y no
-reenvía/ni revierte guardado ya confirmado. Playwright1.64.0 dev fijado, lockfile
-verificado pnpm11.19.0. Supervisor build webpack separado, proxy Next/Flask real,
-puertos efímeros/cierre ProcessOwner; fixture.env sintético y conexiones salientes
-bloqueadas, sin datos operativos/LLM/Docker/envíos. Nueve casos Chromium preparados.
-Local .p4:303 Python(302+1Linuxomitido)/3JS/lint/tipos/17UI/86sintaxis aprobados;
-build/servidores/cierre local pasó, Chromium bloqueado CodeIntegrity3077/3033
-antes de ejecutar casos; no alterar política. CI E2E Windows/Ubuntu preparada,
-primera CI38380953611/d0e61c7:9E2E pasan ambos;Ubuntu job success, Windows falla
-después por probe inmediato ocupado tras cierre propio, causaTCP no capturada.
-Supervisor espera máximo10s conservando probeestricto tras cierre; admisión
-inicial intacta, permisos desconocidos fallan,3 pruebas cleanup aprobadas.
-Nueva publicación/CI pendiente; R-15 no cerrado todavía. Registro
-docs/CONFIGURACION_E2E_2026_10_13.md; recibos settings-e2e ignorados.
+E2E Configuración completado 13/10/2026: código f8763178605e976e37982350adc702b225d89fc5,
+CI 38383079313/attempt1 Windows/Ubuntu success, estados/logs finales revisados.
+9 Chromium E2E aprobados por OS (Win9.5s/Ubuntu8.7s), guardado real sintético,
+recarga, estado LLM, errores, abortos/desmontaje y timeout sin reenvío automático.
+172 strict, build normal, 306 Python (Win305+1Linuxomitido/Ubuntu306), 3 JS,
+87 sintaxis/HTTP/25SDK/lint/tipos/17UI, API/proxy200/ejecutoroffline/cierre libre.
+LLMSettings cancela GET/PUT; PUT10s/cuerpo, guarda concurrente bloqueada.
+Playwright1.64.0 dev fijado/lockfile pnpm11.19.0; build webpack E2E separado,
+proxy real y fixture.env sintético, sin datos/LLM/Docker/envíos operativos.
+Primer d0e61c7/CI38380953611:9 casos pasan ambos, Win falla en probe tras cierre;
+causaTCP no capturada. Ajuste espera10s con probeestricto/3tests, sin matar ajenos
+ni relajar admisión. Local Chromium bloqueado CodeIntegrity3077/3033, política
+intacta; ejecución E2E real acreditada en CI, no en navegador local/VM Parrot.
+Estado operativo igual:29jobs/14entregas/0activos/hashlog/publicación/.envmetadatos.
+R-15 cerrado en este alcance; A05/seguridad/laboratorio/operación/final siguen
+pendientes. Siguiente commit solo actas [skip ci], código CI f876317. Registro
+docs/CONFIGURACION_E2E_2026_10_13.md; recibos settings-e2e/launcher ignorados.
 
 Configuración global 13/10/2026: config/global_settings valida cuatro números
 de config/settings (temperatura finita 0–2, intervalo positivo/segundos finitos,
