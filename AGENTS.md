@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+Nuevo ensayo same_familyautorizado14/10/2026 completado: una ejecución en .p4,
+máx6intentoslógicos/600s/routerfree,sin reenvío. Succeeded3llamadas41,641s,
+3líneas seleccionadas/2paresSQLi completos/normal sinhallazgo;2grupos altos
+observed_indicator/3guardas primerintento/narrativaPython español/refs/sha
+verificados. Indicadores no explotación; semánticageneral pendiente. 9234tokens
+informados/4052reasoningvsSDK0/aviso reasoning_exceeds_completion llamada3,
+sin coste inferido; modelosvariaron. Evaluador798c1edc...b94231 coincide con
+códigoCI6f0e549,HEADdocumentalbea2e25;sin cambio código/prompts/pines/.env.
+172strict0/0;29jobs14entregas0activos/filasconsultadas/hashlogpublicaciónreportresult
+.envmetadatos antes/después iguales. Credencial resuelta internamente sin salida.
+Sin nuevosjobs/serviciosoperativos/Docker/envíos;publicaciónsintéticaaislada.
+Saldo3delpresupuesto6 no reutilizable; loteanterior6de18/falloinicialpreservados.
+Muestras same_family/mixed/normal ahora revisadas con evaluadorcorregido;A05abierta
+poraceptación/semánticageneral/ingestaParrot. Actualizaciónsoloactas[skip ci],
+códigoCIsigue6f0e549/run38545831374. Registro docs/ENSAYO_REAL_A05_2026_10_14.md,
+recibosa05-same-family-20261014 y a05-evaluation/20261014T101649520992Z ignorados.
+Entradas inferiores conservan estados históricos.
+
 Corrección evaluador A-05 publicada/CI verificada14/10/2026: código6f0e549
 (6f0e549234c3287ef46c53d60e119376384ca627),run38545831374attempt1Windows/Ubuntu
 completed/success,estados/pasos/logs finales revisados. TransportesSDK27offline,

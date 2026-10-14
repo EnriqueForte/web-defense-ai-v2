@@ -1,9 +1,16 @@
 # A-05 — Ensayo real acotado, 14/10/2026
 
-**Resultado parcial:** `mixed` y `normal` satisfacen sus expectativas de soporte
+**Resultado parcial del lote inicial:** `mixed` y `normal` satisfacen sus expectativas de soporte
 y publicación; `same_family` falló antes de corregir un defecto del evaluador y
 no se repitió. A-05 permanece abierta. No se presenta este lote como tres casos
 aprobados ni como aceptación semántica general del modelo.
+
+Seguimiento del mismo día: el usuario autorizó un ensayo único nuevo de
+`same_family` con el evaluador corregido. Pasó y se verificó su publicación,
+según la sección final. Los tres casos representativos disponen ahora de
+resultados satisfactorios con ese evaluador; el fallo inicial y su presupuesto
+se conservan como hechos históricos independientes. La aceptación y la
+semántica general/ingesta siguen pendientes.
 
 ## Autorización y aislamiento
 
@@ -179,10 +186,63 @@ publicación o la CI, ni se amplió el lote de seis intentos ya terminado.
 
 ## Pendientes y siguiente paso
 
-Queda comprobar `same_family` con el evaluador corregido mediante **un nuevo
-ensayo expresamente autorizado**, con máximo seis intentos lógicos y 600 segundos,
-sin repetición automática. El lote actual ya terminó y no se reutiliza su saldo.
-Una publicación correcta en ese caso aún requeriría revisión y aceptación con
-límites. La semántica general y el recorrido manual/ingesta Parrot, incluida la
-causa histórica de `ingestion_failed`, permanecen abiertos. Seguridad residual,
-historial, recuperación y entrega final siguen siendo bloques independientes.
+El nuevo ensayo `same_family` descrito abajo completó esa comprobación acotada;
+el lote inicial no se repitió ni se reutilizó su saldo. Queda aceptar los
+resultados con sus límites. La semántica general y el recorrido manual/ingesta
+Parrot, incluida la causa histórica de `ingestion_failed`, permanecen abiertos.
+Seguridad residual, historial, recuperación y entrega final siguen siendo
+bloques independientes. Los indicadores observados y el éxito de estas
+fixtures no certifican explotación ni la calidad en otros logs/modelos.
+
+## Nuevo ensayo autorizado de `same_family`
+
+El usuario aceptó expresamente la propuesta de un ensayo único de `same_family`
+con el evaluador corregido, mismo router gratuito, máximo seis intentos lógicos
+y 600 segundos, sin repetición automática. Esta autorización es independiente
+del lote previo. HEAD `bea2e25ae0e87fd3c3f7e52e264ee8c5b24fb290`, documentación
+de código CI `6f0e549`. El hash del evaluador coincide con el verificado en
+`mixed`/`normal` y no hubo cambios de código, prompts, modelos configurados o pines.
+
+Resultado: **succeeded, tres llamadas y 41,641 segundos informados**. Las tres
+guardas pasaron en su primer intento. Las tres líneas de la fixture se
+seleccionaron: SQLi en 1 y 2; solicitud normal en 3 sin hallazgo. Familias y pares
+patrón–línea cumplen las expectativas, sin omisiones ni atribuciones inesperadas;
+precision/recall de esos pares son 1 para esta muestra, no para ataques generales.
+
+El modelo separó los dos eventos en dos grupos altos `observed_indicator`, uno
+por referencia. Los motivos en español describen los indicadores de los
+parámetros `UNION+SELECT` y `1+OR+1=1`. La severidad alta está dentro del techo
+de la política; no demuestra que exista una vulnerabilidad explotable.
+`observed_indicator` identifica un indicador visible, no éxito de explotación.
+La narrativa `python_validated_facts` mantiene alcance/advertencias y dos medidas
+de revisión/consultas parametrizadas con referencias válidas; las medidas
+coinciden porque ambos grupos pertenecen al mismo patrón. No se han aplicado
+controles. El resultado conserva `quality=semantic_evaluation_pending`.
+
+Se volvieron a comprobar evidencia, referencias/clasificación, métricas,
+conteos, manifiesto, hashes de los bytes y reconstrucción del Markdown. No se
+hallaron las credenciales configuradas en los recibos/informe revisados.
+
+- Evaluación: `.local-state/a05-evaluation/20261014T101649520992Z/evaluation.json`.
+- Markdown SHA-256: `3a8586c1692ff8bf6f95d257848c71e4f1e79b1925dcdb1926d1760bac7e4fd3`.
+- Resultado SHA-256: `b58c9f6d98ca0603f8d91878f460c481d446fc04fd944e8a5c0dbba96d2d2d11`.
+- Consolidación y marcadores exclusivos: `.local-state/a05-same-family-20261014/`.
+
+Consumo informado: 4.828 tokens de entrada, 4.406 de salida, 9.234 totales y
+4.052 de razonamiento. El SDK informa cero razonamiento; discrepancia conservada.
+La tercera llamada conserva un aviso `reasoning_exceeds_completion`. No se suma
+razonamiento al total ni se infiere coste. Modelos observados:
+`dots-studio/dots-3-note-preview:free`, `liquid/lfm-2.5-2.6b:free` y
+`nvidia/nemotron-3-super-120b-a12b:free`. Su variación impide atribuir el resultado
+únicamente al ajuste del evaluador o prometer latencia estable.
+
+Se consumieron tres de los seis intentos autorizados para este ensayo y no se
+reutiliza su saldo. `.p4` sigue 172/0/0 sin activación operativa. Las lecturas
+antes/después mantienen 29 trabajos/14 entregas/cero activos, filas consultadas,
+hashes de log/puntero/informe/resultado y metadatos de `.env`. La configuración se
+resolvió internamente para el proveedor autorizado, sin imprimir o modificar
+credenciales. Sin nuevos jobs, servicios operativos, Docker, captura o envíos.
+La publicación sintética queda aislada y no sustituye la del dashboard.
+
+Esta entrega solo añade actas `[skip ci]`. No se necesita otra CI por cambios de
+documentación: el código probado sigue siendo `6f0e549`, run `38545831374`.
