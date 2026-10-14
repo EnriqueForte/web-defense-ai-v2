@@ -25,6 +25,7 @@ PROFILES = {
     "pilot": {"log": ".local-state/dvwa-lab/access.log", "reports": ".local-state/phase6-pilot/reports",
               "db": ".local-state/phase6-pilot/analysis.sqlite3"},
 }
+DIAGNOSTIC_FILES = {"checkpoint.json", "receipt.json", "process.json"}
 
 
 def checked_path(root, relative):
@@ -71,6 +72,15 @@ def collect_sources(root, profiles):
                                (len(local.parts) == 3 and local.parts[0] == "generations" and
                                 GENERATION.fullmatch(local.parts[1]) and
                                 local.parts[2] in {"manifest.json", "result.json"}))
+                    relative = path.relative_to(root).as_posix()
+                    if allowed and checked_path(root, relative).is_file():
+                        paths[relative] = "file"
+            diagnostics = checked_path(root, definition["reports"] + "/analysis-diagnostics")
+            if diagnostics.exists():
+                for path in diagnostics.rglob("*.json"):
+                    local = path.relative_to(diagnostics)
+                    allowed = (len(local.parts) == 2 and GENERATION.fullmatch(local.parts[0])
+                               and local.parts[1] in DIAGNOSTIC_FILES)
                     relative = path.relative_to(root).as_posix()
                     if allowed and checked_path(root, relative).is_file():
                         paths[relative] = "file"

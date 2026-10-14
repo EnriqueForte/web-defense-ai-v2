@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+Operación/recuperación local14/10/2026: CLIrestore_operational --backup crea
+solo .local-state/recovery/nuevo, valida esquema/perfil/hash/ZIP/SQLite/puntero,
+sin cambiar rutas/reconciliar/reenvíos. Backup añade checkpoint/receipt/process
+JSON en carpetasdiagnóstico válidas, sin copiarotrosJSON/.env. Ensayo realWin
+76archivos12diagnósticos/29jobs18succeeded11failed/14entregas11sent3unknown,
+columnas completas/archivos/generación preservados; legacySQLiteausente explícito.
+Fuentesoperativas/.envmetadatos iguales;sin leer.envbytes/LLM/Docker/envíos/
+serviciosoperativos. Primera copia64conservada; final103331825812Z, restorefinal
+103821142161Z. 322Python(321Win+1Linuxomitido)/3JS91sintaxis/diff,8tests nuevas;
+bloqueo sandboxrename/os.replace,repeticiónautorizada pasó. Sin commit/push/CI
+todavía. Guía delimita volúmenesDVWA/logsDocker/buzónMailpit excluidos,no promoción
+viva automática. Parrotcapturas: e5af1a6, Docker26.1.5+dfsg1Linuxx86_64 responde,
+docker-compose5.1.0 independiente (pluginausente),composeconfigquiet0; laboratorio
+no existenteusuario,no arranque/ingesta/restauraciónVM acreditados. Próximo
+publicar/CI y actualizarVM anteslaboratorio con alcanceconcreto. A05/seguridad/
+entregafinal pendientes. docs/OPERACION_RECUPERACION_2026_10_14.md;
+recibosrecovery-20261014/.local-backups/.local-state/recoveryignorados.
+
 Nuevo ensayo same_familyautorizado14/10/2026 completado: una ejecución en .p4,
 máx6intentoslógicos/600s/routerfree,sin reenvío. Succeeded3llamadas41,641s,
 3líneas seleccionadas/2paresSQLi completos/normal sinhallazgo;2grupos altos

@@ -28,7 +28,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Matriz offline/CI y corrección verificadas; mixed/normal y nuevo same_family autorizado satisfacen sus muestras, con informes/guardas/hashes revisados | Aceptación con límites e ingesta manual/Parrot; semántica general sigue pendiente |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
-| Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
+| Operación/recuperación | Guía y CLI aislado implementados; 76 archivos/SQLite/entregas/12 diagnósticos recuperados en Windows, límites Docker/Mailpit delimitados; publicación/CI pendientes | CI propia y alcance de aplicación consolidado; promoción en vivo y recuperación Docker/Mailpit quedan fuera del ZIP |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
@@ -64,6 +64,13 @@ registrado; los dos presupuestos se mantienen separados y sus saldos no se
 reutilizan. Quedan aceptación con límites y recorrido de ingesta; no se cierra A-05.
 
 ## Seguridad en curso
+
+[Operación y recuperación del 14/10](OPERACION_RECUPERACION_2026_10_14.md)
+añade `restore_operational.py --backup <carpeta>` para un destino nuevo aislado,
+sin sustituir datos o reproducir entregas. Recibos de diagnóstico conocidos
+entran ahora en la cobertura del respaldo. Parrot acredita por capturas Docker
+respondiendo y Compose independiente validando el archivo (salida 0), desde
+`e5af1a6`; laboratorio/ingesta y restauración en esa VM siguen sin acreditarse.
 
 Auditorías PyPI/npm actualizadas el 12/10: producción frontend/vendor sin avisos,
 braces de desarrollo con un aviso y Python 36 entradas/cuatro paquetes en el

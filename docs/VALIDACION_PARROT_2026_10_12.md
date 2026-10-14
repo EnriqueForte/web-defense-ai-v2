@@ -1,5 +1,11 @@
 # Validación guiada en Parrot — 12/10/2026
 
+Seguimiento 14/10: capturas acreditan Docker26.1.5+dfsg1 respondiendo Linux/x86_64,
+Compose independiente `docker-compose` v5.1.0 y validación de `compose.lab.yaml`
+con salida 0, en `e5af1a6`. El usuario informa laboratorio todavía no preparado.
+Registro y límites en [operación/recuperación](OPERACION_RECUPERACION_2026_10_14.md).
+No se acredita arranque de contenedores o análisis real por esas consultas.
+
 El usuario clonó `EnriqueForte/web-defense-ai-v2` en el disco local de su VM
 y ejecutó las instrucciones desde una terminal de Parrot. Evidencia: capturas
 aportadas en la conversación y confirmación explícita de navegación correcta.
