@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+Operación/recuperación publicada/CI verificada14/10/2026: código4cb1707
+(4cb1707812eb6b894a033d7f1d3a26d394cf187e),run38552056806attempt1Windows/Ubuntu
+completed/success,estados/pasos/logs finales revisados. Ubuntu322Python/Win321+1
+Linuxomitido/3JS91sintaxis/HTTP27SDKoffline/13A05+7controles/linttipos17UI/9E2E
+porOS/smoke200offlinecierre. Inventarios11887162936Win11886952961Ubuntu172/0/0
+freeze/metadatos/hashprevios verificados; A05resúmenes11887870046Win11887067671
+Ubuntu métricas/checks/hasheslocales iguales salvoUUID,no bytesinformes incluidos.
+244candidatos617blobs57commits revisión acotada sinhallazgos,no seguridadglobal.
+76archivos12diagnósticos/todascolumnas29jobs14entregas/3unknown/publicación/hash/
+.envmetadatos preservados;sin proveedor/Docker/envíos/serviciosoperativos nuevos.
+Cerrado alcance aplicación/perfilesfijos/restauraciónaislada/guía y delimitación
+DVWAvolumen/buzón, no promociónviva/restauraciónDocker/Parrot acreditada. Capturas
+VM e5af1a6/Docker26.1.5Linuxx64/Composeindependiente5.1.0/configquiet0; requiere
+pull/install anteslaboratorio y análisis de alcanceconcreto. A05/seguridad/
+laboratorio/entregafinal pendientes. Siguientecommitactas[skip ci], códigoCI4cb1707.
+docs/OPERACION_RECUPERACION_2026_10_14.md,recibosrecovery-20261014ignorados.
+Entrada siguiente conserva el estado previo a publicación/CI.
+
 Operación/recuperación local14/10/2026: CLIrestore_operational --backup crea
 solo .local-state/recovery/nuevo, valida esquema/perfil/hash/ZIP/SQLite/puntero,
 sin cambiar rutas/reconciliar/reenvíos. Backup añade checkpoint/receipt/process

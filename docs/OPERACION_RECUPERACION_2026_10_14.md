@@ -4,7 +4,8 @@ La aplicación dispone ahora de un comando de recuperación comprobable desde un
 respaldo existente. Restaura los datos en **un directorio nuevo aislado**, revisa
 hashes/integridad/publicación y conserva los estados de trabajos y entregas.
 No cambia las rutas operativas, ejecuta análisis o reenvía notificaciones.
-El ensayo Windows con datos existentes pasó; CI de estos cambios aún pendiente.
+El ensayo Windows con datos existentes pasó y la CI Windows/Ubuntu del código
+`4cb1707` quedó verificada, según el cierre de esta acta.
 
 ## Operación habitual y ventana de conservación
 
@@ -143,7 +144,8 @@ filas completas/unknown/publicación/diagnósticos, manifiestos/caminos/tamaños
 alteraciones, enlaces ZIP/destino, SQLite activo y errores sin contenido privado.
 El primer ensayo dentro del sandbox falló en reemplazos/renombrados temporales;
 la repetición autorizada pasó, sin relajar el producto. Recibos y hashes de filas
-se guardan en `.local-state/recovery-20261014/`, ignorados. CI/publicación pendientes.
+se guardan en `.local-state/recovery-20261014/`, ignorados. La publicación y CI
+propias se comprobaron posteriormente como se describe abajo.
 
 ## Evidencia preliminar Parrot y pendientes
 
@@ -154,9 +156,45 @@ Ese archivo coincide con el actual. Esto acredita consulta de motor y validació
 de configuración; no contenedores iniciados, redes/puertos efectivos, ingesta,
 informe o restauración en Parrot. Laboratorio no existente según el usuario.
 
-Quedan actualizar la VM tras la publicación/CI de esta entrega y efectuar el
+Quedan actualizar la VM con la entrega publicada y efectuar el
 recorrido guiado con datos/llamadas concretos. Las imágenes tienen hallazgos de
 seguridad pendientes de revisión independiente; la comprobación de configuración
 no los elimina ni cambia sus digests. A-05 necesita aceptación y ensayo manual
 de ingesta. La recuperación probada aquí es aislada y no acredita una promoción
 en vivo o recuperación completa de Docker/Mailpit.
+
+## Publicación y CI verificadas
+
+Código publicado `4cb1707812eb6b894a033d7f1d3a26d394cf187e` en `origin/main` V2.
+[CI 38552056806](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38552056806),
+attempt 1, Windows-latest/Ubuntu24.04 `completed/success`; estados, pasos y logs
+finales revisados. Ubuntu aprobó 322 Python y Windows321+1Linuxomitido, incluidos
+los casos de recuperación sintética. Esta evidencia Linux corresponde a CI,
+no a una recuperación con datos existentes en la VM Parrot.
+
+Ambos completaron instalación nueva/build, pip check/172 pines/0 diferencias,
+inventario completo/0 extras, 91 sintaxis, tres JS, HTTP sintético, 27 SDK offline,
+matriz A-05 13 casos/7 controles, lint/tipos/17 UI, nueve E2E de Configuración
+por OS y smoke API/proxy200/ejecutor offline/cierre de puertos. E2E10,7s Ubuntu
+y17,4s Windows son tiempos de pruebas del formulario, no de build o recuperación.
+
+Se descargaron freeze/metadatos completos de los artefactos 11887162936Windows
+y11886952961Ubuntu: 172/0/0 y hashes por plataforma iguales a los verificados
+previamente. Se descargaron también los resúmenes A-05 11887870046Windows y
+11887067671Ubuntu: métricas/checks/hashes de publicaciones iguales al recibo
+offline local, excluyendo solo UUID de generación. Esos artefactos contienen
+resúmenes y hashes, no los bytes de cada informe remoto.
+
+Control de publicación acotado: 244 archivos candidatos y 617 blobs/57 commits
+alcanzables revisados para exclusiones privadas y formatos específicos de
+credenciales, sin coincidencias. Los ocho archivos del índice coincidieron con
+el candidato y los hashes vendor; no equivale a la auditoría exhaustiva pendiente.
+La lectura final de datos operativos/entregas/hashes/.envmetadatos sigue coincidiendo
+con el recibo inicial. ZIP de logs, artefactos y comprobaciones en
+`.local-state/recovery-20261014/`. No hubo nuevas llamadas reales o Docker durante
+esta entrega. El commit posterior de actas usa `[skip ci]`; código CI `4cb1707`.
+
+Se cierra operación/recuperación en el alcance de datos de aplicación de los
+perfiles fijos, restauración aislada y límites de laboratorio delimitados. No se
+cierra laboratorio Parrot, promoción en vivo, recuperación de volúmenes/buzón,
+calidad general A-05, seguridad residual o entrega final.

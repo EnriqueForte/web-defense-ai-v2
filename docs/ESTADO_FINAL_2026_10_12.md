@@ -17,6 +17,10 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
 - Validación numérica del ejecutor y [recorrido E2E de Configuración](CONFIGURACION_E2E_2026_10_13.md):
   nueve casos Chromium en Windows/Ubuntu CI, con guardado sintético, recarga,
   desmontaje/cancelación, errores y cierre de puertos comprobados el 13/10.
+- [Operación/recuperación de aplicación](OPERACION_RECUPERACION_2026_10_14.md):
+  guía, copia de 76 archivos/12 diagnósticos y restauración aislada con datos
+  Windows, filas/entregas/publicación preservadas y CI Windows/Ubuntu propia.
+  Volúmenes DVWA/buzón Mailpit y promoción en vivo tienen alcance separado.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -28,7 +32,6 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Matriz offline/CI y corrección verificadas; mixed/normal y nuevo same_family autorizado satisfacen sus muestras, con informes/guardas/hashes revisados | Aceptación con límites e ingesta manual/Parrot; semántica general sigue pendiente |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
-| Operación/recuperación | Guía y CLI aislado implementados; 76 archivos/SQLite/entregas/12 diagnósticos recuperados en Windows, límites Docker/Mailpit delimitados; publicación/CI pendientes | CI propia y alcance de aplicación consolidado; promoción en vivo y recuperación Docker/Mailpit quedan fuera del ZIP |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
@@ -63,14 +66,18 @@ informe/guardas/métricas/hashes y conservación operativa. El fallo inicial sig
 registrado; los dos presupuestos se mantienen separados y sus saldos no se
 reutilizan. Quedan aceptación con límites y recorrido de ingesta; no se cierra A-05.
 
-## Seguridad en curso
-
 [Operación y recuperación del 14/10](OPERACION_RECUPERACION_2026_10_14.md)
 añade `restore_operational.py --backup <carpeta>` para un destino nuevo aislado,
 sin sustituir datos o reproducir entregas. Recibos de diagnóstico conocidos
 entran ahora en la cobertura del respaldo. Parrot acredita por capturas Docker
 respondiendo y Compose independiente validando el archivo (salida 0), desde
 `e5af1a6`; laboratorio/ingesta y restauración en esa VM siguen sin acreditarse.
+Código `4cb1707`, [CI 38552056806](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38552056806)
+Windows/Ubuntu success; logs y artefactos/inventarios revisados. El siguiente
+recorrido guiado requiere actualizar el clon Parrot y preparar laboratorio,
+después delimitar el análisis real antes de consumir nuevas llamadas.
+
+## Seguridad en curso
 
 Auditorías PyPI/npm actualizadas el 12/10: producción frontend/vendor sin avisos,
 braces de desarrollo con un aviso y Python 36 entradas/cuatro paquetes en el
