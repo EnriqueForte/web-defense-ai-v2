@@ -187,6 +187,47 @@ def main():
                         'provider': {'order': ['synthetic-provider']}}}
                 else:
                     raise AssertionError('Transport exception was swallowed')
+            # The real evaluator wraps LLM to bound calls. That wrapper must
+            # expose JSON routing and forward each temporary parameter set.
+            from scripts.evaluate_structured_openrouter import bounded_evaluation_llm
+            bounded = bounded_evaluation_llm(delegate)
+            bounded_parameters = bounded.additional_params
+            bounded_crew, bounded_tasks = build_prototype(bundle, bounded, preparation=prepared)
+            with patch('litellm.completion', return_value=response) as bounded_completion:
+                for _ in range(6):
+                    output = bounded_crew.agents[0].llm.call([{'role': 'user', 'content': 'Synthetic bounded probe'}],
+                                                          response_model=Probe, from_task=bounded_tasks[0])
+                    assert output == '{"summary":"synthetic"}'
+                    arguments = bounded_completion.call_args.kwargs
+                    assert arguments['response_format'] == {'type': 'json_object'}
+                    assert arguments['extra_body']['provider']['require_parameters'] is True
+                    assert arguments['extra_body']['provider']['order'] == ['synthetic-provider']
+                    assert arguments['api_key'] == 'synthetic-test-key'
+                    assert arguments['base_url'] == 'https://openrouter.ai/api/v1'
+                    assert arguments['max_retries'] == 0
+                    assert delegate.additional_params is original_parameters
+                    assert bounded.additional_params is bounded_parameters
+                try:
+                    bounded_crew.agents[0].llm.call([{'role': 'user', 'content': 'Prohibited seventh probe'}],
+                                                  from_task=bounded_tasks[0])
+                except RuntimeError as error:
+                    assert str(error) == 'evaluation_call_budget'
+                else:
+                    raise AssertionError('Evaluator exceeded its logical call budget')
+                assert bounded.calls == bounded_completion.call_count == 6
+            bounded_failure = bounded_evaluation_llm(delegate)
+            failed_parameters = bounded_failure.additional_params
+            failed_crew, failed_tasks = build_prototype(bundle, bounded_failure, preparation=prepared)
+            with patch('litellm.completion', side_effect=RuntimeError('synthetic-transport-error')):
+                try:
+                    failed_crew.agents[0].llm.call([{'role': 'user', 'content': 'Synthetic bounded failure'}],
+                                                from_task=failed_tasks[0])
+                except Exception:
+                    assert bounded_failure.calls == 1
+                    assert bounded_failure.additional_params is failed_parameters
+                    assert delegate.additional_params is original_parameters
+                else:
+                    raise AssertionError('Bounded transport exception was swallowed')
             # Empty content with a length limit is visible before CrewAI converts None to ''.
             empty_response = ModelResponse(model="vendor/synthetic-model:free", choices=[{
                 "index": 0, "finish_reason": "length", "message": {
@@ -447,7 +488,7 @@ def main():
                                analysis_id=analysis_id, config={})
                 incomplete_result = load_current(report_root / "structured")[1]
                 assert incomplete_llm.calls == 1 and "no permite descartar" in incomplete_result["narrative"]["summary"]
-        print("CrewAI/LiteLLM aislados: 25 escenarios aprobados, incluido formato JSON nativo y reintento de clasificación sin conversión parcial; sin proveedor.")
+        print("CrewAI/LiteLLM aislados: 27 escenarios aprobados, incluido formato JSON nativo, evaluador acotado y reintento de clasificación sin conversión parcial; sin proveedor.")
     return 0
 
 

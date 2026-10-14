@@ -19,6 +19,31 @@ EVALUATION_MAX_TOKENS = STRUCTURED_MAX_TOKENS
 from agents.evaluation_fixtures import CASES, fixture, score_patterns, score_evidence
 
 
+def bounded_evaluation_llm(delegate):
+    """Keep the call budget without hiding the structured transport parameters."""
+    from crewai.llms.base_llm import BaseLLM
+
+    class BoundedLLM(BaseLLM):
+        calls: int = 0
+
+        def call(self, messages, **kwargs):
+            if self.calls >= 6:
+                raise RuntimeError("evaluation_call_budget")
+            self.calls += 1
+            previous = delegate.additional_params
+            delegate.additional_params = self.additional_params
+            try:
+                return delegate.call(messages, **kwargs)
+            finally:
+                delegate.additional_params = previous
+
+        def supports_function_calling(self):
+            return False
+
+    return BoundedLLM(model=delegate.model, is_litellm=delegate.is_litellm,
+                      additional_params=dict(delegate.additional_params or {}))
+
+
 @contextlib.contextmanager
 def capture_completion_metadata(diagnostics, *, secrets=()):
     """Observe only this isolated synchronous LiteLLM evaluation, never request bodies."""
@@ -62,7 +87,6 @@ def _evaluate(destination, diagnostics, *, case="mixed"):
             settings["candidates"] != ["openrouter/openrouter/free"] or not settings["api_key_configured"]):
         return {"status": "blocked", "reason": "configured_free_router_required", "calls": 0}
     from crewai import LLM
-    from crewai.llms.base_llm import BaseLLM
     from crewai.events.event_bus import crewai_event_bus
     from agents.structured_engine import run_structured
     from dashboard.services.structured_publication import load_current
@@ -73,19 +97,7 @@ def _evaluate(destination, diagnostics, *, case="mixed"):
                    timeout=STRUCTURED_REQUEST_TIMEOUT_SECONDS, max_tokens=EVALUATION_MAX_TOKENS,
                    additional_params={"max_retries": 0})
 
-    class BoundedLLM(BaseLLM):
-        calls: int = 0
-
-        def call(self, messages, **kwargs):
-            if self.calls >= 6:
-                raise RuntimeError("evaluation_call_budget")
-            self.calls += 1
-            return delegate.call(messages, **kwargs)
-
-        def supports_function_calling(self):
-            return False
-
-    llm = BoundedLLM(model=settings["model"])
+    llm = bounded_evaluation_llm(delegate)
     text = selected_fixture["text"]
     started = time.monotonic()
     try:

@@ -2,6 +2,26 @@
 
 ## Alcance actual
 
+Ensayo real A-05 autorizado14/10/2026: same_family/mixed/normal una vez cadauno,
+máx18intentoslógicos/600s porcaso/free-router sin fallbackpagado. Consumidos6:
+same_familyfalló2invalid_json/sinpublicar21,438s; mixed3llamadas83,125s cubre
+5familias/9pares10líneas high4medium1/requires_investigation/narrativaPython;
+normal1llamada5s/cero/localclasificaciónnarrativa/alcancePython. No repetirfallido.
+EvaluadorBoundedLLM ocultaba is_litellm/parámetros: primer caso NO prueba formato
+corregido del producto. Corregido solo envoltorio antes de mixed/normal, delegado
+recibe JSONmode/require_parameters/restauraestado/límite6;27SDKoffline pasaron,
+314Python(313Win+1Linuxomitido)/3JS/89sintaxis/diff. Producto/prompts/pines intactos.
+Modelos variaron: no atribuir éxito solo alfix. 25558tokens informados/9530reasoning
+vsSDK0,dos reasoning_exceeds_completion conservados,no coste inferido. Informes/
+refs/guardas/hash verificados; estadooperativo29jobs14entregas0activos/filasconsultadas
+hashlogpublicaciónreportresult/.envmetadatos igual. .env resuelto internamente
+para credencialautorizada,sin imprimir ni modificar. Sin jobs/serviciosoperativos/
+Docker/envíos nuevos. Corrección local sin commit/push/CI aún; previoCIC7df36a.
+A05abierta: nuevo ensayo same_familycorregido requiere autorización, saldo12 no
+reutilizable, aceptación/semánticageneral/ingestaParrot pendientes. Registro
+docs/ENSAYO_REAL_A05_2026_10_14.md,recibosa05-real-20261014/a05-evaluationignorados.
+Entradas inferiores históricas.
+
 Publicación A-05 offline verificada 13/10/2026: códigoc7df36a
 (c7df36afd92250f69fc3b7ae4fecb5f6ecf9f64b),CI38411563805attempt1Windows/Ubuntu
 completed/success,estados/logs finales revisados. Matriz13casos7rechazos porOS;

@@ -1,5 +1,10 @@
 # A-05 — Cobertura por evidencia y revisión offline, 13/10/2026
 
+Seguimiento 14/10: el [ensayo real autorizado](ENSAYO_REAL_A05_2026_10_14.md)
+terminó con resultado parcial e identificó un defecto del envoltorio del
+evaluador, corregido antes de los dos casos restantes. La propuesta de abajo
+conserva el alcance previo a esa autorización; no es un presupuesto reutilizable.
+
 Se revisó el resumen vigente y se avanzó en el bloque de calidad A-05. La
 instalación/lectura Parrot y R-15 ya tienen su evidencia acotada; no necesitan
 repetirse para este trabajo. **A-05 sigue abierta:** esta entrega comprueba el
