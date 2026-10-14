@@ -2,6 +2,25 @@
 
 ## Alcance actual
 
+Corrección evaluador A-05 publicada/CI verificada14/10/2026: código6f0e549
+(6f0e549234c3287ef46c53d60e119376384ca627),run38545831374attempt1Windows/Ubuntu
+completed/success,estados/pasos/logs finales revisados. TransportesSDK27offline,
+314PythonUbuntu/313Win+1Linuxomitido/3JS89sintaxisHTTP/linttipos17UI/9E2EporOS/
+smoke200offlinecierre. Inventarios11884696467Win11883789134Ubuntu172/0/0freeze/
+metadatos/hashes previos verificados; A05artefactos11883719944Win11883863915Ubuntu
+13casos7controles métricas/checks/hasheslocales iguales salvoUUIDgeneración,
+no bytesinformesremotos incluidos. Evaluador publicado coincide con mixed/normal
+reales. 241candidatos605blobs54commits revisados formatoscredenciales/exclusiones
+sin hallazgos, no cierreseguridadexhaustiva. Estadooperativo29jobs14entregas0activos
+filasconsultadas/hashlogpublicaciónreportresult/.envmetadatos preservados.
+Ensayo real cerrado en6intentos de18, no nuevasllamadas porpublicación/CI; no
+LLM/Docker/envíos/serviciosoperativos adicionales. A05 sigue parcial: same_family
+falló antesdelfix, nuevoensayo único requiereautorizaciónmáx6/600s; sin reutilizar
+saldo12, sin reenvíoautomático. Semánticageneral/aceptación/ingestaParrot y otros
+bloques pendientes. Siguiente commit soloactas[skip ci], códigoCI6f0e549.
+Registro docs/ENSAYO_REAL_A05_2026_10_14.md,recibosa05-real-20261014 ignorados.
+Entrada siguiente conserva el estado previo a publicar/verificar esta corrección.
+
 Ensayo real A-05 autorizado14/10/2026: same_family/mixed/normal una vez cadauno,
 máx18intentoslógicos/600s porcaso/free-router sin fallbackpagado. Consumidos6:
 same_familyfalló2invalid_json/sinpublicar21,438s; mixed3llamadas83,125s cubre

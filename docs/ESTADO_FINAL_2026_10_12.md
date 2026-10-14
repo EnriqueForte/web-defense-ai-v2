@@ -26,7 +26,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
-| Calidad A-05 | Matriz offline y CI verificadas; ensayo real del 14/10 parcial: mixed/normal aprobados en su muestra, same_family falló antes de corregir el evaluador | CI de la corrección, nuevo ensayo same_family autorizado, revisión/aceptación e ingesta manual; semántica general sigue pendiente |
+| Calidad A-05 | Matriz offline y CI verificadas; ensayo real del 14/10 parcial: mixed/normal aprobados en su muestra, same_family falló antes de corregir el evaluador; corrección publicada/CI aprobada | Nuevo ensayo same_family autorizado, revisión/aceptación e ingesta manual; semántica general sigue pendiente |
 | Recorrido completo Parrot | Preparar laboratorio, capturar logs, analizar y verificar informe/indicadores/gráficos | Ensayo guiado en esa VM; no se deduce de CI o de la consola de lectura |
 | Operación/recuperación | Procedimiento definitivo de análisis, conservación y recuperación; delimitar volúmenes/buzón del laboratorio | Guía ejecutable y restauración dentro del alcance prometido, preservando datos y entregas |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
@@ -54,8 +54,11 @@ El [ensayo real autorizado del 14/10](ENSAYO_REAL_A05_2026_10_14.md) consumió
 seis intentos lógicos: mixed y normal publicaron resultados verificados,
 same_family falló con dos JSON inválidos. Se corrigió offline un envoltorio del
 evaluador que ocultaba el formato JSON antes de los otros dos casos; no se repitió
-el fallido. Quedan CI de esa corrección, nuevo ensayo same_family autorizado y
-aceptación con límites. No se reutiliza el saldo del lote ni se cierra A-05.
+el fallido. Corrección publicada como `6f0e549`, con
+[CI 38545831374](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38545831374)
+Windows/Ubuntu success y logs/artefactos revisados, incluidos 27 SDK offline.
+Quedan nuevo ensayo same_family autorizado y aceptación con límites.
+No se reutiliza el saldo del lote ni se cierra A-05.
 
 ## Seguridad en curso
 
