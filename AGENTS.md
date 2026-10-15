@@ -2,6 +2,57 @@
 
 ## Alcance actual
 
+BFParrot15/10 job50f0fcc91e82(prefijo) failed/analysis_failed; informe9dd17c72e247
+conservado segúncaptura. Groqfilas413/120by20b,detalle20bTPM8000/Requested8103/
+rate_limit_exceeded; sinrecibo/IDcompleto/consumo completo. Ensayoconsumido.
+Local prompt9 conserva todaslaslíneascrudas seleccionadasuna vez en columnas;
+bundle/publicación/refs/guardas intactos. EstadosHTTPpriorizados encadena8;
+413 normalizado fueraexcept/sincausa paraevitarretryCrewAI del RateLimitError429
+externoSDK. Test413único/sinfallback/informeigual; fixture46/30seleccionadas,
+3respuestassintéticas XSS+8POST/refs39–46; estimacióncl100kprimerprompt<7000
+y20%menor,no garantíaGroqTPM/semántica. 339Python(338Win+1Linuxomitido)/3JS/
+92sintaxis/27SDK/13A05+7controles localOK. Sin nuevoLLM/Docker/envíos/servicios
+Windows/.envbytes/inventariooperativonuevo. Pendientes publicar/CI/VM,nuevo
+ensayorequierealcanceconcreto. CIvigente4c2e032. Registro
+docs/INCIDENCIA_GROQ_413_2026_10_15.md; recibosgroq-413-20261015ignorados.
+Entradas inferiores históricas.
+
+PreparaciónofflineVMParrot15/10 verificada por captura: observed-access-4,
+bursts1/count8/IP172.18.0.1/18:29:46–18:30:31UTC/threshold5/window60s,
+líneas39–46 y ocho selected_evidence_ids. Parámetros realesdelacomprobación
+confirmados,sin LLM/publicaciónnueva. Próximo pararconsolaunificadaCtrlC,
+Flaskmanual primero/worker manual-only en terminalcaptureDockeracreditado/
+NextNode24 aparte; solicitar único análisis autorizado cuandoejecutoronline.
+Sin repeticiónautomática/envíos/ciclos; resultado/guardas/coberturaLLM pendientes.
+Soloactaslocales,códigoCI4c2e032 vigente; sin serviciosWindowsiniciados.
+
+CapturausuarioBFParrot15/10: dvwa_lab_capture informa46líneas; cola muestra
+ochoPOST /vulnerabilities/brute/ mismaIP172.18.0.1 entre18:29:46–18:30:31UTC
+(45s),HTTP200. Supera5/60predeterminado; no prueba fallos/éxitoautenticación
+poraccesslogsolo ni bytescompletos/SHA/configVM revisados. No mástráfico pedido.
+Próximo verificaciónoffline enVM de observed-access-4/bursts/refs con configlocal
+antes activar únicoanálisis autorizado; no LLM/jobnuevo acreditado todavía.
+Soloactaslocales; códigoCI4c2e032sin cambios.
+
+UsuarioParrot15/10 confirma Abrirreporte muestra mismo informe queReportes:
+enlace/entrada aceptados por confirmación textual,sin SHA/captura/bytesnuevos.
+Solicita seguir prueba fuerzabruta: nuevoensayo acotado cincoenvíosfallidosen
+DVWAlocal/mismaIP/60s,captura y verificaciónoffline antes de únicojobmanual
+Groqconfigurado120b/fallback20bpor429/reintentosinternosexistentes/timeout900s,
+sin ciclos/envíos/repetición automática. Peticiónnueva no reutiliza ensayos
+anteriores. UsuariooperaVM; preparaciónpendiente,no tráfico/LLM/jobs ejecutados
+poragente. Consolaactual lectura,sinworker: activaciónmanualposterior separada.
+Registrar ráfaga como grupo, no cincoamenazas ni autenticaciónexitosa. A05 y
+pruebaBFVM pendientes. Soloactaslocales, códigoCI4c2e032 siguevigente.
+
+ConfirmaciónusuarioParrot15/10 tras guía pull/build/startstructured: «ok ya
+aparece», acredita entradaReporteactual enResumen. Sin captura/SHA/salida
+comandos nuevos, no afirmar revisiónbytesVM ni apertura porenlace verificada.
+Pendiente pulsarAbrirreporte y comprobar informeexistente; no otro análisis
+real autorizado/ejecutado. Solo actualizaciónlocalactas; códigoCI4c2e032/run
+38783207354 permanece. A05/fuerzabrutaVM/éxitoautenticación siguenabiertos.
+Entradas inferiores históricas.
+
 DVWA POST/Resumen publicados/CIverificada15/10: código4c2e032
 (4c2e032308066e6afbc1030887c6d55580f1fe51),run38783207354attempt1 Windows/Ubuntu
 completed/success,estados/pasos/logs finales revisados; cuatrotests nuevasvisibles.

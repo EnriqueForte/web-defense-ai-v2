@@ -67,8 +67,9 @@ class GroqCacheTransportTests(TestCase):
         self.requests = []
 
     def llm(self, model="groq/openai/gpt-oss-120b", **options):
+        options.setdefault("rate_limit_retries", 0)
         return self.adapter(model=model, api_key=KEY, max_tokens=8192, timeout=60,
-                            additional_params={"max_retries": 0}, rate_limit_retries=0,
+                            additional_params={"max_retries": 0},
                             **options)
 
     def intercept(self, decide=None):
@@ -83,8 +84,9 @@ class GroqCacheTransportTests(TestCase):
             if decide is not None:
                 status, content = decide(body)
                 if status != 200:
-                    return httpx.Response(status, request=request, json={"error": {
-                        "message": "synthetic rejection", "type": "invalid_request_error"}})
+                    error = content if isinstance(content, dict) else {
+                        "message": "synthetic rejection", "type": "invalid_request_error"}
+                    return httpx.Response(status, request=request, json={"error": error})
             else:
                 # Reproduce Groq's rejection of the internal CrewAI marker.
                 if any("cache_breakpoint" in message for message in body["messages"]):
@@ -177,3 +179,92 @@ class GroqCacheTransportTests(TestCase):
                 self.llm().call(messages)
         self.assertEqual(len(self.requests), 1)
         self.assertEqual(messages, before)
+
+    def test_structured_413_rate_limit_body_is_one_http_without_fallback_or_publication(self):
+        from config.llm_resilience import ProviderRequestTooLargeError
+        from agents.analysis_diagnostics import safe_exception
+        from agents.structured_engine import run_structured
+        from agents.evidence_preparation import prepare_evidence
+        from dashboard.services.structured_publication import publish
+        text = '192.0.2.1 - - [15/Oct/2026:18:00:00 +0000] "GET / HTTP/1.1" 200 10'
+        prepared = prepare_evidence(text, ID)
+        detection = {"schema_version":"1", "analysis_id":ID, "candidates":[]}
+        classification = {"schema_version":"1", "analysis_id":ID, "classifications":[]}
+        narrative = {"schema_version":"1", "analysis_id":ID, "summary":"Synthetic scope", "recommendations":[]}
+        error = {"message":"Request too large for model; TPM: Limit 8000, Requested 8103",
+                 "type":"tokens", "code":"rate_limit_exceeded"}
+        llm = self.llm(candidate_models=["groq/openai/gpt-oss-120b", "groq/openai/gpt-oss-20b"],
+                       rate_limit_retries=2)
+        with TemporaryDirectory() as temporary, self.intercept(lambda _body: (413, error)), \
+                patch("config.llm_resilience.time.sleep") as sleep:
+            root = Path(temporary)
+            publish(root / "structured", prepared, detection, classification, narrative,
+                    model="synthetic", prompt_version="test")
+            before = {str(path.relative_to(root)): path.read_bytes() for path in root.rglob("*") if path.is_file()}
+            with self.assertRaises(ProviderRequestTooLargeError) as caught:
+                run_structured(text, llm, root, analysis_id=ID, config={})
+            metadata = safe_exception(caught.exception)
+            self.assertEqual(metadata["http_status"], 413)
+            self.assertIn("ProviderRequestTooLargeError", metadata["error_types"])
+            after = {str(path.relative_to(root)): path.read_bytes() for path in root.rglob("*") if path.is_file()}
+            self.assertEqual(after, before)
+            self.assertEqual(len(self.requests), 1)
+            self.assertEqual(llm.model, "groq/openai/gpt-oss-120b")
+            sleep.assert_not_called()
+
+    def test_compact_lab_prompt_preserves_all_raw_lines_and_eight_post_references(self):
+        from datetime import datetime, timedelta
+        import tiktoken
+        from agents.evidence_preparation import prepare_evidence
+        from agents.structured_prototype import compact_json, prompt_evidence
+        from agents.structured_engine import run_structured
+        from dashboard.services.structured_publication import load_current
+        suffix = (' "http://127.0.0.1:4280/vulnerabilities/xss_r/?name=%3Cscript%3Ealert(1)%3C/script%3E'
+                  '&user_token=1f9a34bc78de56a01f9a34bc78de56a0" '
+                  '"Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0"')
+        rows = []
+        for number in range(1, 39):
+            stamp = (datetime(2026, 10, 15, 18, 28) + timedelta(seconds=number)).strftime('%d/Oct/%Y:%H:%M:%S')
+            target = '/?name=%3Cscript%3Ealert(1)%3C/script%3E' if number == 31 else '/index.php'
+            rows.append(f'192.0.2.1 - - [{stamp} +0000] "GET {target} HTTP/1.1" 200 2000' + suffix)
+        for stamp in ('18:29:46','18:29:52','18:29:59','18:30:04','18:30:12','18:30:19','18:30:26','18:30:31'):
+            rows.append(f'192.0.2.1 - - [15/Oct/2026:{stamp} +0000] "POST /vulnerabilities/brute/ HTTP/1.1" 200 2148' + suffix)
+        text = '\n'.join(rows)
+        prepared = prepare_evidence(text, ID)
+        original = deepcopy(prepared.bundle.to_dict())
+        view = json.loads(compact_json(prompt_evidence(prepared.bundle)))
+        self.assertEqual([(dict(zip(view["columns"], row))) for row in view["items"]], [
+            {"evidence_id":item.evidence_id, "line_number":item.line_number, "raw":item.raw}
+            for item in prepared.bundle.items])
+        self.assertEqual(prepared.bundle.to_dict(), original)
+        self.assertEqual(prepared.bursts[0]["count"], 8)
+        self.assertEqual(len(prepared.bursts[0]["selected_evidence_ids"]), 8)
+        refs = {item.line_number: item.evidence_id for item in prepared.bundle.items}
+        payloads = [
+            {"schema_version":"1", "analysis_id":ID, "candidates":[
+                {"candidate_id":"c_xss", "pattern":"xss", "evidence_ids":[refs[31]], "reason":"Synthetic URL"},
+                {"candidate_id":"c_brute", "pattern":"brute_force", "evidence_ids":[refs[n] for n in range(39,47)], "reason":"Synthetic frequency"}]},
+            {"schema_version":"1", "analysis_id":ID, "classifications":[
+                {"candidate_id":candidate, "severity":"unknown", "state":"requires_investigation", "reason":"Outcome unknown"}
+                for candidate in ("c_xss","c_brute")]},
+            {"schema_version":"1", "analysis_id":ID, "summary":"Synthetic review", "recommendations":[
+                {"candidate_id":candidate, "text":"Review application events"} for candidate in ("c_xss","c_brute")]},
+        ]
+        def decide(_body):
+            return 200, json.dumps(payloads[len(self.requests) - 1])
+        with TemporaryDirectory() as temporary, self.intercept(decide):
+            root = Path(temporary)
+            run_structured(text, self.llm(), root, analysis_id=ID, config={})
+            _, result, _ = load_current(root / "structured")
+        brute = next(f for f in result["findings"] if f["pattern"] == "brute_force")
+        self.assertEqual(set(brute["evidence_ids"]), {refs[n] for n in range(39,47)})
+        self.assertEqual(result["evidence"], json.loads(json.dumps(original)))
+        self.assertEqual(len(self.requests), 3)
+        first = self.requests[0]["messages"]
+        contents = '\n'.join(message["content"] for message in first)
+        self.assertIn(compact_json(view), contents)
+        encoding = tiktoken.get_encoding("cl100k_base")
+        previous = contents.replace(compact_json(view), json.dumps(original, ensure_ascii=False))
+        old_count, new_count = len(encoding.encode(previous)), len(encoding.encode(contents))
+        self.assertLess(new_count, old_count * .8)
+        self.assertLess(new_count, 7000)  # Local fixture estimate, not the provider's tokenizer/TPM guarantee.

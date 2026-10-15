@@ -87,6 +87,46 @@ class LLMResilienceTests(unittest.TestCase):
         self.assertEqual(retry_after_seconds(error), 4.0)
         self.assertFalse(is_rate_limit_error(ValueError("bad input")))
 
+    def test_http_status_overrides_rate_limit_text_and_class_without_retry_or_fallback(self):
+        from types import SimpleNamespace
+        from unittest.mock import Mock
+        for status in (400, 401, 403, 413, 500):
+            with self.subTest(status=status):
+                error = RateLimitError("Request too large; rate_limit_exceeded")
+                error.status_code = status
+                wrapped = RuntimeError("rate limit")
+                wrapped.__cause__ = error
+                self.assertFalse(is_rate_limit_error(error))
+                self.assertFalse(is_rate_limit_error(wrapped))
+                # A response's actual HTTP status also overrides an SDK 429 label.
+                error.status_code = 429
+                error.response = SimpleNamespace(status_code=status)
+                invoke, select, sleep = Mock(side_effect=wrapped), Mock(), Mock()
+                with self.assertRaises(RuntimeError) as caught:
+                    call_with_model_fallback(invoke, ["primary", "fallback"], select, sleep=sleep)
+                if status == 413:
+                    from config.llm_resilience import ProviderRequestTooLargeError
+                    self.assertIsInstance(caught.exception, ProviderRequestTooLargeError)
+                    self.assertEqual(caught.exception.status_code, 413)
+                    self.assertIsNone(caught.exception.__cause__)
+                    self.assertIsNone(caught.exception.__context__)
+                else:
+                    self.assertIs(caught.exception, wrapped)
+                invoke.assert_called_once()
+                select.assert_called_once_with("primary")
+                sleep.assert_not_called()
+
+    def test_wrapped_429_and_legacy_statusless_errors_remain_retryable_with_bounded_cycles(self):
+        from types import SimpleNamespace
+        for error in (ValueError("rate_limit_exceeded"), RateLimitError("throttled")):
+            outer = RuntimeError("wrapped")
+            outer.__cause__ = error
+            error.__context__ = outer
+            self.assertTrue(is_rate_limit_error(outer))
+        response_error = ValueError("throttled")
+        response_error.response = SimpleNamespace(status_code=429)
+        self.assertTrue(is_rate_limit_error(response_error))
+
 
 if __name__ == "__main__":
     unittest.main()

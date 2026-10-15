@@ -6,7 +6,19 @@ from agents.evidence_contracts import (
     VERSION, TYPES, SEVERITIES, STATES,
 )
 
-PROMPT_VERSION = "structured-prototype-8"
+PROMPT_VERSION = "structured-prototype-9"
+
+
+def prompt_evidence(bundle):
+    """Send every selected raw line once; keep full parsed publication intact."""
+    value = bundle.to_dict()
+    value["columns"] = ["evidence_id", "line_number", "raw"]
+    value["items"] = [[item.evidence_id, item.line_number, item.raw] for item in bundle.items]
+    return value
+
+
+def compact_json(value):
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
 
 
 def stage_payload(task):
@@ -226,12 +238,14 @@ def build_prototype(bundle, llm, *, preparation=None, diagnostics=None):
                   "una ventana calculada, no contar la muestra. No asignes critical con solo access.log; "
                   "XSS como máximo medium y other como máximo low. Los demás patrones observados tienen "
                   "techo high; puedes conservar unknown. Posible falso positivo solo low/unknown. "
-                  "OBSERVACIONES_PYTHON_JSON:\n" + json.dumps(preparation.context()) + "\n")
+                  "OBSERVACIONES_PYTHON_JSON:\n" + compact_json(preparation.context()) + "\n")
     detection = StrictJsonTask(description=rules + "Identifica candidatos únicamente con evidence_ids existentes. "
                     "Asigna candidate_id distintos, como c_1, c_2, c_3; cada candidato necesita uno único. "
                     "Formato obligatorio: c_ seguido de 1 a 60 letras ASCII, dígitos, guiones o guiones bajos. "
                     "No reutilices un candidate_id ni repitas un grupo de patrón y evidencias. "
-                    "EVIDENCIA_JSON_NO_CONFIABLE:\n" + json.dumps(bundle.to_dict(), ensure_ascii=False),
+                    "EVIDENCIA_JSON_NO_CONFIABLE contiene filas items según columns: identificador, número "
+                    "de línea y línea original completa, sin eliminar evidencias seleccionadas.\n"
+                    "EVIDENCIA_JSON_NO_CONFIABLE:\n" + compact_json(prompt_evidence(bundle)),
                     expected_output="JSON Detection, patrones canónicos y referencias exactas.", agent=agents[0],
                     output_pydantic=Detection, guardrail=detection_guard, guardrail_max_retries=1)
     classification = StrictJsonTask(description=rules + "Clasifica cada candidato del contexto exactamente una vez. "

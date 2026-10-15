@@ -1,7 +1,8 @@
 # DVWA: envíos POST y reporte actual en Resumen — 15/10/2026
 
 Seguimiento: corrección publicada como 4c2e032 y CI Windows/Ubuntu aprobada;
-véase el cierre al final. Actualización y aceptación en Parrot pendientes.
+véase el cierre al final. El usuario confirma la entrada en Resumen de Parrot
+y que su botón abre el mismo informe de Reportes. Prueba de fuerza bruta pendiente.
 Los apartados iniciales conservan el estado local previo a publicar.
 
 ## Evidencia recibida de Parrot
@@ -167,3 +168,70 @@ releyó su inventario operativo/.env. El recorrido de actualización de arriba
 queda pendiente de ejecución y confirmación del usuario en Parrot. Las E2E de
 Configuración no verifican el nuevo enlace del Resumen. A-05 y la confirmación
 de autenticación exitosa siguen abiertas.
+
+### Confirmación de la entrada en Resumen
+
+Después de facilitar la guía de actualización, el usuario responde «ok ya
+aparece». Se registra aceptación de la entrada Reporte actual en el Resumen de
+su VM. No acompaña captura, SHA ni salida de los comandos: no se acredita aquí
+su ejecución individual ni se revisan bytes de la VM. Se pide comprobar que
+Abrir reporte lleva al informe existente. No se ha confirmado aún ese clic ni
+se ha autorizado o ejecutado otro análisis real. La detección de fuerza bruta
+en Parrot, la semántica general A-05 y el éxito de autenticación siguen abiertos.
+
+El usuario confirma después «sí es el mismo» y solicita continuar con la prueba
+de fuerza bruta. Quedan aceptadas entrada y apertura del informe existente por
+confirmación textual, sin captura/SHA/bytes nuevos. La petición nueva cubre un
+ensayo acotado en el DVWA local: cinco envíos fallidos al mismo formulario desde
+la misma IP en menos de 60 s, captura del log y comprobación offline antes de
+solicitar un único análisis manual con Groq configurado. Se mantienen modelo
+120b/alternativa 20b ante rate limit, reintentos internos y timeout 900 s del
+flujo anterior; sin ciclos, notificaciones ni repetición automática si falla.
+No se reutilizan autorizaciones consumidas. El usuario opera la VM; aquí no
+se envían peticiones a DVWA ni al proveedor. Se espera un grupo de frecuencia,
+no cinco amenazas independientes ni evidencia de acceso exitoso. Preparación
+y resultado pendientes; la consola actual continúa de lectura hasta activar
+explícitamente los componentes manuales después de comprobar la captura.
+
+### Captura de los envíos nuevos
+
+La siguiente captura del usuario muestra `dvwa_lab_capture` completado con 46
+líneas. En `tail -n 15` constan ocho POST a `/vulnerabilities/brute/` desde
+172.18.0.1, a las 18:29:46, 18:29:52, 18:29:59, 18:30:04, 18:30:12,
+18:30:19, 18:30:26 y 18:30:31 UTC del 15/10/2026. El intervalo es de 45 s;
+supera el umbral predeterminado de cinco en 60 s. No se solicitan más envíos.
+HTTP 200 y las longitudes visibles no acreditan el resultado de autenticación.
+La IP es la observada por Apache; no se atribuye a una persona o atacante.
+
+Antes del análisis se pide ejecutar la preparación offline en la VM, leyendo
+su copia del log y configuración local, y mostrar únicamente versión de regla
+y ráfagas/referencias. No imprime claves ni solicita al proveedor. Se espera
+observed-access-4 y una ráfaga de ocho solicitudes si mantiene el umbral 5/60;
+queda pendiente su salida, la activación manual y el único trabajo autorizado.
+No se han recibido bytes completos/hash del log ni se ha ejecutado tráfico o
+LLM desde este equipo.
+
+### Preparación offline comprobada en la VM
+
+La nueva captura muestra el comando de preparación ejecutado en Parrot:
+regla observed-access-4, una ráfaga desde 172.18.0.1 con count=8,
+first_at=2026-10-15T18:29:46Z, last_at=2026-10-15T18:30:31Z,
+window_seconds=60, threshold=5, line_numbers 39–46 y ocho identificadores
+selected_evidence_ids. Quedan comprobados versión, parámetros y selección de
+esta preparación; no se ha ejecutado todavía el proveedor ni publicado un
+informe nuevo. Los identificadores pertenecen al ID sintético de comprobación,
+no deben copiarse a una publicación o interpretarse como ID de trabajo real.
+
+Se indica detener con Ctrl+C la consola unificada de lectura y esperar el
+prompt; iniciar primero Flask pilot/structured/manual, después el worker
+manual-only en la misma terminal cuya captura Docker ya funcionó, y Next con
+Node 24 en otra terminal. Al mostrar ejecutor online/manual habilitado se
+solicitará una sola vez el trabajo autorizado. Objetivo: revisar grupo de
+fuerza bruta, sus referencias y resultado del informe; no asumir que el modelo
+cubrirá todas las referencias por haberlas seleccionado. Si termina fallido,
+conservar el diagnóstico y no repetir. Activación y resultado aún pendientes.
+
+El trabajo posterior falla por 413 del proveedor; no invalida la preparación
+offline de la ráfaga. Permanece el informe anterior. La [incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md)
+documenta tamaño, reintentos SDK y corrección local pendiente de publicación.
+La autorización queda consumida; no se generan más intentos.

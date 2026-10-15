@@ -22,7 +22,7 @@ ERROR_TYPES = set("ValueError RuntimeError ValidationError ContractError Instruc
                   "APITimeoutError RateLimitError AssertionError OSError KeyError TypeError JSONDecodeError "
                   "BadRequestError NotFoundError PermissionDeniedError APIStatusError APIError "
                   "UnprocessableEntityError InternalServerError ServiceUnavailableError "
-                  "APIConnectionError ContextWindowExceededError UnsupportedParamsError".split())
+                  "APIConnectionError ContextWindowExceededError UnsupportedParamsError ProviderRequestTooLargeError".split())
 VALIDATION_TYPES = set("json_invalid missing extra_forbidden literal_error string_type list_type dict_type "
                        "string_too_long string_too_short too_long too_short int_type value_error".split())
 TRACE_FILES = {"structured_engine.py", "structured_prototype.py", "evaluate_structured_openrouter.py",

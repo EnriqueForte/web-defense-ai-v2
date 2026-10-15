@@ -429,3 +429,42 @@ Próximo paso guiado: detener las tres terminales de la VM, pull --ff-only,
 activar Node 24, compilar frontend y arrancar la consola de lectura structured
 para abrir el informe existente desde Resumen. El usuario aún no ha aportado
 la actualización ni su aceptación en Parrot. No se solicitó otro trabajo real.
+
+El usuario confirma después «ok ya aparece»: la entrada del reporte actual ya
+es visible en Resumen de su VM. Confirmación textual sin captura/SHA/salidas;
+no se atribuye una revisión de esos bytes o de cada comando. Pendiente abrir
+el informe mediante el botón y comprobar el contenido existente. No se inició
+ni autorizó otro análisis real; fuerza bruta en VM y aceptación A-05 pendientes.
+
+Confirmación posterior: «sí es el mismo, sigamos con la prueba de fuerza bruta».
+El enlace abre el informe esperado según el usuario, sin nueva captura/SHA.
+Se prepara un ensayo nuevo: cinco envíos fallidos al formulario DVWA local en
+menos de 60 s, captura y revisión offline; después un único trabajo manual Groq
+con la configuración/límites ya descritos (900 s, sin ciclos/envíos/repetición).
+La solicitud actual cubre este ensayo independiente, no reabre los anteriores.
+Ningún tráfico o trabajo ha sido ejecutado desde este equipo. La preparación
+y la activación manual de la consola de lectura aún están pendientes.
+
+La captura siguiente acredita captura del log con 46 líneas y ocho POST nuevos
+al formulario DVWA desde 172.18.0.1 entre 18:29:46 y 18:30:31 UTC (45 s).
+Superan el umbral predeterminado 5/60, sin acreditar resultado de autenticación
+por sus respuestas HTTP 200. No se piden más envíos. Pendiente ejecutar en la
+VM la preparación offline con configuración local y mostrar regla/ráfagas;
+después se activará el único trabajo manual ya solicitado. Sin salida de esa
+preparación ni nuevo resultado LLM todavía.
+
+La captura posterior sí verifica preparación offline: observed-access-4,
+una ráfaga de ocho intentos, umbral cinco/ventana 60 s, intervalo 45 s,
+líneas 39–46 y ocho referencias seleccionadas. Esta comprobación no llama al
+proveedor ni publica. Se guía ahora el cambio de la consola unificada de
+lectura a Flask manual, worker manual-only y Next en terminales separadas,
+reutilizando para el worker la terminal con captura Docker correcta. Pendientes
+activación y único análisis autorizado; no se repite automáticamente si falla.
+
+El ensayo de fuerza bruta termina después failed/analysis_failed, prefijo
+50f0fcc91e82. Groq muestra 413 para 120b/20b; detalle 20b TPM 8000/Requested
+8103, type=tokens/code=rate_limit_exceeded. El informe anterior permanece en
+la captura. Autorización consumida. Corrección local de prompt compacto y
+normalización terminal del 413 probada: 339 Python/3 JS/92 sintaxis/27 SDK/
+13 A-05+7 controles, sin proveedor real. Véase [incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md).
+Pendientes publicación/CI/VM; no más tráfico ni repetición del ensayo.

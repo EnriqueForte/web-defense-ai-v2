@@ -4,12 +4,63 @@ import re
 import time
 
 
+class ProviderRequestTooLargeError(RuntimeError):
+    """Terminal HTTP 413 without SDK text/causes that trigger nested retries."""
+
+    status_code = 413
+
+
+def _error_details(error):
+    # An SDK may label an HTTP 413 body rate_limit_exceeded. Its numeric
+    # status takes precedence over message/class heuristics: waiting cannot
+    # make that same oversized request smaller. Inspect bounded wrappers too.
+    pending, seen, statuses, inferred = [error], set(), [], False
+    while pending and len(seen) < 8:
+        current = pending.pop(0)
+        if current is None or id(current) in seen:
+            continue
+        seen.add(id(current))
+        for name in ("status_code", "status"):
+            try:
+                status = getattr(current, name, None)
+                if type(status) is int and 300 <= status <= 599:
+                    statuses.append(status)
+            except Exception:
+                pass
+        try:
+            status = getattr(getattr(current, "response", None), "status_code", None)
+            if type(status) is int and 300 <= status <= 599:
+                statuses.append(status)
+        except Exception:
+            pass
+        inferred |= "ratelimit" in type(current).__name__.replace("_", "").lower()
+        try:
+            message = str(current).lower()
+            inferred |= any(token in message for token in ("rate_limit", "rate limit", "too many requests"))
+        except Exception:
+            pass
+        for name in ("__cause__", "__context__"):
+            try:
+                pending.append(getattr(current, name, None))
+            except Exception:
+                pass
+    return statuses, inferred
+
+
 def is_rate_limit_error(error: Exception) -> bool:
-    status = getattr(error, "status_code", None) or getattr(error, "status", None)
-    if status == 429 or "ratelimit" in type(error).__name__.replace("_", "").lower():
-        return True
-    message = str(error).lower()
-    return any(token in message for token in ("rate_limit", "rate limit", "too many requests"))
+    statuses, inferred = _error_details(error)
+    return all(status == 429 for status in statuses) if statuses else inferred
+
+
+def _invoke_with_terminal_http_errors(invoke):
+    try:
+        return invoke()
+    except Exception as error:
+        if 413 not in _error_details(error)[0]:
+            raise
+    # Raise outside the except block. CrewAI inspects implicit contexts even
+    # with "from None"; retaining an SDK RateLimitError would repeat the call.
+    raise ProviderRequestTooLargeError("provider_request_too_large") from None
 
 
 def retry_after_seconds(error: Exception) -> float | None:
@@ -50,7 +101,7 @@ def call_with_model_fallback(
         select_model(model)
         for attempt in range(retries + 1):
             try:
-                return invoke()
+                return _invoke_with_terminal_http_errors(invoke)
             except Exception as error:
                 if not is_rate_limit_error(error):
                     raise
