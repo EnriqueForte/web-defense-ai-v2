@@ -136,3 +136,49 @@ preparadas, sin commit/push/CI nuevos ni instalación en Parrot. Próximo paso:
 publicar el cambio verificado, actualizar la VM con sus servicios detenidos y
 preparar un nuevo ensayo único con autorización concreta. El ensayo anterior
 no se reutiliza. A-05 y el cierre del informe real Parrot permanecen pendientes.
+
+## Publicación autorizada y primera CI
+
+El usuario autorizó commit/push. Se verificó origin/main V2 sin divergencia;
+original-readonly conserva push bloqueado. Revisión acotada: 246 candidatos,
+628 blobs/59 commits, exclusiones privadas y formatos específicos de credenciales
+sin hallazgos, vendor íntegro. No es una auditoría exhaustiva. Índice revisado:
+246 archivos, nueve cambios y fuentes coincidentes.
+
+Se publicó `eefa51ce465003b523b8ca7ef5c8640c1b4489e8`.
+[CI 38775156492/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38775156492)
+terminó Ubuntu success y Windows failure. Logs finales revisados: Ubuntu pasó
+330 Python, 3 JS, 92 sintaxis/HTTP/27 SDK/13 A05+7 controles/lint/tipos/17 UI,
+9 E2E y smoke/cierre; Windows pasó instalación 172/0 diferencias y build,
+pero falló cuatro pruebas HTTP nuevas en Offline Python and browser contracts.
+No se atribuye éxito completo a esta ejecución.
+
+El trace Windows muestra carga diferida de cl100k_base por LiteLLM, caída al
+tokenizador Python y descarga intentada por tiktoken bloqueada por los sockets
+de prueba. No hubo llamada al proveedor. El bloqueo de red no se relajó.
+El RECORD del wheel Windows instalado registra el recurso
+9b5ad71b2ce5302211f9c61530b329a4922fc6a4 con 1781382 bytes y hash base64
+WdLa9mCers5efIHcqPJ1ImpU7kZEkTupmVzGCT6jqLc. El recurso local leído tiene
+1681126 bytes LF y SHA256 223921b76ee99bde995b7ff738513eef100fb51d18c93597a113bcffe865b2a7;
+reconstruir sus finales CRLF reproduce exactamente el tamaño/hash de RECORD.
+Esto identifica la incompatibilidad de representación con el hash LF de
+tiktoken; no se afirma descarga/verificación nueva del wheel completo ni que
+su recurso original intacto funcione offline en una instalación Windows fría.
+Las pruebas SDK anteriores interceptaban litellm.completion antes de esta ruta
+HTTP diferida; sus aprobaciones históricas no acreditaban este tramo.
+
+Ajuste limitado a pruebas: se toma el recurso empaquetado, normalizan CRLF a LF
+en memoria y se exige el SHA256 exacto anterior antes de copiarlo a una caché
+temporal privada. CUSTOM_TIKTOKEN_CACHE_DIR y TIKTOKEN_CACHE_DIR se fijan solo
+durante cada prueba; se fuerza el tokenizador Python real con LITELLM_RUST=false
+para verificar esa ruta en ambos sistemas. No se modifica el paquete, su asset
+original ni una caché global; no se usa un doble de tokenizador ni se autoriza
+descarga. Un caso nuevo verifica LF/CRLF válidos y rechazo de un asset truncado.
+La limitación del recurso Windows original queda documentada por separado y
+no se presenta esta fixture como corrección del empaquetado del proveedor.
+
+Regresión local: 331 Python (330 aprobados y uno Linux omitido)/3 JS aprobados;
+cinco pruebas HTTP/fixture en proceso nuevo con backend Python forzado aprobadas.
+El código productivo Groq/diagnóstico sigue siendo el publicado en eefa51c;
+el nuevo ajuste de pruebas y su CI están pendientes de publicación/verificación
+en el momento de este apartado. No se repitió el ensayo Parrot.

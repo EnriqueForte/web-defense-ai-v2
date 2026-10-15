@@ -2,6 +2,17 @@
 
 ## Alcance actual
 
+PublicadocacheGroq eefa51ce465003b523b8ca7ef5c8640c1b4489e8/CI38775156492:
+Ubuntu success330/Windowsfailure4testsHTTP nuevos; Wininstalación172/buildpasó.
+TraceWin: tokenizerPython cl100kdescarga bloqueada, noProveedor. RECORDWindows
+assetCRLF1781382/hashWdLa..., LF1681126/223921...esperado; reconstrucciónCRLF
+coincide RECORD. Ajuste solo test: copia temporalLF de assetempaquetado conSHA
+obligatorio, cacheprivada+backendPythonreal/redbloqueada, noglobal/package/mocks.
+331Python(330Win+1Linuxomitido)/3JS y5tests procesofríopasaron. PendientepushCI
+ajuste; productoigual eefa51c. No acreditarassetWindowsoriginalofflinefrío;
+limitaciónempaquetado documentada. Sin nuevoensayoGroq/VMcambio. Entrada inferior
+conserva revisiónlocal previa. docs/INCIDENCIA_GROQ_PARROT_2026_10_15.md.
+
 GroqParrot15/10causa identificada: Logs18:44:49/400/invalid_request_error rechaza
 messages.0/system/cache_breakpoint. CrewAI1.15.27 añade marca; rutaLiteLLMnoquita.
 main.RateLimitResilientLLM limpia solo campo externoGroq copiandomensajes;

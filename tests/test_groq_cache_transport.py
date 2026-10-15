@@ -1,6 +1,7 @@
 """Real CrewAI/LiteLLM HTTP serialization with synthetic responses and no network."""
 import ast
 from copy import deepcopy
+import hashlib
 import inspect
 import json
 import os
@@ -15,12 +16,24 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 KEY = "synthetic-groq-transport-key"
 ID = "d" * 32
+TOKENIZER_CACHE_KEY = "9b5ad71b2ce5302211f9c61530b329a4922fc6a4"
+TOKENIZER_SHA256 = "223921b76ee99bde995b7ff738513eef100fb51d18c93597a113bcffe865b2a7"
+
+
+def tokenizer_fixture_bytes(data):
+    # The Windows wheel records CRLF bytes, while tiktoken verifies LF bytes.
+    # Use a private temporary fixture; never rewrite package/global caches.
+    canonical = data.replace(b"\r\n", b"\n")
+    if hashlib.sha256(canonical).hexdigest() != TOKENIZER_SHA256:
+        raise ValueError("Unexpected bundled tokenizer asset")
+    return canonical
 
 
 class GroqCacheTransportTests(TestCase):
     def setUp(self):
         self.enterContext(patch.dict(os.environ, {
             "LITELLM_LOCAL_MODEL_COST_MAP": "True", "LITELLM_MODE": "PRODUCTION",
+            "LITELLM_RUST": "false",
             "CREWAI_TRACING_ENABLED": "false", "OTEL_SDK_DISABLED": "true",
             "GROQ_API_KEY": "", "OPENROUTER_API_KEY": ""}))
         self.enterContext(patch("dotenv.load_dotenv", return_value=False))
@@ -37,6 +50,13 @@ class GroqCacheTransportTests(TestCase):
         from config.llm_resilience import call_with_model_fallback
         from crewai.events.event_bus import crewai_event_bus
         self.enterContext(patch.object(crewai_event_bus, "emit", return_value=None))
+        from importlib import resources
+        bundled = resources.files("litellm").joinpath("litellm_core_utils", "tokenizers", TOKENIZER_CACHE_KEY)
+        self.tokenizer_bytes = tokenizer_fixture_bytes(bundled.read_bytes())
+        cache = Path(self.enterContext(TemporaryDirectory()))
+        (cache / TOKENIZER_CACHE_KEY).write_bytes(self.tokenizer_bytes)
+        self.enterContext(patch.dict(os.environ, {"CUSTOM_TIKTOKEN_CACHE_DIR":str(cache),
+                                                 "TIKTOKEN_CACHE_DIR":str(cache)}))
         tree = ast.parse((ROOT / "main.py").read_text(encoding="utf-8"))
         definitions = [item for item in tree.body if isinstance(item, ast.ClassDef)
                        and item.name == "RateLimitResilientLLM"]
@@ -83,6 +103,13 @@ class GroqCacheTransportTests(TestCase):
         from crewai.llms.cache import mark_cache_breakpoint
         return [mark_cache_breakpoint({"role": "system", "content": "Keep literal cache_breakpoint text."}),
                 mark_cache_breakpoint({"role": "user", "content": "Synthetic input"})]
+
+    def test_private_tokenizer_fixture_accepts_only_verified_lf_or_crlf_asset(self):
+        crlf = self.tokenizer_bytes.replace(b"\n", b"\r\n")
+        self.assertEqual(tokenizer_fixture_bytes(crlf), self.tokenizer_bytes)
+        self.assertEqual(tokenizer_fixture_bytes(self.tokenizer_bytes), self.tokenizer_bytes)
+        with self.assertRaisesRegex(ValueError, "Unexpected bundled tokenizer asset"):
+            tokenizer_fixture_bytes(self.tokenizer_bytes[:-1])
 
     def test_http_rejects_unadapted_marker_but_adapter_preserves_messages_and_limits(self):
         from crewai import LLM
