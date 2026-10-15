@@ -468,3 +468,13 @@ la captura. Autorización consumida. Corrección local de prompt compacto y
 normalización terminal del 413 probada: 339 Python/3 JS/92 sintaxis/27 SDK/
 13 A-05+7 controles, sin proveedor real. Véase [incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md).
 Pendientes publicación/CI/VM; no más tráfico ni repetición del ensayo.
+
+La corrección 413 se publicó después como
+`33d987bf86e10b272adc79e57013bd504e958c0f`. CI 38790268742/attempt 1 success
+Windows/Ubuntu, estados/pasos/logs/cuatro pruebas nuevas comprobados: 339
+Python (Windows 338+1 omitido), 3 JS/92 sintaxis/27 SDK/13 A-05+7 controles/
+lint/tipos/17 UI/nueve E2E por OS y smoke/cierre correctos. Inventarios y
+resúmenes A-05 verificados; IDs y límites en el registro de incidencia.
+Pendiente actualizar Parrot tras detener tres terminales; comprobar prompt9 e
+iniciar lectura. Corrección solo Python, sin reinstalar o recompilar frontend.
+La actualización no repite el ensayo ni autoriza un nuevo trabajo real.

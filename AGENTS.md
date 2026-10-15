@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+413Groq publicado/CIverificada15/10: código33d987b
+(33d987bf86e10b272adc79e57013bd504e958c0f),run38790268742attempt1Windows/Ubuntu
+completed/success; estados/pasos/logsfinales/cuatrotests nuevas revisados.
+Ubuntu339Python/Windows338+1Linuxomitido,3JS92sintaxis/HTTP27SDK/13A05+7controles/
+linttipos17UI/9E2EporOS(Win47,2s/Ubuntu7,6s)/smokeAPIproxy200offlinecierre.
+Inventarios11999428216Win11999582390Ubuntu172/0/0freezehashespreviosiguales;
+resúmenesA0512000212656Win11999932578Ubuntu métricas/checks/hashlocales
+20261015T185242433279Z iguales salvoUUID,no bytesinformesremotos incluidos.
+Prompt9 sin pérdida líneas/refs; 413terminal tipado/HTTP413/sinretryfallback,
+429existente conservado. No garantíaGroqTPM por estimaciónlocal/semánticageneral.
+Ensayo50f0fcc91e82consumido, informe9dd17c72e247conservadoporcaptura; sin nuevo
+LLM/Docker/envíos/serviciosWindows/.envbytes/inventariooperativonuevo.
+PendienteParrot parar3terminales/pull/verprompt9/iniciolectura, sin reinstall/
+buildnecesario; nuevotrabajorequierealcanceexpreso. A05/coberturareal abiertos.
+Siguientecommit soloactas[skip ci],códigoCI33d987b. Registro
+docs/INCIDENCIA_GROQ_413_2026_10_15.md; recibosgroq-413-20261015ignorados.
+Entradas inferiores históricas.
+
 BFParrot15/10 job50f0fcc91e82(prefijo) failed/analysis_failed; informe9dd17c72e247
 conservado segúncaptura. Groqfilas413/120by20b,detalle20bTPM8000/Requested8103/
 rate_limit_exceeded; sinrecibo/IDcompleto/consumo completo. Ensayoconsumido.

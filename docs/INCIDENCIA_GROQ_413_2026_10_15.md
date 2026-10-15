@@ -1,5 +1,9 @@
 # Groq HTTP 413 en la prueba de fuerza bruta — 15/10/2026
 
+Seguimiento: corrección publicada como 33d987b, CI Windows/Ubuntu aprobada y
+artefactos verificados. Pendientes actualización y prueba real en Parrot;
+los apartados iniciales conservan el estado previo a publicar.
+
 ## Evidencia y alcance
 
 Tras comprobar observed-access-4 (ocho POST en 45 s, referencias 39–46
@@ -70,3 +74,71 @@ operativo nuevo, Docker, envío o servicios operativos Windows; sin lectura de
 bytes .env ni nuevo inventario operativo Windows. Pendientes publicación/CI/VM;
 código CI vigente 4c2e032. Cobertura real de fuerza bruta, A-05 y confirmación
 de acceso exitoso siguen abiertos.
+
+## Publicación y actualización prevista
+
+Se publicó `33d987bf86e10b272adc79e57013bd504e958c0f` en origin/main V2.
+Fetch previo sin divergencia; revisión de 248 candidatos/655 blobs alcanzables/
+64 commits para exclusiones y formatos concretos de credenciales sin hallazgos,
+sin auditoría global. Índice de diez archivos coincide con la revisión y hashes
+vendor íntegros. Incluye las actas de aceptación del enlace y la preparación
+offline facilitadas por el usuario después de la publicación anterior.
+
+La [CI 38790268742](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38790268742)
+se inició para ese código; el resultado final se consigna tras revisar estados,
+pasos, logs y artefactos. No se atribuye un resultado real de Groq a la CI.
+
+Después de recibir la confirmación de CI, detener las tres terminales de la VM
+con Ctrl+C, esperar el prompt y actualizar como usuario normal:
+
+```bash
+cd "$HOME/Proyectos/web-defense-ai-v2"
+git pull --ff-only
+git rev-parse --short HEAD
+.p2/bin/python -B -c 'from agents.structured_prototype import PROMPT_VERSION; print(PROMPT_VERSION)'
+```
+
+La versión debe ser structured-prototype-9. No hay cambios de dependencias o
+frontend que requieran reinstalación o build por esta corrección. Para revisar
+el informe existente con la consola de lectura:
+
+```bash
+source "$HOME/.nvm/nvm.sh"
+nvm use 24
+python3 webdefense.py start --mode structured
+```
+
+El log capturado con la ráfaga puede reutilizarse como evidencia; no se necesita
+generar más intentos. Otro análisis real requiere un nuevo alcance expresamente
+autorizado: la solicitud del trabajo 50f0fcc91e82 ya terminó. No se inicia un
+trabajo ni se reenvía la petición al actualizar o abrir la consola de lectura.
+
+## Cierre de publicación/CI
+
+Código `33d987bf86e10b272adc79e57013bd504e958c0f`, run 38790268742/attempt 1,
+Windows-latest/Ubuntu 24.04 completed/success. Estados/pasos/logs finales
+revisados y cuatro pruebas nuevas identificadas en cada sistema. Instalación
+nueva, pip check/contrato 172/0/build normal; Ubuntu 339 Python, Windows 338
+aprobados y uno Linux omitido; 3 JS/92 sintaxis/HTTP/27 SDK/13 A-05+7 controles/
+lint/tipos/17 UI aprobados. Nueve E2E de Configuración por OS (Windows 47,2 s,
+Ubuntu 7,6 s), salida 0/cierre libre y smoke API directa/proxy 200, ejecutor
+offline/cierre con puertos libres en ambos. No es una llamada real a Groq.
+
+Inventarios completos descargados y verificados: 11999428216 Windows
+Python 3.11.9 y 11999582390 Ubuntu Python 3.11.17, 172 paquetes/0 deriva/
+0 extras. Paquetes contra contrato, metadatos y hash de freeze verificados;
+hashes idénticos a los anteriores:
+
+- Windows: `4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d`.
+- Ubuntu: `2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa`.
+
+Resúmenes A-05 12000212656 Windows/11999932578 Ubuntu: métricas/checks/hashes
+de publicaciones coinciden con la matriz local 20261015T185242433279Z salvo
+UUID de generación. No incluyen bytes de informes remotos ni prueban semántica
+del proveedor. Recibos en .local-state/groq-413-20261015, ignorados.
+
+El siguiente commit solo actualiza actas [skip ci]; el código probado sigue
+siendo 33d987b. El informe real anterior no se ha recalculado ni se ha repetido
+el ensayo. Sin llamadas LLM/Docker/envíos/servicios operativos Windows nuevos,
+lectura de bytes .env o nuevo inventario operativo. Pendiente actualización
+Parrot y nuevo alcance expresamente autorizado para otro trabajo real.

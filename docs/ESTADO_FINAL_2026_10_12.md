@@ -31,7 +31,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Matriz offline/CI y corrección verificadas; mixed/normal y nuevo same_family autorizado satisfacen sus muestras, con informes/guardas/hashes revisados | Aceptación con límites e ingesta manual/Parrot; semántica general sigue pendiente |
-| Recorrido completo Parrot | Entrada/enlace aceptados y ocho POST preparados correctamente. Ensayo 50f0fcc91e82 falla por 413 Groq (detalle 8103/8000 TPM); informe anterior conservado. Prompt compacto y reintentos corregidos localmente | [Incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md); publicar/CI/actualizar VM; ensayo consumido y cobertura real pendientes |
+| Recorrido completo Parrot | Entrada/enlace aceptados y ocho POST preparados. Ensayo 50f0fcc91e82 falla por 413 Groq; informe anterior conservado. Prompt compacto y 413 terminal publicados como 33d987b, CI Windows/Ubuntu y artefactos verificados | [Incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md); actualizar VM y definir un nuevo ensayo; autorización consumida y cobertura real pendientes |
 | Entrega final | Consolidar documentación, revisar archivos/historial, recurso cl100k del wheel Windows en frío y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2; la fixture temporal de pruebas no repara el wheel original |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
