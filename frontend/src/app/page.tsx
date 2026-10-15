@@ -268,6 +268,14 @@ export default function Home() {
     if (next !== "Reportes") { setReportId(""); setDetail(null); }
   }
   function requestRefresh() { setRefresh((value) => value + 1); }
+  function openCurrentReport() {
+    if (!publicationId || state?.meta.sources.report?.status !== "available") return;
+    setDetail(null);
+    setDetailError("");
+    setReportPage(1);
+    setReportId(publicationId);
+    navigate("Reportes");
+  }
   const stats = state?.data.stats;
   const reportAvailable = state?.meta.sources.report?.status === "available";
   const logAvailable = state?.meta.sources.log?.status === "available";
@@ -321,7 +329,15 @@ export default function Home() {
             <article className="panel severity-panel"><div className="panel-header"><div><div className="panel-kicker">REPORTE ACTUAL</div><h2>Severidades</h2><p>{reportAvailable ? `${number(stats?.total ?? 0)} amenazas clasificadas` : "Reporte no disponible"}</p></div></div><SeverityChart stats={state.data.stats} available={reportAvailable} /></article>
           </section>
           <section className="panel incidents-panel"><div className="panel-header incidents-heading"><div><div className="panel-kicker">REPORTE ACTUAL</div><h2>Amenazas recientes</h2><p>{reportAvailable ? state.data.threats_truncated ? `Se muestran 10 de ${number(state.data.threats_total)}` : `${number(state.data.threats_total)} en la captura` : "Reporte no disponible"}</p></div></div><ThreatTable items={state.data.threats} dateLabel={dateLabel} sourceAvailable={reportAvailable} /><div className="table-footer"><span>Captura {state.meta.snapshot_id.slice(0, 12)}</span><button onClick={() => navigate("Amenazas")}>Ver lista completa →</button></div></section>
-          <section className="summary-bottom"><article className="panel"><div className="panel-header"><div><div className="panel-kicker">LECTURA RECIENTE</div><h2>Terminal</h2></div></div><LogLines lines={state.data.recent_log} /></article><article className="panel"><div className="panel-header"><div><div className="panel-kicker">ARCHIVO</div><h2>Reportes recientes</h2></div></div>{state.data.recent_reports.length ? <ul className="simple-list">{state.data.recent_reports.map((item, index) => <li key={`${item.nombre}-${index}`}><span>{item.nombre}</span><small>{item.amenazas} amenazas · fecha del evento no verificada</small></li>)}</ul> : <p className="empty-copy">No hay reportes históricos disponibles.</p>}<button className="plain-link" onClick={() => navigate("Reportes")}>Explorar todos los reportes →</button></article></section>
+          <section className="summary-bottom">
+            <article className="panel"><div className="panel-header"><div><div className="panel-kicker">LECTURA RECIENTE</div><h2>Terminal</h2></div></div><LogLines lines={state.data.recent_log} /></article>
+            <article className="panel">
+              <div className="panel-header"><div><div className="panel-kicker">ACTUAL E HISTÓRICOS</div><h2>Reportes recientes</h2></div></div>
+              {reportAvailable && publicationId && <ul className="report-list"><li><button onClick={openCurrentReport}><strong>Reporte actual</strong><small>{dateLabel(state.meta.sources.report.modified_at)} · {number(state.data.stats.total)} grupos clasificados</small><span>Abrir reporte →</span></button></li></ul>}
+              {state.data.recent_reports.length ? <><p className="status-copy">Reportes históricos</p><ul className="simple-list">{state.data.recent_reports.map((item, index) => <li key={`${item.nombre}-${index}`}><span>{item.nombre}</span><small>{item.amenazas} amenazas · fecha del evento no verificada</small></li>)}</ul></> : <p className="empty-copy">{reportAvailable ? "No hay reportes históricos adicionales." : "No hay reportes históricos disponibles."}</p>}
+              <button className="plain-link" onClick={() => navigate("Reportes")}>Explorar todos los reportes →</button>
+            </article>
+          </section>
         </>}
 
         {view === "Amenazas" && <><ObservedEvents items={state?.data.recent_events ?? []} /><section className="panel list-panel"><div className="panel-header"><div><div className="panel-kicker">CLASIFICACIÓN DEL ÚLTIMO INFORME</div><h2>Amenazas clasificadas</h2><p>Esta tabla cambia cuando se genera un informe nuevo; los eventos observados aparecen arriba.</p></div></div><div className="filter-row"><label>Severidad<select value={severity} onChange={(event) => { setSeverity(event.target.value); setPage(1); }}><option value="Todas">Todas</option>{severityCodes.map((code) => <option key={code} value={code}>{names[code]}</option>)}</select></label><label>Tipo<input value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }} placeholder="Buscar tipo" /></label><label>IP exacta<input value={ipFilter} onChange={(event) => { setIpFilter(event.target.value); setPage(1); }} placeholder="IP observada" /></label><button className="button-secondary filter-reset" disabled={severity === "Todas" && !typeFilter && !ipFilter} onClick={() => { setSeverity("Todas"); setTypeFilter(""); setIpFilter(""); setPage(1); }}>Limpiar filtros</button></div><p className="filter-context">{severity === "Todas" && !typeFilter && !ipFilter ? "Sin filtros activos" : `Filtros activos: ${[severity !== "Todas" ? names[severity] : "", typeFilter ? `Tipo: ${typeFilter}` : "", ipFilter ? `IP: ${ipFilter}` : ""].filter(Boolean).join(" · ")}`}</p>{threatLoading && <p className="status-copy" role="status">Consultando amenazas…</p>}{threatError && <p className="status-copy error-copy" role="alert">{threatError}</p>}{!threatLoading && !threatError && threats && <><p className="status-copy" role="status">{number(threats.meta.total)} coincidencias · captura {threats.meta.snapshot_id?.slice(0, 12)} · página {threats.meta.page}</p><ThreatTable items={threats.data} dateLabel={dateLabel} sourceAvailable={reportAvailable} /><Pager page={page} total={threats.meta.total} size={25} change={setPage} /></>}</section></>}

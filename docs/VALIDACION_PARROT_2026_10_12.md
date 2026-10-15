@@ -368,3 +368,50 @@ temporal y la limitación del recurso Windows original.
 Pendiente actualizar esta VM con Flask, worker y Next detenidos y comprobar
 el SHA recibido. No se solicitó reinstalar pines ni build por esta corrección
 Python. La publicación/CI no repite ni autoriza otro análisis real.
+
+### Actualización de la corrección recibida en Parrot
+
+La nueva captura del usuario muestra fast-forward `292e812..3947554`, nueve
+archivos actualizados, y `git rev-parse --short HEAD` devuelve `3947554`.
+Queda acreditada la recepción del código y de las actas en el clon de la VM.
+La captura no incluye estado de procesos/puertos, nuevo inventario de paquetes,
+arranque posterior ni resultado de proveedor; no se extiende la evidencia a
+esas comprobaciones. El código de CI sigue siendo 646aaf2; 3947554 solo añade
+el acta final de verificación. No se pidió reinstalar ni recompilar.
+
+El ensayo anterior `f217a6210aa3447084193573b5449a97` permanece fallido y su
+autorización consumida. Se propone un nuevo trabajo manual único del log DVWA
+con Groq 120b, alternativa 20b ante rate limit y reintentos internos existentes,
+timeout del motor 900 s, sin ciclos, notificaciones o repetición automática si
+falla. Su autorización está pendiente; actualizar Git no la concede.
+
+El usuario autorizó después expresamente este nuevo ensayo («sí»). Se limita
+a un trabajo manual nuevo con el alcance anterior, independiente del fallido
+f217a6210aa3447084193573b5449a97. El usuario operará la VM y el agente guiará
+la activación y revisión; no se encoló ningún trabajo desde este equipo. Se
+indica reutilizar las tres terminales detenidas (Flask/worker con grupo Docker
+ya activado), ejecutar cada comando por separado y solicitar el análisis una
+sola vez cuando el ejecutor figure activo. Resultado todavía pendiente.
+
+### Segundo trabajo: publicación visible y revisión de cobertura
+
+Capturas posteriores muestran `6356df80e4994602ba3004fd2841e6a8`
+succeeded/finished, referencia abreviada 9dd17c72e247 e informe publicado a
+las 19:51:52 Madrid. El usuario confirma que se lee en Reportes; lo que falta
+es su entrada en la tarjeta de Resumen, dedicada hasta ahora solo al historial.
+Se observa un grupo XSS bajo, requiere investigación, línea 31; 30 líneas
+seleccionadas de 36/seis omitidas. No se recibieron bytes/recibo/consumo de la
+VM ni se acredita cobertura semántica general. Esta autorización queda consumida.
+
+El usuario esperaba XSS y fuerza bruta. El último fragmento muestra tres POST
+al formulario DVWA en 16 segundos y después GET de admin.jpg. La imagen no
+registra el resultado de autenticación; tres envíos no alcanzan el umbral
+predeterminado de cinco en 60 s, sin conocer aquí la configuración de la VM.
+Además se identificó que la preparación estructurada ignoraba los POST DVWA
+sin credenciales en la URL. Arreglo local y botón del reporte actual en
+Resumen preparados, probados offline y documentados en
+[corrección DVWA POST y Resumen](CORRECCION_DVWA_POST_RESUMEN_2026_10_15.md).
+335 casos Python (334+1 omitido), 3 JS, lint/tipos/17 UI/92 sintaxis y builds
+pasaron. Cambios sin publicar/CI nueva/instalar en Parrot; no nuevo LLM ni
+recalcular el informe existente. Confirmación de acceso exitoso mediante
+evidencia de aplicación y aceptación A-05 siguen pendientes.

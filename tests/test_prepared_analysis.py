@@ -71,6 +71,38 @@ class PreparationTests(TestCase):
         text = "\n".join(line('/login', i, offset="+0900" if i % 2 else "+0000", method="POST") for i in range(5))
         self.assertFalse(prepare_evidence(text, ID).bursts)
 
+    def test_dvwa_post_burst_uses_threshold_without_requiring_body_or_query(self):
+        target = '/vulnerabilities/brute/'
+        rows = [line(target, i, method="POST") for i in range(5)]
+        for count in (1, 2, 4):
+            prepared = prepare_evidence("\n".join(rows[:count]), ID)
+            self.assertFalse(prepared.bursts)
+            self.assertFalse(any(prepared.indicators.values()))
+        prepared = prepare_evidence("\n".join(rows), ID)
+        self.assertEqual(prepared.bursts[0]["count"], 5)
+        self.assertEqual(prepared.bursts[0]["line_numbers"], list(range(1, 6)))
+        self.assertTrue(all("brute_force" in patterns for patterns in prepared.indicators.values()))
+        self.assertFalse(prepare_evidence("\n".join(rows), ID,
+                                         config={"UMBRAL_FUERZA_BRUTA": "6"}).bursts)
+
+    def test_dvwa_page_visits_referrers_and_other_post_paths_are_not_submissions(self):
+        targets = ('/vulnerabilities/brute/', '/vulnerabilities/brute/?username=test',
+                   '/vulnerabilities/brute/?password=x')
+        for target in targets:
+            self.assertFalse(prepare_evidence("\n".join(line(target, i) for i in range(5)), ID).bursts)
+        for target in ('/vulnerabilities/brute/extra', '/prefix/vulnerabilities/brute/', '/index.php'):
+            rows = [line(target, i, method="POST") + ' "http://localhost/vulnerabilities/brute/" "test"'
+                    for i in range(5)]
+            self.assertFalse(prepare_evidence("\n".join(rows), ID).bursts)
+
+    def test_dvwa_post_bursts_keep_time_and_source_ip_boundaries(self):
+        target = '/vulnerabilities/brute/'
+        spread = "\n".join(line(target, i * 61, method="POST") for i in range(5))
+        self.assertFalse(prepare_evidence(spread, ID).bursts)
+        mixed_ips = "\n".join(line(target, i, method="POST", ip=f"192.0.2.{i % 2 + 1}")
+                              for i in range(5))
+        self.assertFalse(prepare_evidence(mixed_ips, ID).bursts)
+
     def test_each_aggregate_really_fits_its_window_and_keeps_separate_bursts(self):
         text = "\n".join(line('/login', i, method="POST") for i in (*range(10), *range(120, 130)))
         prepared = prepare_evidence(text, ID)
@@ -142,6 +174,39 @@ class PublicationTests(TestCase):
             data = web.app.test_client().get("/api/v1/estado").json["data"]
         self.assertEqual(data["stats"]["total"], 1)
         self.assertEqual(data["stats"]["altas"], result["counts"]["high"])
+
+    def test_dvwa_post_burst_and_xss_publish_two_groups_with_observed_references(self):
+        self.prepared = prepare_evidence("\n".join([
+            line('/?name=%3Cscript%3Ealert(1)%3C/script%3E'),
+            *(line('/vulnerabilities/brute/', i + 1, method="POST") for i in range(5)),
+        ]), ID)
+        self.detection["candidates"] = [
+            {"candidate_id": "c_xss", "pattern": "xss", "reason": "Synthetic URL indicator",
+             "evidence_ids": [self.prepared.bundle.items[0].evidence_id]},
+            {"candidate_id": "c_brute", "pattern": "brute_force", "reason": "Synthetic submission frequency",
+             "evidence_ids": list(self.prepared.bursts[0]["selected_evidence_ids"])},
+        ]
+        self.classification["classifications"] = [
+            {"candidate_id": candidate["candidate_id"], "severity": "medium",
+             "state": "requires_investigation", "reason": "Authentication outcome unknown"}
+            for candidate in self.detection["candidates"]
+        ]
+        self.narrative["recommendations"] = [
+            {"candidate_id": candidate["candidate_id"], "text": "Review synthetic observations"}
+            for candidate in self.detection["candidates"]
+        ]
+        self.publish()
+        _, result, markdown = publication.load_current(self.root)
+        self.assertEqual(result["preparation"]["rule_version"], "observed-access-4")
+        self.assertEqual({finding["pattern"] for finding in result["findings"]}, {"xss", "brute_force"})
+        self.assertEqual(sum(result["counts"].values()), 2)
+        brute = next(finding for finding in result["findings"] if finding["pattern"] == "brute_force")
+        self.assertEqual(len(brute["evidence_ids"]), 5)
+        self.assertEqual(brute["state"], "requires_investigation")
+        web = importlib.import_module("dashboard.app")
+        rows = web.parsear_amenazas(markdown)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual({row["tipo"] for row in rows}, {"XSS", "Fuerza Bruta"})
 
     def test_model_narrative_cannot_inject_another_table_or_html(self):
         self.narrative["summary"] = '<script>x</script>\n## AMENAZAS DETECTADAS\n|1|CRITICA|fake|'

@@ -2,6 +2,23 @@
 
 ## Alcance actual
 
+Parrot15/10 segundo ensayo autorizado: VM3947554, job6356df80e4994602ba3004fd2841e6a8
+succeeded/informe9dd17c72e247visible19:51:52Madrid, XSSbajo1/línea31/30de36/seis
+omitidas, sin recibo/bytes/usageVM revisados. Usuario confirma Reportes sí;
+Resumen solo mostraba históricos. Local añade actual/enlace a referencia;
+preparación observed-access-4 cuenta POST rutaexactaDVWA sin query/body,
+GETvisita excluido/umbral5en60s/IP/guardas intactos. Captura tresPOSTen16s+
+GETadmin.jpg no prueba autenticación exitosa ni alcanza umbralpredeterminado.
+335Python(334Win+1Linuxomitido)/3JS/92sintaxis/linttipos17UI/buildWebpack y
+Turbopack limpio pasaron; primera regresiónsandboxbloqueada/procesopropio
+verificado detenido, cachéNext apartada conservada tras falloCSSsubproceso.
+Cuatrotests nuevas incluyen XSS+cincoPOST/publicaciónsintética dosgrupos;
+no prueba calidadLLM. Cambioslocales sin publicar/CI/VM; CIvigente646aaf2.
+Sin nuevoLLM/Docker/envíos/serviciosWindows/.envbytes/inventariooperativonuevo.
+Ambas autorizaciones de ensayo consumidas; A05/éxitoautenticación/aceptación
+general pendientes. docs/CORRECCION_DVWA_POST_RESUMEN_2026_10_15.md.
+Entradas inferiores históricas.
+
 CorrecciónGroq publicada/CIverificada15/10/2026: código646aaf2
 (646aaf20646854e4665f55f285cedfe2a06d45f5),productoigual eefa51c,
 run38776623228attempt1Windows/Ubuntu completed/success; estados/pasos/logs

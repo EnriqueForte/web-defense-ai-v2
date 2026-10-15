@@ -7,7 +7,7 @@ from urllib.parse import unquote_plus, urlsplit, parse_qs
 from agents.evidence_contracts import (ContractError, EvidenceBundle, build_evidence, parse_evidence,
                                       validate_detection, validate_classification)
 
-RULE_VERSION = "observed-access-3"
+RULE_VERSION = "observed-access-4"
 PATTERNS = {
     "sql_injection": re.compile(r"\bunion\s+(?:all\s+)?select\b|(?:\bor\b|\band\b)\s+['\"]?1['\"]?\s*=\s*['\"]?1|(?:\bsleep|\bbenchmark)\s*\(", re.I),
     "xss": re.compile(r"<\s*(?:script|svg|img)\b|\bon(?:error|load)\s*=|javascript\s*:", re.I),
@@ -71,8 +71,13 @@ def is_login_submission(item):
     except ValueError:
         return False
     endpoint = path.rsplit("/", 1)[-1]
-    return (item.method == "POST" and endpoint in {"login", "login.php", "signin", "signin.php"}) or (
-        item.method in {"GET", "POST"} and path == "/vulnerabilities/brute"
+    # A POST to this exact DVWA form is observable even when Apache does not
+    # record its body. Count submissions, without inferring credentials or
+    # authentication outcomes. A plain GET remains only a page visit.
+    return (item.method == "POST" and (
+        endpoint in {"login", "login.php", "signin", "signin.php"}
+        or path == "/vulnerabilities/brute")) or (
+        item.method == "GET" and path == "/vulnerabilities/brute"
         and "username" in fields and "password" in fields)
 
 
