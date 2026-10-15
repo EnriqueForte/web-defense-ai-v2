@@ -34,6 +34,15 @@ class RateLimitResilientLLM(LLM):
     rate_limit_backoff_seconds: float = Field(default=10.0, exclude=True)
     rate_limit_max_wait_seconds: float = Field(default=45.0, exclude=True)
 
+    def _format_messages_for_provider(self, messages):
+        # CrewAI marks stable prompt prefixes with internal cache metadata.
+        # Its LiteLLM lane forwards the marker; Groq rejects this extra field.
+        # Copy only the message dictionaries so the executor keeps its markers.
+        if self.model.startswith("groq/") and isinstance(messages, list):
+            messages = [{key: value for key, value in message.items() if key != "cache_breakpoint"}
+                        if isinstance(message, dict) else message for message in messages]
+        return super()._format_messages_for_provider(messages)
+
     def call(self, messages, tools=None, callbacks=None, available_functions=None,
              from_task=None, from_agent=None, response_model=None):
         def invoke():

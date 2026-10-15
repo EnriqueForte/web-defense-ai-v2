@@ -59,6 +59,32 @@ class OperationalDiagnosticsTests(TestCase):
         self.assertNotIn(SECRET, json.dumps(record))
         self.assertIs(sdk.completion, delegate)
 
+    def test_http_failure_persists_safe_status_in_checkpoint_and_receipt_and_restores_hook(self):
+        import httpx
+        request = httpx.Request('POST', 'https://example.invalid/' + SECRET,
+                                headers={'Authorization':SECRET})
+        response = httpx.Response(401, request=request, json={'error':SECRET})
+        error = httpx.HTTPStatusError(SECRET, request=request, response=response)
+        delegate = Mock(side_effect=error)
+        sdk = SimpleNamespace(completion=delegate)
+        tracker = self.receipt()
+        tracker.diagnostics.begin_call('detection')
+        with patch.dict(sys.modules, {'litellm':sdk}), tracker.capture():
+            with self.assertRaises(httpx.HTTPStatusError) as raised:
+                sdk.completion(api_key=SECRET)
+        self.assertIs(raised.exception,error)
+        self.assertIs(sdk.completion,delegate)
+        tracker.diagnostics.failure(error)
+        tracker.finish('failed')
+        for filename in ('checkpoint.json','receipt.json'):
+            saved = json.loads((tracker.destination/filename).read_text())
+            self.assertEqual(saved['attempts'][0]['http_status'],401)
+            self.assertEqual(saved['diagnostics']['events'][-1]['http_status'],401)
+            self.assertNotIn(SECRET,json.dumps(saved))
+        self.assertEqual(saved['logical_calls'],1)
+        self.assertEqual(saved['transport_attempts_observed'],1)
+        self.assertIsNone(saved['usage']['total_tokens'])
+
     def test_native_or_absent_metadata_is_unknown_not_zero_sdk_fallback(self):
         tracker = self.receipt()
         tracker.diagnostics.begin_call('detection')

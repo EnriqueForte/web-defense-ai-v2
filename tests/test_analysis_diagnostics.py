@@ -81,6 +81,57 @@ class DiagnosticsTests(TestCase):
         self.assertEqual(summary["frames"], [])
         self.assertNotIn(SECRET, json.dumps(summary))
 
+    def test_http_status_survives_wrapped_sdk_errors_without_response_content(self):
+        import httpx
+        import litellm
+        request = httpx.Request("POST", "https://example.invalid/" + SECRET,
+                                headers={"Authorization": SECRET})
+        response = httpx.Response(400, request=request, json={"error": SECRET})
+        cause = httpx.HTTPStatusError(SECRET, request=request, response=response)
+        error = litellm.BadRequestError(message=SECRET, model="groq/synthetic", llm_provider="groq")
+        error.__cause__ = cause
+        wrapper = RuntimeError(SECRET)
+        wrapper.__cause__ = error
+        summary = safe_exception(wrapper)
+        self.assertEqual(summary["error_types"], ["RuntimeError", "BadRequestError", "HTTPStatusError"])
+        self.assertEqual(summary["http_status"], 400)
+        diagnostic = AnalysisDiagnostics()
+        diagnostic.failure(wrapper)
+        self.assertEqual(diagnostic.snapshot()["events"][-1]["http_status"], 400)
+        self.assertNotIn(SECRET, json.dumps(diagnostic.snapshot()))
+
+    def test_only_numeric_error_status_is_retained_and_httpx_response_is_supported(self):
+        import httpx
+        request = httpx.Request("POST", "https://example.invalid/" + SECRET)
+        response = httpx.Response(429, request=request, text=SECRET)
+        error = httpx.HTTPStatusError(SECRET, request=request, response=response)
+        self.assertEqual(safe_exception(error)["http_status"], 429)
+        for status in (True, False, "401", SECRET, 200, 299, 600, 999, 400.0, None):
+            with self.subTest(status=status):
+                error = RuntimeError(SECRET)
+                error.status_code = status
+                error.response = SimpleNamespace(status_code=status, body=SECRET)
+                self.assertNotIn("http_status", safe_exception(error))
+                self.assertNotIn(SECRET, json.dumps(safe_exception(error)))
+
+    def test_broken_exception_properties_do_not_hide_cause_or_mask_failure(self):
+        class PrivateError(Exception):
+            @property
+            def status_code(self):
+                raise ValueError(SECRET)
+            @property
+            def response(self):
+                raise ValueError(SECRET)
+        cause = RuntimeError(SECRET)
+        cause.response = SimpleNamespace(status_code=503)
+        error = PrivateError(SECRET)
+        error.__cause__ = cause
+        cause.__cause__ = error
+        summary = safe_exception(error)
+        self.assertEqual(summary["error_types"], ["other_exception", "RuntimeError"])
+        self.assertEqual(summary["http_status"], 503)
+        self.assertNotIn(SECRET, json.dumps(summary))
+
     def test_runner_distinguishes_preparation_execution_and_publication_failures(self):
         with TemporaryDirectory() as temporary:
             root = Path(temporary)

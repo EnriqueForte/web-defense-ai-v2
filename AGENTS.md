@@ -2,6 +2,37 @@
 
 ## Alcance actual
 
+GroqParrot15/10causa identificada: Logs18:44:49/400/invalid_request_error rechaza
+messages.0/system/cache_breakpoint. CrewAI1.15.27 añade marca; rutaLiteLLMnoquita.
+main.RateLimitResilientLLM limpia solo campo externoGroq copiandomensajes;
+otrosproveedores/contenido/modelo/clave/JSON/prompts/guardas/pines/reintentos intactos.
+4tests HTTP SDK reales/interceptados reproducen400sinadaptador y200corregido,
+CrewAIpublicacióntemporal/OpenRouterigual/429fallback/400único/sinmutación.
+330Python(329Win+1Linuxomitido)/3JS92sintaxis/27SDK previos aprobados en.P4;
+sin llamadas reales/repeticiónensayo/serviciosWindows. Primer sandboxespera
+detenidoPIDpropios19056/31500verificados; fueraSandbox/fixtureservice_tierpasó.
+Incluye mejoraHTTPdiagnóstico inferior. Cambioslocales sin commit/push/CI ni
+VMactualizada; pendientepublicar/actualizar/nuevoensayoalcanceconcreto. A05abierta.
+docs/INCIDENCIA_GROQ_PARROT_2026_10_15.md; siguientesentradashistóricas.
+
+Parrot15/10/2026: VM292e812instalada, Docker/Composeactivos, DVWAacceso/Mailpitvacío,
+captura36líneas y Actividad available comprobados por capturas. Rootlog600 corregido
+propietario; Node24.21.0 recuperado con usuario/nvm; grupodockeractivado/running.
+Flaskmanual200/worker manual-only activos. ÚnicojobGroq autorizado
+f217a6210aa3447084193573b5449a97 failed/analysis_failed:5,511s/1llamada/1transporte,
+detection HTTPStatusError0,609s, sin estadoHTTP retenido; generaciónnull/usageincompleto.
+No inferir401/400/cuota/formato/coste0. Autorizaciónconsumida,no repetir.
+Mejora local safe_exception conserva solo enteroHTTP300–599/tiposSDKpermitidos,
+sin mensajes/cuerpos/URLs/claves. 4tests nuevas/326Python(325Win+1Linuxomitido)/
+3JS91sintaxis aprobados; primer sandboxrenamebloqueado y mapaGitHubDNSfallido,
+repeticiónautorizada/mapalocalpasó. Sin nueva llamadaLLM/Docker/envíos/servicios
+Windows ni inventariooperativoreleído. Cambioslocales sin commit/push/CI nuevos;
+VMsinmejora. PróximolecturaLogsGroqhistórico18:44–18:45Madrid, no reejecución.
+docs/INCIDENCIA_GROQ_PARROT_2026_10_15.md; A05/análisisParrot siguen abiertos.
+CapturaposteriorGroq:gráfico6:44pm/HTTP400/conteo1, compatibleminuto,sin ID/
+proyecto/fecha/zona/mensaje visibles; detalleLogs pendiente,no inferir causa.
+Entradas inferiores históricas; códigoCIprevio4cb1707/run38552056806.
+
 Operación/recuperación publicada/CI verificada14/10/2026: código4cb1707
 (4cb1707812eb6b894a033d7f1d3a26d394cf187e),run38552056806attempt1Windows/Ubuntu
 completed/success,estados/pasos/logs finales revisados. Ubuntu322Python/Win321+1
