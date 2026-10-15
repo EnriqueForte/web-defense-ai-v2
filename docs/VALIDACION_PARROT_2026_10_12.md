@@ -356,3 +356,15 @@ y regresión 330 Python/3 JS/92 sintaxis/27 SDK pasaron localmente; no se repiti
 el trabajo ni se actualizó todavía la VM. La [incidencia Groq](INCIDENCIA_GROQ_PARROT_2026_10_15.md)
 recoge el mecanismo y los límites del arreglo. No se cierra A-05 por pruebas
 sintéticas ni se solicita repetir con la autorización ya consumida.
+
+La corrección fue después publicada como eefa51c y el ajuste de fixture de
+pruebas como `646aaf20646854e4665f55f285cedfe2a06d45f5`. La primera CI tuvo
+Ubuntu success y Windows fallo por tokenizador offline; la
+[CI final 38776623228](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38776623228)
+pasó ambos sistemas con 331 casos Python (Windows 330+1 omitido), 3 JS,
+92 sintaxis, 27 SDK, nueve E2E por OS y smoke/cierre. Logs/estados/artefactos
+verificados; véase el registro de incidencia para el alcance de la fixture
+temporal y la limitación del recurso Windows original.
+Pendiente actualizar esta VM con Flask, worker y Next detenidos y comprobar
+el SHA recibido. No se solicitó reinstalar pines ni build por esta corrección
+Python. La publicación/CI no repite ni autoriza otro análisis real.

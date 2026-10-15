@@ -31,8 +31,8 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Matriz offline/CI y corrección verificadas; mixed/normal y nuevo same_family autorizado satisfacen sus muestras, con informes/guardas/hashes revisados | Aceptación con límites e ingesta manual/Parrot; semántica general sigue pendiente |
-| Recorrido completo Parrot | Laboratorio/acceso/captura/lectura acreditados; HTTP 400 Groq por cache_breakpoint identificado, corrección local aprobada offline; publicar/actualizar y verificar informe/indicadores/gráficos | [Incidencia y corrección local](INCIDENCIA_GROQ_PARROT_2026_10_15.md); no repetir el ensayo sin nuevo alcance |
-| Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2 |
+| Recorrido completo Parrot | Laboratorio/acceso/captura/lectura acreditados; HTTP 400 Groq por cache_breakpoint corregido y publicado, CI Windows/Ubuntu aprobada; actualizar VM y verificar informe/indicadores/gráficos | [Incidencia y CI 646aaf2](INCIDENCIA_GROQ_PARROT_2026_10_15.md); no repetir el ensayo sin nuevo alcance |
+| Entrega final | Consolidar documentación, revisar archivos/historial, recurso cl100k del wheel Windows en frío y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2; la fixture temporal de pruebas no repara el wheel original |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.

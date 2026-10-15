@@ -182,3 +182,48 @@ cinco pruebas HTTP/fixture en proceso nuevo con backend Python forzado aprobadas
 El código productivo Groq/diagnóstico sigue siendo el publicado en eefa51c;
 el nuevo ajuste de pruebas y su CI están pendientes de publicación/verificación
 en el momento de este apartado. No se repitió el ensayo Parrot.
+
+## Publicación final y CI verificada
+
+El ajuste de pruebas se publicó como
+`646aaf20646854e4665f55f285cedfe2a06d45f5`, sin cambios productivos respecto a
+eefa51c. Revisión acotada previa: 246 candidatos, 637 blobs/60 commits, sin
+hallazgos en exclusiones privadas/formatos de credenciales; vendor íntegro.
+El índice coincidía con los 246 archivos revisados y tres cambios esperados.
+
+[CI 38776623228/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38776623228)
+terminó completed/success en Windows y Ubuntu. Se descargaron los logs finales
+y se verificaron los estados y pasos requeridos, no solo el estado agregado:
+
+- Instalación nueva, pip check, build Next y contrato estricto 172/0 diferencias.
+- Ubuntu 331 Python aprobados; Windows 330 aprobados y uno exclusivo Linux omitido.
+- Los nueve casos nuevos aparecen ejecutados: cuatro diagnósticos y cinco de
+  transporte HTTP/fixture. El bloqueo de red permaneció activo.
+- Tres comprobaciones JS, 92 archivos sin errores de sintaxis, HTTP sintético,
+  27 escenarios SDK anteriores, lint/tipos y 17 grupos UI aprobados por OS.
+- Matriz A-05 de 13 casos/siete controles sin proveedor, nueve E2E por OS
+  (Ubuntu 10,4 s, Windows 40,9 s) y smoke API/proxy 200, ejecutor offline,
+  cierre con puertos libres. La instalación del navegador Windows tardó más;
+  esta CI no fue cancelada ni reejecutada.
+
+Inventarios descargados y verificados contra contrato y metadatos:
+Windows artefacto 11993708267, Python 3.11.9; Ubuntu 11993014560, Python 3.11.17.
+Ambos 172 paquetes/cero diferencias/cero extras. Freeze SHA256 anteriores
+conservados: Windows 4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d,
+Ubuntu 2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa.
+
+Resúmenes A-05 descargados: Windows 11993783351 y Ubuntu 11994531078. Métricas,
+checks y hashes de publicaciones coinciden con el recibo local offline del
+13/10, excluyendo únicamente el UUID de generación. Los bytes de los informes
+remotos no están incluidos en esos resúmenes. Recibos/logs/artefactos se guardan
+en `.local-state/parrot-http-20261015/`, excluidos de Git.
+
+La corrección de cache_breakpoint y el diagnóstico HTTP quedan publicados y
+verificados en ese alcance offline. La fixture privada no certifica el recurso
+Windows original intacto en frío: ese punto del empaquetado permanece pendiente.
+No se hicieron llamadas reales al proveedor, trabajos operativos, envíos o
+arranques de servicios Windows. No se releyó el inventario operativo Windows.
+La VM todavía debe detener sus tres componentes, hacer pull y verificar el SHA;
+sin cambios de dependencias/frontend en esta corrección, no se pide reinstalar
+ni recompilar. Un nuevo análisis en Parrot requiere un nuevo alcance explícito.
+El siguiente commit contiene solo actas [skip ci]; código de CI: 646aaf2.

@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+CorrecciónGroq publicada/CIverificada15/10/2026: código646aaf2
+(646aaf20646854e4665f55f285cedfe2a06d45f5),productoigual eefa51c,
+run38776623228attempt1Windows/Ubuntu completed/success; estados/pasos/logs
+finales revisados. Ubuntu331Python/Windows330+1Linuxomitido,9casosnuevosvisibles,
+3JS92sintaxis/HTTP27SDK/13A05+7controles/linttipos17UI/9E2EporOS(Win40,9s/
+Ubuntu10,4s)/smokeAPIproxy200offlinecierre. Inventarios11993708267Win y
+11993014560Ubuntu172/0/0freeze/metadatos/hashesprevios iguales. ResúmenesA05
+11993783351Win/11994531078Ubuntu checks/métricas/hashlocales iguales salvoUUID,
+no bytesinformesremotos incluidos. 246candidatos637blobs60commits revisiónacotada
+sin hallazgos,no auditoríaglobal. Sin nuevoLLM/jobs/Docker/envíos/serviciosWindows
+ni inventariooperativoreleído. PrimerCIeefa51c/38775156492 UbuntuOK/Win4fallos
+tokenizadordocumentado; fixturetemporalSHA/Pythonreal/redbloqueada pasófinal,
+no acreditarassetwheelWindowsoriginalofflinefrío: pendienteendistribución.
+Parrotactualización/ensayonuevoconalcanceconcreto pendientes, A05abierta.
+Siguientecommit soloactas[skip ci],códigoCI646aaf2. Registro
+docs/INCIDENCIA_GROQ_PARROT_2026_10_15.md;recibosparrot-http-20261015ignorados.
+Entradas inferiores históricas.
+
 PublicadocacheGroq eefa51ce465003b523b8ca7ef5c8640c1b4489e8/CI38775156492:
 Ubuntu success330/Windowsfailure4testsHTTP nuevos; Wininstalación172/buildpasó.
 TraceWin: tokenizerPython cl100kdescarga bloqueada, noProveedor. RECORDWindows
