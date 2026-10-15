@@ -1,5 +1,9 @@
 # DVWA: envíos POST y reporte actual en Resumen — 15/10/2026
 
+Seguimiento: corrección publicada como 4c2e032 y CI Windows/Ubuntu aprobada;
+véase el cierre al final. Actualización y aceptación en Parrot pendientes.
+Los apartados iniciales conservan el estado local previo a publicar.
+
 ## Evidencia recibida de Parrot
 
 El usuario actualizó el clon a 3947554 y autorizó un trabajo manual nuevo,
@@ -80,3 +84,86 @@ nuevo mediante navegador/E2E ni en la VM. El informe existente se conserva y no
 se recalcula. Las autorizaciones de f217a6210aa3 y 6356df80e499 están consumidas;
 no se repetirá una llamada real automáticamente. A-05 y aceptación general
 siguen abiertos.
+
+## Publicación autorizada y actualización de Parrot
+
+El usuario pidió continuar con la publicación y verificación antes de actualizar
+su VM. Se publicó el código `4c2e032308066e6afbc1030887c6d55580f1fe51`
+en origin/main de EnriqueForte/web-defense-ai-v2. Fetch previo sin divergencia,
+247 candidatos/644 blobs alcanzables/62 commits revisados para exclusiones y
+formatos concretos de credenciales, sin hallazgos; hashes vendor y los siete
+archivos del índice coinciden con la revisión. No constituye una auditoría
+exhaustiva. El repositorio original conserva el remoto de push deshabilitado.
+La matriz offline del código actual volvió a pasar 13 casos y siete controles
+con cero llamadas; recibo local 20261015T180748646529Z.
+
+La [CI 38783207354](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38783207354)
+se inició para ese código. El cierre y los artefactos se consignan después de
+comprobar el resultado final; no se declara CI aprobada durante la espera.
+
+Tras recibir la confirmación de CI, actualizar en Parrot como el usuario normal,
+cuando no haya un análisis en curso:
+
+1. Detener con Ctrl+C las tres terminales de Flask, worker y Next.
+2. Ejecutar cada línea por separado y detenerse si alguna falla:
+
+```bash
+cd "$HOME/Proyectos/web-defense-ai-v2"
+git pull --ff-only
+git rev-parse --short HEAD
+source "$HOME/.nvm/nvm.sh"
+nvm use 24
+cd frontend
+pnpm run build
+cd ..
+python3 webdefense.py start --mode structured
+```
+
+3. Esperar «Consola lista», abrir http://127.0.0.1:3000 y comprobar en Resumen
+   la entrada Reporte actual y su botón Abrir reporte, que debe llevar al informe
+   existente. Comparar con la sección Reportes y su referencia/fecha.
+
+Este arranque es de lectura: no inicia worker ni análisis manual o periódico.
+La corrección de preparación se aplicará a futuros análisis, no reescribe la
+publicación existente. Para retomar una prueba real será necesario definir su
+alcance; no se reutiliza la autorización de los dos trabajos anteriores.
+
+## Cierre de publicación y CI
+
+La CI 38783207354/attempt 1 del código
+`4c2e032308066e6afbc1030887c6d55580f1fe51` terminó completed/success en
+Windows-latest y Ubuntu 24.04. Se revisaron los estados y pasos finales, los
+logs descargados y los cuatro nombres de pruebas nuevas en ambos sistemas.
+
+| Verificación | Resultado |
+| --- | --- |
+| Instalación nueva/contrato/pip check/build normal | Aprobados en ambos sistemas, 172 pines/0 diferencias |
+| Regresión Python | Ubuntu 335; Windows 334 aprobados y una prueba Linux omitida |
+| JavaScript/sintaxis/HTTP/SDK offline | 3 comprobaciones, 92 archivos, HTTP sintético y 27 escenarios SDK aprobados |
+| Matriz A-05/guardas | 13 casos y siete controles aprobados por OS, cero llamadas al proveedor |
+| Frontend | Lint, TypeScript y 17 grupos UI aprobados por OS |
+| E2E Configuración | Nueve por OS, Windows 27,3 s/Ubuntu 8,4 s; salida 0 y cierre con puertos libres |
+| Lanzador | API directa/proxy 200, ejecutor offline y cierre con puertos libres en ambos sistemas |
+
+Inventarios descargados y verificados completos: artefacto 11996213722 Windows
+Python 3.11.9 y 11996029339 Ubuntu Python 3.11.17, 172 paquetes/0 deriva/0 extras.
+Paquetes contra contrato, metadatos y hash de freeze comprobados. Sus hashes
+coinciden con los inventarios del código anterior:
+
+- Windows: `4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d`.
+- Ubuntu: `2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa`.
+
+Resúmenes A-05: artefactos 11997490073 Windows y 11995344892 Ubuntu. Todos los
+checks/métricas/hashes de publicaciones coinciden con la matriz local actual
+20261015T180748646529Z al excluir únicamente el UUID de generación. Estos
+resúmenes no incluyen los bytes de los informes remotos ni evalúan semántica
+del proveedor real.
+
+El commit siguiente actualiza solo las actas con [skip ci]; el código probado
+es 4c2e032, no se le atribuye una ejecución nueva al acta. Los recibos están en
+`.local-state/dvwa-post-20261015/`. No se realizó otra llamada LLM, trabajo
+operativo, Docker o envío; no se iniciaron servicios operativos Windows ni se
+releyó su inventario operativo/.env. El recorrido de actualización de arriba
+queda pendiente de ejecución y confirmación del usuario en Parrot. Las E2E de
+Configuración no verifican el nuevo enlace del Resumen. A-05 y la confirmación
+de autenticación exitosa siguen abiertas.

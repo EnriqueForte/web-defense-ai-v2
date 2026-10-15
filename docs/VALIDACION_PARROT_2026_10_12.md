@@ -415,3 +415,17 @@ Resumen preparados, probados offline y documentados en
 pasaron. Cambios sin publicar/CI nueva/instalar en Parrot; no nuevo LLM ni
 recalcular el informe existente. Confirmación de acceso exitoso mediante
 evidencia de aplicación y aceptación A-05 siguen pendientes.
+
+La corrección se publicó posteriormente como
+`4c2e032308066e6afbc1030887c6d55580f1fe51`. Su
+[CI 38783207354, attempt 1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38783207354)
+terminó success en Windows y Ubuntu; estados, pasos, logs e inventarios/artefactos
+comprobados. 335 casos Python (Windows 334+1 omitido), cuatro nuevos visibles,
+3 JS/92 sintaxis/27 SDK/13 A-05+7 controles/lint/tipos/17 UI/nueve E2E por OS
+y smoke API/proxy/cierre aprobados. El registro de corrección contiene los IDs
+y límites de los artefactos. No acredita el enlace nuevo en navegador ni en VM.
+
+Próximo paso guiado: detener las tres terminales de la VM, pull --ff-only,
+activar Node 24, compilar frontend y arrancar la consola de lectura structured
+para abrir el informe existente desde Resumen. El usuario aún no ha aportado
+la actualización ni su aceptación en Parrot. No se solicitó otro trabajo real.

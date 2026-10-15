@@ -2,6 +2,23 @@
 
 ## Alcance actual
 
+DVWA POST/Resumen publicados/CIverificada15/10: código4c2e032
+(4c2e032308066e6afbc1030887c6d55580f1fe51),run38783207354attempt1 Windows/Ubuntu
+completed/success,estados/pasos/logs finales revisados; cuatrotests nuevasvisibles.
+Ubuntu335Python/Windows334+1Linuxomitido,3JS92sintaxis/HTTP27SDK/13A05+7controles/
+linttipos17UI/9E2EporOS(Win27,3s/Ubuntu8,4s)/smokeAPIproxy200offlinecierre.
+Inventarios11996213722Win11996029339Ubuntu172/0/0,freezehashespreviosiguales;
+resúmenesA0511997490073Win11995344892Ubuntu métricas/checks/hasheslocales
+20261015T180748646529Z iguales salvoUUID; no bytesinformesremotos incluidos.
+POSTDVWA cuenta sin query/body/umbral5en60s/IP/GETvisitaexcluido; Resumenactual
+con enlace a referencia. No autentificaciónexitosa inferida por admin.jpg.
+Sin nuevoLLM/Docker/envíos/serviciosWindows/envbytes/inventariooperativonuevo.
+Pendiente usuarioactualizarParrot/parar3terminales/pull/build/iniciolectura
+structured y aceptar enlace/informeexistente; no ensayo real adicionalautorizado.
+A05/calidadgeneral/éxitoautenticación siguenabiertos. Siguientecommit soloactas
+[skip ci], códigoCI4c2e032. docs/CORRECCION_DVWA_POST_RESUMEN_2026_10_15.md,
+recibosdvwa-post-20261015ignorados. Entradas inferiores históricas.
+
 Parrot15/10 segundo ensayo autorizado: VM3947554, job6356df80e4994602ba3004fd2841e6a8
 succeeded/informe9dd17c72e247visible19:51:52Madrid, XSSbajo1/línea31/30de36/seis
 omitidas, sin recibo/bytes/usageVM revisados. Usuario confirma Reportes sí;
