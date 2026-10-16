@@ -1,9 +1,8 @@
 # Caché de tokenizadores empaquetados — 16/10/2026
 
-Estado: corrección publicada como `a6ac079`; primera CI Ubuntu aprobada y
-Windows fallida por cuatro aserciones de rutas de prueba, en corrección local.
-Los apartados de comprobaciones locales conservan la evidencia anterior a
-la publicación. El resultado remoto se registra en el apartado final.
+Estado: corrección y ajuste de pruebas publicados como `976af10`, con CI
+Windows/Ubuntu aprobada y logs/artefactos verificados. La primera ejecución
+fallida y las comprobaciones locales se conservan como evidencia histórica.
 
 ## Problema y revisión
 
@@ -93,8 +92,8 @@ de bytes `.env`. La muestra Parrot anterior permanece aceptada con sus límites.
 
 No cambia el contrato de dependencias, los prompts ni el frontend. La aplicación
 requiere permiso de escritura en su `.local-state` cuando deba preparar la caché.
-La validación remota Windows/Ubuntu y la publicación de este cambio siguen
-pendientes; no se atribuye a la CI anterior la cobertura del nuevo código.
+La validación remota de este cambio se documenta al final; no se atribuye a la
+CI anterior la cobertura del nuevo código.
 
 Para revertir el código, se retira la preparación añadida al adaptador junto con
 el módulo y sus pruebas. La caché generada es prescindible y no contiene logs,
@@ -102,7 +101,7 @@ informes ni credenciales; no hace falta borrarla para revertir. Tras reiniciar
 el proceso se recupera la selección previa del SDK y también su limitación
 original de empaquetado Windows. No se modifica un proceso operativo en marcha.
 
-## Publicación
+## Primera publicación y ajuste de pruebas
 
 Publicado `a6ac079d407e911d6c98ebbf1e0bf41387e30adf` en origin/main de V2.
 El remoto original mantiene el push bloqueado. Fetch previo confirmó ausencia
@@ -131,3 +130,51 @@ Regresión local después del ajuste: 348 casos Python (347 aprobados/uno Linux
 omitido), tres JS y 94 archivos sin errores de sintaxis. La nueva prueba de
 alias mantiene las comprobaciones de pertenencia canónica y rechazo de enlace;
 no se omiten ni se relajan para conseguir una aprobación. No hubo llamadas reales.
+
+## Publicación final y CI verificada
+
+El ajuste de fixtures se publicó como
+`976af10d469f10e1545ec77f30bb8e9f6584ca54`. El código productivo coincide con
+`a6ac079`; solo cambiaron las pruebas de rutas y el registro documental.
+Revisión acotada antes de este segundo push: 251 candidatos, 678 blobs/67
+commits, sin hallazgos en las exclusiones/formatos comprobados; vendor íntegro.
+El índice de 251 archivos coincidía con los tres cambios revisados.
+
+[CI 38886025823/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38886025823)
+terminó completed/success en Windows y Ubuntu. Se descargaron y revisaron los
+logs finales, los estados y los pasos requeridos:
+
+- Instalación nueva, pip check, build de producción y contrato estricto.
+- Ubuntu: 348 Python aprobados, 28,894 s. Windows: 347 aprobados/uno exclusivo
+  Linux omitido, 348 casos en 53,666 s. Las nueve pruebas de este cambio aparecen
+  ejecutadas, incluida la raíz equivalente y las cuatro variantes en procesos
+  fríos con el tokenizador Python real y sockets bloqueados.
+- Tres JS, 94 archivos sin errores de sintaxis, HTTP sintético, 27 escenarios
+  SDK, lint/tipos y 17 grupos UI por OS.
+- Matriz A-05 de 13 casos/siete controles sin proveedor; nueve E2E por OS
+  (Windows 11,4 s, Ubuntu 7,3 s), API directa/proxy 200, ejecutor offline y
+  cierre con puertos libres.
+
+Inventarios completos descargados y verificados contra contrato/metadatos:
+Windows artefacto 12039209776, Python 3.11.9/pywin32 311; Ubuntu artefacto
+12039418942, Python 3.11.17/uvloop 0.23.0. Ambos 172 paquetes, cero diferencias
+y cero adicionales. Freeze SHA-256 previos conservados:
+
+- Windows: `4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d`.
+- Ubuntu: `2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa`.
+
+Resúmenes A-05: Windows 12038694855 y Ubuntu 12039184065. Checks, métricas y
+hashes de publicaciones coinciden con el recibo local
+`20261015T185242433279Z`, excluyendo solo el UUID de generación. Estos resúmenes
+no incluyen los bytes completos de los informes remotos.
+
+Queda cerrado este pendiente de carga BPE de la aplicación para la distribución
+fijada y la ruta Python comprobada en Windows/Ubuntu. El wheel del proveedor
+se conserva intacto; la aplicación utiliza sus copias verificadas. No se amplía
+a backends nativos/modelos no probados ni a calidad semántica general A-05.
+No se repitió el ensayo Parrot, ni se iniciaron llamadas reales, Docker, envíos
+o servicios operativos. La VM sigue acreditada en su revisión anterior.
+
+Los recibos de ambas CI, los inventarios y resúmenes quedan en
+`.local-state/tokenizer-20261015/`, excluidos de Git. La actualización siguiente
+contiene solo actas `[skip ci]`; el código de CI sigue siendo `976af10`.

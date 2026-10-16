@@ -2,6 +2,24 @@
 
 ## Alcance actual
 
+Tokenizadores publicados/CI verificada16/10/2026: código976af10
+(976af10d469f10e1545ec77f30bb8e9f6584ca54), productoigual a6ac079,
+run38886025823attempt1Windows/Ubuntu completed/success; estados/pasos/logsfinales
+y nueve tests nuevas revisados. Ubuntu348Python/Win347+1Linuxomitido,3JS94sintaxis/
+HTTP27SDK/13A05+7controles/linttipos17UI/9E2EporOS(Win11,4s/Ubuntu7,3s)/smoke
+APIproxy200offlinecierre. Inventarios12039209776Win12039418942Ubuntu172/0/0freeze/
+metadatos/hashpreviosiguales; A05resúmenes12038694855Win12039184065Ubuntu checks/
+métricas/hashlocales20261015T185242433279Z iguales salvoUUID, no bytesinformes
+remotos. Caché tresBPE/SHA/atómica/customvalidado; pendiente cargaPythonfría
+cerrado enWindows/Ubuntu, no backends/modelosgenerales. PrimeraCIa6ac079/
+38884794976UbuntuOK/Win4asercionesrutasfallidas conservada; fixturesresolve+
+alias '..' corregidas sin cambio producto. Sin LLM real/Docker/envíos/servicios
+operativos nuevos/.envbytes/inventariooperativoreleído. VM88e7b8a y muestra
+Parrot previa conservadas; no repetir ensayo consumido. A05general/seguridad/
+entregafinal pendientes. Próximo commit soloactas[skip ci], códigoCI976af10.
+Registro docs/TOKENIZADORES_OFFLINE_2026_10_16.md; tokenizer-20261015 ignorado.
+Entradas inferiores históricas.
+
 Tokenizadores publicados16/10 como a6ac079d407e911d6c98ebbf1e0bf41387e30adf.
 CI38884794976/attempt1: Ubuntu success, Windows failure con cuatro aserciones
 de rutas nuevas. Logs finales revisados: tres variantes frías completan HTTP/

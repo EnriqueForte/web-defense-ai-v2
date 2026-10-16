@@ -28,6 +28,11 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   coherentes con Resumen y Reportes. Véanse [evidencia y límites](INCIDENCIA_GROQ_413_2026_10_15.md):
   ambas entradas requieren investigación; no acreditan explotación exitosa ni
   calidad general del modelo. La autorización del ensayo está consumida.
+- [Caché de tokenizadores empaquetados](TOKENIZADORES_OFFLINE_2026_10_16.md):
+  carga BPE en frío corregida y verificada con backend Python real en CI
+  Windows/Ubuntu, código `976af10`/run38886025823. Conserva cl100k/p50k/o200k;
+  nueve pruebas nuevas y contratos/inventarios 172/0/0 comprobados. El primer
+  fallo de CI por rutas de fixtures está registrado junto con su corrección.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -38,7 +43,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
 | Calidad A-05 | Matriz offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra | Sigue pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
-| Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub; caché de tokenizadores corregida y validada offline localmente | [Distribución y caché offline](TOKENIZADORES_OFFLINE_2026_10_16.md), publicación y CI Windows/Ubuntu de ese ajuste, después CI final y versión/release en V2 |
+| Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.

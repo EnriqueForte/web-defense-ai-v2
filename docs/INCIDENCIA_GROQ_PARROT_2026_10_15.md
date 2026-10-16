@@ -227,3 +227,13 @@ La VM todavía debe detener sus tres componentes, hacer pull y verificar el SHA;
 sin cambios de dependencias/frontend en esta corrección, no se pide reinstalar
 ni recompilar. Un nuevo análisis en Parrot requiere un nuevo alcance explícito.
 El siguiente commit contiene solo actas [skip ci]; código de CI: 646aaf2.
+
+## Seguimiento de distribución — 16/10/2026
+
+El pendiente de carga BPE de la aplicación Windows en frío se corrigió después
+mediante una caché propia con los tres recursos empaquetados verificados por
+SHA-256. Código `976af10`/CI38886025823 Windows/Ubuntu success, logs e inventarios
+revisados. El wheel original permanece intacto; los límites y la primera CI
+fallida por rutas de fixtures se documentan en
+[Tokenizadores offline](TOKENIZADORES_OFFLINE_2026_10_16.md).
+La referencia anterior a pendiente de distribución conserva el estado del 15/10.
