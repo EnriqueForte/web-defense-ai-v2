@@ -2,6 +2,17 @@
 
 ## Alcance actual
 
+Tokenizadores publicados16/10 como a6ac079d407e911d6c98ebbf1e0bf41387e30adf.
+CI38884794976/attempt1: Ubuntu success, Windows failure con cuatro aserciones
+de rutas nuevas. Logs finales revisados: tres variantes frías completan HTTP/
+tokenización y fallan en target.is_relative_to(root); simulación de enlace no
+reconoce raíz. Producto usa resolve; fixtures comparaban raíz sin resolver.
+Corrección solo tests: raíces canónicas y prueba extra de alias '..' conserva
+ubicación/rechazo de enlace. 348Python(347Win+1Linuxomitido)/3JS/94sintaxis
+localOK; producto/prompts/pines intactos. Publicar ajuste y nueva CI pendiente;
+no reejecutar el fallido sin cambio ni repetir ensayo LLM. Registros/ZIP anteriores
+preservados en tokenizer-20261015. Entradas inferiores históricas.
+
 Tokenizadores offline, revisión local 16/10/2026: main prepara caché antes de
 la llamada LiteLLM. config/tokenizer_cache valida los tres BPE empaquetados
 cl100k/p50k/o200k por SHA-256, normaliza CRLF solo con hash exacto y publica

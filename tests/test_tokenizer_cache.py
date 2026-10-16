@@ -18,7 +18,7 @@ from config import tokenizer_cache as cache
 
 class TokenizerCacheTests(TestCase):
     def setUp(self):
-        self.root = Path(self.enterContext(TemporaryDirectory()))
+        self.root = Path(self.enterContext(TemporaryDirectory())).resolve()
         self.enterContext(patch.object(cache, "ROOT", self.root))
         self.enterContext(patch.dict(os.environ, {"CUSTOM_TIKTOKEN_CACHE_DIR": "", "TIKTOKEN_CACHE_DIR": ""}))
         self.package = self.root / "package"
@@ -115,6 +115,23 @@ class TokenizerCacheTests(TestCase):
                 cache.prepare_tokenizer_cache()
         self.assertEqual(list(directory.iterdir()), [])
 
+    def test_equivalent_root_spelling_uses_canonical_cache_and_link_checks(self):
+        # Windows temporary paths can use short names; the product resolves its
+        # root. A '..' alias reproduces the lexical mismatch on both platforms.
+        inner = self.root / "inner"
+        inner.mkdir()
+        alias = inner / ".."
+        directory = self.root / ".local-state"
+        with patch.object(cache, "ROOT", alias):
+            selected = cache.prepare_tokenizer_cache()
+            self.assertTrue(selected.is_relative_to(alias.resolve()))
+            self.assertFalse(selected.is_relative_to(alias))
+            self.assertEqual({path.name for path in selected.iterdir()}, set(cache.ASSET_HASHES))
+            original = Path.is_symlink
+            with patch.object(Path, "is_symlink", new=lambda path: path == directory or original(path)):
+                with self.assertRaisesRegex(cache.TokenizerResourceError, "tokenizer_cache_link"):
+                    cache.prepare_tokenizer_cache()
+
     def test_cold_installed_lf_crlf_and_invalid_assets_through_real_adapter(self):
         for style in ("installed", "lf", "crlf", "invalid"):
             with self.subTest(style=style):
@@ -131,7 +148,7 @@ def cold_check(style):
     import time
     from contextlib import ExitStack
     with TemporaryDirectory() as directory, ExitStack() as context:
-        root = Path(directory)
+        root = Path(directory).resolve()
         context.enter_context(patch.object(cache, "ROOT", root))
         context.enter_context(patch.dict(os.environ, {
             "CUSTOM_TIKTOKEN_CACHE_DIR": "", "TIKTOKEN_CACHE_DIR": str(root / "empty"),

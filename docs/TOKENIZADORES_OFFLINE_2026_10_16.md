@@ -1,7 +1,9 @@
 # Caché de tokenizadores empaquetados — 16/10/2026
 
-Estado: corrección local; publicación y CI Windows/Ubuntu pendientes. La versión
-publicada sigue siendo `88e7b8a`, con código verificado en CI `33d987b`.
+Estado: corrección publicada como `a6ac079`; primera CI Ubuntu aprobada y
+Windows fallida por cuatro aserciones de rutas de prueba, en corrección local.
+Los apartados de comprobaciones locales conservan la evidencia anterior a
+la publicación. El resultado remoto se registra en el apartado final.
 
 ## Problema y revisión
 
@@ -55,7 +57,7 @@ permisos produce `TokenizerResourceError`, sin recurrir a descargas.
 
 ## Comprobaciones y límites
 
-Ocho pruebas específicas verifican copias, conservación del paquete, reutilización,
+Las ocho pruebas específicas iniciales verifican copias, conservación del paquete, reutilización,
 rechazo de recurso dañado, caché externa completa/incompleta, rechazo de enlaces,
 fallo de reemplazo y publicación concurrente simulada.
 
@@ -99,3 +101,33 @@ el módulo y sus pruebas. La caché generada es prescindible y no contiene logs,
 informes ni credenciales; no hace falta borrarla para revertir. Tras reiniciar
 el proceso se recupera la selección previa del SDK y también su limitación
 original de empaquetado Windows. No se modifica un proceso operativo en marcha.
+
+## Publicación
+
+Publicado `a6ac079d407e911d6c98ebbf1e0bf41387e30adf` en origin/main de V2.
+El remoto original mantiene el push bloqueado. Fetch previo confirmó ausencia
+de divergencia; el índice coincidió con los 251 archivos revisados y los nueve
+cambios esperados, incluidos los registros de aceptación Parrot aún locales.
+
+La revisión acotada de 251 candidatos, 669 blobs/66 commits alcanzables no
+encontró rutas privadas ni los formatos específicos de credenciales comprobados;
+los hashes vendor coinciden. No sustituye la auditoría de seguridad pendiente.
+
+[CI 38884794976/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38884794976)
+terminó Ubuntu success y Windows failure. Logs finales descargados: Windows
+instaló y compiló, pero cuatro comprobaciones nuevas fallaron. Tres variantes
+de tokenización llegaron hasta la aserción final de pertenencia a la carpeta
+temporal y fallaron allí; el caso de recurso inválido pasó. La simulación de
+enlace no reconoció la ruta esperada. No se presenta esta ejecución como aprobada.
+
+El producto resuelve su raíz y las pruebas comparaban esa ruta con la forma
+temporal sin resolver. Se corrige la raíz de las fixtures mediante `resolve()`
+antes de las comparaciones y del doble de enlace. Una prueba adicional reproduce
+una raíz equivalente escrita con `..` en ambos sistemas: confirma la ubicación
+canónica y el rechazo del enlace simulado. El código productivo no cambia.
+La aprobación remota del ajuste de pruebas sigue pendiente.
+
+Regresión local después del ajuste: 348 casos Python (347 aprobados/uno Linux
+omitido), tres JS y 94 archivos sin errores de sintaxis. La nueva prueba de
+alias mantiene las comprobaciones de pertenencia canónica y rechazo de enlace;
+no se omiten ni se relajan para conseguir una aprobación. No hubo llamadas reales.
