@@ -15,10 +15,18 @@ IMAGES = {
     "legacy-dvwa": ("legacy", "vulnerables/web-dvwa:latest"),
     "legacy-python": ("legacy", "python:3.11-slim"),
 }
+MAILPIT_CANDIDATE = "axllent/mailpit:v1.31.6"
+IMAGE_SETS = {
+    "inventory": IMAGES,
+    "mailpit-review": {
+        "lab-mailpit": IMAGES["lab-mailpit"],
+        "candidate-mailpit": ("candidate", MAILPIT_CANDIDATE),
+    },
+}
 
 
-def summarize_report(label, report):
-    scope, reference = IMAGES[label]
+def summarize_report(label, report, image_set="inventory"):
+    scope, reference = IMAGE_SETS[image_set][label]
     if report.get("SchemaVersion") != 2 or report.get("ArtifactType") != "container_image" or report.get("ArtifactName") != reference:
         raise ValueError("Unsupported image report")
     metadata = report["Metadata"]
@@ -41,13 +49,14 @@ def summarize_report(label, report):
             "counts_are_package_findings_not_proven_exploits": True}
 
 
-def scan(trivy, folder):
+def scan(trivy, folder, image_set="inventory"):
+    selected = IMAGE_SETS[image_set]
     folder.mkdir(parents=True, exist_ok=True)
     cache = folder / "cache"
     version = subprocess.run([trivy, "--cache-dir", str(cache), "--version"], capture_output=True, text=True, timeout=30, check=True)
     (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
     rows = []
-    for label, (scope, reference) in IMAGES.items():
+    for label, (scope, reference) in selected.items():
         print(f"Escaneando {label}: {reference}", flush=True)
         destination = folder / f"{label}.json"
         try:
@@ -57,7 +66,7 @@ def scan(trivy, folder):
                 capture_output=True, timeout=660)
             if result.returncode:
                 raise ValueError("Scanner failed")
-            row = summarize_report(label, json.loads(destination.read_text(encoding="utf-8")))
+            row = summarize_report(label, json.loads(destination.read_text(encoding="utf-8")), image_set)
         except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError):
             row = {"label": label, "scope": scope, "requested_reference": reference,
                    "status": "scan_failed", "no_zero_vulnerabilities_claimed": True}
@@ -66,6 +75,7 @@ def scan(trivy, folder):
     version = subprocess.run([trivy, "--cache-dir", str(cache), "--version"], capture_output=True, text=True, timeout=30, check=True)
     (folder / "scanner-version.txt").write_text(version.stdout, encoding="utf-8")
     summary = {"schema_version": 1, "captured_at": datetime.now(timezone.utc).isoformat(),
+               "image_set": image_set,
                "scanner_version_output": version.stdout, "images": rows,
                "source": "remote_registry", "local_installed_images_not_verified": True,
                "containers_started": False, "findings_fail_policy": "review_required; all severities retained"}
@@ -77,9 +87,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trivy", default="trivy")
     parser.add_argument("--output-dir", type=Path, default=Path(".local-state/image-audit"))
+    parser.add_argument("--image-set", choices=sorted(IMAGE_SETS), default="inventory")
     args = parser.parse_args()
     try:
-        return scan(args.trivy, args.output_dir)
+        return scan(args.trivy, args.output_dir, args.image_set)
     except (OSError, ValueError, subprocess.SubprocessError):
         print("Scanner no disponible; no se acredita auditoría de imágenes.")
         return 1

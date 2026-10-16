@@ -47,3 +47,22 @@ class ImageScanTests(TestCase):
             self.assertTrue(all(row["status"] == "scan_failed" for row in summary["images"]))
             self.assertTrue(all("entries_by_severity" not in row for row in summary["images"]))
             self.assertFalse(summary["containers_started"])
+
+    def test_mailpit_review_keeps_current_and_candidate_separate(self):
+        report = self.report()
+        report["ArtifactName"] = images.MAILPIT_CANDIDATE
+        row = images.summarize_report("candidate-mailpit", report, "mailpit-review")
+        self.assertEqual(row["scope"], "candidate")
+        self.assertEqual(row["requested_reference"], images.MAILPIT_CANDIDATE)
+        with self.assertRaises(ValueError):
+            images.summarize_report("lab-mailpit", report, "mailpit-review")
+        with TemporaryDirectory() as directory, patch.object(images.subprocess, "run") as runner, \
+                contextlib.redirect_stdout(io.StringIO()):
+            runner.side_effect = [SimpleNamespace(stdout="Version: synthetic\n"),
+                                  SimpleNamespace(returncode=1), SimpleNamespace(returncode=1),
+                                  SimpleNamespace(stdout="Version: synthetic\n")]
+            self.assertEqual(images.scan("synthetic-trivy", Path(directory), "mailpit-review"), 1)
+            summary = json.loads((Path(directory) / "summary.json").read_text())
+            self.assertEqual(summary["image_set"], "mailpit-review")
+            self.assertEqual([row["label"] for row in summary["images"]], ["lab-mailpit", "candidate-mailpit"])
+            self.assertTrue(all(row["status"] == "scan_failed" for row in summary["images"]))

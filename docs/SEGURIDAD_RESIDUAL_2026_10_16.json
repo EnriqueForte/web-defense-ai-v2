@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "captured_at": "2026-10-16T10:35:44.383691+00:00",
+  "status": "residual_security_open; mailpit_candidate_evaluation_pending",
+  "python_scanner": "pip-audit2.10.1/PyPI",
+  "no_advisories_suppressed": true,
+  "python": [
+    {
+      "platform": "win32",
+      "packages": 172,
+      "input_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d",
+      "audit_exit_code": 1,
+      "retained": [
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "entries": 5,
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "GHSA-36p7-vc44-83pf",
+                "CVE-2026-45833"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "CVE-2026-45831",
+                "GHSA-xph7-9rjv-w5fr"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "CVE-2026-45830",
+                "GHSA-2wm9-hf6c-p5cr"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "entries": 1,
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "packages": 172,
+      "input_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa",
+      "audit_exit_code": 1,
+      "retained": [
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "entries": 5,
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "CVE-2026-45833",
+                "GHSA-36p7-vc44-83pf"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "CVE-2026-45831",
+                "GHSA-xph7-9rjv-w5fr"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "CVE-2026-45830",
+                "GHSA-2wm9-hf6c-p5cr"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "entries": 1,
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "frontend": [
+    {
+      "scope": "frontend-prod",
+      "scanner": "pnpm11.19.0/npm",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0
+      }
+    },
+    {
+      "scope": "frontend-all",
+      "scanner": "pnpm11.19.0/npm",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 1,
+        "critical": 0
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "package": "chromadb",
+      "version": "1.5.9",
+      "principal_ids": 4,
+      "entries": 5,
+      "patch_available_in_reviewed_sources": false,
+      "server_paths_not_observed_in_project": true,
+      "status": "retained; no risk acceptance inferred"
+    },
+    {
+      "package": "mcp",
+      "version": "1.28.1",
+      "id": "GHSA-84m7-p3x7-pcfv",
+      "fix_versions": [
+        "1.30.0",
+        "2.2.0"
+      ],
+      "primary_url": "https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-84m7-p3x7-pcfv",
+      "database_severity": "medium",
+      "maintainer_severity": "high",
+      "crewai_installed": "1.15.27",
+      "crewai_latest_reviewed": "1.15.28",
+      "both_require_mcp": "~=1.28.1",
+      "patched_version_satisfies_requirement": false,
+      "stateful_http_server_path_not_observed_in_project": true,
+      "status": "retained; compatible upstream migration required"
+    },
+    {
+      "package": "braces",
+      "version": "3.0.3",
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "primary_url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+      "patch_available_in_reviewed_sources": false,
+      "npm_latest": "3.0.3",
+      "dependency_scope": "development",
+      "observed_chain": [
+        "@next/eslint-plugin-next",
+        "fast-glob",
+        "micromatch",
+        "braces"
+      ],
+      "status": "retained; no override to unpublished version"
+    }
+  ],
+  "mailpit": {
+    "current": "axllent/mailpit:v1.31.1",
+    "candidate": "axllent/mailpit:v1.31.6",
+    "primary_release": "https://github.com/axllent/mailpit/releases/tag/v1.31.6",
+    "candidate_promoted": false,
+    "remote_scan_and_synthetic_compatibility_pending": true
+  },
+  "operational_instances_changed": false,
+  "provider_calls": 0,
+  "historical_image_scan_preserved": ".local-state/security-20261012/images-38242912010/"
+}

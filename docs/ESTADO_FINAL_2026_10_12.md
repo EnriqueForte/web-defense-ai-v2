@@ -41,7 +41,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
+| Seguridad | [Auditorías 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md): seis entradas por OS en Chroma/MCP; braces de desarrollo retenido; candidato Mailpit en evaluación | Migración compatible del aviso MCP nuevo, riesgos residuales Chroma/braces, compatibilidad/escaneo de infraestructura y auditoría del historial |
 | Calidad A-05 | Matriz offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra | Sigue pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 

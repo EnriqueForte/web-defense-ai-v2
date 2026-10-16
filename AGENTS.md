@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+Seguridad residual iniciada16/10: auditorías completas de freezes CI38886025823,
+172porOS/pip-audit2.10.1/PyPI, seisentradas/cincoIDs Chroma+MCP; antescinco/4Chroma.
+NuevoCVE-2026-59951/GHSA-84m7-p3x7-pcfv fixMCP1.30.0/2.2.0 fuera~=1.28.1 deCrewAI
+instalado1.15.27 y latestrevisado1.15.28; no forzar. ServidorHTTPstateful noobservado,
+riesgo retenido, severidadGitHubmedia/mantenedoralta preservadas. Chroma1.5.9 y
+braces3.0.3 sinparchepublicado; npmprod0/dev1alto, pnpm11.19.0. Tools locales nuevas:
+perfilmailpit-review scanner actual1.31.1/candidato1.31.6 y pruebaexplícita--run en
+CIUbuntu aislada; compararImageID/SMTPAPI sintético/loopback/redinterna/limpieza
+propia antespromover. Sin cambiosCompose/VM/contratopines/serviciosoperativos,
+sinDockerlocal/LLM/envíosreales/.envbytes. 352Python(351Win+1Linuxomitido)/3JS/
+96sintaxis localOK; publicación/escaneoreal/compatCI pendientes. Registro
+docs/SEGURIDAD_RESIDUAL_2026_10_16.md/JSON; recibossecurity-20261016 ignorados.
+Entradas inferiores históricas.
+
 Tokenizadores publicados/CI verificada16/10/2026: código976af10
 (976af10d469f10e1545ec77f30bb8e9f6584ca54), productoigual a6ac079,
 run38886025823attempt1Windows/Ubuntu completed/success; estados/pasos/logsfinales

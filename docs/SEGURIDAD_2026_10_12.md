@@ -1,5 +1,10 @@
 # Revisión de seguridad e imágenes — 12/10/2026
 
+Seguimiento vigente de seguridad: [revisión residual del 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md).
+Auditorías nuevas de los 172 pines conservan seis entradas por OS: Chroma y un
+aviso MCP incorporado después; braces de desarrollo sigue retenido. Este acta
+mantiene los resultados y límites históricos del 12/10.
+
 Seguimiento posterior: la [migración CrewAI](MIGRACION_CREWAI_2026_10_12.md)
 actualiza el contrato de 158 a 172 pines y pasó instalación limpia/SDK/lanzador en
 Windows/Ubuntu CI. La auditoría completa posterior mantiene cinco entradas/cuatro IDs
