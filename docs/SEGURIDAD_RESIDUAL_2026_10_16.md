@@ -57,8 +57,9 @@ referencias se conserva. El workflow permite solicitar la revisión mediante
 `workflow_dispatch`; en ese perfil se añade una prueba Docker aislada en el
 runner Ubuntu de CI, con dos instancias efímeras y ninguna configuración operativa.
 
-La prueba exige igualdad entre ImageID ejecutado y escaneado. Usa redes internas
-propias, puertos efímeros solo en 127.0.0.1, filesystem de solo lectura con tmpfs
+La prueba exige igualdad entre ImageID ejecutado y escaneado. Usa redes bridge
+propias sin masquerading (como host-loopback de Compose), puertos efímeros solo
+en 127.0.0.1, filesystem de solo lectura con tmpfs
 para SQLite y ausencia de relay externo. Invoca `enviar_email` real con dotenv
 desactivado, direcciones example.invalid y SMTP loopback; comprueba versión,
 lectura API, asunto/cuerpo UTF-8, una sola recepción y exportación raw. Verifica
@@ -86,3 +87,38 @@ No se han leído bytes `.env`, consumido API LLM o enviado notificaciones reales
 Recibos de auditoría/fuentes en `.local-state/security-20261016/`, excluidos de
 Git. Los del 12/10 se preservan. Siguen pendientes Chroma, MCP, braces, resto de
 infraestructura y auditoría final del historial; no se declara software sin avisos.
+
+## Primera publicación y evidencia remota
+
+Publicado `c96f0cf72c47c092580d32ca58414e48199c8af2`. Inventario remoto
+38889958310 completado/success; CI de compatibilidad 38889958508 en observación.
+La revisión Mailpit 38890039641/attempt1 terminó failure en compatibilidad, con
+escaneos válidos de las dos referencias y misma DB del 16/10 (UpdatedAt 01:13:54 UTC).
+Artefacto 12041267004 descargado: las filas coinciden con sus informes completos.
+
+| Imagen | Críticas/altas/medias/bajas/desconocidas | Total |
+| --- | --- | --- |
+| Mailpit 1.31.1 | 0/4/13/1/2 | 20 |
+| Mailpit 1.31.6 | 0/0/0/0/1 | 1 |
+
+La candidata conserva `GO-2026-5932` en golang.org/x/crypto v0.58.0, sin versión
+corregida y severidad UNKNOWN del scanner. La [ficha Go](https://pkg.go.dev/vuln/GO-2026-5932)
+describe OpenPGP sin mantenimiento; no se suprime ni se concluye alcanzabilidad
+solo por presencia del módulo. La mejora de conteos no acredita software sin riesgo.
+
+Ambas instancias arrancaron y coincidían con el ImageID escaneado. Las dos se
+detuvieron en `fixture_port_not_loopback`, antes de SMTP/API, y sus recursos
+propios fueron eliminados. Los logs muestran servicios escuchando dentro del
+contenedor. El comportamiento coincide con la [limitación de publicación de
+puertos en redes solo internas](https://github.com/moby/moby/discussions/53256).
+
+Se corrige la fixture para reproducir la red host-loopback del laboratorio:
+bridge no interna con `enable_ip_masquerade=false`, configuración verificada
+por inspect, y la misma exigencia de publicación únicamente en 127.0.0.1. Se
+añaden al recibo la versión de Docker y los bindings observados. Una prueba
+offline rechaza redes host, internas sin publicación y bridge con NAT habilitado.
+La aprobación remota de la corrección sigue pendiente; Compose conserva 1.31.1.
+
+Regresión local del ajuste de red: 353 casos Python (352 aprobados/uno Linux
+omitido), tres JS y 96 archivos sin errores de sintaxis. No se han relajado
+las comprobaciones de loopback ni de igualdad con la imagen escaneada.

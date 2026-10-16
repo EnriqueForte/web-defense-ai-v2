@@ -29,3 +29,11 @@ class MailpitCompatibilityTests(TestCase):
         with patch.object(compat, "docker", side_effect=AssertionError("No Docker")):
             with self.assertRaisesRegex(ValueError, "unreviewed_fixture_reference"):
                 compat.run_case("candidate-mailpit", "unreviewed:latest", None, None)
+
+    def test_network_must_match_laboratory_loopback_bridge_options(self):
+        valid = {"Driver": "bridge", "Internal": False,
+                 "Options": {"com.docker.network.bridge.enable_ip_masquerade": "false"}}
+        compat.check_network(valid)
+        for value in ({**valid, "Internal": True}, {**valid, "Driver": "host"}, {**valid, "Options": {}}):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "fixture_network_options_invalid"):
+                compat.check_network(value)

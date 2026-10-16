@@ -2,6 +2,16 @@
 
 ## Alcance actual
 
+Seguridad16/10 publicada c96f0cf: inventario38889958310success; compatibilidad
+38889958508enobservación. ReviewMailpit38890039641falló antesSMTP por bindings
+enred--internal; ambasimágenes arrancaron/ImageIDigualscan/limpiezapropiaOK.
+Artifact12041267004 completoverificado:1.31.1 veinteentradas(4altas)/1.31.6una
+UNKNOWNGO-2026-5932/xcryptoOpenPGP sinfix, aviso retenido. DB16Oct01:13:54UTC.
+Fixture corregida a bridge sinmasquerading comoCompose; loopbackestricto sigue,
+inspectconfig+bindings/versiónDocker y regresiónredinsegura añadidos. SinDockerVM/
+operativos/LLM/envíosreales; candidato aúnno promovido. NuevaCI pendiente.
+Entradas inferiores históricas.
+
 Seguridad residual iniciada16/10: auditorías completas de freezes CI38886025823,
 172porOS/pip-audit2.10.1/PyPI, seisentradas/cincoIDs Chroma+MCP; antescinco/4Chroma.
 NuevoCVE-2026-59951/GHSA-84m7-p3x7-pcfv fixMCP1.30.0/2.2.0 fuera~=1.28.1 deCrewAI

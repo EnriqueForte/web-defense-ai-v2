@@ -35,6 +35,12 @@ def loopback_port(bindings, name):
     return port
 
 
+def check_network(network):
+    if (network.get("Driver") != "bridge" or network.get("Internal") is not False
+            or network.get("Options", {}).get("com.docker.network.bridge.enable_ip_masquerade") != "false"):
+        raise ValueError("fixture_network_options_invalid")
+
+
 def json_get(opener, base, route):
     with opener.open(base + route, timeout=3) as response:
         return json.load(response)
@@ -52,13 +58,19 @@ def run_case(label, reference, scan_dir, output):
     result = {"reference": reference, "label": label, "status": "failed",
               "synthetic_only": True, "external_delivery": False}
     try:
+        result["docker_server_version"] = docker("version", "--format", "{{.Server.Version}}")
         docker("pull", "--platform", "linux/amd64", reference)
         image = json.loads(docker("image", "inspect", reference))[0]
         if image["Id"] != report["Metadata"]["ImageID"]:
             raise ValueError("fixture_image_differs_from_scanned_image")
         result.update(image_id=image["Id"], repo_digests=image.get("RepoDigests"), same_image_as_scan=True)
-        docker("network", "create", "--internal", "--label", owner, token)
+        # Match compose.lab.yaml's host-loopback network. A network marked
+        # --internal can silently suppress published ports on current Docker.
+        docker("network", "create", "--driver", "bridge", "--opt",
+               "com.docker.network.bridge.enable_ip_masquerade=false", "--label", owner, token)
         network = True
+        check_network(json.loads(docker("network", "inspect", token))[0])
+        result["ip_masquerade_disabled"] = True
         identifier = docker("run", "--detach", "--platform", "linux/amd64",
             "--name", token, "--label", owner, "--network", token,
             "--publish", "127.0.0.1::8025", "--publish", "127.0.0.1::1025",
@@ -73,6 +85,7 @@ def run_case(label, reference, scan_dir, output):
         if state["Config"]["Labels"].get("web-defense-ai-v2.review") != token:
             raise ValueError("fixture_owner_mismatch")
         bindings = state["NetworkSettings"]["Ports"]
+        result["published_bindings"] = bindings
         http_port, smtp_port = loopback_port(bindings, "8025"), loopback_port(bindings, "1025")
         result["loopback_only"] = True
         opener = build_opener(ProxyHandler({}))
