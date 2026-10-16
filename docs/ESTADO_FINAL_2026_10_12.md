@@ -2,6 +2,7 @@
 
 Este es el resumen vigente. Las actas fechadas anteriores conservan sus pruebas
 y límites históricos; sus pendientes pueden haberse cerrado después.
+Última revisión del estado: 16/10/2026.
 
 ## Completado
 
@@ -21,6 +22,12 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   guía, copia de 76 archivos/12 diagnósticos y restauración aislada con datos
   Windows, filas/entregas/publicación preservadas y CI Windows/Ubuntu propia.
   Volúmenes DVWA/buzón Mailpit y promoción en vivo tienen alcance separado.
+- Recorrido guiado en Parrot de captura DVWA, análisis y lectura del informe,
+  aceptado el 15/10 para la muestra XSS/fuerza bruta. El trabajo `4ca7c97703a4`
+  publicó XSS en la línea 31 y fuerza bruta con las ocho referencias 39–46,
+  coherentes con Resumen y Reportes. Véanse [evidencia y límites](INCIDENCIA_GROQ_413_2026_10_15.md):
+  ambas entradas requieren investigación; no acreditan explotación exitosa ni
+  calidad general del modelo. La autorización del ensayo está consumida.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -30,9 +37,8 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
 | Seguridad | Auditorías/escaneo y migración CrewAI completados; quedan Chroma/braces, infraestructura e historial | Migración172pines/5entradasChroma comprobada; riesgos residuales gestionados y compatibilidad de cambios de infraestructura |
-| Calidad A-05 | Matriz offline/CI y corrección verificadas; mixed/normal y nuevo same_family autorizado satisfacen sus muestras, con informes/guardas/hashes revisados | Aceptación con límites e ingesta manual/Parrot; semántica general sigue pendiente |
-| Recorrido completo Parrot | Entrada/enlace aceptados y ocho POST preparados. Ensayo 50f0fcc91e82 falla por 413 Groq; informe anterior conservado. Prompt compacto y 413 terminal publicados como 33d987b, CI Windows/Ubuntu y artefactos verificados | [Incidencia Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md); actualizar VM y definir un nuevo ensayo; autorización consumida y cobertura real pendientes |
-| Entrega final | Consolidar documentación, revisar archivos/historial, recurso cl100k del wheel Windows en frío y preparar versión final GitHub | Resumen vigente, revisión de distribución, CI final y versión/release en V2; la fixture temporal de pruebas no repara el wheel original |
+| Calidad A-05 | Matriz offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra | Sigue pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
+| Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub; caché de tokenizadores corregida y validada offline localmente | [Distribución y caché offline](TOKENIZADORES_OFFLINE_2026_10_16.md), publicación y CI Windows/Ubuntu de ese ajuste, después CI final y versión/release en V2 |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.
@@ -64,18 +70,22 @@ Un nuevo ensayo único same_family autorizado el mismo día pasó con tres llama
 dos referencias SQLi cubiertas y solicitud normal sin hallazgo. Se revisaron
 informe/guardas/métricas/hashes y conservación operativa. El fallo inicial sigue
 registrado; los dos presupuestos se mantienen separados y sus saldos no se
-reutilizan. Quedan aceptación con límites y recorrido de ingesta; no se cierra A-05.
+reutilizan. El 15/10 se aceptó además el recorrido de ingesta y análisis en
+Parrot para la muestra XSS/fuerza bruta descrita arriba; la evaluación semántica
+general sigue pendiente y no se cierra A-05.
 
 [Operación y recuperación del 14/10](OPERACION_RECUPERACION_2026_10_14.md)
 añade `restore_operational.py --backup <carpeta>` para un destino nuevo aislado,
 sin sustituir datos o reproducir entregas. Recibos de diagnóstico conocidos
 entran ahora en la cobertura del respaldo. Parrot acredita por capturas Docker
 respondiendo y Compose independiente validando el archivo (salida 0), desde
-`e5af1a6`; laboratorio/ingesta y restauración en esa VM siguen sin acreditarse.
+`e5af1a6` en la evidencia del 14/10. El recorrido posterior del 15/10 acredita
+laboratorio/ingesta/análisis para la muestra guiada; la restauración en esa VM
+no se ha acreditado.
 Código `4cb1707`, [CI 38552056806](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38552056806)
-Windows/Ubuntu success; logs y artefactos/inventarios revisados. El siguiente
-recorrido guiado requiere actualizar el clon Parrot y preparar laboratorio,
-después delimitar el análisis real antes de consumir nuevas llamadas.
+Windows/Ubuntu success; logs y artefactos/inventarios revisados. La VM recibió
+después `88e7b8a` y completó el ensayo guiado. Otro análisis real necesitaría
+un alcance nuevo; no se reutiliza la autorización consumida.
 
 ## Seguridad en curso
 

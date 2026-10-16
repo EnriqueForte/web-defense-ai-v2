@@ -54,7 +54,10 @@ class GroqCacheTransportTests(TestCase):
         bundled = resources.files("litellm").joinpath("litellm_core_utils", "tokenizers", TOKENIZER_CACHE_KEY)
         self.tokenizer_bytes = tokenizer_fixture_bytes(bundled.read_bytes())
         cache = Path(self.enterContext(TemporaryDirectory()))
-        (cache / TOKENIZER_CACHE_KEY).write_bytes(self.tokenizer_bytes)
+        from config.tokenizer_cache import ASSET_HASHES, verified_bytes
+        for key in ASSET_HASHES:
+            resource = resources.files("litellm").joinpath("litellm_core_utils", "tokenizers", key)
+            (cache / key).write_bytes(verified_bytes(resource.read_bytes(), key))
         self.enterContext(patch.dict(os.environ, {"CUSTOM_TIKTOKEN_CACHE_DIR":str(cache),
                                                  "TIKTOKEN_CACHE_DIR":str(cache)}))
         tree = ast.parse((ROOT / "main.py").read_text(encoding="utf-8"))

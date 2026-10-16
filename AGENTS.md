@@ -2,6 +2,60 @@
 
 ## Alcance actual
 
+Tokenizadores offline, revisión local 16/10/2026: main prepara caché antes de
+la llamada LiteLLM. config/tokenizer_cache valida los tres BPE empaquetados
+cl100k/p50k/o200k por SHA-256, normaliza CRLF solo con hash exacto y publica
+copias atómicas en .local-state/tokenizers/bundled-bpe-v1. Caché externa explícita
+requiere los tres archivos válidos y no se modifica. La primera propuesta solo
+cl100k ocultaba o200k; regresión reproducida y corregida antes de publicar.
+Wheel Windows LiteLLM1.105 descargado sin instalar: RECORD y hashes de los tres
+recursos verificados. 347 Python (346 aprobados/1 Linux omitido), 3 JS, 27 SDK,
+94 sintaxis y contrato172/0/0 aprobados localmente. Ocho pruebas específicas
+incluyen cuatro procesos fríos (bytes instalados/LF/CRLF/inválido), GPT-4o/o200k
+y cinco nombres de encoding; Python real/red bloqueada/HTTP sintético. No CI
+nueva, commit ni push; código remoto sigue 33d987b y HEAD documental88e7b8a.
+Resumen actualizado: muestra Parrot XSS/BF aceptada, A05 general sigue abierta.
+Sin LLM real/Docker/envíos/servicios operativos o lectura de bytes .env. Paquetes,
+prompts y frontend intactos. Registro docs/TOKENIZADORES_OFFLINE_2026_10_16.md;
+recibos tokenizer-20261015 ignorados. Próximo publicar/verificar CI Windows/Ubuntu;
+no repetir ensayo Parrot consumido. Entradas inferiores conservan su historia.
+
+CoberturaensayoBFParrot confirmada15/10 por tabla del informe posterior aljob
+4ca7c97703a4: XSSlínea31/2026-10-15T16:20:17Z/media y FuerzaBrutalíneas
+39,40,41,42,43,44,45,46/18:29:46–18:30:31UTC/alta, ambosrequiereinvestigación/
+IP172.18.0.1. Coincide con ocho refs/ventana45s preparadosoffline; dosgrupos y
+distribución1alta1media deResumen coherentes. Se valida esta muestra guiada y
+publicación/lectura; no explotaciónexitosa, calidadgeneral ni bytes/hash/usage
+VM completos. Ensayoúnico consumido. Sin nuevasllamadas/jobs/Docker/envíos/
+serviciosWindows delagente. Soloactaslocales; CI33d987b/VM88e7b8a conservados.
+
+EnsayoParrottras413fix: usuario confirma informe correcto; captura jobprefijo
+4ca7c97703a4 manual/succeeded/finished, reporte22:31:59Madrid/ref275469b7e38b,
+2grupos alta1/media1/IP1/patroneslog19. Actividad8POST18:29:46–18:30:31UTC
+son mismosdatos reutilizados; UIúltima petición20:30:31Madrid. Worker sincroniza
+antesengine y API devuelve últimas8líneas, no cambiafechasni genera tráfico.
+Sin tipos/refscompletos/receipt/usage/bytesVM recibidos; pendiente comprobarfila
+FuerzaBruta y refs39–46 antescerrarcobertura. Únicoensayo autorizado consumido,
+no repetir. Soloactaslocales; no LLM/Docker/envíos/serviciosWindows nuevos.
+CódigoCI33d987b/VM88e7b8a conservados; A05general pendiente.
+
+Usuarioautoriza explícitamente «sí» nuevoensayo tras413fix enVM88e7b8a/prompt9:
+únicojobmanual sobrecapturaexistente46líneas/8POST,Groq120b/alternativa20bante429,
+reintentosinternosexistentes/timeoutmotor900s,sin ciclos/notificaciones/repetición
+automática. No reutiliza50f0fcc91e82. Pendiente usuario pararlecturaCtrlC,
+Flaskmanualprimero/worker manual-only en terminalcaptureDocker/NextNode24,
+una solicitud y revisiónresultado/recibo/refs. No job/LLM ejecutado poragente.
+No mástráficoDVWA pedido. Soloactaslocales,códigoCI33d987b siguevigente.
+
+Parrot15/10 recibe413fix: captura fast-forward5c567d1..88e7b8a/HEAD88e7b8a,
+import PROMPT_VERSION structured-prototype-9, nvmNode24.21.0 e inicioúnico
+structured lectura/Consolalista127.0.0.1:3000. Recepción/arranqueVMacreditados,
+sin inventario/hashbytesVM nuevos ni ensayoLLM posterior. Job50f0fcc91e82ya
+consumido. Próximo proponer un trabajomanual nuevo sobrecapturaexistente46líneas/
+8POST,Groq120b/fallback20bsolo429/reintentosinternosexistentes/900s/sinciclos
+ni notificaciones/repeticiónautomática; autorización nueva pendiente. No activar
+worker ni solicitaranálisis hasta ella. Soloactaslocales,códigoCI33d987b vigente.
+
 413Groq publicado/CIverificada15/10: código33d987b
 (33d987bf86e10b272adc79e57013bd504e958c0f),run38790268742attempt1Windows/Ubuntu
 completed/success; estados/pasos/logsfinales/cuatrotests nuevas revisados.

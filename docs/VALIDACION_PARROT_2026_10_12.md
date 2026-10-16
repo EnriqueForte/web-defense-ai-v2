@@ -478,3 +478,39 @@ resúmenes A-05 verificados; IDs y límites en el registro de incidencia.
 Pendiente actualizar Parrot tras detener tres terminales; comprobar prompt9 e
 iniciar lectura. Corrección solo Python, sin reinstalar o recompilar frontend.
 La actualización no repite el ensayo ni autoriza un nuevo trabajo real.
+
+Captura posterior acredita fast-forward 5c567d1..88e7b8a, HEAD88e7b8a,
+structured-prototype-9 por import, Node24.21.0 e inicio unificado structured
+de lectura con Consola lista en 127.0.0.1:3000. Sin nuevo inventario/hash VM o
+análisis real. Se propone un único trabajo nuevo con Groq y alcance anterior
+sobre la copia de 46 líneas/ocho POST, timeout 900 s, sin ciclos/envíos/repetición;
+su autorización sigue pendiente y no reutiliza la del trabajo fallido.
+
+El usuario responde después «sí» a un trabajo manual nuevo, con ese alcance:
+captura existente 46 líneas/ocho POST, Groq120b/alternativa20b ante429,
+reintentos internos y timeout 900 s, sin ciclos/envíos/repetición automática.
+Se guía activación Flask manual/worker manual-only/Next y una solicitud única;
+resultado y cobertura aún pendientes. No se encola ni llama al proveedor desde
+este equipo, ni se pide más tráfico DVWA.
+
+Resultado posterior: usuario confirma informe correcto; capturas muestran
+4ca7c97703a4 (prefijo), manual/succeeded/finished, referencia 275469b7e38b e
+informe 22:31:59 Madrid, dos grupos (alta1/media1), IP1 y 19 patrones en log.
+La autorización única queda consumida. Sin receipt/usage/bytes o filas de
+tipos/referencias recibidos todavía; cobertura BF de líneas39–46 por verificar.
+
+Los ocho POST que pega de Actividad conservan 18:29:46–18:30:31 UTC,
+equivalentes al intervalo local de la prueba; es el log reutilizado. API muestra
+las últimas ocho líneas. Pipeline sincroniza antes del análisis y conserva
+fechas de las solicitudes; el informe nuevo no genera tráfico. No se ha aportado
+evidencia de nuevas peticiones DVWA ausentes ni se ha modificado ingesta.
+
+La siguiente tabla aportada confirma XSS línea31, MEDIA/requiere investigación,
+2026-10-15T16:20:17Z; Fuerza Bruta líneas39–46 completas, ALTA/requiere
+investigación, 18:29:46–18:30:31 UTC, IP observada172.18.0.1 en ambos grupos.
+Las ocho referencias y 45 s coinciden con la preparación offline; dos grupos y
+una alta/una media coinciden con Resumen. Se valida esta muestra guiada de
+captura/preparación/análisis/publicación/lectura en Parrot, sin acreditar acceso
+exitoso ni semántica general A-05. No se recibieron bytes/hashes/receipt/usage
+completos de la VM. Ensayo único consumido; solo actas locales y ninguna nueva
+llamada/tráfico/job del agente.

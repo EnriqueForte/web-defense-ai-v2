@@ -45,6 +45,10 @@ class RateLimitResilientLLM(LLM):
 
     def call(self, messages, tools=None, callbacks=None, available_functions=None,
              from_task=None, from_agent=None, response_model=None):
+        if self.is_litellm:
+            from config.tokenizer_cache import prepare_tokenizer_cache
+            prepare_tokenizer_cache()
+
         def invoke():
             return super(RateLimitResilientLLM, self).call(
                 messages, tools=tools, callbacks=callbacks,

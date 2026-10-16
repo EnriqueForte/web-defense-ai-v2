@@ -1,8 +1,10 @@
 # Groq HTTP 413 en la prueba de fuerza bruta — 15/10/2026
 
 Seguimiento: corrección publicada como 33d987b, CI Windows/Ubuntu aprobada y
-artefactos verificados. Pendientes actualización y prueba real en Parrot;
-los apartados iniciales conservan el estado previo a publicar.
+artefactos verificados. Actualización/arranque de lectura Parrot confirmados;
+el ensayo autorizado posterior termina succeeded y su tabla confirma las ocho
+referencias de fuerza bruta. Alcance y límites al final de este registro.
+Los apartados iniciales conservan el estado previo a publicar.
 
 ## Evidencia y alcance
 
@@ -142,3 +144,79 @@ siendo 33d987b. El informe real anterior no se ha recalculado ni se ha repetido
 el ensayo. Sin llamadas LLM/Docker/envíos/servicios operativos Windows nuevos,
 lectura de bytes .env o nuevo inventario operativo. Pendiente actualización
 Parrot y nuevo alcance expresamente autorizado para otro trabajo real.
+
+## Recepción comprobada en Parrot
+
+La nueva captura del usuario muestra fast-forward 5c567d1..88e7b8a y HEAD
+88e7b8a. El import de PROMPT_VERSION devuelve structured-prototype-9; nvm
+activa Node 24.21.0 y `python3 webdefense.py start --mode structured` informa
+Consola lista en 127.0.0.1:3000. Quedan acreditados recepción y arranque de
+lectura; no hay nuevo análisis, inventario de paquetes o hashes completos de VM.
+La corrección sigue pendiente de validación real con Groq.
+
+Se propone un nuevo trabajo manual único sobre la copia existente de 46 líneas
+con ocho POST, Groq 120b/alternativa 20b ante 429 y reintentos internos existentes,
+timeout del motor 900 s, sin ciclos/notificaciones/repetición automática. Es
+una autorización independiente del trabajo fallido 50f0fcc91e82 y todavía está
+pendiente; aportar la captura de actualización no autoriza otra llamada.
+
+El usuario autoriza después expresamente «sí» al alcance anterior: un único
+análisis manual nuevo de la captura existente, 46 líneas/ocho POST, Groq
+120b/alternativa 20b ante 429, reintentos internos existentes y timeout del
+motor 900 s, sin ciclos/notificaciones/repetición automática. Es independiente
+del trabajo fallido 50f0fcc91e82. No se generan nuevas peticiones DVWA.
+
+Se guía la parada de la consola unificada de lectura y el arranque de Flask
+manual primero, worker manual-only en la terminal con captura Docker correcta
+y Next/Node24 aparte. Cuando la interfaz muestre ejecutor online y solicitudes
+manuales habilitadas, el usuario solicitará una sola vez. El agente no dispone
+de acceso directo a Parrot ni ha encolado un trabajo. Pendientes activación,
+solicitud, resultado, diagnóstico y revisión de cobertura/referencias.
+
+## Resultado recibido del ensayo autorizado
+
+El usuario confirma que el informe se elaboró correctamente. Las capturas
+muestran job prefijo 4ca7c97703a4, manual/succeeded/finished, publicación
+15/10/2026 22:31:59 Europe/Madrid y referencia abreviada 275469b7e38b. Resumen:
+dos grupos, una alta/una media, una IP y 19 coincidencias del log. Esto acredita
+ejecución/publicación visible posterior a la corrección en esta VM; no es una
+garantía general de admisión TPM o calidad del proveedor. No se recibieron ID
+completo, recibo, consumos, bytes/hashes del informe o filas de tipos/referencias.
+
+El usuario observa que Actividad conserva los ocho POST de 18:29:46–18:30:31
+UTC. Son las solicitudes de la captura que se acordó reutilizar; 18:30:31 UTC
+es 20:30:31 Madrid, coherente con la última petición visible en la consola.
+La fecha del informe 22:31:59 es otra magnitud. El código de pipeline primero
+sincroniza el origen y luego analiza; la captura copia los registros conservando
+su texto y el dashboard muestra las últimas ocho líneas de la copia. Leer o
+analizar no genera tráfico DVWA ni reemplaza las fechas de esos eventos.
+
+No hay evidencia aportada de peticiones posteriores que se hayan perdido ni
+se ha cambiado código de ingesta por esta observación. Queda pedir la fila de
+Fuerza Bruta y sus referencias para comprobar cobertura de las líneas 39–46;
+las dos tarjetas por sí solas no acreditan tipos ni todas las referencias.
+La autorización de este trabajo está consumida; no se repite ni se generan
+peticiones desde este equipo. Sin nuevos servicios operativos Windows, LLM,
+Docker o envíos del agente. A-05/general y éxito de autenticación siguen abiertos.
+
+### Referencias del informe comprobadas
+
+La siguiente captura de la tabla AMENAZAS DETECTADAS confirma:
+
+| Patrón | Referencias | Fecha UTC | Severidad/estado |
+| --- | --- | --- | --- |
+| XSS | 31 | 2026-10-15T16:20:17Z | MEDIA / Requiere investigación |
+| Fuerza Bruta | 39,40,41,42,43,44,45,46 | 2026-10-15T18:29:46Z a 2026-10-15T18:30:31Z | ALTA / Requiere investigación |
+
+Ambos grupos muestran IP observada 172.18.0.1. La ráfaga representa las ocho
+referencias seleccionadas offline, con el mismo intervalo de 45 s, y conserva
+el XSS de la línea 31. Los dos grupos/una alta/una media concuerdan con las
+tarjetas anteriores. Queda validada la cobertura de esta muestra y su recorrido
+guiado captura/preparación/análisis/publicación/lectura en Parrot.
+
+La tabla marca investigación: no prueba acceso exitoso, credenciales halladas
+o explotación XSS. No se han recibido ni revisado bytes/hashes completos de la
+publicación, recibo de consumo, modelo efectivo o reintentos de este trabajo.
+Esta aceptación no cierra calidad semántica general A-05 ni los otros bloques
+del proyecto. No se repite el ensayo ni se solicita tráfico adicional. Solo se
+actualizan actas locales; no se inicia otra llamada, job o servicio del agente.
