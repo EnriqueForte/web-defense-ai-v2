@@ -42,7 +42,8 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   conflicto MCP corregido/CrewAI reproducido sin instalar; revisión de constructores
   legacy/structured sin llamadas; escaneo con Gitleaks y triage individual.
   El fixture DVWA sustituye un valor CSRF opaco por datos explícitamente sintéticos.
-  Conserva el hallazgo histórico de procedencia no acreditada; CI del ajuste pendiente.
+  Conserva el hallazgo histórico de procedencia no acreditada; código `31c8a29`,
+  CI39122621402 Windows/Ubuntu aprobada y logs/inventarios/A-05 verificados.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).

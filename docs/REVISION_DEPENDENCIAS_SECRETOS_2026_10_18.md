@@ -1,7 +1,7 @@
 # Dependencias y revisión de secretos — 18/10/2026
 
-Estado: revisión de compatibilidad y aplicabilidad completada; fixture DVWA
-anonimizado y comprobado localmente. Publicación y CI del ajuste pendientes.
+Estado: revisión publicada y CI Windows/Ubuntu verificada; fixture DVWA
+anonimizado y comprobado localmente y en CI, código `31c8a29`.
 Chroma/MCP/braces conservan sus avisos; no se declara cierre global de seguridad.
 Los recibos y hallazgos originales con redacción se conservan en
 `.local-state/security-dependencies-20261018/`, excluido de Git.
@@ -42,7 +42,8 @@ ambos datos quedan conservados, sin escoger uno para ocultar el otro.
 
 La revisión de fuentes no encuentra un servidor MCP Streamable HTTP, Chroma
 servidor, `trust_remote_code` o patrones de glob derivados de logs de usuario.
-Se construyen los objetos reales de las rutas legacy y structured con un LLM
+En Windows, entorno aislado `.p4`, se construyen los objetos reales de las rutas
+legacy y structured con un LLM
 que rechaza cualquier invocación, dotenv desactivado y conexiones bloqueadas.
 Se extraen solo las definiciones necesarias de `main.py`, sin ejecutar su entrada.
 El almacenamiento de los constructores se dirige a una carpeta aislada.
@@ -65,8 +66,8 @@ redacción al 100 %, sin baseline ni lista de exclusiones del proyecto, ignorand
 comentarios inline de permiso. Un identificador AWS sintético fue detectado y
 redactado antes de analizar el proyecto; no se contactó AWS.
 
-Primera revisión sobre `4c02306`: 255 archivos candidatos y los 73 commits
-alcanzables desde HEAD, incluyendo parches de merges. Se copian únicamente
+Primera revisión sobre `4c02306`: 255 archivos candidatos y recorrido del
+historial alcanzable desde HEAD, con 73 commits. Se copian únicamente
 archivos publicables a una carpeta aislada; no se recorre el directorio operativo
 ni se leen archivos `.env` ignorados. No se incluyen otras referencias, objetos
 inalcanzables ni archivos locales excluidos de Git. Es una búsqueda por patrones,
@@ -91,6 +92,11 @@ anonimizado da cuatro coincidencias actuales de hashes públicos y las cinco
 históricas anteriores. La procedencia del valor histórico sigue sin acreditarse.
 El candidato con estas actas añade dos archivos: 257 revisados, mismas cuatro
 coincidencias actuales y cinco históricas, todas con triage individual conservado.
+Tras publicar `31c8a29`, se repite sobre los 74 commits alcanzables y los 257
+archivos: mismo resultado. El log del escáner informa 70 commits con fragmentos;
+se contrasta con Git que los otros cuatro no añaden texto. El recorrido usa
+`--full-history --no-renames -m HEAD`; no hay merges en esta historia. No se
+confunde el contador de fragmentos con el total de commits alcanzables.
 
 ## Validación y límites de esta entrega
 
@@ -102,7 +108,33 @@ dentro del sandbox; se verificaron y detuvieron sus procesos propios y las
 ejecuciones aprobadas fuera de ese bloqueo pasaron, manteniendo la red y dotenv
 desactivados. No se cambia código de producto, prompts ni requisitos.
 
-CI Windows/Ubuntu pendiente del commit. No se actualiza la VM ni se inicia un
+No se actualiza la VM ni se inicia un
 servicio operativo, Docker, un análisis LLM real o un envío externo. Continúan
 abiertos los riesgos de dependencias/infraestructura, la procedencia del dato
 CSRF histórico, la calidad semántica general A-05 y la entrega final.
+
+## Publicación y CI verificadas
+
+Código `31c8a29ed88a38ab439073b9ce79cce15ae8ad13`,
+[CI 39122621402/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39122621402)
+Windows/Ubuntu completed/success. Estados, pasos y logs finales descargados y
+revisados; las siete pruebas afectadas aparecen aprobadas en ambos sistemas.
+
+- Ubuntu 354 pruebas Python; Windows 353 aprobadas y una Linux omitida.
+- Tres contratos JS, 96 archivos sin errores de sintaxis, HTTP sintético y 27
+  escenarios SDK offline; lint, tipos y 17 grupos de regresión UI aprobados.
+- Nueve E2E por OS: Windows 21,4 s y Ubuntu 12,5 s.
+- Lanzador con API directa/proxy 200, ejecutor offline y puertos libres al cerrar.
+- Inventarios completos 12134967349 Windows y 12134902569 Ubuntu: 172 paquetes,
+  cero diferencias/adicionales; versiones, metadatos y hashes de freeze iguales
+  a los recibos anteriores. No se trasladan esos hashes a la VM.
+- A-05 resúmenes 12135062207 Windows y 12134816895 Ubuntu: 13 casos y siete
+  controles; métricas/checks/hashes de publicación iguales al recibo local
+  `20261015T185242433279Z`, salvo UUID de generación. No incluyen los bytes
+  completos de informes remotos ni prueban calidad semántica del proveedor.
+
+La comparación de fuentes confirma que código de producto, prompts, paquetes,
+frontend, Compose y workflows siguen iguales a `dfcd97a`; solo cambia el fixture
+y estas actas. El escaneo Mailpit anterior conserva su alcance y no se repite
+Docker para validar esta entrega. El commit posterior solo publica el cierre
+documental con `[skip ci]`; la referencia verificada permanece en `31c8a29`.

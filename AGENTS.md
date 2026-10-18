@@ -2,13 +2,34 @@
 
 ## Alcance actual
 
+Revisión dependencias/secretos publicada/CIverificada18/10: código31c8a29
+(31c8a29ed88a38ab439073b9ce79cce15ae8ad13), run39122621402attempt1Windows/Ubuntu
+completed/success; estados/pasos/logsfinales/siete testsGroqafectados revisados.
+Ubuntu354Python/Win353+1Linuxomitido/3JS96sintaxis/HTTP27SDK/linttipos17UI/
+9E2EporOS(Win21,4s/Ubuntu12,5s)/smokeAPIproxy200offlinecierre. Inventarios
+12134967349Win12134902569Ubuntu172/0/0freeze/metadatos/hashespreviosiguales;
+A05resúmenes12135062207Win12134816895Ubuntu13casos7controles/checks/métricas/hash
+local20261015T185242433279Z iguales salvoUUID,no bytesinformesremotos incluidos.
+Gitleaks traspublicación31c8a29:257candidatos/74alcanzables/70confragmentos;otros4
+sintextoañadido contrastadoGit, no merges. 4actualeshashespúblicos y5históricos
+(4hashes+1CSRFopaco) con triage/redact100/avisosoriginalesretenidos/sinallowlistspropias.
+CSRFactual32ceros; procedenciahistóricanoacreditada/no validar/reescribirhistoria.
+Audits18/10mismosseisentradasChromaMCP/bracesdev1alto; pipdryrunCrewAIactualy
+publicado noadmiteMCPcorregido. Constructores verificados soloWindows.P4,
+noacredita todoscaminos/Linux/VM. Producto/prompts/pines/frontend/Compose/workflows
+igualesdfcd97a; solo fixtureyactas. SinLLMreal/Docker/envíosexternos/servicios
+operativos/VM/.envbytes/inventariooperativonuevos. Seguridadresidual/A05general/
+entregafinal abiertos. Próximocommitactas[skip ci],códigoCI31c8a29. Registro
+docs/REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md/JSON; recibosignorados
+security-dependencies-20261018. Entradas inferiores históricas.
+
 Revisión18/10 dependencias/secretos local: audits172porOS desdeCI39120143671,
 seisentradas/cincoIDs ChromaMCP; pnpm11.19.0 prod0/dev1alto braces. PyPIactual
 CrewAI1.15.28 MCP~=1.28.1; pipdryrun actual1.15.27/latest1.15.28+MCP1.30.0
 ambosResolutionImpossible, sininstalar/override. Chroma1.5.9/braces3.0.3 sinfix.
 Constructoresrealeslegacy/structured3agentescadauno sinMCP/tools/knowledge/code,
 memoriafalse, sinclientesChroma/FastMCP/kickoff/LLM/red/.env; no prueba todoscaminos.
-Gitleaks8.30.1ZIPoficial/hashverificado/stockrules/redact100/sinallowlists/control
+Gitleaks8.30.1ZIPoficial/hashverificado/stockrules/redact100/sinallowlistspropias/control
 AWSsintéticodetectado. HEAD4c02306/73commits/255candidatos inicial5+5hallazgos:
 4hashespúblicosBPE/cacheporconjunto y1CSRFopacoenfixtureDVWA33d987b. Fixtureactual
 reemplaza tokenpor32ceros/comentariosintético; historialintacto/procedencia yvalidez
