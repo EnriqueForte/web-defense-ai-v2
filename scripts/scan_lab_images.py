@@ -10,7 +10,7 @@ import subprocess
 IMAGES = {
     "lab-mariadb": ("recommended", "mariadb:10.11"),
     "lab-dvwa": ("recommended", "ghcr.io/digininja/dvwa:b496a5d"),
-    "lab-mailpit": ("recommended", "axllent/mailpit:v1.31.1"),
+    "lab-mailpit": ("recommended", "axllent/mailpit:v1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387"),
     "legacy-mysql": ("legacy", "mysql:8.0"),
     "legacy-dvwa": ("legacy", "vulnerables/web-dvwa:latest"),
     "legacy-python": ("legacy", "python:3.11-slim"),
@@ -19,7 +19,7 @@ MAILPIT_CANDIDATE = "axllent/mailpit:v1.31.6"
 IMAGE_SETS = {
     "inventory": IMAGES,
     "mailpit-review": {
-        "lab-mailpit": IMAGES["lab-mailpit"],
+        "lab-mailpit": ("recommended", "axllent/mailpit:v1.31.1"),  # Historical comparison baseline.
         "candidate-mailpit": ("candidate", MAILPIT_CANDIDATE),
     },
 }

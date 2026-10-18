@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-10-16",
   "captured_at": "2026-10-16T10:35:44.383691+00:00",
-  "status": "residual_security_open; mailpit_candidate_evaluation_pending",
+  "status": "mailpit_promotion_prepared; residual_security_open; final_ci_pending",
   "python_scanner": "pip-audit2.10.1/PyPI",
   "no_advisories_suppressed": true,
   "python": [
@@ -221,13 +221,315 @@
     }
   ],
   "mailpit": {
-    "current": "axllent/mailpit:v1.31.1",
+    "current": "axllent/mailpit:v1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387",
     "candidate": "axllent/mailpit:v1.31.6",
     "primary_release": "https://github.com/axllent/mailpit/releases/tag/v1.31.6",
-    "candidate_promoted": false,
-    "remote_scan_and_synthetic_compatibility_pending": true
+    "candidate_promoted": true,
+    "remote_scan_and_synthetic_compatibility_pending": false,
+    "previous": "axllent/mailpit:v1.31.1",
+    "promotion_scope": "repository_configuration_only; VM_not_changed",
+    "review_run": 38890928001,
+    "review_artifact": 12042385906,
+    "review_code": "36991002c8ce643951674fac2921df65c4aa8875",
+    "image_id": "sha256:978742ab0aca1fb510b407aa54d3cc9fb1d51ca4988ce0bc6fbdb1fdc6afbc4c",
+    "residual_ids": [
+      "GO-2026-5932"
+    ],
+    "no_new_vulnerability_ids_vs_baseline": true,
+    "comparison": [
+      {
+        "label": "lab-mailpit",
+        "scope": "recommended",
+        "requested_reference": "axllent/mailpit:v1.31.1",
+        "status": "scanned",
+        "repo_digests": [
+          "axllent/mailpit@sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365"
+        ],
+        "image_id": "sha256:eb6a74c41b32eb13f088b299bfc73677a9c6583d551620db150607c62f481675",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.1"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 4,
+          "LOW": 1,
+          "MEDIUM": 13,
+          "UNKNOWN": 2
+        },
+        "distinct_vulnerability_ids": 15,
+        "entries_with_fix": 19,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "candidate-mailpit",
+        "scope": "candidate",
+        "requested_reference": "axllent/mailpit:v1.31.6",
+        "status": "scanned",
+        "repo_digests": [
+          "axllent/mailpit@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387"
+        ],
+        "image_id": "sha256:978742ab0aca1fb510b407aa54d3cc9fb1d51ca4988ce0bc6fbdb1fdc6afbc4c",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.2"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "UNKNOWN": 1
+        },
+        "distinct_vulnerability_ids": 1,
+        "entries_with_fix": 0,
+        "counts_are_package_findings_not_proven_exploits": true
+      }
+    ],
+    "synthetic_runtime_checks": {
+      "schema_version": 1,
+      "captured_at": "2026-10-16T11:01:36.535252+00:00",
+      "scope": "disposable_synthetic_mailpit_fixtures",
+      "operational_instances_changed": false,
+      "images": [
+        {
+          "reference": "axllent/mailpit:v1.31.1",
+          "label": "lab-mailpit",
+          "status": "passed",
+          "synthetic_only": true,
+          "external_delivery": false,
+          "docker_server_version": "28.0.4",
+          "image_id": "sha256:eb6a74c41b32eb13f088b299bfc73677a9c6583d551620db150607c62f481675",
+          "repo_digests": [
+            "axllent/mailpit@sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365"
+          ],
+          "same_image_as_scan": true,
+          "ip_masquerade_disabled": true,
+          "published_bindings": {
+            "1025/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "32768"
+              }
+            ],
+            "1110/tcp": null,
+            "8025/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "32769"
+              }
+            ]
+          },
+          "loopback_only": true,
+          "version": "v1.31.1",
+          "api_readback": true,
+          "smtp_roundtrip": true,
+          "raw_export": true,
+          "raw_sha256": "d9b9551c69f39ed78cdf874b0a92fa60ef0cb7640a67281683667dc4d85b7af8",
+          "message_count": 1,
+          "owned_resources_removed": true
+        },
+        {
+          "reference": "axllent/mailpit:v1.31.6",
+          "label": "candidate-mailpit",
+          "status": "passed",
+          "synthetic_only": true,
+          "external_delivery": false,
+          "docker_server_version": "28.0.4",
+          "image_id": "sha256:978742ab0aca1fb510b407aa54d3cc9fb1d51ca4988ce0bc6fbdb1fdc6afbc4c",
+          "repo_digests": [
+            "axllent/mailpit@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387"
+          ],
+          "same_image_as_scan": true,
+          "ip_masquerade_disabled": true,
+          "published_bindings": {
+            "1025/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "32770"
+              }
+            ],
+            "1110/tcp": null,
+            "8025/tcp": [
+              {
+                "HostIp": "127.0.0.1",
+                "HostPort": "32771"
+              }
+            ]
+          },
+          "loopback_only": true,
+          "version": "v1.31.6",
+          "api_readback": true,
+          "smtp_roundtrip": true,
+          "raw_export": true,
+          "raw_sha256": "7c0360102e0a74d8623774ab3778c9317fc8485acfa680b50b58013098eb4470",
+          "message_count": 1,
+          "owned_resources_removed": true
+        }
+      ],
+      "passed": true
+    },
+    "failed_review_preserved": {
+      "run": 38890039641,
+      "artifact": 12041267004,
+      "cause": "fixture_internal_network_did_not_publish_ports"
+    }
   },
   "operational_instances_changed": false,
   "provider_calls": 0,
-  "historical_image_scan_preserved": ".local-state/security-20261012/images-38242912010/"
+  "historical_image_scan_preserved": ".local-state/security-20261012/images-38242912010/",
+  "image_inventory_before_promotion": {
+    "run_id": 38890854155,
+    "artifact_id": 12041836332,
+    "scanner_version": "Version: 0.75.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-10-16 01:13:54.947090392 +0000 UTC\n  NextUpdate: 2026-10-17 01:13:54.947090202 +0000 UTC\n  DownloadedAt: 2026-10-16 11:00:01.737295061 +0000 UTC\n",
+    "captured_at": "2026-10-16T11:00:30.793407+00:00",
+    "images": [
+      {
+        "label": "lab-mariadb",
+        "scope": "recommended",
+        "requested_reference": "mariadb:10.11",
+        "status": "scanned",
+        "repo_digests": [
+          "mariadb@sha256:7db29378d4fdab73f8123bbc2b48905c90d1a4b00cf848b028f1e81e623257f2"
+        ],
+        "image_id": "sha256:41096ae9913468679bb5e05bbc19f44edcaf0eae45d67fcde224ffdeda9d3a1f",
+        "os": {
+          "Family": "ubuntu",
+          "Name": "22.04"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 25,
+          "LOW": 28,
+          "MEDIUM": 54,
+          "UNKNOWN": 2
+        },
+        "distinct_vulnerability_ids": 98,
+        "entries_with_fix": 68,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "lab-dvwa",
+        "scope": "recommended",
+        "requested_reference": "ghcr.io/digininja/dvwa:b496a5d",
+        "status": "scanned",
+        "repo_digests": [
+          "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6"
+        ],
+        "image_id": "sha256:7c65cc0145a5c4d3e8fcd226b37c46df6d041d76eaa9f83e7eb067beb5f89e40",
+        "os": {
+          "Family": "debian",
+          "Name": "13.6"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 15,
+          "HIGH": 262,
+          "LOW": 1249,
+          "MEDIUM": 2126,
+          "UNKNOWN": 12
+        },
+        "distinct_vulnerability_ids": 2717,
+        "entries_with_fix": 1464,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "lab-mailpit",
+        "scope": "recommended",
+        "requested_reference": "axllent/mailpit:v1.31.1",
+        "status": "scanned",
+        "repo_digests": [
+          "axllent/mailpit@sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365"
+        ],
+        "image_id": "sha256:eb6a74c41b32eb13f088b299bfc73677a9c6583d551620db150607c62f481675",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.1"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 4,
+          "LOW": 1,
+          "MEDIUM": 13,
+          "UNKNOWN": 2
+        },
+        "distinct_vulnerability_ids": 15,
+        "entries_with_fix": 19,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-mysql",
+        "scope": "legacy",
+        "requested_reference": "mysql:8.0",
+        "status": "scanned",
+        "repo_digests": [
+          "mysql@sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b"
+        ],
+        "image_id": "sha256:6cd09145362dfe6831b14545de3d5fd6cc75c37cfd6ef8561429c1fc73518b39",
+        "os": {
+          "Family": "oracle",
+          "Name": "9.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 102,
+          "LOW": 10,
+          "MEDIUM": 151,
+          "UNKNOWN": 2
+        },
+        "distinct_vulnerability_ids": 213,
+        "entries_with_fix": 265,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-dvwa",
+        "scope": "legacy",
+        "requested_reference": "vulnerables/web-dvwa:latest",
+        "status": "scanned",
+        "repo_digests": [
+          "vulnerables/web-dvwa@sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7"
+        ],
+        "image_id": "sha256:ab0d83586b6e8799bb549ab91914402e47e3bcc7eea0c5cdf43755d56150cc6a",
+        "os": {
+          "Family": "debian",
+          "Name": "9.5",
+          "EOSL": true
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 254,
+          "HIGH": 551,
+          "LOW": 116,
+          "MEDIUM": 642,
+          "UNKNOWN": 12
+        },
+        "distinct_vulnerability_ids": 439,
+        "entries_with_fix": 1380,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-python",
+        "scope": "legacy",
+        "requested_reference": "python:3.11-slim",
+        "status": "scanned",
+        "repo_digests": [
+          "python@sha256:e88e9763f943ec1834f992a4b51e0f24500486803e8bc534e5767af9ea65f6ce"
+        ],
+        "image_id": "sha256:541096ae9b05d3b850341b78790e2ed31e94d5aa0ea086933c6ff0c09ffa2e63",
+        "os": {
+          "Family": "debian",
+          "Name": "13.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 46,
+          "LOW": 62,
+          "MEDIUM": 64,
+          "UNKNOWN": 3
+        },
+        "distinct_vulnerability_ids": 82,
+        "entries_with_fix": 11,
+        "counts_are_package_findings_not_proven_exploits": true
+      }
+    ]
+  }
 }

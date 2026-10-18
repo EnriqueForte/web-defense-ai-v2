@@ -4,6 +4,13 @@ Este Compose prepara una instancia local para el piloto de web-defense-ai V2.
 No ejecuta Flask, Next.js, CrewAI, el pipeline ni las notificaciones. Las
 imágenes solo se descargan al iniciar explícitamente el laboratorio.
 
+Mailpit queda fijado a 1.31.6 por digest tras la
+[comparación de seguridad y SMTP/API](SEGURIDAD_RESIDUAL_2026_10_16.md) en CI.
+En una instalación existente, actualizar el repo no recrea contenedores.
+Antes de aplicar el cambio a Mailpit, conserva los mensajes que necesites:
+su buzón no tiene volumen persistente y se pierde al recrear esa instancia.
+No es necesario reiniciar DVWA ni su base para actualizar solo Mailpit.
+
 ## Límites del entorno
 
 - DVWA y Mailpit solo publican puertos en `127.0.0.1`: DVWA en `4280`, la

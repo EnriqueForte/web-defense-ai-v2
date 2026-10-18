@@ -2,6 +2,26 @@
 
 ## Alcance actual
 
+Continuación18/10 promociónMailpit preparada: 354Python(353Win+1Linuxomitido)/
+3JS96sintaxis localOK; Compose/scanner pinidéntico y baseline1.31.1 conservada.
+Auditoría y comparación20->1 son evidencia16/10; nuevaCI/escanpromoción pendientes,
+sin extrapolarfechaDB ni afirmar eliminación deGO-2026-5932. Sin actualizacióndel
+contenedorVM/buzón/datos/LLM. Próximo publicar promoción y verificar resultados.
+
+Mailpit review16/10 código3699100: run38890928001attempt1success/artifact12042385906
+completoverificado. Dosversiones mismasImageID queescáner/SMTPAPIutf8/raw/1mensaje/
+loopback/NAToff/limpiezapropiaOK enDocker28.0.4Ubuntuamd64. Candidato1.31.6 reduce
+20entradas(4altas) a1UNKNOWNGO-2026-5932 sinIDsnuevos frente1.31.1; residualretenido.
+DB16Oct01:13:54/download11:00:51/capture11:00:59. Preparada promociónCompose+
+scanner a1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387,
+ImageID978742ab...afbc4c; baselinehistórica1.31.1 separada, testparidadpin/puertos.
+Inventario38890854155/artifact12041836332 verificado: MariaDB110/1crit25altas,
+DVWA3664/15/262,MySQL266/1/102,legacyDVWA1575/254/551,Python175/0/46, abiertos.
+Publicar/CI final pendientes. Sin DockerVM/local ni buzónoperativomodificado:
+Mailpit no tienevolumen, conservar mensajes antesrecrear soloeseservicio; no
+down--volumes ni reanálisisLLM. ResiduosChroma/MCP/braces/infra/historial siguen.
+Entradas inferiores históricas.
+
 Seguridad16/10 publicada c96f0cf: inventario38889958310success; compatibilidad
 38889958508enobservación. ReviewMailpit38890039641falló antesSMTP por bindings
 enred--internal; ambasimágenes arrancaron/ImageIDigualscan/limpiezapropiaOK.

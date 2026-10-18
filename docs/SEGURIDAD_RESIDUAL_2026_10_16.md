@@ -1,7 +1,8 @@
 # Seguridad residual y candidato Mailpit — 16/10/2026
 
-Estado: auditorías actualizadas; revisión de imágenes y compatibilidad en
-preparación local. No se declara cierre global de seguridad.
+Estado: auditorías actualizadas y comparación Mailpit aprobada en CI; promoción
+al digest probado preparada localmente, pendiente de publicar/verificar.
+No se declara cierre global de seguridad. Las fases anteriores se conservan.
 
 ## Auditorías y versiones publicadas
 
@@ -122,3 +123,59 @@ La aprobación remota de la corrección sigue pendiente; Compose conserva 1.31.1
 Regresión local del ajuste de red: 353 casos Python (352 aprobados/uno Linux
 omitido), tres JS y 96 archivos sin errores de sintaxis. No se han relajado
 las comprobaciones de loopback ni de igualdad con la imagen escaneada.
+
+## Comparación aprobada y promoción preparada
+
+El ajuste se publicó como `36991002c8ce643951674fac2921df65c4aa8875`.
+[Revisión 38890928001/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38890928001)
+completed/success. Artefacto 12042385906 descargado: las dos imágenes tienen
+el ImageID que escaneó Trivy y pasaron SMTP real de la aplicación con datos
+sintéticos, lectura API/asunto/cuerpo UTF-8, una recepción, exportación raw y
+eliminación de sus propios contenedores/redes. Docker 28.0.4/Linux amd64,
+redes bridge sin masquerading y bindings efectivos solo en 127.0.0.1.
+No se envió correo externo ni se alteró un buzón operativo.
+
+DB de Trivy 0.75.0/v2: UpdatedAt 16/10/2026 01:13:54 UTC, descargada 11:00:51,
+captura 11:00:59. Misma comparación 20 hallazgos -> uno UNKNOWN, sin IDs nuevos
+respecto a la versión anterior; se retiene GO-2026-5932. Esta mejora permite
+promover el candidato como reducción de riesgo, sin cerrar el aviso residual.
+
+Se prepara la referencia exacta para Compose y el inventario:
+
+`axllent/mailpit:v1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387`
+
+ImageID amd64 comprobado:
+`sha256:978742ab0aca1fb510b407aa54d3cc9fb1d51ca4988ce0bc6fbdb1fdc6afbc4c`.
+La comparación conserva 1.31.1 como baseline histórica independiente del nuevo
+valor predeterminado. Se añade una regresión entre la referencia de Compose y
+la del scanner, incluyendo el digest y los dos puertos de loopback.
+
+El inventario anterior a la promoción (run38890854155/artifact12041836332) también
+se verificó completo. Con la DB del 16/10 conserva: MariaDB110 entradas/1crítica/
+25altas; DVWA3664/15/262; MySQL legacy266/1/102; DVWA legacy1575/254/551; Python
+legacy175/0/46. Sus digests/informes completos quedan conservados y los conteos
+no son incidentes confirmados. No se atribuyen todos los avisos DVWA a fallos
+intencionados. Estos componentes siguen pendientes de revisión.
+
+La configuración promovida todavía necesita publicación y CI final. La VM
+Parrot no se ha actualizado, ni se ha acreditado este cambio en Docker 26.1.5.
+
+Continuación del 18/10: la referencia promovida pasa 354 casos Python
+(353 aprobados/uno Linux omitido), tres JS y 96 archivos sin errores de
+sintaxis. La auditoría y la comparación de severidades anteriores corresponden
+al 16/10; el escaneo de la promoción verificará también la base disponible en
+su nueva ejecución. No se han modificado dependencias Python o frontend.
+
+## Aplicación y reversión en una instalación existente
+
+El repositorio actualizado no recrea contenedores. Mailpit del laboratorio no
+tiene volumen persistente: recrearlo elimina su buzón efímero. Antes de una
+actualización operativa, conservar los mensajes necesarios mediante su exportación
+raw/UI y comprobar si el buzón puede descartarse. No usar `down --volumes` para
+actualizar Mailpit; la base DVWA tiene un volumen independiente que debe preservarse.
+
+Una vez preparado el buzón, el cambio puede aplicarse solo al servicio Mailpit
+mediante el Compose actualizado. Este desarrollo no ejecuta esa operación ni
+afirma preservación de mensajes entre instancias. La reversión de configuración
+recupera la referencia anterior 1.31.1, que conserva sus avisos; no recupera un
+buzón efímero destruido. El análisis LLM no se repite para validar este cambio.

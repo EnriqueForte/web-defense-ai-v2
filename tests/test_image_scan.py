@@ -7,10 +7,20 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest import TestCase
 from unittest.mock import patch
+import yaml
 from scripts import scan_lab_images as images
 
 
 class ImageScanTests(TestCase):
+    def test_compose_mailpit_uses_the_same_pinned_reference_as_inventory(self):
+        root = Path(__file__).resolve().parents[1]
+        compose = yaml.safe_load((root / "compose.lab.yaml").read_text(encoding="utf-8"))
+        service = compose["services"]["mailpit"]
+        self.assertEqual(service["image"], images.IMAGES["lab-mailpit"][1])
+        self.assertRegex(service["image"], r"^axllent/mailpit:v1\.31\.6@sha256:[a-f0-9]{64}$")
+        self.assertEqual(set(service["ports"]), {"127.0.0.1:8025:8025", "127.0.0.1:1025:1025"})
+        self.assertEqual(images.IMAGE_SETS["mailpit-review"]["lab-mailpit"][1], "axllent/mailpit:v1.31.1")
+
     def report(self):
         return {"SchemaVersion": 2, "ArtifactType": "container_image", "ArtifactName": "mariadb:10.11",
                 "Metadata": {"RepoDigests": ["mariadb@sha256:" + "a" * 64]},
