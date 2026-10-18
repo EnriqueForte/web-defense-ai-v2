@@ -2,6 +2,27 @@
 
 ## Alcance actual
 
+Mailpit promoción publicada/verificada18/10: código dfcd97a
+(dfcd97a49c9cda21b148650de409d3136a9e8020), CI39120143671attempt1 Windows/Ubuntu
+completed/success, estados/pasos/logs finales/seis pruebas nuevas revisados.
+Ubuntu354Python/Win353+1Linuxomitido,3JS96sintaxis/HTTP27SDK/linttipos17UI/
+9E2EporOS(Win28,5s/Ubuntu12,8s)/smokeAPIproxy200offlinecierre. Inventarios
+12133752140Win12133099407Ubuntu172/0/0,freeze/metadatos/hashpreviosiguales.
+A05resúmenes12133549671Win12134225743Ubuntu13casos7controles/métricas/checks/
+hashlocal20261015T185242433279Z iguales salvoUUID,no bytesinformesremotos incluidos.
+Escaneo39120143668attempt1success/artifact12133887424 seisinformes/digests completos
+verificados,Trivy0.75DBv2Updated18Oct07:12:07/download10:40:14/capture10:40:42UTC.
+Mailpit1.31.6 digest23fe39e8...00387/ImageID978742ab...afbc4c igualespruebaSMTPAPI
+16/10,conserva1UNKNOWNGO-2026-5932; comparación20->1 esDB16/10, no18/10.
+MariaDB102/1crit24altas nuevo digest0d0945c5...b43b5e: cambióimagen yDB,no atribuir
+delta soloDB. DVWA3664/16/276,MySQL266/1/102,legacyDVWA1575/254/551,Python175/0/46.
+SinDockerlocal/VM/buzónoperativo/LLM/envíosexternos/serviciosoperativos/.envbytes/
+inventariooperativonuevos. Auditoríaspaquetes16/10 conservanChroma/MCP/braces;
+infra/historial/A05general/entregafinal abiertos. VM88e7b8a noactualizada,antes
+recrear soloMailpit exportarbuzónnecesario,no down--volumes. Próximo commitactas
+[skip ci],códigoCI dfcd97a. Registro docs/SEGURIDAD_RESIDUAL_2026_10_16.md/JSON;
+recibossecurity-20261016ignorados. Entradas inferiores históricas.
+
 Continuación18/10 promociónMailpit preparada: 354Python(353Win+1Linuxomitido)/
 3JS96sintaxis localOK; Compose/scanner pinidéntico y baseline1.31.1 conservada.
 Auditoría y comparación20->1 son evidencia16/10; nuevaCI/escanpromoción pendientes,

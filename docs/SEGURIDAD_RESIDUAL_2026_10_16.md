@@ -1,10 +1,11 @@
 # Seguridad residual y candidato Mailpit — 16/10/2026
 
-Estado: auditorías actualizadas y comparación Mailpit aprobada en CI; promoción
-al digest probado preparada localmente, pendiente de publicar/verificar.
-No se declara cierre global de seguridad. Las fases anteriores se conservan.
+Estado actualizado el 18/10: Mailpit 1.31.6 publicado con el digest probado,
+CI Windows/Ubuntu y escaneo final verificados. La comparación y las auditorías
+de paquetes corresponden al 16/10. La VM no se ha actualizado y sigue abierto
+el alcance global de seguridad. Las fases anteriores se conservan como historia.
 
-## Auditorías y versiones publicadas
+## Auditorías y versiones publicadas — 16/10
 
 Se auditaron los freeze completos de Windows/Ubuntu de CI38886025823: 172
 paquetes por OS, incluidos los instaladores, con pip-audit 2.10.1/PyPI.
@@ -47,7 +48,8 @@ Fuentes primarias consultadas:
 
 ## Evaluación de Mailpit
 
-La versión del laboratorio sigue siendo `axllent/mailpit:v1.31.1`. Se selecciona
+Al iniciar la revisión del 16/10, la versión declarada del laboratorio era
+`axllent/mailpit:v1.31.1`. Se selecciona
 como candidato [v1.31.6](https://github.com/axllent/mailpit/releases/tag/v1.31.6),
 publicada el 15/10. Ser posterior no demuestra que corrija los avisos del escaneo;
 la decisión exige comparar ambas imágenes con la misma base del scanner.
@@ -165,6 +167,61 @@ Continuación del 18/10: la referencia promovida pasa 354 casos Python
 sintaxis. La auditoría y la comparación de severidades anteriores corresponden
 al 16/10; el escaneo de la promoción verificará también la base disponible en
 su nueva ejecución. No se han modificado dependencias Python o frontend.
+
+## Publicación y verificación final — 18/10
+
+Promoción publicada como `dfcd97a49c9cda21b148650de409d3136a9e8020`.
+[CI 39120143671/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39120143671)
+Windows/Ubuntu completed/success. Se revisaron estados, pasos y logs finales,
+incluidas las seis pruebas nuevas de perfiles, paridad Compose/scanner, plan
+sin Docker, referencia admitida, bindings y configuración de red. Resultados:
+
+- Ubuntu: 354 pruebas Python aprobadas; Windows: 353 aprobadas y una Linux omitida.
+- Tres contratos JS, 96 archivos sin errores de sintaxis, HTTP sintético y 27
+  escenarios SDK offline; lint, tipos y 17 grupos de regresión UI aprobados.
+- Nueve E2E de Configuración por OS: Ubuntu 12,8 s y Windows 28,5 s.
+- Lanzador con API directa/proxy 200, ejecutor offline y cierre con puertos libres.
+- Inventarios completos 12133752140 Windows y 12133099407 Ubuntu: 172 paquetes,
+  cero diferencias/extras; versiones, metadatos y hashes de freeze anteriores iguales.
+- Resúmenes A-05 12133549671 Windows y 12134225743 Ubuntu: 13 casos/siete controles,
+  métricas, checks y hashes de publicación iguales al recibo local
+  `20261015T185242433279Z`, salvo UUID de generación. Estos resúmenes no contienen
+  los bytes completos de los informes remotos ni acreditan semántica de un LLM.
+
+[Escaneo final 39120143668/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39120143668)
+completed/success; artefacto 12133887424 descargado y contrastado con los seis
+informes completos y sus digests. Trivy 0.75.0, DB v2 UpdatedAt 18/10/2026
+07:12:07 UTC, descargada 10:40:14 y captura 10:40:42 UTC.
+
+| Referencia | Entradas | Críticas | Altas | Desconocidas |
+| --- | ---: | ---: | ---: | ---: |
+| MariaDB 10.11 | 102 | 1 | 24 | 1 |
+| DVWA b496a5d | 3664 | 16 | 276 | 10 |
+| Mailpit 1.31.6 fijado por digest | 1 | 0 | 0 | 1 |
+| MySQL 8 legacy | 266 | 1 | 102 | 1 |
+| DVWA legacy | 1575 | 254 | 551 | 12 |
+| Python 3.11 slim legacy | 175 | 0 | 46 | 3 |
+
+Mailpit conserva exactamente el digest y el ImageID de la prueba SMTP/API del
+16/10, y solo `GO-2026-5932` UNKNOWN, sin versión corregida conocida en el informe.
+La comparación 20 -> uno usó la misma DB del 16/10; el escaneo del 18/10 confirma
+el residual del digest promovido, sin repetir la prueba SMTP ni un análisis LLM.
+
+La etiqueta MariaDB resolvió ahora a
+`mariadb@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e`,
+distinta de la revisión del 16/10. Su diferencia de conteos no se atribuye solo a
+la DB: cambió también la imagen. Los resultados son hallazgos de paquetes, no
+explotaciones confirmadas, y no describen imágenes instaladas en la VM.
+
+Queda cerrado el cambio de Mailpit en el repositorio y su verificación aislada
+en Ubuntu Docker 28.0.4. La aplicación a Parrot/Docker 26.1.5 sigue separada.
+No se alteraron buzones operativos ni se leyeron bytes `.env`; tampoco se inició
+Docker local ni se hicieron llamadas LLM o envíos externos. Chroma/MCP/braces conservan los
+avisos auditados el 16/10; otras imágenes y la auditoría final siguen abiertas.
+La revisión previa a publicación de rutas privadas, formatos concretos de
+credenciales y hashes vendor no equivale a una auditoría exhaustiva de seguridad.
+El siguiente commit solo registra estas actas, con `[skip ci]`; el código
+verificado permanece en `dfcd97a`.
 
 ## Aplicación y reversión en una instalación existente
 

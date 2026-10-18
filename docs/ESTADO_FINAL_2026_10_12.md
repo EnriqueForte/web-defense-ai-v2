@@ -2,7 +2,7 @@
 
 Este es el resumen vigente. Las actas fechadas anteriores conservan sus pruebas
 y límites históricos; sus pendientes pueden haberse cerrado después.
-Última revisión del estado: 16/10/2026.
+Última revisión del estado: 18/10/2026.
 
 ## Completado
 
@@ -33,6 +33,11 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   Windows/Ubuntu, código `976af10`/run38886025823. Conserva cl100k/p50k/o200k;
   nueve pruebas nuevas y contratos/inventarios 172/0/0 comprobados. El primer
   fallo de CI por rutas de fixtures está registrado junto con su corrección.
+- [Actualización de Mailpit](SEGURIDAD_RESIDUAL_2026_10_16.md): versión 1.31.6
+  fijada al digest escaneado y probado mediante SMTP/API sintéticos en Ubuntu.
+  Comparación del 16/10: 20 hallazgos pasan a uno UNKNOWN, que se conserva.
+  Código `dfcd97a`, CI Windows/Ubuntu 39120143671 y escaneo 39120143668 verificados
+  el 18/10, incluidos inventarios 172/0/0. La VM y su buzón no se han actualizado.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -41,7 +46,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | [Auditorías 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md): seis entradas por OS en Chroma/MCP; braces de desarrollo retenido; candidato Mailpit en evaluación | Migración compatible del aviso MCP nuevo, riesgos residuales Chroma/braces, compatibilidad/escaneo de infraestructura y auditoría del historial |
+| Seguridad | [Seguimiento 16–18/10](SEGURIDAD_RESIDUAL_2026_10_16.md): seis entradas por OS en Chroma/MCP auditadas el 16/10, braces retenido; Mailpit actualizado con un aviso UNKNOWN; otras imágenes conservan avisos | Migración compatible de MCP, revisión de riesgos Chroma/braces/Mailpit y demás infraestructura, aplicación separada en Parrot y auditoría final del historial |
 | Calidad A-05 | Matriz offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra | Sigue pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 
@@ -94,14 +99,16 @@ un alcance nuevo; no se reutiliza la autorización consumida.
 
 ## Seguridad en curso
 
-Auditorías PyPI/npm actualizadas el 12/10: producción frontend/vendor sin avisos,
-braces de desarrollo con un aviso y Python 36 entradas/cuatro paquetes en el
-contrato de 158. Las 22 fichas primarias fueron revisadas. La migración posterior
-reduce a cinco entradas/cuatro IDs en Chroma, con 172 pines y CI Windows/Ubuntu aprobada.
-Trivy Linux completó el escaneo remoto de las seis referencias en Ubuntu CI con
-digests/fecha de base, sin iniciar contenedores. Todas presentan avisos; no se
-declara cierre de seguridad. CI de compatibilidad final pasó en ambos sistemas.
-Los resultados y decisiones se registran en [seguimiento de seguridad](SEGURIDAD_2026_10_12.md).
+Las [auditorías del 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md) sobre los 172 pines
+completos mantienen seis entradas/cinco IDs por OS en Chroma/MCP; producción
+frontend sin avisos y braces de desarrollo con uno alto. MCP necesita una
+migración compatible con CrewAI; la ausencia de caminos de servidor observados
+no suprime los avisos. Mailpit se actualizó en el repositorio al digest probado,
+con un UNKNOWN residual confirmado en el escaneo del 18/10. Las seis referencias
+de imágenes conservan hallazgos. MariaDB cambió de digest entre ambos escaneos;
+la diferencia de conteos no se atribuye solo a la DB. No se declara cierre global
+de seguridad ni actualización operativa de la VM. Los resultados del 12/10 se
+conservan como historia en el [acta inicial](SEGURIDAD_2026_10_12.md).
 
 La CSP completa de scripts Next, retención automatizada, soporte de otras
 arquitecturas/macOS y funcionamiento como servicio de sistema son mejoras

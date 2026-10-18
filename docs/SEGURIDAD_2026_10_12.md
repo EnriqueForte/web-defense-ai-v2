@@ -5,6 +5,12 @@ Auditorías nuevas de los 172 pines conservan seis entradas por OS: Chroma y un
 aviso MCP incorporado después; braces de desarrollo sigue retenido. Este acta
 mantiene los resultados y límites históricos del 12/10.
 
+Actualización 18/10: Mailpit 1.31.6 fijado al digest escaneado y probado,
+código `dfcd97a`, CI Windows/Ubuntu 39120143671 y escaneo 39120143668 verificados.
+Conserva un aviso UNKNOWN; la comparación 20 -> uno pertenece a la DB del 16/10.
+No se actualizó la VM ni su buzón. Chroma/MCP/braces, otras imágenes y revisión
+final de seguridad siguen pendientes; véase el seguimiento enlazado arriba.
+
 Seguimiento posterior: la [migración CrewAI](MIGRACION_CREWAI_2026_10_12.md)
 actualiza el contrato de 158 a 172 pines y pasó instalación limpia/SDK/lanzador en
 Windows/Ubuntu CI. La auditoría completa posterior mantiene cinco entradas/cuatro IDs
