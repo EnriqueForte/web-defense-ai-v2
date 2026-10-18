@@ -222,8 +222,9 @@ class GroqCacheTransportTests(TestCase):
         from agents.structured_prototype import compact_json, prompt_evidence
         from agents.structured_engine import run_structured
         from dashboard.services.structured_publication import load_current
+        # Explicit synthetic CSRF placeholder, never a captured session value.
         suffix = (' "http://127.0.0.1:4280/vulnerabilities/xss_r/?name=%3Cscript%3Ealert(1)%3C/script%3E'
-                  '&user_token=1f9a34bc78de56a01f9a34bc78de56a0" '
+                  '&user_token=00000000000000000000000000000000" '
                   '"Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0"')
         rows = []
         for number in range(1, 39):

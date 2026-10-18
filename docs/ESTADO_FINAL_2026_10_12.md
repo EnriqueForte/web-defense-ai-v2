@@ -38,6 +38,11 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   Comparación del 16/10: 20 hallazgos pasan a uno UNKNOWN, que se conserva.
   Código `dfcd97a`, CI Windows/Ubuntu 39120143671 y escaneo 39120143668 verificados
   el 18/10, incluidos inventarios 172/0/0. La VM y su buzón no se han actualizado.
+- [Revisión de dependencias y secretos del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md):
+  conflicto MCP corregido/CrewAI reproducido sin instalar; revisión de constructores
+  legacy/structured sin llamadas; escaneo con Gitleaks y triage individual.
+  El fixture DVWA sustituye un valor CSRF opaco por datos explícitamente sintéticos.
+  Conserva el hallazgo histórico de procedencia no acreditada; CI del ajuste pendiente.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -46,7 +51,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | [Seguimiento 16–18/10](SEGURIDAD_RESIDUAL_2026_10_16.md): seis entradas por OS en Chroma/MCP auditadas el 16/10, braces retenido; Mailpit actualizado con un aviso UNKNOWN; otras imágenes conservan avisos | Migración compatible de MCP, revisión de riesgos Chroma/braces/Mailpit y demás infraestructura, aplicación separada en Parrot y auditoría final del historial |
+| Seguridad | [Revisión 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md): seis entradas por OS en Chroma/MCP, braces retenido y conflicto de migración reproducido; [Mailpit](SEGURIDAD_RESIDUAL_2026_10_16.md) con un UNKNOWN; escaneo de archivos/historial y triage realizados | Migración compatible de MCP, riesgos de dependencias/infraestructura, procedencia del CSRF histórico y aplicación separada en Parrot; revisión global de seguridad abierta |
 | Calidad A-05 | Matriz offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra | Sigue pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 
@@ -109,6 +114,13 @@ de imágenes conservan hallazgos. MariaDB cambió de digest entre ambos escaneos
 la diferencia de conteos no se atribuye solo a la DB. No se declara cierre global
 de seguridad ni actualización operativa de la VM. Los resultados del 12/10 se
 conservan como historia en el [acta inicial](SEGURIDAD_2026_10_12.md).
+
+La [consulta del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md) repite esos
+audits con los inventarios CI39120143671: mismos resultados y sin cambios de
+paquetes. El resolutor confirma que CrewAI publicado aún impide MCP corregido.
+Gitleaks amplía la búsqueda por patrones y conserva los hallazgos: hashes públicos
+y una muestra CSRF histórica de procedencia no acreditada, anonimizada en el
+fixture actual. No se declaran eliminados los avisos ni seguridad global cerrada.
 
 La CSP completa de scripts Next, retención automatizada, soporte de otras
 arquitecturas/macOS y funcionamiento como servicio de sistema son mejoras

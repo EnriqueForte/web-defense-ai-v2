@@ -5,6 +5,11 @@ CI Windows/Ubuntu y escaneo final verificados. La comparación y las auditorías
 de paquetes corresponden al 16/10. La VM no se ha actualizado y sigue abierto
 el alcance global de seguridad. Las fases anteriores se conservan como historia.
 
+Seguimiento posterior del mismo 18/10: [compatibilidad de dependencias y revisión
+de secretos](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md). Repite los audits,
+reproduce el conflicto MCP/CrewAI y revisa los hallazgos de archivos/historial.
+El ajuste del fixture CSRF es independiente de la promoción Mailpit ya verificada.
+
 ## Auditorías y versiones publicadas — 16/10
 
 Se auditaron los freeze completos de Windows/Ubuntu de CI38886025823: 172

@@ -2,6 +2,25 @@
 
 ## Alcance actual
 
+Revisión18/10 dependencias/secretos local: audits172porOS desdeCI39120143671,
+seisentradas/cincoIDs ChromaMCP; pnpm11.19.0 prod0/dev1alto braces. PyPIactual
+CrewAI1.15.28 MCP~=1.28.1; pipdryrun actual1.15.27/latest1.15.28+MCP1.30.0
+ambosResolutionImpossible, sininstalar/override. Chroma1.5.9/braces3.0.3 sinfix.
+Constructoresrealeslegacy/structured3agentescadauno sinMCP/tools/knowledge/code,
+memoriafalse, sinclientesChroma/FastMCP/kickoff/LLM/red/.env; no prueba todoscaminos.
+Gitleaks8.30.1ZIPoficial/hashverificado/stockrules/redact100/sinallowlists/control
+AWSsintéticodetectado. HEAD4c02306/73commits/255candidatos inicial5+5hallazgos:
+4hashespúblicosBPE/cacheporconjunto y1CSRFopacoenfixtureDVWA33d987b. Fixtureactual
+reemplaza tokenpor32ceros/comentariosintético; historialintacto/procedencia yvalidez
+noacreditadas/no probarcredencial. Rescananonimizado4actuales/5históricosretenidos.
+7testsGroqpasaron4,649s/pipcheck/strict172/0/0; bloqueossandbox detenidosPIDpropios
+verificados, ejecucionesaprobadasfuerapasaron. Sinproducto/prompts/pines/VM/Docker/
+serviciosoperativos/LLMreal/envíos/.envbytesnuevos. Cambioslocalesfixture+actas,
+pendientespublicaciónCI; códigoCIprevio dfcd97a. Registro
+docs/REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md/JSON; recibosignorados
+security-dependencies-20261018. Seguridad/A05general/entregafinalabiertos.
+Entradas inferiores históricas.
+
 Mailpit promoción publicada/verificada18/10: código dfcd97a
 (dfcd97a49c9cda21b148650de409d3136a9e8020), CI39120143671attempt1 Windows/Ubuntu
 completed/success, estados/pasos/logs finales/seis pruebas nuevas revisados.
