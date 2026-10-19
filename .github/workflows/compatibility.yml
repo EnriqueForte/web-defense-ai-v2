@@ -71,7 +71,12 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: a05-offline-review-${{ matrix.os }}
-          path: .local-state/a05-offline-review/**/review.json
+          path: |
+            .local-state/a05-offline-review/**/review.json
+            .local-state/a05-offline-review/**/current.json
+            .local-state/a05-offline-review/**/generations/*/manifest.json
+            .local-state/a05-offline-review/**/generations/*/result.json
+            .local-state/a05-offline-review/**/generations/*/report.md
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 30

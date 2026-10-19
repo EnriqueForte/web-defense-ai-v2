@@ -2,6 +2,20 @@
 
 ## Alcance actual
 
+A05contexto19/10 local: fixtures2 añade9escenarios (DVWA8POST/XSS,visitasGET,
+4intentos,60/61s,IPsseparadas/dosráfagas,zonasequivalentes,cabecerassolodatos).
+22casos/8controles offline aprobados; nuevocontrol cruceIPrechazado/sinmodificar
+publicaciónprevia. Simuladormantienegruposautores,nomotor.9fixturespreviasbytes
+iguales/13casosmétricas/checks/hashigualessalvoUUID.365Python(364Win+1Linuxomitido)/
+3JS97sintaxislocalOK,20enfocadas7nuevas; WinError5sandbox inicial/repetición
+autorizadafuera pasó. CIpreparada guardareview/current/manifest/result/report
+solosintéticos30d; pendiente publicar/verificarartefactoscompletosambosOS.
+Sinprompts/reglas/API/UI/pines/Compose/LLM/Docker/envíos/servicios/.envbytes/VM
+ni inventariooperativonuevos. A05general/seguridad/entregafinalabiertos;
+instrucciónUserAgentnoacreditaresistenciaLLM. Ensayospreviosconsumidos.
+Registro docs/EVALUACION_CONTEXTO_A05_2026_10_19.md/JSON,recibosignorados
+a05-context-20261019; códigoCIprevio2d2f197. Entradas inferiores históricas.
+
 Pinslab publicados/CI/escanverificados19/10: código2d2f197
 (2d2f197663da43c25fd94cc7315bc63388f04ae9), CI39229681306attempt1Windows/Ubuntu
 success; estados/pasos/logsfinales/cuatrotests nuevas revisados. Ubuntu358Python/

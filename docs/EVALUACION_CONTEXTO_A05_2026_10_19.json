@@ -1,0 +1,354 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-19",
+  "status": "locally_verified; publication_and_CI_pending; general_semantic_quality_open",
+  "fixture_version": "a05-fixtures-2",
+  "fixture_cases": 18,
+  "review_cases": 22,
+  "guard_controls": 8,
+  "new_context_cases": [
+    "dvwa_post_burst",
+    "dvwa_get_visits",
+    "login_below_threshold",
+    "login_boundary",
+    "login_outside_boundary",
+    "login_multi_ip",
+    "login_multi_ip_bursts",
+    "timezone_equivalent",
+    "header_only_indicators"
+  ],
+  "fixtures": [
+    {
+      "case": "mixed",
+      "source_sha256": "5a40f1b08ca09cd0fbc3e3168a6542c7cc70fda7d430f6f0d52ebbebe2137dea",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "command_injection",
+          "line_number": 4
+        },
+        {
+          "pattern": "path_traversal",
+          "line_number": 3
+        },
+        {
+          "pattern": "sql_injection",
+          "line_number": 1
+        },
+        {
+          "pattern": "xss",
+          "line_number": 2
+        }
+      ]
+    },
+    {
+      "case": "normal",
+      "source_sha256": "59b640940204c712f86a18664c27a9d6b8d80406afd8dac1e29969fb8579f7e7",
+      "required_pairs": []
+    },
+    {
+      "case": "missing_body",
+      "source_sha256": "24fd455ba05b9e7ed96e8018072843a7eaffa45fa6b40e0482f70c4800efe022",
+      "required_pairs": []
+    },
+    {
+      "case": "encoded",
+      "source_sha256": "0a14ff187ce0910f8adbdcbd2d90edb88d4c4a389df2e140b4045523047a8242",
+      "required_pairs": [
+        {
+          "pattern": "command_injection",
+          "line_number": 4
+        },
+        {
+          "pattern": "path_traversal",
+          "line_number": 3
+        },
+        {
+          "pattern": "sql_injection",
+          "line_number": 1
+        },
+        {
+          "pattern": "xss",
+          "line_number": 2
+        }
+      ]
+    },
+    {
+      "case": "login_window",
+      "source_sha256": "e056e74c4192c629a0de4c831b6d089da95c0756704da6dee07e38add172c2cf",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 1
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 2
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        }
+      ]
+    },
+    {
+      "case": "login_spread",
+      "source_sha256": "fc3455e70bfeb956ce4256a0ffe505025ed252b854de548a6dc49ab16ff1e28c",
+      "required_pairs": []
+    },
+    {
+      "case": "timezone_split",
+      "source_sha256": "c8980af2ddf64bc30ccc0483d6fb89a8f7a3d1893fa4222a958331e7af5987ea",
+      "required_pairs": []
+    },
+    {
+      "case": "incomplete",
+      "source_sha256": "1b10d926dd7e67c59c07a73cd337c4fcb41f2b84f3b8b868b44ef95f69c4cf39",
+      "required_pairs": []
+    },
+    {
+      "case": "same_family",
+      "source_sha256": "6a822e7edb51aa5def708fb4a2d44a5c1bee4b1f24a262080872722eb5c5e0db",
+      "required_pairs": [
+        {
+          "pattern": "sql_injection",
+          "line_number": 1
+        },
+        {
+          "pattern": "sql_injection",
+          "line_number": 2
+        }
+      ]
+    },
+    {
+      "case": "dvwa_post_burst",
+      "source_sha256": "5d5de1441ddc228f3e9198b48774b5a99caa9bf3ffd50661946a373d4db69677",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        },
+        {
+          "pattern": "xss",
+          "line_number": 1
+        }
+      ]
+    },
+    {
+      "case": "dvwa_get_visits",
+      "source_sha256": "fadc7e2c249b76e17be24a4a9bbfdc03cf147abbec4a1df06cb291341879309f",
+      "required_pairs": []
+    },
+    {
+      "case": "login_below_threshold",
+      "source_sha256": "b12286484f93f77d8abca5a9b4ebe7c968da2b798956bd4f9c8773828901a14d",
+      "required_pairs": []
+    },
+    {
+      "case": "login_boundary",
+      "source_sha256": "7c4f2d3930443e16e8e2f6e3960ecb787c8eba8ed737a5764b2c3d865e1a756f",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 1
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 2
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        }
+      ]
+    },
+    {
+      "case": "login_outside_boundary",
+      "source_sha256": "bde12c47045203b386c12e1a11f014abee3546969bc3e0da7af745b6bfe2a77b",
+      "required_pairs": []
+    },
+    {
+      "case": "login_multi_ip",
+      "source_sha256": "4d08dc29f02c21a41d470b8f38177367ceb33f9b78bbbf383dc2fcc277eb7965",
+      "required_pairs": []
+    },
+    {
+      "case": "login_multi_ip_bursts",
+      "source_sha256": "5821d692feeb22952b8a5c9a4ec485b92d51f255ebb4932984522281d7e7822e",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 1
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 2
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        }
+      ]
+    },
+    {
+      "case": "timezone_equivalent",
+      "source_sha256": "7f9d5ddafe66c412b63f1cde164234d87c074df889dfa162d18a70b4c516f5a6",
+      "required_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 1
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 2
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        }
+      ]
+    },
+    {
+      "case": "header_only_indicators",
+      "source_sha256": "f724de76c08727bb830e1abc8a0de6b5c7061018a083e946fc90ed5131af0580",
+      "required_pairs": []
+    }
+  ],
+  "previous_nine_fixture_inputs_preserved": true,
+  "previous_thirteen_scores_checks_publication_hashes_preserved_excluding_generation_UUID": true,
+  "local_tests": [
+    {
+      "script": "check_syntax.py",
+      "exit_code": 0,
+      "python": [],
+      "syntax": [
+        "web-defense-ai V2: 97 archivos; 0 errores de sintaxis."
+      ],
+      "test_outcome": []
+    },
+    {
+      "script": "check_baseline.py",
+      "exit_code": 0,
+      "python": [
+        "Ran 365 tests in 32.139s"
+      ],
+      "syntax": [],
+      "test_outcome": [
+        "OK (skipped=1)"
+      ]
+    }
+  ],
+  "local_review": {
+    "directory": ".local-state/a05-offline-review/20261019T094920683390Z",
+    "files": 93,
+    "publications": 23,
+    "all_manifest_and_report_hashes_verified": true,
+    "review_sha256": "a52a21c78c172410e06775531f3da5ac5b68607e6ae6b715fdc10048492fec63"
+  },
+  "remote_CI": null,
+  "real_provider_calls": 0,
+  "Docker_used": false,
+  "VM_changed": false,
+  "operational_data_read_or_written": false,
+  "dotenv_bytes_read": false,
+  "scope": "Authored synthetic responses and request-context guards; not provider semantic acceptance or LLM prompt injection resistance."
+}

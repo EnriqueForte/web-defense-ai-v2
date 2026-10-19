@@ -11,7 +11,8 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from agents.evaluation_fixtures import CASES, fixture, expected_evidence_pairs, score_patterns, score_evidence
+from agents.evaluation_fixtures import (CASES, FIXTURE_VERSION, fixture, expected_evidence_groups,
+                                      score_patterns, score_evidence)
 from agents.evidence_contracts import ContractError
 from agents.evidence_preparation import prepare_evidence
 from dashboard.services.structured_publication import publish, load_current
@@ -22,14 +23,12 @@ MODEL_TEXT = "SYNTHETIC_UNSUPPORTED_EXPLOITATION_CLAIM"
 
 def authored_payloads(prepared, case):
     """Simulated responses use authored labels, never detector output as oracle."""
-    required, _ = expected_evidence_pairs(case)
-    groups = {}
-    for pattern, number in sorted(required):
-        for item in prepared.bundle.items:
-            if item.line_number == number:
-                groups.setdefault(pattern, []).append(item.evidence_id)
-    candidates = [{"candidate_id": f"c_{index}", "pattern": pattern, "evidence_ids": refs,
-                   "reason": MODEL_TEXT} for index, (pattern, refs) in enumerate(sorted(groups.items()), 1)]
+    candidates = []
+    for group in expected_evidence_groups(case):
+        refs = [item.evidence_id for item in prepared.bundle.items if item.line_number in group["line_numbers"]]
+        if refs:
+            candidates.append({"candidate_id": f"c_{len(candidates) + 1}", "pattern": group["pattern"],
+                               "evidence_ids": refs, "reason": MODEL_TEXT})
     detection = {"schema_version": "1", "analysis_id": ID, "candidates": candidates}
     classification = {"schema_version": "1", "analysis_id": ID, "classifications": [
         {"candidate_id": item["candidate_id"], "severity": "unknown", "state": "requires_investigation",
@@ -83,13 +82,14 @@ def review_matrix(destination):
             checks["omission_warning"] = "Queda 1 referencia" in result["narrative"]["summary"]
         if name == "false_positive":
             checks["cautious_false_positive"] = "antes de cambiar controles" in result["narrative"]["recommendations"][0]["text"]
-        reviews.append({"name": name, "checks": checks, "passed": all(checks.values()),
+        reviews.append({"name": name, "fixture_case": case, "checks": checks, "passed": all(checks.values()),
                         "generation": manifest["generation"], "sha256": manifest["sha256"], **scores})
 
     prepared = prepare_evidence(fixture("mixed")["text"], ID, config={})
     valid = authored_payloads(prepared, "mixed")
     publication = destination / "guard_controls"
-    publish(publication, prepared, *valid, model="offline-authored-responses", prompt_version="a05-review-1")
+    guard_manifest = publish(publication, prepared, *valid,
+                             model="offline-authored-responses", prompt_version="a05-review-1")
     baseline = fingerprints(publication)
     controls = []
     for name, code in (("empty_detection", "empty_detection_with_observed_indicators"),
@@ -98,8 +98,10 @@ def review_matrix(destination):
                        ("unsupported_severity", "severity_without_support"),
                        ("false_positive_severity", "inconsistent_false_positive_severity"),
                        ("missing_classification", "incomplete_or_foreign_classification"),
-                       ("invalid_narrative", "invalid_text")):
+                       ("invalid_narrative", "invalid_text"),
+                       ("cross_ip_burst", "brute_without_shared_window")):
         detection, classification, narrative = deepcopy(valid)
+        control_prepared = prepared
         if name == "empty_detection":
             detection["candidates"] = []
         elif name in {"foreign_reference", "normal_reference"}:
@@ -111,19 +113,26 @@ def review_matrix(destination):
             classification["classifications"][0].update(state="probable_false_positive", severity="medium")
         elif name == "missing_classification":
             classification["classifications"] = []
-        else:
+        elif name == "invalid_narrative":
             narrative["summary"] = ""
+        else:
+            control_prepared = prepare_evidence(fixture("login_multi_ip_bursts")["text"], ID, config={})
+            detection, classification, narrative = authored_payloads(control_prepared, "login_multi_ip_bursts")
+            detection["candidates"][0]["evidence_ids"].append(detection["candidates"][1]["evidence_ids"][0])
         observed_code = None
         try:
-            publish(publication, prepared, detection, classification, narrative,
+            publish(publication, control_prepared, detection, classification, narrative,
                     model="offline-authored-responses", prompt_version="a05-review-1")
         except ContractError as error:
             observed_code = str(error)
         preserved = baseline == fingerprints(publication)
         controls.append({"name": name, "expected_code": code, "observed_code": observed_code,
                          "publication_preserved": preserved, "passed": code == observed_code and preserved})
-    return {"schema_version": "1", "scope": "offline_authored_responses_not_provider_semantic_acceptance",
+    return {"schema_version": "1", "fixture_version": FIXTURE_VERSION,
+            "scope": "offline_authored_responses_not_provider_semantic_acceptance",
             "provider_calls": 0, "cases": reviews, "guard_controls": controls,
+            "guard_publication": {"name": "guard_controls", "generation": guard_manifest["generation"],
+                                  "sha256": guard_manifest["sha256"]},
             "passed": all(item["passed"] for item in (*reviews, *controls))}
 
 

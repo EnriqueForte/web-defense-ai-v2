@@ -6,6 +6,7 @@ from unittest import TestCase
 
 from agents.evaluation_fixtures import fixture, score_patterns, score_evidence
 from agents.evidence_preparation import prepare_evidence
+from dashboard.services.structured_publication import load_current
 from scripts.check_a05_offline import review_matrix
 
 ID = "e" * 32
@@ -83,7 +84,12 @@ class EvaluationEvidenceTests(TestCase):
     def test_offline_matrix_checks_publications_and_rejects_negative_controls(self):
         with TemporaryDirectory() as temporary:
             result = review_matrix(Path(temporary))
+            for row in [*result["cases"], result["guard_publication"]]:
+                manifest, _, _ = load_current(Path(temporary) / row["name"])
+                self.assertEqual(manifest["generation"], row["generation"])
+                self.assertEqual(manifest["sha256"], row["sha256"])
         self.assertTrue(result["passed"], result)
         self.assertEqual(result["provider_calls"], 0)
-        self.assertEqual(len(result["cases"]), 13)
-        self.assertEqual(len(result["guard_controls"]), 7)
+        self.assertEqual(result["fixture_version"], "a05-fixtures-2")
+        self.assertEqual(len(result["cases"]), 22)
+        self.assertEqual(len(result["guard_controls"]), 8)
