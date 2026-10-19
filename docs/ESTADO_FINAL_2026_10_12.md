@@ -58,7 +58,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
 | Seguridad | [Revisión 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md): seis entradas por OS en Chroma/MCP, braces retenido y conflicto de migración reproducido; [Mailpit](SEGURIDAD_RESIDUAL_2026_10_16.md) con un UNKNOWN; escaneo de archivos/historial y triage realizados | Migración compatible de MCP, riesgos de dependencias/infraestructura, procedencia del CSRF histórico y aplicación separada en Parrot; revisión global de seguridad abierta |
-| Calidad A-05 | Matriz previa offline/CI y muestras mixed/normal/same_family verificadas; recorrido XSS/fuerza bruta aceptado en Parrot para esa muestra; ampliación local a 22 casos/ocho controles de contexto | Publicar/verificar la ampliación en CI y continuar evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
+| Calidad A-05 | Matriz offline/CI ampliada a 22 casos/ocho controles y 23 publicaciones completas por OS verificadas; muestras mixed/normal/same_family y recorrido XSS/fuerza bruta aceptados en su alcance | Continúa pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
@@ -80,11 +80,14 @@ de familias, separando omisiones de selección y de respuesta. Esto verifica el
 evaluador y las guardas; no acredita calidad del proveedor ni cierra A-05.
 La [ampliación de contexto del 19/10](EVALUACION_CONTEXTO_A05_2026_10_19.md)
 añade nueve escenarios y un control de referencias entre IP: 22 casos/ocho
-controles aprobados localmente, conservando las nueve entradas y los resultados
-de los 13 casos previos. Prepara guardar también los bytes completos de las
-publicaciones sintéticas en CI; publicación/verificación remota pendientes.
-Código `c7df36a` publicado y [CI 38411563805](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38411563805)
-Windows/Ubuntu completada con success; logs y artefactos A-05/inventarios revisados.
+controles aprobados en Windows/Ubuntu CI39233803582, código `a46e21c`, conservando
+las nueve entradas y los resultados de los 13 casos previos. Se descargaron las
+23 publicaciones completas de cada OS (93 archivos), verificando manifiestos,
+bytes JSON/Markdown iguales a la revisión local y métricas recomputadas. Esta
+evidencia sintética no cierra la evaluación semántica del proveedor.
+La revisión original del 13/10 se publicó como `c7df36a`, con
+[CI 38411563805](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38411563805)
+Windows/Ubuntu success; logs y artefactos A-05/inventarios revisados.
 El [ensayo real autorizado del 14/10](ENSAYO_REAL_A05_2026_10_14.md) consumió
 seis intentos lógicos: mixed y normal publicaron resultados verificados,
 same_family falló con dos JSON inválidos. Se corrigió offline un envoltorio del

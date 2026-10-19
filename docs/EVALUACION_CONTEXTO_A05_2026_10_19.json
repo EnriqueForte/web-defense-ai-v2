@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "date": "2026-10-19",
-  "status": "locally_verified; publication_and_CI_pending; general_semantic_quality_open",
+  "status": "published_and_CI_verified; general_semantic_quality_open",
   "fixture_version": "a05-fixtures-2",
   "fixture_cases": 18,
   "review_cases": 22,
@@ -339,16 +339,102 @@
   ],
   "local_review": {
     "directory": ".local-state/a05-offline-review/20261019T094920683390Z",
-    "files": 93,
     "publications": 23,
     "all_manifest_and_report_hashes_verified": true,
-    "review_sha256": "a52a21c78c172410e06775531f3da5ac5b68607e6ae6b715fdc10048492fec63"
+    "review_sha256": "a52a21c78c172410e06775531f3da5ac5b68607e6ae6b715fdc10048492fec63",
+    "artifact_eligible_files": 93,
+    "publication_lock_files_excluded_from_artifact": true
   },
-  "remote_CI": null,
+  "remote_CI": {
+    "run_id": 39233803582,
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "verified_steps_and_final_logs": [
+      {
+        "job_log": "0_installation-and-offline-tests (ubuntu-24.04).txt",
+        "new_tests_observed": 7,
+        "python_cases": 365,
+        "python_seconds": [
+          "38.010"
+        ],
+        "e2e_duration": [
+          "11.4s"
+        ]
+      },
+      {
+        "job_log": "1_installation-and-offline-tests (windows-latest).txt",
+        "new_tests_observed": 7,
+        "python_cases": 365,
+        "python_seconds": [
+          "60.679"
+        ],
+        "e2e_duration": [
+          "51.1s"
+        ]
+      }
+    ],
+    "inventories": [
+      {
+        "artifact_id": 12177244026,
+        "name": "python-environment-windows-latest",
+        "platform": "win32",
+        "python": "3.11.9",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": null,
+        "pywin32": "311",
+        "freeze_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d"
+      },
+      {
+        "artifact_id": 12177023926,
+        "name": "python-environment-ubuntu-24.04",
+        "platform": "linux",
+        "python": "3.11.17",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": "0.23.0",
+        "pywin32": null,
+        "freeze_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa"
+      }
+    ],
+    "inventories_match_previous_full_freeze_hashes": true,
+    "complete_synthetic_artifacts": [
+      {
+        "artifact_id": 12177624454,
+        "name": "a05-offline-review-ubuntu-24.04",
+        "review_cases": 22,
+        "guard_controls": 8,
+        "files": 93,
+        "complete_publications": 23,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "1e0ca6f5412f6592af4ca79b39dc882fe74097cfd12632cf74cabfd14902e5c7",
+        "review_sha256": "6e017d06b5f4b9bd6076259075d09cb2a1b7c9c27dd66c05924ba1941396bd3c"
+      },
+      {
+        "artifact_id": 12178213916,
+        "name": "a05-offline-review-windows-latest",
+        "review_cases": 22,
+        "guard_controls": 8,
+        "files": 93,
+        "complete_publications": 23,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "5df48138d69873e24e65a5821213f23580279e307dfd7223ea2f57e4a22c8931",
+        "review_sha256": "879fffde0a0a2702b712a60d9065cdf90a2cd0c349e8ea3add011313a5a23180"
+      }
+    ]
+  },
   "real_provider_calls": 0,
   "Docker_used": false,
   "VM_changed": false,
   "operational_data_read_or_written": false,
   "dotenv_bytes_read": false,
-  "scope": "Authored synthetic responses and request-context guards; not provider semantic acceptance or LLM prompt injection resistance."
+  "scope": "Authored synthetic responses and request-context guards; not provider semantic acceptance or LLM prompt injection resistance.",
+  "code_commit": "a46e21cb718b2e61519055ea40feb41027217f44"
 }

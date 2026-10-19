@@ -2,6 +2,23 @@
 
 ## Alcance actual
 
+A05contexto publicado/CIverificada19/10: códigoa46e21c
+(a46e21cb718b2e61519055ea40feb41027217f44), run39233803582attempt1Windows/Ubuntu
+completed/success; estados/pasos/logsfinales/siete testsnuevas revisados.
+Ubuntu365Python/Win364+1Linuxomitido/3JS97sintaxis/HTTP27SDK/linttipos17UI/
+9E2EporOS(Ubuntu11,4s/Win51,1s)/smokeAPIproxy200offlinecierre. Inventarios
+12177023926Ubuntu12177244026Win172/0/0freeze/metadatos/hashpreviosiguales.
+A05artefactos12177624454Ubuntu12178213916Win completos93archivos/23publicaciones
+porOS/22casos8controles/manifiestosypunteroscoherentes/bytesJSONMarkdowniguales
+alocal20261019T094920683390Z/métricasrecomputadasiguales,soloUUID/fechasmanifiesto
+propios.9fixturesanterioresbytesiguales/13casospreviosmétricas/checks/hashiguales.
+GuardacruceIPrechaza/preservatodosarchivos; límites60/61s/IPs/GET/cabecerasprobados.
+Sinprompts/reglas/API/UI/pines/Compose/LLMreal/Docker/envíos/serviciosoperativos/
+.envbytes/VM/inventariooperativonuevos. A05general/seguridad/entregafinalabiertos;
+cabecerasnoacreditanresistenciaLLM, permisospreviosconsumidos. Registro
+docs/EVALUACION_CONTEXTO_A05_2026_10_19.md/JSON; recibosa05-context-20261019ignorados.
+Commitposterior soloactas[skip ci],códigoCIa46e21c. Entradas inferiores históricas.
+
 A05contexto19/10 local: fixtures2 añade9escenarios (DVWA8POST/XSS,visitasGET,
 4intentos,60/61s,IPsseparadas/dosráfagas,zonasequivalentes,cabecerassolodatos).
 22casos/8controles offline aprobados; nuevocontrol cruceIPrechazado/sinmodificar

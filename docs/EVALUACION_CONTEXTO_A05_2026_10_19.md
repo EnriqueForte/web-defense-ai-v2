@@ -1,6 +1,6 @@
 # Evaluación A-05 de contexto de solicitudes — 19/10/2026
 
-Estado: implementación y validación local completadas; publicación y CI pendientes.
+Estado: publicado como `a46e21c`; CI Windows/Ubuntu y artefactos completos verificados.
 
 La evaluación sintética añade nueve escenarios de fuerza bruta y atribución de
 XSS. La matriz pasa de 13 casos/siete controles a **22 casos/ocho controles**.
@@ -65,6 +65,49 @@ El primer intento enfocado dentro del sandbox falló al reemplazar archivos
 temporales por WinError 5. La repetición autorizada fuera del aislamiento pasó;
 la regresión y la revisión reproducible también se ejecutaron allí. Se conserva
 la publicación atómica del producto.
+
+## Publicación y verificación remota
+
+Código `a46e21cb718b2e61519055ea40feb41027217f44`,
+[CI 39233803582/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39233803582)
+completed/success en ambos sistemas. Se descargaron y revisaron estados, pasos y
+logs finales, incluidas las siete pruebas nuevas:
+
+- Ubuntu: 365 pruebas Python aprobadas, 38,010 s. Windows: 364 aprobadas y una
+  exclusiva Linux omitida, 60,679 s.
+- Tres comprobaciones JS, 97 archivos de sintaxis, HTTP sintético y 27 escenarios
+  SDK offline; lint, tipos y 17 grupos UI aprobados.
+- Nueve E2E por sistema: Ubuntu 11,4 s y Windows 51,1 s. El smoke final acredita
+  API directa/proxy 200, ejecutor offline y puertos libres al cerrar.
+- Inventarios completos de 172 paquetes, cero diferencias/extras y hashes de
+  freeze iguales a los inventarios previos. No se atribuyen esos bytes a la VM.
+
+| Artefacto | ID | Verificación |
+| --- | --- | --- |
+| Inventario Ubuntu | 12177023926 | Freeze/metadatos completos; uvloop0.23.0 |
+| Inventario Windows | 12177244026 | Freeze/metadatos completos; pywin32311 |
+| A-05 Ubuntu | 12177624454 | 93 archivos, 23 publicaciones completas, 22 casos/ocho controles |
+| A-05 Windows | 12178213916 | 93 archivos, 23 publicaciones completas, 22 casos/ocho controles |
+
+Esta vez se descargaron los **bytes completos** de `result.json` y `report.md`
+de las 23 publicaciones de cada OS. Coinciden byte a byte con la revisión local;
+sus hashes coinciden con los manifiestos. Los punteros/manifiestos remotos
+conservan sus propios UUID y fechas, y se comprobó su coherencia interna.
+Se recomputaron las métricas por familia y patrón–línea desde los resultados y
+sus evidencias: coinciden con cada resumen. El inventario del ZIP contiene
+exactamente los 93 archivos previstos, sin los locks locales de publicación.
+
+La revisión previa a publicar comprobó exclusiones, formatos de credenciales y
+hashes vendor; Gitleaks mantiene cuatro hallazgos actuales de hashes públicos y
+cinco históricos (cuatro hashes y la muestra CSRF opaca ya anonimizada en el
+fixture actual). Conserva avisos y triage, sin allowlists propias, validación de
+la muestra histórica o reescritura de historia. No es cierre global de seguridad.
+Recibos, ZIP completos y verificaciones en `.local-state/a05-context-20261019/`;
+el [registro JSON](EVALUACION_CONTEXTO_A05_2026_10_19.json) recoge IDs y hashes.
+
+El commit posterior solo publica estas actas con `[skip ci]`; el código probado
+permanece en `a46e21c`. Se cierra la ampliación del evaluador y la evidencia
+sintética completa, manteniendo abierta la calidad semántica general.
 
 ## Alcance y continuación
 
