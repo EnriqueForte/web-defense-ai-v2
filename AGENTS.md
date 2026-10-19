@@ -2,6 +2,28 @@
 
 ## Alcance actual
 
+Pinslab publicados/CI/escanverificados19/10: código2d2f197
+(2d2f197663da43c25fd94cc7315bc63388f04ae9), CI39229681306attempt1Windows/Ubuntu
+success; estados/pasos/logsfinales/cuatrotests nuevas revisados. Ubuntu358Python/
+Win357+1Linuxomitido/3JS96sintaxis/HTTP27SDK/linttipos17UI/9E2EporOS(Win9,3s/
+Ubuntu10,7s)/smokeAPIproxy200offlinecierre. Inventarios12176378240Win12176875612Ubuntu
+172/0/0freeze/metadatos/hashespreviosiguales; A05resúmenes12175908253Win12176202901
+Ubuntu13casos7controles/checks/métricas/hashlocal20261015T185242433279Z iguales
+salvoUUID,no bytesinformesremotos. Escaneo39229681189attempt1success/artifact
+12175678051 seisinformescompletosverificados/Trivy0.75DBv2Updated19Oct07:19:54UTC/
+download09:23:39/capture09:24:06. 3pinsverificados/MariaDByDVWAImageIDigualaudit18;
+4manifiestosHTTPoriginales guardados/hashreverificado. MariaDB102/1crit24altas,
+DVWA4011/16/276/357UNKNOWN,Mailpit1UNKNOWN,legacyMySQL266/1/102,DVWA1575/254/551,
+Python175/0/46. MismoDVWAImageID+347entradasDebianUNKNOWN/347IDs nuevos/sinIDs
+retirados/302confixreportado, datosnuevosescáner no cambiosimagenni arreglosaplicados.
+CIyregistrocerradosenreproducibilidad/pins/scannerrechazadigest; VM88e7b8a/volumen
+noactualizados/noprobados. SinDocker/LLMreal/envíos/serviciosoperativos/.envbytes/
+inventariooperativonuevos. Antesaplicar backupDBverificado/planrecuperación,
+sin down--volumes/reset/autoupgrade; futurascorreccionesrequierenrevisarnuevopin.
+Seguridadresidual/CSRFhistórico/A05general/entregafinalabiertos. Siguientecommit
+soloactas[skip ci],códigoCI2d2f197. Registro docs/FIJACION_IMAGENES_LAB_2026_10_19.md/
+JSON; recibosimage-pins-20261019ignorados. Entradas inferiores históricas.
+
 Fijación imágenes19/10 local: Compose/scanner MariaDB10.11@sha256:0d0945c5...b43b5e
 y DVWAb496a5d@sha256:ed35515e...2986c6, mismosbytes auditados18/10run39120143668/
 artifact12133887424. Registrospúblicos consultadossinDocker: SHAmanifiestoraíz/

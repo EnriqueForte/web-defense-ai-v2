@@ -44,6 +44,11 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   El fixture DVWA sustituye un valor CSRF opaco por datos explícitamente sintéticos.
   Conserva el hallazgo histórico de procedencia no acreditada; código `31c8a29`,
   CI39122621402 Windows/Ubuntu aprobada y logs/inventarios/A-05 verificados.
+- [Fijación del laboratorio por digest](FIJACION_IMAGENES_LAB_2026_10_19.md):
+  MariaDB/DVWA fijados y Mailpit conservado; el escáner rechaza otro digest.
+  Código `2d2f197`, CI39229681306 y escaneo39229681189 aprobados y artefactos
+  verificados el 19/10. Cierra reproducibilidad del repositorio, con avisos
+  conservados; no acredita actualización de Parrot o migración de su volumen.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -105,10 +110,12 @@ un alcance nuevo; no se reutiliza la autorización consumida.
 
 ## Seguridad en curso
 
-En preparación local el 19/10: [fijación de MariaDB/DVWA por digest](FIJACION_IMAGENES_LAB_2026_10_19.md),
-identidad de registro linux/amd64 contrastada con el inventario auditado y rechazo
-de informes que resuelvan a otro digest. CI y escaneo final pendientes; no
-actualiza la VM ni acredita migración de su volumen o reducción de avisos.
+La [fijación de MariaDB/DVWA por digest](FIJACION_IMAGENES_LAB_2026_10_19.md) está
+publicada y verificada el 19/10, con paridad Compose/inventario y rechazo de otro
+digest. El escaneo conserva los avisos. DVWA, con el mismo ImageID del 18/10,
+presenta 347 entradas Debian UNKNOWN adicionales (total 4011); no se atribuyen
+a un cambio de contenido ni son correcciones aplicadas. La aplicación a la VM
+y la migración de su volumen no se han ejecutado ni acreditado.
 
 Las [auditorías del 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md) sobre los 172 pines
 completos mantienen seis entradas/cinco IDs por OS en Chroma/MCP; producción

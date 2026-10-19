@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "date": "2026-10-19",
-  "status": "prepared_locally; ci_and_remote_scan_pending; residual_security_open",
+  "status": "published_and_ci_and_remote_scan_verified; residual_security_open; VM_not_changed",
   "registry_verification": {
     "date": "2026-10-19",
-    "captured_at": "2026-10-19T09:14:04.990403+00:00",
+    "captured_at": "2026-10-19T09:28:13.176523+00:00",
     "basis_run": 39120143668,
     "basis_artifact": 12133887424,
     "basis_summary_sha256": "c92d2bd76ef831ec8ea5a58214ca6921e3cd0be3335bf1c5f3206a4f7443033c",
@@ -18,6 +18,9 @@
         "image_id": "sha256:4e667183d5236dbbecf88167a0f1f49dc0c116aa46990309e920e663e2fdc348",
         "manifest_bytes_sha256_match": true,
         "image_id_matches_reviewed_20261018_scan": true,
+        "raw_manifest_bytes_preserved": true,
+        "raw_root_manifest": "registry-manifest-0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e.json",
+        "raw_amd64_manifest": "registry-manifest-bb27bde261794d326398a9c998ddf9f35db45296d829123bff829cd076f68107.json",
         "tag_digest_observed_now": "sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e",
         "tag_changed_since_20261018": false,
         "platform_verified": "linux/amd64",
@@ -32,6 +35,9 @@
         "image_id": "sha256:7c65cc0145a5c4d3e8fcd226b37c46df6d041d76eaa9f83e7eb067beb5f89e40",
         "manifest_bytes_sha256_match": true,
         "image_id_matches_reviewed_20261018_scan": true,
+        "raw_manifest_bytes_preserved": true,
+        "raw_root_manifest": "registry-manifest-ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6.json",
+        "raw_amd64_manifest": "registry-manifest-4d621f9b4b04b14c5a83e148b316e41ef8c86d72af7d7488fd2251cf0a8d08c9.json",
         "tag_digest_observed_now": "sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
         "tag_changed_since_20261018": false,
         "platform_verified": "linux/amd64",
@@ -81,5 +87,270 @@
     "running_vm_images_not_verified": true,
     "live_database_migration_not_verified": true,
     "dependency_vulnerability_remediation_claimed": false
-  }
+  },
+  "verified_commit": "2d2f197663da43c25fd94cc7315bc63388f04ae9",
+  "ci": {
+    "run_id": 39229681306,
+    "attempt": 1,
+    "conclusion": "success",
+    "contracts": [
+      {
+        "job_log": "0_installation-and-offline-tests (windows-latest).txt",
+        "new_tests_observed": 4,
+        "python_cases": 358
+      },
+      {
+        "job_log": "1_installation-and-offline-tests (ubuntu-24.04).txt",
+        "new_tests_observed": 4,
+        "python_cases": 358
+      }
+    ],
+    "inventories": [
+      {
+        "artifact_id": 12176378240,
+        "name": "python-environment-windows-latest",
+        "platform": "win32",
+        "python": "3.11.9",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": null,
+        "pywin32": "311",
+        "freeze_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d"
+      },
+      {
+        "artifact_id": 12176875612,
+        "name": "python-environment-ubuntu-24.04",
+        "platform": "linux",
+        "python": "3.11.17",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": "0.23.0",
+        "pywin32": null,
+        "freeze_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa"
+      }
+    ],
+    "a05": {
+      "head_sha": "2d2f197663da43c25fd94cc7315bc63388f04ae9",
+      "run_id": 39229681306,
+      "attempt": 1,
+      "artifacts": [
+        {
+          "artifact_id": 12176202901,
+          "name": "a05-offline-review-ubuntu-24.04",
+          "cases": 13,
+          "guard_controls": 7,
+          "sha256": "ac1e7d8a77b7dfc39c6ddd8683169643e6794dc38ef97d823132c0edf439790a",
+          "local_scores_checks_publication_hashes_match": true
+        },
+        {
+          "artifact_id": 12175908253,
+          "name": "a05-offline-review-windows-latest",
+          "cases": 13,
+          "guard_controls": 7,
+          "sha256": "ca8dbdf4524d58d59b6b0d3e3d176c0d9bca783ed15b2de46940bc7a7382e822",
+          "local_scores_checks_publication_hashes_match": true
+        }
+      ]
+    },
+    "timings": [
+      {
+        "job_log": "0_installation-and-offline-tests (windows-latest).txt",
+        "python": [
+          "Ran 358 tests in 47.068s"
+        ],
+        "e2e": [
+          "9 passed (9.3s)"
+        ]
+      },
+      {
+        "job_log": "1_installation-and-offline-tests (ubuntu-24.04).txt",
+        "python": [
+          "Ran 358 tests in 42.186s"
+        ],
+        "e2e": [
+          "9 passed (10.7s)"
+        ]
+      }
+    ],
+    "remote_full_report_bytes_in_a05_summary": false
+  },
+  "image_scan": {
+    "artifact_id": 12175678051,
+    "run_id": 39229681189,
+    "image_set": "inventory",
+    "scanner_version": "Version: 0.75.0\nVulnerability DB:\n  Version: 2\n  UpdatedAt: 2026-10-19 07:19:54.308593453 +0000 UTC\n  NextUpdate: 2026-10-20 07:19:54.30859309 +0000 UTC\n  DownloadedAt: 2026-10-19 09:23:39.056290497 +0000 UTC\n",
+    "captured_at": "2026-10-19T09:24:06.045808+00:00",
+    "images": [
+      {
+        "label": "lab-mariadb",
+        "scope": "recommended",
+        "requested_reference": "mariadb:10.11@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e",
+        "status": "scanned",
+        "repo_digests": [
+          "mariadb@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e"
+        ],
+        "requested_digest_verified": true,
+        "image_id": "sha256:4e667183d5236dbbecf88167a0f1f49dc0c116aa46990309e920e663e2fdc348",
+        "os": {
+          "Family": "ubuntu",
+          "Name": "22.04"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 24,
+          "LOW": 23,
+          "MEDIUM": 53,
+          "UNKNOWN": 1
+        },
+        "distinct_vulnerability_ids": 90,
+        "entries_with_fix": 60,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "lab-dvwa",
+        "scope": "recommended",
+        "requested_reference": "ghcr.io/digininja/dvwa:b496a5d@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+        "status": "scanned",
+        "repo_digests": [
+          "ghcr.io/digininja/dvwa@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6"
+        ],
+        "requested_digest_verified": true,
+        "image_id": "sha256:7c65cc0145a5c4d3e8fcd226b37c46df6d041d76eaa9f83e7eb067beb5f89e40",
+        "os": {
+          "Family": "debian",
+          "Name": "13.6"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 16,
+          "HIGH": 276,
+          "LOW": 1270,
+          "MEDIUM": 2092,
+          "UNKNOWN": 357
+        },
+        "distinct_vulnerability_ids": 3064,
+        "entries_with_fix": 2120,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "lab-mailpit",
+        "scope": "recommended",
+        "requested_reference": "axllent/mailpit:v1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387",
+        "status": "scanned",
+        "repo_digests": [
+          "axllent/mailpit@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387"
+        ],
+        "requested_digest_verified": true,
+        "image_id": "sha256:978742ab0aca1fb510b407aa54d3cc9fb1d51ca4988ce0bc6fbdb1fdc6afbc4c",
+        "os": {
+          "Family": "alpine",
+          "Name": "3.24.2"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "UNKNOWN": 1
+        },
+        "distinct_vulnerability_ids": 1,
+        "entries_with_fix": 0,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-mysql",
+        "scope": "legacy",
+        "requested_reference": "mysql:8.0",
+        "status": "scanned",
+        "repo_digests": [
+          "mysql@sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b"
+        ],
+        "requested_digest_verified": null,
+        "image_id": "sha256:6cd09145362dfe6831b14545de3d5fd6cc75c37cfd6ef8561429c1fc73518b39",
+        "os": {
+          "Family": "oracle",
+          "Name": "9.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 1,
+          "HIGH": 102,
+          "LOW": 10,
+          "MEDIUM": 152,
+          "UNKNOWN": 1
+        },
+        "distinct_vulnerability_ids": 213,
+        "entries_with_fix": 265,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-dvwa",
+        "scope": "legacy",
+        "requested_reference": "vulnerables/web-dvwa:latest",
+        "status": "scanned",
+        "repo_digests": [
+          "vulnerables/web-dvwa@sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7"
+        ],
+        "requested_digest_verified": null,
+        "image_id": "sha256:ab0d83586b6e8799bb549ab91914402e47e3bcc7eea0c5cdf43755d56150cc6a",
+        "os": {
+          "Family": "debian",
+          "Name": "9.5",
+          "EOSL": true
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "CRITICAL": 254,
+          "HIGH": 551,
+          "LOW": 116,
+          "MEDIUM": 642,
+          "UNKNOWN": 12
+        },
+        "distinct_vulnerability_ids": 439,
+        "entries_with_fix": 1380,
+        "counts_are_package_findings_not_proven_exploits": true
+      },
+      {
+        "label": "legacy-python",
+        "scope": "legacy",
+        "requested_reference": "python:3.11-slim",
+        "status": "scanned",
+        "repo_digests": [
+          "python@sha256:e88e9763f943ec1834f992a4b51e0f24500486803e8bc534e5767af9ea65f6ce"
+        ],
+        "requested_digest_verified": null,
+        "image_id": "sha256:541096ae9b05d3b850341b78790e2ed31e94d5aa0ea086933c6ff0c09ffa2e63",
+        "os": {
+          "Family": "debian",
+          "Name": "13.7"
+        },
+        "platform": "linux/amd64",
+        "entries_by_severity": {
+          "HIGH": 46,
+          "LOW": 62,
+          "MEDIUM": 64,
+          "UNKNOWN": 3
+        },
+        "distinct_vulnerability_ids": 82,
+        "entries_with_fix": 11,
+        "counts_are_package_findings_not_proven_exploits": true
+      }
+    ],
+    "compatibility": null
+  },
+  "same_image_dvwa_finding_change_since_20261018": {
+    "same_image_id": true,
+    "old_entries": 3664,
+    "new_entries": 4011,
+    "new_distinct_ids": 347,
+    "removed_distinct_ids": 0,
+    "added_entries_by_severity": {
+      "UNKNOWN": 347
+    },
+    "added_entries_by_type": {
+      "debian": 347
+    },
+    "added_entries_with_fix": 302
+  },
+  "no_vulnerability_reduction_claimed": true
 }

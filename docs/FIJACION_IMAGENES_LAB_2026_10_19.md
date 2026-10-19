@@ -1,9 +1,9 @@
 # Fijación de imágenes del laboratorio — 19/10/2026
 
-Estado local: MariaDB y DVWA fijados a los digests del inventario auditado del
-18/10, disponibilidad e identidad linux/amd64 verificadas directamente en los
-registros públicos. Regresión local aprobada; publicación, CI y escaneo de las
-referencias fijadas pendientes. La VM y sus volúmenes no se han modificado.
+Estado: publicado como `2d2f197`, CI Windows/Ubuntu y escaneo remoto verificados.
+MariaDB y DVWA quedan fijados a los digests del inventario auditado del 18/10,
+con identidad linux/amd64 contrastada en los registros públicos y el escaneo
+del 19/10. La VM y sus volúmenes no se han modificado.
 
 ## Problema y cambio
 
@@ -44,6 +44,9 @@ Ambas etiquetas todavía apuntaban a esos mismos digests al consultar el 19/10;
 se registra esa observación temporal sin convertir la etiqueta en inmutable.
 Los digests raíz pueden identificar índices de varias plataformas; solo se
 verifica linux/amd64, sin ampliar soporte a otras arquitecturas.
+Se conservan también los bytes originales de los cuatro manifiestos raíz/amd64;
+sus hashes se volvieron a comprobar desde los recibos locales, sin depender del
+formato de una copia JSON reindentada.
 
 Los upstream mantienen las imágenes y configuración de laboratorio en
 [DVWA Compose](https://github.com/digininja/DVWA/blob/master/compose.yml) y
@@ -67,6 +70,53 @@ El [registro JSON](FIJACION_IMAGENES_LAB_2026_10_19.json) conserva los digests,
 manifiestos seleccionados, evidencia de procedencia y resultados locales.
 Recibos y manifiestos completos en `.local-state/image-pins-20261019/`, ignorado.
 
+## Publicación y verificación remota
+
+Código `2d2f197663da43c25fd94cc7315bc63388f04ae9`,
+[CI 39229681306/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39229681306)
+Windows/Ubuntu completed/success. Se revisaron estados, pasos y logs finales,
+con las cuatro pruebas nuevas aprobadas en ambos sistemas:
+
+- Ubuntu 358 pruebas Python; Windows 357 aprobadas y una Linux omitida.
+- Tres contratos JavaScript, 96 archivos sin errores de sintaxis, HTTP sintético
+  y 27 escenarios SDK offline; lint, tipos y 17 grupos de regresión UI aprobados.
+- Nueve E2E por OS: Windows 9,3 s y Ubuntu 10,7 s.
+- API directa/proxy 200, ejecutor offline y puertos libres al cerrar.
+- Inventarios completos 12176378240 Windows y 12176875612 Ubuntu: 172 paquetes,
+  cero diferencias/adicionales y versiones/metadatos/hashes de freeze iguales
+  a los recibos anteriores. No se atribuyen esos hashes a la VM.
+- Resúmenes A-05 12175908253 Windows y 12176202901 Ubuntu: 13 casos y siete
+  controles; métricas/checks/hashes de publicación iguales al recibo local
+  `20261015T185242433279Z`, salvo UUID de generación. Estos resúmenes no incluyen
+  los bytes completos de informes remotos ni acreditan calidad semántica del LLM.
+
+[Escaneo 39229681189/attempt1](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39229681189)
+completed/success; artefacto 12175678051 descargado y contrastado con los seis
+informes completos. Trivy 0.75.0, DB v2 UpdatedAt 19/10/2026 07:19:54 UTC,
+descargada 09:23:39 y captura 09:24:06 UTC. Los tres pins se verifican y sus
+ImageID coinciden con los auditados; las tres referencias legacy conservan null.
+
+| Referencia | Entradas | Críticas | Altas | Desconocidas |
+| --- | ---: | ---: | ---: | ---: |
+| MariaDB fijado | 102 | 1 | 24 | 1 |
+| DVWA fijado | 4011 | 16 | 276 | 357 |
+| Mailpit fijado | 1 | 0 | 0 | 1 |
+| MySQL legacy | 266 | 1 | 102 | 1 |
+| DVWA legacy | 1575 | 254 | 551 | 12 |
+| Python legacy | 175 | 0 | 46 | 3 |
+
+Con el mismo ImageID DVWA del 18/10, el informe del 19/10 añade 347 entradas
+Debian UNKNOWN/347 IDs nuevos, sin retirar IDs anteriores: total 3664 -> 4011.
+El escáner informa versión corregida para 302 de esas entradas. Se conserva
+todo el detalle; son hallazgos de paquetes, no ataques confirmados o correcciones
+aplicadas. La diferencia refleja nueva información del escáner sobre los mismos
+bytes y no se presenta como un cambio del contenido provocado por la fijación.
+
+Queda verificada la fijación del repositorio y el rechazo de digest incorrecto.
+El commit posterior solo publica estas actas con `[skip ci]`; el código validado
+permanece en `2d2f197`. Las revisiones de publicación conservan los hallazgos de
+hashes públicos y el CSRF histórico de procedencia no acreditada; no se suprimen.
+
 ## Aplicación y límites
 
 Esta entrega no ejecuta Docker, análisis LLM ni notificaciones y no lee `.env`.
@@ -83,7 +133,9 @@ La [documentación MariaDB](https://mariadb.com/docs/server/server-management/au
 distingue la inicialización de una base nueva del tratamiento de un directorio
 ya existente; no se acredita aquí una migración viva.
 
+Las futuras correcciones de imagen requieren revisar otro digest y actualizar
+el pin de forma expresa: una etiqueta que cambie no actualizará estas referencias.
 La reversión de referencias a etiquetas no recupera datos de un volumen alterado.
-El alcance cerrado será la fijación y validación remota del repositorio; la
+El alcance cerrado es la fijación y validación remota del repositorio; la
 aplicación a la VM, riesgos de infraestructura/dependencias, procedencia del CSRF
 histórico, A-05 general y entrega final permanecen separados.
