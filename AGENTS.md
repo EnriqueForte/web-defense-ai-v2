@@ -2,6 +2,21 @@
 
 ## Alcance actual
 
+A05grupos19/10 local: reproducidoXSS+8POST divididoentresgruposfrente2autores
+pasabafamilias/pares1. Métricasaditivas a05-metrics-2 comparanparticiónexacta
+1a1/duplicados/excesos/selecciónproyectada/veredictofixtureseparadoejecución;
+CLIscore_structured_fixture sololee/hash/fuentefixture/noLLM/config/.envwrites,
+salidas0conforme2disconforme1rechazado (argumentos2). ProcesoPythonfríosin
+CrewAI/LiteLLM/main/pipeline/resolver.24casos8controles/25publicaciones101archivos
+localOK;17enfocadas9nuevas/374Python(373Win+1Linuxomitido)/3JS100sintaxis,
+31,605s. WinError5sandbox inicial/repeticiónautorizadafuera pasó. Particiones
+soloexpectativassintéticas,nouniversalincidentes/severidades/éxitoautenticación;
+sin cambiarprompts/detector/API/UI/publicación/pines/Compose/servicios/VM/envíos/
+Docker/LLMreal/.envbytes/inventariooperativo. Ensayospreviosconsumidos/A05general/
+seguridad/entregafinalabiertos. Publicación/CIpendientes;códigoCIprevioa46e21c.
+Registro docs/EVALUACION_GRUPOS_A05_2026_10_19.md/JSON;recibosa05-groups-20261019
+ignorados. Entradas inferiores históricas.
+
 A05contexto publicado/CIverificada19/10: códigoa46e21c
 (a46e21cb718b2e61519055ea40feb41027217f44), run39233803582attempt1Windows/Ubuntu
 completed/success; estados/pasos/logsfinales/siete testsnuevas revisados.

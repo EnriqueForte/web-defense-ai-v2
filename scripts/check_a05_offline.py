@@ -11,8 +11,8 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from agents.evaluation_fixtures import (CASES, FIXTURE_VERSION, fixture, expected_evidence_groups,
-                                      score_patterns, score_evidence)
+from agents.evaluation_fixtures import CASES, FIXTURE_VERSION, fixture, expected_evidence_groups
+from agents.evaluation_scoring import METRICS_VERSION, score_fixture_result
 from agents.evidence_contracts import ContractError
 from agents.evidence_preparation import prepare_evidence
 from dashboard.services.structured_publication import publish, load_current
@@ -50,7 +50,9 @@ def review_matrix(destination):
     specifications = [(case, case, {}) for case in CASES]
     specifications += [("incomplete_other", "incomplete", {}), ("false_positive", "same_family", {}),
                        ("partial_same_family", "same_family", {}),
-                       ("selection_limit", "same_family", {"max_items": 1})]
+                       ("selection_limit", "same_family", {"max_items": 1}),
+                       ("split_dvwa_burst", "dvwa_post_burst", {}),
+                       ("overlapping_dvwa_burst", "dvwa_post_burst", {})]
     for name, case, selection in specifications:
         prepared = prepare_evidence(fixture(case)["text"], ID, config={}, **selection)
         payloads = authored_payloads(prepared, case)
@@ -64,13 +66,23 @@ def review_matrix(destination):
             classification["classifications"][0].update(state="probable_false_positive", severity="low")
         elif name == "partial_same_family":
             detection["candidates"][0]["evidence_ids"] = detection["candidates"][0]["evidence_ids"][:1]
+        elif name in {"split_dvwa_burst", "overlapping_dvwa_burst"}:
+            burst = detection["candidates"][1]
+            refs = burst["evidence_ids"]
+            burst["evidence_ids"] = refs[:4] if name == "split_dvwa_burst" else refs[:5]
+            detection["candidates"].append({**burst, "candidate_id": "c_3",
+                "evidence_ids": refs[4:] if name == "split_dvwa_burst" else refs[3:]})
+            classification["classifications"].append({**classification["classifications"][1], "candidate_id": "c_3"})
         publication = destination / name
         publish(publication, prepared, *payloads, model="offline-authored-responses", prompt_version="a05-review-1")
         manifest, result, markdown = load_current(publication)  # verifies artifact hashes
-        scores = {**score_patterns(result["findings"], case), **score_evidence(result["findings"], result["evidence"], case)}
+        scores = score_fixture_result(result["findings"], result["evidence"], case)
+        group_mismatch = name in {"partial_same_family", "split_dvwa_burst", "overlapping_dvwa_burst"}
         checks = {"families": scores["pattern_expectations_met"],
                   "evidence_verdict": scores["evidence_expectations_met"] == (name != "partial_same_family"),
                   "selection_verdict": scores["fixture_fully_selected"] == (name != "selection_limit"),
+                  "group_verdict": scores["group_expectations_met"] == (not group_mismatch),
+                  "fixture_verdict": scores["fixture_expectations_met"] == (not group_mismatch and name != "selection_limit"),
                   "counts": sum(result["counts"].values()) == len(result["findings"]),
                   "quality_pending": result["quality"] == "semantic_evaluation_pending",
                   "grounded_text": MODEL_TEXT not in markdown and MODEL_TEXT not in json.dumps(result["narrative"]),
@@ -128,7 +140,7 @@ def review_matrix(destination):
         preserved = baseline == fingerprints(publication)
         controls.append({"name": name, "expected_code": code, "observed_code": observed_code,
                          "publication_preserved": preserved, "passed": code == observed_code and preserved})
-    return {"schema_version": "1", "fixture_version": FIXTURE_VERSION,
+    return {"schema_version": "1", "fixture_version": FIXTURE_VERSION, "metrics_version": METRICS_VERSION,
             "scope": "offline_authored_responses_not_provider_semantic_acceptance",
             "provider_calls": 0, "cases": reviews, "guard_controls": controls,
             "guard_publication": {"name": "guard_controls", "generation": guard_manifest["generation"],

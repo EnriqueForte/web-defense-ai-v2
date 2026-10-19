@@ -1,0 +1,599 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-19",
+  "status": "locally_verified; publication_and_CI_pending; general_semantic_quality_open",
+  "metrics_version": "a05-metrics-2",
+  "fixture_version": "a05-fixtures-2",
+  "review_cases": 24,
+  "guard_controls": 8,
+  "complete_synthetic_publications": 25,
+  "artifact_eligible_files": 101,
+  "publication_lock_files_excluded": true,
+  "before_fix": {
+    "finding_groups": 3,
+    "authored_groups": 2,
+    "case": "dvwa_post_burst",
+    "metrics_scope": "pattern_families_not_event_accuracy",
+    "expected_patterns": [
+      "brute_force",
+      "xss"
+    ],
+    "optional_patterns": [],
+    "actual_patterns": [
+      "brute_force",
+      "xss"
+    ],
+    "missing_patterns": [],
+    "unexpected_patterns": [],
+    "pattern_recall": 1.0,
+    "pattern_precision": 1.0,
+    "pattern_expectations_met": true,
+    "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+    "expected_evidence_pairs": [
+      {
+        "pattern": "brute_force",
+        "line_number": 3
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 4
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 5
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 6
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 7
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 8
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 9
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 10
+      },
+      {
+        "pattern": "xss",
+        "line_number": 1
+      }
+    ],
+    "actual_evidence_pairs": [
+      {
+        "pattern": "brute_force",
+        "line_number": 3
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 4
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 5
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 6
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 7
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 8
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 9
+      },
+      {
+        "pattern": "brute_force",
+        "line_number": 10
+      },
+      {
+        "pattern": "xss",
+        "line_number": 1
+      }
+    ],
+    "missing_evidence_pairs": [],
+    "unexpected_evidence_pairs": [],
+    "unselected_evidence_pairs": [],
+    "evidence_recall": 1.0,
+    "evidence_precision": 1.0,
+    "evidence_expectations_met": true,
+    "expected_evidence_fully_selected": true,
+    "selected_input_lines": 11,
+    "fixture_input_lines": 11,
+    "fixture_fully_selected": true
+  },
+  "new_cases": [
+    {
+      "name": "split_dvwa_burst",
+      "fixture_case": "dvwa_post_burst",
+      "checks": {
+        "families": true,
+        "evidence_verdict": true,
+        "selection_verdict": true,
+        "group_verdict": true,
+        "fixture_verdict": true,
+        "counts": true,
+        "quality_pending": true,
+        "grounded_text": true,
+        "narrative_source": true,
+        "recommendation_refs": true
+      },
+      "passed": true,
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-b34c4557943c40d8b93618aadf4b7ac0",
+      "sha256": {
+        "report.md": "e480044cc5a9398ba744003e6a6bd0274873baf2fe3aa9c485a07802ae512cc9",
+        "result.json": "f0a7237e80a4bc6824553685f2304e49857a1dd401546fe7ad8b25cfcd509e00"
+      },
+      "case": "dvwa_post_burst",
+      "metrics_scope": "pattern_families_not_event_accuracy",
+      "expected_patterns": [
+        "brute_force",
+        "xss"
+      ],
+      "optional_patterns": [],
+      "actual_patterns": [
+        "brute_force",
+        "xss"
+      ],
+      "missing_patterns": [],
+      "unexpected_patterns": [],
+      "pattern_recall": 1.0,
+      "pattern_precision": 1.0,
+      "pattern_expectations_met": true,
+      "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+      "expected_evidence_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        },
+        {
+          "pattern": "xss",
+          "line_number": 1
+        }
+      ],
+      "actual_evidence_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        },
+        {
+          "pattern": "xss",
+          "line_number": 1
+        }
+      ],
+      "missing_evidence_pairs": [],
+      "unexpected_evidence_pairs": [],
+      "unselected_evidence_pairs": [],
+      "evidence_recall": 1.0,
+      "evidence_precision": 1.0,
+      "evidence_expectations_met": true,
+      "expected_evidence_fully_selected": true,
+      "selected_input_lines": 11,
+      "fixture_input_lines": 11,
+      "fixture_fully_selected": true,
+      "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+      "expected_selected_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "pattern": "xss",
+          "line_numbers": [
+            1
+          ]
+        }
+      ],
+      "optional_selected_groups": [],
+      "actual_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "pattern": "xss",
+          "line_numbers": [
+            1
+          ]
+        }
+      ],
+      "missing_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ],
+      "unexpected_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ],
+      "actual_group_count": 3,
+      "expected_selected_group_count": 2,
+      "group_recall": 0.5,
+      "group_precision": 0.3333333333333333,
+      "group_expectations_met": false,
+      "metrics_version": "a05-metrics-2",
+      "semantic_acceptance": false,
+      "fixture_expectations_met": false
+    },
+    {
+      "name": "overlapping_dvwa_burst",
+      "fixture_case": "dvwa_post_burst",
+      "checks": {
+        "families": true,
+        "evidence_verdict": true,
+        "selection_verdict": true,
+        "group_verdict": true,
+        "fixture_verdict": true,
+        "counts": true,
+        "quality_pending": true,
+        "grounded_text": true,
+        "narrative_source": true,
+        "recommendation_refs": true
+      },
+      "passed": true,
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-f070610158604cc2b097c2380dc682f5",
+      "sha256": {
+        "report.md": "faaa141d6f7c55d0b806fc709b7918b9877ed297976caba6f8e0a05ffbe9e252",
+        "result.json": "67bd85adb494eb5389007a931f613d73c2a090d358489286729e64359ac2e2e4"
+      },
+      "case": "dvwa_post_burst",
+      "metrics_scope": "pattern_families_not_event_accuracy",
+      "expected_patterns": [
+        "brute_force",
+        "xss"
+      ],
+      "optional_patterns": [],
+      "actual_patterns": [
+        "brute_force",
+        "xss"
+      ],
+      "missing_patterns": [],
+      "unexpected_patterns": [],
+      "pattern_recall": 1.0,
+      "pattern_precision": 1.0,
+      "pattern_expectations_met": true,
+      "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+      "expected_evidence_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        },
+        {
+          "pattern": "xss",
+          "line_number": 1
+        }
+      ],
+      "actual_evidence_pairs": [
+        {
+          "pattern": "brute_force",
+          "line_number": 3
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 4
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 5
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 6
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 7
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 8
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 9
+        },
+        {
+          "pattern": "brute_force",
+          "line_number": 10
+        },
+        {
+          "pattern": "xss",
+          "line_number": 1
+        }
+      ],
+      "missing_evidence_pairs": [],
+      "unexpected_evidence_pairs": [],
+      "unselected_evidence_pairs": [],
+      "evidence_recall": 1.0,
+      "evidence_precision": 1.0,
+      "evidence_expectations_met": true,
+      "expected_evidence_fully_selected": true,
+      "selected_input_lines": 11,
+      "fixture_input_lines": 11,
+      "fixture_fully_selected": true,
+      "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+      "expected_selected_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "pattern": "xss",
+          "line_numbers": [
+            1
+          ]
+        }
+      ],
+      "optional_selected_groups": [],
+      "actual_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "pattern": "xss",
+          "line_numbers": [
+            1
+          ]
+        }
+      ],
+      "missing_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ],
+      "unexpected_groups": [
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "line_numbers": [
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        }
+      ],
+      "actual_group_count": 3,
+      "expected_selected_group_count": 2,
+      "group_recall": 0.5,
+      "group_precision": 0.3333333333333333,
+      "group_expectations_met": false,
+      "metrics_version": "a05-metrics-2",
+      "semantic_acceptance": false,
+      "fixture_expectations_met": false
+    }
+  ],
+  "previous_twenty_two_pair_metrics_checks_and_publication_hashes_preserved": true,
+  "retrospective_read_only_review": {
+    "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-8bfa8a7a651e4d24b764d7e0dbfa37e2",
+    "sha256": {
+      "result.json": "82146934f45be61e914045fcb857f17ba539d21eb71b478f35dfea02f3c4b13e",
+      "report.md": "6ba2f3af3ad20c06a3d3a88526632947adf1c2d430ee6df1bbb8f78943b781b6"
+    },
+    "fixture_expectations_met": true,
+    "source_files_unchanged": true
+  },
+  "local_tests": [
+    {
+      "script": "check_syntax.py",
+      "exit_code": 0,
+      "python": [],
+      "syntax": [
+        "web-defense-ai V2: 100 archivos; 0 errores de sintaxis."
+      ],
+      "test_outcome": []
+    },
+    {
+      "script": "check_baseline.py",
+      "exit_code": 0,
+      "python": [
+        "Ran 374 tests in 31.605s"
+      ],
+      "syntax": [],
+      "test_outcome": [
+        "OK (skipped=1)"
+      ]
+    }
+  ],
+  "local_review_directory": ".local-state/a05-offline-review/20261019T103911054532Z",
+  "remote_CI": null,
+  "real_provider_calls": 0,
+  "Docker_used": false,
+  "VM_changed": false,
+  "operational_data_read_or_written": false,
+  "dotenv_bytes_read": false,
+  "scope": "Exact authored fixture partitions, not general incident grouping, state/severity correctness or semantic acceptance."
+}

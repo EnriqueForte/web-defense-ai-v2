@@ -91,5 +91,6 @@ class EvaluationEvidenceTests(TestCase):
         self.assertTrue(result["passed"], result)
         self.assertEqual(result["provider_calls"], 0)
         self.assertEqual(result["fixture_version"], "a05-fixtures-2")
-        self.assertEqual(len(result["cases"]), 22)
+        self.assertEqual(result["metrics_version"], "a05-metrics-2")
+        self.assertEqual(len(result["cases"]), 24)
         self.assertEqual(len(result["guard_controls"]), 8)

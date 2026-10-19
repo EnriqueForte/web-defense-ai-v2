@@ -58,7 +58,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
 | Seguridad | [Revisión 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md): seis entradas por OS en Chroma/MCP, braces retenido y conflicto de migración reproducido; [Mailpit](SEGURIDAD_RESIDUAL_2026_10_16.md) con un UNKNOWN; escaneo de archivos/historial y triage realizados | Migración compatible de MCP, riesgos de dependencias/infraestructura, procedencia del CSRF histórico y aplicación separada en Parrot; revisión global de seguridad abierta |
-| Calidad A-05 | Matriz offline/CI ampliada a 22 casos/ocho controles y 23 publicaciones completas por OS verificadas; muestras mixed/normal/same_family y recorrido XSS/fuerza bruta aceptados en su alcance | Continúa pendiente la evaluación semántica general; la aceptación de las muestras no equivale a cobertura general |
+| Calidad A-05 | Matriz previa 22/8 y publicaciones completas verificadas; ampliación local a métricas de agrupación, 24/8 y revisión de informes sin proveedor | Publicar/verificar la ampliación y continuar la evaluación semántica general; la aceptación de muestras no equivale a cobertura general |
 | Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
@@ -102,6 +102,13 @@ registrado; los dos presupuestos se mantienen separados y sus saldos no se
 reutilizan. El 15/10 se aceptó además el recorrido de ingesta y análisis en
 Parrot para la muestra XSS/fuerza bruta descrita arriba; la evaluación semántica
 general sigue pendiente y no se cierra A-05.
+
+La [evaluación de grupos del 19/10](EVALUACION_GRUPOS_A05_2026_10_19.md) corrige
+una carencia de medición: dividir una ráfaga podía conservar todos los pares
+pero aumentar el contador de hallazgos. Añade métricas de partición exacta según
+etiquetas de fixture y un CLI para revisar publicaciones existentes sin proveedor.
+24 casos/ocho controles aprobados localmente; publicación y CI pendientes. No
+cambia las reglas del motor ni demuestra calidad semántica general.
 
 [Operación y recuperación del 14/10](OPERACION_RECUPERACION_2026_10_14.md)
 añade `restore_operational.py --backup <carpeta>` para un destino nuevo aislado,
