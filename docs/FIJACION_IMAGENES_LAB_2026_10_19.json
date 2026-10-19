@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-19",
+  "status": "prepared_locally; ci_and_remote_scan_pending; residual_security_open",
+  "registry_verification": {
+    "date": "2026-10-19",
+    "captured_at": "2026-10-19T09:14:04.990403+00:00",
+    "basis_run": 39120143668,
+    "basis_artifact": 12133887424,
+    "basis_summary_sha256": "c92d2bd76ef831ec8ea5a58214ca6921e3cd0be3335bf1c5f3206a4f7443033c",
+    "images": [
+      {
+        "label": "lab-mariadb",
+        "previous_tag": "mariadb:10.11",
+        "pinned_reference": "mariadb:10.11@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e",
+        "root_digest": "sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e",
+        "selected_amd64_manifest": "sha256:bb27bde261794d326398a9c998ddf9f35db45296d829123bff829cd076f68107",
+        "image_id": "sha256:4e667183d5236dbbecf88167a0f1f49dc0c116aa46990309e920e663e2fdc348",
+        "manifest_bytes_sha256_match": true,
+        "image_id_matches_reviewed_20261018_scan": true,
+        "tag_digest_observed_now": "sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e",
+        "tag_changed_since_20261018": false,
+        "platform_verified": "linux/amd64",
+        "registry": "registry-1.docker.io"
+      },
+      {
+        "label": "lab-dvwa",
+        "previous_tag": "ghcr.io/digininja/dvwa:b496a5d",
+        "pinned_reference": "ghcr.io/digininja/dvwa:b496a5d@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+        "root_digest": "sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+        "selected_amd64_manifest": "sha256:4d621f9b4b04b14c5a83e148b316e41ef8c86d72af7d7488fd2251cf0a8d08c9",
+        "image_id": "sha256:7c65cc0145a5c4d3e8fcd226b37c46df6d041d76eaa9f83e7eb067beb5f89e40",
+        "manifest_bytes_sha256_match": true,
+        "image_id_matches_reviewed_20261018_scan": true,
+        "tag_digest_observed_now": "sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6",
+        "tag_changed_since_20261018": false,
+        "platform_verified": "linux/amd64",
+        "registry": "ghcr.io"
+      }
+    ],
+    "containers_started": false,
+    "operational_images_or_volumes_changed": false,
+    "other_architectures_verified": false
+  },
+  "local_checks": [
+    {
+      "script": "check_syntax.py",
+      "exit_code": 0,
+      "python": [],
+      "syntax": [
+        "web-defense-ai V2: 96 archivos; 0 errores de sintaxis."
+      ],
+      "test_outcome": []
+    },
+    {
+      "script": "check_baseline.py",
+      "exit_code": 0,
+      "python": [
+        "Ran 358 tests in 35.910s"
+      ],
+      "syntax": [],
+      "test_outcome": [
+        "OK (skipped=1)"
+      ]
+    }
+  ],
+  "targeted_scanner_tests": {
+    "cases": 9,
+    "passed": 9,
+    "new_cases": 4,
+    "digest_mismatch_reproduced_before_fix": true
+  },
+  "scope": {
+    "linux_amd64_only": true,
+    "existing_audited_image_bytes_selected": true,
+    "operational_images_volumes_or_mailboxes_changed": false,
+    "docker_started": false,
+    "real_llm_calls": 0,
+    "external_notifications": 0,
+    "dotenv_bytes_read": false,
+    "running_vm_images_not_verified": true,
+    "live_database_migration_not_verified": true,
+    "dependency_vulnerability_remediation_claimed": false
+  }
+}

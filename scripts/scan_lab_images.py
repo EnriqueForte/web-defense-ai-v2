@@ -8,8 +8,8 @@ import re
 import subprocess
 
 IMAGES = {
-    "lab-mariadb": ("recommended", "mariadb:10.11"),
-    "lab-dvwa": ("recommended", "ghcr.io/digininja/dvwa:b496a5d"),
+    "lab-mariadb": ("recommended", "mariadb:10.11@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e"),
+    "lab-dvwa": ("recommended", "ghcr.io/digininja/dvwa:b496a5d@sha256:ed35515e9111801e6e386a6fbb11165508cc7f72e0cb8da4dbb3df70182986c6"),
     "lab-mailpit": ("recommended", "axllent/mailpit:v1.31.6@sha256:23fe39e81bde596a918000b3135c0f85dc8bb4c9ea6be274b051143f3e300387"),
     "legacy-mysql": ("legacy", "mysql:8.0"),
     "legacy-dvwa": ("legacy", "vulnerables/web-dvwa:latest"),
@@ -33,6 +33,11 @@ def summarize_report(label, report, image_set="inventory"):
     digests = metadata.get("RepoDigests", [])
     if not digests or not all(re.fullmatch(r"[^\s@]+@sha256:[a-f0-9]{64}", value) for value in digests):
         raise ValueError("Image report lacks resolved digests")
+    pinned_digest = reference.split("@", 1)[1] if "@" in reference else None
+    if pinned_digest is not None:
+        if not re.fullmatch(r"sha256:[a-f0-9]{64}", pinned_digest) or not any(
+                value.split("@", 1)[1] == pinned_digest for value in digests):
+            raise ValueError("Image report does not match the pinned digest")
     counts = Counter()
     ids = set()
     fixed_entries = 0
@@ -43,6 +48,7 @@ def summarize_report(label, report, image_set="inventory"):
             fixed_entries += bool(vulnerability.get("FixedVersion"))
     return {"label": label, "scope": scope, "requested_reference": reference,
             "status": "scanned", "repo_digests": digests,
+            "requested_digest_verified": True if pinned_digest is not None else None,
             "image_id": metadata.get("ImageID"), "os": metadata.get("OS"),
             "platform": "linux/amd64", "entries_by_severity": dict(sorted(counts.items())),
             "distinct_vulnerability_ids": len(ids), "entries_with_fix": fixed_entries,

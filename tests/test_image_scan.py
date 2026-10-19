@@ -12,6 +12,16 @@ from scripts import scan_lab_images as images
 
 
 class ImageScanTests(TestCase):
+    def test_all_lab_services_match_the_pinned_inventory(self):
+        root = Path(__file__).resolve().parents[1]
+        compose = yaml.safe_load((root / "compose.lab.yaml").read_text(encoding="utf-8"))
+        labels = {"dvwa-db": "lab-mariadb", "dvwa": "lab-dvwa", "mailpit": "lab-mailpit"}
+        for service, label in labels.items():
+            with self.subTest(service=service):
+                reference = compose["services"][service]["image"]
+                self.assertEqual(reference, images.IMAGES[label][1])
+                self.assertRegex(reference, r"^[^\s@]+@sha256:[a-f0-9]{64}$")
+
     def test_compose_mailpit_uses_the_same_pinned_reference_as_inventory(self):
         root = Path(__file__).resolve().parents[1]
         compose = yaml.safe_load((root / "compose.lab.yaml").read_text(encoding="utf-8"))
@@ -22,8 +32,9 @@ class ImageScanTests(TestCase):
         self.assertEqual(images.IMAGE_SETS["mailpit-review"]["lab-mailpit"][1], "axllent/mailpit:v1.31.1")
 
     def report(self):
-        return {"SchemaVersion": 2, "ArtifactType": "container_image", "ArtifactName": "mariadb:10.11",
-                "Metadata": {"RepoDigests": ["mariadb@sha256:" + "a" * 64]},
+        reference = images.IMAGES["lab-mariadb"][1]
+        return {"SchemaVersion": 2, "ArtifactType": "container_image", "ArtifactName": reference,
+                "Metadata": {"RepoDigests": ["mariadb@" + reference.split("@", 1)[1]]},
                 "Results": [{"Vulnerabilities": [
                     {"VulnerabilityID": "CVE-synthetic-1", "Severity": "HIGH", "FixedVersion": "2"},
                     {"VulnerabilityID": "CVE-synthetic-1", "Severity": "HIGH"},
@@ -34,6 +45,41 @@ class ImageScanTests(TestCase):
         self.assertEqual(row["entries_by_severity"], {"CRITICAL": 1, "HIGH": 2})
         self.assertEqual(row["distinct_vulnerability_ids"], 2)
         self.assertEqual(row["entries_with_fix"], 1)
+        self.assertIs(row["requested_digest_verified"], True)
+
+    def test_pinned_report_rejects_a_different_resolved_digest(self):
+        reference = "mariadb:synthetic@sha256:" + "7" * 64
+        report = self.report()
+        report["ArtifactName"] = reference
+        with patch.dict(images.IMAGE_SETS, {"pinned-fixture": {"lab-mariadb": ("synthetic", reference)}}):
+            with self.assertRaises(ValueError):
+                images.summarize_report("lab-mariadb", report, "pinned-fixture")
+
+    def test_pinned_digest_mismatch_is_a_scan_failure_not_zero_findings(self):
+        reference = images.IMAGES["lab-mariadb"][1]
+        report = self.report()
+        report["Metadata"]["RepoDigests"] = ["mariadb@sha256:" + "a" * 64]
+        def run(command, **_kwargs):
+            if "--version" in command:
+                return SimpleNamespace(stdout="Version: synthetic\n")
+            Path(command[command.index("--output") + 1]).write_text(json.dumps(report))
+            return SimpleNamespace(returncode=0)
+        with TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()), \
+                patch.dict(images.IMAGE_SETS, {"pinned-fixture": {"lab-mariadb": ("synthetic", reference)}}), \
+                patch.object(images.subprocess, "run", side_effect=run):
+            folder = Path(directory)
+            self.assertEqual(images.scan("synthetic-trivy", folder, "pinned-fixture"), 1)
+            summary = json.loads((folder / "summary.json").read_text())
+            self.assertEqual(summary["images"][0]["status"], "scan_failed")
+            self.assertNotIn("entries_by_severity", summary["images"][0])
+            self.assertFalse(summary["containers_started"])
+
+    def test_legacy_tag_snapshot_is_not_claimed_as_a_verified_pin(self):
+        report = self.report()
+        report["ArtifactName"] = images.IMAGES["legacy-mysql"][1]
+        report["Metadata"]["RepoDigests"] = ["mysql@sha256:" + "a" * 64]
+        row = images.summarize_report("legacy-mysql", report)
+        self.assertIsNone(row["requested_digest_verified"])
 
     def test_wrong_reference_or_missing_digest_cannot_be_claimed_scanned(self):
         for value in ([], ["mariadb:10.11"], ["mariadb@sha256:invalid"]):

@@ -4,6 +4,18 @@ Este Compose prepara una instancia local para el piloto de web-defense-ai V2.
 No ejecuta Flask, Next.js, CrewAI, el pipeline ni las notificaciones. Las
 imágenes solo se descargan al iniciar explícitamente el laboratorio.
 
+Los tres servicios quedan [fijados por digest](FIJACION_IMAGENES_LAB_2026_10_19.md):
+MariaDB 10.11, DVWA b496a5d y Mailpit 1.31.6. El escáner comprueba que el digest
+resuelto coincide con el solicitado. La fijación conserva imágenes auditadas;
+no elimina sus vulnerabilidades ni actualiza contenedores existentes.
+
+En una instalación existente, volver a iniciar con el Compose actualizado puede
+recrear DVWA y MariaDB. Antes de aplicarlo, conserva una copia verificada de la
+base y un plan de recuperación; el respaldo de la aplicación no incluye el
+volumen Docker de DVWA. No uses `down --volumes` para aplicar esta fijación ni
+habilites una actualización automática de la base. La migración del volumen
+existente y su verificación en Parrot requieren un recorrido separado.
+
 Mailpit queda fijado a 1.31.6 por digest tras la
 [comparación de seguridad y SMTP/API](SEGURIDAD_RESIDUAL_2026_10_16.md) en CI.
 En una instalación existente, actualizar el repo no recrea contenedores.

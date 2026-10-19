@@ -2,6 +2,19 @@
 
 ## Alcance actual
 
+Fijación imágenes19/10 local: Compose/scanner MariaDB10.11@sha256:0d0945c5...b43b5e
+y DVWAb496a5d@sha256:ed35515e...2986c6, mismosbytes auditados18/10run39120143668/
+artifact12133887424. Registrospúblicos consultadossinDocker: SHAmanifiestoraíz/
+linuxamd64/ImageIDesperadoverificados; tags19/10aúniguales. Mailpitpinconservado.
+ScannerahoracomparaRepoDigestsconpinsolicitado; regresiónantesfallóporaceptarotro,
+corregido9testsimages(4nuevas)/358Python(357Win+1Linuxomitido)/3JS96sintaxisOK.
+requested_digest_verified trueparapinverificado/nulllegacy. Noeliminaavisos ni
+pruebacompatibilidadvolumenVM. SinDocker/LLM/envíos/serviciosoperativos/.envbytes/
+contenedores/volúmenesVM; antesaplicar guardarcopiaverificadaDB/planderecuperación,
+sin down--volumes/reset/autoupgrade. PublicaciónCI/escanfinalpendientes,
+códigoCIprevio31c8a29. Registro docs/FIJACION_IMAGENES_LAB_2026_10_19.md/JSON,
+recibosimage-pins-20261019ignorados. Entradas inferiores históricas.
+
 Revisión dependencias/secretos publicada/CIverificada18/10: código31c8a29
 (31c8a29ed88a38ab439073b9ce79cce15ae8ad13), run39122621402attempt1Windows/Ubuntu
 completed/success; estados/pasos/logsfinales/siete testsGroqafectados revisados.
