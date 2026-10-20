@@ -1,6 +1,8 @@
 # Evaluación A-05 de grupos y revisión sin proveedor — 19/10/2026
 
-Estado: implementación y pruebas locales completadas; publicación y CI pendientes.
+Estado: código publicado como `ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c`;
+CI Windows/Ubuntu y artefactos completos verificados el 20/10/2026.
+La evaluación semántica general sigue abierta.
 
 La evaluación distingue ahora cobertura de referencias y agrupación del informe.
 También permite revisar una publicación sintética existente sin ejecutar otra
@@ -92,6 +94,33 @@ existente, que incluye 101 archivos sin locks de publicación.
 Recibos en `.local-state/a05-groups-20261019/` y publicaciones sintéticas en
 `.local-state/a05-offline-review/`, ambos ignorados. El [registro JSON](EVALUACION_GRUPOS_A05_2026_10_19.json)
 recoge reproducción, contraste con el bloque anterior y verificaciones.
+
+## Publicación y verificación de CI
+
+La [CI 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802),
+attempt 1, terminó `completed/success` para el código `ca2f6af` en ambos OS.
+Se revisaron estados, pasos, logs finales y las nueve pruebas nuevas.
+
+| Comprobación | Windows | Ubuntu 24.04 |
+| --- | --- | --- |
+| Python | 373 aprobadas y una exclusiva Linux omitida; 67,340 s | 374 aprobadas; 33,071 s |
+| E2E Chromium | Nueve aprobadas; 52,8 s | Nueve aprobadas; 8,6 s |
+| Inventario completo | Artefacto 12180448589; 172/0/0 | Artefacto 12180308670; 172/0/0 |
+| A-05 completo | Artefacto 12180941353 | Artefacto 12181296365 |
+
+También pasaron tres comprobaciones JS, sintaxis de 100 archivos, contratos
+HTTP sintéticos, 27 casos SDK offline, lint/tipos y 17 pruebas UI. El smoke
+comprobó lectura API directa/proxy 200, ejecutor offline y cierre de puertos.
+Los hashes de freezes completos coinciden con los verificados en la CI anterior.
+
+Cada artefacto A-05 contiene 24 casos, ocho controles y 25 publicaciones
+sintéticas completas: 101 archivos, sin locks. Se verificaron punteros,
+manifiestos y hashes, se recomputaron las métricas y se contrastaron los bytes
+JSON/Markdown de todas las publicaciones con la revisión local
+`20261019T103911054532Z`: iguales. Los UUID y fechas propios de manifiestos
+no se confunden con diferencias del informe. El registro JSON conserva los
+identificadores y hashes de ZIP/review. Esto cierra la publicación y comprobación
+de este bloque, sin añadir evidencia sobre respuestas de un proveedor real.
 
 ## Límites y reversión
 

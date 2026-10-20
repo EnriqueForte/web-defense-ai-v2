@@ -2,6 +2,118 @@
 
 ## Alcance actual
 
+C4 iniciado20/10 por petición «ok sigamos con C4»: preparar publicación del
+parche/documentación en V2 y verificar CI Windows/Ubuntu existente antes de
+entrega. docs/ENTREGA_LOCAL_C4_2026_10_20.md y NOTAS_VERSION_LOCAL_2026_10_20.md
+registran alcance/borrador; consulta remota autenticada confirma main=ca2f6af,
+repositorio privado, sin tags/releases al inicio. No crear versión formal hasta
+resultado revisado/acuerdo de identificación. Sin nuevos LLM/Docker/VM/envíos/
+servicios operativos ni .envbytes. Pruebas CI solo sintéticas. Recibos
+c4-delivery-20261020 ignorados. C2/C3 aceptados y límites intactos.
+Entradas inferiores históricas.
+
+C3 tratamientoresidual cerrado20/10 por respuesta expresa «Aceptar tratamiento
+local acotado (recomendado)», separado de C2. R1–R8 docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md/JSON:
+acepta uso personal/local/aislado con avisos Chroma/MCP/braces/imágenes/Mailpit/
+CSRFhistórico/límites retenidos, no seguridadglobal ni vulnerabilidades arregladas
+poraceptación. Par aiohttp3.14.4/yarl1.25.1 corregido local .p4; 376Python
+(375Win+1Linuxomitido)/3JS101sintaxis/HTTP27SDK/inventario172/0/0/pipcheck OK.
+CorrecciónCookietest2 falla5subcasosantes/pasa después, sin red. Otros paquetes
+inmutables/.p2/.envbytes/VM/LLM/Docker/envíos/serviciosoperativos sin cambios.
+C4 debe publicar/verificar CI Win/Ubuntu del parche antes de entrega; Linux
+proyectado no ejecución. V1 VM condicional. Aceptación no autoriza release/
+LLM/Docker/VM/envíos; no commit/push aún. No reabrir C2/C3 como bloqueos
+universales; cambios futuros de exposición/Chroma/MCP/pines requieren revisión.
+Entradas inferiores históricas.
+
+C3 revisión20/10 local: audits172desdeCI39239742802 dan9entradas/OS(3nuevas
+aiohttp). Fuentes oficiales aiohttp3.14.4 corrigen tres; requiere yarl>=1.25.1,
+primerdryrun rechazó yarl1.23.0. Requisitos/constraint actual cambian solo par
+aiohttp3.14.3->3.14.4/yarl1.23.0->1.25.1. .p4actualizada solo2/172/0/0/pipcheck;
+wheels Win SHAverificados/metadatos Linux disponibles, no Linux ejecutado.
+Auditoría post Winreal+Linuxproyectado6entradas5IDsChroma/MCP; CrewAI1.15.28
+aúnmcp~=1.28.1/Chroma1.5.9/braces3.0.3 sinfixcompatible; nooverrides.
+CookieSecure:2tests reproducen5fallos subcasosantes/pasan después sin red;
+376Python(375Win+1Linuxomitido)/3JS101sintaxis/HTTP27SDK OK; primerbaseline
+falló igualdadsnapshothistórico, test adaptado solo par ysnapshot intacto.
+Red/import sandbox bloqueados, intentos propios verificados cerrados; fuera
+autorizado pasó. FalloUTF8 plan corregido antesinstalar. No .p2/.envbytes/VM/
+LLM/Docker/serviciosoperativos/envíos. docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md/JSON
+preparaR1–R8, aceptación residual pendiente; C2 no cubreC3. CI nueva Win/Ubuntu
+obligatoriaC4 por pines cambiados, todavía no publicada/verificada. Imágenes
+soloescaneo19/10; CSRFhistórico opaco retenido. Gitleaks actual4/histórico5
+triage0pendientes/sinallowlist; revisiónfinal candidato pendiente trasactas.
+Recibos security-close-20261020 ignorados; no commit/push/release.
+Entradas inferiores históricas.
+
+C2/A05 cerrada20/10 por respuesta expresa usuario «Aceptar alcance local acotado
+(recomendado)» sobre propuesta docs/REVISION_ACEPTACION_A05_2026_10_20.md.
+Acepta primera versión local apoyo revisión indicadores/límites explícitos y
+aplaza comparación legacy, sin marcarla realizada/superioridad/p95/coste ni
+resistencia LLM/calidad general garantizados. D1–D4 resueltas en ese alcance;
+no reabrir muestras ni mantener calidad universal como bloqueo indefinido de
+esta entrega. quality=semantic_evaluation_pending de resultados intacto; no
+certificación general ni reescritura informes. C3 seguridad/C4 entrega/V1 VM
+independientes y abiertos/condicional; respuesta no autoriza nuevos LLM,
+Docker/servicios/envíos/VM/release. Cambios documentales locales; no commit/push.
+Acta/JSON y matriz/README/guías/resumen/plan sincronizados. Próximo bloque C3.
+Comprobación final local:14Markdown/187enlaces relativos/2cronologías preservadas,
+12criterios/4decisiones,56archivos históricos iguales; diff--check correcto.
+Recibos a05-acceptance-20261020 y docs-consolidation-20261020 ignorados.
+Entradas inferiores históricas.
+
+Revisión A05 local20/10:12recibos sintéticos guardados/11publicaciones/56archivos
+hashes antes-después iguales, caso same_family fallido sin publicación conservado.
+Familias/pares/selección completa/contratos actuales pasan en11; partición exacta
+difiere solo same_familyE2(2eventos/1grupoautor), no revoca aceptación histórica.
+3narrativas+MarkdownE2 iguales a construcción actual y hashes del acta14/10;
+E1prompt4/regla2 conserva narrativa normal«1»/formatoantiguo, no corregir originales.
+Revisión técnica D1 terminada; D2 límites documentados, D3 propone aplazar
+comparación legacy (no medida), D4 decisión de alcance solicitada al usuario.
+No cerrar C2 ni aceptar límites por silencio. Actas docs/REVISION_ACEPTACION_A05_2026_10_20.md/JSON;
+recibos a05-acceptance-20261020 ignorados. Sin LLM/Docker/servicios/envíos/VM/
+.envbytes/inventariooperativo nuevos; solo lectura de publicaciones sintéticas,
+no config/modelresolver/CrewAI/LiteLLM/main/pipeline. Cambios locales documentales,
+sin CI nueva, commit/push o release. Ensayos previos consumidos.
+Entradas inferiores históricas.
+
+Consolidación documental local20/10: README vigente/arquitectura 1.15.27/172pins,
+guías de instalación/lectura/análisis manual/retorno y actualización diferenciadas;
+el cierre del lanzador detiene Flask+Next, el recorrido manual explica tres
+terminales y conservación de datos. Backlog A01–A04 integradas, A05 aceptación
+abierta; no reabrir pruebas Parrot15/10 ni confundir pins con VM actualizada.
+Cronologías README/plan trasladadas íntegramente a docs/HISTORIAL_README_2026_10_20.md
+y HISTORIAL_PLAN_AGENTES_2026_10_20.md (enlaces README adaptados de carpeta).
+docs/MATRIZ_ACEPTACION_A05_2026_10_20.md:12criterios AC01–AC12 y decisiones D1–D4,
+actas existentes/sin recalificar proveedor. C1 consolidada localmente/matriz
+preparada; C2/C3/C4 abiertos,V1 condicional. No aceptación implícita de límites,
+supresión de riesgos ni autorización de ensayo; presupuestos previos consumidos.
+Cambios solo documentación, sin producto/config/pines/CI nueva/VM/LLM/Docker/
+servicios operativos/envíos/lectura .env operativo. Publicación documental pendiente.
+Verificación local:13Markdown/183enlaces relativos/2cronologías preservadas,
+12criterios/4decisiones y6órdenes del perfil contra AST sin ejecutarlas;
+diff--check correcto. Recibos docs-consolidation-20261020 ignorados.
+Entradas inferiores históricas.
+
+A05 grupos publicado y CI verificada el 20/10: código ca2f6af
+(ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c), run39239742802 attempt1
+Windows/Ubuntu completed/success; estados, pasos, logs y nueve tests nuevos
+revisados. Ubuntu374Python/Win373+1Linuxomitido/3JS100sintaxis/27SDK/linttipos17UI/
+9E2EporOS (Win52,8s/Ubuntu8,6s)/smokeAPIproxy200offlinecierre. Inventarios
+12180448589Win/12180308670Ubuntu 172/0/0 y freezehashes anteriores iguales.
+A05 artefactos12180941353Win/12181296365Ubuntu:24casos8controles/25publicaciones/
+101archivos porOS; punteros/manifiestos/hashes/métricas verificados y bytes
+JSON/Markdown iguales a local20261019T103911054532Z. Particiones exactas solo
+expectativas de fixtures; no aceptación semántica universal ni revocación de
+muestras previas. Registro docs/EVALUACION_GRUPOS_A05_2026_10_19.md/JSON.
+Análisis de cierre solicitado20/10: docs/ANALISIS_CIERRE_2026_10_20.md;
+criterios finitos propuestos, sin ampliar producto ni ensayos reales. Pendientes:
+aceptación A05 acotada, decisión de riesgos, consolidación de guías y entrega;
+actualización/restauración de VM condicionada al alcance. Ensayos consumidos.
+Sin nuevos LLM/Docker/envíos/servicios operativos/.envbytes/VM/inventariooperativo.
+Esta continuación solo modifica actas locales; no nueva CI ni release.
+Entradas inferiores históricas.
+
 A05grupos19/10 local: reproducidoXSS+8POST divididoentresgruposfrente2autores
 pasabafamilias/pares1. Métricasaditivas a05-metrics-2 comparanparticiónexacta
 1a1/duplicados/excesos/selecciónproyectada/veredictofixtureseparadoejecución;

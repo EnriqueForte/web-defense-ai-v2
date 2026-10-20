@@ -1,107 +1,26 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Revisión inicial: 26 de septiembre de 2026. Estado al 01/10/2026: fases 0–6 completadas; fase 6 cerrada anticipadamente con diez ciclos integrados, medición local, retorno a Flask y 14 h 11 min 46 s saludables. No se alcanzaron las 24 horas ni se generó el resumen automático; ver [FASE_6_PILOTO.md](FASE_6_PILOTO.md). El usuario aceptó esa evidencia parcial para activar localmente en fase 7 el conmutador reversible, que sigue apagado por defecto. Las mejoras A-01–A-05 del motor siguen separadas y pendientes. Todo el desarrollo se realiza en Codex y VSCode permite revisar el mismo proyecto local.
+Revisión vigente: 20/10/2026. Las fases 0–7 están cerradas en el alcance local
+aceptado, con los límites de observación registrados. A-01–A-04 están implementadas
+e integradas en la ruta structured; A-05 fue aceptada expresamente el 20/10
+para la primera versión local acotada, con comparación legacy diferida. El perfil de
+lectura no habilita análisis manual ni notificaciones por defecto.
+
+El [resumen vigente](ESTADO_FINAL_2026_10_12.md) reúne el estado y las evidencias.
+La [matriz de aceptación](MATRIZ_ACEPTACION_A05_2026_10_20.md) delimita C2; el
+[análisis de cierre](ANALISIS_CIERRE_2026_10_20.md) ordena C1–C4 y V1. No se
+reabren fases ya aceptadas ni se añaden nuevas funciones como condición implícita.
+La cronología inicial se conserva en [su archivo histórico](HISTORIAL_PLAN_AGENTES_2026_10_20.md).
+
+| Cierre | Estado al 20/10 | Próxima condición |
+| --- | --- | --- |
+| C1 — Documentación | Consolidada localmente en esta revisión | Mantener enlaces/órdenes y estado canónico coherentes; publicación documental dentro de la entrega |
+| C2 — Aceptación A-05 | Cerrada el 20/10 por aceptación expresa del alcance local propuesto | Conservar límites de las muestras y comparación diferida; no añadir promesas generales ni ensayos automáticos |
+| C3 — Seguridad | [Tratamiento residual aceptado](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) por respuesta expresa20/10, separado de C2 | Cerrado para uso local aislado; avisos retenidos y CI del parche exigida en C4, sin seguridad global certificada |
+| C4 — Versión | [Entrega en preparación](ENTREGA_LOCAL_C4_2026_10_20.md), con notas revisables y parche local | Publicar/verificar CI Windows/Ubuntu del parche, artefactos completos y contenido; acordar identificación de versión antes de crear tag/release |
+| V1 — Parrot actualizado | Condicional; no acreditado con los pins actuales | Respaldo y recuperación verificados antes de afirmar actualización de la VM |
 
 ## 1. Decisión y distinciones
-
-Estado posterior de entrega 6, 06/10/2026: integración A-05 implementada por
-conmutador reversible, 179 pruebas y seis escenarios CrewAI aislados aprobados.
-El primer análisis real falló por autenticación; tras corregir el adaptador,
-la repetición autorizada falló con ValueError (dos llamadas, 50,031 s), sin informe.
-A-05 sigue abierta por evaluación/aceptación; modo operativo `legacy`.
-[Registro y retorno](ENTREGA_6_INTEGRACION_EVALUACION.md).
-Diagnóstico por etapa añadido después: 186 pruebas y nueve escenarios CrewAI
-offline aprobados. Falta usarlo en un nuevo intento real autorizado para precisar
-el ValueError; no inferir la causa a partir de las reproducciones sintéticas.
-Intento real posterior con ese diagnóstico: respuesta vacía en detección,
-una llamada/35,516 s, ValueError en agent_utils.py:417, sin publicación.
-Falta precisar el origen del contenido vacío; A-05 sigue abierta.
-Captura de finish_reason/modelo/tokens preparada después sin llamadas reales:
-192 pruebas y 11 escenarios SDK offline aprobados. Pendiente prueba autorizada
-con esos metadatos; no se cambia el límite ni el proveedor sin evidencia.
-Intento posterior: corte `length` al límite de 2048 sin texto final; se preparó
-ampliación a 8192 solo en el evaluador. Pendiente ejecución autorizada con el
-ajuste; no se activó el motor ni se cerró A-05.
-La repetición con 8192 obtuvo JSON, rechazado por IDs inválidos/duplicados,
-y el reintento terminó por límite sin texto. Restricciones de ID alineadas
-en esquema/instrucciones, revisión structured-prototype-3 y 13 escenarios
-offline aprobados. Pendiente evaluar esa corrección; modo operativo legacy.
-Ensayo real posterior exitoso: cuatro llamadas/57,625 s, publicación aislada
-verificada. Cinco familias esperadas y un falso positivo sobre /index.html;
-resumen de razonamiento del SDK discrepante. Calidad, métricas, representatividad
-y aceptación siguen pendientes; no activar por una sola fixture exitosa.
-Seguimiento posterior: falso positivo bloqueado por política observed-access-2,
-incertidumbre preservada y uso conciliado con metadatos/SDK separados. 203 pruebas
-y 15 escenarios SDK aislados aprobados, sin llamadas nuevas. Pendiente evaluar
-structured-prototype-4 con el proveedor y completar aceptación representativa.
-Verificación real del 07/10/2026 de esos cambios: éxito sin candidato normal,
-cuatro llamadas/81 s, tokens conciliados. Ocho casos etiquetados preparados y
-208 pruebas aprobadas; alcance de la ampliación preguntado al usuario.
-El usuario autorizó los siete casos (máximo42); pasaron expectativas de familias
-con 23 llamadas. Narrativa normal «1» y latencia475,829 s requieren revisión;
-formato sin hallazgos corregido a Python y verificado offline, originales intactos.
-211 pruebas y 15 escenarios offline aprobados. [Resultado del lote](EVALUACION_AMPLIADA_A05_2026_10_07.md).
-Optimización posterior structured-prototype-5: tareas finales locales con detección
-vacía validada, una llamada en el escenario SDK simulado. 212 pruebas y 17
-escenarios offline aprobados; medición real/aceptación pendientes.
-[Cambio y límites](OPTIMIZACION_A05_SIN_HALLAZGOS.md).
-Medición posterior autorizada: normal pasó en 24 s/dos llamadas de detección,
-clasificación/narrativa locales y guardas/hashes correctos. Límites 8192/60
-alineados en main structured y evaluador; constructor SDK verificado offline.
-Aceptación y activación siguen pendientes; comparación no acredita un p95.
-Preparación operativa posterior: perfil piloto/.p2 común, preflight pasó sin
-procesos nuevos, arranque explícito y manual/notificaciones desactivados.
-223 pruebas en ambos entornos y 17 escenarios offline aprobados.
-[Activación y retorno](ACTIVACION_LOCAL_A05.md): aceptación y arranque completados
-después; worker online, cuatro rutas API HTTP 200, sin nuevos jobs. Salud
-unavailable por ausencia del primer informe structured; observación y prueba
-real del coordinador pendientes.
-El primer job del coordinador se autorizó y completó después: succeeded en
-157 s, publicación/histórico/API válidos y salud ok, manual y notificaciones
-apagados. [Registro y límites](PRIMER_ANALISIS_COORDINADOR_A05.md).
-Quedan observación operativa y aceptación final; A-05 no se cierra por un job.
-Estabilización posterior R-14/R-18: refresco por identidad de publicación,
-lecturas validadas/acotadas y sondeos sin solapamiento por canal implementados;
-14 grupos UI, tipos/lint y contratos reales aprobados, sin nuevas llamadas LLM.
-[Registro de lecturas y límites](ROBUSTEZ_LECTURAS_2026_10_07.md).
-Objetivo de cierre aclarado: código distribuible por GitHub para instalaciones
-propias. [Endurecimiento y pendientes de distribución](ENDURECIMIENTO_DISTRIBUCION_2026_10_07.md)
-implementa hosts/cuerpo/errores locales y defaults/exclusiones seguros; 232 Python
-aprobados. Clonación limpia final, diagnóstico y publicación no se declaran hechos.
-
-Estado posterior de entrega 5, 06/10/2026: A-01–A-04 completadas como
-componentes aislados, con reglas/preparación, reportes deterministas y
-publicación generacional. [Registro de A-03/A-04](ENTREGA_5_PREPARACION_PUBLICACION.md).
-El flujo operativo sigue intacto; A-05 pendiente de evaluación e integración.
-
-Estado posterior de entrega 4, 06/10/2026: A-01/A-02 completadas solo en
-alcance aislado. El flujo operativo no cambia. Registro en
-[Contratos y prototipo](ENTREGA_4_CONTRATOS_PROTOTIPO.md); siguientes A-03–A-05.
-Los estados de entregas anteriores de esta sección son históricos.
-
-Estado actualizado al 06/10/2026: F7-01 cerrada en alcance local reversible,
-con confirmación del usuario de las cuatro vistas, retorno ensayado y respaldo
-verificado. Se conserva Flask. No se completaron siete días sugeridos ni
-monitorización continua; [evidencia y límites](ENTREGA_3_OPERACION_CIERRE_LOCAL.md).
-A-01–A-05, transición del entorno operativo y aviso braces siguen pendientes.
-Los estados anteriores fechados se conservan como seguimiento histórico.
-
-Seguimiento del 06/10/2026: el rediseño SOC UI 1–8 y el zoom real al 200 %
-están cerrados según su acta. Se completó la entrega 1 de seguridad y línea base
-de [la revisión integral](REVISION_INTEGRAL_2026_10_06.md); cambios y aceptación
-en [su registro](ENTREGA_1_SEGURIDAD_LINEA_BASE.md). F7-01 y A-01–A-05 siguen
-pendientes de su propia evidencia y alcance. Los resultados históricos de las
-tablas siguientes se conservan con sus fechas.
-
-La entrega 2 también tiene implementación y verificaciones completadas:
-[dependencias y ejecución reproducible](ENTREGA_2_DEPENDENCIAS_EJECUCION.md).
-Conserva la excepción de braces sin parche publicado y las cuatro diferencias
-de la `.venv` operativa. No activa nuevas fases ni cierra la observación F7-01.
-
-Las fases 0–4 se completaron en Codex sin crear subagentes de desarrollo. Véanse
-[línea base](FASE_0_LINEA_BASE.md), [API de lectura](FASE_2_API_LECTURA.md) y
-[base visual](FASE_3_BASE_VISUAL.md). La [fase 4](FASE_4_LECTURA_CONECTADA.md)
-conectó Next.js con la API Flask en modo lectura.
 
 Realizar todo el desarrollo, las pruebas, la documentación y la coordinación desde Codex sobre este repositorio. VSCode se utilizará de forma continua para abrir y revisar esos mismos archivos mientras avanza el desarrollo. La aplicación se visualizará ejecutándola y abriendo su dirección local en un navegador; abrir el código en un IDE no arranca la aplicación.
 
@@ -137,9 +56,16 @@ La visualización web se hace en el navegador con los servidores locales activos
 
 ## 3. Auditoría inicial de agentes y tareas del producto
 
-La tabla de hallazgos siguiente conserva la evaluación original del 26/09/2026. Desde la fase 2 el reporter ya no publica el archivo final por su cuenta: `main.py` lo publica de forma atómica. La línea base añadió fixtures de tráfico y pruebas aisladas, pero la calidad de las salidas LLM aún no se ha evaluado en una integración real.
+La tabla de hallazgos siguiente conserva la evaluación original del 26/09/2026;
+no es una lista de defectos actuales. La publicación y validación se integraron
+después, con muestras reales aceptadas y límites registrados en la
+[matriz A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md). La aceptación local está cerrada;
+la calidad universal no es una afirmación de esta versión.
 
-Se revisaron las construcciones `Agent`, `Task` y `Crew` mediante inspección del código y AST, sin ejecutar el motor. CrewAI instalado y declarado: 1.14.2. Los tres agentes usan `allow_delegation=False`, `max_iter=2` y el LLM recibido del orquestador. El Crew es secuencial.
+En aquella revisión se inspeccionaron `Agent`, `Task` y `Crew` mediante código
+y AST, con CrewAI 1.14.2. Los detalles siguientes describen esa versión.
+El contrato actual fija 1.15.27; la [migración](MIGRACION_CREWAI_2026_10_12.md)
+y sus pruebas sustituyen esa versión histórica como referencia de instalación.
 
 | Agente real | Definición / tarea | Entrada y dependencia | Salida observada al inicio | Evaluación inicial |
 |---|---|---|---|---|
@@ -196,7 +122,11 @@ Un cuarto agente de revisión o triage solo se consideraría después de dispone
 
 Reintentos finitos y observables; después del límite, marcar la etapa fallida o degradada y conservar el último reporte válido. No completar silenciosamente la estructura con IPs, tiempos o severidades inventados. Registrar versión de prompt, modelo efectivo y esquema para comparar resultados.
 
-Se comprobó en el código de CrewAI instalado la existencia de `output_pydantic`, `output_json` y `guardrail`. Su integración debe probarse con la versión 1.14.2 y el proveedor elegido; no requiere actualizar CrewAI para empezar. La documentación pública consultada apunta a una versión posterior y sirve como referencia conceptual, no como prueba de compatibilidad. [Tareas de CrewAI](https://docs.crewai.com/en/concepts/tasks).
+La comprobación inicial de `output_pydantic`, `output_json` y `guardrail` se hizo
+con CrewAI 1.14.2. La integración posterior y las pruebas del contrato actual
+1.15.27 están registradas; no queda pendiente repetir aquella preparación inicial.
+La documentación pública de [tareas CrewAI](https://docs.crewai.com/en/concepts/tasks)
+es referencia conceptual, no prueba de compatibilidad del conjunto fijado.
 
 ## 5. Organización del desarrollo en Codex
 
@@ -214,32 +144,40 @@ No se crearán agentes de desarrollo dentro del IDE. El trabajo no depende de fu
 
 Por defecto, secuenciar las ediciones. Solo paralelizar después de fijar contratos y cuando los archivos no se solapen. Si se necesitan ediciones concurrentes sobre el mismo ámbito, aislarlas en ramas/espacios de trabajo y revisar su integración. Ningún agente cierra una tarea únicamente por su propia declaración de éxito.
 
-## 6. Backlog previo y asignación concreta
+## 6. Backlog y asignación concreta
 
 Estados del backlog: **preparado** significa archivo creado; **pendiente** requiere ejecución futura; **bloqueado por dependencia** describe orden técnico, no una solicitud automática de permiso.
+
+Estados A-01–A-05 revisados el 20/10. Los conteos de las fases iniciales son
+evidencia histórica de cada entrega, no el tamaño ni el resultado de la suite actual.
+Los cierres C1–C4/V1 del encabezado son distintos de las tareas de IDE C-01–C-04.
 
 | ID | Trabajo | Responsable / revisor | Dependencia | Aceptación | Estado |
 |---|---|---|---|---|---|
 | C-01 | Espacio de trabajo y contexto de consulta en VSCode | Codex | Ninguna | Workspace resuelve la raíz; referencias y formato correctos | Preparado |
 | C-02 | Verificar IDE al utilizarlo para consulta | Delivery / Quality | C-01 | Archivos y cambios visibles; no arranque automático del motor | Opcional; no bloquea desarrollo |
 | C-03 | Crear especialistas en VSCode | — | — | No aplica al flujo aclarado por el usuario | Retirado del alcance |
-| C-04 | Atajos de sintaxis, dashboard y depuración del IDE | Codex | Intérprete y extensiones locales | Configuración válida y comandos existentes; sin autoarranque | Preparado; interacción gráfica pendiente |
+| C-04 | Atajos de sintaxis, dashboard y depuración del IDE | Codex | Intérprete y extensiones locales | Configuración válida y comandos existentes; sin autoarranque | Preparado; interacción gráfica opcional, no bloquea la entrega local |
 | F0-01 | Convertir fallos previos en fixtures y pruebas | Codex | Repositorio y entorno local disponibles | Casos fallidos reproducibles sin Docker, IA ni notificaciones; cero pruebas no cuenta como éxito | Completada; 18 casos Python y 3 diagnósticos JS, 11 fallos conocidos |
 | F0-02 | Dataset de referencia del motor y límites observables | Codex | Repositorio y entorno local disponibles | Casos normales, cinco ataques, evidencias ausentes y selección truncada etiquetados | Completada; evaluación LLM real fuera de alcance |
 | F1-01 | Corregir fallos bloqueantes de interfaz anterior | Codex | F0-01 | Pruebas correspondientes aprobadas; retorno usable | Completada; 26 casos Python y 3 comprobaciones JS aprobados |
 | F2-01 | Añadir API versionada de lectura, especificación OpenAPI y capturas estables | Codex | F1-01 | Contrato legado intacto; filtros/paginación/IDs seguros; escritores atómicos | Completada; 39 casos Python y 3 comprobaciones JS aprobados |
-| A-01 | Centralizar contratos de evidencia y resultado sin cambiar prompts | Backend / Quality | F0-02 | Validación determinista y adaptación del Markdown histórico; no atribución inventada | Completada aisladamente el 06/10/2026; no integrada en motor/API |
-| A-02 | Prototipo aislado de tareas CrewAI con salidas estructuradas | Backend / Quality | A-01 | Respuestas simuladas válidas/inválidas, propagación de contexto y fallo controlado | Completada el 06/10/2026; CrewAI real con doble LLM, tres escenarios; sin activar |
-| A-03 | Corregir instrucciones, selección y criterios del motor | Backend / Quality | A-02 y línea base | Comparación por categoría y trazabilidad; cambios de clasificación explicados | Completada aisladamente el 06/10; firmas, agregados UTC y comparación sintética; no activada |
-| A-04 | Separar reporte narrativo, tabla y publicación | Backend / Quality | A-02 | Conteos del reporte y API coinciden; salida anterior conservada ante error | Completada aisladamente el 06/10; tabla/JSON/API en fixture y generaciones con puntero atómico |
-| A-05 | Evaluar integración real y activar por configuración | Backend + Delivery / Quality | A-03, A-04 | Comparación de calidad/coste/latencia y retorno al flujo previo ensayado | Siete casos reales cumplieron familias; narrativa vacía corregida offline; aceptación/latencia/comparativa/activación pendientes |
+| A-01 | Centralizar contratos de evidencia y resultado | Backend / Quality | F0-02 | Validación determinista y adaptación del Markdown histórico; no atribución inventada | Implementada e integrada en structured; contratos API y referencias probados |
+| A-02 | Tareas CrewAI con salidas estructuradas | Backend / Quality | A-01 | Respuestas válidas/inválidas, contexto y fallo controlado | Prototipo integrado; SDK offline y muestras de proveedor documentados |
+| A-03 | Instrucciones, selección y criterios del motor | Backend / Quality | A-02 y línea base | Trazabilidad y comparación por categoría | Implementada e integrada; preparación/reglas/contexto probados. Límites semánticos aceptados en el cierre local de A-05 |
+| A-04 | Separar narrativa, tabla y publicación | Backend / Quality | A-02 | Reporte/API coherentes; publicación anterior conservada ante error | Integrada; JSON/Markdown generacionales y narrativa validada, muestra Parrot aceptada en su alcance |
+| A-05 | Evaluar integración real y activar por configuración | Backend + Delivery / Quality | A-03, A-04 | Calidad acotada y límites de medición/retorno explícitos | Aceptada el 20/10 para primera versión local; comparación controlada expresamente diferida, no realizada |
 | F3-01 | Base visual Next.js con datos simulados | Codex | F2-01 | Consola de resumen, navegación, estados y demo adaptables; build, lint y tipos correctos; motor intacto | Completada; build Next y revisión visual en escritorio/móvil |
 | F4-01 | Conectar lectura y reportes | Codex | F3-01 y API estable | Equivalencia por instantánea, filtros persistentes, renderizado seguro | Completada; integración con fixture y navegador local |
 | F5-01 | Coordinación manual/periódica y publicación coherente | Codex | API estable y pruebas de concurrencia | Un ejecutor, trabajos persistentes y deduplicación | Completada; pruebas aisladas y diez ciclos integrados en fase 6 |
 | F6-LAB-01 | Preparar laboratorio DVWA aislado y captura de logs de prueba | Codex | F5-01 | Red interna; puertos solo loopback; sin montaje del repositorio; correo en sink local; logs separados; inicio y detención documentados | Contenedores y tarea de VSCode comprobados; solicitudes SQLi capturadas y visibles en ambas dashboards |
 | F6-01 | Piloto, pruebas completas y retorno | Delivery / Quality + Coordinador | F4-01, F5-01, F6-LAB-01 | Diez ciclos, medición, retorno y observación documentada | Cerrada anticipadamente el 29/09/2026; 14 h 11 min 46 s saludables, sin resumen de 24 h; tres entregas `unknown` |
 
-El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para conectar la interfaz. No activar el nuevo flujo del motor durante el mismo cambio operativo que el nuevo frontend. La opción preferida es mantener el motor original durante el primer cambio de interfaz y evaluar A-03–A-05 después de su estabilización. La fase 4 validó el consumo y la representación segura de los datos del API en React con fixtures sintéticos.
+
+El orden original separó el prototipo del cambio de interfaz. Esa integración
+ya se realizó; no se repite como pendiente. Para cambiar una instalación existente,
+mantener separados actualización, lectura, laboratorio y activación del worker,
+siguiendo la [guía operativa](INSTALACION_AUTOALOJADA.md).
 
 ## 7. Ejecución desde Codex: avances y próximos trabajos
 
@@ -251,11 +189,14 @@ El prototipo A-02 puede desarrollarse aislado tras A-01; no fue requisito para c
 | F6-LAB-01 completada | Laboratorio DVWA aislado para pilotaje | Compose y tarea VSCode probados en loopback; diez ciclos integrados y benchmark API completados |
 | F6-01 cerrada anticipadamente | Piloto y retorno | Diez ciclos, medición p95 y retorno Flask completados; siete alertas confirmadas, tres `unknown`; observación saludable de 14 h 11 min 46 s aceptada con ese límite |
 | F7-01 cerrada localmente | Conmutador de entrada reversible | Cierre 06/10/2026: usuario confirma cuatro vistas sin incidencias, retorno 357,4 ms y respaldo/restauración; Flask conservado y siete días sugeridos no completados |
-| Contratos del motor A-01 | Pendiente y separado de F2-01 | Evidencia y resultados validados sin cambiar prompts |
-| Evolución aislada | A-02–A-04 fuera de la ruta operativa | Tres agentes mejorados y validaciones probadas con simulaciones |
-| Evaluación | A-05 en laboratorio previsto | Métricas y decisión de activar o conservar el flujo anterior |
+| A-01 integrada | Contratos del motor y API | Evidencia y resultados validados, referencias verificables |
+| A-02–A-04 integradas | Ruta structured seleccionable | Tres agentes, guardas y publicación generacional; sin activar un worker al iniciar lectura |
+| A-05 aceptada en alcance local | Muestras reales/evaluación offline revisadas y decisión de usuario recibida | C2 cerrado con límites; comparación legacy diferida, sin afirmar calidad universal |
 
-La configuración de VSCode ya está preparada; no se reserva trabajo para agentes del IDE. La evolución completa del motor A-02–A-05 mantiene una estimación orientativa de 5–9 jornadas, según evaluación e integración. A-01 y los fixtures solapan trabajo ya contemplado en fases 0 y 2; no sumar esas jornadas dos veces. Mantener separados los calendarios de migración visual y evolución del motor.
+La configuración de VSCode está preparada; no se reserva trabajo para agentes
+del IDE. La estimación inicial de 5–9 jornadas para A-02–A-05 no describe el
+trabajo restante ni se acumula a fases ya completadas. El cierre se sigue por
+evidencias y condiciones C1–C4/V1, sin una nueva estimación no sustentada.
 
 ## Demostración de portfolio posterior
 
@@ -265,8 +206,8 @@ usar una red de contenedores dedicada sin exposición pública, datos y tráfico
 de ejemplo regenerables, botón de reinicio, destino de notificaciones simulado
 por defecto y una guía de inicio/detención. La demo podrá habilitar integraciones
 reales solo dentro de ese laboratorio y con destinos dedicados. La ampliación
-de portfolio queda para después de la aceptación del piloto; F6 solo añade la
-base aislada y utilidades locales de captura.
+de portfolio es opcional y posterior a la entrega local; no es un requisito de
+cierre. F6 añadió la base aislada y utilidades locales de captura.
 
 ### Ficha obligatoria de trabajo
 
@@ -276,8 +217,9 @@ Cada tarea tendrá ID, objetivo, propietario, revisor, dependencias, archivos/co
 
 - Disponible: verificar sintaxis Python sin importar el motor ni generar reportes.
 - Disponible: ejecutar la suite de regresión aislada con `scripts/check_baseline.py`.
-- Disponible: iniciar Flask en localhost para visualización o depuración. Pendiente: modo de datos de prueba con transportes externos deshabilitados.
-- Disponible: arrancar Flask y Next.js juntos desde la tarea de lectura conectada de VSCode. El ejecutor real se inicia por separado y nunca al abrir el IDE.
+- Disponible: instalar y arrancar la lectura con `webdefense.py install/start`; el lanzador usa `.p2`, sin worker ni notificaciones.
+- Disponible: fixtures y evaluación offline mediante `scripts/check_a05_offline.py`. Una demo interactiva con datos sintéticos no se añade como requisito de cierre.
+- Disponible: iniciar Flask en localhost para desarrollo; las tareas heredadas del IDE requieren su entorno explícito. El ejecutor real se inicia por separado y nunca al abrir el IDE.
 - Mantener ejecución real del motor y pipeline como operaciones manuales separadas, con nombres claros; no usar compuestos que los arranquen al abrir VSCode.
 
 Las tareas usan `cwd` explícito. Las tareas Python invocan `.venv/Scripts/python.exe` mediante PowerShell, independientemente del intérprete seleccionado en el editor; las tareas Next.js resuelven Node mediante `run-frontend.ps1`. `.gitignore` permite versionar la configuración compartida y ese script; las preferencias adicionales del IDE permanecen excluidas.
@@ -289,8 +231,12 @@ Las tareas usan `cwd` explícito. Las tareas Python invocan `.venv/Scripts/pytho
 3. El dataset diferencia intentos, éxito no demostrado y tráfico normal. Se revisan falsos positivos y falsos negativos por familia de ataque, no solo el número de amenazas.
 4. Los conteos temporales provienen de las líneas disponibles y su ventana; la muestra resumida no sustituye esos agregados.
 5. Reporte, tabla y API comparten análisis y datos canónicos; las recomendaciones no alteran severidades o hechos.
-6. Se registran modelo/prompt/esquema, duración, uso de tokens si está disponible y costes estimados; límites y métricas se fijan después de la línea base.
+6. Se registran modelo/prompt/esquema, duración y tokens cuando estén disponibles; conservar discrepancias y no inferir coste facturado. Una estimación requiere tarifa y alcance identificados; una muestra no acredita un p95.
 7. El cambio de flujo puede desactivarse por configuración sin borrar históricos. Los datos estructurados nuevos son aditivos y versionados.
 8. Los ensayos en paralelo son comparaciones de lectura o ejecuciones aisladas: nunca dos publicadores/notificadores para el mismo ciclo.
 
-No se ha creado un cuarto agente CrewAI, instalado especialistas de VSCode ni cambiado prompts. Las fases 0–7 están cerradas para el alcance local, con aceptación anticipada y límites expresos de observación en fases 6/7; Flask se mantiene como respaldo. La evolución A-01–A-05 permanece separada. El desarrollo continuará en Codex y VSCode permitirá revisar los mismos archivos.
+Se mantienen tres agentes CrewAI de producto. Las fases 0–7 están cerradas
+para el alcance local, con límites expresos de observación en fases 6/7; Flask
+se conserva como alternativa. A-01–A-04 están integradas y A-05 tiene aceptación
+expresa para la primera versión local. La [matriz](MATRIZ_ACEPTACION_A05_2026_10_20.md)
+registra los límites y el aplazamiento comparativo; no autoriza otro ensayo.

@@ -4,31 +4,32 @@ Para usuarios nuevos, consulta [Inicio rápido](INICIO_RAPIDO.md): instalación
 con `webdefense.py install` y arranque en una terminal con `webdefense.py start`.
 Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado.
 
-Ensayo limpio local Windows del 11/10/2026 aprobado sobre una copia del código
-actual sin entornos ni datos del mantenedor: [evidencia y límites](INSTALACION_LIMPIA_WINDOWS_2026_10_11.md).
-Checkout e instalación nueva en Windows y Ubuntu 24.04 aprobados en GitHub
-Actions el 12/10/2026: [evidencia CI y límites](VALIDACION_CI_2026_10_12.md).
-Parrot 7.3 x86_64 en VMware pasó instalación, pruebas offline, build y lectura
-con API directa/proxy HTTP200: [ensayo guiado del 12/10](VALIDACION_PARROT_2026_10_12.md).
+Revisión vigente: **20/10/2026**. El [resumen de estado](ESTADO_FINAL_2026_10_12.md)
+reúne pruebas y pendientes; las actas fechadas conservan su alcance histórico.
+El código está publicado en EnriqueForte/web-defense-ai-v2 con licencia MIT.
+La formalización de la versión final sigue pendiente.
 
-Contrato actualizado el 10/10/2026: [Paso 1 Dependencias](DEPENDENCIAS_2026_10_10.md).
-La [migración del 12/10](MIGRACION_CREWAI_2026_10_12.md) fija ahora 172 pines por
-plataforma, con instalación/SDK/lanzador limpios aprobados en Windows/Ubuntu CI;
-la actualización del entorno existente en Parrot se comprobó el 13/10 mediante
-capturas de instalación/inventario 172/0/0, arranque/cierre y confirmación de navegación.
-El instalador prepara pip/setuptools desde `requirements-bootstrap.txt` antes
-de instalar `requirements.txt` con `constraints-py311.txt`. Validación Windows
-aislada en `.p3`, 158 pines; `.p2/.venv` del mantenedor conservan el contrato
-anterior y no deben actualizarse mientras sus servicios estén activos. `.p3`
-no se activa automáticamente. Persisten avisos documentados y falta el escaneo
-de imágenes; no se declara cierre de seguridad. La instalación Linux acreditada
-en CI se limita a Ubuntu 24.04 x86_64.
+El instalador actual crea o reutiliza `.p2`, prepara pip/setuptools desde
+`requirements-bootstrap.txt` y aplica `requirements.txt` con `constraints-py311.txt`:
+contrato de 172 paquetes por plataforma. Las rutas `.p3/.p4/.venv` de actas
+anteriores identifican entornos de pruebas del mantenedor, no requisitos para
+una instalación nueva.
 
-Objetivo: clonar web-defense-ai V2 y usarlo en el entorno de cada persona.
-El destino es EnriqueForte/web-defense-ai-v2; el código está publicado y el
-checkout limpio pasó en CI. La versión final sigue pendiente; el ensayo guiado
-Parrot acreditó instalación y lectura. No se cambió la visibilidad del
-repositorio en esta entrega. Se conserva la licencia MIT de LICENSE.
+| Entorno | Evidencia disponible |
+| --- | --- |
+| Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39239742802, código `ca2f6af`. [Acta y artefactos completos](EVALUACION_GRUPOS_A05_2026_10_19.md). |
+| Parrot 7.3 x86_64/VMware | Instalación/lectura guiadas, inventario 172/0/0 y arranque/cierre comprobados; muestra DVWA XSS/fuerza bruta aceptada el 15/10. [Instalación](VALIDACION_PARROT_2026_10_12.md) y [análisis guiado](INCIDENCIA_GROQ_413_2026_10_15.md). |
+| VM con pins posteriores | Actualización y recuperación del volumen Docker todavía no acreditadas; requieren preparación separada. |
+
+Las [auditorías de paquetes del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md)
+y el [escaneo de imágenes del 19/10](FIJACION_IMAGENES_LAB_2026_10_19.md) sí se
+realizaron y conservan riesgos. No se declara cierre global de seguridad ni
+aceptación semántica general del motor; véase la [matriz A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md).
+
+La [revisión C3 del20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) añade un parche
+local aiohttp3.14.4/yarl1.25.1, probado en Windows `.p4`. La CI del contrato
+nuevo está pendiente; no se atribuye a los runners o a Parrot una actualización
+que no se ha ejecutado allí.
 
 ## Entorno comprobado
 
@@ -39,19 +40,18 @@ El soporte Linux contempla Parrot OS x86_64 en VMware como caso de uso del usuar
 y Ubuntu 24.04 x86_64 como entorno inicial de CI, con Python 3.11 y Docker Engine
 con Compose v2 para el laboratorio. La instalación y pruebas offline pasaron en
 Ubuntu CI y Parrot 7.3 en la VM del usuario; allí también pasó arranque/proxy Next.
-El laboratorio Docker, ingesta y análisis real en esa VM siguen pendientes.
+El recorrido Docker/ingesta/análisis pasó en esa VM para la muestra guiada del
+15/10; eso no acredita aplicar después los nuevos pins o restaurar su volumen.
 No se afirma soporte de todas las distribuciones Linux, ARM o macOS.
 Ambos sistemas utilizan `constraints-py311.txt`; las instantáneas con nombre
 Windows se mantienen como evidencia histórica. Los marcadores excluyen pywin32
 en Linux; `uvloop==0.23.0` queda fijado solo para Linux desde el 12/10.
 La instalación comprueba también paquetes adicionales con `--strict`.
-La [captura completa verificada de Ubuntu CI](CONTRATO_LINUX_2026_10_12.md)
-contiene 158 distribuciones, sin diferencias ni adicionales fuera del contrato;
-Windows conservaba sus 158 versiones en aquella entrega. El usuario comprobó después el inventario
-estricto y la exportación en Parrot7.3: 158 paquetes, cero diferencias y cero
-adicionales, según la evidencia de esa VM en el seguimiento enlazado. La migración
-posterior tiene 172 pines y también quedó comprobada en esa VM el 13/10.
-No se recibieron sus archivos freeze ni hashes; los bytes de CI son evidencia separada.
+El [contrato Linux](CONTRATO_LINUX_2026_10_12.md) conserva la etapa inicial de 158
+distribuciones. La [migración posterior](MIGRACION_CREWAI_2026_10_12.md) y la CI
+actual verifican 172/0/0 en ambos OS. El inventario de Parrot se acreditó por
+capturas; no se recibieron sus freezes ni hashes. Los bytes de CI son evidencia
+separada y no se atribuyen a esa VM.
 
 ## Preparar una instalación nueva
 
@@ -96,7 +96,11 @@ Parrot 7.3/VMware incluye instalación nueva, pip check/pines, pruebas offline,
 HTTP sintético, build Next y lectura desde el navegador de esa VM.
 El laboratorio Docker se comprueba aparte, sin llamadas LLM rutinarias.
 
-Después de que la versión esté publicada/accesible, desde PowerShell:
+### Instalación manual alternativa
+
+Para el recorrido habitual usa `webdefense.py install`, como indica el inicio
+rápido. Las siguientes órdenes permiten inspeccionar por separado la instalación.
+Con acceso al repositorio, desde PowerShell:
 
 ```powershell
 git clone https://github.com/EnriqueForte/web-defense-ai-v2.git
@@ -132,7 +136,10 @@ entorno Linux deben residir en su propio directorio local. Si faltan Python 3.11
 o su módulo venv, instalarlos por el procedimiento de tu distribución antes de
 continuar; `python3` no garantiza ser Python 3.11.
 
-Con pnpm 11.19.0 disponible:
+### Comprobaciones opcionales de desarrollo
+
+Con pnpm 11.19.0 disponible, estas pruebas pueden ejecutarse por separado.
+No son pasos necesarios en cada arranque; la instalación ya prepara el frontend:
 
 ```powershell
 Set-Location frontend
@@ -148,6 +155,14 @@ construcción del adaptador puede verificarse offline con
 `scripts/check_llm_adapter.py`. Docker y llamadas LLM no son pruebas rutinarias.
 
 ## Configuración y primera lectura
+
+El recorrido habitual es `python3 webdefense.py start` (Windows: `py`), que
+mantiene Flask y Next juntos. Para leer informes structured añade `--mode structured`.
+No arranques además los componentes manuales siguientes mientras ese lanzador
+esté activo.
+
+Para separar componentes, después de detener el lanzador con Ctrl+C, desde
+PowerShell en la raíz:
 
 ```powershell
 if (-not (Test-Path -LiteralPath .env)) {
@@ -169,11 +184,14 @@ se puede iniciar únicamente la lectura de Flask:
 .p2/Scripts/python.exe -B scripts/local_runtime_profile.py --profile pilot --mode legacy --component flask --start
 ```
 
-En otra terminal, desde frontend:
+En otra terminal, desde frontend, con el build preparado por la instalación:
 
 ```powershell
-pnpm run dev
+pnpm run start
 ```
+
+`pnpm run dev` es una alternativa de desarrollo. Para los comandos Python de
+esta sección en Linux sustituye `.p2/Scripts/python.exe` por `.p2/bin/python`.
 
 Abrir http://127.0.0.1:3000. Una clonación nueva no contiene el piloto, logs,
 informes o SQLite del mantenedor. Sin esas fuentes, la consola debe mostrar
@@ -187,10 +205,16 @@ El puerto API predeterminado es 5000; Next usa 3000.
 
 ## Laboratorio y análisis
 
-Usar [el laboratorio aislado](LABORATORIO_DVWA_FASE_6.md), compose.lab.yaml y
-scripts/start_dvwa_lab.ps1. docker-compose.yml es histórico: no es el arranque
-recomendado para la clonación. Sus datos se conservan; no ejecutar limpiezas
-o borrados de volúmenes como parte de la instalación.
+Usar [el laboratorio aislado](LABORATORIO_DVWA_FASE_6.md) y `compose.lab.yaml`.
+`scripts/start_dvwa_lab.ps1` es la utilidad PowerShell; más abajo figura la orden
+Compose para ambos sistemas. `docker-compose.yml` es legacy, con exposición
+diferente, y no es el arranque recomendado.
+
+Antes de iniciar un laboratorio existente con el Compose actualizado, conservar
+una copia verificada de su base y un plan de recuperación. Los pins nuevos
+pueden recrear DVWA/MariaDB. Mailpit no tiene buzón persistente: exportar los
+mensajes necesarios antes de recrearlo. El respaldo de aplicación no cubre esos
+datos. No usar `down --volumes`, reset o actualización automática para aplicar cambios.
 
 Después de generar peticiones de laboratorio se puede capturar el log con
 `.p2/Scripts/python.exe -B -m dashboard.services.dvwa_lab_capture`.
@@ -201,8 +225,9 @@ La activación del flujo estructurado y la admisión manual son decisiones
 separadas de la primera lectura; véanse [activación](ACTIVACION_LOCAL_A05.md)
 y [coordinación](FASE_5_ANALISIS_COORDINADO.md). Los recibos de la instalación
 del mantenedor no se incluyen ni constituyen pruebas del equipo del usuario.
-El procedimiento de arranque habitual está preparado debajo; antes de la versión
-final queda comprobarlo desde una clonación limpia del contenido final.
+El arranque de lectura y los contratos están comprobados en CI para el código
+enlazado al principio. Las llamadas reales y el recorrido de una VM concreta
+tienen evidencia separada; no se atribuyen a las pruebas offline.
 
 ## Arranque habitual en ambos sistemas
 
@@ -251,25 +276,52 @@ informes en `.local-state/phase6-pilot/reports` y usa su SQLite separada. El nom
 se conserva por compatibilidad; estas rutas se crean en cada instalación.
 El perfil `legacy` usa las rutas históricas y su origen Docker anterior.
 
-Para admitir análisis manuales estructurados cuando decidas consumir tu proveedor,
-detén primero la lectura Flask anterior con Ctrl+C y arranca estas dos terminales
+### Pasar de lectura a análisis manual
+
+Configura el proveedor y confirma que la copia de log contiene los datos que
+quieres analizar. Usa el mismo usuario y permisos de captura Docker; no arranques
+el motor como root para resolver permisos. Si Node se instaló con nvm, carga
+su entorno en cada terminal que vaya a iniciar Next.
+
+Espera a que termine cualquier análisis activo antes de cambiar perfiles.
+Detén la lectura anterior con Ctrl+C. Si usabas `webdefense.py start`, ese cierre
+detiene tanto Flask como Next, por lo que necesitarás las tres terminales de abajo.
+Si Next ya se mantiene abierto por separado, conserva esa instancia y omite la tercera.
+
+Primera terminal desde la raíz: Flask con solicitudes manuales habilitadas
 (en Windows sustituye el intérprete como se indicó):
 
 ```bash
 .p2/bin/python -B scripts/local_runtime_profile.py --profile pilot --mode structured --component flask --enable-manual --start
 ```
 
+Segunda terminal desde la raíz: worker del mismo perfil y modo:
+
 ```bash
 .p2/bin/python -B scripts/local_runtime_profile.py --profile pilot --mode structured --component worker --enable-manual --start
+```
+
+Tercera terminal, si Next no está activo, desde la raíz:
+
+```text
+cd frontend
+pnpm run start
 ```
 
 La opción admite solicitudes; no solicita un análisis por sí sola. El worker es
 `--manual-only`, sin ciclos periódicos. Sin un primer informe válido se muestra
 fuente ausente. Configura tu proveedor, captura datos y solicita el análisis en
 la interfaz cuando aceptes la transmisión y coste. Las notificaciones siguen
-desactivadas por el lanzador. Volver a lectura: detener ambos componentes con
-Ctrl+C e iniciar Flask sin `--enable-manual`. Cambiar a legacy requiere que
-ambos componentes utilicen `--mode legacy`; conserva los informes originales.
+desactivadas por el perfil. Un fallo debe revisarse en el trabajo y sus recibos
+antes de solicitar otro; no se elimina el último informe válido.
+
+Para volver al lanzador de lectura, espera al fin del trabajo activo y detén
+worker, Flask y Next por separado con Ctrl+C. Desde la raíz ejecuta
+`python3 webdefense.py start --mode structured` (Windows: `py`). Así se conserva
+la lectura de esos informes y se deshabilita la admisión manual. Si mantienes
+componentes separados, basta detener worker/Flask y reiniciar Flask sin
+`--enable-manual`, conservando Next. Cambiar a legacy requiere usar ese modo en
+los componentes implicados; conserva los informes originales.
 
 Para detener el laboratorio conservando sus volúmenes:
 
@@ -277,28 +329,52 @@ Para detener el laboratorio conservando sus volúmenes:
 docker compose --file compose.lab.yaml stop
 ```
 
+## Actualizar una instalación existente
+
+1. Espera a que no haya trabajos activos, detén worker y consola y conserva
+   datos según [operación y recuperación](OPERACION_RECUPERACION_2026_10_14.md).
+   Si aplicarás cambios de laboratorio, prepara además su copia DB y exportación
+   de correo; el respaldo de aplicación no las sustituye.
+2. Revisa `git status` y conserva/resuelve cambios locales antes de actualizar.
+   Comprueba que `origin` sea el repositorio V2. No uses reset o limpieza de datos
+   para conseguir un árbol limpio.
+3. Actualiza con `git pull --ff-only` y revisa las notas de los cambios recibidos.
+4. Ejecuta `python3 webdefense.py install` (Windows: `py`) si cambió el código
+   instalado: prepara el contrato y el build sin sustituir `.env` existente.
+5. Inicia lectura con el modo correspondiente y comprueba las fuentes. Aplicar
+   los cambios de Compose al laboratorio es un paso posterior y separado,
+   sujeto al respaldo previo. Actualizar el repo no recrea contenedores por sí solo.
+
 ## Verificación continua de plataformas
 
 `.github/workflows/compatibility.yml` prepara instalación desde checkout,
 pip check, comparación de pines, tests Python/JS, HTTP sintético, SDK offline y
 build Next en Windows y Ubuntu 24.04. Se ejecuta al publicar cambios, en PR
-o manualmente en GitHub. La [ejecución 38224024703](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38224024703)
-del commit `96d190c` pasó en ambos sistemas. No contiene claves de proveedor,
-llamadas reales o arranque Docker. Acredita instalación y pruebas en esos
-runners; no acredita Parrot ni arranque/proxy Next en Linux.
+o manualmente en GitHub, salvo cambios documentales con CI omitida explícitamente.
+La [ejecución 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802)
+del código `ca2f6af` pasó en ambos OS, incluidos E2E Chromium y smoke API/proxy
+en Linux y Windows. No contiene llamadas reales de proveedor o arranque Docker
+operativo. Parrot conserva su evidencia guiada independiente. Solo cambiar
+documentación no exige repetir la CI de ese código.
 
 ## Cierre de distribución pendiente
 
-- Auditorías actualizadas y escaneo efectivo de imágenes completados;
-  [seguridad residual](SEGURIDAD_2026_10_12.md) conserva migraciones/actualizaciones pendientes.
-- Freeze/pines Linux y entrada simplificada comprobados también en Parrot;
-  la preparación de requisitos globales sigue siendo un paso previo.
-- Laboratorio Docker, ingesta y análisis real en la VM Parrot.
-- Cierre de calidad/observación A-05 y diagnóstico del motor operativo.
-- Procedimiento definitivo de arranque/análisis, conservación y recuperación.
-- Completar auditoría de archivos/historial; la revisión acotada previa al push
-  conserva su alcance documentado.
-- Documentación final, versión y publicación solo al destino V2.
+- Conservar los avisos y reevaluar ante cambios de exposición los riesgos de
+  [dependencias/historial](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) e
+  [imágenes](FIJACION_IMAGENES_LAB_2026_10_19.md); no se declaran eliminados.
+- C3 tiene tratamiento residual aceptado el20/10 para uso local aislado. Los
+  riesgos siguen documentados; no se reabre su aceptación como condición
+  indefinida, pero ampliar exposición/capacidades requiere revisión propia.
+- Preparar notas, revisión del contenido final y versión en V2 vinculada a su
+  código probado; el parche local de dependencias requiere CI Windows/Ubuntu
+  nueva antes de entrega. La documentación actualizada no equivale a una release.
+- Si se incluye la actualización de Parrot, acreditar por separado conservación
+  y recuperación de su laboratorio con los pins actuales.
 
-Los pendientes de esta lista no se presentan como completados por CI. Cada
-persona configura sus credenciales dentro de su propia instalación.
+Instalación/lectura, muestra guiada XSS/fuerza bruta y restauración aislada de
+aplicación ya tienen evidencia en sus alcances. A-05 se aceptó el 20/10 para la
+primera versión local, con límites y comparación legacy expresamente diferida:
+[decisión y evidencias](REVISION_ACEPTACION_A05_2026_10_20.md).
+No vuelven a ser pendientes por
+figurar en actas antiguas. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
+delimita lo que sigue abierto. Cada persona configura sus credenciales en su instalación.

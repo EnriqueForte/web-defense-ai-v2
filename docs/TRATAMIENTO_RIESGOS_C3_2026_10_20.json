@@ -1,0 +1,923 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-20",
+  "status": "bounded_local_residual_treatment_accepted; patch_locally_validated; new_CI_pending_before_delivery",
+  "base_code_commit": "ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c",
+  "source_inventory_CI": 39239742802,
+  "audit_captured_at": "2026-10-20T17:02:40.854574+00:00",
+  "release_metadata_captured_at": "2026-10-20T17:01:02.919093+00:00",
+  "initial_python": [
+    {
+      "platform": "win32",
+      "packages": 172,
+      "input_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d",
+      "entries": 9,
+      "residual": [
+        {
+          "name": "aiohttp",
+          "version": "3.14.3",
+          "advisories": [
+            {
+              "id": "CVE-2026-111064",
+              "aliases": [
+                "GHSA-5wr8-gcqf-gqf3"
+              ],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            },
+            {
+              "id": "GHSA-2g87-pp6c-29x5",
+              "aliases": [],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            },
+            {
+              "id": "CVE-2026-111063",
+              "aliases": [
+                "GHSA-494j-54xm-rwp3"
+              ],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "GHSA-36p7-vc44-83pf",
+                "CVE-2026-45833"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "GHSA-xph7-9rjv-w5fr",
+                "CVE-2026-45831"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "CVE-2026-45830",
+                "GHSA-2wm9-hf6c-p5cr"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "packages": 172,
+      "input_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa",
+      "entries": 9,
+      "residual": [
+        {
+          "name": "aiohttp",
+          "version": "3.14.3",
+          "advisories": [
+            {
+              "id": "CVE-2026-111064",
+              "aliases": [
+                "GHSA-5wr8-gcqf-gqf3"
+              ],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            },
+            {
+              "id": "GHSA-2g87-pp6c-29x5",
+              "aliases": [],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            },
+            {
+              "id": "CVE-2026-111063",
+              "aliases": [
+                "GHSA-494j-54xm-rwp3"
+              ],
+              "fix_versions": [
+                "3.14.4"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "CVE-2026-45829",
+                "GHSA-f4j7-r4q5-qw2c"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "CVE-2026-45829",
+                "GHSA-f4j7-r4q5-qw2c"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "GHSA-36p7-vc44-83pf",
+                "CVE-2026-45833"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "CVE-2026-45831",
+                "GHSA-xph7-9rjv-w5fr"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "GHSA-2wm9-hf6c-p5cr",
+                "CVE-2026-45830"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "patch": {
+    "packages": {
+      "aiohttp": [
+        "3.14.3",
+        "3.14.4"
+      ],
+      "yarl": [
+        "1.23.0",
+        "1.25.1"
+      ]
+    },
+    "dry_run_only_two_packages": true,
+    "Windows_wheel_hashes_verified": true,
+    "isolated_test_env": ".p4",
+    "operational_environment_changed": false,
+    "historical_snapshots_preserved": true,
+    "pip_check": true,
+    "regression_before": {
+      "tests": 2,
+      "subtest_failures": 5,
+      "network_calls": 0
+    },
+    "regression_after": {
+      "tests": 2,
+      "passed": true
+    },
+    "sources": {
+      "aiohttp-3.14.4": {
+        "source": "https://pypi.org/pypi/aiohttp/3.14.4/json",
+        "sha256": "1beb9334ed6c6ad1095295f6874aee0b1c11298c259fb53f8fd55ac299c30c9f",
+        "version": "3.14.4",
+        "requires_python": ">=3.10",
+        "requires_dist": [
+          "aiohappyeyeballs>=2.5.0",
+          "aiosignal>=1.4.0",
+          "async-timeout<6.0,>=4.0; python_version < \"3.11\"",
+          "attrs>=17.3.0",
+          "frozenlist>=1.1.1",
+          "multidict<7.0,>=4.5",
+          "propcache>=0.2.0",
+          "typing_extensions>=4.4; python_version < \"3.13\"",
+          "yarl<2.0,>=1.25.1",
+          "aiodns>=3.3.0; (sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\"",
+          "Brotli>=1.2; (platform_python_implementation == \"CPython\" and sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\"",
+          "brotlicffi>=1.2; platform_python_implementation != \"CPython\" and extra == \"speedups\"",
+          "backports.zstd; (platform_python_implementation == \"CPython\" and python_version < \"3.14\" and sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\""
+        ],
+        "compatible_cp311_wheels": [
+          {
+            "filename": "aiohttp-3.14.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+            "sha256": "f887c3b7fb3058fc1ccd917f52078540c18d938d12018cb9edd64b6811d20c57",
+            "yanked": false
+          },
+          {
+            "filename": "aiohttp-3.14.4-cp311-cp311-win_amd64.whl",
+            "sha256": "2efbdb87e79d596325c4eefaef0f4495d701145e882351310ebc538e854dc7a3",
+            "yanked": false
+          }
+        ]
+      },
+      "yarl-1.25.1": {
+        "source": "https://pypi.org/pypi/yarl/1.25.1/json",
+        "sha256": "a07cf3b564a15e3be66faacf0c81a23497ebfbf1ec849a3a77b494ba4b60cf0f",
+        "version": "1.25.1",
+        "requires_python": ">=3.10",
+        "requires_dist": [
+          "idna>=2.0",
+          "multidict>=4.0",
+          "propcache>=0.2.1"
+        ],
+        "compatible_cp311_wheels": [
+          {
+            "filename": "yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+            "sha256": "d5add7b4ca7afeea91d52e4d4e4db3b1fe9885b71f07054560d8c4296b7441a2",
+            "yanked": false
+          },
+          {
+            "filename": "yarl-1.25.1-cp311-cp311-win_amd64.whl",
+            "sha256": "d7306dee25b8a0e737363f347362b875094b4dc4e367311470656ae420fdbf8e",
+            "yanked": false
+          }
+        ]
+      },
+      "crewai-installed": {
+        "source": "https://pypi.org/pypi/crewai/1.15.27/json",
+        "sha256": "743ff09b291475b9e01713e0f9651a5a3a63a1b2cf67403862ce72b3eabe1d82",
+        "version": "1.15.27",
+        "requires_dist": [
+          "chromadb~=1.5.9",
+          "mcp~=1.28.1"
+        ]
+      },
+      "GO-2026-5932": {
+        "source": "https://vuln.go.dev/ID/GO-2026-5932.json",
+        "sha256": "f277b0400996200a7d5034c676661cd8cf18adeab1fdc5d0dc369e456ddf1fad",
+        "id": "GO-2026-5932",
+        "modified": "2026-07-07T22:15:29Z",
+        "affected": [
+          {
+            "package": {
+              "name": "golang.org/x/crypto",
+              "ecosystem": "Go"
+            },
+            "ranges": [
+              {
+                "type": "SEMVER",
+                "events": [
+                  {
+                    "introduced": "0"
+                  }
+                ]
+              }
+            ],
+            "ecosystem_specific": {
+              "imports": [
+                {
+                  "path": "golang.org/x/crypto/openpgp"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/packet"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/armor"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/clearsign"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/errors"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/elgamal"
+                },
+                {
+                  "path": "golang.org/x/crypto/openpgp/s2k"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "GHSA-494j-54xm-rwp3": {
+        "source": "https://api.github.com/advisories/GHSA-494j-54xm-rwp3",
+        "sha256": "0c8886c266cea7afde1629ffa7142f9fe679211d0027f67db00c0994ff842af7",
+        "ghsa_id": "GHSA-494j-54xm-rwp3",
+        "cve_id": "CVE-2026-111063",
+        "severity": "low",
+        "updated_at": "2026-10-19T17:07:48Z",
+        "withdrawn_at": null,
+        "vulnerabilities": [
+          {
+            "package": {
+              "ecosystem": "pip",
+              "name": "aiohttp"
+            },
+            "vulnerable_version_range": "<= 3.14.3",
+            "first_patched_version": "3.14.4",
+            "vulnerable_functions": []
+          }
+        ]
+      },
+      "GHSA-5wr8-gcqf-gqf3": {
+        "source": "https://api.github.com/advisories/GHSA-5wr8-gcqf-gqf3",
+        "sha256": "e0d6a082f9c5ccfd7cdba018b76454ff03b977bda0dcfe69d5ea4ba4cd2b76c6",
+        "ghsa_id": "GHSA-5wr8-gcqf-gqf3",
+        "cve_id": "CVE-2026-111064",
+        "severity": "high",
+        "updated_at": "2026-10-19T17:08:05Z",
+        "withdrawn_at": null,
+        "vulnerabilities": [
+          {
+            "package": {
+              "ecosystem": "pip",
+              "name": "aiohttp"
+            },
+            "vulnerable_version_range": "<= 3.14.3",
+            "first_patched_version": "3.14.4",
+            "vulnerable_functions": []
+          }
+        ]
+      },
+      "GHSA-2g87-pp6c-29x5": {
+        "source": "https://api.github.com/advisories/GHSA-2g87-pp6c-29x5",
+        "sha256": "576da568cc9e83d002bbd88f56392f21c4348dbb392f1be41b547b4471ba9c18",
+        "ghsa_id": "GHSA-2g87-pp6c-29x5",
+        "cve_id": null,
+        "severity": "high",
+        "updated_at": "2026-10-19T17:07:24Z",
+        "withdrawn_at": null,
+        "vulnerabilities": [
+          {
+            "package": {
+              "ecosystem": "pip",
+              "name": "aiohttp"
+            },
+            "vulnerable_version_range": "<= 3.14.3",
+            "first_patched_version": "3.14.4",
+            "vulnerable_functions": []
+          }
+        ]
+      }
+    }
+  },
+  "post_python": [
+    {
+      "platform": "win32",
+      "packages": 172,
+      "input_sha256": "56e9e483945fe646df60c63ce27537811603731b6dd95089049f06c2c986a81f",
+      "source_kind": "actual_.p4_inventory",
+      "entries": 6,
+      "residual": [
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "CVE-2026-45833",
+                "GHSA-36p7-vc44-83pf"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "GHSA-xph7-9rjv-w5fr",
+                "CVE-2026-45831"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "GHSA-2wm9-hf6c-p5cr",
+                "CVE-2026-45830"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "packages": 172,
+      "input_sha256": "4add764caba4c233c2eea4d893e6cbfdcc7ac73dc41cd8016966837f06e015b1",
+      "source_kind": "projected_Linux_CI_freeze_two_pin_substitution_not_runtime",
+      "entries": 6,
+      "residual": [
+        {
+          "name": "chromadb",
+          "version": "1.5.9",
+          "advisories": [
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-311",
+              "aliases": [
+                "GHSA-f4j7-r4q5-qw2c",
+                "CVE-2026-45829"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3814",
+              "aliases": [
+                "CVE-2026-45833",
+                "GHSA-36p7-vc44-83pf"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3815",
+              "aliases": [
+                "GHSA-xph7-9rjv-w5fr",
+                "CVE-2026-45831"
+              ],
+              "fix_versions": []
+            },
+            {
+              "id": "PYSEC-2026-3813",
+              "aliases": [
+                "CVE-2026-45830",
+                "GHSA-2wm9-hf6c-p5cr"
+              ],
+              "fix_versions": []
+            }
+          ]
+        },
+        {
+          "name": "mcp",
+          "version": "1.28.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-59951",
+              "aliases": [
+                "GHSA-84m7-p3x7-pcfv"
+              ],
+              "fix_versions": [
+                "1.30.0",
+                "2.2.0"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Linux_runtime_with_new_pins_verified": false,
+  "new_CI_required_before_release": true,
+  "frontend": {
+    "frontend_production": {
+      "scope": "frontend-production",
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0
+        },
+        "dependencies": 16,
+        "devDependencies": 0,
+        "optionalDependencies": 84,
+        "totalDependencies": 100
+      },
+      "advisories": {}
+    },
+    "frontend_complete": {
+      "scope": "frontend-complete",
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 1,
+          "critical": 0
+        },
+        "dependencies": 63,
+        "devDependencies": 337,
+        "optionalDependencies": 87,
+        "totalDependencies": 437
+      },
+      "advisories": {
+        "1240992": {
+          "findings": [
+            {
+              "version": "3.0.3",
+              "paths": [
+                ".>eslint-config-next>@next/eslint-plugin-next>fast-glob>micromatch>braces"
+              ],
+              "dev": true,
+              "optional": false,
+              "bundled": false
+            }
+          ],
+          "id": 1240992,
+          "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+          "module_name": "braces",
+          "vulnerable_versions": "<=3.0.3",
+          "patched_versions": ">=3.0.4",
+          "severity": "high",
+          "cwe": "CWE-674",
+          "github_advisory_id": "GHSA-vfj7-8cjw-p6xm",
+          "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+        }
+      }
+    }
+  },
+  "known_advisories": {
+    "GHSA-f4j7-r4q5-qw2c": {
+      "ghsa_id": "GHSA-f4j7-r4q5-qw2c",
+      "cve_id": "CVE-2026-45829",
+      "html_url": "https://github.com/advisories/GHSA-f4j7-r4q5-qw2c",
+      "summary": "ChromaDB Python project has a pre-authentication code injection vulnerability",
+      "severity": "critical",
+      "updated_at": "2026-10-05T21:32:32Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "chromadb"
+          },
+          "vulnerable_version_range": ">= 1.0.0, <= 1.5.9",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    "GHSA-2wm9-hf6c-p5cr": {
+      "ghsa_id": "GHSA-2wm9-hf6c-p5cr",
+      "cve_id": "CVE-2026-45830",
+      "html_url": "https://github.com/advisories/GHSA-2wm9-hf6c-p5cr",
+      "summary": "ChromaDB allows any authenticated users to arbitrarily read, write, update, or delete data in any tenant's collection",
+      "severity": "high",
+      "updated_at": "2026-08-24T19:57:43Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "chromadb"
+          },
+          "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    "GHSA-36p7-vc44-83pf": {
+      "ghsa_id": "GHSA-36p7-vc44-83pf",
+      "cve_id": "CVE-2026-45833",
+      "html_url": "https://github.com/advisories/GHSA-36p7-vc44-83pf",
+      "summary": "ChromaDB has a code injection vulnerability",
+      "severity": "critical",
+      "updated_at": "2026-08-24T20:03:34Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "chromadb"
+          },
+          "vulnerable_version_range": ">= 0.4.17, <= 1.5.9",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    "GHSA-xph7-9rjv-w5fr": {
+      "ghsa_id": "GHSA-xph7-9rjv-w5fr",
+      "cve_id": "CVE-2026-45831",
+      "html_url": "https://github.com/advisories/GHSA-xph7-9rjv-w5fr",
+      "summary": "ChromaDB's SimpleRBACAuthorizationProvider doesn't check which tenant, database, or collection a permission applies to",
+      "severity": "high",
+      "updated_at": "2026-08-24T20:00:43Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "chromadb"
+          },
+          "vulnerable_version_range": ">= 0.5.0, <= 1.5.9",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    "GHSA-84m7-p3x7-pcfv": {
+      "ghsa_id": "GHSA-84m7-p3x7-pcfv",
+      "cve_id": "CVE-2026-59951",
+      "html_url": "https://github.com/advisories/GHSA-84m7-p3x7-pcfv",
+      "summary": "MCP Python SDK: Unbounded Session Accumulation in StreamableHTTP Transport Enables Resource Exhaustion",
+      "severity": "medium",
+      "updated_at": "2026-10-15T20:13:14Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "mcp"
+          },
+          "vulnerable_version_range": ">= 1.8.0, < 1.30.0",
+          "first_patched_version": "1.30.0",
+          "vulnerable_functions": []
+        },
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "mcp"
+          },
+          "vulnerable_version_range": ">= 2.0.0, < 2.2.0",
+          "first_patched_version": "2.2.0",
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    "GHSA-vfj7-8cjw-p6xm": {
+      "ghsa_id": "GHSA-vfj7-8cjw-p6xm",
+      "cve_id": "CVE-2026-93687",
+      "html_url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+      "summary": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+      "severity": "high",
+      "updated_at": "2026-10-02T22:36:34Z",
+      "withdrawn_at": null,
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "braces"
+          },
+          "vulnerable_version_range": "<= 3.0.3",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ]
+    }
+  },
+  "current_release_metadata": {
+    "packages": {
+      "crewai": {
+        "version": "1.15.28",
+        "source": "https://pypi.org/pypi/crewai/json",
+        "metadata_sha256": "a0e9cd1921c0ce5e878cff8d4796ec711b89713d47fb619cadb71dbc2468a1e1",
+        "relevant_requires": [
+          "chromadb~=1.5.9",
+          "crewai-cli==1.15.28",
+          "crewai-core==1.15.28",
+          "mcp~=1.28.1",
+          "crewai-files; extra == \"file-processing\"",
+          "litellm<2,>=1.88.6; extra == \"litellm\"",
+          "crewai-tools==1.15.28; extra == \"tools\""
+        ]
+      },
+      "crewai-core": {
+        "version": "1.15.28",
+        "source": "https://pypi.org/pypi/crewai-core/json",
+        "metadata_sha256": "0cc76624b96dda9e11e675c8088dcebab3602143b3eb1a1dc444cc17d6cc8071",
+        "relevant_requires": []
+      },
+      "crewai-cli": {
+        "version": "1.15.28",
+        "source": "https://pypi.org/pypi/crewai-cli/json",
+        "metadata_sha256": "be85f7e308822621f0b6cad3206dfbc225075f384015b6fa5b450574b4aa82fa",
+        "relevant_requires": [
+          "crewai-core==1.15.28"
+        ]
+      },
+      "mcp": {
+        "version": "2.3.0",
+        "source": "https://pypi.org/pypi/mcp/json",
+        "metadata_sha256": "dbf6d84210b202e6bdeecd90e6c386c41c4727d4f4bbafe7807eccf464f5f204",
+        "relevant_requires": [
+          "mcp-types==2.3.0"
+        ]
+      },
+      "chromadb": {
+        "version": "1.5.9",
+        "source": "https://pypi.org/pypi/chromadb/json",
+        "metadata_sha256": "9e3d68baac97f79e638a0c36817c5be4191783b47f24c4dde41e563d3df740da",
+        "relevant_requires": [
+          "chroma-hnswlib==0.7.6; extra == \"dev\""
+        ]
+      }
+    },
+    "braces": {
+      "source": "https://registry.npmjs.org/braces",
+      "dist_tags": {
+        "latest": "3.0.3"
+      },
+      "version_3_0_4_exists": false,
+      "metadata_sha256": "dc80413fcf3711b65478aa7cc9ee16e99764c5dc8024d3facb58cface9750424"
+    }
+  },
+  "MCP_resolution": {
+    "new_resolution_executed": false,
+    "declared_constraints_unchanged_from_18Oct": true,
+    "corrected_versions_outside_CrewAI_range": true,
+    "override_used": false,
+    "retained_18Oct_resolver_evidence": "REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.json"
+  },
+  "application_exposure": {
+    "sources_unchanged_from_31c8a29_except_evaluation": true,
+    "MCP_Chroma_constructor_evidence_reused_from_18Oct": true,
+    "constructor_scope": "Windows_.p4_construction_only_not_all_execution_paths",
+    "live_servers_inspected": false,
+    "no_service_started": true
+  },
+  "image_evidence": {
+    "new_Docker_scan": false,
+    "last_verified_scan_date": "2026-10-19",
+    "run": 39229681189,
+    "artifact": 12175678051,
+    "all_warnings_retained": true,
+    "VM_updated": false,
+    "reference": "FIJACION_IMAGENES_LAB_2026_10_19.json"
+  },
+  "secret_review": {
+    "captured_at": "2026-10-20T17:21:15.297439+00:00",
+    "head": "ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c",
+    "candidate_files": 276,
+    "reachable_commits": 80,
+    "scanner_log_commits": 76,
+    "counts": {
+      "candidate": 4,
+      "history": 5
+    },
+    "unreviewed_findings": 0,
+    "positive_control_detected_and_redacted": true,
+    "stock_rules_no_project_allowlist": true,
+    "historical_CSRF_provenance_unverified": true,
+    "current_fixture_anonymized": true,
+    "findings_retained": true
+  },
+  "validation": {
+    "captured_at": "2026-10-20T17:14:58.935101+00:00",
+    "checks": [
+      {
+        "check": "cookie-after",
+        "exit_code": 0,
+        "seconds": 0.297
+      },
+      {
+        "check": "environment",
+        "exit_code": 0,
+        "seconds": 0.281
+      },
+      {
+        "check": "inventory",
+        "exit_code": 0,
+        "seconds": 0.625
+      },
+      {
+        "check": "syntax",
+        "exit_code": 0,
+        "seconds": 0.203
+      },
+      {
+        "check": "baseline",
+        "exit_code": 0,
+        "seconds": 34.688
+      },
+      {
+        "check": "http",
+        "exit_code": 0,
+        "seconds": 0.781
+      },
+      {
+        "check": "sdk",
+        "exit_code": 0,
+        "seconds": 6.281
+      }
+    ],
+    "passed": true,
+    "scope": "isolated_.p4_not_operational_env",
+    "new_provider_calls": 0
+  },
+  "python_cases": 376,
+  "Windows_passed": 375,
+  "Linux_only_skipped": 1,
+  "syntax_files": 101,
+  "SDK_cases": 27,
+  "user_residual_acceptance": {
+    "status": "accepted_bounded_local_scope",
+    "date": "2026-10-20",
+    "answer": "Aceptar tratamiento local acotado (recomendado)",
+    "C2_acceptance_reused_for_security": false,
+    "C3_risk_treatment_closed": true,
+    "scope": "personal_local_isolated_use_with_R1_R8_treatments_and_retained_warnings",
+    "general_security_certification": false,
+    "vulnerabilities_marked_fixed_by_acceptance": false,
+    "new_CI_required_before_delivery": true,
+    "C4_closed": false,
+    "V1_closed": false,
+    "release_authorized": false,
+    "new_LLM_authorized": false,
+    "VM_change_authorized": false
+  },
+  "operational_actions": {
+    "LLM_calls": 0,
+    "Docker": false,
+    "notifications": false,
+    "VM": false,
+    "dotenv_bytes_read": false,
+    "operational_data_read": false,
+    "release_published": false
+  },
+  "receipt_directory": ".local-state/security-close-20261020/",
+  "scope": "bounded_local_risk_treatment_not_global_security_certification"
+}

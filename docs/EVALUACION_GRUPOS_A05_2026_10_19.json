@@ -1,7 +1,8 @@
 {
   "schema_version": "1",
   "date": "2026-10-19",
-  "status": "locally_verified; publication_and_CI_pending; general_semantic_quality_open",
+  "CI_evidence_verified_on": "2026-10-20",
+  "status": "published_and_CI_verified; general_semantic_quality_open",
   "metrics_version": "a05-metrics-2",
   "fixture_version": "a05-fixtures-2",
   "review_cases": 24,
@@ -589,11 +590,96 @@
     }
   ],
   "local_review_directory": ".local-state/a05-offline-review/20261019T103911054532Z",
-  "remote_CI": null,
+  "remote_CI": {
+    "run_id": 39239742802,
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "verified_steps_and_final_logs": [
+      {
+        "job_log": "0_installation-and-offline-tests (windows-latest).txt",
+        "new_tests_observed": 9,
+        "python_cases": 374,
+        "python_seconds": [
+          "67.340"
+        ],
+        "e2e_duration": [
+          "52.8s"
+        ]
+      },
+      {
+        "job_log": "1_installation-and-offline-tests (ubuntu-24.04).txt",
+        "new_tests_observed": 9,
+        "python_cases": 374,
+        "python_seconds": [
+          "33.071"
+        ],
+        "e2e_duration": [
+          "8.6s"
+        ]
+      }
+    ],
+    "inventories": [
+      {
+        "artifact_id": 12180448589,
+        "name": "python-environment-windows-latest",
+        "platform": "win32",
+        "python": "3.11.9",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": null,
+        "pywin32": "311",
+        "freeze_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d"
+      },
+      {
+        "artifact_id": 12180308670,
+        "name": "python-environment-ubuntu-24.04",
+        "platform": "linux",
+        "python": "3.11.17",
+        "packages": 172,
+        "differences": 0,
+        "additional_unpinned": 0,
+        "uvloop": "0.23.0",
+        "pywin32": null,
+        "freeze_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa"
+      }
+    ],
+    "inventories_match_previous_full_freeze_hashes": true,
+    "complete_synthetic_artifacts": [
+      {
+        "artifact_id": 12181296365,
+        "name": "a05-offline-review-ubuntu-24.04",
+        "review_cases": 24,
+        "guard_controls": 8,
+        "files": 101,
+        "complete_publications": 25,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "697eb27550ee5b343c00afdc9377e975b32e1308d9a04c0c41a1d35b7c30a311",
+        "review_sha256": "506bdd044a00a1bf3909667437a295625f1bcc9aaa58bc002ac5b8012a31db3e"
+      },
+      {
+        "artifact_id": 12180941353,
+        "name": "a05-offline-review-windows-latest",
+        "review_cases": 24,
+        "guard_controls": 8,
+        "files": 101,
+        "complete_publications": 25,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "19ce1db181125bde357e5e86f0ebbd96a605d84091e5ef7308991099493e660f",
+        "review_sha256": "9536477e0698ca2c844fa553147a3356db9cdb3bf412f60215a51520e08c797b"
+      }
+    ]
+  },
   "real_provider_calls": 0,
   "Docker_used": false,
   "VM_changed": false,
   "operational_data_read_or_written": false,
-  "dotenv_bytes_read": false,
-  "scope": "Exact authored fixture partitions, not general incident grouping, state/severity correctness or semantic acceptance."
+  "scope": "Exact authored fixture partitions, not general incident grouping, state/severity correctness or semantic acceptance.",
+  "code_commit": "ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c",
+  "operational_dotenv_bytes_read": false
 }

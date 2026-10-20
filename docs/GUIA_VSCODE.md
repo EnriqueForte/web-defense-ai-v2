@@ -4,6 +4,12 @@ El desarrollo se realiza en Codex. VSCode abre la misma carpeta y permite
 seguir las modificaciones, revisar diferencias y consultar la documentación.
 No es necesario copiar ni exportar el proyecto entre aplicaciones.
 
+Para instalar o iniciar una clonación nueva utiliza el [inicio rápido](INICIO_RAPIDO.md).
+El instalador actual crea `.p2`; esta guía conserva tareas de desarrollo heredadas
+que invocan `.venv` mediante PowerShell. No necesitas crear ese segundo entorno
+para usar la aplicación. El [resumen vigente](ESTADO_FINAL_2026_10_12.md) distingue
+las herramientas de desarrollo de las funciones comprobadas del producto.
+
 ## Abrir y seguir los cambios
 
 1. En VSCode, usar **Archivo → Abrir área de trabajo desde archivo** y elegir
@@ -37,14 +43,16 @@ formato manual sigue disponible con la extensión recomendada.
 | `scripts/check_syntax.py` | Comprobación estática sin importar el motor |
 
 Las extensiones se recomiendan, no se instalan automáticamente. Seleccionar
-`.venv/Scripts/python.exe` mediante **Python: Select Interpreter**. La ruta
-predeterminada está adaptada al entorno Windows de este proyecto; si VSCode ya
-tiene otro intérprete guardado, hay que cambiar esa selección explícitamente.
-En otro sistema operativo, seleccionar su intérprete equivalente.
+el entorno instalado mediante **Python: Select Interpreter**: `.p2/Scripts/python.exe`
+en Windows o `.p2/bin/python` en Linux para el instalador actual. La configuración
+heredada del workspace propone `.venv/Scripts/python.exe`; si VSCode mantiene
+esa selección hay que cambiarla explícitamente.
 Las tareas Python del proyecto invocan directamente `.venv/Scripts/python.exe`
 desde PowerShell; seleccionar el intérprete en el editor sirve para análisis y
-depuración, pero no cambia el ejecutable de esas tareas. Si falta `.venv`, crear
-el entorno e instalar las dependencias antes de iniciarlas.
+depuración, pero no cambia el ejecutable de esas tareas. Si falta `.venv`, no
+ejecutarlas como si usaran `.p2`: utilizar desde la terminal el intérprete real
+y el script deseado. Por ejemplo, `.p2/Scripts/python.exe -B scripts/check_syntax.py`
+(Linux: `.p2/bin/python`). No se modifican tareas o intérpretes al abrir la guía.
 
 Las exclusiones de búsqueda reducen ruido y evitan mostrar datos operativos
 en búsquedas habituales; no impiden abrir archivos ni son una barrera de acceso

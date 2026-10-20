@@ -98,6 +98,17 @@ explica cómo guardar el inventario completo para diagnosticar una instalación.
 
 ## Alcance comprobado
 
+Estado revisado el 20/10/2026: [resumen vigente](ESTADO_FINAL_2026_10_12.md).
+El código `ca2f6af` pasó instalación, regresión, E2E y smoke API/proxy en
+[CI Windows/Ubuntu 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802).
+La muestra guiada posterior a la instalación en Parrot sí acreditó captura
+DVWA, análisis XSS/fuerza bruta y lectura del informe el 15/10; no acredita
+actualizar después los pins Docker ni restaurar el volumen de esa VM.
+La aceptación de A-05 para la primera versión local se confirmó el 20/10 con
+límites explícitos y comparación legacy diferida, según la
+[matriz A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md). Los párrafos siguientes
+conservan la historia de validación del lanzador.
+
 El nuevo instalador y lanzador se ensayaron en una copia aislada de Windows,
 incluido build, API directa/proxy y cierre con puertos libres. Después pasó el
 mismo recorrido desde una instalación nueva en [Windows y Ubuntu CI](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38234970879),

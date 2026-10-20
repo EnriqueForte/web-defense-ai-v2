@@ -2,7 +2,8 @@
 
 Este es el resumen vigente. Las actas fechadas anteriores conservan sus pruebas
 y límites históricos; sus pendientes pueden haberse cerrado después.
-Última revisión del estado: 19/10/2026.
+Última revisión del estado: 20/10/2026. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
+separa los pendientes actuales de las actas históricas y propone su orden finito.
 
 ## Completado
 
@@ -49,6 +50,24 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
   Código `2d2f197`, CI39229681306 y escaneo39229681189 aprobados y artefactos
   verificados el 19/10. Cierra reproducibilidad del repositorio, con avisos
   conservados; no acredita actualización de Parrot o migración de su volumen.
+- Documentación consolidada localmente el 20/10: README y guías con estado
+  comprobado, instalación/lectura/análisis separados y backlog A-01–A-04
+  actualizado. Cronologías conservadas en archivos históricos enlazados.
+  La [matriz de aceptación A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md) reúne las
+  muestras y límites en 12 criterios y cuatro decisiones. C1 queda consolidada;
+  la publicación de esta revisión sigue pendiente.
+- A-05/C2 aceptada por el usuario el 20/10 para la primera versión local de
+  apoyo a la revisión de indicadores, con límites explícitos y comparación
+  legacy diferida. [Revisión y decisión](REVISION_ACEPTACION_A05_2026_10_20.md):
+  doce recibos/once publicaciones sintéticas, 56 archivos preservados y tres
+  narrativas/Markdown E2 iguales a la política actual. No se realizaron llamadas
+  nuevas. No se certifica calidad general, resistencia LLM o superioridad frente
+  a legacy; `quality=semantic_evaluation_pending` permanece en los resultados.
+- C3 cerrado el 20/10 por aceptación expresa del [tratamiento de riesgos](TRATAMIENTO_RIESGOS_C3_2026_10_20.md)
+  para uso personal local aislado. Se conservan los avisos residuales y sus
+  límites. El parche aiohttp/yarl pasó las comprobaciones locales; C4 exige
+  verificar una CI nueva Windows/Ubuntu antes de entregar. La aceptación no
+  certifica seguridad global ni autoriza una release o cambios en la VM.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -57,9 +76,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Seguridad | [Revisión 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md): seis entradas por OS en Chroma/MCP, braces retenido y conflicto de migración reproducido; [Mailpit](SEGURIDAD_RESIDUAL_2026_10_16.md) con un UNKNOWN; escaneo de archivos/historial y triage realizados | Migración compatible de MCP, riesgos de dependencias/infraestructura, procedencia del CSRF histórico y aplicación separada en Parrot; revisión global de seguridad abierta |
-| Calidad A-05 | Matriz previa 22/8 y publicaciones completas verificadas; ampliación local a métricas de agrupación, 24/8 y revisión de informes sin proveedor | Publicar/verificar la ampliación y continuar la evaluación semántica general; la aceptación de muestras no equivale a cobertura general |
-| Entrega final | Consolidar documentación, revisar archivos/historial y preparar versión final GitHub | Resumen vigente, auditoría de cierre, CI final y versión/release en V2; el pendiente de caché BPE ya está publicado y verificado en su alcance |
+| Entrega final | Documentación consolidada y corrección aiohttp/yarl locales; contenido final y versión GitHub pendientes | CI nueva por cambio de dependencias, verificación de artefactos y revisión del contenido antes de notas/versión V2. La CI anterior no valida el parche |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.
@@ -69,15 +86,17 @@ La [validación global del ejecutor](CONFIGURACION_GLOBAL_2026_10_13.md) reempla
 las conversiones directas de `config/settings.py`: errores por variable y rechazo
 antes de crear estado, con regresión offline aprobada. R-15 dispone ahora del
 E2E del formulario en Chromium con Flask/proxy reales y persistencia sintética;
-se cierra en ese alcance, sin acreditar uso con un proveedor real. A-05 mantiene la evaluación
-semántica pendiente y la revisión del recorrido manual según
-[formato manual](CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md).
+se cierra en ese alcance, sin acreditar uso con un proveedor real. A-05 tiene
+aceptación local según la matriz enlazada, sin certificar el proveedor. La corrección de
+[formato manual](CORRECCION_FORMATO_MANUAL_A05_2026_10_11.md) conserva su
+historia; las muestras posteriores del 14/15 acreditan sus recorridos concretos.
 
 El 13/10 se añadió una [revisión A-05 offline reproducible](EVALUACION_OFFLINE_A05_2026_10_13.md):
 13 casos con respuestas sintéticas y siete controles de rechazo/conservación de
 publicación. La evaluación incorpora cobertura por pares de patrón–línea además
 de familias, separando omisiones de selección y de respuesta. Esto verifica el
-evaluador y las guardas; no acredita calidad del proveedor ni cierra A-05.
+evaluador y las guardas; por sí sola no acredita calidad del proveedor ni fue
+el cierre de A-05, aceptado posteriormente para el alcance local descrito arriba.
 La [ampliación de contexto del 19/10](EVALUACION_CONTEXTO_A05_2026_10_19.md)
 añade nueve escenarios y un control de referencias entre IP: 22 casos/ocho
 controles aprobados en Windows/Ubuntu CI39233803582, código `a46e21c`, conservando
@@ -100,15 +119,19 @@ dos referencias SQLi cubiertas y solicitud normal sin hallazgo. Se revisaron
 informe/guardas/métricas/hashes y conservación operativa. El fallo inicial sigue
 registrado; los dos presupuestos se mantienen separados y sus saldos no se
 reutilizan. El 15/10 se aceptó además el recorrido de ingesta y análisis en
-Parrot para la muestra XSS/fuerza bruta descrita arriba; la evaluación semántica
-general sigue pendiente y no se cierra A-05.
+Parrot para la muestra XSS/fuerza bruta descrita arriba. La aceptación local
+se cerró después el 20/10 sin extrapolar a calidad semántica general.
 
 La [evaluación de grupos del 19/10](EVALUACION_GRUPOS_A05_2026_10_19.md) corrige
 una carencia de medición: dividir una ráfaga podía conservar todos los pares
 pero aumentar el contador de hallazgos. Añade métricas de partición exacta según
 etiquetas de fixture y un CLI para revisar publicaciones existentes sin proveedor.
-24 casos/ocho controles aprobados localmente; publicación y CI pendientes. No
-cambia las reglas del motor ni demuestra calidad semántica general.
+24 casos/ocho controles aprobados y publicados como `ca2f6af`, CI39239742802
+Windows/Ubuntu aprobada y verificada el 20/10. Se revisaron las 25 publicaciones
+completas por OS (101 archivos), hashes, bytes JSON/Markdown iguales a la matriz
+local y métricas recomputadas. Ubuntu: 374 Python; Windows: 373 aprobadas y una
+exclusiva Linux omitida; tres JS, 100 sintaxis, 27 SDK, 17 UI y nueve E2E por OS.
+No cambia las reglas del motor ni demuestra calidad semántica general.
 
 [Operación y recuperación del 14/10](OPERACION_RECUPERACION_2026_10_14.md)
 añade `restore_operational.py --backup <carpeta>` para un destino nuevo aislado,
@@ -123,7 +146,16 @@ Windows/Ubuntu success; logs y artefactos/inventarios revisados. La VM recibió
 después `88e7b8a` y completó el ensayo guiado. Otro análisis real necesitaría
 un alcance nuevo; no se reutiliza la autorización consumida.
 
-## Seguridad en curso
+## Seguridad: tratamiento aceptado y avisos conservados
+
+La [revisión del 20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) actualiza el estado:
+la auditoría de los freezes CI anteriores añade tres avisos de aiohttp (nueve
+entradas por OS). El parche local aiohttp3.14.4/yarl1.25.1 deja seis entradas
+en el inventario Windows probado y en la proyección Linux, que no es ejecución
+Linux. El usuario aceptó expresamente el tratamiento residual para uso local
+aislado el 20/10; C3 queda cerrado en ese alcance, con los avisos conservados.
+La CI nueva se mantiene como requisito C4 antes de entregar. Los párrafos
+siguientes conservan las revisiones anteriores y sus fechas.
 
 La [fijación de MariaDB/DVWA por digest](FIJACION_IMAGENES_LAB_2026_10_19.md) está
 publicada y verificada el 19/10, con paridad Compose/inventario y rechazo de otro

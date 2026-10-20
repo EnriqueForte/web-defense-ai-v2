@@ -27,7 +27,7 @@ No es necesario reiniciar DVWA ni su base para actualizar solo Mailpit.
 
 - DVWA y Mailpit solo publican puertos en `127.0.0.1`: DVWA en `4280`, la
   bandeja de correo en `8025` y SMTP de prueba en `1025`.
-- DVWA y MySQL comparten una red Docker interna; MySQL no publica ningún
+- DVWA y MariaDB comparten una red Docker interna; MariaDB no publica ningún
   puerto. DVWA y Mailpit se conectan además a una red puente para publicar los
   puertos de loopback; la traducción de salida a Internet está desactivada en
   esa red.

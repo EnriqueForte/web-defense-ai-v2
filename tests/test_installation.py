@@ -71,14 +71,16 @@ class InstallationTests(TestCase):
             install.assert_not_called()
             configure.assert_not_called()
 
-    def test_shared_pins_match_observed_windows_snapshot_with_platform_markers(self):
+    def test_shared_pins_preserve_snapshot_except_reviewed_security_updates(self):
         for platform in ("win32", "linux"):
             with patch.object(contract.sys, "platform", platform):
                 shared = contract.read_pins(setup.ROOT / "constraints-py311.txt")
                 historical = contract.read_pins(setup.ROOT / "constraints-windows-py311-crewai-20261012.txt")
+                # Preserve the dated snapshot; only the reviewed security pair may drift.
+                expected = {**historical, "aiohttp": "3.14.4", "yarl": "1.25.1"}
                 if platform == "linux":
-                    historical["uvloop"] = "0.23.0"
-                self.assertEqual(shared, historical)
+                    expected["uvloop"] = "0.23.0"
+                self.assertEqual(shared, expected)
                 self.assertEqual("pywin32" in shared, platform == "win32")
                 self.assertEqual("uvloop" in shared, platform == "linux")
 

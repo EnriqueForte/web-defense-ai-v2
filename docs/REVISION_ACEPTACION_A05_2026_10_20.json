@@ -1,0 +1,2012 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-20",
+  "code_commit": "ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c",
+  "status": "accepted_for_bounded_local_version; general_guarantees_not_claimed",
+  "provider_calls_during_review": 0,
+  "reviewed_receipts": 12,
+  "verified_publications": 11,
+  "files_verified_and_preserved": 56,
+  "E2_hashes_match_published_acta": true,
+  "all_saved_inputs_bind_current_fixtures": true,
+  "current_basic_and_observed_contracts_pass": true,
+  "pattern_and_evidence_expectations_met_for_all_saved_publications": true,
+  "exact_group_mismatch": {
+    "source": "E2",
+    "case": "same_family",
+    "actual_groups": 2,
+    "authored_expected_groups": 1,
+    "interpretation": "different_authored_partition_does_not_revoke_accepted_event_grouping"
+  },
+  "historical_narrative_limit": {
+    "source": "E1",
+    "original_normal_placeholder_preserved": true,
+    "current_render_not_expected_equal": true,
+    "universal_old_narrative_acceptance": false
+  },
+  "E2_current_narrative_and_markdown_equal": true,
+  "manual_review": {
+    "scope": "E2_supported_classification_and_grounded_narrative; E1_support_and_known_limits",
+    "new_reproduced_product_defect": false,
+    "general_semantic_certification": false,
+    "recommended_delivery_scope": "local_indicator_review_with_explicit_limits",
+    "legacy_superiority_not_demonstrated": true,
+    "LLM_header_resistance_not_demonstrated": true
+  },
+  "user_acceptance": {
+    "status": "accepted",
+    "date": "2026-10-20",
+    "answer": "Aceptar alcance local acotado (recomendado)",
+    "scope": "first_local_version_supporting_indicator_review_with_documented_limits",
+    "legacy_comparison": "explicitly_deferred_not_claimed_complete",
+    "C2_bounded_scope_closed": true,
+    "C3_security_closed": false,
+    "C4_delivery_closed": false,
+    "V1_VM_updated": false,
+    "operational_quality_field_changed": false,
+    "release_authorized": false,
+    "new_trial_authorized": false
+  },
+  "operational_changes": {
+    "LLM": false,
+    "Docker": false,
+    "services": false,
+    "notifications": false,
+    "VM": false,
+    "dotenv_bytes_read": false,
+    "operational_data_read": false
+  },
+  "cases": [
+    {
+      "source": "E1",
+      "case": "mixed",
+      "stamp": "20261007T102336191604Z",
+      "status": "succeeded",
+      "receipt_sha256": "ed6b9e61c050f867f28b4284a928099e3253a04ec9aedaeae3217c7d4fb174f7",
+      "calls": 4,
+      "seconds": 81.0,
+      "models_observed": [
+        "liquid/lfm-2.5-2.6b:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "poolside/laguna-s-2.1:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 4,
+        "prompt_tokens": 16605,
+        "completion_tokens": 4221,
+        "total_tokens": 20826,
+        "reasoning_tokens": 2334
+      },
+      "usage_warnings": [],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 2334
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-97d9c368c3fc4413968ae53dedf244fb",
+      "publication_hashes": {
+        "result.json": "0db46f664bd02bd0c609339945f58436bfc574184a666b2695ee9cf7b068497d",
+        "report.md": "7eec686f07f87c97959641b8dde97ab65ae7233676b3fd65aaa805052fa4a61b"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "mixed",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [
+          "brute_force",
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "optional_patterns": [],
+        "actual_patterns": [
+          "brute_force",
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": 1.0,
+        "pattern_precision": 1.0,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 6
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 7
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 8
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 9
+          },
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "actual_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 6
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 7
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 8
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 9
+          },
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": 1.0,
+        "evidence_precision": 1.0,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 10,
+        "fixture_input_lines": 10,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "optional_selected_groups": [],
+        "actual_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 5,
+        "expected_selected_group_count": 5,
+        "group_recall": 1.0,
+        "group_precision": 1.0,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 4,
+        "low": 0,
+        "medium": 1,
+        "unknown": 0
+      },
+      "findings": [
+        {
+          "pattern": "sql_injection",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            1
+          ]
+        },
+        {
+          "pattern": "xss",
+          "severity": "medium",
+          "state": "observed_indicator",
+          "line_numbers": [
+            2
+          ]
+        },
+        {
+          "pattern": "path_traversal",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            3
+          ]
+        },
+        {
+          "pattern": "command_injection",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            4
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "normal",
+      "stamp": "20261007T103027780944Z",
+      "status": "succeeded",
+      "receipt_sha256": "d1d4794cbc8b8d15d18dd836590956a20f779a5080f140646709dc1e2f60a092",
+      "calls": 4,
+      "seconds": 475.829,
+      "models_observed": [
+        "nvidia/nemotron-3-super-120b-a12b:free",
+        "nvidia/nemotron-3.5-lightning:free",
+        "poolside/laguna-xs-2.1:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 4,
+        "prompt_tokens": 22969,
+        "completion_tokens": 11586,
+        "total_tokens": 34555,
+        "reasoning_tokens": 11872
+      },
+      "usage_warnings": [
+        {
+          "call": 3,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 11872
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-633a1328d49644829e2976eb9e84093c",
+      "publication_hashes": {
+        "result.json": "a6b0303eeb289f54b3676c4edcf539eccdfd49e8a9693d4fe396b14aeec5870f",
+        "report.md": "636e1d8e16e9132b08796d9b9899eeb495666390557c13e8e10de3c3e84e4564"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "normal",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 4,
+        "fixture_input_lines": 4,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": true
+    },
+    {
+      "source": "E1",
+      "case": "missing_body",
+      "stamp": "20261007T103928012803Z",
+      "status": "succeeded",
+      "receipt_sha256": "89e81822c7c14e15a8a18ceb8603f07028f154cd6fcfb6148fdcfd4adacfe8e9",
+      "calls": 3,
+      "seconds": 46.312,
+      "models_observed": [
+        "apodex/apodex-1.1-mini:free",
+        "cohere/north-mini-code:free",
+        "inclusionai/ling-3.0-flash-sante:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 3703,
+        "completion_tokens": 4077,
+        "total_tokens": 7780,
+        "reasoning_tokens": 3893
+      },
+      "usage_warnings": [
+        {
+          "call": 1,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 3893
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-5c6213215cf64c97bbdbff3777a28da6",
+      "publication_hashes": {
+        "result.json": "9100dd54f16a3b6075f3b03c7c12af46903263b69cd3d8543bb32c6d205fae9b",
+        "report.md": "388aae4824f71e6474a4790c587afda39e23fbe923716ba85a91cbbc5525bfe9"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "missing_body",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 2,
+        "fixture_input_lines": 2,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "encoded",
+      "stamp": "20261007T104018316394Z",
+      "status": "succeeded",
+      "receipt_sha256": "d3358102509c8ae0e014e3eaeed3abcf0b0bee63221934ff9a3deae9ac4a9dcb",
+      "calls": 3,
+      "seconds": 35.719,
+      "models_observed": [
+        "apodex/apodex-1.1-mini:free",
+        "nvidia/nemotron-3-super-120b-a12b:free",
+        "poolside/laguna-xs-2.1:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 5825,
+        "completion_tokens": 5862,
+        "total_tokens": 11687,
+        "reasoning_tokens": 4494
+      },
+      "usage_warnings": [],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 4494
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-1c1dbb1e76a44571b55d8e40dd8d7ae4",
+      "publication_hashes": {
+        "result.json": "7328b3270520f4eca3f0ab9d7b32888c5ec923e04c751cd8bd243f862d2c8c2c",
+        "report.md": "2dc3c2e34034c4816fdb741c38876245d9fdf3376137ba84c16ce77fc3c5b8a0"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "encoded",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "optional_patterns": [],
+        "actual_patterns": [
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": 1.0,
+        "pattern_precision": 1.0,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "actual_evidence_pairs": [
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": 1.0,
+        "evidence_precision": 1.0,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 4,
+        "fixture_input_lines": 4,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "optional_selected_groups": [],
+        "actual_groups": [
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 4,
+        "expected_selected_group_count": 4,
+        "group_recall": 1.0,
+        "group_precision": 1.0,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 3,
+        "low": 0,
+        "medium": 1,
+        "unknown": 0
+      },
+      "findings": [
+        {
+          "pattern": "sql_injection",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            1
+          ]
+        },
+        {
+          "pattern": "xss",
+          "severity": "medium",
+          "state": "requires_investigation",
+          "line_numbers": [
+            2
+          ]
+        },
+        {
+          "pattern": "path_traversal",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            3
+          ]
+        },
+        {
+          "pattern": "command_injection",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            4
+          ]
+        }
+      ],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "login_window",
+      "stamp": "20261007T104057987827Z",
+      "status": "succeeded",
+      "receipt_sha256": "44adba5a1daa228095f7a80acac425b28c3d2023169cf9e5583adf61f55b4047",
+      "calls": 3,
+      "seconds": 59.953,
+      "models_observed": [
+        "apodex/apodex-1.1-mini:free",
+        "inclusionai/ling-3.0-flash-sante:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 6262,
+        "completion_tokens": 12587,
+        "total_tokens": 18849,
+        "reasoning_tokens": 11752
+      },
+      "usage_warnings": [],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 11752
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-9cf42a91b1cd42a58ad6edb93e172a34",
+      "publication_hashes": {
+        "result.json": "d83f807756f2d96115bb29562e53d626a083ccd4ec937adc4dc062d284cecc91",
+        "report.md": "e3502398dbd03f05c6c0b2258205afb575ac9ff35046239571e43d4da0b3c60a"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "login_window",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [
+          "brute_force"
+        ],
+        "optional_patterns": [],
+        "actual_patterns": [
+          "brute_force"
+        ],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": 1.0,
+        "pattern_precision": 1.0,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 1
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 2
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 3
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 4
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          }
+        ],
+        "actual_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 1
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 2
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 3
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 4
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          }
+        ],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": 1.0,
+        "evidence_precision": 1.0,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 5,
+        "fixture_input_lines": 5,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "optional_selected_groups": [],
+        "actual_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 1,
+        "expected_selected_group_count": 1,
+        "group_recall": 1.0,
+        "group_precision": 1.0,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 1,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [
+        {
+          "pattern": "brute_force",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "login_spread",
+      "stamp": "20261007T104201934055Z",
+      "status": "succeeded",
+      "receipt_sha256": "84098e159f2dcda1cbd5af964d3b3af71a581e1b014419c285ecb4b37e1afb11",
+      "calls": 3,
+      "seconds": 18.562,
+      "models_observed": [
+        "dots-studio/dots-3-note-preview:free",
+        "inclusionai/ling-3.0-flash-sante:free",
+        "nvidia/nemotron-3-super-120b-a12b:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 4538,
+        "completion_tokens": 1364,
+        "total_tokens": 5902,
+        "reasoning_tokens": 1346
+      },
+      "usage_warnings": [
+        {
+          "call": 2,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 1346
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-5b045195511e4edb94eca5a1334eac91",
+      "publication_hashes": {
+        "result.json": "87d4bf107f5bb8fce6ed036e69d48093b210737e74d0bdf576bdc2e4488d9cf5",
+        "report.md": "dfd55915f807def0ee5e50ebb2d65e619c2a21de54d6ffdc71d6552b3af5cce9"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "login_spread",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 5,
+        "fixture_input_lines": 5,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "timezone_split",
+      "stamp": "20261007T104224439687Z",
+      "status": "succeeded",
+      "receipt_sha256": "24356d59ea3c36ffaf7bc38751bfb1e442813616a8806590b85ca9c307f87f50",
+      "calls": 4,
+      "seconds": 30.843,
+      "models_observed": [
+        "dots-studio/dots-3-note-preview:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "nvidia/nemotron-3.5-content-safety:free",
+        "poolside/laguna-s-2.1:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 4,
+        "prompt_tokens": 9153,
+        "completion_tokens": 1331,
+        "total_tokens": 10484,
+        "reasoning_tokens": 1217
+      },
+      "usage_warnings": [
+        {
+          "call": 1,
+          "code": "reasoning_exceeds_completion"
+        },
+        {
+          "call": 3,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 1217
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-4dcc15232ac5426aa0a63bed6ecfa7e0",
+      "publication_hashes": {
+        "result.json": "d5766fc9d1a33e6778d82d5c1beaf79e7e8c157684cc136479345b65e099de40",
+        "report.md": "a5e0655c66cd85362f72ed898eb9e08f23e456cdbdf100611cff00aa842a3b25"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "timezone_split",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 5,
+        "fixture_input_lines": 5,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E1",
+      "case": "incomplete",
+      "stamp": "20261007T104259131884Z",
+      "status": "succeeded",
+      "receipt_sha256": "becb9090e12aed06aeddc98932c623e3098ecf1048e62744aa96480f83bb3c86",
+      "calls": 3,
+      "seconds": 31.953,
+      "models_observed": [
+        "dots-studio/dots-3-note-preview:free",
+        "inclusionai/ling-3.0-flash-sante:free",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 3611,
+        "completion_tokens": 3439,
+        "total_tokens": 7050,
+        "reasoning_tokens": 3293
+      },
+      "usage_warnings": [
+        {
+          "call": 2,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 3293
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-cd7cc2f2e32c4a9484f87074ac0282f5",
+      "publication_hashes": {
+        "result.json": "2345cace3acea94cd4af53a3a8004bb63d99f1b1ca131104bb4a3cbef67392b0",
+        "report.md": "4b0f258de47632b04049f021dea3f1ace0a206e17172d611faa2a6193d3bfea7"
+      },
+      "prompt_version": "structured-prototype-4",
+      "rule_version": "observed-access-2",
+      "report_format_version": null,
+      "narrative_source": null,
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "incomplete",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [
+          "other"
+        ],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 1,
+        "fixture_input_lines": 1,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [
+          {
+            "pattern": "other",
+            "line_numbers": [
+              1
+            ]
+          }
+        ],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": false,
+      "current_narrative_equal": false,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E2",
+      "case": "same_family_failed",
+      "stamp": "20261014T094305947708Z",
+      "status": "failed",
+      "receipt_sha256": "d8abf97c07f792fb1e781544c0c1968da75f85719adc38ee27feb8300415814a",
+      "calls": 2,
+      "seconds": 21.438,
+      "models_observed": [
+        "nvidia/nemotron-3.5-content-safety:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 2,
+        "prompt_tokens": 4604,
+        "completion_tokens": 1398,
+        "total_tokens": 6002,
+        "reasoning_tokens": 1114
+      },
+      "usage_warnings": [
+        {
+          "call": 2,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 1114
+        }
+      ],
+      "no_publication": true,
+      "no_generation": true
+    },
+    {
+      "source": "E2",
+      "case": "mixed",
+      "stamp": "20261014T094752213939Z",
+      "status": "succeeded",
+      "receipt_sha256": "e21851cc3fafef7498e6ee9506c6c22c793d3ed1867722704f8d3f2526482964",
+      "calls": 3,
+      "seconds": 83.125,
+      "models_observed": [
+        "dots-studio/dots-3-note-preview:free",
+        "liquid/lfm-2.5-2.6b:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 8372,
+        "completion_tokens": 8090,
+        "total_tokens": 16462,
+        "reasoning_tokens": 7211
+      },
+      "usage_warnings": [
+        {
+          "call": 2,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 7211
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-25d28072e33647b6bb6b220aa6b28544",
+      "publication_hashes": {
+        "result.json": "aeea8a3e52a9b0559d35a85bc674229880060cba4246d2adf0b129aa85928f41",
+        "report.md": "bcd6f2cef76dbefea8307c6c4f13eb68c410161adea3345258ebc9a7c63a8ad1"
+      },
+      "prompt_version": "structured-prototype-8",
+      "rule_version": "observed-access-3",
+      "report_format_version": "structured-report-4",
+      "narrative_source": "python_validated_facts",
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "mixed",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [
+          "brute_force",
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "optional_patterns": [],
+        "actual_patterns": [
+          "brute_force",
+          "command_injection",
+          "path_traversal",
+          "sql_injection",
+          "xss"
+        ],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": 1.0,
+        "pattern_precision": 1.0,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 6
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 7
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 8
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 9
+          },
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "actual_evidence_pairs": [
+          {
+            "pattern": "brute_force",
+            "line_number": 5
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 6
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 7
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 8
+          },
+          {
+            "pattern": "brute_force",
+            "line_number": 9
+          },
+          {
+            "pattern": "command_injection",
+            "line_number": 4
+          },
+          {
+            "pattern": "path_traversal",
+            "line_number": 3
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "xss",
+            "line_number": 2
+          }
+        ],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": 1.0,
+        "evidence_precision": 1.0,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 10,
+        "fixture_input_lines": 10,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "optional_selected_groups": [],
+        "actual_groups": [
+          {
+            "pattern": "brute_force",
+            "line_numbers": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          {
+            "pattern": "command_injection",
+            "line_numbers": [
+              4
+            ]
+          },
+          {
+            "pattern": "path_traversal",
+            "line_numbers": [
+              3
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "xss",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 5,
+        "expected_selected_group_count": 5,
+        "group_recall": 1.0,
+        "group_precision": 1.0,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 4,
+        "low": 0,
+        "medium": 1,
+        "unknown": 0
+      },
+      "findings": [
+        {
+          "pattern": "sql_injection",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            1
+          ]
+        },
+        {
+          "pattern": "xss",
+          "severity": "medium",
+          "state": "requires_investigation",
+          "line_numbers": [
+            2
+          ]
+        },
+        {
+          "pattern": "path_traversal",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            3
+          ]
+        },
+        {
+          "pattern": "command_injection",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            4
+          ]
+        },
+        {
+          "pattern": "brute_force",
+          "severity": "high",
+          "state": "requires_investigation",
+          "line_numbers": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "current_markdown_rebuild_equal": true,
+      "current_narrative_equal": true,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E2",
+      "case": "normal",
+      "stamp": "20261014T095000222953Z",
+      "status": "succeeded",
+      "receipt_sha256": "0a360c4e39452e71bc0e6e31afb0b68bf53f480feffce080b7ff6dc2da217564",
+      "calls": 1,
+      "seconds": 5.0,
+      "models_observed": [
+        "liquid/lfm-2.5-2.6b:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 1,
+        "prompt_tokens": 1847,
+        "completion_tokens": 1247,
+        "total_tokens": 3094,
+        "reasoning_tokens": 1205
+      },
+      "usage_warnings": [],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 1205
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-c37d772634a94e158e11ec590604f614",
+      "publication_hashes": {
+        "result.json": "5d6c8d15421bd705aff93a1f54eb142944a7eb975ee27491a227a431a22fa56a",
+        "report.md": "ba7aa5e3c65b8d792d7b2bb0ea6b99bf0c9dcb5cd1c5eb317dc9262a3723ac85"
+      },
+      "prompt_version": "structured-prototype-8",
+      "rule_version": "observed-access-3",
+      "report_format_version": "structured-report-4",
+      "narrative_source": "python_scope",
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "normal",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [],
+        "optional_patterns": [],
+        "actual_patterns": [],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": null,
+        "pattern_precision": null,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [],
+        "actual_evidence_pairs": [],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": null,
+        "evidence_precision": null,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 4,
+        "fixture_input_lines": 4,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [],
+        "optional_selected_groups": [],
+        "actual_groups": [],
+        "missing_groups": [],
+        "unexpected_groups": [],
+        "actual_group_count": 0,
+        "expected_selected_group_count": 0,
+        "group_recall": null,
+        "group_precision": null,
+        "group_expectations_met": true,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": true
+      },
+      "counts": {
+        "critical": 0,
+        "high": 0,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [],
+      "current_markdown_rebuild_equal": true,
+      "current_narrative_equal": true,
+      "narrative_summary_is_placeholder": false
+    },
+    {
+      "source": "E2",
+      "case": "same_family",
+      "stamp": "20261014T101649520992Z",
+      "status": "succeeded",
+      "receipt_sha256": "1cc1b26a08cf8e4947f56f083bd0926f0f0087a2f2178d371e836943b7cdcc4f",
+      "calls": 3,
+      "seconds": 41.641,
+      "models_observed": [
+        "dots-studio/dots-3-note-preview:free",
+        "liquid/lfm-2.5-2.6b:free",
+        "nvidia/nemotron-3-super-120b-a12b:free"
+      ],
+      "usage": {
+        "source": "completion_metadata",
+        "complete": true,
+        "observed_completions": 3,
+        "prompt_tokens": 4828,
+        "completion_tokens": 4406,
+        "total_tokens": 9234,
+        "reasoning_tokens": 4052
+      },
+      "usage_warnings": [
+        {
+          "call": 3,
+          "code": "reasoning_exceeds_completion"
+        }
+      ],
+      "usage_discrepancies": [
+        {
+          "field": "reasoning_tokens",
+          "sdk": 0,
+          "completion_metadata": 4052
+        }
+      ],
+      "generation": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-333b5f45b48a4bb4aad53664e90e464f",
+      "publication_hashes": {
+        "result.json": "b58c9f6d98ca0603f8d91878f460c481d446fc04fd944e8a5c0dbba96d2d2d11",
+        "report.md": "3a8586c1692ff8bf6f95d257848c71e4f1e79b1925dcdb1926d1760bac7e4fd3"
+      },
+      "prompt_version": "structured-prototype-8",
+      "rule_version": "observed-access-3",
+      "report_format_version": "structured-report-4",
+      "narrative_source": "python_validated_facts",
+      "quality": "semantic_evaluation_pending",
+      "publication_verified": true,
+      "full_input_selected": true,
+      "checks": {
+        "detection_contract": {
+          "accepted": true
+        },
+        "classification_contract": {
+          "accepted": true
+        },
+        "narrative_contract": {
+          "accepted": true
+        },
+        "current_observed_classification": {
+          "accepted": true
+        }
+      },
+      "scores": {
+        "case": "same_family",
+        "metrics_scope": "pattern_families_not_event_accuracy",
+        "expected_patterns": [
+          "sql_injection"
+        ],
+        "optional_patterns": [],
+        "actual_patterns": [
+          "sql_injection"
+        ],
+        "missing_patterns": [],
+        "unexpected_patterns": [],
+        "pattern_recall": 1.0,
+        "pattern_precision": 1.0,
+        "pattern_expectations_met": true,
+        "evidence_metrics_scope": "synthetic_indicator_line_pairs_not_attack_accuracy",
+        "expected_evidence_pairs": [
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 2
+          }
+        ],
+        "actual_evidence_pairs": [
+          {
+            "pattern": "sql_injection",
+            "line_number": 1
+          },
+          {
+            "pattern": "sql_injection",
+            "line_number": 2
+          }
+        ],
+        "missing_evidence_pairs": [],
+        "unexpected_evidence_pairs": [],
+        "unselected_evidence_pairs": [],
+        "evidence_recall": 1.0,
+        "evidence_precision": 1.0,
+        "evidence_expectations_met": true,
+        "expected_evidence_fully_selected": true,
+        "selected_input_lines": 3,
+        "fixture_input_lines": 3,
+        "fixture_fully_selected": true,
+        "group_metrics_scope": "exact_authored_indicator_groups_not_incident_accuracy",
+        "expected_selected_groups": [
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1,
+              2
+            ]
+          }
+        ],
+        "optional_selected_groups": [],
+        "actual_groups": [
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "missing_groups": [
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1,
+              2
+            ]
+          }
+        ],
+        "unexpected_groups": [
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              1
+            ]
+          },
+          {
+            "pattern": "sql_injection",
+            "line_numbers": [
+              2
+            ]
+          }
+        ],
+        "actual_group_count": 2,
+        "expected_selected_group_count": 1,
+        "group_recall": 0.0,
+        "group_precision": 0.0,
+        "group_expectations_met": false,
+        "metrics_version": "a05-metrics-2",
+        "semantic_acceptance": false,
+        "fixture_expectations_met": false
+      },
+      "counts": {
+        "critical": 0,
+        "high": 2,
+        "low": 0,
+        "medium": 0,
+        "unknown": 0
+      },
+      "findings": [
+        {
+          "pattern": "sql_injection",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            1
+          ]
+        },
+        {
+          "pattern": "sql_injection",
+          "severity": "high",
+          "state": "observed_indicator",
+          "line_numbers": [
+            2
+          ]
+        }
+      ],
+      "current_markdown_rebuild_equal": true,
+      "current_narrative_equal": true,
+      "narrative_summary_is_placeholder": false
+    }
+  ],
+  "receipt_sha256": "796f785e7255139a9863628dd571dc825450f6ca65dcabbabc22e83d31f4871e"
+}
