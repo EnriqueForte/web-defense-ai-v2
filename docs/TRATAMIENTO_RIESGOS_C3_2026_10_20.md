@@ -7,6 +7,11 @@ los avisos y la CI del parche como requisito de entrega; no se certifica segurid
 El [registro JSON](TRATAMIENTO_RIESGOS_C3_2026_10_20.json) conserva fuentes,
 fechas, hashes, auditorías y comprobaciones.
 
+**Continuación C4:** [CI y artefactos del parche verificados](ENTREGA_LOCAL_C4_2026_10_20.md)
+después de esta revisión, sobre `0d73ec2` en Windows/Ubuntu. El registro JSON
+de C3 conserva el estado de su revisión local original; la evidencia nueva,
+incluida la instalación real Linux, se registra en C4.
+
 ## Revisión actual y corrección aplicada
 
 Se auditaron los freezes completos de la CI39239742802: 172 paquetes por OS,

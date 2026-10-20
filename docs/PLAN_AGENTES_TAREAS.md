@@ -14,10 +14,10 @@ La cronología inicial se conserva en [su archivo histórico](HISTORIAL_PLAN_AGE
 
 | Cierre | Estado al 20/10 | Próxima condición |
 | --- | --- | --- |
-| C1 — Documentación | Consolidada localmente en esta revisión | Mantener enlaces/órdenes y estado canónico coherentes; publicación documental dentro de la entrega |
+| C1 — Documentación | Consolidada y publicada con el código de entrega | Mantener enlaces/órdenes y estado canónico coherentes, con cronologías preservadas |
 | C2 — Aceptación A-05 | Cerrada el 20/10 por aceptación expresa del alcance local propuesto | Conservar límites de las muestras y comparación diferida; no añadir promesas generales ni ensayos automáticos |
-| C3 — Seguridad | [Tratamiento residual aceptado](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) por respuesta expresa20/10, separado de C2 | Cerrado para uso local aislado; avisos retenidos y CI del parche exigida en C4, sin seguridad global certificada |
-| C4 — Versión | [Entrega en preparación](ENTREGA_LOCAL_C4_2026_10_20.md), con notas revisables y parche local | Publicar/verificar CI Windows/Ubuntu del parche, artefactos completos y contenido; acordar identificación de versión antes de crear tag/release |
+| C3 — Seguridad | [Tratamiento residual aceptado](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) por respuesta expresa20/10, separado de C2 | Cerrado para uso local aislado; avisos retenidos y CI del parche aprobada/verificada en C4, sin seguridad global certificada |
+| C4 — Versión | [Entrega v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md): código `0d73ec2`, CI39466610699 y artefactos completos verificados, notas y contenido revisados | Identidad de distribución en GitHub; solo actas posteriores al código probado, sin atribuirles CI nueva |
 | V1 — Parrot actualizado | Condicional; no acreditado con los pins actuales | Respaldo y recuperación verificados antes de afirmar actualización de la VM |
 
 ## 1. Decisión y distinciones

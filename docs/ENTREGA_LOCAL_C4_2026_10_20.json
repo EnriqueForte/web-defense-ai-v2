@@ -1,0 +1,451 @@
+{
+  "schema_version": "1",
+  "date": "2026-10-20",
+  "recorded_at": "2026-10-20T17:38:27.687948+00:00",
+  "status": "code_CI_and_complete_artifacts_verified; formal_version_publication_separate",
+  "repository": "EnriqueForte/web-defense-ai-v2",
+  "repository_private": true,
+  "distribution_identity": "v0.1.0",
+  "distribution_scope": "personal_local_isolated_indicator_review",
+  "release_url": "https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0",
+  "verified_code_commit": "0d73ec26f5c214f820cd3b6bbefd5fe0681d62c8",
+  "CI": {
+    "run": 39466610699,
+    "attempt": 1,
+    "url": "https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 118779554379,
+        "name": "installation-and-offline-tests (windows-latest)",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install frontend package manager",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "User installation and production build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete Python environment snapshot",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Save verified Python inventory",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Offline Python and browser contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "A-05 synthetic evidence and publication review",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Save synthetic A-05 review",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Frontend validation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Install isolated E2E browser",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Synthetic settings end-to-end",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Save failed synthetic E2E diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15
+          },
+          {
+            "name": "Unified launcher and shutdown",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/setup-node@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Post Run actions/setup-python@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Post Run actions/checkout@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          }
+        ]
+      },
+      {
+        "id": 118779554782,
+        "name": "installation-and-offline-tests (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install frontend package manager",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "User installation and production build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete Python environment snapshot",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Save verified Python inventory",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Offline Python and browser contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "A-05 synthetic evidence and publication review",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Save synthetic A-05 review",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Frontend validation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Install isolated E2E browser",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Synthetic settings end-to-end",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Save failed synthetic E2E diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15
+          },
+          {
+            "name": "Unified launcher and shutdown",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/setup-node@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Post Run actions/setup-python@v6",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Post Run actions/checkout@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          }
+        ]
+      }
+    ],
+    "logs_zip_sha256": "6debbc9fc4f672931e7008526adb10b001f3ce2b4b9bdebabf78d13c6233c0f9",
+    "verified_log_summary": [
+      {
+        "job_log": "0_installation-and-offline-tests (ubuntu-24.04).txt",
+        "new_tests_observed": 3,
+        "python_cases": 376,
+        "python_seconds": [
+          "42.345"
+        ],
+        "e2e_duration": [
+          "10.6s"
+        ]
+      },
+      {
+        "job_log": "1_installation-and-offline-tests (windows-latest).txt",
+        "new_tests_observed": 3,
+        "python_cases": 376,
+        "python_seconds": [
+          "46.295"
+        ],
+        "e2e_duration": [
+          "9.0s"
+        ]
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "artifact_id": 12285142801,
+      "name": "python-environment-windows-latest",
+      "platform": "win32",
+      "python": "3.11.9",
+      "packages": 172,
+      "differences": 0,
+      "additional_unpinned": 0,
+      "uvloop": null,
+      "pywin32": "311",
+      "freeze_sha256": "56e9e483945fe646df60c63ce27537811603731b6dd95089049f06c2c986a81f",
+      "delta": {
+        "aiohttp": [
+          "3.14.3",
+          "3.14.4"
+        ],
+        "yarl": [
+          "1.23.0",
+          "1.25.1"
+        ]
+      },
+      "matches_post_patch_audit_input": true,
+      "actual_CI_installation": true,
+      "previous_freeze_sha256": "4444efe4144b1000fc66679788ca32dbd9d4685da2fd1161f7eb726fbd93553d"
+    },
+    {
+      "artifact_id": 12285816295,
+      "name": "python-environment-ubuntu-24.04",
+      "platform": "linux",
+      "python": "3.11.17",
+      "packages": 172,
+      "differences": 0,
+      "additional_unpinned": 0,
+      "uvloop": "0.23.0",
+      "pywin32": null,
+      "freeze_sha256": "4add764caba4c233c2eea4d893e6cbfdcc7ac73dc41cd8016966837f06e015b1",
+      "delta": {
+        "aiohttp": [
+          "3.14.3",
+          "3.14.4"
+        ],
+        "yarl": [
+          "1.23.0",
+          "1.25.1"
+        ]
+      },
+      "matches_post_patch_audit_input": true,
+      "actual_CI_installation": true,
+      "previous_freeze_sha256": "2a89e0601de6126ec0449a723bcb0cf67f9b00af092e9abc60264439aa9127fa"
+    }
+  ],
+  "synthetic_publication_review": {
+    "head_sha": "0d73ec26f5c214f820cd3b6bbefd5fe0681d62c8",
+    "run_id": 39466610699,
+    "attempt": 1,
+    "artifacts": [
+      {
+        "artifact_id": 12285441800,
+        "name": "a05-offline-review-ubuntu-24.04",
+        "review_cases": 24,
+        "guard_controls": 8,
+        "files": 101,
+        "complete_publications": 25,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "73d753711596c4d8e3e045f6cdaa4f2f89976fef8ce7793cc1813c65bc769d2e",
+        "review_sha256": "7eaeaf0dd708e44a6e11b3cb35fe08f9761484828df5fc3ffd8c4bc2e7c6f9fa"
+      },
+      {
+        "artifact_id": 12285716664,
+        "name": "a05-offline-review-windows-latest",
+        "review_cases": 24,
+        "guard_controls": 8,
+        "files": 101,
+        "complete_publications": 25,
+        "recomputed_scores_match": true,
+        "all_remote_report_bytes_equal_local": true,
+        "manifest_hashes_verified": true,
+        "zip_sha256": "b83e0759c4b5bd28a9e400c821fa8846fdaafe5e696deafbb46a83f0e26f879f",
+        "review_sha256": "c1fd1909bee1d797741aa5ba82dcb1f29ba418b477215bf29cb15fdda14049fa"
+      }
+    ]
+  },
+  "regression": {
+    "Python_cases_per_OS": 376,
+    "Windows_passed": 375,
+    "Windows_Linux_only_skipped": 1,
+    "Ubuntu_passed": 376,
+    "JS_cases": 3,
+    "syntax_files": 101,
+    "offline_SDK_cases": 27,
+    "UI_groups": 17,
+    "E2E_cases_per_OS": 9,
+    "new_cookie_cases_run_on_both_OS": 2,
+    "historical_inventory_test_run_on_both_OS": true,
+    "API_and_proxy_status": 200,
+    "launcher_shutdown_ports_freed": true
+  },
+  "dependency_changes": {
+    "aiohttp": [
+      "3.14.3",
+      "3.14.4"
+    ],
+    "yarl": [
+      "1.23.0",
+      "1.25.1"
+    ]
+  },
+  "historical_contract_snapshots_modified": false,
+  "baseline_comparison": {
+    "previous_commit": "ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c",
+    "previous_CI": 39239742802,
+    "only_two_packages_changed": true,
+    "synthetic_JSON_Markdown_equal_prior_review": true
+  },
+  "acceptances": {
+    "C2": "accepted_bounded_local_scope",
+    "C3": "accepted_local_residual_risk_treatment",
+    "C2_record": "REVISION_ACEPTACION_A05_2026_10_20.json",
+    "C3_record": "TRATAMIENTO_RIESGOS_C3_2026_10_20.json",
+    "general_quality_or_security_certification": false,
+    "legacy_comparison": "deferred"
+  },
+  "secret_review": {
+    "candidate_files_at_code_commit": 278,
+    "reachable_commits": 81,
+    "counts": {
+      "candidate": 4,
+      "history": 5
+    },
+    "unreviewed_findings": 0,
+    "historical_CSRF_provenance_unverified": true,
+    "findings_retained": true,
+    "scope": "candidate_and_HEAD_reachable_history_pattern_scan_not_absence_proof"
+  },
+  "scope_limits": {
+    "new_real_LLM_calls": 0,
+    "Docker_started": false,
+    "image_rescan_performed": false,
+    "operational_notifications": false,
+    "operational_dotenv_read": false,
+    "VM_changed": false,
+    "VM_updated_or_restored_claimed": false,
+    "quality_field_changed": false
+  },
+  "publication_order": "After_verified_code_commit_only_documentation_may_change_before_tag; verify_same_product_tree",
+  "receipt_directory": ".local-state/c4-delivery-20261020/"
+}

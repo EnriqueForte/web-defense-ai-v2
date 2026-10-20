@@ -3,22 +3,25 @@
 El proyecto dispone de una aplicación local implementada y una base técnica
 verificada. Tras la continuación del 20/10, la aceptación acotada A-05 está
 cerrada por decisión expresa del usuario y C3 tiene tratamiento residual aceptado
-para uso local aislado. Queda C4 entrega, incluida CI del parche aiohttp/yarl,
-con actualización de VM condicionada a su alcance. No se ha identificado en esta revisión
+para uso local aislado. C4 dispone de código/CI/artefactos verificados e identidad
+de entrega [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md), con actualización de VM
+condicionada a su alcance. No se ha identificado en la revisión inicial
 un fallo nuevo reproducido que obligue a rehacer la arquitectura. Esto no es una
 auditoría exhaustiva ni una declaración de ausencia de defectos.
 
 Base examinada: `ca2f6af6ceba7af7b5d1fe78bff2bdf0c740ef4c`, árbol limpio al
 comenzar, código y documentación del repositorio, actas de ensayos previos y
-logs/artefactos completos de la CI. Los cambios de esta continuación son actas
-locales; no se ha publicado una versión ni ejecutado otro análisis real.
+logs/artefactos completos de la CI. La continuación C3 corrigió aiohttp/yarl y C4
+publicó el código `0d73ec2`, con CI39466610699 y artefactos completos verificados.
+Las actas posteriores conservan ese árbol de producto; no se ejecutó otro
+análisis real. El estado de distribución se registra en el acta C4 enlazada.
 
 ## Qué está terminado y no debe reabrirse sin causa
 
 | Bloque | Evidencia y alcance confirmado |
 | --- | --- |
 | Interfaz, API y ejecución | Migración SOC/Next, respaldo Flask, lectura versionada, configuración, instalación/arranque/cierre y coordinación de trabajos implementados. [Estado vigente](ESTADO_FINAL_2026_10_12.md) y [guía](INICIO_RAPIDO.md). |
-| Regresión e instalación | [CI 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802), intento 1, ambos OS aprobados. Ubuntu: 374 Python aprobadas; Windows: 373 y una exclusiva Linux omitida; tres JS, 100 sintaxis, 27 SDK offline, lint/tipos, 17 UI y nueve E2E por OS. Inventarios 172/0/0 y freezes preservados; API/proxy 200 y cierre de puertos. |
+| Regresión e instalación | [CI 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699), código `0d73ec2`, intento 1, ambos OS aprobados con el parche aiohttp/yarl. Ubuntu: 376 Python aprobadas; Windows: 375 y una exclusiva Linux omitida; tres JS, 101 sintaxis, 27 SDK offline, lint/tipos, 17 UI y nueve E2E por OS. Inventarios 172/0/0; API/proxy 200 y cierre de puertos; artefactos completos revisados. |
 | Evaluador A-05 offline | [Grupos y revisión sin proveedor](EVALUACION_GRUPOS_A05_2026_10_19.md): 24 casos/ocho controles; 25 publicaciones/101 archivos por OS, manifiestos/hashes/métricas y bytes JSON/Markdown contrastados. La verificación remota pendiente del bloque anterior queda cerrada. |
 | Muestras reales aceptadas | [Ensayos del 14/10](ENSAYO_REAL_A05_2026_10_14.md) y muestra guiada Parrot del 15/10 XSS/fuerza bruta: dos grupos, XSS línea 31 y ráfaga 39–46, coherentes con informe y dashboard. [Acta Groq 413](INCIDENCIA_GROQ_413_2026_10_15.md). No acreditan calidad general ni autenticación exitosa. |
 | Conservación de aplicación | [Respaldo y restauración aislada](OPERACION_RECUPERACION_2026_10_14.md) verificados; no equivale a restauración de volúmenes Docker o del buzón de la VM. |
@@ -26,7 +29,7 @@ locales; no se ha publicado una versión ni ejecutado otro análisis real.
 
 En la revisión documental inicial no se repitieron pruebas completas ya
 aprobadas: no había cambios de código que lo justificaran. El parche posterior
-aiohttp/yarl pasó validación local y necesita CI nueva en C4. Los fallos
+aiohttp/yarl pasó validación local y después CI nueva verificada en C4. Los fallos
 históricos de Groq/formato/tokenizadores conservan sus
 registros y correcciones; no se presentan como fallos actuales por aparecer en
 actas antiguas.
@@ -35,10 +38,10 @@ actas antiguas.
 
 | ID | Trabajo restante | Condición verificable de cierre |
 | --- | --- | --- |
-| C1 — Documentación vigente | Consolidación local completada en la continuación del 20/10; publicación documental dentro de la entrega pendiente | README, guías, plan y resumen coherentes; cronologías conservadas en archivos históricos. La comprobación documental no equivale a aceptación del producto. |
+| C1 — Documentación vigente | Consolidación y publicación completadas con el código de entrega | README, guías, plan y resumen coherentes; cronologías conservadas en archivos históricos. La comprobación documental no equivale a aceptación del producto. |
 | C2 — Aceptación A-05 | Cerrada el 20/10 por respuesta expresa del usuario; [revisión y decisión](REVISION_ACEPTACION_A05_2026_10_20.md), doce recibos/once publicaciones y 56 archivos preservados | Primera versión local con límites y comparación legacy expresamente diferida; no certifica calidad general ni autoriza ensayos/publicación/VM |
-| C3 — Seguridad residual | [Tratamiento aceptado20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md): parche aiohttp/yarl local y respuesta expresa del usuario sobre R1–R8 | Cerrado en tratamiento local, sin eliminar avisos o certificar seguridad global; CI del parche exigida en C4 |
-| C4 — Entrega | Preparar versión identificable, notas y comprobación del contenido publicable. | Código final vinculado a su CI, guías y riesgos coherentes, revisión de archivos/historial con hallazgos triados, versión/tag/release en V2 cuando proceda. Si solo cambian actas, conservar la CI del código probado; si cambia código, validar los cambios pertinentes. |
+| C3 — Seguridad residual | [Tratamiento aceptado20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md): parche aiohttp/yarl y respuesta expresa del usuario sobre R1–R8 | Cerrado en tratamiento local, sin eliminar avisos o certificar seguridad global; CI del parche aprobada y verificada en C4 |
+| C4 — Entrega | [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md), código `0d73ec2`, CI39466610699 y artefactos completos verificados; contenido y notas revisados | Identidad de distribución vinculada al código probado. Las actas posteriores conservan su árbol de producto; no se atribuye CI nueva a commits documentales |
 | V1 — Parrot actualizado | Aplicar el código/pins actuales y acreditar conservación/recuperación de datos si se incluye esa actualización en la entrega. | Copia verificada y plan de restauración del volumen DB antes de recrear; exportar correo necesario, actualizar de forma controlada y comprobar lectura y conservación. La restauración Docker/VM necesita evidencia propia. |
 
 V1 es una condición para afirmar que la VM existente está actualizada y que sus
@@ -148,11 +151,12 @@ y aceptación expresa de A-05 en alcance local, con comparación diferida.
    La [matriz](MATRIZ_ACEPTACION_A05_2026_10_20.md) registra cuatro decisiones ya
    resueltas para el alcance local, sin llamadas nuevas.
 3. C2 y C3 resueltas el20/10 con revisiones y respuestas expresas separadas.
-   Se conserva el alcance local; C3 exige validar el parche aiohttp/yarl en C4
-   antes de la entrega.
+   Se conserva el alcance local; el parche aiohttp/yarl se validó en la CI de C4
+   antes de preparar la versión de entrega.
 4. Ejecutar V1 antes de declarar actualizada/recuperable la VM si esa afirmación
    forma parte de la entrega. Preparación y aplicación son tareas separadas.
-5. Cerrar C4 sobre el código final y publicar la versión acordada en V2.
+5. C4: código publicado y CI/artefactos verificados; identidad `v0.1.0` y notas
+   de la entrega en V2. El registro C4 conserva las referencias exactas.
 
 No se añaden como requisitos de cierre un cuarto agente, remediación automática,
 despliegue público/multiusuario, servicio permanente, soporte macOS/ARM, retención
@@ -160,10 +164,10 @@ automatizada, CSP completa de scripts Next o demostración de portfolio. Son
 alcances posteriores. Tampoco se certifica una observación de 24 horas o siete
 días que históricamente se aceptó cerrar antes.
 
-El repositorio ya contiene código publicado; esto no equivale a una versión
-final formal. No hay tags locales en la revisión. No se consultaron releases
-o tags remotos en este análisis, por lo que su existencia remota no se infiere.
-No se propone nombre ni número definitivo de versión sin cerrar su alcance.
+La revisión inicial no consultó tags/releases remotos. C4 sí comprobó después
+que no había ninguno al iniciar su trabajo y prepara `v0.1.0` como primera
+identidad de entrega para el alcance ya aceptado. La publicación formal se
+comprueba en GitHub y no se deduce de la existencia de archivos documentales.
 
 La revisión no ejecutó LLM, Docker, envíos, servicios operativos o cambios en
 Parrot, ni leyó bytes del `.env` operativo. La comprobación de artefactos GitHub

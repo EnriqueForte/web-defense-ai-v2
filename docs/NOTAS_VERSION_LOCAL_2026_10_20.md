@@ -1,8 +1,10 @@
-# Notas de la primera versión local — borrador del 20/10/2026
+# v0.1.0 — Primera versión local — 20/10/2026
 
-**Preparadas para revisión; sin tag ni release publicados.** La identificación
-de versión y la referencia de código se completarán después de verificar la
-[CI de entrega C4](ENTREGA_LOCAL_C4_2026_10_20.md).
+Identidad de entrega: **v0.1.0**, para el alcance personal local aislado
+aceptado. Código probado: `0d73ec26f5c214f820cd3b6bbefd5fe0681d62c8`;
+[CI 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699)
+Windows/Ubuntu aprobada y artefactos completos revisados.
+[Acta de entrega C4](ENTREGA_LOCAL_C4_2026_10_20.md).
 
 ## Uso previsto
 
@@ -52,7 +54,16 @@ Conservar el correo necesario antes de recrear Mailpit y no borrar volúmenes.
 
 ## Validación de esta versión
 
-Pendiente de la CI nueva Windows/Ubuntu del parche y de la revisión de sus
-artefactos. Las pruebas locales de C3 están registradas en su acta. No se usa
-la CI anterior como validación de los nuevos pines. No se han realizado nuevos
-ensayos LLM ni cambios operativos como parte de la preparación de esta versión.
+Instalación limpia/build Windows/Ubuntu, 376 casos Python por plataforma
+(Windows: 375 aprobados y una prueba Linux omitida), tres JS, 101 comprobaciones
+de sintaxis, HTTP y 27 escenarios SDK offline, lint/tipos, 17 grupos UI y nueve
+E2E por sistema. Arranque con API/proxy 200 y cierre con puertos libres.
+
+Ambos inventarios contienen 172 paquetes, sin diferencias ni adicionales;
+solo cambia el par aiohttp/yarl frente al contrato anterior. Se verificaron
+25 publicaciones sintéticas completas por sistema: manifiestos, hashes,
+métricas y bytes JSON/Markdown iguales a la revisión local anterior.
+
+Los commits de actas posteriores conservan el árbol de producto del código
+probado; la etiqueta de distribución identifica ese contenido final. No se
+han realizado nuevos ensayos LLM ni cambios operativos en esta entrega.

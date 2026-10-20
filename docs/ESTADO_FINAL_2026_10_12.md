@@ -55,7 +55,7 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   actualizado. Cronologías conservadas en archivos históricos enlazados.
   La [matriz de aceptación A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md) reúne las
   muestras y límites en 12 criterios y cuatro decisiones. C1 queda consolidada;
-  la publicación de esta revisión sigue pendiente.
+  su publicación quedó incluida después en el código de entrega C4.
 - A-05/C2 aceptada por el usuario el 20/10 para la primera versión local de
   apoyo a la revisión de indicadores, con límites explícitos y comparación
   legacy diferida. [Revisión y decisión](REVISION_ACEPTACION_A05_2026_10_20.md):
@@ -65,9 +65,16 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   a legacy; `quality=semantic_evaluation_pending` permanece en los resultados.
 - C3 cerrado el 20/10 por aceptación expresa del [tratamiento de riesgos](TRATAMIENTO_RIESGOS_C3_2026_10_20.md)
   para uso personal local aislado. Se conservan los avisos residuales y sus
-  límites. El parche aiohttp/yarl pasó las comprobaciones locales; C4 exige
-  verificar una CI nueva Windows/Ubuntu antes de entregar. La aceptación no
+  límites. El parche aiohttp/yarl pasó las comprobaciones locales y posteriormente
+  CI nueva Windows/Ubuntu, según C4. La aceptación C3 no
   certifica seguridad global ni autoriza una release o cambios en la VM.
+- [Entrega C4 v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md): código `0d73ec2`,
+  CI39466610699 intento 1 aprobada en Windows/Ubuntu. Logs finales, dos inventarios
+  172/0/0 y 25 publicaciones sintéticas completas/101 archivos por OS verificados;
+  376 casos Python por OS (Windows: 375 aprobados y uno Linux omitido), tres JS,
+  101 sintaxis, 27 SDK, 17 UI, nueve E2E y arranque/proxy/cierre correctos.
+  Notas e identidad de distribución vinculadas al código probado; solo actas
+  posteriores, sin nueva CI atribuida a esos commits documentales.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
@@ -76,7 +83,7 @@ Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX
 
 | Bloque | Trabajo restante | Evidencia de cierre |
 | --- | --- | --- |
-| Entrega final | Documentación consolidada y corrección aiohttp/yarl locales; contenido final y versión GitHub pendientes | CI nueva por cambio de dependencias, verificación de artefactos y revisión del contenido antes de notas/versión V2. La CI anterior no valida el parche |
+| V1, si se incluye actualizar Parrot | Actualizar y acreditar conservación/recuperación de los datos de la VM con los pines actuales | Respaldo DB verificado y exportación de correo necesaria antes de recrear; prueba de recuperación separada. No es una actualización ya realizada por la entrega C4 |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.
@@ -154,7 +161,7 @@ entradas por OS). El parche local aiohttp3.14.4/yarl1.25.1 deja seis entradas
 en el inventario Windows probado y en la proyección Linux, que no es ejecución
 Linux. El usuario aceptó expresamente el tratamiento residual para uso local
 aislado el 20/10; C3 queda cerrado en ese alcance, con los avisos conservados.
-La CI nueva se mantiene como requisito C4 antes de entregar. Los párrafos
+La CI nueva se verificó posteriormente en C4, sobre código `0d73ec2`. Los párrafos
 siguientes conservan las revisiones anteriores y sus fechas.
 
 La [fijación de MariaDB/DVWA por digest](FIJACION_IMAGENES_LAB_2026_10_19.md) está

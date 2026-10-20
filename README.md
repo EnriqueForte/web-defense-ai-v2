@@ -18,11 +18,11 @@ explica el trabajo restante.
 | Área | Estado comprobado |
 | --- | --- |
 | Aplicación local | Interfaz SOC, API `/api/v1`, configuración, trabajos, instalación y arranque/cierre implementados. Flask se conserva como interfaz alternativa. |
-| Windows y Ubuntu | Código `ca2f6af`, [CI 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802) aprobada: Ubuntu 374 Python; Windows 373 y una prueba exclusiva Linux omitida; nueve E2E por OS. Instalación limpia, build, API/proxy y cierre comprobados. |
-| Parche de seguridad local | aiohttp 3.14.4 y yarl 1.25.1 validados en `.p4`: 376 casos Python, HTTP/SDK sintéticos e inventario 172/0/0. La CI con los pines nuevos sigue pendiente; la fila anterior acredita el código anterior al parche. |
+| Windows y Ubuntu | Código `0d73ec2`, [CI 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699) aprobada: Ubuntu 376 Python; Windows 375 y una prueba exclusiva Linux omitida; nueve E2E por OS. Instalación limpia, build, API/proxy y cierre comprobados; artefactos completos revisados. |
+| Parche de seguridad | aiohttp 3.14.4 y yarl 1.25.1 instalados y probados en ambos OS, incluidos dos casos de cookies Secure. Inventarios 172/0/0; solo cambian esos dos paquetes frente al contrato anterior. |
 | Evaluación A-05 | Aceptada por el usuario el 20/10 para la primera versión local de apoyo a la revisión, con límites explícitos y comparación legacy diferida. [Matriz y evidencias](docs/MATRIZ_ACEPTACION_A05_2026_10_20.md). |
 | Parrot 7.3/VMware | Instalación/lectura e inventario 172/0/0 comprobados; recorrido DVWA XSS/fuerza bruta aceptado el 15/10 para esa muestra. La actualización de la VM a los pins posteriores y su recuperación Docker no están acreditadas. |
-| Seguridad y entrega | [Tratamiento residual C3](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md) aceptado por el usuario para uso local aislado, conservando vulnerabilidades y límites. CI del parche y versión final pendientes en C4; sin certificación global de seguridad. |
+| Seguridad y entrega | [Tratamiento residual C3](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md) aceptado para uso local aislado, conservando vulnerabilidades y límites. [Entrega C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) identificada como [v0.1.0](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0); sin certificación global de seguridad. |
 
 Las fases de migración 0–7 y las del rediseño SOC están cerradas en su alcance
 local aceptado. Los [estados anteriores del README](docs/HISTORIAL_README_2026_10_20.md)
@@ -67,7 +67,7 @@ Actualizar relee la copia local; no genera tráfico ni inicia un análisis.
 | Laboratorio Docker aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
 | Copias, actualización y restauración de aplicación | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
 | Desarrollo, responsabilidades y pendientes | [Plan vigente](docs/PLAN_AGENTES_TAREAS.md) |
-| Entrega local y notas preparadas | [Estado C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) · [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
+| Entrega local v0.1.0 | [Estado C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) · [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
 
 ## Arquitectura actual
 

@@ -2,6 +2,23 @@
 
 ## Alcance actual
 
+C4 verificada20/10 para primera entrega local v0.1.0 en V2. Código0d73ec2
+(0d73ec26f5c214f820cd3b6bbefd5fe0681d62c8), CI39466610699attempt1 Win/Ubuntu
+completed/success; logs/estados/pasos y2cookies+snapshot test revisados.
+Ubuntu376Python/Win375+1Linuxomitido/3JS101sintaxis/HTTP27SDK/linttipos17UI/
+9E2EporOS(Ubuntu10,6s/Win9,0s)/APIproxy200/cierrepuertos. Inventarios12285142801Win/
+12285816295Ubuntu172/0/0, soloaiohttp3.14.4/yarl1.25.1; freezesigualauditpostC3
+Winreal/Linuxantesproyectado, ahora instalaciónCIreal. A05artifacts12285716664Win/
+12285441800Ubuntu:24casos8controles/25publicaciones101archivosporOS; punteros/
+manifiestos/hashes/métricas/bytesJSONMarkdown iguales a revisiónlocal19/10.
+docs/ENTREGA_LOCAL_C4_2026_10_20.md/JSON y NOTAS_VERSION_LOCAL_2026_10_20.md
+vinculan versión/CI/alcance. Tras0d73ec2 soloactas, conservar árbolproducto y no
+atribuirlesCI nueva; identidadformal v0.1.0 se verifica en GitHub al distribuir.
+C2/C3aceptados con límites/avisos; sin calidad/seguridadglobal certificadas.
+V1 VM condicional separado,no actualizar/recuperar sin alcance propio; no nuevos
+LLM/Docker/serviciosoperativos/envíos/.envbytes. Recibosc4-delivery-20261020ignorados.
+Entradas inferiores históricas.
+
 C4 iniciado20/10 por petición «ok sigamos con C4»: preparar publicación del
 parche/documentación en V2 y verificar CI Windows/Ubuntu existente antes de
 entrega. docs/ENTREGA_LOCAL_C4_2026_10_20.md y NOTAS_VERSION_LOCAL_2026_10_20.md

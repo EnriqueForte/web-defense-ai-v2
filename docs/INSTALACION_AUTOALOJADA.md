@@ -7,7 +7,8 @@ Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado
 Revisión vigente: **20/10/2026**. El [resumen de estado](ESTADO_FINAL_2026_10_12.md)
 reúne pruebas y pendientes; las actas fechadas conservan su alcance histórico.
 El código está publicado en EnriqueForte/web-defense-ai-v2 con licencia MIT.
-La formalización de la versión final sigue pendiente.
+La primera entrega local se identifica como [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md),
+con código y artefactos de CI verificados; la versión de distribución se consulta en GitHub.
 
 El instalador actual crea o reutiliza `.p2`, prepara pip/setuptools desde
 `requirements-bootstrap.txt` y aplica `requirements.txt` con `constraints-py311.txt`:
@@ -17,7 +18,7 @@ una instalación nueva.
 
 | Entorno | Evidencia disponible |
 | --- | --- |
-| Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39239742802, código `ca2f6af`. [Acta y artefactos completos](EVALUACION_GRUPOS_A05_2026_10_19.md). |
+| Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39466610699, código `0d73ec2`, con el parche aiohttp/yarl. [Acta y artefactos completos](ENTREGA_LOCAL_C4_2026_10_20.md). |
 | Parrot 7.3 x86_64/VMware | Instalación/lectura guiadas, inventario 172/0/0 y arranque/cierre comprobados; muestra DVWA XSS/fuerza bruta aceptada el 15/10. [Instalación](VALIDACION_PARROT_2026_10_12.md) y [análisis guiado](INCIDENCIA_GROQ_413_2026_10_15.md). |
 | VM con pins posteriores | Actualización y recuperación del volumen Docker todavía no acreditadas; requieren preparación separada. |
 
@@ -26,10 +27,10 @@ y el [escaneo de imágenes del 19/10](FIJACION_IMAGENES_LAB_2026_10_19.md) sí s
 realizaron y conservan riesgos. No se declara cierre global de seguridad ni
 aceptación semántica general del motor; véase la [matriz A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md).
 
-La [revisión C3 del20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) añade un parche
-local aiohttp3.14.4/yarl1.25.1, probado en Windows `.p4`. La CI del contrato
-nuevo está pendiente; no se atribuye a los runners o a Parrot una actualización
-que no se ha ejecutado allí.
+La [revisión C3 del 20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) añade el parche
+aiohttp 3.14.4/yarl 1.25.1, después instalado y probado en Windows y Ubuntu por
+la CI de C4. Los inventarios reales 172/0/0 de ambos OS coinciden con las entradas
+auditadas. Esto no actualiza la VM Parrot del usuario.
 
 ## Entorno comprobado
 
@@ -351,13 +352,13 @@ docker compose --file compose.lab.yaml stop
 pip check, comparación de pines, tests Python/JS, HTTP sintético, SDK offline y
 build Next en Windows y Ubuntu 24.04. Se ejecuta al publicar cambios, en PR
 o manualmente en GitHub, salvo cambios documentales con CI omitida explícitamente.
-La [ejecución 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802)
-del código `ca2f6af` pasó en ambos OS, incluidos E2E Chromium y smoke API/proxy
+La [ejecución 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699)
+del código `0d73ec2` pasó en ambos OS, incluidos E2E Chromium y smoke API/proxy
 en Linux y Windows. No contiene llamadas reales de proveedor o arranque Docker
 operativo. Parrot conserva su evidencia guiada independiente. Solo cambiar
 documentación no exige repetir la CI de ese código.
 
-## Cierre de distribución pendiente
+## Alcance de la distribución local
 
 - Conservar los avisos y reevaluar ante cambios de exposición los riesgos de
   [dependencias/historial](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) e
@@ -365,9 +366,9 @@ documentación no exige repetir la CI de ese código.
 - C3 tiene tratamiento residual aceptado el20/10 para uso local aislado. Los
   riesgos siguen documentados; no se reabre su aceptación como condición
   indefinida, pero ampliar exposición/capacidades requiere revisión propia.
-- Preparar notas, revisión del contenido final y versión en V2 vinculada a su
-  código probado; el parche local de dependencias requiere CI Windows/Ubuntu
-  nueva antes de entrega. La documentación actualizada no equivale a una release.
+- [C4](ENTREGA_LOCAL_C4_2026_10_20.md) vincula las notas y la identidad `v0.1.0`
+  al código `0d73ec2`, con CI nueva del parche y artefactos completos verificados.
+  Los commits posteriores de actas conservan el mismo árbol de producto.
 - Si se incluye la actualización de Parrot, acreditar por separado conservación
   y recuperación de su laboratorio con los pins actuales.
 
