@@ -2,7 +2,7 @@
 
 Este es el resumen vigente. Las actas fechadas anteriores conservan sus pruebas
 y límites históricos; sus pendientes pueden haberse cerrado después.
-Última revisión del estado: 20/10/2026. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
+Última revisión del estado: 21/10/2026. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
 separa los pendientes actuales de las actas históricas y propone su orden finito.
 
 ## Completado
@@ -38,7 +38,8 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   fijada al digest escaneado y probado mediante SMTP/API sintéticos en Ubuntu.
   Comparación del 16/10: 20 hallazgos pasan a uno UNKNOWN, que se conserva.
   Código `dfcd97a`, CI Windows/Ubuntu 39120143671 y escaneo 39120143668 verificados
-  el 18/10, incluidos inventarios 172/0/0. La VM y su buzón no se han actualizado.
+  el 18/10, incluidos inventarios 172/0/0. En esa revisión no se actualizó la VM;
+  Mailpit se aplicó después en V1, sin afirmar recuperación del correo temporal.
 - [Revisión de dependencias y secretos del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md):
   conflicto MCP corregido/CrewAI reproducido sin instalar; revisión de constructores
   legacy/structured sin llamadas; escaneo con Gitleaks y triage individual.
@@ -49,7 +50,8 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   MariaDB/DVWA fijados y Mailpit conservado; el escáner rechaza otro digest.
   Código `2d2f197`, CI39229681306 y escaneo39229681189 aprobados y artefactos
   verificados el 19/10. Cierra reproducibilidad del repositorio, con avisos
-  conservados; no acredita actualización de Parrot o migración de su volumen.
+  conservados. La aplicación posterior a Parrot y la recuperación aislada de
+  sus datos tienen evidencia propia en V1, no en aquel escaneo.
 - Documentación consolidada localmente el 20/10: README y guías con estado
   comprobado, instalación/lectura/análisis separados y backlog A-01–A-04
   actualizado. Cronologías conservadas en archivos históricos enlazados.
@@ -75,15 +77,28 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   101 sintaxis, 27 SDK, 17 UI, nueve E2E y arranque/proxy/cierre correctos.
   Notas e identidad de distribución vinculadas al código probado; solo actas
   posteriores, sin nueva CI atribuida a esos commits documentales.
+- [V1 de Parrot completada el 21/10](ACTUALIZACION_PARROT_V1_2026_10_20.md):
+  `v0.1.0`/checkout `4c13abd`, inventario 172/0/0 y tres pines aplicados.
+  Respaldo/restauración aislada de aplicación, copia fría de MariaDB y ensayos
+  aislados con imagen original y candidata; cinco usuarios/cuatro tablas OK.
+  Lectura funcional confirmada, informe anterior/dos grupos y 25 archivos
+  no SQLite iguales al respaldo antes y después, conteos de cinco trabajos
+  conservados y cierre con puertos libres. Evidencia por capturas del usuario,
+  sin nuevo análisis LLM ni acceso operativo del agente. No acredita recuperar
+  toda la VM ni los correos temporales anteriores de Mailpit.
 
 Referencias: [inicio rápido](INICIO_RAPIDO.md), [contrato Linux](CONTRATO_LINUX_2026_10_12.md),
 [validación Parrot](VALIDACION_PARROT_2026_10_12.md) y [corrección de puertos](CORRECCION_PUERTOS_2026_10_12.md).
 
-## Pendientes de cierre
+## Cierre del alcance y publicación documental
 
-| Bloque | Trabajo restante | Evidencia de cierre |
+No quedan bloques C1–C4/V1 abiertos en el alcance local acordado. Los límites
+de calidad y riesgos aceptados permanecen; no se convierten en nuevas pruebas
+automáticas o requisitos de cierre indefinidos.
+
+| Registro | Estado | Límite |
 | --- | --- | --- |
-| V1, si se incluye actualizar Parrot | Actualizar y acreditar conservación/recuperación de los datos de la VM con los pines actuales | Respaldo DB verificado y exportación de correo necesaria antes de recrear; prueba de recuperación separada. No es una actualización ya realizada por la entrega C4 |
+| Actas y guías posteriores de V1 | Incorporadas en esta actualización documental, con commit/push autorizados por el usuario | Sin nueva CI o release; conservar la etiqueta v0.1.0 y las actas históricas de C4 |
 
 La auditoría de archivos/historial aparece en seguridad y entrega, pero es una
 misma tarea de cierre. La revisión acotada previa al push no fue exhaustiva.
@@ -147,7 +162,7 @@ entran ahora en la cobertura del respaldo. Parrot acredita por capturas Docker
 respondiendo y Compose independiente validando el archivo (salida 0), desde
 `e5af1a6` en la evidencia del 14/10. El recorrido posterior del 15/10 acredita
 laboratorio/ingesta/análisis para la muestra guiada; la restauración en esa VM
-no se ha acreditado.
+se acreditó posteriormente en el alcance aislado de V1 del 21/10.
 Código `4cb1707`, [CI 38552056806](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/38552056806)
 Windows/Ubuntu success; logs y artefactos/inventarios revisados. La VM recibió
 después `88e7b8a` y completó el ensayo guiado. Otro análisis real necesitaría
@@ -168,8 +183,9 @@ La [fijación de MariaDB/DVWA por digest](FIJACION_IMAGENES_LAB_2026_10_19.md) e
 publicada y verificada el 19/10, con paridad Compose/inventario y rechazo de otro
 digest. El escaneo conserva los avisos. DVWA, con el mismo ImageID del 18/10,
 presenta 347 entradas Debian UNKNOWN adicionales (total 4011); no se atribuyen
-a un cambio de contenido ni son correcciones aplicadas. La aplicación a la VM
-y la migración de su volumen no se han ejecutado ni acreditado.
+a un cambio de contenido ni son correcciones aplicadas. La aplicación posterior
+de los pines a la VM y la conservación/recuperación de datos están registradas
+en V1 del 21/10, sin nuevo escaneo de seguridad.
 
 Las [auditorías del 16/10](SEGURIDAD_RESIDUAL_2026_10_16.md) sobre los 172 pines
 completos mantienen seis entradas/cinco IDs por OS en Chroma/MCP; producción
@@ -179,7 +195,8 @@ no suprime los avisos. Mailpit se actualizó en el repositorio al digest probado
 con un UNKNOWN residual confirmado en el escaneo del 18/10. Las seis referencias
 de imágenes conservan hallazgos. MariaDB cambió de digest entre ambos escaneos;
 la diferencia de conteos no se atribuye solo a la DB. No se declara cierre global
-de seguridad ni actualización operativa de la VM. Los resultados del 12/10 se
+de seguridad; la actualización operativa posterior de la VM está en V1.
+Los resultados del 12/10 se
 conservan como historia en el [acta inicial](SEGURIDAD_2026_10_12.md).
 
 La [consulta del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md) repite esos

@@ -2,6 +2,261 @@
 
 ## Alcance actual
 
+Usuario autoriza21/10 «ok hazlo» a commit/push de los diez archivos documentales
+del cierreV1. Publicación autorizada supersede pendiente local de entradas
+anteriores; conservarlas como historia. main y origin/main4c13abd comprobados
+por fetch antesde publicar. Solo AGENTS/README/ocho archivos docs (actaMD/JSON,
+estado/plan/análisis/guías); no .env/backups/recibos/entornos ni datosVM.
+Preparar commit documental [skip ci], validar enlaces/JSON/diff y escaneo del
+contenido a publicar; verificar luego HEADremoto y árbol limpio. Sin retag,
+nueva release/LLM/SMTP/Docker/servicios ni nueva CI atribuida a documentación.
+La VM sigue4c13abd, este commit posterior solo incorpora actas/guías.
+Entradas inferiores históricas.
+
+V1 cerrada21/10 en alcance local acordado. Captura final: Preparado trasCtrlC,
+DATOS_TRAS_CIERRE=OK25noSQLiteSHAiguales al backup, mismo análisis
+4ca7c97703a44256874e475d64671055/dosgrupos, historialreadonlyfailed3/succeeded2,
+CIERRE_APP_V1=OK. Finalinspect DB/DVWA/Mailpit running con IDs fijados
+4e667183d523.../7c65cc0145a5.../978742ab0aca...; FlaskNextcerrados/puertoslibres.
+Appv0.1.0 checkout4c13abd/172-0-0 y pines aplicados, backup/restoreapp26files,
+DBrestoresaislados originalycandidato10.11.19/cincousuarios/cuatro tablasOK,
+dos conservacionesSHAverificadas, log/informe15Octsinreescribir; portalfunciona
+confirmado porusuario. Evidencia capturas/texto, no bytesVMcompletos ni acceso
+operativo agente. No VMrestorecompleta/promociónbackup/correotemporalrecuperado;
+no nuevosLLM/SMTP/ataques, límitesC2/C3intactos. Acta docs/ACTUALIZACION_PARROT_V1_2026_10_20.md/JSON
+y README/plan/análisis/resumen/guías sincronizados localmente. C1–C4/V1cerrados;
+solo publicación de estas actas posteriores pendiente. Sin commit/push/retag/
+nuevaCI/release, recetas/recibos v1-parrot-20261020 ignorados.
+Comprobación documental:9Markdown/122enlacesrelativos/cero rotos, JSONválido,
+solo documentación modificada; cronologías y actas/notasC4 sin cambios,
+diff--check correcto. Recibo privado closure-validation.json ignorado.
+Entradas inferiores históricas.
+
+V1 lectura21/10 capturada: Node24.21.0/DATOS_CONSERVADOS=OK25noSQLiteiguales
+al backup, ANALISIS_CONSERVADO4ca7c97703a44256874e475d64671055/grupos2,
+preflightPreparado y Consolalista127.0.0.1:3000. Usuario confirma «accedi al portal
+y funciona ok». Acredita lectura/navegación general porconfirmación, sin nueva
+captura de pantallasResumen/Reportes ni atribuir detallevisual adicional.
+Próximo CtrlC porusuario y check_shutdown.sh ignorado: preflightstructured
+puertoslibres/contrato/build/jobs, SHA25traslectura/load_currentmismoanálisis,
+conteosSQLite readonly failed3/succeeded2 comparados con restauraciónprevia,
+inspectestadoslab sin detenerlo. CIERRE_APP_V1 pendiente de salida real.
+V1 aún abierta solo cierre/consolidaciónlocal; laboratorioDocker permanece
+separado del cierreFlaskNext. Sin nuevosLLM/SMTP/ataques/commit/push/retag.
+Entradas inferiores históricas.
+
+V1 servicios21/10 acreditados por captura: AMBAS conservaciones verifican sus
+cinco SHA, pines DVWA/Mailpit descargados, ambos Healthy/running y IDsverificados,
+bindings efectivos127.0.0.1:4280/8025/1025; access.log localSHAcoincide,
+SERVICIOS_LAB_V1=OK/recibo nuevo v1-services-*. Receta valida redes/montajescero
+y DBhealthy, sin recaptura. Etapa5 aplicada según salidasusuario, sinbytesVM.
+Próximo start_reading.sh ignorado: comparar todos archivos kind=file del backup
+operational-20261020T212059602675Z (noSQLite/.env) con SHA actuales; load_current
+valida publicación y analysisid4ca7c97703a44256874e475d64671055; imprimegrupos,
+Node24/check/start structured lectura pilot/manualdisabled/destinosvacíos/
+sinworker. Usuario revisar Resumen/Reportes/mismo informe XSS+BF, después cierre
+CtrlC y comprobaciónpuertos/hash pendiente. No nuevos análisis/LLM/ataques/SMTP.
+V1 abierta hasta lectura/cierre; sin commit/push/retag ni serviciosVM poragente.
+Entradas inferiores históricas.
+
+V1 diagnóstico carpetas21/10: usuario muestra una copia v1-lab y DOS
+subcarpetas conservacion-*, confirma causa guardalínea15. No transcribir
+sufijos ni borrar/repetir/elegir primera/última. Inspect actual DB running
+ImageID4e667183d523..., DVWA/Mailpit exited con IDs anteriores.
+apply_live_services.sh revisado valida TODAS las conservaciones encontradas:
+seis archivos requeridos (manifest+cinco contenidos), SHA e IDs frente a
+contenedores detenidos; si falta archivo/hash no coincide, detener antespull/up
+con ruta/causa. Solo avanzar si todas pasan, sin elegir copia ni modificarlas.
+Resto guardas/pines/redes/puertos/hashaccesslog/recibos/parada conservados.
+Bloque revisado aún no ejecutado en VM; V1 abierta, agente solo preparación,
+sin LLM/SMTP/commit/push/retag ni DockerVM poragente.
+Entradas inferiores históricas.
+
+V1 servicios21/10 intento detenido por captura «Paso detenido en la línea15».
+En bloque exacto enviado en chat corresponde test de una única carpeta
+conservacion-*; causa concreta cero/múltiples todavía desconocida. Antes de
+SHAextras/pull/up, no acredita arranqueDVWA/Mailpit ni falloDB; DB previamente
+runninghealthy. No repetir copia ni elegir primer/último directorio.
+Próximo listado solo nombres/count de v1-lab y subcarpetas (sin transcribir
+sufijos) e inspect estados/imágenes actuales. Guardas del borrador ahora
+explican cantidades al detenerse. Esperar diagnóstico antes de adaptar selección.
+V1 abierta; sin nuevasmutaciones acreditadas, sin LLM/SMTP/commit/push/retag.
+Entradas inferiores históricas.
+
+V1 DBoperativa21/10 capturada: docker-compose5.1.0/tresSHAcoinciden/Healthy,
+MariaDB10.11.19/cincousuarios/cuatro tablasOK/ImageID4e667183d523.../runninghealthy,
+DB_ACTUALIZADA_V1=OK/mismo volumen web-defense-ai-v2-lab-dvwa-db y recibo
+v1-db-live-* nuevo. Receta comprueba red interna única/sinpuertos, evidencia
+salidausuario; sin bytesVM recibidos. No repetir bloqueDB de imagenoriginal.
+Próximo apply_live_services.sh ignorado: SHAconservación/estadoimágenesviejas,
+DBhealthy/redinternal/NATfalse, pull pinesDVWA-Mailpit, verificarIDs, up --no-deps
+dvwa mailpit, validar imagen/estado/redes/bindingsrealesloopback/montajescero.
+Hash access.log local antes/después, no recapturar Dockerlogs ni generarHTTP/
+análisis/SMTP. Antefallo parar soloDVWA/Mailpit y conservarlog/DBhealthy.
+Usuario aún noejecuta ese bloque; laboratorio completo/lectura pendientes.
+V1 abierta; sin commit/push/retag ni operacionesVM delagente.
+Entradas inferiores históricas.
+
+V1 diagnósticoCompose21/10 recibido: Docker26.1.5+dfsg1/a72d7cd,
+docker compose no es comando; docker-compose version v5.1.0 disponible.
+Tres contenedores siguen exited/ImageIDoriginal DB41096ae99134...,
+DVWA7c65cc0145a5.../Mailpiteb6a74c41b32...; no actualizaciónDB por intentofallido.
+Receta apply_live_mariadb.sh usa ahora docker-compose (sin instalar plugin),
+config --quiet con --env-file /dev/null y ayuda/opciones antes de mutaciones;
+conserva pin/volumen/guardas/salud/tablas/red/recibos y paradaantefallo.
+Nuevo bloque corregido pendiente usuario; no atribuir ejecución por prepararlo.
+V1 abierta, DVWA/Mailpit/lectura aún pendientes. Soloactas/receta/sintaxislocal,
+sin DockerVMporagente/LLM/SMTP/commit/push/retag nuevos.
+Entradas inferiores históricas.
+
+V1 aplicarDB falló21/10 por captura: tresSHA coinciden y Docker rechaza
+unknown flag: --env-file; receta termina Actualización detenida. Fallo de
+parseo Compose antes de up, no acreditar actualizaciónDB ni parada del manejador
+(usa mismo CLI incompatible). Estadoactual debe confirmarse con inspect.
+Agente asumió soporte Compose sin comprobar versión; no repetir bloque ni
+simplemente quitar --env-file (evita leer .env). Añadida prevalidación versión/
+ayuda/opciones a borrador local apply_live_mariadb.sh antes de mutaciones.
+Próximo diagnóstico sololectura docker --version/docker compose version/
+docker-compose version/inspect imagenestado trescontenedores; elegir solución
+según CLI real. No instalar plugin ni cambiar contenedores sin ese diagnóstico.
+Compatibilidad del clon anterior sigue acreditada, V1abierta y DBoperativa
+pendiente; sin nuevosLLM/SMTP/retag/commit/push.
+Entradas inferiores históricas.
+
+V1 compatibilidadDB21/10 acreditada: tres SHA coinciden, clon
+webdefense-v1-pin-20261021134202-11594/volumenhomónimo-data,
+10.11.19-MariaDB-ubu2204/cinco usuarios/cuatro tablas OK,
+COMPATIBILIDAD_DB_V1=OK/ESTADO_ENSAYO=exited; receta verifica cierre0.
+No es aún aplicación al volumenoriginal. Próximo apply_live_mariadb.sh ignorado:
+verificar copia/originalexited/Composeintacto/imagen/redinternal/volumen,
+actualizar solo dvwa-db --no-deps --pullnever --wait, comprobar mismo volumen,
+ImageID/salud/redsinpublicación/cincousuarios/tablas. DVWA/Mailpit esperan.
+Antefallo parar DB y guardarlog; retorno desde copia fría a OTRO volumen con
+imagenoriginal/override revisado, no sobrescribir volumen modificado ni
+arrancar motor anterior sobre él automáticamente. Ninguna ejecución del nuevo
+bloque aún acreditada; usuariooperaVM, agente soloactas/receta/sintaxis.
+V1 abierta; sin LLM/SMTP/ataques/commit/push/retag nuevos.
+Entradas inferiores históricas.
+
+V1 pinDB21/10 capturado: descarga digest0d0945c5...b43b5e completa,
+ImageID4e667183d5236dbbecf88167a0f1f49dc0c116aa46990309e920e663e2fdc348,
+mariadbd10.11.19-MariaDB-ubu2204/x86_64/IMAGEN_DB_VERIFICADA=OK.
+Aviso MAC no impidió consulta versión; receta sinred/sindatos. Coincide versión
+10.11.19 original, no acredita aún compatibilidad de datos.
+Próximo test_candidate_mariadb.sh ignorado: backupSHA/originaldetenido, clon
+nuevo/pinverificado/sinred-sinpuertos/healthcheck/cincousuarios/tablas/cierre0;
+conserva clon/logs/backup, no toca volumenoperativo ni primerclonrestaurado.
+UsuariooperaVM; ensayo candidato propuesto todavía no ejecutado. V1abierta,
+Composeoperativo/lectura pendientes, sin LLM/SMTP nuevos ni commit/push/retag.
+Entradas inferiores históricas.
+
+V1 actualizaciónapp21/10 capturada: existing_preserved/instalacióncompletada/
+ACTUALIZACION_APP_V1=OK/HEAD4c13abd/Node24.21.0/pnpm11.19.0/strict172-0-0 y
+snapshot172-0-0 en carpeta nueva v1-install-*. Receta exige commit completo
+4c13abd8612d11e843ae5903e89ab97e6c4cbfae; sin bytesinventario/hashVM recibidos.
+Etapa4 acreditada por salidausuario, laboratorio/lectura aún pendientes.
+Próximo descargar solo pin DB/validar linuxamd64/ImageID4e667183d523... y
+mariadbd --version efímero sinred/sinvolumenoperativo antesde clonar datos;
+comparar con10.11.19 original, no asumir ausencia de downgrade por rama10.11.
+Agente noejecuta Docker/VM/LLM/SMTP. V1abierta; actaslocales sin publicar/retag.
+Entradas inferiores históricas.
+
+V1 conservación Mailpit/DVWA acreditada por captura: cinco SHA coinciden para
+image-ids.txt/imagenes-mailpit-dvwa.tar/mailpit-files.tar/dvwa-container.log/
+mailpit-container.log; subdirectorio conservación nuevo dentro de copia DB,
+658M. Resumen almacenamiento_mailpit temporal/archivos_sqlite_en_copia 0/
+correos_leidos_o_enviados false. No acredita recuperar correo anterior ni que
+nunca existiera. Appbackup/restore y DBrestore anteriores conservados.
+Continuación21/10 prepara actualización exacta v0.1.0/4c13abd8612d11e843ae5903e89ab97e6c4cbfae,
+checkout limpio/originV2/fast-forward, Node24/pnpm11.19.0/install/build/strict172
+y snapshot nuevo. Instalador conserva .env existente sin leerlo. Usuario opera
+Parrot; órdenes propuestas aún no ejecutadas, VM88e7b8a última acreditada.
+No Compose up/volumenvivo/LLM/SMTP nuevos; compatibilidad DB pin pendiente.
+V1 abierta; actas locales sin commit/push ni cambiar etiqueta publicada.
+Entradas inferiores históricas.
+
+V1 DBrestore correcto por capturausuario: RECUPERACION_DB=OK,
+webdefense-v1-restore-20261020213752-16102 y volumen homónimo-data conservados;
+MariaDB10.11.19-MariaDB-ubu2204/cinco usuarios/cuatro tablas access_log,guestbook,
+security_log,users OK. TresSHAcoinciden. Receta detiene clon/sinred/sinpuertos,
+no volumenoperativo montado; no prueba pines nuevos ni bytesVM revisados.
+Próximo preservar imágenes Mailpit/DVWA/rootFS Mailpit detenido/logs, SHA y
+resumen almacenamiento/SQLite sin filas/valoresconfig. Si remoto/SQLitepresente
+revisar recuperación antesrecrear. Ningún ensayoLLM/SMTP requerido ni realizado.
+VM88e7b8a aún no actualizada; V1 abierta. Recetas ignoradas v1-parrot-20261020,
+actas locales sin publicar ni cambiar tagv0.1.0.
+Entradas inferiores históricas.
+
+V1 listado usuario muestra una única carpeta .local-backups/v1-lab-*/; sigue
+siendo captura, no transcribir otra vez caracteresambiguos del sufijo. Receta
+restore_mariadb_isolated.sh selecciona automáticamente solo si hay exactamente
+un directorio coincidente, imprime ruta y valida SHA256SUMS antes de Docker.
+Si cero/varias coincidencias, detener sin elegir última ni renombrar copias.
+EnsayoDB todavía pendiente, originales no modificados por intento fallido.
+Entradas inferiores históricas.
+
+V1 ensayoDB no ejecutado: capturausuario bashlínea6 cdbackupENOENT sobre
+v1-lab-elD9XbwF transcrito poragente. Se detuvo en comprobaciónruta, antes de
+crearvolumen/contenedor. No atribuir recuperaciónDBexitosa ni repetirbackup.
+Pedir listado de nombres v1-lab-* como texto; nombreexacto previo solo visual,
+puede diferir mayúscula/minúscula. Evitar nueva transcripción de captura.
+Originales/backup conservados; DBreal aún detenida segúnúltimaevidencia.
+Entradas inferiores históricas.
+
+V1 copiafríaDB por capturausuario: .local-backups/v1-lab-elD9XbwF/455M,
+SHA256SUMS tres coincidencias mariadb-data.tar/mariadb-image.tar/mariadb-image-id.txt.
+Son sumas reportadas, no bytes/hashes individuales recibidos. Próximo ensayo
+en volumen nuevo/instancia propia sin red/puertos con ImageID original, check
+InnoDB/tablasDVWA/conteousuarios; no montar volumenoperativo ni repair/upgrade.
+Conservar clon detenido/volumen/logs y backup; no repetir respaldo ni tocarDBviva
+antefallo. Scriptpropuesto ignorado v1-parrot-20261020/restore_mariadb_isolated.sh;
+usuario loejecutaParrot. Pendientes DBrestore real/mail/logs/actualizaciónlectura.
+Sin nuevoLLM/envío/recreaciónoperativa acreditados, V1abierta. Cambioslocales
+de preparación sin commit/push ni retag v0.1.0.
+Entradas inferiores históricas.
+
+V1 restoreParrot capturado: restore-20261020T212238483366Z/26archivos/verifiedtrue;
+pilotDB/publicaciónverified/jobs succeeded2failed3/sinactivos/deliveriesvacías,
+genanálisis4ca7c97703a44256874e475d64671055. Legacyausenteconocido; no bytesVM
+revisados ni promociónviva. Dockerinspect tres exited; ImageIDprefijos
+DB41096ae99134/Mailpiteb6a74c41b32/DVWA7c65cc0145a5; soloDB monta volumen
+web-defense-ai-v2-lab-dvwa-db en /var/lib/mysql. Próximo copia fría DB+imagen
+exacta, TAR/hash y ensayoDB aislado antes de cambiar pines/volumen. Recibos
+v1-parrot-20261020 ignorados. Mailpit temporal puede borrarse al salir según
+docs; comprobardatosrecuperables antesrecrear, no prometer conservarcorreo.
+Sin pulls/arranques/recreaciones/LLM nuevos acreditados; V1abierta.
+Entradas inferiores históricas.
+
+V1 backupParrot por capturaCLI: .local-backups/operational-20261020T212059602675Z,
+26archivos/verifiedtrue; missinglegacy .local-state/analysis.sqlite3 y logs/access.log.
+No bytes/manifiesto/hashVM recibidos; pendiente restore_operational sobre esa
+copia para verificar perfiles/pilot/publicación/ausenciatrabajosactivos. No
+inferir cobertura porconteo. Próximo recuperar en destino nuevo y consultar
+ImageID/montajes DB/Mailpit/DVWA detenidos antes del respaldoDocker separado.
+Sin actualización/recreación/LLM/envíos; V1 abierta, preparación local sin publicar.
+Entradas inferiores históricas.
+
+V1 diagnósticoParrot recibido20/10 por capturausuario: gitstatussin cambios,
+HEAD88e7b8a/Python3.11.17; DVWAb496a5d/Mailpit1.31.1/MariaDB10.11 detenidos
+Exited0cinco días. Son referencias, noImageID/digest/volumen verificados.
+Próximo detener consolas/worker propios si existen y respaldar aplicación con
+script ya presente88e7b8a; pedir verifiedtrue/ruta antes de restauraciónaislada.
+DB/mail/imágenes/capturaDocker requieren conservación separada; nada recreado,
+no pull/install/LLM/VMcambio acreditado. V1abierta; preparaciónlocal sin publicar.
+Entradas inferiores históricas.
+
+V1 iniciado20/10 por petición «ok entonces hagamos el siguiente bloque V1».
+Usuario eligió ejecutar los pasos en Parrot; agente Windows sin conexiónVM
+operativa. docs/ACTUALIZACION_PARROT_V1_2026_10_20.md: diagnóstico inicial,
+respaldo/restauración aislada app, DB/mail/logs separados, actualizaciónv0.1.0,
+inventario/lectura/conservación y cierre; puertas antes de modificar volumen.
+No marcar ejecutado por dar órdenes. Sin nuevosLLM/ataquesDVWA/envíosexternos/
+reset/down--volumes/autoupgrade; conservar .env sin mostrarbytes. Antes recrear,
+backupDB verificado y prueba recuperación separada/correo necesario exportado.
+Pendiente salida inicialcheckout/intérprete/contenedores; no VM modificada ni
+V1cerrada. Cambios locales de preparación, sin commit/push ni retagv0.1.0.
+Entradas inferiores históricas.
+
 C4 verificada20/10 para primera entrega local v0.1.0 en V2. Código0d73ec2
 (0d73ec26f5c214f820cd3b6bbefd5fe0681d62c8), CI39466610699attempt1 Win/Ubuntu
 completed/success; logs/estados/pasos y2cookies+snapshot test revisados.

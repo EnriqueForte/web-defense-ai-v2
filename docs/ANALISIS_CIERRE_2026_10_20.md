@@ -5,7 +5,11 @@ verificada. Tras la continuación del 20/10, la aceptación acotada A-05 está
 cerrada por decisión expresa del usuario y C3 tiene tratamiento residual aceptado
 para uso local aislado. C4 dispone de código/CI/artefactos verificados e identidad
 de entrega [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md), con actualización de VM
-condicionada a su alcance. No se ha identificado en la revisión inicial
+separada de V1. La continuación del 21/10 completó [V1 en Parrot](ACTUALIZACION_PARROT_V1_2026_10_20.md)
+con actualización, conservación/recuperación aislada y lectura/cierre acreditados
+por el usuario. Sus actas y guías se incorporan en una actualización documental
+posterior, con commit/push autorizados expresamente por el usuario el 21/10.
+No se ha identificado en la revisión inicial
 un fallo nuevo reproducido que obligue a rehacer la arquitectura. Esto no es una
 auditoría exhaustiva ni una declaración de ausencia de defectos.
 
@@ -34,7 +38,7 @@ históricos de Groq/formato/tokenizadores conservan sus
 registros y correcciones; no se presentan como fallos actuales por aparecer en
 actas antiguas.
 
-## Pendientes reales y condición de cierre
+## Estado de los bloques y condiciones de cierre
 
 | ID | Trabajo restante | Condición verificable de cierre |
 | --- | --- | --- |
@@ -42,14 +46,15 @@ actas antiguas.
 | C2 — Aceptación A-05 | Cerrada el 20/10 por respuesta expresa del usuario; [revisión y decisión](REVISION_ACEPTACION_A05_2026_10_20.md), doce recibos/once publicaciones y 56 archivos preservados | Primera versión local con límites y comparación legacy expresamente diferida; no certifica calidad general ni autoriza ensayos/publicación/VM |
 | C3 — Seguridad residual | [Tratamiento aceptado20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md): parche aiohttp/yarl y respuesta expresa del usuario sobre R1–R8 | Cerrado en tratamiento local, sin eliminar avisos o certificar seguridad global; CI del parche aprobada y verificada en C4 |
 | C4 — Entrega | [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md), código `0d73ec2`, CI39466610699 y artefactos completos verificados; contenido y notas revisados | Identidad de distribución vinculada al código probado. Las actas posteriores conservan su árbol de producto; no se atribuye CI nueva a commits documentales |
-| V1 — Parrot actualizado | Aplicar el código/pins actuales y acreditar conservación/recuperación de datos si se incluye esa actualización en la entrega. | Copia verificada y plan de restauración del volumen DB antes de recrear; exportar correo necesario, actualizar de forma controlada y comprobar lectura y conservación. La restauración Docker/VM necesita evidencia propia. |
+| V1 — Parrot actualizado | [Completado el 21/10](ACTUALIZACION_PARROT_V1_2026_10_20.md); registro y guías incorporados en esta actualización documental posterior | App/DB recuperadas en destinos aislados, código/pines aplicados, 172/0/0, 25 archivos conservados, mismo informe/dos grupos y cierre con puertos libres. No equivale a recuperar toda la VM ni el correo temporal anterior. |
 
-V1 es una condición para afirmar que la VM existente está actualizada y que sus
-datos se recuperan con estos pins. No invalida el ensayo aceptado del 15/10 ni
-obliga a repetirlo con otro LLM. El último código de VM acreditado es `88e7b8a`;
-no se asume que siga siendo su estado actual. El agente no dispone aquí de
-acceso operativo a esa VM. Nunca usar `down --volumes`, reset o actualización
-automática para obtener esta evidencia.
+V1 acredita ahora el checkout `4c13abd` de `v0.1.0` en la VM, con pines y datos
+comprobados por el usuario. `88e7b8a` era su estado inicial, conservado en la
+cronología. La evidencia no invalida el ensayo aceptado del 15/10 ni lo repite
+con otro LLM. El agente no dispone de acceso operativo a esa VM: las capturas
+y confirmaciones recibidas son la base de la aceptación, sin bytes VM completos.
+No se usaron `down --volumes`, reset ni auto-upgrade. C1–C4/V1 quedan cerrados
+en su alcance, con actas V1 incorporadas en esta actualización documental.
 
 ## C2: brecha semántica concreta
 
@@ -153,8 +158,8 @@ y aceptación expresa de A-05 en alcance local, con comparación diferida.
 3. C2 y C3 resueltas el20/10 con revisiones y respuestas expresas separadas.
    Se conserva el alcance local; el parche aiohttp/yarl se validó en la CI de C4
    antes de preparar la versión de entrega.
-4. Ejecutar V1 antes de declarar actualizada/recuperable la VM si esa afirmación
-   forma parte de la entrega. Preparación y aplicación son tareas separadas.
+4. V1 completada el 21/10 en actualización/conservación y recuperación aislada:
+   preparación y ejecución registradas por separado, sin ensayo LLM nuevo.
 5. C4: código publicado y CI/artefactos verificados; identidad `v0.1.0` y notas
    de la entrega en V2. El registro C4 conserva las referencias exactas.
 

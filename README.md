@@ -11,7 +11,7 @@ permanece independiente; véase [la separación de repositorios](docs/REPOSITORI
 
 ## Estado de esta versión
 
-Revisión documental: **20/10/2026**. El [resumen vigente](docs/ESTADO_FINAL_2026_10_12.md)
+Revisión documental: **21/10/2026**. El [resumen vigente](docs/ESTADO_FINAL_2026_10_12.md)
 es la referencia de estado; el [análisis de cierre](docs/ANALISIS_CIERRE_2026_10_20.md)
 explica el trabajo restante.
 
@@ -21,12 +21,14 @@ explica el trabajo restante.
 | Windows y Ubuntu | Código `0d73ec2`, [CI 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699) aprobada: Ubuntu 376 Python; Windows 375 y una prueba exclusiva Linux omitida; nueve E2E por OS. Instalación limpia, build, API/proxy y cierre comprobados; artefactos completos revisados. |
 | Parche de seguridad | aiohttp 3.14.4 y yarl 1.25.1 instalados y probados en ambos OS, incluidos dos casos de cookies Secure. Inventarios 172/0/0; solo cambian esos dos paquetes frente al contrato anterior. |
 | Evaluación A-05 | Aceptada por el usuario el 20/10 para la primera versión local de apoyo a la revisión, con límites explícitos y comparación legacy diferida. [Matriz y evidencias](docs/MATRIZ_ACEPTACION_A05_2026_10_20.md). |
-| Parrot 7.3/VMware | Instalación/lectura e inventario 172/0/0 comprobados; recorrido DVWA XSS/fuerza bruta aceptado el 15/10 para esa muestra. La actualización de la VM a los pins posteriores y su recuperación Docker no están acreditadas. |
+| Parrot 7.3/VMware | [V1 completada el 21/10](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md): v0.1.0/172 paquetes sin diferencias, tres pines aplicados, recuperación aislada de aplicación/DB y lectura/cierre comprobados. Se conserva el informe XSS/fuerza bruta del 15/10; no se repitió el análisis. Evidencia por capturas y confirmación del usuario. |
 | Seguridad y entrega | [Tratamiento residual C3](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md) aceptado para uso local aislado, conservando vulnerabilidades y límites. [Entrega C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) identificada como [v0.1.0](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0); sin certificación global de seguridad. |
 
 Las fases de migración 0–7 y las del rediseño SOC están cerradas en su alcance
 local aceptado. Los [estados anteriores del README](docs/HISTORIAL_README_2026_10_20.md)
 se conservan como historia; sus pendientes no describen la instalación actual.
+Las actas V1 y estos cambios documentales se incorporan como actualización
+posterior a la entrega; no cambian la etiqueta `v0.1.0` ni el código probado.
 
 ## Entorno y ejecución
 
@@ -66,6 +68,7 @@ Actualizar relee la copia local; no genera tráfico ni inicia un análisis.
 | Proveedor, modelo y credenciales propios | [Configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md) |
 | Laboratorio Docker aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
 | Copias, actualización y restauración de aplicación | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
+| Actualización y recuperación guiadas en la VM existente | [Cierre V1 de Parrot](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md) |
 | Desarrollo, responsabilidades y pendientes | [Plan vigente](docs/PLAN_AGENTES_TAREAS.md) |
 | Entrega local v0.1.0 | [Estado C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) · [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
 

@@ -264,8 +264,18 @@ Para utilizar el laboratorio en cualquiera de los sistemas:
 docker compose --file compose.lab.yaml up --detach
 ```
 
-Linux usa Docker Engine/Compose v2; Windows puede usar Docker Desktop con
-contenedores Linux. Después de generar tráfico autorizado, captura desde la
+Si `docker compose version` no reconoce el comando pero `docker-compose version`
+sí funciona, usa el ejecutable independiente:
+
+```text
+docker-compose --file compose.lab.yaml up --detach
+```
+
+En [V1 de Parrot](ACTUALIZACION_PARROT_V1_2026_10_20.md) se verificaron Docker
+26.1.5 y `docker-compose` 5.1.0; no estaba instalado el subcomando `docker compose`.
+Comprueba versión y opciones antes de actualizar una instalación existente.
+Windows puede usar Docker Desktop con contenedores Linux.
+Después de generar tráfico autorizado, captura desde la
 raíz usando el intérprete de tu sistema:
 
 ```bash

@@ -1,6 +1,6 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Revisión vigente: 20/10/2026. Las fases 0–7 están cerradas en el alcance local
+Revisión vigente: 21/10/2026. Las fases 0–7 están cerradas en el alcance local
 aceptado, con los límites de observación registrados. A-01–A-04 están implementadas
 e integradas en la ruta structured; A-05 fue aceptada expresamente el 20/10
 para la primera versión local acotada, con comparación legacy diferida. El perfil de
@@ -12,13 +12,18 @@ La [matriz de aceptación](MATRIZ_ACEPTACION_A05_2026_10_20.md) delimita C2; el
 reabren fases ya aceptadas ni se añaden nuevas funciones como condición implícita.
 La cronología inicial se conserva en [su archivo histórico](HISTORIAL_PLAN_AGENTES_2026_10_20.md).
 
-| Cierre | Estado al 20/10 | Próxima condición |
+| Cierre | Estado al 21/10 | Conservación o trabajo documental |
 | --- | --- | --- |
 | C1 — Documentación | Consolidada y publicada con el código de entrega | Mantener enlaces/órdenes y estado canónico coherentes, con cronologías preservadas |
 | C2 — Aceptación A-05 | Cerrada el 20/10 por aceptación expresa del alcance local propuesto | Conservar límites de las muestras y comparación diferida; no añadir promesas generales ni ensayos automáticos |
 | C3 — Seguridad | [Tratamiento residual aceptado](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) por respuesta expresa20/10, separado de C2 | Cerrado para uso local aislado; avisos retenidos y CI del parche aprobada/verificada en C4, sin seguridad global certificada |
 | C4 — Versión | [Entrega v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md): código `0d73ec2`, CI39466610699 y artefactos completos verificados, notas y contenido revisados | Identidad de distribución en GitHub; solo actas posteriores al código probado, sin atribuirles CI nueva |
-| V1 — Parrot actualizado | Condicional; no acreditado con los pins actuales | Respaldo y recuperación verificados antes de afirmar actualización de la VM |
+| V1 — Parrot actualizado | [Completado el 21/10](ACTUALIZACION_PARROT_V1_2026_10_20.md): código/pines aplicados, recuperación aislada de aplicación/DB, lectura/cierre y datos conservados acreditados por el usuario | Actas incorporadas en esta actualización documental, sin modificar v0.1.0. Mantener respaldos y límites; sin nuevos análisis LLM |
+
+No quedan bloques C1–C4/V1 pendientes en el alcance local acordado. El registro
+posterior de V1 y la sincronización de guías se incorporan en esta actualización
+documental autorizada por el usuario, sin nueva CI ni nueva release. Las ampliaciones posteriores no se
+añaden como condiciones nuevas para cerrar esta versión.
 
 ## 1. Decisión y distinciones
 

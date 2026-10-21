@@ -98,12 +98,14 @@ explica cómo guardar el inventario completo para diagnosticar una instalación.
 
 ## Alcance comprobado
 
-Estado revisado el 20/10/2026: [resumen vigente](ESTADO_FINAL_2026_10_12.md).
-El código `ca2f6af` pasó instalación, regresión, E2E y smoke API/proxy en
-[CI Windows/Ubuntu 39239742802](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39239742802).
+Estado revisado el 21/10/2026: [resumen vigente](ESTADO_FINAL_2026_10_12.md).
+El código de entrega `0d73ec2` pasó instalación, regresión, E2E y smoke API/proxy
+en [CI Windows/Ubuntu 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699).
 La muestra guiada posterior a la instalación en Parrot sí acreditó captura
-DVWA, análisis XSS/fuerza bruta y lectura del informe el 15/10; no acredita
-actualizar después los pins Docker ni restaurar el volumen de esa VM.
+DVWA, análisis XSS/fuerza bruta y lectura del informe el 15/10. La actualización
+posterior a `v0.1.0`, los pines Docker, la recuperación aislada y la lectura/cierre
+se acreditaron el 21/10 en [V1](ACTUALIZACION_PARROT_V1_2026_10_20.md), conservando
+el informe anterior sin otro análisis LLM.
 La aceptación de A-05 para la primera versión local se confirmó el 20/10 con
 límites explícitos y comparación legacy diferida, según la
 [matriz A-05](MATRIZ_ACEPTACION_A05_2026_10_20.md). Los párrafos siguientes

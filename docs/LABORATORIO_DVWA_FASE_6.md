@@ -14,7 +14,9 @@ recrear DVWA y MariaDB. Antes de aplicarlo, conserva una copia verificada de la
 base y un plan de recuperación; el respaldo de la aplicación no incluye el
 volumen Docker de DVWA. No uses `down --volumes` para aplicar esta fijación ni
 habilites una actualización automática de la base. La migración del volumen
-existente y su verificación en Parrot requieren un recorrido separado.
+existente y su verificación requieren un recorrido separado. En la VM Parrot
+del usuario ese recorrido se completó el 21/10 en [V1](ACTUALIZACION_PARROT_V1_2026_10_20.md),
+con copias verificadas y recuperación aislada antes de aplicar los pines.
 
 Mailpit queda fijado a 1.31.6 por digest tras la
 [comparación de seguridad y SMTP/API](SEGURIDAD_RESIDUAL_2026_10_16.md) en CI.
@@ -46,6 +48,24 @@ No es necesario reiniciar DVWA ni su base para actualizar solo Mailpit.
   aislada; no reutilizarlas fuera del laboratorio.
 
 ## Inicio y detención
+
+En Linux, comprueba primero qué entrada de Compose está disponible:
+`docker compose version` o `docker-compose version`. En Parrot V1 se verificó
+la segunda, versión 5.1.0. En ese caso las órdenes de Compose usan guion:
+
+```bash
+docker-compose --file compose.lab.yaml up --detach
+```
+
+Para detenerlos:
+
+```bash
+docker-compose --file compose.lab.yaml stop
+```
+
+La parada conserva el volumen DB, pero
+Mailpit usa almacenamiento temporal: conserva antes el correo que necesites.
+Estas órdenes no sustituyen el recorrido de respaldo/recuperación para actualizar.
 
 Desde PowerShell, en la raíz del proyecto:
 
