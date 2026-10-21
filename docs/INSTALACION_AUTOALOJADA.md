@@ -4,7 +4,11 @@ Para usuarios nuevos, consulta [Inicio rápido](INICIO_RAPIDO.md): instalación
 con `webdefense.py install` y arranque en una terminal con `webdefense.py start`.
 Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado.
 
-Revisión vigente: **20/10/2026**. El [resumen de estado](ESTADO_FINAL_2026_10_12.md)
+El código se distribuye públicamente bajo MIT, con instalaciones y
+credenciales propias. Consulta la [apertura verificada en GitHub](DISTRIBUCION_PUBLICA.md).
+El alcance de ejecución sigue siendo local, con consola y laboratorio aislados.
+
+Revisión vigente: **21/10/2026**. El [resumen de estado](ESTADO_FINAL_2026_10_12.md)
 reúne pruebas y pendientes; las actas fechadas conservan su alcance histórico.
 El código está publicado en EnriqueForte/web-defense-ai-v2 con licencia MIT.
 La primera entrega local se identifica como [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md),
@@ -20,7 +24,7 @@ una instalación nueva.
 | --- | --- |
 | Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39466610699, código `0d73ec2`, con el parche aiohttp/yarl. [Acta y artefactos completos](ENTREGA_LOCAL_C4_2026_10_20.md). |
 | Parrot 7.3 x86_64/VMware | Instalación/lectura guiadas, inventario 172/0/0 y arranque/cierre comprobados; muestra DVWA XSS/fuerza bruta aceptada el 15/10. [Instalación](VALIDACION_PARROT_2026_10_12.md) y [análisis guiado](INCIDENCIA_GROQ_413_2026_10_15.md). |
-| VM con pins posteriores | Actualización y recuperación del volumen Docker todavía no acreditadas; requieren preparación separada. |
+| VM con pins posteriores | Actualización a v0.1.0, tres pines aplicados, recuperación aislada de aplicación/DB y lectura/cierre acreditados el 21/10 por capturas y confirmación del usuario. [Registro V1](ACTUALIZACION_PARROT_V1_2026_10_20.md). |
 
 Las [auditorías de paquetes del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md)
 y el [escaneo de imágenes del 19/10](FIJACION_IMAGENES_LAB_2026_10_19.md) sí se
@@ -30,7 +34,8 @@ aceptación semántica general del motor; véase la [matriz A-05](MATRIZ_ACEPTAC
 La [revisión C3 del 20/10](TRATAMIENTO_RIESGOS_C3_2026_10_20.md) añade el parche
 aiohttp 3.14.4/yarl 1.25.1, después instalado y probado en Windows y Ubuntu por
 la CI de C4. Los inventarios reales 172/0/0 de ambos OS coinciden con las entradas
-auditadas. Esto no actualiza la VM Parrot del usuario.
+auditadas. La actualización posterior de Parrot está acreditada por V1; las
+pruebas de CI no se atribuyen a esa VM.
 
 ## Entorno comprobado
 
@@ -42,7 +47,8 @@ y Ubuntu 24.04 x86_64 como entorno inicial de CI, con Python 3.11 y Docker Engin
 con Compose v2 para el laboratorio. La instalación y pruebas offline pasaron en
 Ubuntu CI y Parrot 7.3 en la VM del usuario; allí también pasó arranque/proxy Next.
 El recorrido Docker/ingesta/análisis pasó en esa VM para la muestra guiada del
-15/10; eso no acredita aplicar después los nuevos pins o restaurar su volumen.
+15/10. La aplicación posterior de pines y las recuperaciones aisladas tienen
+su evidencia propia en V1 del 21/10, sin repetir el análisis LLM.
 No se afirma soporte de todas las distribuciones Linux, ARM o macOS.
 Ambos sistemas utilizan `constraints-py311.txt`; las instantáneas con nombre
 Windows se mantienen como evidencia histórica. Los marcadores excluyen pywin32

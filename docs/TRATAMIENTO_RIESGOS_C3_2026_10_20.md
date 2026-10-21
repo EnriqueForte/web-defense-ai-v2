@@ -12,6 +12,14 @@ después de esta revisión, sobre `0d73ec2` en Windows/Ubuntu. El registro JSON
 de C3 conserva el estado de su revisión local original; la evidencia nueva,
 incluida la instalación real Linux, se registra en C4.
 
+**Actualización de distribución del 21/10:** el propietario autorizó hacer
+público el código y confirmó que la muestra CSRF de R7 pertenecía exclusivamente
+a su DVWA local y que la sesión ya estaba invalidada. La apertura aplicada y
+verificada se registra en [Distribución pública](DISTRIBUCION_PUBLICA.md).
+Se conserva el hallazgo histórico y el estado original de esta acta/JSON;
+la confirmación del propietario no es una prueba técnica de invalidación por
+el agente. El alcance operativo sigue siendo local y los demás riesgos continúan.
+
 ## Revisión actual y corrección aplicada
 
 Se auditaron los freezes completos de la CI39239742802: 172 paquetes por OS,

@@ -12,6 +12,11 @@ La [matriz de aceptación](MATRIZ_ACEPTACION_A05_2026_10_20.md) delimita C2; el
 reabren fases ya aceptadas ni se añaden nuevas funciones como condición implícita.
 La cronología inicial se conserva en [su archivo histórico](HISTORIAL_PLAN_AGENTES_2026_10_20.md).
 
+La decisión del 21/10 de distribuir públicamente el código tiene su [registro
+de apertura](DISTRIBUCION_PUBLICA.md): documentación, revisión de contenido e
+historial, cambio aplicado y acceso anónimo verificado. El uso operativo sigue
+siendo local.
+
 | Cierre | Estado al 21/10 | Conservación o trabajo documental |
 | --- | --- | --- |
 | C1 — Documentación | Consolidada y publicada con el código de entrega | Mantener enlaces/órdenes y estado canónico coherentes, con cronologías preservadas |

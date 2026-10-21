@@ -4,6 +4,11 @@ Instala en el disco local de Windows o Linux. Cada instalación conserva sus
 propios datos y configuración. Los comandos siguientes parten de la carpeta
 del repositorio clonado.
 
+V2 se distribuye en un repositorio público bajo MIT. La apertura está verificada
+en [Distribución pública](DISTRIBUCION_PUBLICA.md). Clonar por HTTPS no requiere
+una cuenta ni un token de GitHub; cada usuario aporta sus credenciales del
+proveedor LLM cuando quiera ejecutar análisis.
+
 ## Requisitos iniciales
 
 - Git para clonar el repositorio.
@@ -30,7 +35,9 @@ python3 webdefense.py install
 En Windows usa `py webdefense.py install`. La entrada busca Python 3.11 aunque
 el comando inicial utilice otra versión reciente de Python. En Linux, si lo
 instalaste en tu usuario, asegúrate de que `python3.11` esté en el PATH.
-Si el repositorio solicita autenticación, utiliza tu acceso de GitHub.
+La URL HTTPS pública permite clonar sin autenticación. Si Git pide credenciales,
+comprueba la URL y la configuración de tu cliente; los permisos de escritura
+siguen reservados a los colaboradores autorizados.
 
 La instalación crea o reutiliza `.p2`, instala los paquetes del contrato,
 comprueba sus versiones y dependencias, instala el frontend con lockfile y

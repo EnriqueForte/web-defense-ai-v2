@@ -1,20 +1,32 @@
 # web-defense-ai V2 — Repositorios y recuperación
 
-Actualización de objetivo 07/10/2026: el usuario quiere distribuir V2 por GitHub
-para clonación y uso en instalaciones propias. El destino origin se conserva;
-la publicación final y el cambio de visibilidad, si hiciera falta, siguen
-pendientes de verificar el paquete/historial. Los apartados siguientes registran
-la separación privada inicial y no afirman que ya se haya hecho público.
+## Distribución vigente
+
+El 21/10/2026 el usuario decidió distribuir V2 como **repositorio público en
+GitHub**, bajo la licencia MIT existente, para clonación e instalación propias.
+El destino se mantiene en [EnriqueForte/web-defense-ai-v2](https://github.com/EnriqueForte/web-defense-ai-v2).
+El código está publicado en `main` y el cambio se ha aplicado: GitHub devuelve
+`visibility=public` y `private=false`. Se ha comprobado el acceso a los metadatos
+del repositorio sin autenticación. Véase [Distribución pública](DISTRIBUCION_PUBLICA.md)
+para el alcance y las comprobaciones del cambio.
+
+La publicación del código conserva el alcance de ejecución local de la
+aplicación. No incluye credenciales, datos operativos ignorados, copias locales
+ni acceso a la VM del mantenedor. El historial Git y la actividad de Actions
+también quedan accesibles al abrir el acceso. Se conservan los resultados y
+límites de la revisión previa, incluida la confirmación del propietario sobre
+la muestra CSRF histórica.
 
 ## Separación de versiones
 
 El proyecto original permanece en `https://github.com/EnriqueForte/web-defense-ai`.
-No se ha renombrado, eliminado ni actualizado desde este trabajo. V2 utilizará
-un repositorio independiente y privado: `EnriqueForte/web-defense-ai-v2`.
+No se ha renombrado, eliminado ni actualizado desde este trabajo. V2 utiliza
+un repositorio independiente: `EnriqueForte/web-defense-ai-v2`.
 
-El repositorio privado se creó de forma independiente en GitHub, sin inicializar
-otro README o historial. Se publica la rama local `main` conservando la base
-histórica y los cambios propios de V2.
+Inicialmente se creó privado en GitHub, sin inicializar otro README o historial.
+Esa separación inicial se conserva como historia; la decisión posterior del
+21/10 es abrir el acceso al repositorio V2. Se publica la rama local `main`
+conservando la base histórica y los cambios propios de V2.
 
 | Elemento | Valor |
 |---|---|

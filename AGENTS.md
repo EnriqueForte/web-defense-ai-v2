@@ -2,6 +2,36 @@
 
 ## Alcance actual
 
+V2 público21/10 por solicitud expresa del usuario: API PATCH sobre destino
+exacto EnriqueForte/web-defense-ai-v2 devuelve visibilitypublic/privatefalse;
+GET posterior sin Authorization confirma acceso público. CredencialGitexistente
+usada en memoria sin imprimir/persistir valor; recibos ignorados publication-20261021.
+README/REPOSITORIOS/INICIO/INSTALACION/resumen/plan/C3+registro nuevo actualizados.
+TokenCSRFhistórico confirmado por propietario como DVWA local/sesión invalidada,
+no comprobación técnica agente; hasheshallazgos conservados, historia intacta.
+Preparar commit/push documental de esta apertura autorizada, sin apppública,
+producto/VM/LLM/Docker/avisos/retag/release/CI nueva. Entradas inferiores históricas.
+
+Usuario confirma21/10 tokenCSRFhistórico exclusivo de su DVWA local y sesión
+ya invalidada; dato declarado por propietario, no verificación técnica agente.
+Resuelve consulta previa de R7 para apertura; hallazgo histórico conservado,
+sin probar valor ni reescribirhistoria. Escaneo preparación HEAD e6e7e0c:
+84commits/286archivos, cuatro hashes actuales/cinco históricos conocidos,
+sin hallazgos nuevos. Preparar/aplicar público y verificar acceso anónimo;
+documentación mantiene estado real hasta respuesta de GitHub.
+Entradas inferiores históricas.
+
+Usuario solicita21/10 hacer público V2 y actualizar documentación; acceso
+conectado admin confirmado, visibilidad remota aún private. Antes del cambio,
+revisar historial: R7 conserva tokenCSRFopaco en33d987b; fixtureactual ceros.
+Pregunta pendiente al usuario sobre origen exclusivo DVWA local y sesión
+invalidada. No ampliar visibilidad hasta resolver dato; no probar valor,
+reescribirhistoria ni confundir públicoGitHub con desplegar app a Internet.
+docs/DISTRIBUCION_PUBLICA.md registra decisión/estado, README/guías/resumen/
+repositorios/plan sincronizados como transición pendiente. Actas históricas
+de repositorio privado conservadas. Sin LLM/VM/Docker/avisos/retag/release.
+Entradas inferiores históricas.
+
 Usuario autoriza21/10 commit y publicación en GitHub del README renovado.
 Publicar solo README/AGENTS/screenshotsREADME/tresPNG V2 sintéticos;
 33 enlaces locales y PNG verificados, escaneo stock Gitleaks sin hallazgos.

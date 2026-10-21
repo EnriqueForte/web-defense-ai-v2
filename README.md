@@ -41,6 +41,14 @@ de **T3r0S3c**, con una interfaz Next.js, API versionada, publicaciones estructu
 y herramientas de instalación y recuperación. Ambos repositorios se mantienen
 independientes; consulta [su relación y alcance](docs/REPOSITORIOS.md).
 
+### Distribución pública
+
+El código está disponible en un **repositorio público de GitHub bajo licencia
+MIT**, para consulta, clonación e instalación propias sin solicitar acceso.
+La apertura y sus comprobaciones se registran en [Distribución pública](docs/DISTRIBUCION_PUBLICA.md).
+Cada instalación mantiene sus propias credenciales, logs e informes.
+La consola y el laboratorio siguen destinados al uso local aislado.
+
 ## La consola
 
 Cinco vistas organizan el trabajo: **Resumen**, **Amenazas**, **Reportes**,
@@ -64,7 +72,7 @@ no captura tráfico nuevo ni solicita un análisis.
 
 | Herramienta | Versión / uso |
 | --- | --- |
-| Git | Clonar el repositorio; requiere acceso si es privado |
+| Git | Clonar el repositorio público por HTTPS, sin token de GitHub |
 | Python | **3.11**, con `venv` y `ensurepip` |
 | Node.js | **24 o posterior** |
 | pnpm | **11.19.0** |

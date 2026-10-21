@@ -5,6 +5,12 @@ y límites históricos; sus pendientes pueden haberse cerrado después.
 Última revisión del estado: 21/10/2026. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
 separa los pendientes actuales de las actas históricas y propone su orden finito.
 
+El 21/10 se aplicó y verificó la distribución pública del código, incluido el
+acceso sin autenticación. El [registro de apertura en GitHub](DISTRIBUCION_PUBLICA.md)
+conserva la revisión del hallazgo CSRF histórico y la confirmación del propietario
+sobre su procedencia e invalidación. Esta ampliación no reabre C1–C4/V1
+ni convierte la consola local en un servicio público.
+
 ## Completado
 
 - Migración de interfaz y rediseño SOC; Flask conservado como retorno local.
@@ -15,7 +21,7 @@ separa los pendientes actuales de las actas históricas y propone su orden finit
   La [migración posterior CrewAI](MIGRACION_CREWAI_2026_10_12.md) pasó Windows/Ubuntu
   desde instalación nueva con 172 pines. El 13/10 el usuario acreditó actualización,
   inventario 172/0/0, arranque/cierre y navegación correcta en su VM Parrot.
-- Código y evidencias publicados en el repositorio V2; original independiente.
+- Código y evidencias publicados en el repositorio V2, público desde el 21/10; original independiente.
 - Validación numérica del ejecutor y [recorrido E2E de Configuración](CONFIGURACION_E2E_2026_10_13.md):
   nueve casos Chromium en Windows/Ubuntu CI, con guardado sintético, recarga,
   desmontaje/cancelación, errores y cierre de puertos comprobados el 13/10.
