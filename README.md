@@ -1,188 +1,185 @@
-# 🛡️ web-defense-ai V2
+<div align="center">
 
-Aplicación local de ciberseguridad defensiva de **T3r0S3c**. Analiza registros
-de Apache mediante tres agentes CrewAI y muestra indicadores, evidencias e
-informes en una consola SOC con Next.js y Flask.
+# 🛡️ Web Defense AI · V2
 
-El código se distribuye en [EnriqueForte/web-defense-ai-v2](https://github.com/EnriqueForte/web-defense-ai-v2)
-con licencia [MIT](LICENSE). Cada instalación conserva sus datos y configura
-su proveedor. El [repositorio original](https://github.com/EnriqueForte/web-defense-ai)
-permanece independiente; véase [la separación de repositorios](docs/REPOSITORIOS.md).
+**Del registro de acceso a la evidencia: análisis defensivo con agentes de IA.**
 
-## Estado de esta versión
+Consola local para revisar actividad de Apache, investigar patrones sospechosos
+y consultar informes con referencias a las líneas del log.
 
-Revisión documental: **21/10/2026**. El [resumen vigente](docs/ESTADO_FINAL_2026_10_12.md)
-es la referencia de estado; el [análisis de cierre](docs/ANALISIS_CIERRE_2026_10_20.md)
-explica el trabajo restante.
+[![Versión local](https://img.shields.io/badge/versión-v0.1.0-22d3ee?style=flat-square)](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
+![CrewAI](https://img.shields.io/badge/CrewAI-1.15.27-F15A24?style=flat-square)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-API-000000?style=flat-square&logo=flask&logoColor=white)
+[![Licencia MIT](https://img.shields.io/badge/licencia-MIT-34d399?style=flat-square)](LICENSE)
 
-| Área | Estado comprobado |
+[Inicio rápido](#inicio-rápido) · [Consola](#la-consola) · [Arquitectura](#arquitectura) · [Documentación](#documentación)
+
+</div>
+
+![Resumen de la consola Web Defense AI V2 con datos sintéticos](screenshots/v2-summary.png)
+
+*Interfaz Next.js con datos sintéticos de demostración. Las capturas no representan incidentes reales ni una nueva ejecución del modelo.*
+
+## Qué hace
+
+Web Defense AI combina preparación de evidencias en Python, tres agentes CrewAI
+y una consola de revisión. Está pensado para **laboratorios, aprendizaje y apoyo
+al análisis defensivo local**: permite pasar de las peticiones del registro a un
+informe trazable, manteniendo visible la diferencia entre un patrón observado y
+un incidente confirmado.
+
+- **Revisa indicadores:** patrones de SQLi, XSS, traversal, fuerza bruta e inyección de comandos, sujetos a la evidencia disponible.
+- **Agrupa hallazgos:** presenta tipo, severidad, IP observada y referencias al log; varios intentos pueden formar un único grupo.
+- **Consulta informes:** accede al reporte actual y a los archivos históricos disponibles, con fechas de publicación y lectura segura como texto.
+- **Explora la actividad:** muestra coincidencias por periodo y una ventana de peticiones recientes.
+- **Controla la ejecución:** separa la lectura de datos, el análisis y las notificaciones opcionales.
+
+V2 continúa el [proyecto original Web Defense AI](https://github.com/EnriqueForte/web-defense-ai)
+de **T3r0S3c**, con una interfaz Next.js, API versionada, publicaciones estructuradas
+y herramientas de instalación y recuperación. Ambos repositorios se mantienen
+independientes; consulta [su relación y alcance](docs/REPOSITORIOS.md).
+
+## La consola
+
+Cinco vistas organizan el trabajo: **Resumen**, **Amenazas**, **Reportes**,
+**Actividad** y **Configuración**. El resumen reúne indicadores y severidades;
+el detalle permite contrastar los grupos del informe con sus evidencias.
+
+| Amenazas y referencias | Consulta de informes |
+| :---: | :---: |
+| [![Vista de amenazas con datos sintéticos](screenshots/v2-threats.png)](screenshots/v2-threats.png) | [![Vista de reportes con datos sintéticos](screenshots/v2-reports.png)](screenshots/v2-reports.png) |
+
+*Pulsa una imagen para ampliarla. [Procedencia de las capturas](screenshots/README.md).*
+
+Las **coincidencias del log** y los **grupos clasificados del informe** son
+medidas distintas. La actividad reciente es una ventana de ocho líneas de la
+API, no un registro histórico completo. **Actualizar** relee la copia local:
+no captura tráfico nuevo ni solicita un análisis.
+
+## Inicio rápido
+
+### Requisitos
+
+| Herramienta | Versión / uso |
 | --- | --- |
-| Aplicación local | Interfaz SOC, API `/api/v1`, configuración, trabajos, instalación y arranque/cierre implementados. Flask se conserva como interfaz alternativa. |
-| Windows y Ubuntu | Código `0d73ec2`, [CI 39466610699](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699) aprobada: Ubuntu 376 Python; Windows 375 y una prueba exclusiva Linux omitida; nueve E2E por OS. Instalación limpia, build, API/proxy y cierre comprobados; artefactos completos revisados. |
-| Parche de seguridad | aiohttp 3.14.4 y yarl 1.25.1 instalados y probados en ambos OS, incluidos dos casos de cookies Secure. Inventarios 172/0/0; solo cambian esos dos paquetes frente al contrato anterior. |
-| Evaluación A-05 | Aceptada por el usuario el 20/10 para la primera versión local de apoyo a la revisión, con límites explícitos y comparación legacy diferida. [Matriz y evidencias](docs/MATRIZ_ACEPTACION_A05_2026_10_20.md). |
-| Parrot 7.3/VMware | [V1 completada el 21/10](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md): v0.1.0/172 paquetes sin diferencias, tres pines aplicados, recuperación aislada de aplicación/DB y lectura/cierre comprobados. Se conserva el informe XSS/fuerza bruta del 15/10; no se repitió el análisis. Evidencia por capturas y confirmación del usuario. |
-| Seguridad y entrega | [Tratamiento residual C3](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md) aceptado para uso local aislado, conservando vulnerabilidades y límites. [Entrega C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) identificada como [v0.1.0](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0); sin certificación global de seguridad. |
+| Git | Clonar el repositorio; requiere acceso si es privado |
+| Python | **3.11**, con `venv` y `ensurepip` |
+| Node.js | **24 o posterior** |
+| pnpm | **11.19.0** |
+| Docker | Opcional; solo para el laboratorio DVWA/Mailpit |
 
-Las fases de migración 0–7 y las del rediseño SOC están cerradas en su alcance
-local aceptado. Los [estados anteriores del README](docs/HISTORIAL_README_2026_10_20.md)
-se conservan como historia; sus pendientes no describen la instalación actual.
-Las actas V1 y estos cambios documentales se incorporan como actualización
-posterior a la entrega; no cambian la etiqueta `v0.1.0` ni el código probado.
+### Instalar e iniciar
 
-## Entorno y ejecución
-
-Requiere Git, Python **3.11** con venv, Node.js **24 o posterior** y
-pnpm **11.19.0** disponibles. Desde el directorio donde quieras clonar:
+En Linux, desde la carpeta donde quieras clonar:
 
 ```bash
 git clone https://github.com/EnriqueForte/web-defense-ai-v2.git
 cd web-defense-ai-v2
 python3 webdefense.py install
-python3 webdefense.py start
-```
-
-En Windows usa `py webdefense.py install` y `py webdefense.py start`.
-Abre [la consola local](http://127.0.0.1:3000) cuando aparezca «Consola lista».
-Mantén la terminal abierta; **Ctrl+C detiene Flask y Next** creados por el
-lanzador. En VMware abre la dirección desde el navegador de la VM.
-
-La instalación prepara `.p2`, comprueba el contrato de paquetes y compila el
-frontend. Crea `.env` si falta y conserva uno existente. El arranque habitual
-inicia lectura, con análisis manual deshabilitado y notificaciones vacías;
-no inicia el worker ni Docker. El modo de informes predeterminado es legacy.
-Para leer publicaciones structured existentes:
-
-```bash
 python3 webdefense.py start --mode structured
 ```
 
-Este cambio de modo no solicita un análisis. Una clonación nueva puede mostrar
-«Fuentes incompletas» porque no incluye los logs o informes del mantenedor.
-Actualizar relee la copia local; no genera tráfico ni inicia un análisis.
+En Windows, tras clonar y entrar en la carpeta:
 
-| Necesidad | Guía |
-| --- | --- |
-| Primera instalación y comprobación de arranque | [Inicio rápido](docs/INICIO_RAPIDO.md) |
-| Configuración, captura y análisis manual por terminales | [Instalación y operación](docs/INSTALACION_AUTOALOJADA.md) |
-| Proveedor, modelo y credenciales propios | [Configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md) |
-| Laboratorio Docker aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
-| Copias, actualización y restauración de aplicación | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
-| Actualización y recuperación guiadas en la VM existente | [Cierre V1 de Parrot](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md) |
-| Desarrollo, responsabilidades y pendientes | [Plan vigente](docs/PLAN_AGENTES_TAREAS.md) |
-| Entrega local v0.1.0 | [Estado C4](docs/ENTREGA_LOCAL_C4_2026_10_20.md) · [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
-
-## Arquitectura actual
-
-```text
-DVWA/Apache → captura Docker → copia local del access.log
-                                      ↓
-                           ejecutor Python (opcional)
-                                      ↓
-                   Analista → Detective → Reporter
-                                      ↓
-                validación y publicación de informes
-                                      ↓
-                       API Flask /api/v1 → Next.js
-                                      └→ interfaz Flask alternativa
+```powershell
+py webdefense.py install
+py webdefense.py start --mode structured
 ```
 
-En modo **structured**, Python prepara evidencia, valida referencias y
-clasificación, calcula tabla/conteos y publica JSON/Markdown mediante generaciones
-y un puntero coherente. El modo **legacy** conserva el flujo y los informes
-anteriores. Ambos se seleccionan explícitamente; no se mezclan sus fuentes.
+Cuando aparezca **«Consola lista»**, abre **[http://127.0.0.1:3000](http://127.0.0.1:3000)**.
+Mantén la terminal abierta; **Ctrl+C detiene Flask y Next.js** iniciados por el
+lanzador. En una VM, abre la dirección desde el navegador de esa VM.
 
-| Área | Implementación del código revisado |
-| --- | --- |
-| Motor | Python 3.11, CrewAI 1.15.27 y contrato de 172 paquetes por plataforma |
-| Proveedores | Groq predeterminado; OpenRouter opcional; credenciales locales |
-| Interfaz | Next.js 16, React 19 y TypeScript; Flask conserva API e interfaz alternativa |
-| Laboratorio recomendado | `compose.lab.yaml`: DVWA, MariaDB y Mailpit fijados por digest; puertos publicados solo en loopback |
-| Análisis/avisos | Worker separado; manual y notificaciones desactivados en el arranque de lectura; Telegram/SMTP opcionales |
+El instalador prepara `.p2`, comprueba las dependencias fijadas y compila el
+frontend. Crea `.env` si falta y conserva uno existente. No necesitas activar
+el entorno virtual para usar el lanzador.
 
-`docker-compose.yml` es legacy, con exposición diferente, y no es la instalación
-recomendada. Antes de recrear un laboratorio existente con los pins nuevos,
-seguir el respaldo y recuperación de su base descritos en la guía del laboratorio.
-El respaldo de aplicación no incluye el volumen DVWA ni el buzón Mailpit.
+Este inicio abre la consola **en modo de lectura**, sin worker, análisis manual
+ni notificaciones habilitados. Una instalación nueva puede indicar «Fuentes
+incompletas»: cada usuario aporta sus logs y publicaciones. Para configurar el
+proveedor y ejecutar un análisis, sigue la [guía de instalación y operación](docs/INSTALACION_AUTOALOJADA.md).
 
-## Funciones y límites conocidos
+Se muestra `--mode structured` para consultar publicaciones estructuradas de V2.
+El modo predeterminado del lanzador sigue siendo `legacy`; utiliza
+`--mode legacy` para los informes anteriores. Elegir modo no genera un informe.
 
-La consola muestra grupos del informe actual, severidades, referencias, actividad
-reciente y reportes. Las coincidencias de patrones del log son distintas de los
-hallazgos clasificados; ocho POST pueden formar una sola ráfaga. El log de la
-API muestra una ventana de ocho líneas, no el historial completo.
+Consulta [Inicio rápido](docs/INICIO_RAPIDO.md) para preparar las herramientas,
+comprobar el entorno y resolver problemas de arranque.
 
-Se contemplan SQLi, XSS, traversal, fuerza bruta e inyección de comandos con
-límites de evidencia y selección. Un HTTP 200 o una petición a un avatar no
-demuestran un inicio de sesión exitoso. Las guardas verifican forma y referencias;
-la aceptación local no garantiza detección general. El resultado conserva
-`quality=semantic_evaluation_pending` porque no se certifica la calidad general
-del proveedor; la aceptación del alcance se registra en la matriz enlazada.
+## Arquitectura
 
-La pantalla Configuración guarda la clave en `.env` local, en texto sin cifrar
-y excluido de Git. El dashboard debe permanecer en localhost. Un análisis puede
-enviar datos del log al proveedor elegido; cada instalación asume sus límites
-y costes. Guardar configuración no valida la clave ni inicia análisis.
-
-Los avisos de [dependencias, secretos y su tratamiento](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md)
-y de [imágenes](docs/FIJACION_IMAGENES_LAB_2026_10_19.md) siguen documentados.
-Los pins fijan contenido; no eliminan vulnerabilidades. No se declara soporte
-general de todas las distribuciones, macOS/ARM, uso público multiusuario o
-remediación automática.
-
-## Abrir el proyecto en VSCode
-
-Abre `web-defense-ai V2.code-workspace`. Codex y VSCode utilizan la misma carpeta;
-Control de código fuente permite revisar los cambios y Ctrl+Shift+V muestra
-Markdown. Véase [la guía de VSCode](docs/GUIA_VSCODE.md).
-
-El instalador actual utiliza `.p2`. Las tareas Python heredadas del IDE invocan
-`.venv/Scripts/python.exe` mediante PowerShell: seleccionar otro intérprete en
-el editor no cambia esos comandos. Para una clonación nueva usa las órdenes
-del inicio rápido; no necesitas crear otro entorno para arrancar la aplicación.
-
-## Estructura
-
-```text
-web-defense-ai V2/
-├── frontend/             # Consola Next.js
-├── agents/               # Agentes, evidencia, contratos y evaluación
-├── config/               # Configuración y adaptadores
-├── dashboard/            # Flask, API, trabajos y publicación
-├── scripts/              # Instalación, verificaciones y operación local
-├── tests/                # Pruebas aisladas
-├── docs/                 # Guías vigentes y actas fechadas
-├── .vscode/              # Herramientas de desarrollo
-├── webdefense.py          # Instalador y lanzador de lectura
-├── main.py               # Motor
-├── pipeline.py           # Ejecutor separado
-├── requirements.txt
-├── constraints-py311.txt
-├── compose.lab.yaml      # Laboratorio recomendado
-└── docker-compose.yml    # Laboratorio legacy
+```mermaid
+flowchart LR
+    A["Apache / DVWA"] -->|captura explícita| B["Copia local del access.log"]
+    B --> C["Preparación de evidencias"]
+    C --> D["Analista → Detective → Reporter"]
+    D --> E["Validación y publicación JSON / Markdown"]
+    E --> F["API Flask /api/v1"]
+    B --> F
+    F --> G["Consola Next.js"]
+    F --> H["Interfaz Flask alternativa"]
 ```
 
-Los datos locales y entornos se crean por instalación y no se distribuyen.
-El perfil `pilot` utiliza `.local-state/dvwa-lab/access.log` y
-`.local-state/phase6-pilot/`; el nombre se conserva por compatibilidad.
+En modo **structured**, Python selecciona evidencia, valida referencias y
+clasificación, calcula tablas y conteos y publica una generación coherente de
+JSON/Markdown. Los tres agentes participan en el análisis; la publicación pasa
+por validaciones antes de quedar disponible para la consola. El ejecutor de
+análisis se inicia por separado del lanzador de lectura.
 
-## Capturas de referencia
+| Componente | Tecnología |
+| --- | --- |
+| Motor de análisis | Python 3.11 · CrewAI 1.15.27 · contrato de 172 paquetes por plataforma |
+| Proveedores LLM | Groq predeterminado · OpenRouter opcional · credenciales propias |
+| Consola | Next.js 16 · React 19 · TypeScript |
+| API e interfaz alternativa | Flask · API `/api/v1` |
+| Laboratorio opcional | DVWA · MariaDB · Mailpit, con imágenes fijadas por digest |
+| Avisos opcionales | Telegram / SMTP, mediante configuración y ejecución explícitas |
 
-Estas imágenes corresponden al dashboard Flask anterior y pueden mostrar la
-denominación previa. Son referencias históricas; no acreditan el aspecto de la
-consola Next.js actual.
+El laboratorio recomendado utiliza **`compose.lab.yaml`**, con puertos publicados
+en loopback. `docker-compose.yml` conserva el entorno legacy y tiene una
+exposición diferente. Antes de actualizar un laboratorio existente, sigue las
+instrucciones de respaldo de la [guía DVWA](docs/LABORATORIO_DVWA_FASE_6.md):
+la copia de la aplicación no incluye el volumen de la base ni el buzón Mailpit.
 
-![Dashboard anterior](screenshots/screenshot-1-dashboard.png)
+## Documentación
 
-- [Reporte anterior](screenshots/screenshot-3-report.png)
-- [Timeline anterior](screenshots/screenshot-5-timeline.png)
-- [Arquitectura anterior](screenshots/screenshot-2-architecture.png)
+| Para… | Consulta |
+| --- | --- |
+| Instalar y abrir la consola | [Inicio rápido](docs/INICIO_RAPIDO.md) |
+| Preparar logs y ejecutar análisis | [Instalación y operación](docs/INSTALACION_AUTOALOJADA.md) |
+| Elegir proveedor y configurar credenciales | [Configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md) |
+| Trabajar con un laboratorio aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
+| Conservar y recuperar datos | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
+| Desarrollar y consultar el plan | [Guía de VSCode](docs/GUIA_VSCODE.md) · [Plan del proyecto](docs/PLAN_AGENTES_TAREAS.md) |
+| Revisar la entrega y su validación | [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) · [Estado vigente](docs/ESTADO_FINAL_2026_10_12.md) |
 
-## Autor y ámbito de uso
+### Versión y validación
 
-**T3r0S3c** — Proyecto de portfolio en ciberseguridad.
+La primera entrega local es **[v0.1.0](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0)**.
+El código de entrega pasó instalación, regresión, pruebas de interfaz y recorrido
+API/proxy en [CI Windows y Ubuntu](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699).
+La actualización, recuperación aislada y lectura/cierre en Parrot se documentan
+en el [registro V1](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md).
 
-[GitHub del autor](https://github.com/EnriqueForte) · [LinkedIn](https://linkedin.com/in/enriqueforte)
+La aceptación cubre el uso local de apoyo a la revisión de indicadores.
+Los [criterios y límites de evaluación](docs/MATRIZ_ACEPTACION_A05_2026_10_20.md)
+y el [tratamiento de riesgos](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md)
+conservan el detalle. Los [estados anteriores del README](docs/HISTORIAL_README_2026_10_20.md)
+se mantienen como referencia histórica.
 
-Proyecto para laboratorio y aprendizaje. DVWA es intencionalmente vulnerable:
-mantén el laboratorio aislado y trabaja únicamente sobre sistemas autorizados.
+## Uso responsable y límites
+
+- **Evidencia, no confirmación automática.** Un patrón, un HTTP 200 o una petición a un avatar no demuestran explotación ni autenticación exitosa. Las IP mostradas son observadas; no identifican por sí solas a un atacante.
+- **Alcance local.** Mantén la consola en localhost y DVWA aislado. No se ofrece remediación automática, uso público multiusuario ni soporte general de todas las plataformas.
+- **Privacidad y costes.** Un análisis puede enviar contenido del log al proveedor elegido. La clave se guarda en `.env` local, sin cifrar y excluido de Git; guardar la configuración no valida la clave ni inicia un análisis.
+- **Calidad y seguridad acotadas.** Las validaciones de formato y referencias no garantizan detección general. Los resultados conservan `quality=semantic_evaluation_pending`; la comparación con legacy está diferida. Persisten los avisos de dependencias e imágenes: fijar versiones no elimina vulnerabilidades.
+
+## Autor y licencia
+
+**Enrique Forte · T3r0S3c** — Proyecto de portfolio en ciberseguridad defensiva.
+
+[GitHub](https://github.com/EnriqueForte) · [LinkedIn](https://linkedin.com/in/enriqueforte) · [Licencia MIT](LICENSE)
+
+Utiliza el proyecto únicamente con registros y sistemas para los que tengas autorización.

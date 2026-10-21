@@ -2,6 +2,25 @@
 
 ## Alcance actual
 
+Usuario autoriza21/10 commit y publicación en GitHub del README renovado.
+Publicar solo README/AGENTS/screenshotsREADME/tresPNG V2 sintéticos;
+33 enlaces locales y PNG verificados, escaneo stock Gitleaks sin hallazgos.
+Preparar commit documental [skip ci] y verificar main remoto/árbol limpio;
+sin producto, retag/release/LLM/Docker/VM/avisos ni nueva CI atribuida.
+Esta autorización sustituye el pendiente de publicación de la entrada inferior.
+Entradas inferiores históricas.
+
+README renovado21/10 por petición del usuario: presentación de producto,
+capturas actuales Next con datos sintéticos, arquitectura, inicio Windows/Linux
+y enlaces a validación/límites. Referencia original-readonly/main91651ba;
+no copiar sus afirmaciones operativas antiguas. screenshots/v2-{summary,threats,
+reports}.png proceden de frontend compilado y API simulada en navegador,
+sin servidor/LLM/.envbytes/Docker/VM/avisos; procedencia screenshots/README.md.
+Cambios locales de presentación, sin commit/push autorizado para este bloque;
+no retag/release/nueva CI atribuida. Publicación documental V1 anterior ya
+completada1a6d3cc; entradas inferiores conservan su historia.
+Entradas inferiores históricas.
+
 Usuario autoriza21/10 «ok hazlo» a commit/push de los diez archivos documentales
 del cierreV1. Publicación autorizada supersede pendiente local de entradas
 anteriores; conservarlas como historia. main y origin/main4c13abd comprobados
