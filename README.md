@@ -75,8 +75,6 @@ la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACIO
 
 [![Configuración del proveedor y modelo LLM en Web Defense AI V2](screenshots/v2-llm.png)](screenshots/v2-llm.png)
 
-*Captura aportada por el propietario el 22/10/2026. El campo de clave está vacío y no muestra la credencial guardada.*
-
 ## Inicio rápido
 
 ### Requisitos
