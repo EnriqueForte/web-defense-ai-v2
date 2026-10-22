@@ -20,7 +20,7 @@ y consultar informes con referencias a las líneas del log.
 
 ![Resumen de la consola Web Defense AI V2 con datos sintéticos](screenshots/v2-summary.png)
 
-*Interfaz Next.js con datos sintéticos de demostración. Las capturas no representan incidentes reales ni una nueva ejecución del modelo.*
+*Resumen con datos sintéticos de demostración; no representa incidentes reales ni una nueva ejecución del modelo.*
 
 ## Qué hace
 
@@ -65,6 +65,17 @@ Las **coincidencias del log** y los **grupos clasificados del informe** son
 medidas distintas. La actividad reciente es una ventana de ocho líneas de la
 API, no un registro histórico completo. **Actualizar** relee la copia local:
 no captura tráfico nuevo ni solicita un análisis.
+
+### Configuración del LLM
+
+Selecciona **Groq u OpenRouter**, elige un modelo del catálogo o introduce otro
+identificador compatible y configura tus credenciales desde la consola.
+Cada instalación conserva su propia configuración local; guardar no valida
+la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md).
+
+[![Configuración del proveedor y modelo LLM en Web Defense AI V2](screenshots/v2-llm.png)](screenshots/v2-llm.png)
+
+*Captura aportada por el propietario el 22/10/2026. El campo de clave está vacío y no muestra la credencial guardada.*
 
 ## Inicio rápido
 

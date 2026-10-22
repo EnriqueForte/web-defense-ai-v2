@@ -2,6 +2,16 @@
 
 ## Alcance actual
 
+Usuario aporta22/10 screenshots/v2-llm.png y autoriza añadir/publicar en V2.
+Revisión visual: Configuración con proveedor desplegado Groq/OpenRouter,
+campoAPIvacío/placeholderguardada sin valor de clave visible; no editar imagen.
+README incorpora captura y explicación proveedor/modelo/configlocal; catálogo
+screenshots distingue imagen real aportada de tres muestras sintéticas21/10.
+Publicación solo docs/captura, sin app/LLM/.envbytes/Docker/VM/avisos/retag/release.
+RepositorioV2 ya público; commit anterior507d85a y enlace desde README original
+dd3f2a1 autorizados/publicados. Original intacto fuera de aquel aviso solicitado.
+Entradas inferiores históricas.
+
 V2 público21/10 por solicitud expresa del usuario: API PATCH sobre destino
 exacto EnriqueForte/web-defense-ai-v2 devuelve visibilitypublic/privatefalse;
 GET posterior sin Authorization confirma acceso público. CredencialGitexistente
