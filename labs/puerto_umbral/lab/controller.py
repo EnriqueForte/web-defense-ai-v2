@@ -184,6 +184,42 @@ def wait_target(service):
     raise RuntimeError("target_not_ready:" + service)
 
 
+def build_images():
+    """Build each shared image once using the Docker CLI's configured builder.
+
+    Compose remains responsible for configuration and lifecycle, not compilation.
+    No builder/plugin installation, environment override or Docker context change.
+    """
+    docker = shutil.which("docker")
+    if not docker:
+        raise RuntimeError("docker_cli_missing")
+    images = {}
+    for kind in ("target", "apache"):
+        image = f"puerto-umbral-{kind}:f2-1"
+        print(f"Construyendo imagen local {image} con Docker...", flush=True)
+        started = utc()
+        log_path = STATE / "setup-history" / ("build-" + kind + "-" + secrets.token_hex(6) + ".json")
+        try:
+            result = command([docker, "build", "--file", str(ROOT / "lab" / f"Dockerfile.{kind}"),
+                              "--tag", image, str(ROOT)], timeout=240, check=False)
+        except subprocess.TimeoutExpired as error:
+            def output_text(value):
+                return value.decode("utf-8", "replace") if isinstance(value, bytes) else value or ""
+            atomic(log_path, {"started_at": started, "finished_at": utc(), "builder": "docker-build",
+                              "image": image, "error_code": "build_timeout", "returncode": None,
+                              "stdout": output_text(error.stdout), "stderr": output_text(error.stderr)})
+            raise RuntimeError(f"image_build_timeout:{kind}; registro={log_path}") from None
+        atomic(log_path, {"started_at": started, "finished_at": utc(), "builder": "docker-build",
+                          "image": image, "returncode": result.returncode,
+                          "stdout": result.stdout, "stderr": result.stderr})
+        if result.returncode:
+            detail = (result.stderr + "\n" + result.stdout).strip()[-1600:]
+            raise RuntimeError(f"image_build_failed:{kind}; registro={log_path}\n{detail}")
+        data = json.loads(command([docker, "image", "inspect", image]).stdout)[0]
+        images[kind] = data["Id"]
+    return images
+
+
 def prepare():
     found = owned_containers()  # Reject unrelated name collisions before build/up.
     for service in found:
@@ -192,11 +228,7 @@ def prepare():
             atomic(STATE / "setup-history" / (service + "-" + secrets.token_hex(6) + ".json"),
                    {"captured_at": utc(), "stdout": logs.stdout, "stderr": logs.stderr})
     command(compose_command() + ["config", "--quiet"])
-    command(compose_command() + ["build"], timeout=240)
-    images = {}
-    for kind in ("target", "apache"):
-        data = json.loads(command(["docker", "image", "inspect", f"puerto-umbral-{kind}:f2-1"]).stdout)[0]
-        images[kind] = data["Id"]
+    images = build_images()
     atomic(STATE / "images.json", images)
     try:
         command(compose_command() + ["up", "--detach", "--no-build"], timeout=90)

@@ -2,6 +2,17 @@
 
 ## Alcance actual
 
+Puerto Umbral diagnósticoParrot26/10: captura acredita existing_preserved/
+instalacióncompletada; arranque aborta prepare en compose build: requiere
+buildx>=0.17. labs/puerto_umbral presente y ejecutado portraceback; no fallo de
+descarga acreditado. Ruta log inicialmente maltranscrita poragente; find la
+localizó. Corrección: dos docker build secuenciales/Composeup--no-build,
+sin instalarplugin/cambiarbuilder/contexto/pines/redes; logscompletosporimagen
+ignorados setup-history. No escenarios/suites/LLM ni operacionesVM delagente.
+Pendiente nuevoarranque manualParrot tras publicarparche autorizado; no repetir
+instalador ni dar F2/F3 por cerradas. Ver docs/PUERTO_UMBRAL_PARROT_2026_10_26.md.
+Entradas inferiores históricas.
+
 Puerto UmbralParrot26/10: usuario autoriza compilación, commit/push de V2 y
 actualización/revisión manual en VM. Para un único pull se distribuye fuente
 portable labs/puerto_umbral (sin .git/.openai/credenciales/datos/entornos),

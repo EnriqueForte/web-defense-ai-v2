@@ -13,6 +13,10 @@ python3 webdefense.py start --mode structured --with-puerto-umbral
 Necesita la instalación `.p2` de V2, su frontend compilado, Docker y un cliente
 Compose disponible. Se admite `docker compose` o `docker-compose`, sin instalar
 plugins ni cambiar el contexto Docker automáticamente.
+Las dos imágenes compartidas se construyen una vez con `docker build`; Compose
+valida la configuración y arranca con `up --no-build`. Así no se invoca el
+constructor de Compose, que en la VM solicitó Buildx 0.17 o posterior. La CLI
+Docker usa el constructor configurado en ese equipo, sin cambiar sus opciones.
 
 La terminal supervisa Flask, Next y el panel local de Puerto Umbral, y prepara
 sus doce contenedores. Solo hace comprobaciones de disponibilidad de servicios;

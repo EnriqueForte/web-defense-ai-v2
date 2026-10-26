@@ -25,6 +25,8 @@ periódica. El arranque anterior sin esa opción conserva su alcance de V2/pilot
 El laboratorio admite el Compose realmente instalado: `docker compose` cuando
 está disponible o el ejecutable `docker-compose` usado anteriormente en Parrot.
 No instala otro cliente ni cambia el contexto de Docker por sí solo.
+La preparación construye las imágenes con `docker build` y reserva Compose para
+configuración y arranque con `--no-build`; no invoca `compose build`.
 
 Ctrl+C debe cerrar los procesos iniciados por la terminal y solicitar la parada
 de los servicios propios Puerto Umbral. Se conservan sus evidencias y volúmenes.
@@ -118,3 +120,25 @@ No se atribuyen a esta publicación pruebas de CI, cierre de F2/F3 ni seguridad
 general. El commit de desarrollo se prepara con exclusión de CI para respetar
 la revisión manual acordada. El estado final de publicación se informará tras
 comprobar el push; esta guía no lo presume.
+
+## Diagnóstico de la primera preparación en Parrot
+
+La captura del propietario acredita `existing_preserved` e instalación completada.
+El arranque conjunto se detuvo durante la construcción con el error
+`compose build requires buildx 0.17.0 or later`. La carpeta del laboratorio sí
+está presente: el traceback ejecuta `labs/puerto_umbral/labctl.py` y su controlador.
+No se atribuye el fallo a una actualización incompleta ni se acredita el arranque
+de Flask, Next o del laboratorio por esa salida.
+
+Se sustituye la compilación mediante Compose por dos invocaciones secuenciales
+de Docker, una por imagen compartida. Se conservan Dockerfiles, digests, puertos,
+restricciones y `up --no-build`. No se instala ni actualiza Buildx automáticamente,
+ni se fuerza un constructor alternativo por variables de entorno. La operación
+real sigue pendiente de repetir el arranque manual en Parrot.
+
+Los resultados completos de cada construcción quedan en
+`labs/puerto_umbral/.local-state/f2/setup-history/build-*.json`, separados del
+código versionado. El log del lanzador indica su ruta si la construcción falla.
+El identificador del primer log se localizó por búsqueda, evitando volver a
+transcribirlo desde una captura. No hace falta repetir el instalador para aplicar
+esta corrección Python: tras el `pull`, volver a ejecutar solo el arranque conjunto.
