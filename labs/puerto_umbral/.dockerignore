@@ -1,0 +1,9 @@
+**
+!lab/
+!lab/target.py
+!lab/httpd.conf
+!lab/portal.html
+!lab/fixtures/
+!lab/fixtures/**
+!assets/
+!assets/styles.css

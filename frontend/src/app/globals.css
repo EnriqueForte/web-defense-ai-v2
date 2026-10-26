@@ -281,6 +281,7 @@ input::placeholder { color: var(--muted); opacity: 1; }
 .llm-local-warning strong { color: var(--warning); font-size: var(--text-sm); }
 .settings-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-3); }
 .settings-actions > span { color: var(--muted); font-size: var(--text-xs); }
+.log-source-digest { overflow-wrap: anywhere; }
 .button-primary { min-height: 38px; padding: var(--space-2) var(--space-4); color: var(--selection-text); background: var(--cyan); border: 1px solid var(--cyan); border-radius: var(--radius-sm); font-size: var(--text-sm); font-weight: 600; transition: filter var(--motion-fast); }
 .button-primary:hover:not(:disabled) { filter: brightness(1.08); }
 .success-copy { color: var(--green); }

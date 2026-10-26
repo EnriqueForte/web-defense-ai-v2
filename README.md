@@ -77,6 +77,13 @@ la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACIO
 
 ## Inicio rápido
 
+Para la revisión educativa de Puerto Umbral junto con V2, consulta la
+[guía de actualización en Parrot](docs/PUERTO_UMBRAL_PARROT_2026_10_26.md).
+La distribución incluye el laboratorio local; su inicio se solicita con
+`python3 webdefense.py start --mode structured --with-puerto-umbral` después
+de instalar/compilar. Este arranque no ejecuta escenarios ni análisis automáticos.
+F2/F3 siguen pendientes de validación manual; su inclusión no certifica sus resultados.
+
 ### Requisitos
 
 | Herramienta | Versión / uso |

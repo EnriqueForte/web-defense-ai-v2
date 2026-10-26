@@ -18,9 +18,11 @@ from agents.evidence_contracts import ContractError
 from scripts.local_port import probe_port
 
 
-def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manual=False):
+def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manual=False, lab_mode="vulnerable"):
     if profile not in PROFILES or mode not in {"legacy", "structured"}:
         raise ValueError("invalid_local_profile")
+    if lab_mode not in {"vulnerable", "corrected"} or (profile == "puerto-umbral" and mode != "structured"):
+        raise ValueError("invalid_puerto_umbral_mode")
     root = Path(root).absolute()
     definition = PROFILES[profile]
     paths = {name: checked_path(root, definition[name]) for name in ("log", "reports", "db")}
@@ -28,8 +30,10 @@ def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manu
     environment = {"PYTHONIOENCODING": "utf-8", "ANALYSIS_ENGINE_MODE": mode,
                    "LOG_PATH": str(paths["log"]), "REPORT_PATH": str(paths["reports"]),
                    "ANALYSIS_DB_PATH": str(paths["db"]),
-                   "LOG_SYNC_SOURCE": "dvwa-lab" if profile == "pilot" else "legacy-docker",
+                   "LOG_SYNC_SOURCE": {"pilot": "dvwa-lab", "puerto-umbral": "puerto-umbral"}.get(profile, "legacy-docker"),
                    "ANALYSIS_MANUAL_ENABLED": "1" if enable_manual else "0", "NOTIFICATION_DESTINATIONS": ""}
+    if profile == "puerto-umbral":
+        environment.update(PUERTO_UMBRAL_MODE=lab_mode, LOG_CAPTURE_MANUAL_ENABLED="1")
     return {"profile": profile, "mode": mode, "cwd": str(root), "environment_overrides": environment,
             "commands": {"flask": [interpreter, "-B", "-m", "flask", "--app", "dashboard.app", "run",
                                      "--host", "127.0.0.1", "--port", "5000", "--no-debugger"],
@@ -84,11 +88,11 @@ def port_available():
         return False if error.errno == errno.EADDRINUSE else None
 
 
-def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pins=None, enable_manual=False):
+def readiness(root=ROOT, profile="pilot", mode="legacy", *, component="all", pins=None, enable_manual=False, lab_mode="vulnerable"):
     if component not in {"all", "flask", "worker"}:
         raise ValueError("invalid_component")
     root = Path(root).absolute()
-    plan = build_plan(root, profile, mode, enable_manual=enable_manual)
+    plan = build_plan(root, profile, mode, enable_manual=enable_manual, lab_mode=lab_mode)
     if pins is None:
         pins = read_pins(ROOT / "requirements.txt")
         for name, expected in read_pins(ROOT / "constraints-py311.txt").items():
@@ -142,12 +146,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", choices=tuple(PROFILES), default="pilot")
     parser.add_argument("--mode", choices=("legacy", "structured"), default="legacy")
+    parser.add_argument("--lab-mode", choices=("vulnerable", "corrected"), default="vulnerable",
+                        help="Selección de la fuente Puerto Umbral; no cambia el modo del laboratorio")
     parser.add_argument("--component", choices=("all", "flask", "worker"), default="all")
     parser.add_argument("--start", action="store_true", help="explicitly start one component after preflight; requires operational authorization")
     parser.add_argument("--enable-manual", action="store_true", help="admitir solicitudes de análisis; no encola ningún trabajo por sí solo")
     args = parser.parse_args()
     try:
-        result = readiness(profile=args.profile, mode=args.mode, component=args.component, enable_manual=args.enable_manual)
+        result = readiness(profile=args.profile, mode=args.mode, component=args.component,
+                           enable_manual=args.enable_manual, lab_mode=args.lab_mode)
         print(json.dumps(result, indent=2, ensure_ascii=False), flush=True)
         if not args.start:
             return 0 if result["ready"] else 1

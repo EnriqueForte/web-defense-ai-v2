@@ -1,0 +1,366 @@
+{
+  "version": "puerto-umbral-f2-1",
+  "seed": "umbral-cargo-20261026-1",
+  "cases": [
+    {
+      "case_id": "sqli-a1-vulnerable",
+      "scenario": "sqli",
+      "variant": 0,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "sqli-a1-corrected",
+      "scenario": "sqli",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "sqli-a2-vulnerable",
+      "scenario": "sqli",
+      "variant": 1,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "sqli-a2-corrected",
+      "scenario": "sqli",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "sqli-a3-vulnerable",
+      "scenario": "sqli",
+      "variant": 2,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "sqli-a3-corrected",
+      "scenario": "sqli",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "sqli-b1",
+      "scenario": "sqli",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "sqli-b2",
+      "scenario": "sqli",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "sqli-b3",
+      "scenario": "sqli",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-a1-vulnerable",
+      "scenario": "xss",
+      "variant": 0,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "xss-a1-corrected",
+      "scenario": "xss",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-a2-vulnerable",
+      "scenario": "xss",
+      "variant": 1,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "xss-a2-corrected",
+      "scenario": "xss",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-a3-vulnerable",
+      "scenario": "xss",
+      "variant": 2,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "xss-a3-corrected",
+      "scenario": "xss",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-b1",
+      "scenario": "xss",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-b2",
+      "scenario": "xss",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "xss-b3",
+      "scenario": "xss",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-a1-vulnerable",
+      "scenario": "traversal",
+      "variant": 0,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "traversal-a1-corrected",
+      "scenario": "traversal",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-a2-vulnerable",
+      "scenario": "traversal",
+      "variant": 1,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "traversal-a2-corrected",
+      "scenario": "traversal",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-a3-vulnerable",
+      "scenario": "traversal",
+      "variant": 2,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "traversal-a3-corrected",
+      "scenario": "traversal",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-b1",
+      "scenario": "traversal",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-b2",
+      "scenario": "traversal",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "traversal-b3",
+      "scenario": "traversal",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-a1-vulnerable",
+      "scenario": "command",
+      "variant": 0,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "command-a1-corrected",
+      "scenario": "command",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-a2-vulnerable",
+      "scenario": "command",
+      "variant": 1,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "command-a2-corrected",
+      "scenario": "command",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-a3-vulnerable",
+      "scenario": "command",
+      "variant": 2,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "command-a3-corrected",
+      "scenario": "command",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-b1",
+      "scenario": "command",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-b2",
+      "scenario": "command",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "command-b3",
+      "scenario": "command",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-a1-vulnerable",
+      "scenario": "brute",
+      "variant": 0,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "brute-a1-corrected",
+      "scenario": "brute",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-a2-vulnerable",
+      "scenario": "brute",
+      "variant": 1,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "brute-a2-corrected",
+      "scenario": "brute",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-a3-vulnerable",
+      "scenario": "brute",
+      "variant": 2,
+      "mode": "vulnerable",
+      "kind": "attempt",
+      "expected_effect": true
+    },
+    {
+      "case_id": "brute-a3-corrected",
+      "scenario": "brute",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "attempt",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-b1",
+      "scenario": "brute",
+      "variant": 0,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-b2",
+      "scenario": "brute",
+      "variant": 1,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    },
+    {
+      "case_id": "brute-b3",
+      "scenario": "brute",
+      "variant": 2,
+      "mode": "corrected",
+      "kind": "benign",
+      "expected_effect": false
+    }
+  ]
+}

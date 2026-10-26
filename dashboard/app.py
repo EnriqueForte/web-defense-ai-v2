@@ -726,6 +726,40 @@ def api_v1_configuracion_llm():
     return jsonify({"meta": {"api_version": "1"}, "data": public_llm_settings()})
 
 
+@app.get("/api/v1/fuentes/log")
+def api_v1_fuente_log():
+    source = os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()
+    if source == "puerto-umbral":
+        from dashboard.services.puerto_umbral_capture import source_status
+        data = source_status()
+    else:
+        data = {"source": source, "status": "unobserved"}
+    data["manual_capture_enabled"] = source == "puerto-umbral" and os.getenv("LOG_CAPTURE_MANUAL_ENABLED") == "1"
+    return jsonify({"meta": {"api_version": "1"}, "data": data})
+
+
+@app.post("/api/v1/fuentes/log/capturar")
+def api_v1_fuente_log_capturar():
+    if request.remote_addr not in {"127.0.0.1", "::1"} or not _local_origin_allowed():
+        return _api_error(403, "local_origin_required", "La captura requiere un origen local autorizado.")
+    if os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower() != "puerto-umbral" or os.getenv("LOG_CAPTURE_MANUAL_ENABLED") != "1":
+        return _api_error(403, "capture_disabled", "La captura manual de Puerto Umbral no está habilitada en este perfil.")
+    if not request.is_json or request.get_json(silent=True) != {}:
+        return _api_error(400, "empty_json_required", "La captura utiliza el modo del perfil. Envía un objeto JSON vacío.")
+    if _executor_status() == "online":
+        return _api_error(409, "executor_active", "El ejecutor coordina la captura. Deténlo antes de usar la captura manual independiente.")
+    from dashboard.services.puerto_umbral_capture import capture_access_log, source_status
+    try:
+        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")):
+            captured = capture_access_log(Path(LOG_PATH))
+    except AlreadyRunning:
+        return _api_error(409, "capture_busy", "Hay otra operación coordinada en curso.")
+    if captured is None:
+        return _api_error(503, "capture_failed", "Captura no completada; se conservan las generaciones anteriores. Consulta el estado de la fuente.")
+    return jsonify({"meta": {"api_version": "1"}, "data": {**source_status(), "analysis_requested": False,
+                    "notifications_requested": False, "manual_capture_enabled": True}})
+
+
 @app.put("/api/v1/configuracion/llm")
 def api_v1_configuracion_llm_actualizar():
     if request.remote_addr not in {"127.0.0.1", "::1"}:
@@ -899,10 +933,15 @@ def api_sincronizar():
     try:
         # Paso 1: Sincronizar log
         with exclusive_lock(default_db_path().with_suffix(".cycle.lock")):
-            sync = run_atomic_copy(
-                ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"], Path(LOG_PATH), timeout=15
-            )
-        if sync.returncode != 0:
+            if os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower() == "puerto-umbral":
+                from dashboard.services.puerto_umbral_capture import capture_access_log
+                synchronized = capture_access_log(Path(LOG_PATH)) is not None
+            else:
+                sync = run_atomic_copy(
+                    ["docker", "cp", "dvwa-app:/var/log/apache2/access.log"], Path(LOG_PATH), timeout=15
+                )
+                synchronized = sync.returncode == 0
+        if not synchronized:
             return jsonify({"ok": False, "error": "Error sincronizando log"}), 500
         return jsonify({"ok": True, "analisis_ejecutado": False,
                         "mensaje": "Log sincronizado. No se ha ejecutado un análisis."})

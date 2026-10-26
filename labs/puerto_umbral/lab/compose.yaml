@@ -1,0 +1,122 @@
+name: puerto-umbral-f2
+x-target: &target
+  image: puerto-umbral-target:f2-1
+  build:
+    context: ..
+    dockerfile: lab/Dockerfile.target
+  user: "10001:10001"
+  network_mode: none
+  read_only: true
+  init: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  pids_limit: 32
+  mem_limit: 128m
+  cpus: 0.5
+  tmpfs: ["/tmp:rw,noexec,nosuid,size=8m,mode=1777"]
+  restart: "no"
+  labels: {org.puerto-umbral.lab: f2-v1}
+  logging:
+    driver: json-file
+    options: {max-size: "5m", max-file: "3"}
+x-gateway: &gateway
+  image: puerto-umbral-apache:f2-1
+  build:
+    context: ..
+    dockerfile: lab/Dockerfile.apache
+  user: "10001:10001"
+  read_only: true
+  init: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  pids_limit: 96
+  mem_limit: 96m
+  cpus: 0.5
+  tmpfs: ["/tmp:rw,noexec,nosuid,size=8m,mode=1777"]
+  networks: [front]
+  restart: "no"
+  labels: {org.puerto-umbral.lab: f2-v1}
+  logging:
+    driver: json-file
+    options: {max-size: "5m", max-file: "3"}
+services:
+  sqli-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-sqli-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: sqli}
+    volumes: ["sqli-vulnerable:/run/umbral"]
+  sqli-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-sqli-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: sqli}
+    volumes: ["sqli-corrected:/run/umbral"]
+  xss-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-xss-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: xss}
+    volumes: ["xss-vulnerable:/run/umbral"]
+  xss-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-xss-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: xss}
+    volumes: ["xss-corrected:/run/umbral"]
+  traversal-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-traversal-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: traversal}
+    volumes: ["traversal-vulnerable:/run/umbral"]
+  traversal-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-traversal-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: traversal}
+    volumes: ["traversal-corrected:/run/umbral"]
+  command-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-command-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: command}
+    volumes: ["command-vulnerable:/run/umbral"]
+  command-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-command-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: command}
+    volumes: ["command-corrected:/run/umbral"]
+  brute-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-brute-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: brute}
+    volumes: ["brute-vulnerable:/run/umbral"]
+  brute-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-brute-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: brute}
+    volumes: ["brute-corrected:/run/umbral"]
+  gateway-vulnerable:
+    <<: *gateway
+    container_name: puerto-umbral-f2-gateway-vulnerable
+    ports: ["127.0.0.1:4380:8080"]
+    volumes: ["sqli-vulnerable:/run/umbral/sqli:ro", "xss-vulnerable:/run/umbral/xss:ro", "traversal-vulnerable:/run/umbral/traversal:ro", "command-vulnerable:/run/umbral/command:ro", "brute-vulnerable:/run/umbral/brute:ro"]
+    depends_on: [sqli-vulnerable, xss-vulnerable, traversal-vulnerable, command-vulnerable, brute-vulnerable]
+  gateway-corrected:
+    <<: *gateway
+    container_name: puerto-umbral-f2-gateway-corrected
+    ports: ["127.0.0.1:4382:8080"]
+    volumes: ["sqli-corrected:/run/umbral/sqli:ro", "xss-corrected:/run/umbral/xss:ro", "traversal-corrected:/run/umbral/traversal:ro", "command-corrected:/run/umbral/command:ro", "brute-corrected:/run/umbral/brute:ro"]
+    depends_on: [sqli-corrected, xss-corrected, traversal-corrected, command-corrected, brute-corrected]
+networks:
+  front:
+    name: puerto-umbral-f2-front
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+      com.docker.network.bridge.enable_icc: "false"
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+volumes:
+  sqli-vulnerable: {name: puerto-umbral-f2-sqli-vulnerable}
+  sqli-corrected: {name: puerto-umbral-f2-sqli-corrected}
+  xss-vulnerable: {name: puerto-umbral-f2-xss-vulnerable}
+  xss-corrected: {name: puerto-umbral-f2-xss-corrected}
+  traversal-vulnerable: {name: puerto-umbral-f2-traversal-vulnerable}
+  traversal-corrected: {name: puerto-umbral-f2-traversal-corrected}
+  command-vulnerable: {name: puerto-umbral-f2-command-vulnerable}
+  command-corrected: {name: puerto-umbral-f2-command-corrected}
+  brute-vulnerable: {name: puerto-umbral-f2-brute-vulnerable}
+  brute-corrected: {name: puerto-umbral-f2-brute-corrected}

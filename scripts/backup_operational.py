@@ -1,4 +1,4 @@
-"""Local verified backup of known legacy/pilot paths, including SQLite snapshots.
+"""Local verified backup of known runtime paths, including SQLite snapshots.
 
 Never loads dotenv, copies credentials, deletes source data or restores in place.
 """
@@ -7,7 +7,8 @@ from contextlib import ExitStack, closing
 from datetime import datetime, timezone
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+import re
 import sqlite3
 import stat
 import sys
@@ -24,8 +25,23 @@ PROFILES = {
     "legacy": {"log": "logs/access.log", "reports": "reports", "db": ".local-state/analysis.sqlite3"},
     "pilot": {"log": ".local-state/dvwa-lab/access.log", "reports": ".local-state/phase6-pilot/reports",
               "db": ".local-state/phase6-pilot/analysis.sqlite3"},
+    "puerto-umbral": {"log": ".local-state/puerto-umbral/access.log", "reports": ".local-state/puerto-umbral/reports",
+                      "db": ".local-state/puerto-umbral/analysis.sqlite3"},
 }
 DIAGNOSTIC_FILES = {"checkpoint.json", "receipt.json", "process.json"}
+
+
+def puerto_capture_name(name):
+    prefix = ".local-state/puerto-umbral/"
+    if not name.startswith(prefix):
+        return False
+    local = PurePosixPath(name[len(prefix):])
+    if local.as_posix() in {"current.json", "last-attempt.json"}:
+        return True
+    if len(local.parts) == 3 and local.parts[0] == "snapshots":
+        return bool(re.fullmatch(r"[a-f0-9]{32}", local.parts[1])) and local.parts[2] in {"access.log", "receipt.json"}
+    return (len(local.parts) == 2 and local.parts[0] == "analysis-inputs"
+            and bool(re.fullmatch(r"[a-f0-9]{32}\.json", local.parts[1])))
 
 
 def checked_path(root, relative):
@@ -83,6 +99,13 @@ def collect_sources(root, profiles):
                                and local.parts[1] in DIAGNOSTIC_FILES)
                     relative = path.relative_to(root).as_posix()
                     if allowed and checked_path(root, relative).is_file():
+                        paths[relative] = "file"
+        if profile == "puerto-umbral":
+            capture_root = checked_path(root, ".local-state/puerto-umbral")
+            if capture_root.exists():
+                for path in capture_root.rglob("*"):
+                    relative = path.relative_to(root).as_posix()
+                    if puerto_capture_name(relative) and checked_path(root, relative).is_file():
                         paths[relative] = "file"
     return paths, sorted(set(missing))
 
@@ -152,6 +175,9 @@ def backup(root=ROOT, profiles=("legacy", "pilot")):
             structured = checked_path(root, PROFILES[profile]["reports"] + "/structured")
             if structured.exists():
                 locks.enter_context(exclusive_lock(structured / "publication.lock"))
+            if profile == "puerto-umbral":
+                capture_lock = checked_path(root, ".local-state/puerto-umbral/.capture.lock")
+                locks.enter_context(exclusive_lock(capture_lock))
         paths, missing = collect_sources(root, profiles)
         if not paths:
             raise ValueError("No hay fuentes para respaldar")
@@ -187,7 +213,7 @@ def backup(root=ROOT, profiles=("legacy", "pilot")):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--profile", choices=("legacy", "pilot", "all"), default="all")
+    parser.add_argument("--profile", choices=(*PROFILES, "all"), default="all")
     parser.add_argument("--list", action="store_true", help="mostrar solo rutas seleccionadas, sin leer contenidos")
     args = parser.parse_args()
     profiles = tuple(PROFILES) if args.profile == "all" else (args.profile,)

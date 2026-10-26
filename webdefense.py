@@ -25,12 +25,13 @@ def install_lock_path(root):
 
 
 def require_stopped():
-    for port in (5000, 3000):
+    ports = (5000, 3000, 4380, 4381, 4382) if (ROOT / "labs/puerto_umbral/labctl.py").is_file() else (5000, 3000)
+    for port in ports:
         try:
             probe_port(port)
         except OSError as error:
             if error.errno == errno.EADDRINUSE:
-                raise ValueError(f"El puerto {port} está ocupado. Detén la consola antes de instalar.") from None
+                raise ValueError(f"El puerto {port} está ocupado. Detén la consola y el laboratorio antes de instalar.") from None
             raise ValueError(f"No se pudo comprobar el puerto {port}. Revisa los permisos de red local.") from None
 
 
@@ -40,7 +41,8 @@ def installation_locks(root):
     root = Path(root).resolve()
     with ExitStack() as stack:
         stack.enter_context(exclusive_lock(install_lock_path(root)))
-        for relative in (".local-state/analysis.sqlite3", ".local-state/phase6-pilot/analysis.sqlite3"):
+        for relative in (".local-state/analysis.sqlite3", ".local-state/phase6-pilot/analysis.sqlite3",
+                         ".local-state/puerto-umbral/analysis.sqlite3"):
             db = root / relative
             if db.resolve() != db:
                 raise ValueError("La base local no puede ser un enlace durante la instalación.")
@@ -111,10 +113,15 @@ def main(argv=None):
     parser.add_argument("action", choices=("install", "start", "check"))
     parser.add_argument("--mode", choices=("legacy", "structured"), default="legacy",
                         help="fuente de informes al arrancar (predeterminado: legacy)")
+    parser.add_argument("--with-puerto-umbral", action="store_true",
+                        help="arrancar V2 y el laboratorio local, sin escenarios ni análisis automáticos")
+    parser.add_argument("--lab-mode", choices=("vulnerable", "corrected"), default="vulnerable")
     args = parser.parse_args(argv)
     try:
         if sys.platform not in {"win32", "linux"}:
             raise ValueError("Esta entrada admite Windows y Linux.")
+        if args.with_puerto_umbral and (args.action == "install" or args.mode != "structured"):
+            raise ValueError("El arranque conjunto requiere start/check --mode structured --with-puerto-umbral.")
         if args.action == "install":
             python = python_command()
             frontend_tools(installing=True)
@@ -129,6 +136,8 @@ def main(argv=None):
         node = frontend_tools()
         command = [str(python), "-B", str(ROOT / "scripts/start_application.py"),
                    "--node", node, "--mode", args.mode]
+        if args.with_puerto_umbral:
+            command.extend(["--with-puerto-umbral", "--lab-mode", args.lab_mode])
         if args.action == "check":
             command.append("--check")
         # The supervisor owns cleanup. Ignore Ctrl+C here until it has stopped its children.

@@ -24,6 +24,28 @@
         "responses": { "200": { "description": "Salud del servicio y estado de archivos", "content": { "application/json": { "schema": { "type": "object" } } } } }
       }
     },
+    "/fuentes/log": {
+      "get": {
+        "operationId": "getFuenteLog",
+        "summary": "Leer estado local de la captura sin contactar Docker ni ejecutar análisis",
+        "responses": { "200": { "description": "Estado de fuente y última captura, incluidos ausencia, error y antigüedad", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/fuentes/log/capturar": {
+      "post": {
+        "operationId": "capturarFuenteLog",
+        "summary": "Captura manual opcional de Puerto Umbral, sin modelo ni notificaciones",
+        "description": "Requiere perfil Puerto Umbral, LOG_CAPTURE_MANUAL_ENABLED=1, origen local autorizado y ejecutor detenido. Conserva generaciones anteriores y usa el modo elegido en el perfil.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "maxProperties": 0 } } } },
+        "responses": {
+          "200": { "description": "Snapshot publicado con hash y procedencia; analysis_requested=false", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "409": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/configuracion/llm": {
       "get": {
         "operationId": "getConfiguracionLLM",

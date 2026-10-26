@@ -1,0 +1,7 @@
+FROM httpd:2.4-alpine@sha256:070da7661f0be8a05430b2c125c0cde9e53176b4048c813024021969a0e3893c
+RUN mkdir -p /run/umbral && chown 10001:10001 /run/umbral
+COPY lab/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY lab/portal.html /usr/local/apache2/htdocs/index.html
+COPY assets/styles.css /usr/local/apache2/htdocs/styles.css
+USER 10001:10001
+CMD ["httpd", "-DFOREGROUND"]

@@ -2,6 +2,50 @@
 
 ## Alcance actual
 
+Puerto UmbralParrot26/10: usuario autoriza compilación, commit/push de V2 y
+actualización/revisión manual en VM. Para un único pull se distribuye fuente
+portable labs/puerto_umbral (sin .git/.openai/credenciales/datos/entornos),
+SiteF1 privado intacto. webdefense start --mode structured --with-puerto-umbral
+implementa preparación/supervisión Flask+Next+panel+12servicios propios; no
+escenarios/corpus/worker/LLM/avisos. Compose autoelige cliente instalado, admite
+docker-composeParrot. CtrlC solicita cierrepropio/datosconservados; arranque/cierre
+conjunto pendiente de revisiónmanualVM, no ejecución atribuida por prepararlo.
+WebpackWindows compilado+TypeScriptOK; Turbopack falló procesoPostCSS dentro y
+fuera sandbox, sin cambiarpines. Compilaciónsintáctica16Python sin ejecución y
+2JSON leídos; sin suites automáticas. Guía docs/PUERTO_UMBRAL_PARROT_2026_10_26.md:
+conservar datos antespull/install, luego comando conjunto y revisar URLs en VM.
+Commit/push autorizados con [skip ci]; sin retag/release/nuevaCI ni VM poragente.
+Entradas inferiores históricas.
+
+Puerto Umbral26/10 continuación: usuario confirma fin educativo, pide detener
+pruebas y continuar desarrollo sin pruebas automáticas; después autoriza F3.
+Restricción vigente: no suites/ataques/LLM/recorridos automatizados hasta nueva
+instrucción. F2 implementada: corpusHTTP previo42/45, tres casos comandos fallan
+por RLIMIT_NPROC entreUID compartido; fuente corregida usa pids_limit32 por
+contenedor, SIN reconstruir/repetir. XSS navegador/negativas aislamiento pendientes.
+Doce contenedores propios detenidos por labctl stop, recibos/volúmenes conservados.
+F3 código local: capturador Puerto/perfilstructured/selecciónmodo/APIestado+
+capturamanual/panelActividad/snapshot por trabajo/respaldo de generaciones.
+No ejecutado/compilado/probado, no cerrar F2/F3 como verificadas. Seguimiento y
+recorrido manual docs/PUERTO_UMBRAL_F2_F3_2026_10_26.md. Frontend/API/pipelineV2
+cambiados localmente, no .envbytes/datosVM/DVWA/pines/modelos/avisos/commit/push/CI.
+SiteF1 privado y fuentepublicada3b1e397 intactos; F2fuente propia local sin publicar.
+Entradas inferiores históricas.
+
+Puerto Umbral26/10: usuario elige concepto, solicita PRD y autoriza iniciar web.
+PRD docs/PRD_PUERTO_UMBRAL_2026_10_26.md; seguimiento docs/PUERTO_UMBRAL_F1_2026_10_26.md.
+PrototipoF1 estático independiente publicado privado mediante Sites, proyecto
+appgprj_6adf33ac8bcc81918087f268061f003a, URLhttps://puerto-umbral.aglowsage65.chatgpt.site,
+fuente3b1e3970b4f7d0d335004cbba577ed78e67088e2. Checkout fuera del repoV2 en
+C:/Users/elqui/.codex/visualizations/2026/10/26/01a17795-369b-75e1-9c7a-75e6f9088cc6/sites/puerto-umbral.
+Reutilizar identidadhosting/audienciaprivada. Cinco módulos/cincoescenariospor
+dosmodos demo verificados, búsquedas/descargas/historialexportación/vistamóvil;
+sin ataquesreales/LLM/V2conectado/Docker/VM/avisos. Revisiónvisualpropietario
+pendiente; backendaisladoF2/conectorF3/seguimientoF4/evaluaciónF5 pendientes,
+no cerrar etapas por maqueta. CódigoV2/DVWA/datos intactos; solo documentación
+localV2 sin commit/push. PublicaciónSite autorizada por desarrollo y flujoSites.
+Entradas inferiores históricas.
+
 Usuario aporta22/10 screenshots/v2-llm.png y autoriza añadir/publicar en V2.
 Revisión visual: Configuración con proveedor desplegado Groq/OpenRouter,
 campoAPIvacío/placeholderguardada sin valor de clave visible; no editar imagen.

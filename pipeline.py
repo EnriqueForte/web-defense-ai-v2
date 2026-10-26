@@ -33,6 +33,9 @@ ROOT = Path(__file__).resolve().parent
 
 def synchronize_log():
     source = os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()
+    if source == "puerto-umbral":
+        from dashboard.services.puerto_umbral_capture import capture_access_log
+        return capture_access_log(Path(LOG_PATH))
     if source == "dvwa-lab":
         from dashboard.services.dvwa_lab_capture import capture_access_log
         return capture_access_log(Path(LOG_PATH)) is not None
@@ -47,9 +50,18 @@ def synchronize_log():
     return result.returncode == 0
 
 
-def run_engine(*, analysis_id=None):
+def run_engine(*, analysis_id=None, log_snapshot=None):
     environment = {**os.environ, "PYTHONIOENCODING": "utf-8",
                    **({"STRUCTURED_ANALYSIS_ID": analysis_id} if analysis_id else {})}
+    if log_snapshot is not None:
+        from dashboard.services.puerto_umbral_capture import verify_analysis_input, record_analysis_input
+        if not verify_analysis_input(log_snapshot):
+            return False
+        try:
+            record_analysis_input(log_snapshot, analysis_id)
+        except (OSError, ValueError):
+            return False
+        environment["LOG_PATH"] = str(log_snapshot.snapshot_path)
     structured = environment.get("ANALYSIS_ENGINE_MODE", "legacy").strip().lower() == "structured"
     if structured:
         from agents.operational_diagnostics import diagnostic_destination
@@ -147,12 +159,19 @@ def execute_job(store, job, *, sync=synchronize_log, engine=run_engine, notify=s
 def _execute_job_locked(store, job, *, sync, engine, notify):
     job_id = job["id"]
     try:
-        if not sync():
+        ingested = sync()
+        if not ingested:
             store.finish(job_id, "failed", "ingestion_failed")
             return
         store.phase(job_id, "analyzing", last_ingested_at=utc_now())
         before = capture_current(REPORT_PATH)
-        if not (engine(analysis_id=job_id) if engine is run_engine else engine()):
+        if engine is run_engine:
+            from dashboard.services.puerto_umbral_capture import CapturedLog
+            completed = (engine(analysis_id=job_id, log_snapshot=ingested)
+                         if isinstance(ingested, CapturedLog) else engine(analysis_id=job_id))
+        else:
+            completed = engine()
+        if not completed:
             store.finish(job_id, "failed", "analysis_failed")
             return
         after = capture_current(REPORT_PATH)

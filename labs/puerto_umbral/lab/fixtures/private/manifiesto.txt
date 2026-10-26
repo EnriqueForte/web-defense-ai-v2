@@ -1,0 +1,3 @@
+PU_RESERVED_FIXTURE_20261026
+Documento señuelo ficticio fuera de la carpeta pública.
+No contiene secretos ni datos reales.

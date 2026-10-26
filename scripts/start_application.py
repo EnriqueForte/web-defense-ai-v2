@@ -46,12 +46,13 @@ def require_build(root):
         raise ValueError("El build no apunta a la API local 5000. Ejecuta: python webdefense.py install") from None
 
 
-def preflight(root, mode):
+def preflight(root, mode, *, with_puerto_umbral=False, lab_mode="vulnerable"):
     if sys.version_info[:2] != (3, 11):
         raise ValueError("El entorno .p2 debe usar Python 3.11. Revisa docs/INICIO_RAPIDO.md.")
     require_build(root)
     require_free_port(3000)
-    state = readiness(root=root, profile="pilot", mode=mode, component="flask")
+    state = readiness(root=root, profile="puerto-umbral" if with_puerto_umbral else "pilot",
+                      mode=mode, component="flask", lab_mode=lab_mode)
     if not state["ready"]:
         labels = {"environment_differences": "el entorno difiere del contrato; revisa la instalación",
                   "runtime_lock_active_or_unknown": "hay un bloqueo de operación activo",
@@ -60,7 +61,14 @@ def preflight(root, mode):
                   "flask_port_unverified": "no se pudo comprobar el puerto 5000; revisa los permisos de red local",
                   "invalid_current_generation": "la publicación actual no es válida"}
         raise ValueError("; ".join(labels.get(code, code) for code in state["blockers"]))
-    return state["plan"]
+    plan = state["plan"]
+    if with_puerto_umbral:
+        from scripts.puerto_umbral_launcher import PuertoUmbralSession
+        for port in (4380, 4381, 4382):
+            require_free_port(port)
+        PuertoUmbralSession(root).preflight()
+        plan["with_puerto_umbral"] = True
+    return plan
 
 
 def check_processes(processes):
@@ -110,9 +118,24 @@ def serve(root, plan, node):
         # Register after log files so cleanup runs before closing handles on Windows.
         flask_log = stack.enter_context((directory / "flask.log").open("wb"))
         next_log = stack.enter_context((directory / "next.log").open("wb"))
+        lab = None
+        if plan.get("with_puerto_umbral"):
+            from scripts.puerto_umbral_launcher import PuertoUmbralSession
+            lab = PuertoUmbralSession(root)
+            prepare_log = stack.enter_context((directory / "puerto-prepare.log").open("wb"))
+            control_log = stack.enter_context((directory / "puerto-control.log").open("wb"))
+            stop_log = stack.enter_context((directory / "puerto-stop.log").open("wb"))
+            # ExitStack runs owner.close first; the controller lock is then released.
+            stack.callback(lab.close, stop_log)
         stack.callback(owner.close)
         print(f"Iniciando consola. Logs locales: {directory}", flush=True)
-        processes = [("Flask", owner.spawn(plan["commands"]["flask"], cwd=root, env=env, log=flask_log))]
+        processes = []
+        if lab is not None:
+            print("Preparando solo los servicios de Puerto Umbral; no se ejecutan escenarios ni análisis.", flush=True)
+            lab.prepare(owner, env=env, log=prepare_log)
+            processes.append(("Puerto Umbral", lab.spawn_control(owner, env=env, log=control_log)))
+            wait_http("http://127.0.0.1:4381/", processes, timeout=60)
+        processes.append(("Flask", owner.spawn(plan["commands"]["flask"], cwd=root, env=env, log=flask_log)))
         wait_http("http://127.0.0.1:5000/api/v1/salud", processes, health=True)
         command = [node, str(root / "frontend/node_modules/next/dist/bin/next"),
                    "start", "--hostname", "127.0.0.1", "--port", "3000"]
@@ -120,6 +143,10 @@ def serve(root, plan, node):
         wait_http("http://127.0.0.1:3000/api/v1/salud", processes, health=True)
         wait_http("http://127.0.0.1:3000/", processes)
         check_processes(processes)
+        if lab is not None:
+            print("Puerto Umbral: http://127.0.0.1:4381\n"
+                  "Portal vulnerable: http://127.0.0.1:4380 · corregido: http://127.0.0.1:4382\n"
+                  "Ctrl+C detiene el panel, los servicios propios del laboratorio, Flask y Next; conserva los datos.", flush=True)
         print("Consola lista: http://127.0.0.1:3000\n"
               "Lectura local. Una instalación nueva puede indicar fuentes incompletas.\n"
               "Deja esta terminal abierta; Ctrl+C detiene Flask y Next.", flush=True)
@@ -133,6 +160,8 @@ def main(argv=None):
     parser.add_argument("--node", required=True)
     parser.add_argument("--mode", choices=("legacy", "structured"), default="legacy")
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--with-puerto-umbral", action="store_true")
+    parser.add_argument("--lab-mode", choices=("vulnerable", "corrected"), default="vulnerable")
     args = parser.parse_args(argv)
     def interrupted(*_):
         raise KeyboardInterrupt
@@ -142,12 +171,12 @@ def main(argv=None):
         previous[signal.SIGBREAK] = signal.signal(signal.SIGBREAK, interrupted)
     try:
         if args.check:
-            preflight(ROOT, args.mode)
+            preflight(ROOT, args.mode, with_puerto_umbral=args.with_puerto_umbral, lab_mode=args.lab_mode)
             print("Preparado: entorno, build y puertos comprobados. Ejecuta: python webdefense.py start")
         else:
             lock = checked_path(ROOT, ".local-state/application.lock")
             with exclusive_lock(lock):
-                plan = preflight(ROOT, args.mode)
+                plan = preflight(ROOT, args.mode, with_puerto_umbral=args.with_puerto_umbral, lab_mode=args.lab_mode)
                 serve(ROOT, plan, args.node)
         return 0
     except KeyboardInterrupt:

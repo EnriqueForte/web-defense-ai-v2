@@ -1,0 +1,2 @@
+PUERTO UMBRAL / PROTOCOLO FICTICIO
+Solicitar muelle y esperar confirmación de control.

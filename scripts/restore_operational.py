@@ -13,7 +13,7 @@ from zipfile import BadZipFile, ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.backup_operational import PROFILES, DIAGNOSTIC_FILES, checked_path, verify_restore
+from scripts.backup_operational import PROFILES, DIAGNOSTIC_FILES, checked_path, verify_restore, puerto_capture_name
 from dashboard.services.structured_publication import GENERATION, load_current
 from agents.evidence_contracts import ContractError
 
@@ -40,6 +40,8 @@ def expected_kind(name, profiles, *, missing=False):
             return 'file'
         if name == definition['db']:
             return 'sqlite'
+        if profile == 'puerto-umbral' and puerto_capture_name(name):
+            return 'file'
         reports = definition['reports']
         if missing and name == reports:
             return 'directory'
