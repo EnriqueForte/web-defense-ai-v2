@@ -46,6 +46,36 @@
         }
       }
     },
+    "/fuentes/log/seguimiento": {
+      "get": {
+        "operationId": "getSeguimientoLog",
+        "summary": "Leer sesión y checkpoint locales sin capturar, contactar Docker o iniciar trabajo",
+        "responses": { "200": { "description": "Estado, propiedad, duración, último ciclo, checkpoint y contadores; sin reanudación automática", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/fuentes/log/seguimiento/{action}": {
+      "post": {
+        "operationId": "controlarSeguimientoLog",
+        "summary": "Iniciar, pausar, reanudar o detener una sesión acotada sin análisis",
+        "description": "Requiere perfil Puerto Umbral, LOG_FOLLOW_ENABLED=1 y origen local autorizado. Iniciar admite únicamente interval_seconds (5–60, predeterminado 5) y duration_seconds (60–1800, predeterminado 1800); las otras acciones requieren {}. El inicio rechaza ejecutor, trabajo pendiente o bloqueos incompatibles. Pausar conserva los bloqueos de ciclo y motor; detener los libera al terminar. Pausing/stopping significa confirmación aún pendiente. El cierre de pestaña no detiene la sesión. No se crean trabajos, análisis o notificaciones.",
+        "parameters": [{ "name": "action", "in": "path", "required": true, "schema": { "type": "string", "enum": ["iniciar", "pausar", "reanudar", "detener"] } }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "interval_seconds": { "type": "integer", "minimum": 5, "maximum": 60, "default": 5 },
+            "duration_seconds": { "type": "integer", "minimum": 60, "maximum": 1800, "default": 1800 }
+          }
+        } } } },
+        "responses": {
+          "200": { "description": "Estado de fuente con following: stopped/following/pausing/paused/stopping/completed/error/interrupted, owned_here, session_active, checkpoint y últimos ciclos; analysis_requested y notifications_requested son false", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "400": { "$ref": "#/components/responses/Error" },
+          "403": { "$ref": "#/components/responses/Error" },
+          "404": { "$ref": "#/components/responses/Error" },
+          "409": { "$ref": "#/components/responses/Error" },
+          "503": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
     "/configuracion/llm": {
       "get": {
         "operationId": "getConfiguracionLLM",

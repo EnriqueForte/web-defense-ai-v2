@@ -9,6 +9,33 @@ class AlreadyRunning(RuntimeError):
     pass
 
 
+def lock_is_held(path):
+    """Read-only probe: never create a lock or change its bytes; None is unknown."""
+    try:
+        with Path(path).open("r+b") as handle:
+            if os.fstat(handle.fileno()).st_size == 0:
+                return None
+            if os.name == "nt":
+                import msvcrt
+                try:
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+                except OSError:
+                    return True
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+                try:
+                    fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    return True
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            return False
+    except FileNotFoundError:
+        return False
+    except OSError:
+        return None
+
+
 @contextmanager
 def exclusive_lock(path):
     path = Path(path)

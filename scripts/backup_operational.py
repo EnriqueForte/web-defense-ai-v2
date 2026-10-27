@@ -38,6 +38,10 @@ def puerto_capture_name(name):
     local = PurePosixPath(name[len(prefix):])
     if local.as_posix() in {"current.json", "last-attempt.json"}:
         return True
+    if local.as_posix() == "following/current.json":
+        return True
+    if len(local.parts) == 3 and local.parts[:2] == ("following", "sessions"):
+        return bool(re.fullmatch(r"[a-f0-9]{32}\.json", local.parts[2]))
     if len(local.parts) == 3 and local.parts[0] == "snapshots":
         return bool(re.fullmatch(r"[a-f0-9]{32}", local.parts[1])) and local.parts[2] in {"access.log", "receipt.json"}
     return (len(local.parts) == 2 and local.parts[0] == "analysis-inputs"

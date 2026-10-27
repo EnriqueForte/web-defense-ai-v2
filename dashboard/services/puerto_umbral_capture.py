@@ -14,6 +14,7 @@ import re
 import shutil
 import stat
 import subprocess
+import time
 import uuid
 
 from dashboard.services.read_store import atomic_write_text, capture_file
@@ -32,6 +33,37 @@ ACCESS = re.compile(r'^(\S+) \S+ \S+ \[([^\]]+)\] "([A-Z]+) ([^ ]+) HTTP/[^" ]+"
 
 class CaptureError(ValueError):
     """Only fixed safe codes; never include source contents or process stderr."""
+
+
+class CaptureCancelled(CaptureError):
+    pass
+
+
+def _check_cancel(cancelled):
+    if cancelled is not None and cancelled():
+        raise CaptureCancelled("capture_cancelled")
+
+
+def _cancellable_run(args, *, capture_output, timeout, cancelled):
+    """Own only this Docker CLI child; it remains in the launcher's process group."""
+    _check_cancel(cancelled)
+    with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+        deadline = time.monotonic() + timeout
+        try:
+            while True:
+                _check_cancel(cancelled)
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(args, timeout)
+                try:
+                    stdout, stderr = process.communicate(timeout=min(.2, remaining))
+                    return subprocess.CompletedProcess(args, process.returncode, stdout, stderr)
+                except subprocess.TimeoutExpired:
+                    continue
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.communicate()
 
 
 @dataclass(frozen=True)
@@ -87,12 +119,17 @@ def _gateway(info, mode):
         if info.get("NetworkSettings", {}).get("Ports", {}).get("8080/tcp") != expected:
             raise CaptureError("source_bindings_changed")
     return {"container_id": info.get("Id"), "image_id": info.get("Image"),
+            "started_at": info.get("State", {}).get("StartedAt"),
             "running_at_capture": bool(info.get("State", {}).get("Running"))}
 
 
-def _access_lines(content):
+def _access_lines(content, *, allow_empty=False):
+    if not content and allow_empty:
+        return "", 0, 0
     if not content or len(content) > MAX_CAPTURE_BYTES:
         raise CaptureError("empty_or_oversized_source")
+    if allow_empty and not content.endswith(b"\n"):
+        raise CaptureError("incomplete_access_line")
     lines = content.decode("utf-8", errors="strict").splitlines()
     lines = [line for line in lines if line.strip()]
     for line in lines:
@@ -107,6 +144,8 @@ def _access_lines(content):
             raise CaptureError("invalid_access_metadata") from None
         if not 100 <= int(match[5]) <= 599:
             raise CaptureError("invalid_http_status")
+    if not lines and allow_empty:
+        return "", 0, 0
     if not lines:
         raise CaptureError("empty_source")
     selected, size = [], 0
@@ -122,12 +161,14 @@ def _access_lines(content):
     return "\n".join(selected) + "\n", len(lines), len(lines) - len(selected)
 
 
-def _attempt(status, *, mode, error=None):
+def _attempt(status, *, mode, error=None, snapshot_id=None, digest=None):
     atomic_write_text(STATE / "last-attempt.json", json.dumps({"attempted_at": _now(), "status": status,
-                      "mode": mode, "error_code": error}, ensure_ascii=False))
+                      "mode": mode, "error_code": error, "snapshot_id": snapshot_id,
+                      "sha256": digest}, ensure_ascii=False))
 
 
-def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None):
+def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None,
+                       reuse_unchanged=False, require_running=False, cancelled=None):
     """Read only the selected gateway's logs; never start a container or analysis.
 
     On failure, previous generations remain intact. Publication uses an immutable
@@ -142,20 +183,40 @@ def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None):
         for target in (STATE / ".capture.lock", STATE / "current.json", STATE / "last-attempt.json", DEFAULT_DESTINATION):
             _root_safe(target)
         with exclusive_lock(STATE / ".capture.lock"):
+            _check_cancel(cancelled)
             size = sum(path.stat().st_size for path in STATE.rglob("*") if path.is_file())
             if size > 128 * MAX_BYTES or shutil.disk_usage(STATE).free < 100 * MAX_BYTES:
                 raise CaptureError("capture_storage_limit")
-            execute = run or subprocess.run
+            execute = run or (subprocess.run if cancelled is None else
+                             lambda args, **kwargs: _cancellable_run(args, cancelled=cancelled, **kwargs))
             name = PROJECT + "-gateway-" + mode
             inspected = json.loads(_docker(["inspect", name], execute))
             if not isinstance(inspected, list) or len(inspected) != 1 or not isinstance(inspected[0], dict):
                 raise CaptureError("unexpected_source")
             source = _gateway(inspected[0], mode)
+            if require_running and not source["running_at_capture"]:
+                raise CaptureError("source_stopped")
             original = _docker(["logs", "--timestamps=false", "--tail", str(TAIL_LINES), name], execute)
-            text, returned, omitted = _access_lines(original)
+            if require_running:
+                checked = json.loads(_docker(["inspect", name], execute))
+                if (not isinstance(checked, list) or len(checked) != 1 or not isinstance(checked[0], dict)
+                        or _gateway(checked[0], mode) != source):
+                    raise CaptureError("source_changed_during_capture")
+            text, returned, omitted = _access_lines(original, allow_empty=reuse_unchanged and require_running)
             digest = hashlib.sha256(text.encode()).hexdigest()
             current = capture_file(DEFAULT_DESTINATION)
             changed = current.digest != digest
+            if reuse_unchanged and not changed:
+                status = source_status(mode=mode)
+                if (status["status"] in {"available", "stale", "error"}
+                        and status.get("snapshot_mode") == mode and status.get("sha256") == digest
+                        and status.get("gateway") == source and status.get("snapshot_id")):
+                    identifier = status["snapshot_id"]
+                    snapshot = STATE / "snapshots" / identifier / "access.log"
+                    _check_cancel(cancelled)
+                    _attempt("available", mode=mode, snapshot_id=identifier, digest=digest)
+                    return CapturedLog(snapshot, digest, returned - omitted, identifier, False)
+            _check_cancel(cancelled)
             identifier = uuid.uuid4().hex
             generation = STATE / "snapshots" / identifier
             _root_safe(generation)
@@ -170,11 +231,14 @@ def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None):
                        "analysis_requested": False, "notifications_requested": False}
             encoded = json.dumps(receipt, ensure_ascii=False, indent=2)
             atomic_write_text(generation / "receipt.json", encoded)
+            _check_cancel(cancelled)
             atomic_write_text(STATE / "current.json", encoded)
             if changed:
                 atomic_write_text(DEFAULT_DESTINATION, text)
-            _attempt("available", mode=mode)
+            _attempt("available", mode=mode, snapshot_id=identifier, digest=digest)
             return CapturedLog(snapshot, digest, returned - omitted, identifier, changed)
+    except CaptureCancelled:
+        return None  # Cancellation is not an observation of a source failure.
     except (OSError, ValueError, TypeError, KeyError, UnicodeError, subprocess.TimeoutExpired, AlreadyRunning) as error:
         code = str(error) if isinstance(error, CaptureError) else "capture_failed"
         try:
@@ -223,6 +287,7 @@ def source_status(*, mode=None):
         if receipt["mode"] != mode:
             status = "mode_mismatch"
         result.update(status=status, captured_at=receipt["captured_at"], snapshot_id=identifier, sha256=digest,
+                      snapshot_mode=receipt["mode"], gateway=receipt["gateway"], last_checked_at=None,
                       line_count=receipt["line_count"], changed=receipt["changed"],
                       running_at_capture=receipt["gateway"]["running_at_capture"], scope=receipt["scope"])
         attempt = capture_file(STATE / "last-attempt.json")
@@ -230,6 +295,12 @@ def source_status(*, mode=None):
             last = json.loads(attempt.text)
             if last.get("status") == "error" and last.get("mode") == mode:
                 result.update(status="error", error_code=last.get("error_code", "capture_failed"))
+            elif (last.get("status") == "available" and last.get("mode") == mode == receipt["mode"]
+                  and last.get("snapshot_id") == identifier and last.get("sha256") == digest):
+                checked = datetime.fromisoformat(last["attempted_at"].replace("Z", "+00:00"))
+                result["last_checked_at"] = last["attempted_at"]
+                if status in {"available", "stale"}:
+                    result["status"] = "stale" if (datetime.now(timezone.utc) - checked).total_seconds() > 300 else "available"
         return result
     except (OSError, ValueError, TypeError, KeyError) as error:
         result.update(status="error", error_code=str(error) if isinstance(error, CaptureError) else "invalid_capture_metadata")

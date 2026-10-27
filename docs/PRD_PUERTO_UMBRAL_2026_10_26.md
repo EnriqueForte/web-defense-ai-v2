@@ -13,6 +13,11 @@ La [continuación F2/F3](PUERTO_UMBRAL_F2_F3_2026_10_26.md) registra el desarrol
 posterior y la decisión de aplazar pruebas automáticas para revisión manual.
 La [preparación de Parrot](PUERTO_UMBRAL_PARROT_2026_10_26.md) adapta la distribución
 a un laboratorio portable incluido en V2 y documenta el nuevo arranque conjunto.
+El [estado consolidado de la ronda manual](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md)
+registra después la revisión parcial en Parrot y su finalización sin nuevos
+ensayos. No modifica ni da por cumplidos los criterios de salida de este PRD.
+La [entrega de código F4 del 27/10](PUERTO_UMBRAL_F4_2026_10_27.md) implementa el
+seguimiento local; las verificaciones de ejecución siguen aplazadas.
 
 ## 1. Producto y propósito
 

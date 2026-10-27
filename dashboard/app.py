@@ -728,14 +728,59 @@ def api_v1_configuracion_llm():
 
 @app.get("/api/v1/fuentes/log")
 def api_v1_fuente_log():
+    return jsonify({"meta": {"api_version": "1"}, "data": _log_source_data()})
+
+
+def _log_source_data():
     source = os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()
     if source == "puerto-umbral":
         from dashboard.services.puerto_umbral_capture import source_status
+        from dashboard.services.puerto_umbral_follow import follower
         data = source_status()
+        data["following"] = {**follower().status(), "enabled": os.getenv("LOG_FOLLOW_ENABLED") == "1"}
     else:
         data = {"source": source, "status": "unobserved"}
     data["manual_capture_enabled"] = source == "puerto-umbral" and os.getenv("LOG_CAPTURE_MANUAL_ENABLED") == "1"
+    return data
+
+
+@app.get("/api/v1/fuentes/log/seguimiento")
+def api_v1_seguimiento_log():
+    data = _log_source_data().get("following", {"status": "disabled", "enabled": False, "session_active": False})
     return jsonify({"meta": {"api_version": "1"}, "data": data})
+
+
+@app.post("/api/v1/fuentes/log/seguimiento/<action>")
+def api_v1_seguimiento_log_control(action):
+    if not _local_origin_allowed():
+        return _api_error(403, "local_origin_required", "El seguimiento requiere un origen local autorizado.")
+    if (os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower() != "puerto-umbral"
+            or os.getenv("LOG_FOLLOW_ENABLED") != "1"):
+        return _api_error(403, "follow_disabled", "El seguimiento no está habilitado en este perfil.")
+    actions = {"iniciar": "start", "pausar": "pause", "reanudar": "resume", "detener": "stop"}
+    if action not in actions:
+        return _api_error(404, "unknown_follow_action", "La acción de seguimiento no existe.")
+    body = request.get_json(silent=True) if request.is_json else None
+    allowed = {"interval_seconds", "duration_seconds"} if action == "iniciar" else set()
+    if not isinstance(body, dict) or set(body) - allowed:
+        return _api_error(400, "invalid_follow_options", "Envía un objeto JSON con las opciones permitidas.")
+    from dashboard.services.puerto_umbral_follow import FollowError, follower
+    try:
+        if action == "iniciar":
+            if _executor_status() != "offline":
+                return _api_error(409, "executor_active_or_unknown", "Detén el ejecutor antes de iniciar el seguimiento.")
+            follower().start(mode=os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"), db_path=default_db_path(),
+                             interval_seconds=body.get("interval_seconds", 5),
+                             duration_seconds=body.get("duration_seconds", 1800))
+        else:
+            follower().control(actions[action])
+    except FollowError as error:
+        code = str(error)
+        return _api_error(400 if code == "invalid_follow_options" else 409, code,
+                          "No se cambió el seguimiento. Revisa sus opciones, la sesión propietaria y las operaciones activas.")
+    except (OSError, ValueError, RuntimeError, sqlite3.Error):
+        return _api_error(503, "follow_unavailable", "No se pudo completar el control del seguimiento. Consulta su estado antes de repetir.")
+    return jsonify({"meta": {"api_version": "1"}, "data": _log_source_data()})
 
 
 @app.post("/api/v1/fuentes/log/capturar")
@@ -838,6 +883,10 @@ def api_v1_analisis_crear():
         return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
     if os.getenv("ANALYSIS_MANUAL_ENABLED") != "1":
         return _api_error(403, "manual_disabled", "El análisis manual está desactivado.")
+    if os.getenv("LOG_SYNC_SOURCE", "").strip().lower() == "puerto-umbral":
+        from dashboard.services.puerto_umbral_follow import follower
+        if follower().status()["session_active"]:
+            return _api_error(409, "follow_active", "Detén el seguimiento antes de solicitar un análisis manual.")
     if _executor_status() != "online":
         return _api_error(503, "executor_offline", "Inicia el ejecutor antes de solicitar un análisis.")
     key = request.headers.get("Idempotency-Key")

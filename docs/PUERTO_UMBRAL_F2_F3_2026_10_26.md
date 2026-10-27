@@ -8,23 +8,34 @@ automáticas y continuar el desarrollo para revisar después la web. Esa
 restricción sigue vigente: no se ejecutan suites, nuevos escenarios, capturas,
 análisis LLM ni recorridos automatizados como parte de esta continuación.
 
+**Actualización posterior:** se realizó una revisión manual parcial por el
+propietario en Parrot, documentada en la [guía de operación](PUERTO_UMBRAL_PARROT_2026_10_26.md).
+La ronda se da ahora por finalizada, sin solicitar más casos. El [estado
+consolidado](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md) distingue esas observaciones
+de las verificaciones aplazadas y prepara el alcance de desarrollo F4.
+La [implementación F4 del 27/10](PUERTO_UMBRAL_F4_2026_10_27.md) añade seguimiento
+explícito sin ejecutar ciclos o reabrir la ronda de pruebas.
+
 ## Estado real
 
 | Bloque | Desarrollo | Validación |
 | --- | --- | --- |
 | F1 | Prototipo privado publicado en Sites | Comprobaciones visuales previas conservadas; sin nuevo despliegue |
-| F2 | Portal, panel y cinco escenarios en ambos modos implementados | Primer corpus: 42/45 conformes; tres fallos retenidos; validación incompleta |
-| Corrección F2 | Ajustado el límite de procesos para evitar interferencia entre UID de contenedores | Fuente corregida, sin nueva construcción ni repetición del corpus |
-| F3 | Capturador, perfil, APIs, vista Actividad y vínculo trabajo/snapshot desarrollados | Sin ejecución ni compilación; revisión manual y recorrido completo pendientes |
-| F4/F5 | Seguimiento y aceptación de la entrega | No iniciados |
+| F2 | Portal, panel y cinco escenarios en ambos modos implementados y distribuidos dentro de V2 | Corpus histórico 42/45 conservado; variante 1 de SQL/XSS/traversal comparada manualmente en Parrot; comandos corregido observado; validación incompleta |
+| Corrección F2 | Ajustado el límite de procesos para evitar interferencia entre UID de contenedores | Corrección incluida en la fuente distribuida; comportamiento vulnerable de comandos no revisado de nuevo |
+| F3 | Capturador, perfil, APIs, vista Actividad y vínculo trabajo/snapshot desarrollados; arranque conjunto incluido | Frontend compilado con Webpack en Windows; captura y lectura manual observadas en Parrot, en ambos modos; recorrido hasta informe pendiente |
+| F4 | Seguimiento local, API, controles UI y checkpoint implementados el 27/10; publicación autorizada | Compilación y revisión estática correctas; revisión operativa guiada autorizada, aún pendiente |
+| F5 | Evidencia parcial consolidada | Evaluación completa y aceptación pendientes |
 
-F2 no se marca cerrada y F3 no se presenta como integración verificada. Continuar
-el código de F3 no acredita resultados que el usuario ha pedido aplazar.
+F2 y F3 no se marcan cerradas. Se acredita parcialmente la captura/lectura de F3,
+sin presentar como verificado su recorrido completo ni los resultados aplazados.
 
 ## Conservación de F2
 
-La fuente local independiente se encuentra en el checkout indicado en el
-registro F1; incluye `lab/README.md` con operación y límites. Se construyeron y
+La fuente local independiente inicial se encuentra en el checkout indicado en el
+registro F1. Posteriormente se distribuyó una copia portable en
+[labs/puerto_umbral](../labs/puerto_umbral/README.md), junto con V2, para actualizar
+Parrot con un único repositorio. Se construyeron y
 arrancaron doce contenedores propios en Docker Desktop para Linux en Windows.
 Se verificó su configuración y se corrigió la publicación efectiva en loopback
 de las pasarelas, conservando los escenarios sin red IP.
@@ -32,9 +43,11 @@ de las pasarelas, conservando los escenarios sin red IP.
 El primer corpus HTTP fijo quedó en 42/45: tres variantes del escenario de
 comandos no produjeron el efecto esperado por un límite de procesos por UID.
 La corrección de fuente conserva el techo de procesos por contenedor. No se ha
-reconstruido esa versión ni repetido sus casos. La observación XSS por HTTP no
-demuestra ejecución en navegador: esa comprobación y las verificaciones negativas
-de límites/aislamiento siguen pendientes.
+repetido ese corpus ni verificado de nuevo el caso vulnerable de comandos.
+En la ronda manual posterior, una variante XSS vulnerable sí confirmó ejecución
+en navegador y su comparación corregida mostró codificación y texto literal.
+Esa observación no sustituye al resto de variantes ni a las verificaciones
+negativas de límites/aislamiento pendientes.
 
 Tras la petición de parar las pruebas se detuvieron únicamente los doce servicios
 Puerto Umbral. La orden devolvió `evidence_preserved=true` y
@@ -62,8 +75,10 @@ Puerto Umbral. La orden devolvió `evidence_preserved=true` y
   también este perfil; las rutas de legacy y pilot conservan sus valores.
 
 No se modificó el detector ni se añadieron categorías nuevas de vulnerabilidad.
-No se abrió ningún servicio de V2 durante esta continuación. Las rutas creadas
-son código pendiente de revisión; no evidencia de APIs ya ejecutadas.
+Durante el desarrollo inicial de F3 no se abrieron servicios de V2. Más tarde,
+el propietario confirmó el arranque en Parrot y aportó imágenes de la captura
+manual, metadatos y Actividad. Se conserva esa distinción entre implementación,
+observación manual y recorrido de análisis todavía pendiente.
 
 ## Contrato de captura
 
@@ -101,11 +116,12 @@ detenido. No llama al modelo, no encola análisis y no envía avisos. Si más ad
 se autoriza un análisis manual, será una operación separada con su alcance y
 presupuesto; no se ha habilitado en esta entrega.
 
-## Recorrido manual preparado, todavía no ejecutado
+## Recorrido de preparación inicial (histórico)
 
-Estos pasos quedan para cuando el propietario quiera revisar la web. Se usarán
-Puerto Umbral y V2 en el mismo equipo/contexto Docker. No describen una ejecución
-en Parrot ya realizada.
+Estos pasos documentan la preparación anterior al arranque conjunto. No deben
+interpretarse como una nueva solicitud de ejecución tras finalizar la ronda.
+La guía de Parrot y el estado consolidado enlazados al inicio recogen la
+distribución posterior y las observaciones efectivamente aportadas.
 
 1. Preparar y abrir el panel F2 siguiendo su `lab/README.md`. No ejecutar comandos
    `check-*`. La preparación de servicios no recorre el corpus de pruebas.
@@ -115,8 +131,8 @@ en Parrot ya realizada.
    .\.p2\Scripts\python.exe -B scripts/local_runtime_profile.py --profile puerto-umbral --mode structured --lab-mode vulnerable --component flask --start
    ```
 
-3. En otra terminal, preparar el frontend cuando proceda y abrirlo. Los cambios
-   nuevos aún no se han compilado:
+3. En otra terminal, preparar el frontend cuando proceda y abrirlo. En el momento
+   de esta preparación los cambios aún no se habían compilado:
 
    ```powershell
    cd frontend
@@ -136,20 +152,27 @@ en Parrot ya realizada.
 7. Al terminar, Ctrl+C en los procesos propios y la orden `labctl.py stop` indicada
    en la guía del laboratorio. Conservar recibos, snapshots y datos anteriores.
 
-La captura CLI también queda preparada en el nuevo módulo, pero no se ha
-ejecutado. El botón de la web es el recorrido de revisión preferido acordado.
+La captura CLI también quedó preparada en el nuevo módulo, sin ejecución
+acreditada. El botón de la web fue el recorrido utilizado en la ronda posterior.
 
 ## Pendientes de aceptación
 
-- Construir y revisar manualmente la corrección de F2, junto con las observaciones
-  de navegador pendientes. No sustituir los resultados históricos 42/45.
-- Compilar el frontend y comprobar la interacción real del panel de fuente.
-- Revisar captura válida, fallo conservando anterior, modo cambiado y copia antigua.
+- Completar las verificaciones funcionales de F2 aplazadas, incluida la corrección
+  del caso vulnerable de comandos. No sustituir el resultado histórico 42/45.
+- Conservar la compilación Webpack de Windows y la interacción del panel de fuente
+  observada en Parrot como evidencias parciales, sin atribuirles una nueva CI.
+- Completar la revisión de errores, conservación de la captura anterior, cambios
+  de modo y copia antigua; la captura válida ya se ha observado en ambos modos.
 - Cuando se autorice expresamente, comprobar un trabajo real con su snapshot y
   publicación. No atribuir por adelantado validación a proveedor, modelo o detector.
 - Revisar regresión de perfiles anteriores y recuperación del nuevo perfil.
 - Registrar resultados manuales antes de considerar cumplidos F3-AC1–AC4.
 
-Los cambios permanecen locales, sin commit/push, CI, release ni modificación del
-Site alojado. No se han ejecutado nuevas pruebas automáticas tras la restricción
-del propietario, ni se han leído claves del `.env` operativo.
+La fuente y el arranque conjunto se publicaron en `fdffd08`, con corrección de
+construcción Docker en `abab01d`. El propietario autoriza posteriormente publicar
+las nuevas actas manuales y F4 para la revisión operativa guiada. No se atribuyen
+nueva CI, release o modificación del Site alojado. No se han ejecutado nuevas
+pruebas automáticas tras la restricción del
+propietario, ni se han leído claves del `.env` operativo. Los pendientes no
+constituyen una solicitud de reabrir pruebas: quedan aplazados por la decisión
+actual y no se dan por cumplidos.

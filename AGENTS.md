@@ -2,6 +2,200 @@
 
 ## Alcance actual
 
+Puerto Umbral27/10 usuario acepta validaciónoperativaF4 guiada concapturas y
+publicación/actualizaciónParrot comopasosprevios. Se prepara commit/push
+F4+actasmanuales acumuladas, [skip ci], solo18archivos fuente/docs conocidos;
+sin datosoperativos/.env/recibosVM. mainbaseoriginabab01d comprobadafetch.
+Validaciónguiadaconlogs existentes: iniciar sesióncorta/snapshotestable/pausa/
+reanudar/parada/cierreysin auto-resume; NOescenarios/corpus/LLM ni avisos.
+AgenteWindows prepara/publica, usuariooperaParrot yconfirmaporpantalla; no
+atribuirvalidacióna comandospropuestos. PrimerpasoVM cerrarconsolapropia,
+revisarárbol/pull--ff-only/HEAD antescompilarfrontend yarranque. Fuenteúltima
+corregida; primerseguimientopuedeactualizarprocedenciaantigua ysiguientes
+ciclossincambiosdebenreutilizar. F4operativa/F2F3F5no cerradas; históricosabajo.
+
+Puerto Umbral27/10 usuario autoriza desarrollarF4, manteniendo finrondapruebas:
+seguimientolocal implementado SINactivar/capturar/ejecutarescenarios/suites/LLM.
+Servicio puerto_umbral_follow hiloFlask explícito/5–60s/60–1800s/pausa-reanudar-
+parada/monotónico, leasefollow+ciclo+motor durante sesiónincluidapausa, rechaza
+worker/jobs activos. Capturadorcancelable/reutiliza snapshot si mismosbytes+
+procedencia, detectareinicio/discontinuidad sinprometerhistoriacompleto.
+APIGETestado/POSTcontroles origenlocal, perfilLOG_FOLLOW_ENABLED habilitacontroles
+sinarrancar. UIActividad controles/estadociclos/refreshsnapshot; checkpoint y
+recibossesión respaldables, sin auto-resume. CompilaciónAST6Python sinimports,
+OpenAPIJSON/tsc/ESLint2componentes/WebpackNext+TSOK; build1EPERMsandbox,
+repeticiónautorizadafuera exit0. Sinservicios/VM/Docker/modelo ni pruebasreales.
+Registro docs/PUERTO_UMBRAL_F4_2026_10_27.md: código local sincommit/push/CI,
+F4aceptaciónpendiente, no cerrarF2F3F5 ni reabrircasosaplazados. Entradaactual
+supersede estadopreparaciónF4inferior; conservarcronología y42/45histórico.
+
+Puerto Umbral26/10 usuario permite terminarpruebas yseguirtrabajoposible:
+rondamanual finalizada, no solicitar casos/capturasadicionales ni suites/LLM.
+Propuestasanteriores noejecutadas quedanaplazadas, incluyendocomandosvulnerable
+yautenticación; no aceptaciónimplícita/cierreF2F3F5. Estadoactual consolidado en
+docs/PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md: SQL/XSS/traversalvariante1
+comparados/recepciónV2; comandoscorregido observado. ActualizarseguimientoF2F3
+con buildWebpackprevio/capturamanualParrot/publicaciónabab01d, conservar42/45.
+PreparaciónF4documental sin implementar/activar ciclos ni modelo. Esta ronda
+soloactaslocales, sinpublicaciónnueva ni cambiosVM/servicios/datos. Entrada
+supersede próximoscasos dehistoriasinferiores; conservarlas comocronología.
+
+Puerto UmbralParrot26/10 capturascomandos/corrected/attempt/variante1:
+COMPLETED/HTTP400/invalid_component, una petición/unalíneaApachecorrelacionada.
+ActividadV2 muestra GET/mantenimiento19:07:52+0000/400/30bytes/ridpresente.
+RechazoyrecepciónV2observados; no ejecucióncomando/detecciónanalizador.
+Próximo exportarrecibo ycomparar comandos/vulnerable/attempt/variante1
+manualpanel4381, esperarsalidaidentidadUID10001 confinada. FalloCannotfork
+anterior no descartadohastaobservaciónreal; siaparece conservarresultado.
+FuenteV2siguecorregida; logvulnerable requierecambioposterior. Sin suites/LLM/
+VM/escenarios delagente; registro local sinpublicar ni cierreF2F3.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 controlPathtraversalcorregido/benign/variante1:
+panelCOMPLETED/Usnormalcorrecto/GETarchivo?documento=atraque.txt/HTTP200/
+protocoloficticiopúblicovisible, una petición/unalíneaApachecorrelacionada.
+ActividadV2 muestra mismoGET19:05:22+0000/200/88bytes/ridpresente.
+Lecturapúblicaconservada yrecepciónV2observadas. Siguiente casomanual
+Inyeccióndecomandos/corregido/attempt/variante1, esperado400/invalid_component;
+fuenteV2ya corregida. No corpuscompleto/analizador/cierreF2F3 acreditados.
+Sin suites/escenarios/LLM/operacionesVM delagente; registro local sinpublicar.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaActividadPathtraversalcorregido: GET/archivo
+19:01:28+0000/HTTP403/36bytes/ridpresente, origenavailable/modificación
+20:02:57Madrid. Coherente con errorcorregido previamenteobservado; acredita
+recepciónV2caso, sinmetadatosmodo/snapshot/hash enrecorte ni analizador.
+SQL/XSS/Pathtraversalvariante1 comparadosmanual enambosmodos/recepciónlogs;
+no corpuscompleto/cierreF2F3. Próximo control Pathtraversal/corregido/Usonormal/
+variante1 (atraque.txt), esperado200/protocoloficticio público; conservarrecibo
+ycapturarmanualV2. Agente sololectura/registro local, sin suites/VM/LLM.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaPathtraversal/corrected/attempt/variante1:
+COMPLETED/HTTP403/error document_not_authorized sinmarcadorreservado;
+una peticiónejecutor/una líneaApachecorrelacionada, V2consultadono.
+Comparaciónfuncionalvariante1 observada: vulnerableleeseñuelo/corregidorechaza.
+RecepciónV2corregida deestecaso pendiente; fuenteúltimavulnerable. Próximo
+exportarrecibo yreiniciarlanzador --lab-mode corrected; capturarmanual y
+ActualizarV2 sinrepetirescenario. No detecciónLLM/cierreF2F3globales acreditados.
+Agente sololectura/registro local, sin suites/escenarios/VM/LLM/publicación.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 doscapturasPathtraversalvulnerable/attempt/variante1:
+panelCOMPLETED/efectofuncional/HTTP200/marcadorPU_RESERVED_FIXTURE_20261026
+ydocumentoseñuelo visibles, una peticiónejecutor/una líneaApachecorrelacionada.
+ActividadV2 muestra GET/archivo18:59:07+0000/200/125bytes/ridpresente,
+origenavailable/modificación19:59:41Madrid. Lecturaseñuelo yrecepciónV2
+observadas; no detecciónmodelo/reciboexportado/cierreF2F3. Próximo exportar y
+compararmismoPathtraversal/corregido/attempt/variante1: esperado403 yerror
+document_not_authorized sinmarcador. FuenteV2siguevulnerable; cambioseparado.
+Sololectura/registro local delagente, sin suites/escenarios/LLM/publicación.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaActividad confirma recepciónXSSvulnerable:
+dos GET/comunicaciones18:54:58y18:54:59+0000/HTTP200/379bytes con misma
+referenciaejecución del panelconfirmado; primeroridpresente/segundorid:-.
+Origenavailable/modificación19:57:15Madrid. Metadatosmodosnapshot no visibles
+enrecorte; no hashrecalculado/analizador. SQLyXSSvariante1 comparadosmanual,
+no todoelcorpus/cierreF2F3. Próximo Pathtraversal/vulnerable/attempt/variante1
+desdepanel4381, revisar marcadorficticioPU_RESERVED_FIXTURE_20261026/exportar
+recibo/capturarmanualV2. Agente sololectura/registro local sin suites/LLM.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturasXSSvulnerable/attempt/variante1 COMPLETED:
+panel confirma ejecuciónJavaScriptennavegador, HTTP200, una peticiónejecutor,
+dos líneasApachecorrelacionadas; cuerpoHTMLsin codificar eiframe sinentrada
+literal visible. Evidenciaprincipal es confirmaciónmarcador del panel, noiframe
+vacío. Comparaciónvariante1 con corregidocodificado observada; faltarecepción
+V2vulnerableXSS yanalizador, no cerrarF2F3globales. Próximo exportarrecibo antes
+cierre, reiniciarlanzador --lab-mode vulnerable, capturarmanual/ActualizarV2
+sinrepetirescenario. Registro local; sin suites/LLM/operacionesVM delagente.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaiframeXSScorregido: Comunicacionesescenariolocal
+muestra entrada literal como texto, coherente con respuestaHTMLcodificada del
+mismocaso. Mensajefinalbrowser-result no visible enrecorte; no afirmar bandera
+ni protecciónuniversal, no requerir otrarepetición del caso. Próximo comparar
+XSSreflejado/vulnerable/attempt/variante1 manual enpanel4381 y revisar resultado
++marcadorbrowser/exportarrecibo. FuenteV2siguecorregida; no esperarlogvulnerable
+hastacambiarperfil. Sin suites/LLM/escenario poragente; registro local.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaResultadoXSS corrected/attempt/variante1
+COMPLETED/HTTP200: panel Entrada codificada como texto y cuerpoHTML con
+entidades visibles. Una peticiónejecutor/una líneaApachecorrelacionada;
+referenciaejecución coincide con_request del log previo. Acredita codificación
+observada y recepciónV2, no ejecución/ausenciaJScomprobada eniframe: captura
+terminaantes de ComprobaciónXSSnavegador. Pedir seccióninferior del mismocaso,
+sinrepetir. No reciboexportado/analizador/cierreF2F3 acreditados; registro local
+sin escenario/suite/LLM ni publicación poragente. Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaActividadXSS: dos GET/comunicaciones a
+18:51:16y18:51:17+0000/HTTP200/431bytes, primeroconrid/segundorid:- ymisma
+referencia_request. Coherente con ejecutor+iframe según código; no inferir
+dobleejecuciónmanual, codificación/successJS/bloqueo/detección por ese log.
+Falta capturaResultadoobservado+ComprobaciónXSSnavegador del caso yaexistente
+enpanel4381 (Consultarhistorial sin repetir). Fuenteantesconfiguradacorregida,
+metadatosmodo no visibles enestaimagen. Agente sololectura/registro local,
+sin suites/escenarios/LLM/publicaciónnueva. Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 controlnormalcorregido porcapturasusuario: portal4382
+/mercancias?q=Asteria devuelve UM-1284 yUM-1287 sinUM-9000. V2modocorregido
+captura19:49:23Madrid/12líneas/snapshot+SHAvisibles, GETAsteria18:49:00+0000
+HTTP200/125bytes. Búsquedanormalconservada yrecepciónV2 observadas; comparación
+SQLvariante1+controlnormal revisados, no cierre globalF2F3 ni detecciónmodelo.
+Siguiente casomanual propuesto XSSreflejado/corregido/attempt/variante1 desde
+panel4381, observarcodificaciónyiframe/exportarrecibo/capturarmanualV2.
+No ejecución poragente/suites/LLM; registro local sinpublicaciónnueva.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaV2corregido acreditada visualmente: fuente
+disponible/modocorregido/7líneas/captura19:44:21Madrid, snapshot+SHA256visibles;
+Actividad incluye casoSQL18:40:42+0000/HTTP200/13bytes/ridpresente, coherente
+con cargo[] anterior. No bytesVM/hashrecalculado/resultadoanalizador acreditados.
+ComparaciónmanualSQLvariante1 y lecturaV2ambosmodos observadas, F2F3globales
+abiertas. Próximo controlnormalAsteria enportal4382 trasresetSQLcorregido para
+verificarfuncionalidadconservada. Sin suites/LLM/operacionesVM poragente;
+solo registro local, sinpublicaciónnueva. Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 capturaSQLcorregido/attempt/variante1 COMPLETED:
+una peticiónHTTPreal/una líneaApachecorrelacionada, HTTP200/cargo[] sinUM-9000;
+panel indica controlimpidióefecto/V2consultadono. Comparaciónfuncional manual
+vulnerable vs corregido acreditada para esta variante, no generalizar protección
+ni cerrarF2F3. Próximo exportarrecibo antescierre; reiniciarlanzador con
+--lab-mode corrected y capturarmanual enV2 para revisarfuente/línea/metadatos.
+No recepciónV2corregida/LLM/reciboexportado acreditados aún. Agente sololectura
+código/registrodocumental, sin escenarios/suites/modelo ni publicaciónnueva.
+Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10 doscapturasusuario: SQLvulnerable/attempt/variante1
+COMPLETED, una peticiónreal/una líneaApachecorrelacionada, HTTP200 y respuesta
+incluye UM-9000/SEÑUELO-RESERVADO-UMBRAL. ActividadV2 muestra misma ruta a
+18:36:15+0000/200/230bytes/ridpresente; fuenteavailable modificada19:36:40Madrid.
+Acredita efectoSQL y visualizaciónlog de ese caso; no resultadoanalizador/LLM,
+ni bytesreciboJSON/snapshot/hashcompletos verificados. Próximo exportarrecibo y
+comparar manualmente mismo caso en corregido; panelmodo no cambiafuenteV2,
+que sigue vulnerable por lanzamiento predeterminado. No ejecutar suites/modelo
+ni cerrarF2F3. Evidencia documental local sinpublicar aún; entradas históricas.
+
+Puerto UmbralParrot26/10 capturaActividad: GET /mercancias?q=Asteria HTTP/1.1
+200/125bytes a18:31:24+0000 visibleenV2; confirma recepción/lectura de solicitud
+normal porcapturausuario. No muestra snapshot/hash ni resultadoanalizador;
+no acreditar integridadgeneración/detección/LLM/cierreF2F3. Próximo único caso
+manualSQLvulnerable/intentovariante1 desdepanel porusuario, revisarrespuesta+
+recibo; no ejecutado poragente. Modo panelno cambiafuenteV2, defaultvulnerable.
+Sin suites/LLM poragente; evidencia/registro local en guíaParrot, sin publicar
+actas posteriores todavía. Entradas inferiores históricas.
+
+Puerto UmbralParrot26/10: tras parchepublicado abab01d, propietario confirma
+todosserviciosabiertos en URLs correspondientes. Acredita arranque/acceso por
+declaraciónusuario; sin nueva capturaIDs/HEAD/salud técnica. Próximo revisión
+manualbenigna: reset escenario mercancíasvulnerable, buscar Asteria en4380 dentro
+30s, ActividadV2 capturarmanual+Actualizar; comprobar fecha/hash/líneas/GET200.
+Captura/escenarios/modelo aún no acreditados; no cerrar F2/F3 ni ejecutar pruebas
+automáticas/LLM. Registro local docs/PUERTO_UMBRAL_PARROT_2026_10_26.md.
+Entradas inferiores históricas.
+
 Puerto Umbral diagnósticoParrot26/10: captura acredita existing_preserved/
 instalacióncompletada; arranque aborta prepare en compose build: requiere
 buildx>=0.17. labs/puerto_umbral presente y ejecutado portraceback; no fallo de

@@ -83,6 +83,10 @@ La distribución incluye el laboratorio local; su inicio se solicita con
 `python3 webdefense.py start --mode structured --with-puerto-umbral` después
 de instalar/compilar. Este arranque no ejecuta escenarios ni análisis automáticos.
 F2/F3 siguen pendientes de validación manual; su inclusión no certifica sus resultados.
+La [fase F4](docs/PUERTO_UMBRAL_F4_2026_10_27.md) incorpora seguimiento con inicio,
+pausa y parada explícitos, sin análisis automático. Su código está desarrollado;
+la validación operativa sigue pendiente. Arrancar
+V2 o abrir Actividad no inicia el seguimiento.
 
 ### Requisitos
 
@@ -92,7 +96,7 @@ F2/F3 siguen pendientes de validación manual; su inclusión no certifica sus re
 | Python | **3.11**, con `venv` y `ensurepip` |
 | Node.js | **24 o posterior** |
 | pnpm | **11.19.0** |
-| Docker | Opcional; solo para el laboratorio DVWA/Mailpit |
+| Docker | Opcional para V2; necesario para los laboratorios locales DVWA/Mailpit o Puerto Umbral |
 
 ### Instalar e iniciar
 

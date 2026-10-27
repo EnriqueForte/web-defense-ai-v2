@@ -33,7 +33,7 @@ def build_plan(root, profile="pilot", mode="legacy", *, python=None, enable_manu
                    "LOG_SYNC_SOURCE": {"pilot": "dvwa-lab", "puerto-umbral": "puerto-umbral"}.get(profile, "legacy-docker"),
                    "ANALYSIS_MANUAL_ENABLED": "1" if enable_manual else "0", "NOTIFICATION_DESTINATIONS": ""}
     if profile == "puerto-umbral":
-        environment.update(PUERTO_UMBRAL_MODE=lab_mode, LOG_CAPTURE_MANUAL_ENABLED="1")
+        environment.update(PUERTO_UMBRAL_MODE=lab_mode, LOG_CAPTURE_MANUAL_ENABLED="1", LOG_FOLLOW_ENABLED="1")
     return {"profile": profile, "mode": mode, "cwd": str(root), "environment_overrides": environment,
             "commands": {"flask": [interpreter, "-B", "-m", "flask", "--app", "dashboard.app", "run",
                                      "--host", "127.0.0.1", "--port", "5000", "--no-debugger"],
