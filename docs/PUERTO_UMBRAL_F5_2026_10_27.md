@@ -254,3 +254,23 @@ de Parrot permanecen sin modificaciones por el agente.
 
 Estas son comprobaciones de datos y documentación. No se ejecutaron pruebas
 del sitio o del detector, ni se inició la aplicación para obtener esos resultados.
+
+## Publicación y actualización del paquete documental
+
+El propietario autoriza el commit/push y se publica
+`ff1691845900204afd1a84fbc59274a3ad316395`, con 13 archivos del paquete F4/F5 y
+`[skip ci]`. La consulta remota de `main` coincide con el commit local y el árbol
+queda limpio tras el push. El código operativo de la aplicación sigue siendo
+el de referencia `02d2638`; la nueva herramienta es un revisor offline separado.
+
+La captura posterior del propietario muestra `git pull --ff-only` en Parrot,
+fast-forward de `02d2638` a `ff16918` y los 13 archivos actualizados. Queda
+observada la recepción del paquete en la VM. Esta actualización documental no
+requiere recompilar, reinstalar dependencias o reiniciar los servicios.
+
+Los JSON entregados permiten consultar la evaluación ya realizada. No se
+solicita ejecutar el revisor en Parrot, donde no se han recibido los archivos
+históricos originales de esta revisión. El recorrido snapshot → análisis →
+informe sigue pendiente de alcance de ejecución y presupuesto propios; la
+publicación no lo activa ni acepta el MVP completo. Esta nota de recepción es
+posterior al commit citado y queda local hasta otra publicación autorizada.

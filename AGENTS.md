@@ -2,6 +2,45 @@
 
 ## Alcance actual
 
+Puerto Umbral27/10 usuario autoriza publicar ejecutoracotado+guía mediante
+commit/push [skip ci] y después actualizarParrot. Alcance4archivos: AGENTS,
+actarecepciónF5posteriorff16918, guíaANALISIS_ACOTADO y scriptanálisis.
+main/originff16918 comprobadosfetch; prepararpublicación sinmodelo/check
+operativo/servicios/suites/VM/nuevosescenarios ni cambios.env. Publicaciónno
+ejecutaelmodelo; siguienteVM gitpull--ff-only y solo --checklectura delscript
+con.p2/bin/python, sin recompilar/reinstalar/reiniciar. Revisarready/IDs/hash
+antesordenúnica autorizada; respetarFree realcuenta/pago0€ y no reintentar.
+Verificaciónremotayárbollimpio se acreditarán traspush; históricosabajo.
+
+Puerto Umbral27/10 usuario autoriza expresamente un único análisis snapshot
+guardado→informe V2, Groq groq/openai/gpt-oss-120b, cuota gratuita y presupuesto
+de pago0€, sin escenarios/notificaciones. CapturasVM: claveguardada/modelo
+seleccionado, saludlogavailable2060bytes/26Oct19:08:38Z/ejecutoroffline/report
+error; comprobaciónpuntero devuelve SIN_PRIMER_INFORME. No informe corrupto
+acreditado: selectorstructured también devuelve error si falta publicación.
+Preparado scripts/analyze_puerto_umbral_snapshot.py y guíaANALISIS_ACOTADO:
+checklocallectura/modelofijo/snapshot+SHAfijados/leases/1jobidempotente/6HTTPmax/
+8192tokenssalidaporrespuesta/600s/sinreintentosred/fallback/proxy/redirects.
+SDKGroqdirecto/adaptadorBaseLLM independiente, motor/publicadorexistentes;
+no cambia.env ni motorhabitual. CuotaFree realdecuenta requieredeclaración
+propietario: selectorV2noverificafacturación; costerecibo null hastaevidencia.
+Autorizaciónconsumida persistida, fallo/interrupciónnoautoriza repetir/borrar.
+RevisiónAST/compilaciónenmemoriasinimportarejecutor/enlaceslocales/diffOK;
+sincheckoperativo/LLM/servicios/suites/VM poragente. Preparaciónlocal sin
+commit/push todavía; distribuciónVMpendiente. No atribuirresultadoanálisis
+ni aceptaciónMVP. EstadoanteriorF4F5yactarecepciónpreservadosabajo.
+
+Puerto UmbralF4F5 publicación27/10 completada: commitmainff1691845900204afd1a84fbc59274a3ad316395,
+13archivos docs/informes/revisoroffline [skip ci], mainremoto verificado yárbol
+limpiotraspush. CapturapropietarioParrot acredita gitpull--ff-only fast-forward
+02d2638..ff16918/13archivos; actualizaciónpaquetedocumentalobservada,sin
+recompilar/reinstalar/reiniciar (runtimeinalterado). F4rondabásicacompletada,
+F5revisióndocumentalpreparada, aceptaciónMVP/detectorpendientes. No ejecutar
+revisorenVM: corpusoriginalhistóricoWindowsnoaportadoallí; informesyason
+datoslectura. Próximopendientefuncional snapshot→análisis→informe requiere
+alcance/presupuestoexpresos antesmodelos; no nuevos escenarios/capturas por
+esterrecorrido. Actarecepciónlocalposterior sinpublicar; históricosabajo.
+
 Puerto Umbral27/10 usuario autoriza paso1 commit/push paqueteF4F5: publicar
 13archivos seleccionados deactas/manual/reportesJSON yrevisoroffline, [skip ci].
 Basecódigooperativo02d2638 sinmodificaciones; no datosoperativos/.env/recibos
