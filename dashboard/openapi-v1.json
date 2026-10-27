@@ -244,7 +244,7 @@
           "captured_at": { "type": "string", "format": "date-time" },
           "consistency": { "type": "string" },
           "health": { "type": "string", "enum": ["ok", "degraded", "unavailable"] },
-          "sources": { "type": "object" },
+          "sources": { "type": "object", "description": "Estado de archivos locales. sources.log.source identifica opcionalmente la fuente seleccionada al arrancar (puerto-umbral, dvwa-lab o legacy-docker)." },
           "report_id": { "type": "string", "nullable": true }
         }
       },

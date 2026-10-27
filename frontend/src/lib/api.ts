@@ -39,7 +39,7 @@ export type StateResponse = {
     captured_at: string;
     health: "ok" | "degraded" | "unavailable";
     report_id: string | null;
-    sources: Record<string, { status: string; modified_at: string | null }>;
+    sources: Record<string, { status: string; modified_at: string | null; source?: string }>;
   };
   data: {
     stats: { total: number; criticas: number; altas: number; medias: number; bajas: number; desconocidas: number; ips: number };

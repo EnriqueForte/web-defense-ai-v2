@@ -120,3 +120,91 @@ de contexto/recepción mediante commit/push con `[skip ci]`. La revisión remota
 se realizará tras el push; el commit de esta entrega se identifica en el
 historial Git, sin afirmar una ejecución del modelo por distribuir el archivo.
 La actualización de Parrot y el check del snapshot son pasos posteriores.
+
+## Resultado aportado por el propietario en Parrot
+
+El ejecutor se publicó en `1403f8d3be1896a8055e71fabb0e18b96dbc5b58`, con
+`[skip ci]`; se comprobó la coincidencia de main remoto/local y el árbol limpio
+tras publicar. Las capturas posteriores muestran el archivo disponible en la
+VM, el check con `ready: true`/sin bloqueadores y la ejecución autorizada.
+No muestran por sí mismas el HEAD completo de la VM.
+
+La salida final aportada registra:
+
+| Campo | Valor observado |
+| --- | --- |
+| Estado | `succeeded` |
+| Análisis | `f5b674c867994aeba3beeb4a638d7a33` |
+| Snapshot corregido | `df39623de3684fa7932edf6b688b2f04`, 17 líneas |
+| SHA-256 | `2f891446d512be3a31ee858db5f3318156f74b3d2348b40a7ee41dd8c59f2b4a` |
+| Modelo | `groq/openai/gpt-oss-120b` |
+| Solicitudes de transporte | 3 |
+| Metadatos de uso | Completos, 3 completions observadas |
+| Tokens de entrada / salida / total | 6889 / 1261 / 8150 |
+| Tokens de razonamiento reportados | 372, no se suman otra vez al total |
+| Grupos clasificados | 3 altos, 1 medio, 0 críticos/bajos/desconocidos |
+| Integridad al finalizar | `input_unchanged: true` |
+| Coste real del proveedor | `null`: no medido por este recibo |
+
+El resumen contiene una generación y éxito tras la comprobación de publicación
+del ejecutor. Es evidencia aportada en pantalla, sin acceso independiente del
+agente a los bytes originales, al panel de facturación o a la VM. El agente
+no ha ejecutado el modelo en Windows.
+
+Queda comprobar visualmente que V2 carga ese mismo análisis y sus conteos,
+abrir su informe actual y revisar el contenido. Todavía no se acredita esa
+visualización ni la calidad semántica de cada grupo. No se deducen cuatro
+explotaciones confirmadas ni precisión/recall del corpus completo.
+
+La autorización de una ejecución ya se consumió. No repetir la orden ni borrar
+el registro para permitir otro análisis. Esta nota posterior es local, sin
+nuevo commit/push. La aceptación global del MVP permanece pendiente.
+
+## Confirmación visual del informe en V2
+
+Una captura posterior del propietario muestra `report.md` publicado el
+27/10/2026 a las 22:38:42 (Madrid), con el análisis
+`f5b674c867994aeba3beeb4a638d7a33`. El resumen y el alcance indican 17 líneas
+seleccionadas de 17, sin omisiones, y cuatro grupos que requieren investigación.
+
+| Patrón mostrado | Líneas del log | Severidad | Estado |
+| --- | --- | --- | --- |
+| SQLi | 7 | Alta | Requiere investigación |
+| XSS | 13, 14 | Media | Requiere investigación |
+| Path Traversal | 15 | Alta | Requiere investigación |
+| Command Injection | 17 | Alta | Requiere investigación |
+
+La IP mostrada en los cuatro grupos es `172.20.0.1`. Los conteos coinciden con
+el recibo de ejecución: tres altos y uno medio. Se acredita así, por las
+capturas del propietario, el recorrido básico **snapshot guardado → análisis
+Groq → publicación → informe visible en V2** para este snapshot concreto.
+
+Esta comprobación operativa limitada queda completada, sin solicitar nuevas
+ejecuciones. El recorte no incluye las recomendaciones inferiores ni el estado
+global de fuentes, y no sustituye revisión de bytes originales o facturación.
+Las líneas de access.log no acreditan éxito de explotación. No se acepta por
+ello el corpus de 45 casos, las métricas globales del detector ni el MVP completo.
+Esta recepción visual queda registrada localmente, posterior a `1403f8d`, sin
+nueva publicación ni llamadas adicionales al modelo.
+
+## Corrección de la fuente mostrada en Amenazas y Reportes
+
+El propietario observa una referencia fija a DVWA en el texto de eventos de
+ambas vistas. Se corrige el componente compartido para utilizar el identificador
+opcional de fuente que Flask incluye en `meta.sources.log.source`.
+Con `puerto-umbral` muestra Puerto Umbral; conserva DVWA para los perfiles de
+ese laboratorio y usa un texto neutro si falta el metadato. No añade consultas
+de captura ni cambia el informe guardado.
+
+TypeScript sin emisión, ESLint de los tres archivos TypeScript modificados,
+sintaxis Python, JSON OpenAPI y `git diff --check` correctos. Sin suites,
+escenarios, servicios o nuevas llamadas al modelo. El propietario autoriza
+publicar la corrección junto con estas actas pendientes mediante commit/push
+con `[skip ci]`. El commit se identifica en el historial Git y su verificación
+remota se realiza tras publicar.
+
+Para recibir la corrección en Parrot se debe cerrar la consola propia,
+actualizar el checkout, recompilar el frontend con Webpack y volver a arrancar
+el mismo perfil. No reinstalar dependencias ni repetir el análisis autorizado:
+el informe ya publicado permanece en el estado local de la VM. La recepción
+visual de esta corrección en Parrot todavía no se ha observado.

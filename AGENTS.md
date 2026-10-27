@@ -2,6 +2,56 @@
 
 ## Alcance actual
 
+Puerto Umbral27/10 usuario autoriza commit/push [skip ci] correcciónnombre
+fuente y actaspendientesdelanálisisúnico. Alcance7archivos: AGENTS,
+dashboardapp/OpenAPI, page/api/api-contractsfrontend y guíaANALISIS_ACOTADO.
+Base1403f8d/main comprobadafetch. Publicaciónnoejecutamodelos/escenarios/
+servicios/suites nioperaVM. Tipos/lint/sintaxisyaOK; verificarstaging/diff,
+HEADremoto/árbollimpio traspush. Parrotactualizaciónposteriorrequierecerrar
+consolapropia/pull--ff-only/buildWebpackfrontend/rearranquemismoperfilcorrected;
+informeexistenteconservado, no repetiranálisis. Históricosabajo.
+
+Puerto Umbral27/10 usuario solicita corregir referenciaDVWA enAmenazas y
+Reportes. ObservedEventscompartido ahora recibe sourceopcional deestado
+meta.sources.log.source: PuertoUmbral para puerto-umbral/DVWA soloperfiles
+dvwa-labylegacy-docker/textoneutrosinmetadatos. Flaskañadeidentificador
+LOG_SYNC_SOURCE normalizado, sinDocker/capturas/lecturascredencialesnuevas;
+contratoTSvalidacampoopcionalcompatibleprevio/OpenAPIdescribeextensión.
+Ambasvistas conectadasalsamometadato, sinduplicarconsultas. tscnoEmit/
+ESLint3archivos/ASTPython/JSONOpenAPI/diffcheckOK; sin suitesautomáticas,
+LLM/servicios/VM ni recompilaciónfrontendporagente. Códigolocalposterior
+1403f8d,sinpublicar; VMrequierepulltraspublicación/buildfrontendWebpack y
+reinicioV2para nuevometadato. Actaslocalesdelanálisisúnicopreservadas.
+
+Puerto Umbral27/10 capturaV2 report.md confirma visualizacióndel mismoanálisis
+f5b674c867994aeba3beeb4a638d7a33/publicado27Oct22:38:42Madrid/17seleccionadas
+de17/0omitidas: SQLilínea7ALTA, XSSlíneas13,14MEDIA, traversal15ALTA,
+comandos17ALTA, todosRequiereinvestigación/IP172.20.0.1. Resumenconteos
+coincide3altas1media conreciboejecución. Recorridobásicosnapshotguardado→
+Groq→publicación→informevisibleV2 COMPLETADOparaesteúnicosnapshot.
+No aceptaciónglobalF5/MVP/45casos; no explotaciónconfirmada poraccess.log.
+Recortenoacredita recomendacionesinferiores/estadoglobalfuentes/facturación/
+bytesoriginalesVM ni calidadsemánticacompletaporfamilia. No pedirmáspruebas
+paraesterrecorridoni ejecutarotrosmodelos: autorizaciónúnicaconsumida.
+ActaguíaANALISIS_ACOTADO actualizadalocalmente,sinpublicarposterior1403f8d;
+sinservicios/modelos/VM/escenariosporagente. Históricosabajo.
+
+Puerto Umbral27/10 capturaParrot acredita ejecuciónúnicaautorizada succeeded:
+analysis_id f5b674c867994aeba3beeb4a638d7a33, snapshotcorregido17líneas
+df39623de3684fa7932edf6b688b2f04/SHA2f891446d512be3a31ee858db5f3318156f74b3d2348b40a7ee41dd8c59f2b4a.
+3solicitudes/transporte,3completions/usagecomplete,6889prompt+1261completion=
+8150tokens;372reasoningreportadosnoadicionales. Conteos3high/1medium/0resto,
+input_unchanged true/generationpublicadasegúnresumen; costeproveedor null,
+no facturaciónmedida. Capturadecheckpreviareadytrue/blockers[]/mismosIDs.
+Ejecutorpublicado1403f8d3be1896a8055e71fabb0e18b96dbc5b58/remotoverificado/
+árbollimpioentonces; scriptvisibleejecutadoVM, sinatribuirHEADVMnocapturado.
+Falta revisiónvisualdeesteinforme enV2 ycontenido/respuestas originales;
+4gruposnosequiparana4explotacionesniacierto45casos. Autorizaciónconsumida:
+no repetir/rearmar/borrarrecibo/nuevosLLM/escenarios. Próximo soloactualizar
+V2/abririnformeactual para comprobar referencia/conteos/estadofuentes.
+AgenteWindowsregistraevidenciaaportada,sinVM/modelos. Actalocalposterior
+sinpublicar; F5MVP/métricasdetectorglobales siguenpendientes. Históricosabajo.
+
 Puerto Umbral27/10 usuario autoriza publicar ejecutoracotado+guía mediante
 commit/push [skip ci] y después actualizarParrot. Alcance4archivos: AGENTS,
 actarecepciónF5posteriorff16918, guíaANALISIS_ACOTADO y scriptanálisis.

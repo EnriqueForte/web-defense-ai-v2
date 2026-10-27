@@ -39,7 +39,7 @@ export function validReadResponse(path: string, value: unknown): boolean {
   if (route === 'estado') {
     return id(m.snapshot_id,64) && idOrNull(m.report_id,64) && date(m.captured_at) &&
       oneOf(m.health,['ok','degraded','unavailable']) && obj(m.sources) &&
-      ['report','log'].every(k => obj(m.sources) && obj(m.sources[k]) && str(m.sources[k].status) && dateOrNull(m.sources[k].modified_at)) &&
+      ['report','log'].every(k => obj(m.sources) && obj(m.sources[k]) && str(m.sources[k].status) && dateOrNull(m.sources[k].modified_at) && optional(m.sources[k], 'source', str)) &&
       obj(d) && obj(d.stats) && ['total','criticas','altas','medias','bajas','desconocidas','ips'].every(k => obj(d.stats) && count(d.stats[k])) &&
       list(d.threats,threat) && count(d.threats_total) && typeof d.threats_truncated === 'boolean' &&
       list(d.recent_log,str) && list(d.source_ips,str) && list(d.recent_events,e => obj(e) && id(e.id,24) && date(e.observed_at) &&

@@ -455,7 +455,8 @@ def _snapshot_estado(*, include_log_views: bool = True) -> dict:
     snapshot_id = hashlib.sha256(identity).hexdigest()
     sources = {
         "report": {"status": reporte.status, "modified_at": reporte.modified_at},
-        "log": {"status": log.status, "modified_at": log.modified_at},
+        "log": {"status": log.status, "modified_at": log.modified_at,
+                "source": os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()},
     }
     health = "ok" if all(item["status"] == "available" for item in sources.values()) else "degraded"
     if any(item["status"] in ("error", "changing") for item in sources.values()):
