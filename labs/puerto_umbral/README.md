@@ -42,9 +42,17 @@ las actas del proyecto. Se incluyen solo código, fixtures ficticios y dos asset
 de interfaz propios. No se copian `.git`, `.openai`, credenciales, entornos,
 imágenes Docker ni `.local-state` del checkout de trabajo original.
 
-`lab/README.md` conserva el estado de validación F2: primer corpus 42/45,
-corrección de fuente pendiente de comprobación manual y observación XSS en
-navegador pendiente. Publicar o compilar no cambia esa valoración.
+`lab/README.md` conserva el estado inicial de F2. El primer corpus sigue en
+42/45; la corrección del caso vulnerable de comandos no se ha repetido.
+La revisión posterior de Parrot sí observó una variante SQL, XSS y Path traversal
+en ambos modos, incluido el marcador XSS vulnerable. La
+[evaluación F5](../../docs/PUERTO_UMBRAL_F5_2026_10_27.md) separa esas observaciones
+del archivo histórico y de las métricas del detector sin medir.
+
+El [manual actual de operación](../../docs/PUERTO_UMBRAL_OPERACION_LOCAL.md)
+documenta captura, seguimiento F4, cierre y conservación. La ronda básica F4
+está completada; la aceptación ampliada y del MVP siguen pendientes. No se
+solicitan escenarios nuevos para cerrar el bloque documental.
 
 La decisión inicial de un repositorio independiente se adapta a una distribución
 portable dentro de V2 por la necesidad del propietario de actualizar y arrancar

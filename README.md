@@ -84,9 +84,14 @@ La distribución incluye el laboratorio local; su inicio se solicita con
 de instalar/compilar. Este arranque no ejecuta escenarios ni análisis automáticos.
 F2/F3 siguen pendientes de validación manual; su inclusión no certifica sus resultados.
 La [fase F4](docs/PUERTO_UMBRAL_F4_2026_10_27.md) incorpora seguimiento con inicio,
-pausa y parada explícitos, sin análisis automático. Su código está desarrollado;
-la validación operativa sigue pendiente. Arrancar
+pausa y parada explícitos, sin análisis automático. Su ronda operativa básica
+en Parrot está completada; la aceptación ampliada sigue pendiente. Arrancar
 V2 o abrir Actividad no inicia el seguimiento.
+La [evaluación F5](docs/PUERTO_UMBRAL_F5_2026_10_27.md) organiza los 45 registros
+históricos y las observaciones manuales, conservando tres fallos y las métricas
+del detector sin medir. El [manual de operación local](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md)
+centraliza arranque, seguimiento, cierre y conservación. La aceptación del MVP
+completo sigue pendiente.
 
 ### Requisitos
 

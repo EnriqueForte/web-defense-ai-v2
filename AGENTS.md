@@ -2,6 +2,134 @@
 
 ## Alcance actual
 
+Puerto Umbral27/10 usuario autoriza paso1 commit/push paqueteF4F5: publicar
+13archivos seleccionados deactas/manual/reportesJSON yrevisoroffline, [skip ci].
+Basecódigooperativo02d2638 sinmodificaciones; no datosoperativos/.env/recibos
+crudosVM/imágenes. ResumenF5 conservaestadoalcrearinforme ypublicaciónse
+identificaporhistorialGit/validaciónremotaposterior. No tag/release/CI nueva,
+no evaluaciónLLM/casos/suites/servicios/VM porpublicar. Verificarorigenmain,
+alcance yárbollimpio traspush. Parrotactualizacióndocumentalposteriorseparada,
+sin recompilaraplicación; F5MVPaceptaciónpendiente. Históricosabajo.
+
+Puerto UmbralF5 27/10 usuario autoriza siguiente bloque, sin reabrir pruebas:
+evaluaciónexistente/manual/entrega conaceptaciónMVPpendiente. Revisoroffline
+scripts/review_puerto_umbral_evidence.py lee suiteF2local/45recibos/45snapshots/
+corpus=92archivos; hasheslíneas/respuestas ysegundalecturaiguales, sinapp/
+Docker/VM/LLM. Historico42/45 intacto; comandos3vulnerablesCannotfork guardados;
+75peticionesejecutor/75líneascorrelacionadas, XSSnavegadorhistóricopendiente6.
+Reportes45casos+9observacionesmanuales relacionadas sinpuntuacióndetección;
+métricasdetector/coste null. F5MD/JSON/corpusJSON ymanualOperaciónLocal
+preparados; inventario28blobsGit02d2638 independienteCRLF/LFdelcorpushistórico.
+F5documentación/revisiónexistente sin nuevascapturas; aceptaciónF5/MVP/F2F3/
+F4ampliada pendientes, no aceptarimplícitamente45/45/objetivosLLM.
+Códigooperativointacto02d2638, helperindependientesinimportapp; nuevasactas
+localessincommit/push/release, conservarestadoVM. Históricosabajo.
+
+VerificaciónF5local: ASTrevisor/2JSONcoherentes/45filas/30indicadoresintento/
+9observacionesvinculadas, 92entradasconSHAigualesalfinbloque,28blobsGit
+coinciden,87enlaceslocalesceroausentes/diff--checkOK. No cambioscódigooperativo,
+no builds/servicios/casos/suites/modelosnuevos. Bloquedocumentalyrevisióndatos
+preparado; no solicitar máscapturas porF5 ni cerrarMVP sin evaluarpendientes.
+
+Puerto UmbralF4 Parrot27/10 doscapturasreapertura: Sesióninterrumpida/noauto-
+resume, ciclos5/0snapshotsnuevos/5sincambios/último18:04:52Madrid0.058s yfin
+18:09:32 enambas; iniciarhabilitado/pausa-reanudar-paradadeshabilitados.
+Coherente conestadoanteriorcierreactivo; reaperturanoavanzalecturas visible.
+Rondaoperativabásica previstaFINALIZADA: buildParrot/ciclos/reutilización/
+pausa/reanudar/parada/vencimiento/cierre/check/reabrirsinautoresume observados.
+No solicitarmáscapturas/casosparaesterrecorrido. F4desarrolladayvalidación
+básicacompleta,no aceptaciónglobalF4: latencia20ciclosindividuales/rotación/
+truncado/fallos/archivoshash/jobs no verificados; F2F3F5conpendientesintactos.
+Actaslocalesposteriores02d2638 sinpublicar, agente sinVM/escenarios/LLM.
+Entradas inferiores históricas.
+
+Puerto UmbralF4 Parrot27/10 capturacheckposteriorCtrlC: python3webdefensecheck
+structured/withpuerto/labmodecorrected devuelvePreparado:entorno,buildypuertos
+comprobados yprompt. Preflightcompletadosinbloqueadores; no pruebaexhaustiva
+procesos ni noauto-resume. Próximo arranqueconjuntomismoperfilcorrected,
+ActividadsinIniciar, capturarestadoDetenido/Interrumpido y tras15sActualizar
+seguimiento+otracaptura paraverificarcontadores/últimocicloestables.
+Interrumpidoesperable tras cierreactivo, noerrorpor sísolo. Sin escenarios/
+LLM/VMporagente; actaslocalesposteriores02d2638, F4globalaúnabierta.
+Entradas inferiores históricas.
+
+Puerto UmbralF4 Parrot27/10 cierreactivo capturado: Siguiendologs2ciclos/0nuevos/
+2sincambios18:04:37Madrid0.076s; otraimagen5/0/5/18:04:52/0.058s conNetworkError,
+fin18:09:32igual. TerminalCtrlC informaConsoladetenida yprompt. Errorred
+coherenteconbackendcerrado; Siguiendovisibleesúltimoestadorecibido,noactual.
+Acreditacierreinformadopor lanzador, no inspecciónindependienteprocesos/puertos
+niausenciaauto-resume. Próximo check structured --with-puerto-umbral
+--lab-mode corrected manualenVM (preflightlecturapuertos/locks/Composeinspect,
+sinstart) antesreapertura. Agenterevisacódigo yregistra,sinVM/escenarios/LLM.
+Actaslocalesposteriores02d2638; aceptaciónF4globalpendiente. Históricosabajo.
+
+Puerto UmbralF4 Parrot27/10 doscapturasparadamanual: Detenido/31ciclos/
+0snapshotsnuevos/31sincambios/último18:01:37Madrid0.065s, fin18:03:48igual.
+Contadoresyfechaidénticos entreimágenes, coherente conparada, sin relojexterno
+ni inspecciónprocesos. Próximo cierrelanzadorconseguimientoactivo: nuevasésión
+5min5s, >=2ciclos/capturaSiguiendo, CtrlCterminalpropia/esperarprompt/capturar
+salida; revisarantesrearranque. No nuevos escenarios/LLM. Pendiente cierre
+procesosysin auto-resume; F4aceptaciónglobalabierta. Agenteregistrosololocal,
+sin VMoperativa ni publicaractasposteriores02d2638. Históricosabajo.
+
+Puerto UmbralF4 Parrot27/10 capturasnuevasesión: Pausado3ciclos/0snapshotsnuevos/
+3sincambios/último17:58:59Madrid0.064s ySiguiendologs7/0/7/17:59:35Madrid
+0.060s. Fin18:03:48igual; mismosnapshot/SHA/17líneas/modocorregido yfecha
+snapshot17:50:51. Reanudacióny reutilizaciónentresesiones observadas, sin
+extenderduración; sin pruebaindependientehash/jobs/latenciaglobal. Próximo
+Detenerseguimiento, esperarDetenido ycapturar; tras15s Actualizarseguimiento
+ycompararcaptura contadores/últimocicloestables (pollingcesaalparar).
+Parada/cierrependientes; sin escenarios/LLM ni VMporagente; actaslocales.
+Entradas inferiores históricas.
+
+Puerto UmbralF4 Parrot27/10 trescapturas: dos Pausado ytercera finalizadapor
+duración; todas26ciclos/1snapshotnuevo/25sincambios/último17:52:58Madrid/
+0.057s, fin17:55:51. Mismosnapshot/SHA/17líneas/modocorregido enlas3;
+snapshotfechado17:50:51. Acreditapausavisibleestableyvencimientomientras
+pausada; intervaloentreimágenes no medidoindependientemente, no latencia26
+ni nojobsverificados. Próximo nuevasésión5min5s (anteriorfinalizada), alcanzar
+>=2ciclos/Pausar ycapturar, Reanudar ytras10–15scapturar contadoresavanzan.
+No escenarios/LLM, agenteregistrosolo; parada/cierre siguenpendientes.
+Actaslocalesposteriores02d2638, aceptaciónF4globalabierta. Históricosabajo.
+
+Puerto UmbralF4 Parrot27/10 primerasesiónvisible Siguiendologs/intervalo5s/
+duración5min: ciclosválidos10/snapshotsnuevos1/sincambios9, últimociclo
+17:51:37Madrid/0.058s, fin17:55:51Madrid; mensajeSincambiosenventana.
+Evidencia reutilización porcontadores, sin snapshot/hash superior enrecorte
+ni latenciaindividualdelos10ciclos. Próximo alcanzar>=20ciclos si sigueactiva,
+Pausar y comparar2capturasPausado separadas15s contadores/últimociclosinavanzar.
+Siyafinalizóduración, recogerestadoantesde indicarnuevaacción. Sin nuevos
+escenarios/LLM; agenteregistra únicamente. F4AC1global/pausa/parada/cierre
+siguenpendientes; actaslocalesposteriores02d2638. Históricosabajo.
+
+Puerto UmbralF4 Parrot27/10 capturaActividad inicial: UI nueva controlesvisibles,
+seguimientoDetenido, iniciarhabilitado/pausa-reanudar-detenerdeshabilitados,
+perfilcorregido, intervalo5s/duración30minpredeterminados. Capturaantigua
+26/10 20:08:38Madrid/17líneas/snapshot+SHAvisibles; no estadocontenedoractual
+ni auto-resume tras sesiónprevia acreditados. Próximo usuarioselecciona5min,
+mantiene5s eIniciar, esperar15–20s sintráficoportal ycapturarestado fuente+
+contadores. Primerareferenciapuederenovarseporreinicio/procedencia; comparar
+siguientes ciclos. Sin escenarios/LLM ni operaciónVMagente; actaslocales.
+Entradas inferiores históricas.
+
+Puerto UmbralF4 Parrot27/10 captura compilaciónfrontend tras02d2638: Next16.3.8
+Webpack compiled8.1s/TS3.6s/4de4páginas/traces+optimizaciónfinal/rutasestáticas
+/y_not-found. Salidafinalcorrecta visible; sin códigoexit/prompt enrecorte.
+CompilaciónVMacreditada porsalidausuario, no ejecuciónagente ni seguimiento.
+Próximo volverraízdesdefrontend yarranqueconjunto structured --with-puerto-umbral
+--lab-mode corrected; revisarActividadcontrolesdetenidos antesactivarF4.
+Sin escenarios/corpus/LLM. Validaciónsesión/pausa/parada/cierrependientes;
+actaslocalesposterioresalcommitpublicado, históricosabajo.
+
+Puerto UmbralF4 publicación27/10 verificada: mainremoto yHEADlocal completos
+02d26388b67fc51591eaede9bf2056f28cadbea1, árbollimpio traspush18archivos
+[skip ci]. CapturausuarioParrot acredita pullfast-forward abab01d..02d2638
+yHEADmain/originmain02d2638; no salidaCtrlC/statusprevio/build enrecorte.
+Próximo compilarsolofrontendVM con NodeNext build --webpack, dependenciasya
+instaladas; esperar capturafinalantesarranque. No escenarios/suites/LLM ni
+seguimientoVM poragente. ActaactualizaciónlocalF4 posterior sinpublicar.
+Validaciónoperativa/cierreF4/F2F3F5 pendientes; entradas inferiores históricas.
+
 Puerto Umbral27/10 usuario acepta validaciónoperativaF4 guiada concapturas y
 publicación/actualizaciónParrot comopasosprevios. Se prepara commit/push
 F4+actasmanuales acumuladas, [skip ci], solo18archivos fuente/docs conocidos;

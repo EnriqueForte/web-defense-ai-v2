@@ -24,11 +24,14 @@ explícito sin ejecutar ciclos o reabrir la ronda de pruebas.
 | F2 | Portal, panel y cinco escenarios en ambos modos implementados y distribuidos dentro de V2 | Corpus histórico 42/45 conservado; variante 1 de SQL/XSS/traversal comparada manualmente en Parrot; comandos corregido observado; validación incompleta |
 | Corrección F2 | Ajustado el límite de procesos para evitar interferencia entre UID de contenedores | Corrección incluida en la fuente distribuida; comportamiento vulnerable de comandos no revisado de nuevo |
 | F3 | Capturador, perfil, APIs, vista Actividad y vínculo trabajo/snapshot desarrollados; arranque conjunto incluido | Frontend compilado con Webpack en Windows; captura y lectura manual observadas en Parrot, en ambos modos; recorrido hasta informe pendiente |
-| F4 | Seguimiento local, API, controles UI y checkpoint implementados el 27/10; publicación autorizada | Compilación y revisión estática correctas; revisión operativa guiada autorizada, aún pendiente |
-| F5 | Evidencia parcial consolidada | Evaluación completa y aceptación pendientes |
+| F4 | Seguimiento local, API, controles UI y checkpoint publicados en 02d2638 | Compilación Parrot y ronda operativa básica completadas, incluida reapertura sin auto-resume; aceptación ampliada pendiente |
+| F5 | Evaluación de archivos existentes, matriz de 45 entradas, JSON y manual de entrega preparados | Revisión documental completada; evaluación del detector y aceptación del MVP pendientes |
 
 F2 y F3 no se marcan cerradas. Se acredita parcialmente la captura/lectura de F3,
 sin presentar como verificado su recorrido completo ni los resultados aplazados.
+La [evaluación F5](PUERTO_UMBRAL_F5_2026_10_27.md) conserva los resultados
+históricos y las observaciones posteriores sin sustituirlos por una puntuación
+de detección. No se reabre el corpus para completar esa documentación.
 
 ## Conservación de F2
 

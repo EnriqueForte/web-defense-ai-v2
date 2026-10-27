@@ -4,7 +4,14 @@ Aplicación educativa independiente del prototipo alojado en Sites. El código d
 laboratorio solo se sirve localmente. No se despliega como backend vulnerable en
 el Site y no contiene credenciales de V2.
 
-## Estado al 26/10/2026
+La [evaluación F5](../../../docs/PUERTO_UMBRAL_F5_2026_10_27.md) y el
+[manual de operación](../../../docs/PUERTO_UMBRAL_OPERACION_LOCAL.md) recogen el
+estado posterior. Parrot cuenta con compilación y ronda básica F4 observadas;
+una variante XSS vulnerable confirmó ejecución en navegador. El corpus completo
+y los fallos históricos conservan sus límites. Las secciones siguientes
+describen la preparación inicial; no solicitan repetir pruebas ahora.
+
+## Estado inicial al 26/10/2026 (histórico)
 
 Implementados el portal Apache, el panel local, cinco escenarios por dos modos,
 datos ficticios, recibos funcionales y límites del servidor. Diez contenedores de
@@ -24,10 +31,11 @@ negativas de aislamiento y límites. F2 no se declara validada ni cerrada.
 Los doce contenedores usados anteriormente quedaron detenidos. Se conservaron
 volúmenes, logs, imágenes y recibos. El sitio privado F1 sigue siendo un prototipo.
 
-## Revisión manual futura
+## Operación directa del laboratorio (referencia histórica)
 
-Desde la raíz de esta fuente y con Docker disponible, cuando el propietario
-decida revisar la web:
+El recorrido actual preferido es el arranque conjunto desde la raíz de V2,
+documentado en el manual enlazado arriba. La preparación independiente inicial
+utilizaba, desde la raíz de esta fuente:
 
 ```powershell
 py -B labctl.py prepare
@@ -36,8 +44,8 @@ py -B labctl.py serve
 
 En Linux se utiliza `python3` en lugar de `py`. `prepare` construye y prepara
 servicios propios, comprueba su configuración y disponibilidad; no recorre el
-corpus ni ejecuta análisis del modelo. El funcionamiento en Parrot sigue
-pendiente de una comprobación en ese equipo.
+corpus ni ejecuta análisis del modelo. En aquella preparación el funcionamiento
+en Parrot aún no estaba comprobado; la revisión posterior está en el acta F4.
 
 Abrir el panel en `http://127.0.0.1:4381`. El portal vulnerable usa 4380 y el
 corregido 4382. Las acciones de escenario solo se inician desde un botón explícito
@@ -47,8 +55,9 @@ recibos anteriores. El formulario de autenticación usa exclusivamente datos
 ficticios y las contraseñas no se incorporan a URLs ni recibos.
 
 El panel distingue reflexión HTTP de ejecución XSS confirmada en un iframe
-sandbox. La revisión visual del resultado y del marcador de navegador queda
-pendiente; no se presume éxito a partir de HTTP 200.
+sandbox. La revisión visual del resultado y del marcador estaba pendiente en el
+primer corpus. La observación posterior de una variante se registra por separado;
+no se presume ejecución a partir de HTTP 200.
 
 Para finalizar, Ctrl+C en la terminal del panel y después:
 

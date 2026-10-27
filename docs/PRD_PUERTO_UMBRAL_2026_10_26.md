@@ -18,6 +18,9 @@ registra después la revisión parcial en Parrot y su finalización sin nuevos
 ensayos. No modifica ni da por cumplidos los criterios de salida de este PRD.
 La [entrega de código F4 del 27/10](PUERTO_UMBRAL_F4_2026_10_27.md) implementa el
 seguimiento local; las verificaciones de ejecución siguen aplazadas.
+La [evaluación documental F5](PUERTO_UMBRAL_F5_2026_10_27.md) consolida después
+el archivo histórico y la revisión manual, incluida la ronda básica F4. Mantiene
+los criterios pendientes y añade un [manual de operación](PUERTO_UMBRAL_OPERACION_LOCAL.md).
 
 ## 1. Producto y propósito
 

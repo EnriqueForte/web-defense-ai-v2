@@ -6,6 +6,12 @@ Actualización del 27/10: [F4 implementada](PUERTO_UMBRAL_F4_2026_10_27.md), sin
 activar seguimiento durante su desarrollo. El propietario autoriza después su
 publicación y revisión operativa guiada con logs existentes. La ronda anterior
 de escenarios sigue finalizada; no se reabren sus casos aplazados.
+La ronda operativa básica F4 queda después completada mediante capturas del
+propietario, incluida la reapertura sin reanudación automática. La aceptación
+ampliada conserva sus pendientes; no se solicitan nuevos casos para este cierre.
+El [bloque F5](PUERTO_UMBRAL_F5_2026_10_27.md) consolida después las evidencias
+existentes y la documentación de entrega, sin nuevos ensayos o análisis. Su
+evaluación del detector y la aceptación del MVP siguen pendientes.
 
 El propietario da margen para terminar las pruebas y continuar con el trabajo
 que no requiera nuevas ejecuciones. Se da por finalizada esta ronda manual:
@@ -46,13 +52,13 @@ histórico por haber observado un rechazo en el modo corregido.
 | F1 | Prototipo privado publicado en Sites | Conservar el alcance del registro F1 |
 | F2 | Cinco familias en código; revisión manual parcial de Parrot documentada | Abierta: cobertura funcional y verificaciones pendientes |
 | F3 | Conector, perfil, API y vista de fuente implementados; captura y lectura observadas en ambos modos | Abierta: recorrido snapshot → trabajo → informe, errores y regresión pendientes |
-| F4 | Seguimiento local implementado el 27/10; controles, API y checkpoint; compilación correcta | Publicación y revisión guiada autorizadas; operación en Parrot aún pendiente de evidencia |
-| F5 | Evidencia parcial organizada | Evaluación completa y aceptación pendientes |
+| F4 | Seguimiento publicado en 02d2638 y frontend compilado en Parrot | Ronda operativa básica completada, incluida reapertura sin auto-resume; aceptación ampliada pendiente |
+| F5 | Archivo histórico de 45 entradas revisado offline, nueve observaciones manuales relacionadas y manual de entrega preparados | Revisión documental completada; evaluación actual del detector y aceptación del MVP pendientes |
 
-El frontend se compiló previamente en Windows con Webpack. El propietario
-confirmó el acceso a los servicios en Parrot y aportó las imágenes posteriores.
-No se atribuyen a esas imágenes una compilación completa de Parrot, IDs de
-contenedores o verificación del commit efectivo de la VM.
+El frontend se compiló en Windows con Webpack. La evidencia posterior F4
+acredita actualización a `02d2638`, compilación, acceso y cierre/reapertura en
+Parrot. No se atribuyen IDs actuales de contenedores o una instalación limpia
+a esas imágenes. El informe F5 mantiene separado el alcance de cada fuente.
 
 La fuente anterior estaba publicada hasta `abab01d`, posterior a `fdffd08`.
 El propietario autoriza después publicar F4 junto con las actas de esta ronda;
@@ -85,8 +91,9 @@ Alcance previsto:
 La preparación inicial pedía resolver cancelación durante una captura,
 identidad del contenedor, rotación/truncado y conservación del checkpoint antes
 de activar el seguimiento. El registro F4 del 27/10 enlazado al inicio describe
-su implementación posterior. No se han ejecutado ciclos de F4 ni se ha medido su
-objetivo de latencia. Tampoco se han habilitado servicios nuevos en este cierre.
+su implementación posterior. En el momento de aquella preparación aún no se
+habían ejecutado ciclos F4. La ronda básica posterior está documentada; el
+objetivo completo de latencia sigue sin medirse. F5 no habilita nuevos servicios.
 
 ## Conservación
 

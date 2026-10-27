@@ -1,0 +1,446 @@
+{
+  "schema": "puerto-umbral.f5-evaluation.v1",
+  "date": "2026-10-27",
+  "timezone": "Europe/Madrid",
+  "status": "existing_evidence_review_and_delivery_documentation_prepared",
+  "published_runtime_revision": "02d26388b67fc51591eaede9bf2056f28cadbea1",
+  "runtime_source_changed_in_f5": false,
+  "f5_artifacts_published_at_report_creation": false,
+  "subsequent_publication": "Authorized F4/F5 documentation and offline reviewer commit; identify publication through Git history and remote verification.",
+  "mvp_accepted": false,
+  "release_created": false,
+  "activity_scope": {
+    "new_scenarios": 0,
+    "automatic_suites": 0,
+    "docker_calls": 0,
+    "model_calls_started_by_this_block": 0,
+    "notifications_requested": 0
+  },
+  "historical_review": {
+    "artifact": "docs/PUERTO_UMBRAL_F5_CORPUS_2026_10_27.json",
+    "artifact_sha256": "b24679cdc3e77afc0e7fc3ad31fa5479755190d5629d224a98415dd03f2bf34f",
+    "suite_sha256": "60e045f1cf9214d05771b35e42f872d2573c69dcc9355430af1c29a995462cbb",
+    "corpus_sha256": "cb95ce3004a4ec02ecfb019be787e13b29427618143dfd2ad25ad859ef8bbae6",
+    "original_inputs": 92,
+    "historical_kind": "functional_http_not_v2_evaluation",
+    "cases": 45,
+    "http_conformant": 42,
+    "http_nonconformant": 3,
+    "recorded_executor_requests": 75,
+    "correlated_access_lines": 75,
+    "historical_source_revision": null,
+    "results_apply_to_current_runtime": false,
+    "corpus_digest_byte_scope": "Exact local archived/working-copy bytes, not a normalized semantic digest.",
+    "published_corpus_blob_sha256": "ba5c9cc8b382e75f63a10e748f3ff40d207f372454140e68d7147804bcfab267"
+  },
+  "manual_review": {
+    "evidence_kind": "owner_screenshots",
+    "matched_corpus_entries": 9,
+    "coverage_is_detection_score": false,
+    "new_cases_executed_by_f5": 0,
+    "cases": [
+      {
+        "case_id": "sqli-a1-vulnerable",
+        "scenario": "sqli",
+        "mode": "vulnerable",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "reserved_row_observed",
+        "http_status": 200,
+        "note": "UM-9000 visible en la respuesta.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "sqli-a1-corrected",
+        "scenario": "sqli",
+        "mode": "corrected",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "effect_blocked_for_observed_input",
+        "http_status": 200,
+        "note": "Lista cargo vacía, sin el señuelo.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "sqli-b3",
+        "scenario": "sqli",
+        "mode": "corrected",
+        "kind": "benign",
+        "display_variant": 3,
+        "observation": "normal_use_observed",
+        "http_status": 200,
+        "note": "Asteria devuelve UM-1284 y UM-1287.",
+        "matching_basis": "equivalent_normal_input_via_browser",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "xss-a1-vulnerable",
+        "scenario": "xss",
+        "mode": "vulnerable",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "browser_execution_confirmed",
+        "http_status": 200,
+        "note": "El panel confirma el marcador del iframe.",
+        "matching_basis": "panel_and_browser",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "xss-a1-corrected",
+        "scenario": "xss",
+        "mode": "corrected",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "encoded_text_observed",
+        "http_status": 200,
+        "note": "Respuesta codificada y texto literal en iframe; mensaje final del navegador fuera del recorte.",
+        "matching_basis": "panel_and_browser_partial",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "traversal-a1-vulnerable",
+        "scenario": "traversal",
+        "mode": "vulnerable",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "reserved_fixture_observed",
+        "http_status": 200,
+        "note": "Documento señuelo ficticio visible.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "traversal-a1-corrected",
+        "scenario": "traversal",
+        "mode": "corrected",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "effect_blocked_for_observed_input",
+        "http_status": 403,
+        "note": "document_not_authorized, sin marcador reservado.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "traversal-b1",
+        "scenario": "traversal",
+        "mode": "corrected",
+        "kind": "benign",
+        "display_variant": 1,
+        "observation": "normal_use_observed",
+        "http_status": 200,
+        "note": "Protocolo ficticio público de atraque.txt visible.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      },
+      {
+        "case_id": "command-a1-corrected",
+        "scenario": "command",
+        "mode": "corrected",
+        "kind": "attempt",
+        "display_variant": 1,
+        "observation": "effect_blocked_for_observed_input",
+        "http_status": 400,
+        "note": "invalid_component.",
+        "matching_basis": "panel_selection_and_response",
+        "evidence_kind": "owner_screenshots",
+        "evidence_reference": "docs/PUERTO_UMBRAL_PARROT_2026_10_26.md",
+        "capture_visible_in_v2": true,
+        "vm_receipt_bytes_reviewed": false,
+        "vm_snapshot_digest_recomputed": false,
+        "detector_evaluation": "not_evaluated",
+        "substitutes_historical_receipt": false
+      }
+    ],
+    "additional_observations": [
+      {
+        "scenario": "sqli",
+        "mode": "vulnerable",
+        "kind": "normal_navigation",
+        "note": "GET Asteria con HTTP 200 visible en Actividad; cuerpo de esa búsqueda no aportado en esa imagen.",
+        "counted_as_corpus_case": false
+      }
+    ]
+  },
+  "f4_review": {
+    "reference": "docs/PUERTO_UMBRAL_F4_2026_10_27.md",
+    "basic_operational_round": "completed_by_owner_screenshots",
+    "representative_session_final_cycles": [
+      26,
+      31,
+      5
+    ],
+    "sum_not_used_as_latency_sample": true,
+    "pause_resume_stop_expiry_observed": true,
+    "reopen_without_auto_resume_observed": true,
+    "full_acceptance": false
+  },
+  "detector_evaluation": {
+    "status": "not_evaluated",
+    "attempt_cases_in_fixed_corpus": 30,
+    "benign_cases_in_fixed_corpus": 15,
+    "targets": {
+      "minimum_detected_attempts": 27,
+      "minimum_detected_attempts_per_family": 5,
+      "attempt_cases_per_family": 6,
+      "maximum_benign_false_alarms": 0
+    },
+    "precision": null,
+    "recall": null,
+    "false_positive_rate": null,
+    "model_latency_seconds": null,
+    "provider_cost_observed": null
+  },
+  "criteria": [
+    {
+      "id": "F5-AC1",
+      "status": "partial_historical_coverage",
+      "evidence": "45 entradas históricas con recibo y snapshot; 42 conformes y 3 no conformes.",
+      "pending": "No se repite el corpus con la corrección y versión actual."
+    },
+    {
+      "id": "F5-AC2",
+      "status": "not_evaluated",
+      "evidence": null,
+      "pending": "Sin resultados de detector; objetivos PRD sin medir y sin aceptación expresa de alcance."
+    },
+    {
+      "id": "F5-AC3",
+      "status": "documented_in_current_report",
+      "evidence": "Efecto esperado, indicador de intento, observación funcional y evaluación del detector separados.",
+      "pending": "No atribuir etiquetas de detección a la evaluación HTTP."
+    },
+    {
+      "id": "F5-AC4",
+      "status": "observed_for_existing_parrot_installation",
+      "evidence": "Actualización, build, arranque, cierre, preflight y reapertura documentados en F4.",
+      "pending": "No es instalación limpia ni certificación multiplataforma."
+    },
+    {
+      "id": "F5-AC5",
+      "status": "partial_local_archive_verified",
+      "evidence": "92 entradas locales revisadas, digests y segunda lectura iguales.",
+      "pending": "Originales de VM, recuperación del nuevo perfil, presupuesto e informes del proveedor no revisados."
+    }
+  ],
+  "deferred_items": [
+    {
+      "id": "PU-P01",
+      "topic": "functional_current_corpus",
+      "state": "deferred",
+      "reason": "No nuevas ejecuciones; tres fallos históricos de comandos conservados."
+    },
+    {
+      "id": "PU-P02",
+      "topic": "detector_and_model",
+      "state": "deferred",
+      "reason": "Falta alcance/presupuesto de análisis y resultados reales; no se solicitan llamadas."
+    },
+    {
+      "id": "PU-P03",
+      "topic": "vm_snapshot_integrity_and_regression",
+      "state": "pending_evidence",
+      "reason": "Las capturas no sustituyen los originales ni la regresión de perfiles anteriores."
+    },
+    {
+      "id": "PU-P04",
+      "topic": "follow_extended_conditions",
+      "state": "deferred",
+      "reason": "Latencia individual, rotación, truncado, desconexión y almacenamiento no revisados."
+    },
+    {
+      "id": "PU-P05",
+      "topic": "recovery_and_confinement",
+      "state": "deferred",
+      "reason": "Sin nueva recuperación del perfil Puerto ni verificaciones negativas de confinamiento."
+    },
+    {
+      "id": "PU-P06",
+      "topic": "current_ui_accessibility_and_mobile",
+      "state": "not_evaluated",
+      "reason": "No trasladar la revisión visual F1 a las pantallas locales posteriores."
+    },
+    {
+      "id": "PU-P07",
+      "topic": "mvp_acceptance",
+      "state": "not_accepted",
+      "reason": "Continuar desarrollo no acepta criterios aplazados ni convierte una entrega parcial en MVP cerrado."
+    }
+  ],
+  "source_inventory": {
+    "scope": "Selected published Git blob bytes at the stated revision, independent of checkout line endings; not installed packages, image IDs or operational data.",
+    "revision": "02d26388b67fc51591eaede9bf2056f28cadbea1",
+    "files": {
+      "webdefense.py": {
+        "sha256": "97b4fdf7727fe6af55f5bd6d461738043f3de0570f97a1d5923438ce96c770c2",
+        "bytes": 7632
+      },
+      "scripts/start_application.py": {
+        "sha256": "f1082b87ca4202bcc2a6d5ebe5b328d0ffd2ea4a43d794ed3941b12f57a51a7d",
+        "bytes": 9751
+      },
+      "scripts/puerto_umbral_launcher.py": {
+        "sha256": "fd60a9053401345321d7de0c15620841ef678c55aad32ed1c6226626614afc2f",
+        "bytes": 2291
+      },
+      "scripts/local_runtime_profile.py": {
+        "sha256": "a502b6825aa0051e8bbbe5a8948c00a09c23dbf88ba6bf3fa1ea0aece48a1c93",
+        "bytes": 8956
+      },
+      "scripts/backup_operational.py": {
+        "sha256": "58ce02b0e3290e53c0f0e377635fa518937eea989278687f1e5d122e1ca2a18e",
+        "bytes": 12509
+      },
+      "scripts/restore_operational.py": {
+        "sha256": "2be5a7cb8dd87a5ed9dae823cd86f65441924a89c820a9e76880e634ec5ae057",
+        "bytes": 9368
+      },
+      "dashboard/app.py": {
+        "sha256": "29cf6f6b3fcec11dfaac8c554f9a39648527417a7b09d1823e3c73a817984b7b",
+        "bytes": 46613
+      },
+      "dashboard/openapi-v1.json": {
+        "sha256": "887a017f235369ca49cf7bca18020fbee1d29d246b7f0d8f502aa54ecf9843e9",
+        "bytes": 18653
+      },
+      "dashboard/services/puerto_umbral_capture.py": {
+        "sha256": "67c910fc7f99edaed5edf3ceff2f193f3a30d1e5a0389d364cf416c24f053744",
+        "bytes": 17139
+      },
+      "dashboard/services/puerto_umbral_follow.py": {
+        "sha256": "acd98783005e873978e939e7ac23e8692a7370dfdf8b999a08c6cafe37406aed",
+        "bytes": 14889
+      },
+      "dashboard/services/runtime_lock.py": {
+        "sha256": "c0839e5c4cfb60598b3729a4866009ab9f6b3efccbc1f26e2e75cd30f8426d3c",
+        "bytes": 2149
+      },
+      "labs/puerto_umbral/labctl.py": {
+        "sha256": "4dfd4b629571c0e5d31703524d4bb77b548576c65cfd5bba96e33f047ab728bc",
+        "bytes": 1520
+      },
+      "labs/puerto_umbral/lab/controller.py": {
+        "sha256": "607a80493146a84ba86b3a3a38aae276d82c306030dc194e9b5608e6a4ddc651",
+        "bytes": 28949
+      },
+      "labs/puerto_umbral/lab/target.py": {
+        "sha256": "769dc03e00504e5ef05bf1751adde17927b2ce6006b7a538ee2f883e46267687",
+        "bytes": 10072
+      },
+      "labs/puerto_umbral/lab/catalog.py": {
+        "sha256": "9cdc7091139787c5fe0c4fdf14ca9faab007a2b9a0aa1437277919aca848570d",
+        "bytes": 2740
+      },
+      "labs/puerto_umbral/lab/corpus.json": {
+        "sha256": "ba5c9cc8b382e75f63a10e748f3ff40d207f372454140e68d7147804bcfab267",
+        "bytes": 8186
+      },
+      "labs/puerto_umbral/lab/compose.yaml": {
+        "sha256": "f04d3a36c10352f90a416d8f9f5659c494de69c753914e0e7a3ed96ca805f97f",
+        "bytes": 4834
+      },
+      "labs/puerto_umbral/lab/Dockerfile.target": {
+        "sha256": "349ceeec1578ab91a5ae0dcc47f62bdafea078ca1837f71d5ce39553bf491d83",
+        "bytes": 442
+      },
+      "labs/puerto_umbral/lab/Dockerfile.apache": {
+        "sha256": "61b5bdb23029d88039b82462501ee7bdab178592651297d18e47052e88a33392",
+        "bytes": 372
+      },
+      "labs/puerto_umbral/lab/httpd.conf": {
+        "sha256": "21e7bb1cefac9a72c52bb73d174eeca17fa73f05d00fbd55ae44a6f32ff34e5e",
+        "bytes": 1721
+      },
+      "frontend/src/components/log-source-panel.tsx": {
+        "sha256": "0fab82561d778c4ebb3c46e6762bc1fccab560efcd81d0d2e1397f223072fbcb",
+        "bytes": 7633
+      },
+      "frontend/src/components/log-follow-panel.tsx": {
+        "sha256": "836ce2b5d09680c18b8791c1e33a4166abba269a7ddd0454c0e954a07e55af5b",
+        "bytes": 10446
+      },
+      "frontend/src/app/page.tsx": {
+        "sha256": "d509b00f1d65dc07e466b869f5ec264300a791fbe71656de312a997573be2f81",
+        "bytes": 35580
+      },
+      "frontend/src/app/globals.css": {
+        "sha256": "7fbd0780bd4feb3bc4c81dbee21e058b9d9c60ba7f2eb2cba9c96ec26f5ac9d6",
+        "bytes": 29221
+      },
+      "frontend/package.json": {
+        "sha256": "0319a44f33a1731fe26bfddab6b4a2379b6ab9972244e3e4f28dd4df5a10936d",
+        "bytes": 792
+      },
+      "frontend/pnpm-lock.yaml": {
+        "sha256": "c60adc7586a2d7e7ce81f34bba81d645f7c541bd73c9e51080369533ba2daf51",
+        "bytes": 142612
+      },
+      "requirements.txt": {
+        "sha256": "84fe5b9b3a533d5fa36262e9fac1468c8a69808d339b1b92f84014e936d687cf",
+        "bytes": 3420
+      },
+      "constraints-py311.txt": {
+        "sha256": "c3e02fbf8d1a3539212eb318466c63cd5cc3ba5afb8fd3f461c88bec8261fe93",
+        "bytes": 3428
+      }
+    }
+  },
+  "review_tool": {
+    "path": "scripts/review_puerto_umbral_evidence.py",
+    "sha256": "0f8fd52570c641a8d244fcbb4ffde7b85510b4f272ef1fc375c66556376ae256"
+  },
+  "documents": {
+    "report": "docs/PUERTO_UMBRAL_F5_2026_10_27.md",
+    "manual": "docs/PUERTO_UMBRAL_OPERACION_LOCAL.md"
+  }
+}
