@@ -1,6 +1,12 @@
 # Puerto Umbral y V2 — manual de operación local
 
-Referencia de entrega: código operativo `02d2638`, revisión del 27/10/2026.
+Referencia inicial de entrega: código operativo `02d2638`, revisión del 27/10/2026.
+Actualización de estado del 29/10: ejecutor acotado publicado en `1403f8d`,
+corrección de nombres de fuente en `9e71c0c` y un análisis/informe de 17 líneas
+observado en Parrot. Los ajustes de ausencia de informe y cobertura del recibo
+descritos aquí forman parte de la revisión del 29/10, cuya publicación autoriza
+el propietario. La identidad de la entrega se obtiene del commit que incorpora
+esta revisión; su uso y recuperación en Parrot todavía no se han comprobado.
 La [evaluación F5](PUERTO_UMBRAL_F5_2026_10_27.md) registra alcance, evidencias y
 pendientes. Este manual conserva las recetas de uso; no solicita ejecutarlas
 de nuevo durante el bloque documental F5.
@@ -87,6 +93,17 @@ y ausencia de operaciones incompatibles.
 | Modo cambiado | El snapshot anterior pertenece a otra selección; no se presenta como una captura nueva |
 | Error o desajuste | Revisar la fuente; conservar la evidencia anterior, sin interpretar ausencia de eventos |
 
+El estado de salud del informe es independiente de la clave del proveedor.
+El selector actualizado devuelve `missing` cuando no hay puntero de informe
+actual: no equivale a un fallo de Groq. Un puntero existente que no se puede
+validar, contenido incompleto, hashes distintos o rutas enlazadas siguen siendo
+`error`. Este ajuste no crea informes ni utiliza una publicación antigua como
+sustituto. La consola puede seguir mostrando fuentes incompletas hasta disponer
+tanto del log como del informe; `missing` es distinto de `error` en la API.
+
+Los textos de eventos de Amenazas y Reportes identifican la fuente de arranque.
+El propietario confirma el 29/10 la corrección de Puerto Umbral en esas vistas.
+
 El seguimiento necesita **Iniciar seguimiento**. El intervalo permitido es de
 5–60 segundos y la duración de 1–30 minutos; la interfaz ofrece sesiones de
 5, 15 y 30 minutos. La ronda F4 utilizó cinco segundos y cinco minutos.
@@ -126,6 +143,7 @@ interrupciones posibles queda fuera de lo demostrado por esas capturas.
 | Ubicación | Contenido |
 | --- | --- |
 | `.local-state/puerto-umbral/` en la raíz | Capturas V2, snapshots/recibos, seguimiento, publicaciones y SQLite del perfil |
+| `.local-state/puerto-umbral/manual-validation.json` | Resumen de la autorización única y su resultado; no borrar para permitir otro análisis |
 | `labs/puerto_umbral/.local-state/f2/` | Recibos funcionales, snapshots del laboratorio y registros de preparación |
 | `.local-state/launcher/` | Salidas del lanzador, compilación de preparación y parada |
 | Volúmenes/imágenes Docker | Estado y artefactos propios del laboratorio; conservación separada |
@@ -137,11 +155,19 @@ y el espacio disponible pueden detener nuevas capturas; no se borran originales
 automáticamente para continuar. El historial completo no está garantizado.
 
 El script [backup_operational](../scripts/backup_operational.py) admite
-`--profile puerto-umbral`, incorpora los nombres permitidos de snapshots y
-seguimiento y produce un manifiesto, ZIP y comprobación de restauración. Requiere
+`--profile puerto-umbral`, incorpora los nombres permitidos de snapshots,
+seguimiento y, con el ajuste local del 29/10, `manual-validation.json`. Produce
+un manifiesto, ZIP y comprobación de restauración. El restaurador utiliza la
+misma lista permitida, por lo que reconoce ese recibo sin admitir otros JSON
+arbitrarios. Requiere
 detener las operaciones activas; comprobar `verified` y `missing` antes de
 atribuir cobertura. Esta capacidad no se volvió a ejecutar para Puerto Umbral
 en F5.
+
+La ampliación no añade lecturas de `.env` ni claves. Conserva el recibo como
+archivo de evidencia, sin reutilizarlo para arrancar sesiones o repetir el
+análisis. Copias antiguas no ganan ese archivo retroactivamente. La cobertura
+solo puede atribuirse a archivos incluidos en un manifiesto concreto.
 
 Ese respaldo de aplicación **no incluye** los recibos del laboratorio bajo
 `labs/`, los logs completos del lanzador, `.env`, imágenes Docker o sus volúmenes.
@@ -163,7 +189,10 @@ El panel funcional, la captura y el detector tienen evidencias distintas.
 Un HTTP 200 puede acompañar un efecto o una respuesta normal. Un HTTP 400/403
 puede rechazar una entrada y seguir dejando un indicador observable. La lectura
 de una petición en V2 acredita recepción del registro; la clasificación y el
-informe requieren un análisis separado que no se ha realizado en F5.
+informe requieren un análisis separado. Después de la revisión documental F5
+se autorizó y observó [un análisis acotado](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md):
+17 líneas, tres llamadas a Groq y publicación visible de cuatro grupos. No se
+ha evaluado por ello el corpus completo ni se ha aceptado el MVP.
 
 La ronda básica F4 está completada. La [evaluación F5](PUERTO_UMBRAL_F5_2026_10_27.md)
 mantiene los tres fallos históricos, las variantes aplazadas, las métricas del

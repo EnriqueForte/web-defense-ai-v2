@@ -32,11 +32,12 @@ DIAGNOSTIC_FILES = {"checkpoint.json", "receipt.json", "process.json"}
 
 
 def puerto_capture_name(name):
+    """Exact capture/receipt paths shared by backup and isolated restoration."""
     prefix = ".local-state/puerto-umbral/"
     if not name.startswith(prefix):
         return False
     local = PurePosixPath(name[len(prefix):])
-    if local.as_posix() in {"current.json", "last-attempt.json"}:
+    if local.as_posix() in {"current.json", "last-attempt.json", "manual-validation.json"}:
         return True
     if local.as_posix() == "following/current.json":
         return True

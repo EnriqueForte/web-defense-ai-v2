@@ -2,6 +2,31 @@
 
 ## Alcance actual
 
+Puerto Umbral29/10 usuario autoriza publicarconcommit/push [skip ci] las
+mejorasconservación/estado y documentación. Alcance7archivos: AGENTS,
+active_report, backup_operational, manual/estadoconsolidado/F5/ANALISIS_ACOTADO.
+Base9e71c0c/main comprobadafetch; verificarstaging/HEADremoto/árbollimpiotras
+push. No modelos/backup/restore/suites/servicios/VM porpublicar. Actualización
+Parrotposteriorsinbuildfrontendnireinstalar: cerrarconsolapropia/pull--ff-only/
+rearranqueperfilcorrected. Conservarinformeyrecibo/no repetir análisis;
+recuperaciónoperativa/evaluación45casos/F5MVP siguenpendientes. Históricosabajo.
+
+Puerto Umbral29/10 propietario confirma comprobada correcciónnombres en
+Parrot y pide continuarpendientes. Publicaciónanterior9e71c0c completada:
+mainremoto9e71c0cdac60fba70c037dc7c04405cbd5a18b35 yárbolWindowslimpio
+verificadosentonces; confirmaciónactualnodefineHEADVM/build/processos.
+Continuaciónlocalconservación/estado: backup_operational.puerto_capture_name
+añademanual-validation.jsonexacto; restore_operational.expected_kind reutiliza
+esalistayconservaaislamiento. active_report distinguepunteroausente missing
+mediante_directory+lstat antesload_current; punteroexistenteinválido/links/
+permisos/generaciónincompleta siguenerror, sinfallbacklegacy. Sinbackup/
+restore/suites/modelos/servicios/VM ejecutados. Actasmanual/estadoconsolidado/
+F5/ANALISIS_ACOTADO actualizancronologíaobservada, no reescribenJSONhistóricos.
+No aceptarMVP/45casos/F4ampliada nirepetiranálisis: autorizaciónconsumida.
+AST/compilaciónenmemoria3Python/24enlaceslocales/diffcheckOK, sinimportapp.
+Preparaciónlocalposterior9e71c0c sincommit/push; verificaciónoperativadelos
+dosajustespendiente. Entradasinferioresconservadascomohistoria.
+
 Puerto Umbral27/10 usuario autoriza commit/push [skip ci] correcciónnombre
 fuente y actaspendientesdelanálisisúnico. Alcance7archivos: AGENTS,
 dashboardapp/OpenAPI, page/api/api-contractsfrontend y guíaANALISIS_ACOTADO.

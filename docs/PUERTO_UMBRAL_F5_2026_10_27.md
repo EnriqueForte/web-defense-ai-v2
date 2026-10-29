@@ -3,6 +3,14 @@
 Fecha: 27/10/2026. Estado: **revisión de evidencias existentes y documentación
 preparadas; aceptación del MVP pendiente**.
 
+Actualización del 29/10: las tablas y JSON de esta revisión conservan el estado
+del archivo histórico al crear la entrega F5. Después se autorizó y observó
+[un análisis acotado de 17 líneas](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md),
+incluida su publicación y visualización en V2. Su autorización ya se consumió.
+No se transforma esa muestra en métricas de los 45 casos ni se reescriben los
+resultados históricos. El [estado consolidado vigente](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md)
+recoge esta evidencia posterior y los pendientes que continúan abiertos.
+
 El propietario autoriza continuar con F5 después de completar el recorrido
 operativo básico F4. Este bloque conserva el alcance acordado: leer evidencias
 ya guardadas, organizar resultados y preparar la entrega, sin nuevos escenarios,

@@ -2,6 +2,36 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Actualización vigente del 29/10/2026
+
+El ejecutor acotado se publicó en `1403f8d` y la corrección de nombres de fuente
+en `9e71c0c`. Ambas publicaciones se verificaron contra main remoto y el árbol
+local quedó limpio en sus respectivos cierres. El propietario confirma ahora
+que comprobó la corrección en Parrot; es una confirmación del propietario, sin
+una nueva captura de HEAD, compilación o procesos.
+
+El recorrido **snapshot guardado → análisis Groq → publicación → informe visible
+en V2** está comprobado para el análisis
+`f5b674c867994aeba3beeb4a638d7a33`: 17 líneas de 17, tres llamadas, 8150 tokens
+reportados y cuatro grupos que requieren investigación (tres altos y uno medio).
+El coste real del proveedor sigue sin medirse. El
+[acta del análisis](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md) conserva los
+identificadores, hashes, alcance y origen de la evidencia. La autorización de
+ese único análisis está consumida y no se repite.
+
+Continúa el desarrollo local sin nuevas ejecuciones con dos ajustes concretos:
+incluir el recibo `manual-validation.json` en la lista de respaldo/restauración
+y distinguir la ausencia de publicación (`missing`) de una publicación inválida
+(`error`). No se ha realizado un respaldo, restauración o recorrido operativo
+para validarlos. No se alteran los bytes del informe o la evidencia de la VM.
+
+Quedan abiertos la calidad del detector sobre los 45 casos, los tres fallos
+funcionales históricos, las condiciones ampliadas de F4, la recuperación real
+del perfil y la aceptación global del MVP. La continuación del desarrollo no
+acepta esos criterios ni autoriza escenarios, suites o nuevas llamadas al LLM.
+
+## Cronología anterior
+
 Actualización del 27/10: [F4 implementada](PUERTO_UMBRAL_F4_2026_10_27.md), sin
 activar seguimiento durante su desarrollo. El propietario autoriza después su
 publicación y revisión operativa guiada con logs existentes. La ronda anterior
@@ -51,9 +81,9 @@ histórico por haber observado un rechazo en el modo corregido.
 | --- | --- | --- |
 | F1 | Prototipo privado publicado en Sites | Conservar el alcance del registro F1 |
 | F2 | Cinco familias en código; revisión manual parcial de Parrot documentada | Abierta: cobertura funcional y verificaciones pendientes |
-| F3 | Conector, perfil, API y vista de fuente implementados; captura y lectura observadas en ambos modos | Abierta: recorrido snapshot → trabajo → informe, errores y regresión pendientes |
+| F3 | Conector, perfil, API y vista de fuente implementados; captura y lectura observadas en ambos modos; un recorrido de snapshot guardado a informe visible completado después | Abierta: validación básica limitada a ese snapshot; errores, regresión y evaluación ampliada pendientes |
 | F4 | Seguimiento publicado en 02d2638 y frontend compilado en Parrot | Ronda operativa básica completada, incluida reapertura sin auto-resume; aceptación ampliada pendiente |
-| F5 | Archivo histórico de 45 entradas revisado offline, nueve observaciones manuales relacionadas y manual de entrega preparados | Revisión documental completada; evaluación actual del detector y aceptación del MVP pendientes |
+| F5 | Archivo histórico de 45 entradas revisado offline, nueve observaciones manuales relacionadas, manual de entrega y análisis acotado posterior documentados | Revisión documental y un recorrido de integración completados; evaluación del corpus, recuperación y aceptación del MVP pendientes |
 
 El frontend se compiló en Windows con Webpack. La evidencia posterior F4
 acredita actualización a `02d2638`, compilación, acceso y cierre/reapertura en

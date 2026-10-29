@@ -103,9 +103,11 @@ al finalizar su único trabajo.
 Un error no se resuelve repitiendo el análisis ni borrando el registro.
 Una ejecución válida permitirá comprobar el recorrido del snapshot concreto;
 no constituye evaluación de los 45 casos ni aceptación completa de F2–F5.
-El nuevo resumen `manual-validation.json` no pertenece a la lista actual del
-backup general: conservarlo aparte si se respalda este recorrido. El job
-idempotente en SQLite y los diagnósticos sí utilizan rutas ya respaldables.
+En la versión publicada `1403f8d`, el resumen `manual-validation.json` no
+pertenece a la lista del backup general: conservarlo aparte al utilizar esa
+versión. El job idempotente en SQLite y los diagnósticos sí utilizan rutas ya
+respaldables. La ampliación local del 29/10, descrita al final, corrige esa
+omisión sin modificar los archivos históricos.
 
 ## Verificación y publicación
 
@@ -208,3 +210,26 @@ actualizar el checkout, recompilar el frontend con Webpack y volver a arrancar
 el mismo perfil. No reinstalar dependencias ni repetir el análisis autorizado:
 el informe ya publicado permanece en el estado local de la VM. La recepción
 visual de esta corrección en Parrot todavía no se ha observado.
+
+## Continuación del 29/10/2026
+
+La corrección de nombres y las actas se publicaron en
+`9e71c0cdac60fba70c037dc7c04405cbd5a18b35`, con main remoto verificado y árbol
+local limpio tras el push. El propietario declara ahora comprobada la corrección
+en Parrot y solicita continuar los pendientes. No se infiere de esa declaración
+una nueva inspección del HEAD o de los archivos originales de la VM.
+
+Se preparan localmente dos ajustes de conservación y estado: el recibo del
+análisis único pasa a ser un nombre permitido en el respaldo de Puerto Umbral
+y, a través de la misma lista, en la restauración aislada; el selector distingue
+un puntero ausente (`missing`) de una publicación existente inválida (`error`).
+No se ejecutan respaldos/restauraciones, servicios, suites o modelos para este
+bloque. El informe observado se conserva; los cambios no autorizan repetir el
+análisis ni consideran cerrado el MVP.
+
+El propietario autoriza después el commit/push de esos dos ajustes y sus actas
+con `[skip ci]`. La actualización de Parrot solo requiere recibir la fuente y
+reiniciar V2 en el mismo perfil, sin recompilar el frontend o reinstalar.
+Publicar o arrancar no ejecuta un respaldo, restauración o análisis nuevo.
+La revisión remota se realiza al terminar la publicación; la identidad de esta
+entrega queda en el commit que incorpora la presente nota.
