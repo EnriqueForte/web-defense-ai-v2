@@ -22,6 +22,12 @@ La [evaluación documental F5](PUERTO_UMBRAL_F5_2026_10_27.md) consolida despué
 el archivo histórico y la revisión manual, incluida la ronda básica F4. Mantiene
 los criterios pendientes y añade un [manual de operación](PUERTO_UMBRAL_OPERACION_LOCAL.md).
 
+El 29/10 el propietario confirma que desea cerrar F0–F7 antes del 03/11 y
+mantiene por ahora solo desarrollo y revisión de código. El
+[plan de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) y la
+[preparación F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) registran la implementación
+adicional, sin modificar estos criterios o declarar aceptadas las fases.
+
 ## 1. Producto y propósito
 
 Puerto Umbral será una aplicación de laboratorio ambientada en una estación

@@ -1,6 +1,9 @@
 # Estado para la entrega final — 12/10/2026
 
-Este es el resumen vigente. Las actas fechadas anteriores conservan sus pruebas
+Este es el resumen del cierre anterior de V2, revisado hasta el 21/10. El
+[estado adicional y plan de cierre V2/Puerto Umbral](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+recoge el trabajo posterior, sin reabrir aquellos criterios aceptados.
+Las actas fechadas anteriores conservan sus pruebas
 y límites históricos; sus pendientes pueden haberse cerrado después.
 Última revisión del estado: 21/10/2026. El [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md)
 separa los pendientes actuales de las actas históricas y propone su orden finito.

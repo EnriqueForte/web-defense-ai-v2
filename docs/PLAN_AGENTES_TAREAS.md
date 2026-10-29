@@ -1,12 +1,20 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Revisión vigente: 21/10/2026. Las fases 0–7 están cerradas en el alcance local
+Trabajo vigente al 29/10/2026: [cierre V2/Puerto Umbral F0–F7 antes del 03/11](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
+El propietario solicita todas las fases del laboratorio; por ahora autoriza solo
+desarrollo/revisión de código, sin nuevas suites o llamadas al modelo. El
+[registro F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) recoge la ampliación preparada.
+La revisión final de la documentación V2 se hará con el propietario al terminar
+el laboratorio. Las fases Puerto Umbral son distintas de las fases históricas
+de migración de V2 descritas a continuación.
+
+Revisión del cierre anterior: 21/10/2026. Las fases 0–7 de migración V2 están cerradas en el alcance local
 aceptado, con los límites de observación registrados. A-01–A-04 están implementadas
 e integradas en la ruta structured; A-05 fue aceptada expresamente el 20/10
 para la primera versión local acotada, con comparación legacy diferida. El perfil de
 lectura no habilita análisis manual ni notificaciones por defecto.
 
-El [resumen vigente](ESTADO_FINAL_2026_10_12.md) reúne el estado y las evidencias.
+El [resumen de la entrega anterior](ESTADO_FINAL_2026_10_12.md) reúne sus evidencias.
 La [matriz de aceptación](MATRIZ_ACEPTACION_A05_2026_10_20.md) delimita C2; el
 [análisis de cierre](ANALISIS_CIERRE_2026_10_20.md) ordena C1–C4 y V1. No se
 reabren fases ya aceptadas ni se añaden nuevas funciones como condición implícita.

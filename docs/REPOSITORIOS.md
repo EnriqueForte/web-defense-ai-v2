@@ -19,6 +19,15 @@ la muestra CSRF histórica.
 
 ## Separación de versiones
 
+Puerto Umbral se distribuye desde el 26/10 dentro de `labs/puerto_umbral` en
+V2 para permitir un único checkout en Parrot; no se ha creado otro repositorio
+para esta distribución. El prototipo privado Sites F1 mantiene identidad y
+audiencia propias y no aloja el backend del laboratorio. Datos operativos,
+recibos y respaldos siguen excluidos de Git. El
+[plan vigente de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) y el
+[registro F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) documentan el trabajo posterior
+sin renombrar la release anterior ni atribuirle nuevas validaciones.
+
 El proyecto original permanece en `https://github.com/EnriqueForte/web-defense-ai`.
 No se ha renombrado, eliminado ni actualizado desde este trabajo. V2 utiliza
 un repositorio independiente: `EnriqueForte/web-defense-ai-v2`.

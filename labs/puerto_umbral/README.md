@@ -7,7 +7,7 @@ siguen separados de V2 y de DVWA; el prototipo privado de Sites no se modifica.
 ## Arranque conjunto desde la raíz de V2
 
 ```bash
-python3 webdefense.py start --mode structured --with-puerto-umbral
+python3 webdefense.py start --mode structured --with-puerto-umbral --lab-mode corrected
 ```
 
 Necesita la instalación `.p2` de V2, su frontend compilado, Docker y un cliente
@@ -18,8 +18,10 @@ valida la configuración y arranca con `up --no-build`. Así no se invoca el
 constructor de Compose, que en la VM solicitó Buildx 0.17 o posterior. La CLI
 Docker usa el constructor configurado en ese equipo, sin cambiar sus opciones.
 
-La terminal supervisa Flask, Next y el panel local de Puerto Umbral, y prepara
-sus doce contenedores. Solo hace comprobaciones de disponibilidad de servicios;
+La terminal supervisa Flask, Next y el panel local de Puerto Umbral. La base
+publicada usaba doce contenedores; la ampliación local F6/F7 preparada para
+revisión añade dos targets avanzados y contempla catorce. Esa topología nueva
+todavía no se ha construido o validado. El arranque solo hace comprobaciones de disponibilidad de servicios;
 no ejecuta el corpus, escenarios, análisis del modelo ni notificaciones.
 
 - V2: `http://127.0.0.1:3000`.
@@ -32,8 +34,19 @@ de este laboratorio. No borra volúmenes ni evidencias, ni detiene DVWA/Mailpit.
 Si ya existe una sesión de Puerto Umbral arrancada, el lanzador pide cerrarla en
 lugar de asumir el control de sus procesos. Los errores de parada quedan en los logs.
 
-Para leer los logs del modo corregido, añadir `--lab-mode corrected`. Seleccionar
-el modo de captura no ejecuta un escenario ni modifica el portal.
+`--lab-mode corrected` selecciona la fuente corregida, como en el recorrido
+observado. Si se omite, el valor predeterminado sigue siendo vulnerable.
+Seleccionar el modo de captura no ejecuta un escenario ni modifica el portal.
+
+## Ampliaciones F6/F7 en preparación
+
+El [registro de desarrollo](../../docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md)
+describe cinco escenarios de estado/identidad y seis revisiones de artefactos
+ficticios. Su catálogo de 99 entradas es independiente del corpus base de 45;
+no hay resultados de ejecución nuevos. La auditoría de aplicación tiene
+contrato propio, lectura por reglas en V2 y conservación explícita respaldable.
+La restricción vigente es desarrollo y revisión de código: no se solicita
+arrancar esta ampliación, recorrer casos o activar modelos todavía.
 
 ## Origen y separación
 

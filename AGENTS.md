@@ -2,6 +2,109 @@
 
 ## Alcance actual
 
+Puerto Umbral29/10 propietarioautoriza expresamente commit/push delpaquete
+F6F7 revisadoysudocumentación, antesdecontinuar. Alcance34archivos conocidos:
+fuentecontrol/target/catálogo99/contratoauditoría/lectorAPIUIV2/conservación
+yactas/documentación, incluidoreciborespaldo-restauraciónanteriorpendiente.
+main/originmainc8abcaf comprobadosconfetch, staginginicialvacío. Publicarcon
+[skip ci], sinactivarCI/suites/servicios/Docker/VM/escenarios/LLM/avisos ni
+modificar.env/datosoperativos/corpusbase45/JSONhistóricosF5/releasev0.1.0.
+VerificacionesestáticaspreviasOK; no repetirpruebasporpublicar. Revisarstaging
+exacto/diffcheck ycompararHEADconremoto/árbollimpio traspush. Estaentrada
+registraautorización/preparación, elresultadoGit secompruebaalterminar.
+DistribuciónVM/builds/validaciónoperativaposterioresnoejecutadosporestagente.
+F6F7noaceptadasfuncionalmente, autorizaciónGroqúnicaconsumidaseconserva.
+
+Puerto Umbral29/10 propietarioautoriza paso1 revisióncódigoF6F7, noejecución.
+Revisiónmanuallocal ycorrecciones: confirmacionesnavegador compartenlockcon
+run/reset; captura/persistenciapreviaaconfirmar yfallosconservados; target
+avanzadovinculaunrunhastareset/cookiespormodo/recursosinválidosnormalizados.
+Ventanaavanzada300sparaoperadormanual, ejecutorybase30s/cuota20/rate2sintocar.
+LectorV2acotabytesantesparse/UTF8estricto/identidadestable/esquema+conteomodo/
+últimorecapturafallidainvalidaestado; contratoenumsemánticoscerrados. Copia
+V2idempotentemodo+run+hash/reutilizasoloíntegra/nooverwriteparcial. UIvalida
+contratosyhash/bloqueacopiaviejaerror/capturadeshabilitada/seguimiento/lectura,
+abortaaldesmontarypresentatimeoutcomono confirmado, lotesparcialesexplícitos.
+ActaF6F7yplan cierreactualizados; revisióndepaso1nocierraaceptaciónfuncional.
+Sinservicios/Docker/VM/escenarios/suites/LLM/buildNext/publicaciónGit.
+FuenteF6F7sigueLOCALsincommit/push; no reabrirautorizaciónGroqconsumida.
+Verificaciónpaso1: AST/compileenmemoria8Python/sinimportsapp; node--checkJS;
+tscnoEmit/JSON/YAML14declarados/manifiesto99noejecutado/IDsHTMLselectores;
+180enlaceslocalessinausencias/nuevosarchivossinespaciosfinales/diffcheckOK.
+CorpusbaseyJSONhistóricosF5intactos. Sinvalidaciónoperativanueva.
+
+Puerto Umbral29/10 propietario fija objetivo antesmartes03/11/2026 para
+publicaciónLinkedIn y pide mantener documentaciónV2al día, revisiónconjunta
+al finalizarlaboratorio. Respondealcance TODASF0–F7 incluidocoberturaampliada;
+después mantiene explícitamente SOLOdesarrollo/revisióncódigo, decidirpruebas
+después. No interpretarplazo/alcance comopermisode suites/servicios/escenarios/
+LLM/VM. No publicarmensajeLinkedIn ni creartareasprogramadasporindicarfecha.
+Plan docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md y actaF6_F7_2026_10_29.md.
+FuenteLOCALsinpublicar: advanced_catalog/target/audit_contract y corpus99
+separado(45F6+54F7), cincoescenariosestado/identidad y seisrevisionesficticias;
+corpusF2de45y42/45histórico intactos. Composepreparado14targets/gateways
+totales(12targets+2pasarelas):advancedpormodo compartefronteranonroot/readonly/
+networknone; SSRFsoloHTTPsobreUnix a señueloprivado/lista4destinos/sinDNS/IP.
+StoredXSSmarcadoriframeopaco; CSRFformulario4381→portal/cookies/Origen/token,
+pruebaHTTPnopresentadacomopruebanavegador. Sesiones/tokenssoloenmemoria y
+redactadosenrecibos; eventoscontratocamposcerrados/hash/correlaciónfuera
+target/sinetiquetasesperadasdelcorpus. F7mapa10categoríasconfixture_review
+explícito, noatribuirdeteccióncompletani99/99. DependenciasMVPnoaceptadas.
+V2application_audit lectorreglas separadasdeinformesLLM, GETauditoria
+sololocalarchivos/POSTcapturar explícito validalotes y conservasnapshotsroot
+respaldables(sinDocker/modelo/avisos); UIActividadpaneldeauditoría. No altera
+elinformeyautorizaciónúnicaya consumida. RootREADME/arquitectura/inicio/
+instalación/repositorios/plan/estadoanterior sincronizados y cronologías
+anterioresconservadas. Sites skill leída/aplicadamodalidadlocal; SiteF1privado
+intacto,sinpreviewnihostingporrestriccióncódigo. Revisióndecódigo/sintaxis
+noequivalevalidaciónfuncional. TodoLOCALposteriorc8abcaf; sincommit/push
+nuevo/buildsDocker/servicios/escenarios/suites/LLM/VM. Históricosabajo.
+VerificaciónestáticaF6F7: AST/compilaciónenmemoria8Python/noimportsapp,
+node--checkcontrolJS/tscnoEmit/JSONOpenAPI+corpus99/YAML14/IDsHTML-JS y
+184enlaceslocalesceroausentes/diffcheckOK. CorpusbaseJSONcomparadoHEAD
+intacto; revisióncambios/archivosnuevosconforme,sinreescribirlegado.
+Sinpreview/browser/Nextbuild/instalacionesni modelos. Desarrolloactualno
+habilitavalidacionesdelpropietario todavía; no declararfasesaceptadas.
+
+Puerto Umbral29/10 restauraciónaisladaaportadapropietario COMPLETADA:
+restore_operational sobrebackupoperational-20261029T185605963239Z devuelve
+verifiedtrue/files66/missing[], destino.local-state/recovery/
+restore-20261029T185830160239Z. Perfilpuerto-umbral databaseverified/
+structured_publicationverified/jobs{succeeded:1}/deliveries{}; generación
+f5b674c867994aeba3beeb4a638d7a33-a1e812cf5d974f1995a78966e9181d50 coincide
+conanálisisobservado. scopeisolated_application_data_no_live_replacement_
+no_delivery_replay. Recorridobásicocopia→restauradorindependiente→BD/informe
+verificados cerrado porcapturas; sinpromociónlive/arranquerecuperado/pruebaVM
+completa ni inspecciónbytesVMindependientedelagente. Conservarcopia/árbol
+recuperado/originales; no pedir repetirrestauración o LLM. Evaluación45casos,
+condicionesF4ampliadas, falloshistóricos y aceptaciónMVP siguenpendientes.
+Actasmanual/estadoconsolidado/F5/ANALISIS_ACOTADO localesposterioresc8abcaf
+sinpublicar; agente sinVM/modelos/respaldos/servicios. Históricosabajo.
+
+Puerto Umbral29/10 capturabackuprealpropietario: perfilpuerto-umbral,
+destination.local-backups/operational-20261029T185605963239Z, files66,
+verifiedtrue/missing[]. Acreditasalidaexitosa debackupconrestore-check
+interno segúnherramienta,no inspecciónindependientearchivoVM/manifest
+ni recuperacióntotalVM. Próximo restore_operational.py --backup conesa
+rutaexacta, creaárbolnuevo.local-state/recovery sinreemplazardatosvivos;
+revisarverified/66files/missing/jobs/publicación antescerrarrecorridoaislado.
+SinrepetirLLM/escenarios/borraroriginales ni activarrestaurados. Agentesolo
+registraevidenciaaportada, sinbackup/VM/restore propio. Actalocalposterior
+c8abcaf sinpublicar; F5MVP/45casos siguenpendientes. Históricosabajo.
+
+Puerto Umbral29/10 capturasposteriores: backup--profilepuerto-umbral--list
+incluye manual-validation.jsoncomofile juntoSQLite/informe/manifiestos/
+diagnósticos/capturas. Recorteparcial,noatribuirtotalarchivos/missing[]/
+SHAreciborecalculado ni copiacreada. Amenazas Lecturaconectada/archivos
+disponibles/textoPuertoUmbral/4coincidencias; Reportesconservaanálisis
+f5b674c867994aeba3beeb4a638d7a33/publicación27Oct22:38:42Madrid/17de17/
+3altas1media. C8abcafadf07569d7e0d866bcc64faae8711f569 publicadoremoto
+verificado/árbolWindowslimpioentonces; HEADVMnocapturado. No pruebarama
+missing coninformeexistente. PróximopasomanualcrearbackupperfilPuerto
+trascerrarconsolapropia; revisarverified/missing/destination antesrestore
+aislado. No borraroriginales/repetiranálisis/modelos. Agente sinVM/backup/
+restore/suites; actarecepciónlocalposteriorc8abcaf sinpublicar. Históricosabajo.
+
 Puerto Umbral29/10 usuario autoriza publicarconcommit/push [skip ci] las
 mejorasconservación/estado y documentación. Alcance7archivos: AGENTS,
 active_report, backup_operational, manual/estadoconsolidado/F5/ANALISIS_ACOTADO.

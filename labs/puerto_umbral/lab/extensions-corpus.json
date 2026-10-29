@@ -1,0 +1,996 @@
+{
+  "version": "puerto-umbral-extensions-1",
+  "seed": "umbral-extensions-20261029-1",
+  "cases": [
+    {
+      "case_id": "ext-stored_xss-a1-vulnerable",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-stored_xss-a1-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-stored_xss-b1-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-stored_xss-a2-vulnerable",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-stored_xss-a2-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-stored_xss-b2-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-stored_xss-a3-vulnerable",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-stored_xss-a3-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-stored_xss-b3-corrected",
+      "scenario": "stored_xss",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "http_and_browser",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-a1-vulnerable",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-idor-a1-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-b1-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-a2-vulnerable",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-idor-a2-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-b2-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-a3-vulnerable",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-idor-a3-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-idor-b3-corrected",
+      "scenario": "idor",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-a1-vulnerable",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-csrf-a1-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-b1-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-a2-vulnerable",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-csrf-a2-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-b2-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-a3-vulnerable",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-csrf-a3-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-csrf-b3-corrected",
+      "scenario": "csrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "http_control_browser_pending",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-a1-vulnerable",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-ssrf-a1-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-b1-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-a2-vulnerable",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-ssrf-a2-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-b2-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-a3-vulnerable",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-ssrf-a3-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-ssrf-b3-corrected",
+      "scenario": "ssrf",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "unix_http_canary",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-a1-vulnerable",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-workflow-a1-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-b1-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-a2-vulnerable",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-workflow-a2-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-b2-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-a3-vulnerable",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-workflow-a3-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-workflow-b3-corrected",
+      "scenario": "workflow",
+      "phase": "F6",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "application_state",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-a1-vulnerable",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-configuration-a1-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-b1-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-a2-vulnerable",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-configuration-a2-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-b2-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-a3-vulnerable",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-configuration-a3-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-configuration-b3-corrected",
+      "scenario": "configuration",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-a1-vulnerable",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-supply_chain-a1-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-b1-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-a2-vulnerable",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-supply_chain-a2-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-b2-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-a3-vulnerable",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-supply_chain-a3-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-supply_chain-b3-corrected",
+      "scenario": "supply_chain",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-a1-vulnerable",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-cryptography-a1-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-b1-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-a2-vulnerable",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-cryptography-a2-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-b2-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-a3-vulnerable",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-cryptography-a3-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-cryptography-b3-corrected",
+      "scenario": "cryptography",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-a1-vulnerable",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-integrity-a1-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-b1-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-a2-vulnerable",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-integrity-a2-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-b2-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-a3-vulnerable",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-integrity-a3-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-integrity-b3-corrected",
+      "scenario": "integrity",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-a1-vulnerable",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-logging-a1-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-b1-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-a2-vulnerable",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-logging-a2-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-b2-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-a3-vulnerable",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-logging-a3-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-logging-b3-corrected",
+      "scenario": "logging",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-a1-vulnerable",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-exceptions-a1-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-b1-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 0,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-a2-vulnerable",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-exceptions-a2-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-b2-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 1,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-a3-vulnerable",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "vulnerable",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": true
+    },
+    {
+      "case_id": "ext-exceptions-a3-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "attempt",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    },
+    {
+      "case_id": "ext-exceptions-b3-corrected",
+      "scenario": "exceptions",
+      "phase": "F7",
+      "mode": "corrected",
+      "variant": 2,
+      "kind": "benign",
+      "evidence_kind": "fixture_review",
+      "expected_effect": false
+    }
+  ]
+}

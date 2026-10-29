@@ -9,6 +9,13 @@ en [Distribución pública](DISTRIBUCION_PUBLICA.md). Clonar por HTTPS no requie
 una cuenta ni un token de GitHub; cada usuario aporta sus credenciales del
 proveedor LLM cuando quiera ejecutar análisis.
 
+La ampliación Puerto Umbral se entrega dentro de este checkout. Su
+[manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md) separa captura, seguimiento y
+análisis; el [estado y plan de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+identifica qué está comprobado. F6/F7 tienen código nuevo pendiente de ejecución
+y no se dan por validadas al instalar o arrancar la consola. La instalación no
+incorpora los logs, claves o informes privados del mantenedor.
+
 ## Requisitos iniciales
 
 - Git para clonar el repositorio.

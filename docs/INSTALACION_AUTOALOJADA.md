@@ -8,8 +8,11 @@ El código se distribuye públicamente bajo MIT, con instalaciones y
 credenciales propias. Consulta la [apertura verificada en GitHub](DISTRIBUCION_PUBLICA.md).
 El alcance de ejecución sigue siendo local, con consola y laboratorio aislados.
 
-Revisión vigente: **21/10/2026**. El [resumen de estado](ESTADO_FINAL_2026_10_12.md)
-reúne pruebas y pendientes; las actas fechadas conservan su alcance histórico.
+Actualización documental: **29/10/2026**. El
+[estado actual V2/Puerto Umbral](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) separa
+desarrollo, recorridos observados y criterios pendientes. El
+[resumen de la entrega anterior](ESTADO_FINAL_2026_10_12.md) conserva sus pruebas
+y límites; no se atribuyen aquellas pruebas al código nuevo F6/F7.
 El código está publicado en EnriqueForte/web-defense-ai-v2 con licencia MIT.
 La primera entrega local se identifica como [v0.1.0](ENTREGA_LOCAL_C4_2026_10_20.md),
 con código y artefactos de CI verificados; la versión de distribución se consulta en GitHub.
@@ -25,6 +28,7 @@ una instalación nueva.
 | Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39466610699, código `0d73ec2`, con el parche aiohttp/yarl. [Acta y artefactos completos](ENTREGA_LOCAL_C4_2026_10_20.md). |
 | Parrot 7.3 x86_64/VMware | Instalación/lectura guiadas, inventario 172/0/0 y arranque/cierre comprobados; muestra DVWA XSS/fuerza bruta aceptada el 15/10. [Instalación](VALIDACION_PARROT_2026_10_12.md) y [análisis guiado](INCIDENCIA_GROQ_413_2026_10_15.md). |
 | VM con pins posteriores | Actualización a v0.1.0, tres pines aplicados, recuperación aislada de aplicación/DB y lectura/cierre acreditados el 21/10 por capturas y confirmación del usuario. [Registro V1](ACTUALIZACION_PARROT_V1_2026_10_20.md). |
+| Puerto Umbral en Parrot | Cinco familias base, captura, ronda básica de seguimiento, un análisis de 17 líneas y respaldo/restauración aislada de 66 archivos observados posteriormente. [Acta y límites](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md). No acredita el código nuevo F6/F7 o evaluación de los 45 casos. |
 
 Las [auditorías de paquetes del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md)
 y el [escaneo de imágenes del 19/10](FIJACION_IMAGENES_LAB_2026_10_19.md) sí se
@@ -41,7 +45,7 @@ pruebas de CI no se atribuyen a esa VM.
 
 Windows, PowerShell, Python 3.11, Node.js 24 o posterior y pnpm 11.19.0 según
 frontend/package.json. Docker Desktop con contenedores Linux es necesario
-solo para el laboratorio DVWA, no para pruebas aisladas o lectura de la consola.
+para los laboratorios locales DVWA o Puerto Umbral, no para lectura de la consola.
 El soporte Linux contempla Parrot OS x86_64 en VMware como caso de uso del usuario
 y Ubuntu 24.04 x86_64 como entorno inicial de CI, con Python 3.11 y Docker Engine
 con Compose v2 para el laboratorio. La instalación y pruebas offline pasaron en

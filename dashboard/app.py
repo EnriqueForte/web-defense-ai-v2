@@ -732,6 +732,43 @@ def api_v1_fuente_log():
     return jsonify({"meta": {"api_version": "1"}, "data": _log_source_data()})
 
 
+@app.get("/api/v1/fuentes/auditoria")
+def api_v1_fuente_auditoria():
+    if os.getenv("LOG_SYNC_SOURCE", "").strip().lower() != "puerto-umbral":
+        return jsonify({"meta": {"api_version": "1"}, "data": {"source": "puerto-umbral-application", "status": "disabled"}})
+    from dashboard.services.application_audit import source_status
+    return jsonify({"meta": {"api_version": "1"}, "data": source_status(os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"))})
+
+
+@app.post("/api/v1/fuentes/auditoria/capturar")
+def api_v1_capturar_auditoria():
+    if (request.remote_addr not in {"127.0.0.1", "::1"} or not _local_origin_allowed()
+            or os.getenv("LOG_SYNC_SOURCE", "").strip().lower() != "puerto-umbral"
+            or os.getenv("LOG_CAPTURE_MANUAL_ENABLED") != "1"):
+        return _api_error(403, "application_capture_disabled", "La conservación de auditoría requiere el perfil local autorizado.")
+    payload = request.get_json() if request.is_json else None
+    if (type(payload) is not dict or set(payload) != {"run_id", "sha256"}
+            or not isinstance(payload["run_id"], str) or not re.fullmatch(r"[a-f0-9]{32}", payload["run_id"])
+            or not isinstance(payload["sha256"], str) or not re.fullmatch(r"[a-f0-9]{64}", payload["sha256"])):
+        return _api_error(400, "invalid_body", "Selecciona una ejecución y su hash completos para conservarla.")
+    from dashboard.services.application_audit import preserve_capture
+    try:
+        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")), exclusive_lock(default_db_path().with_suffix(".engine.lock")):
+            job = JobStore().latest() if default_db_path().is_file() else None
+            if job and job["status"] in {"queued", "running"}:
+                return _api_error(409, "analysis_active", "Espera a que termine el trabajo activo.")
+            receipt = preserve_capture(os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"), payload["run_id"], payload["sha256"])
+    except AlreadyRunning:
+        return _api_error(409, "operation_active", "Detén el seguimiento o la operación activa antes de conservar la auditoría.")
+    except ValueError as error:
+        if str(error) == "application_snapshot_changed":
+            return _api_error(409, "application_snapshot_changed", "La auditoría cambió. Actualiza su estado antes de conservarla.")
+        return _api_error(503, "application_capture_failed", "La auditoría no está disponible o no pudo conservarse.")
+    except (OSError, sqlite3.Error):
+        return _api_error(503, "application_capture_failed", "La auditoría no está disponible o no pudo conservarse.")
+    return jsonify({"meta": {"api_version": "1"}, "data": receipt})
+
+
 def _log_source_data():
     source = os.getenv("LOG_SYNC_SOURCE", "legacy-docker").strip().lower()
     if source == "puerto-umbral":

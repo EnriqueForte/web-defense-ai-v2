@@ -233,3 +233,90 @@ reiniciar V2 en el mismo perfil, sin recompilar el frontend o reinstalar.
 Publicar o arrancar no ejecuta un respaldo, restauración o análisis nuevo.
 La revisión remota se realiza al terminar la publicación; la identidad de esta
 entrega queda en el commit que incorpora la presente nota.
+
+## Recepción de las mejoras y selección del respaldo
+
+Las mejoras se publican en `c8abcafadf07569d7e0d866bcc64faae8711f569`, con
+main remoto verificado y árbol local limpio tras el push. En capturas
+posteriores del propietario, el listado de `backup_operational.py --profile
+puerto-umbral --list` incluye
+`.local-state/puerto-umbral/manual-validation.json` como `file`, junto al SQLite,
+la publicación estructurada y sus diagnósticos. El recorte no muestra todo el
+listado o el campo `missing`; no se infieren un total de archivos o ausencia
+de faltantes. El listado acredita selección, todavía no copia o restauración.
+
+La vista de Amenazas muestra «Lectura conectada», archivos disponibles y el
+texto de Puerto Umbral; la tabla anuncia cuatro coincidencias. El informe
+sigue mostrando el análisis `f5b674c867994aeba3beeb4a638d7a33`, su fecha de
+publicación del 27/10 a las 22:38:42 (Madrid), 17 líneas sin omisiones y los
+mismos cuatro grupos, tres altos y uno medio. Esta evidencia confirma la
+conservación visible del informe después de la actualización, sin una nueva
+llamada al modelo ni verificación independiente de los bytes de la VM.
+
+El caso de puntero ausente no se ensaya borrando el informe existente. El
+siguiente paso es crear una copia del perfil, con operaciones detenidas,
+y revisar `verified`, `missing` y el destino generado antes de seleccionar
+ese directorio exacto para una recuperación aislada. No se atribuye todavía
+un resultado a esos pasos. Esta recepción se registra localmente después de
+`c8abcaf`, sin otra publicación.
+
+## Copia real del perfil, 29/10/2026
+
+La siguiente captura del propietario muestra la ejecución de
+`backup_operational.py --profile puerto-umbral` con esta salida:
+
+| Campo | Valor observado |
+| --- | --- |
+| Directorio de copia, relativo a la raíz del proyecto | `.local-backups/operational-20261029T185605963239Z` |
+| Archivos | 66 |
+| Verificación | `true` |
+| Faltantes | `[]` |
+
+Según el funcionamiento de la herramienta, `verified: true` se escribe tras
+crear el ZIP y comprobar extracción aislada, hashes y SQLite en `restore-check`.
+La captura acredita esa salida, sin una inspección independiente por el agente
+del archivo o manifiesto de Parrot. No acredita una recuperación completa de
+Docker, `.env`, volúmenes o recibos del laboratorio bajo `labs/`.
+
+Queda como siguiente paso ejecutar el restaurador independiente contra ese
+directorio exacto y revisar su salida. Solo crea un árbol nuevo bajo
+`.local-state/recovery/`; no promueve esa copia al estado vivo, arranca servicios
+o repite análisis. Aún no se atribuye éxito a ese paso posterior. La copia y los
+datos originales deben conservarse. Acta local posterior a `c8abcaf`.
+
+## Restauración aislada observada, 29/10/2026
+
+La captura posterior del propietario muestra el restaurador independiente
+aplicado a `.local-backups/operational-20261029T185605963239Z`:
+
+| Campo | Valor observado |
+| --- | --- |
+| Directorio nuevo, relativo a la raíz | `.local-state/recovery/restore-20261029T185830160239Z` |
+| Esquema | `web-defense-ai.restore.v1` |
+| Verificación / archivos / faltantes | `true` / 66 / `[]` |
+| Base de datos del perfil Puerto Umbral | `verified` |
+| Publicación estructurada | `verified` |
+| Trabajos | Un `succeeded` |
+| Entregas | `{}` |
+| Generación | `f5b674c867994aeba3beeb4a638d7a33-a1e812cf5d974f1995a78966e9181d50` |
+| Hash del manifiesto reportado | `f3eb92c5386ce73da937a3c46b67ebb7c21719a557aa266505a0d11a577e96c1` |
+| Alcance | `isolated_application_data_no_live_replacement_no_delivery_replay` |
+
+La generación coincide con la del análisis único y el informe ya observado.
+El recorrido básico de creación de copia y recuperación independiente de los
+datos del perfil queda completado dentro del alcance de estas capturas. El
+agente no accedió a Parrot, recalculó los hashes originales o ejecutó modelos.
+La salida no acredita sustitución del estado vivo, arranque desde el árbol
+recuperado, restauración de Docker o recuperación completa de la VM.
+
+Conservar tanto la copia como el árbol recuperado y los originales. No hace
+falta repetir esta comprobación o el análisis para cerrar este recorrido.
+Permanecen pendientes la calidad del detector sobre el corpus completo, los
+fallos históricos, las condiciones ampliadas de F4 y la aceptación global del
+MVP. Esta acta posterior a `c8abcaf` permanece local, sin nuevo commit/push.
+
+Nota de distribución posterior, 29/10: el propietario autoriza incorporar estas
+actas pendientes al commit/push del paquete de código revisado F6/F7. El estado
+local descrito arriba corresponde a su registro inicial; esta publicación no
+repite el análisis, respaldo o restauración ni amplía lo acreditado por las
+capturas originales. La identidad de entrega queda en el historial de este archivo.

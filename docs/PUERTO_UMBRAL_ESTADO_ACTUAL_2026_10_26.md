@@ -4,6 +4,14 @@ Fecha: 26/10/2026, Europe/Madrid.
 
 ## Actualización vigente del 29/10/2026
 
+Objetivo vigente: cerrar **todas las fases F0–F7 antes del martes 03/11**, según
+respuesta expresa del propietario. La autorización actual sigue limitada a
+desarrollo y revisión de código; las pruebas se decidirán después. El
+[plan de cierre de V2/laboratorio](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) ordena
+el trabajo y la revisión final de documentación con el propietario. La
+[ampliación F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) tiene fuente preparada
+sin ejecución o aceptación: no se convierte una fecha objetivo en cumplimiento.
+
 El ejecutor acotado se publicó en `1403f8d` y la corrección de nombres de fuente
 en `9e71c0c`. Ambas publicaciones se verificaron contra main remoto y el árbol
 local quedó limpio en sus respectivos cierres. El propietario confirma ahora
@@ -19,15 +27,25 @@ El coste real del proveedor sigue sin medirse. El
 identificadores, hashes, alcance y origen de la evidencia. La autorización de
 ese único análisis está consumida y no se repite.
 
-Continúa el desarrollo local sin nuevas ejecuciones con dos ajustes concretos:
-incluir el recibo `manual-validation.json` en la lista de respaldo/restauración
-y distinguir la ausencia de publicación (`missing`) de una publicación inválida
-(`error`). No se ha realizado un respaldo, restauración o recorrido operativo
-para validarlos. No se alteran los bytes del informe o la evidencia de la VM.
+Se publican después en `c8abcaf` dos ajustes: incluir `manual-validation.json`
+en la lista de respaldo/restauración y distinguir la ausencia de publicación
+(`missing`) de una publicación inválida (`error`). Las capturas posteriores
+muestran ese recibo en la selección, lectura conectada e informe conservado.
+No se borra el informe para ensayar la rama de ausencia.
+
+El propietario crea una copia de 66 archivos sin faltantes y ejecuta el
+restaurador independiente en un árbol nuevo. Ambas salidas devuelven
+`verified: true`; la recuperación verifica SQLite, un trabajo `succeeded`,
+ninguna entrega y la misma generación del informe observado. El recorrido
+básico de respaldo y recuperación aislada del perfil queda completado según
+esas capturas. No se promovieron datos al estado vivo ni se arrancó la copia
+recuperada; no constituye restauración completa de la VM. Los destinos y el
+alcance se conservan en el acta enlazada, sin inspección independiente del
+agente sobre los archivos de Parrot.
 
 Quedan abiertos la calidad del detector sobre los 45 casos, los tres fallos
-funcionales históricos, las condiciones ampliadas de F4, la recuperación real
-del perfil y la aceptación global del MVP. La continuación del desarrollo no
+funcionales históricos, las condiciones ampliadas de F4, cualquier promoción
+o arranque de datos recuperados y la aceptación global del MVP. La continuación del desarrollo no
 acepta esos criterios ni autoriza escenarios, suites o nuevas llamadas al LLM.
 
 ## Cronología anterior
@@ -83,7 +101,7 @@ histórico por haber observado un rechazo en el modo corregido.
 | F2 | Cinco familias en código; revisión manual parcial de Parrot documentada | Abierta: cobertura funcional y verificaciones pendientes |
 | F3 | Conector, perfil, API y vista de fuente implementados; captura y lectura observadas en ambos modos; un recorrido de snapshot guardado a informe visible completado después | Abierta: validación básica limitada a ese snapshot; errores, regresión y evaluación ampliada pendientes |
 | F4 | Seguimiento publicado en 02d2638 y frontend compilado en Parrot | Ronda operativa básica completada, incluida reapertura sin auto-resume; aceptación ampliada pendiente |
-| F5 | Archivo histórico de 45 entradas revisado offline, nueve observaciones manuales relacionadas, manual de entrega y análisis acotado posterior documentados | Revisión documental y un recorrido de integración completados; evaluación del corpus, recuperación y aceptación del MVP pendientes |
+| F5 | Archivo histórico de 45 entradas revisado offline, nueve observaciones manuales relacionadas, análisis acotado y respaldo/restauración aislada posteriores documentados | Revisión documental y recorridos básicos de integración y recuperación completados; evaluación del corpus y aceptación del MVP pendientes |
 
 El frontend se compiló en Windows con Webpack. La evidencia posterior F4
 acredita actualización a `02d2638`, compilación, acceso y cierre/reapertura en

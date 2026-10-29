@@ -80,9 +80,12 @@ la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACIO
 Para la revisión educativa de Puerto Umbral junto con V2, consulta la
 [guía de actualización en Parrot](docs/PUERTO_UMBRAL_PARROT_2026_10_26.md).
 La distribución incluye el laboratorio local; su inicio se solicita con
-`python3 webdefense.py start --mode structured --with-puerto-umbral` después
+`python3 webdefense.py start --mode structured --with-puerto-umbral --lab-mode corrected` después
 de instalar/compilar. Este arranque no ejecuta escenarios ni análisis automáticos.
-F2/F3 siguen pendientes de validación manual; su inclusión no certifica sus resultados.
+La revisión manual ha observado escenarios de ambas modalidades y un recorrido
+de snapshot guardado a informe visible en V2: 17 líneas, tres llamadas a Groq y
+cuatro grupos que requieren investigación. Ese recorrido no evalúa por sí solo
+el corpus completo ni certifica sus resultados.
 La [fase F4](docs/PUERTO_UMBRAL_F4_2026_10_27.md) incorpora seguimiento con inicio,
 pausa y parada explícitos, sin análisis automático. Su ronda operativa básica
 en Parrot está completada; la aceptación ampliada sigue pendiente. Arrancar
@@ -91,7 +94,17 @@ La [evaluación F5](docs/PUERTO_UMBRAL_F5_2026_10_27.md) organiza los 45 registr
 históricos y las observaciones manuales, conservando tres fallos y las métricas
 del detector sin medir. El [manual de operación local](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md)
 centraliza arranque, seguimiento, cierre y conservación. La aceptación del MVP
-completo sigue pendiente.
+completo sigue pendiente. El respaldo y la restauración aislada del perfil
+Puerto Umbral se observaron después en Parrot con 66 archivos, SQLite e informe
+verificados; no sustituyen una recuperación de toda la VM. Consulta el
+[estado actual y plan de cierre F0–F7](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
+
+Las ampliaciones [F6/F7](docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md) están preparadas
+en código para revisión: cinco escenarios con identidad/estado, seis revisiones
+de artefactos ficticios y una fuente de auditoría de aplicación para V2. Su
+corpus separado declara 99 entradas sin ejecutar; no se suman como resultados
+al histórico de 45 casos. No se declara todavía cierre de estas fases o
+detección completa de las diez categorías OWASP.
 
 ### Requisitos
 
@@ -145,12 +158,14 @@ comprobar el entorno y resolver problemas de arranque.
 
 ```mermaid
 flowchart LR
-    A["Apache / DVWA"] -->|captura explícita| B["Copia local del access.log"]
+    A["Apache / Puerto Umbral o DVWA"] -->|captura explícita| B["Copia local del access.log"]
     B --> C["Preparación de evidencias"]
     C --> D["Analista → Detective → Reporter"]
     D --> E["Validación y publicación JSON / Markdown"]
     E --> F["API Flask /api/v1"]
     B --> F
+    I["Auditoría de aplicación Puerto Umbral / F6–F7"] --> J["Observador por reglas / copia explícita respaldable"]
+    J --> F
     F --> G["Consola Next.js"]
     F --> H["Interfaz Flask alternativa"]
 ```
@@ -167,10 +182,13 @@ análisis se inicia por separado del lanzador de lectura.
 | Proveedores LLM | Groq predeterminado · OpenRouter opcional · credenciales propias |
 | Consola | Next.js 16 · React 19 · TypeScript |
 | API e interfaz alternativa | Flask · API `/api/v1` |
-| Laboratorio opcional | DVWA · MariaDB · Mailpit, con imágenes fijadas por digest |
+| Auditoría de aplicación preparada | Contrato de eventos · observaciones por reglas · conservación explícita, sin llamadas LLM |
+| Laboratorios locales | Puerto Umbral incluido en `labs/puerto_umbral`; DVWA · MariaDB · Mailpit separados; imágenes fijadas por digest |
 | Avisos opcionales | Telegram / SMTP, mediante configuración y ejecución explícitas |
 
-El laboratorio recomendado utiliza **`compose.lab.yaml`**, con puertos publicados
+Puerto Umbral usa su Compose propio en `labs/puerto_umbral/lab/compose.yaml` y
+su [manual de operación](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md). Para DVWA/Mailpit,
+el laboratorio aislado utiliza **`compose.lab.yaml`**, con puertos publicados
 en loopback. `docker-compose.yml` conserva el entorno legacy y tiene una
 exposición diferente. Antes de actualizar un laboratorio existente, sigue las
 instrucciones de respaldo de la [guía DVWA](docs/LABORATORIO_DVWA_FASE_6.md):
@@ -184,9 +202,10 @@ la copia de la aplicación no incluye el volumen de la base ni el buzón Mailpit
 | Preparar logs y ejecutar análisis | [Instalación y operación](docs/INSTALACION_AUTOALOJADA.md) |
 | Elegir proveedor y configurar credenciales | [Configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md) |
 | Trabajar con un laboratorio aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
+| Usar Puerto Umbral junto con V2 | [Manual local](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md) · [Estado y cierre F0–F7](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) |
 | Conservar y recuperar datos | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
 | Desarrollar y consultar el plan | [Guía de VSCode](docs/GUIA_VSCODE.md) · [Plan del proyecto](docs/PLAN_AGENTES_TAREAS.md) |
-| Revisar la entrega y su validación | [Notas de versión](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) · [Estado vigente](docs/ESTADO_FINAL_2026_10_12.md) |
+| Revisar la entrega y su validación | [Estado actual y plan de cierre](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) · [Entrega anterior v0.1.0](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
 
 ### Versión y validación
 

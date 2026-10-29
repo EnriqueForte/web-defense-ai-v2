@@ -4,6 +4,18 @@ Aplicación educativa independiente del prototipo alojado en Sites. El código d
 laboratorio solo se sirve localmente. No se despliega como backend vulnerable en
 el Site y no contiene credenciales de V2.
 
+Actualización del 29/10: el [bloque F6/F7](../../../docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md)
+añade fuente preparada de escenarios con estado, auditoría y revisiones de
+artefactos ficticios, sin ejecutarlos. Los recibos de ampliación tienen versión,
+semilla y corpus separados. La configuración local nueva prevé 14 contenedores;
+las observaciones previas de 12 no validan esta topología. El histórico siguiente
+conserva sus datos y no se utiliza como resultado del código nuevo.
+Revisión de código posterior: los targets base y el ejecutor mantienen 30
+segundos; el target avanzado admite hasta cinco minutos para los pasos de
+navegador, con la misma cuota de 20 peticiones y dos por segundo. Sus módulos
+comparten estado por modo: restablecer uno elimina las sesiones, avisos y
+permisos ficticios de ese modo, conservando los recibos externos.
+
 La [evaluación F5](../../../docs/PUERTO_UMBRAL_F5_2026_10_27.md) y el
 [manual de operación](../../../docs/PUERTO_UMBRAL_OPERACION_LOCAL.md) recogen el
 estado posterior. Parrot cuenta con compilación y ronda básica F4 observadas;

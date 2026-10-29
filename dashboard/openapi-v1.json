@@ -24,6 +24,23 @@
         "responses": { "200": { "description": "Salud del servicio y estado de archivos", "content": { "application/json": { "schema": { "type": "object" } } } } }
       }
     },
+    "/fuentes/auditoria": {
+      "get": {
+        "operationId": "getAuditoriaAplicacion",
+        "summary": "Leer la auditoría de aplicación del modo Puerto Umbral seleccionado",
+        "description": "Lee recibos y eventos capturados por el panel; valida esquema y hash. Las observaciones por reglas están separadas del informe LLM y no consumen etiquetas esperadas del corpus. No contacta Docker o al modelo.",
+        "responses": { "200": { "description": "Estado y observaciones de auditoría, o fuente ausente/inválida/deshabilitada", "content": { "application/json": { "schema": { "type": "object" } } } } }
+      }
+    },
+    "/fuentes/auditoria/capturar": {
+      "post": {
+        "operationId": "conservarAuditoriaAplicacion",
+        "summary": "Conservar eventos validados en el perfil respaldable de V2, sin análisis",
+        "description": "Solo origen local, perfil Puerto Umbral y captura manual habilitada. Fija ejecución y SHA-256; rechaza cambios del hash, bloqueos de seguimiento/ciclo/motor o trabajos activos.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": false, "required": ["run_id", "sha256"], "properties": { "run_id": { "type": "string", "pattern": "^[a-f0-9]{32}$" }, "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } } } } } },
+        "responses": { "200": { "description": "Snapshot de auditoría conservado con hashes y procedencia" }, "400": { "$ref": "#/components/responses/Error" }, "403": { "$ref": "#/components/responses/Error" }, "409": { "$ref": "#/components/responses/Error" }, "503": { "$ref": "#/components/responses/Error" } }
+      }
+    },
     "/fuentes/log": {
       "get": {
         "operationId": "getFuenteLog",

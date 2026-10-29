@@ -1,5 +1,6 @@
 """Trusted loopback controller; target input is never executed on the host."""
 from datetime import datetime, timezone
+from contextlib import contextmanager
 from functools import lru_cache
 import hashlib
 import html
@@ -18,12 +19,17 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, ProxyHandler, build_opener
 
-from lab.catalog import MODES, PASSWORD, SCENARIOS, SEED, VERSION, cases
+from lab.catalog import MODES, PASSWORD, SCENARIOS as BASE_SCENARIOS, SEED, VERSION, cases
+from lab.advanced_catalog import SCENARIOS as EXTENSIONS, VERSION as EXTENSION_VERSION, SEED as EXTENSION_SEED, cases as extension_cases, coverage
+from lab.audit_contract import validate_batch
+
+SCENARIOS = {**BASE_SCENARIOS, **EXTENSIONS}
+TARGETS = (*BASE_SCENARIOS, "advanced")
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / ".local-state" / "f2"
 PROJECT = "puerto-umbral-f2"
-SERVICES = [f"{scenario}-{mode}" for scenario in SCENARIOS for mode in MODES] + [f"gateway-{mode}" for mode in MODES]
+SERVICES = [f"{scenario}-{mode}" for scenario in TARGETS for mode in MODES] + [f"gateway-{mode}" for mode in MODES]
 PORTS = {"vulnerable": 4380, "corrected": 4382}
 ORIGIN = "http://127.0.0.1:4381"
 OPENER = build_opener(ProxyHandler({}))
@@ -144,7 +150,7 @@ def inspect_boundary():
         mounts = info.get("Mounts") or []
         if gateway:
             mode = service.split("-", 1)[1]
-            expected_volumes = {f"{PROJECT}-{s}-{mode}" for s in SCENARIOS}
+            expected_volumes = {f"{PROJECT}-{s}-{mode}" for s in TARGETS}
             if {m.get("Name") for m in mounts} != expected_volumes or any(m["Type"] != "volume" or m["RW"] for m in mounts):
                 failures.append("gateway_mounts")
             bindings = host.get("PortBindings") or {}
@@ -254,7 +260,7 @@ def reset(scenario, mode):
     if scenario not in SCENARIOS or mode not in MODES:
         raise ValueError("invalid_selection")
     inspect_boundary()
-    service = scenario + "-" + mode
+    service = ("advanced" if scenario in EXTENSIONS else scenario) + "-" + mode
     command(compose_command() + ["restart", "--no-deps", "--timeout", "2", service], timeout=20)
     wait_target(service)
 
@@ -290,6 +296,10 @@ class Runtime:
         variant, kind = selection.get("variant", 0), selection.get("kind", "attempt")
         if scenario not in SCENARIOS or mode not in MODES or type(variant) is not int or variant not in range(3) or kind not in {"attempt", "benign"}:
             raise ValueError("invalid_selection")
+        if scenario in EXTENSIONS:
+            fixed = json.loads((ROOT / "lab/extensions-corpus.json").read_text(encoding="utf-8"))
+            if fixed != {"version": EXTENSION_VERSION, "seed": EXTENSION_SEED, "cases": extension_cases()}:
+                raise ValueError("extension_corpus_changed_or_missing")
         size = sum(p.stat().st_size for p in STATE.rglob("*") if p.is_file())
         if size > 128 * 1024 * 1024 or shutil.disk_usage(STATE).free < 100 * 1024 * 1024:
             raise RuntimeError("evidence_storage_limit")
@@ -301,13 +311,17 @@ class Runtime:
                   "provenance": "local_http_observation", "status": "running", "started_at": utc(),
                   "v2_consulted": False, "requests": [], "functional_effect_confirmed": False,
                   "browser_execution_confirmed": False, "nonce": secrets.token_hex(16)}
+        if scenario in EXTENSIONS:
+            record.update(schema_version=2, version=EXTENSION_VERSION, seed=EXTENSION_SEED, phase=EXTENSIONS[scenario]["phase"],
+                          evidence_kind=EXTENSIONS[scenario]["evidence_kind"],
+                          observation_scope="local_application_or_fixture_not_v2_evaluation")
         self.current = record["id"]
         self.save(record)
         self.thread = threading.Thread(target=self.execute, args=(record,), daemon=True)
         self.thread.start()
         return record["id"]
 
-    def request(self, record, path, *, form=None):
+    def request(self, record, path, *, form=None, headers=None):
         if self.cancel.is_set():
             raise InterruptedError("operator_stopped")
         if record["requests"]:
@@ -319,7 +333,9 @@ class Runtime:
         rid = secrets.token_hex(12)
         url = f"http://127.0.0.1:{PORTS[record['mode']]}" + path
         req = Request(url, data=urlencode(form).encode() if form is not None else None,
-                      headers={"X-Request-ID": rid, "Content-Type": "application/x-www-form-urlencoded"})
+                      headers={"X-Request-ID": rid, "Content-Type": "application/x-www-form-urlencoded",
+                               **({"X-Umbral-Run": record["id"]} if record["scenario"] in EXTENSIONS else {}),
+                               **(headers or {})})
         started = utc()
         try:
             response = OPENER.open(req, timeout=5)
@@ -332,15 +348,122 @@ class Runtime:
             item = {"request_id": rid, "method": req.get_method(), "target": path, "observed_at": started,
                     "status": response.code, "body_sha256": hashlib.sha256(raw).hexdigest(),
                     "body_text": raw.decode("utf-8", "replace")}
-        # Passwords are neither retained here nor added to target URLs or logs.
+        volatile = {}
+        if record["scenario"] in EXTENSIONS and urlsplit(path).path == "/avanzado/sesion":
+            value = json.loads(item["body_text"])
+            for key in ("session_token", "csrf_token"):
+                if key in value:
+                    volatile[key] = value[key]
+                    value[key] = "[REDACTED]"
+            item["body_text"] = json.dumps(value, ensure_ascii=False)
+            item["body_redacted"] = True
+            item["body_text_sha256"] = hashlib.sha256(item["body_text"].encode()).hexdigest()
+        # Passwords and transient session tokens are not retained in the record.
         record["requests"].append(item)
+        if record["scenario"] in EXTENSIONS and len(record["requests"]) == 1:
+            record["browser_expires_at"] = datetime.fromtimestamp(
+                datetime.fromisoformat(started.replace("Z", "+00:00")).timestamp() + 300, timezone.utc
+            ).isoformat().replace("+00:00", "Z")
         self.save(record)
-        return item
+        return {**item, "_volatile": volatile} if volatile else item
+
+    def execute_advanced(self, record):
+        scenario, mode = record["scenario"], record["mode"]
+        attempt, variant = record["kind"] == "attempt", record["variant"]
+
+        def login(actor):
+            response = self.request(record, "/avanzado/sesion", form={"actor": actor, "password": PASSWORD})
+            if response["status"] != 200 or not response.get("_volatile", {}).get("session_token"):
+                raise RuntimeError("fixture_session_failed")
+            return response["_volatile"]
+
+        session = login("estibador.demo")
+        headers = {"Authorization": "Bearer " + session["session_token"]}
+        if scenario == "stored_xss":
+            payload = BASE_SCENARIOS["xss"]["attacks" if attempt else "benign"][variant]
+            payload = payload.replace("__NONCE__", record["nonce"])
+            self.request(record, "/avanzado/tablon", form={"message": payload}, headers=headers)
+            path = "/avanzado/tablon?" + urlencode({"_run": record["id"]})
+            last = self.request(record, path)
+            record.update(reflection_unencoded=attempt and payload in last["body_text"],
+                          reflection_encoded=attempt and html.escape(payload) in last["body_text"],
+                          frame_url=f"http://127.0.0.1:{PORTS[mode]}" + path,
+                          browser_confirmation_pending=attempt)
+            self.cancel.wait(.6)
+        elif scenario == "idor":
+            resource = ("foreign-" if attempt else "own-") + str(variant + 1)
+            last = self.request(record, "/avanzado/carga?" + urlencode({"documento": resource}), headers=headers)
+            value = json.loads(last["body_text"])
+            record["functional_effect_confirmed"] = attempt and last["status"] == 200 and value.get("fixture") == "UMBRAL_FOREIGN_CARGO"
+        elif scenario == "csrf":
+            origin = ORIGIN if attempt else f"http://127.0.0.1:{PORTS[mode]}"
+            last = self.request(record, "/avanzado/preferencias", form={"channel": "demo-" + str(variant + 1)},
+                                headers={**headers, "Origin": origin,
+                                         **({"X-CSRF-Token": session["csrf_token"]} if not attempt else {})})
+            record.update(http_control_effect_observed=attempt and json.loads(last["body_text"]).get("changed") is True,
+                          browser_confirmation_pending=attempt,
+                          control_observation="http_origin_token_control_not_browser_csrf_proof")
+        elif scenario == "ssrf":
+            resource = ("diagnostic", "manifest", "status")[variant] if attempt else "public"
+            last = self.request(record, "/avanzado/baliza?" + urlencode({"destino": "umbral://beacon/" + resource}), headers=headers)
+            record["functional_effect_confirmed"] = attempt and json.loads(last["body_text"]).get("fixture") == "UMBRAL_INTERNAL_CANARY"
+            record["network_scope"] = "fixed_unix_http_canary_no_ip_or_dns"
+        elif scenario == "workflow":
+            permit = "dock-" + str(variant + 1)
+            if not attempt or variant == 2:
+                supervisor = login("supervisor.demo")
+                self.request(record, "/avanzado/atraque", form={"permit": permit, "action": "approve"},
+                             headers={"Authorization": "Bearer " + supervisor["session_token"]})
+                if attempt:
+                    self.request(record, "/avanzado/atraque", form={"permit": permit, "action": "execute"}, headers=headers)
+            last = self.request(record, "/avanzado/atraque", form={"permit": permit, "action": "execute"}, headers=headers)
+            result = json.loads(last["body_text"])
+            record["functional_effect_confirmed"] = attempt and last["status"] == 200 and result.get("previous_state") in {"pending", "consumed"} and result.get("permit_state") == "consumed"
+        else:
+            last = self.request(record, "/avanzado/revision?" + urlencode({"topic": scenario, "variant": variant,
+                                                                                  "kind": record["kind"]}), headers=headers)
+            result = json.loads(last["body_text"])
+            record.update(fixture_effect_observed=result.get("observed_fixture_effect") is True,
+                          fixture_review=result, observation_scope="fictional_artifact_review_not_exploitation")
+        record["display_request_index"] = len(record["requests"]) - 1
+        expected = EXTENSIONS[scenario]["corrected_status"] if attempt and mode == "corrected" else 200
+        if attempt and mode == "vulnerable" and scenario == "exceptions":
+            expected = 500
+        record["benign_ok"] = not attempt and last["status"] == 200
+        if last["status"] != expected:
+            raise RuntimeError("unexpected_http_status:" + str(last["status"]))
+
+    def capture_application_audit(self, record):
+        result = self.request(record, "/avanzado/auditoria?" + urlencode({"_run": record["id"]}))
+        if result["status"] != 200:
+            raise RuntimeError("application_audit_unavailable")
+        value = validate_batch(json.loads(result["body_text"]), record["id"])
+        if not value["events"]:
+            raise RuntimeError("application_audit_empty_after_reset")
+        request_ids = {item["request_id"] for item in record["requests"]}
+        correlated = sum(event["request_id"] in request_ids for event in value["events"])
+        name = "application-" + secrets.token_hex(8) + ".json"
+        destination = STATE / "runs" / record["id"] / name
+        atomic(destination, value)
+        record["application_audit"] = {"schema": value["schema"], "file": name,
+            "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(), "events": len(value["events"]),
+            "correlated_requests": correlated, "trust": "target_observation_captured_by_control_not_detector_verdict"}
+        record.setdefault("application_audits", []).append(record["application_audit"])
+        record.pop("application_audit_error", None)
 
     def execute(self, record):
+        completed = False
         try:
             reset(record["scenario"], record["mode"])
             start = time.monotonic()
+            if record["scenario"] in EXTENSIONS:
+                self.execute_advanced(record)
+                if time.monotonic() - start > 30:
+                    raise RuntimeError("execution_time_limit")
+                if self.cancel.is_set():
+                    raise InterruptedError("operator_stopped")
+                completed = True
+                return
             s = SCENARIOS[record["scenario"]]
             value = s["attacks" if record["kind"] == "attempt" else "benign"][record["variant"]]
             if record["scenario"] == "brute":
@@ -384,7 +507,7 @@ class Runtime:
                 raise RuntimeError("execution_time_limit")
             if self.cancel.is_set():
                 raise InterruptedError("operator_stopped")
-            record["status"] = "completed"
+            completed = True
         except InterruptedError:
             record["status"] = "stopped"
         except Exception as error:
@@ -396,11 +519,20 @@ class Runtime:
                 self.capture(record)
             except Exception as error:
                 record["capture_error"] = str(error)[:180]
+            if completed:
+                if record["scenario"] in EXTENSIONS and record.get("frame_url"):
+                    self.cancel.wait(.6)
+                record["status"] = "stopped" if self.cancel.is_set() else "completed"
             self.save(record)
             self.current = None
             self.lock.release()
 
     def capture(self, record):
+        if record["scenario"] in EXTENSIONS:
+            try:
+                self.capture_application_audit(record)
+            except Exception:
+                record["application_audit_error"] = "application_audit_not_captured"
         result = command(["docker", "logs", "--timestamps=false", PROJECT + "-gateway-" + record["mode"]])
         content = result.stdout.encode("utf-8")
         if len(content) > 4 * 1024 * 1024:
@@ -415,19 +547,67 @@ class Runtime:
         record["access_snapshot"] = {"file": filename, "sha256": hashlib.sha256(content).hexdigest(), "bytes": len(content), "matches": matches}
         record.setdefault("access_snapshots", []).append(record["access_snapshot"])
 
+    @contextmanager
+    def browser_observation(self):
+        # Same order as launch/reset: a confirmation must not race a reset,
+        # a second confirmation, or a new driver using the shared module.
+        if not self.lock.acquire(blocking=False):
+            raise ValueError("execution_busy")
+        try:
+            with self.data_lock:
+                yield
+        finally:
+            self.lock.release()
+
     def confirm_xss(self, run_id, nonce):
-        with self.data_lock:
+        with self.browser_observation():
             record = self.records.get(run_id)
-            if not record or record["scenario"] != "xss" or record["status"] != "completed" or not secrets.compare_digest(record["nonce"], str(nonce)):
+            if not record or record["scenario"] not in {"xss", "stored_xss"} or record["status"] != "completed" or not secrets.compare_digest(record["nonce"], str(nonce)):
                 raise ValueError("invalid_browser_observation")
             if not record.get("reflection_unencoded"):
                 raise ValueError("unexpected_browser_observation")
+            self.capture_browser(record)
             record["browser_execution_confirmed"] = True
             record["functional_effect_confirmed"] = True
             record["browser_observed_at"] = utc()
             record["browser_observer"] = "control_origin_message_source_and_nonce"
             record["browser_frame_loaded"] = True
+            record["browser_confirmation_pending"] = False
+            self.save(record)
+
+    def capture_browser(self, record):
+        try:
             self.capture(record)
+        except Exception:
+            record["capture_error"] = "browser_evidence_capture_failed"
+            self.save(record)
+            raise
+        record.pop("capture_error", None)
+        # Persist the new evidence even if the browser event is not found.
+        self.save(record)
+
+    def confirm_csrf(self, run_id):
+        with self.browser_observation():
+            record = self.records.get(run_id)
+            if not record or record["scenario"] != "csrf" or record["kind"] != "attempt" or record["status"] != "completed":
+                raise ValueError("invalid_browser_observation")
+            self.capture_browser(record)
+            audit = record.get("application_audit")
+            if not audit or record.get("application_audit_error"):
+                raise ValueError("application_audit_unavailable")
+            events = validate_batch(json.loads((STATE / "runs" / run_id / audit["file"]).read_text(encoding="utf-8")), run_id)["events"]
+            observer_ids = {item["request_id"] for item in record["requests"]}
+            candidates = [event for event in events if event["component"] == "preferences"
+                and event["auth_source"] == "cookie" and event["origin_relation"] == "cross"
+                and event["request_id"] not in observer_ids]
+            if not candidates:
+                raise ValueError("browser_cookie_request_not_observed")
+            event = candidates[-1]
+            record.update(browser_csrf_observed=True, browser_observed_at=utc(),
+                          browser_control_outcome="state_changed" if event["outcome"] == "updated" else "blocked",
+                          functional_effect_confirmed=event["outcome"] == "updated",
+                          browser_confirmation_pending=False,
+                          browser_observer="cross_origin_cookie_request_in_captured_application_audit")
             self.save(record)
 
 
@@ -445,7 +625,7 @@ def serve():
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
-            self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'none'; form-action http://127.0.0.1:4380 http://127.0.0.1:4382; base-uri 'none'; frame-ancestors 'none'" if urlsplit(self.path).path == "/csrf-demo" else "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
                              "font-src 'self' https://fonts.gstatic.com; frame-src http://127.0.0.1:4380 http://127.0.0.1:4382; "
                              "connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")
             self.end_headers()
@@ -476,8 +656,24 @@ def serve():
                 self.reply(200, source.read_bytes(), {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml"}[suffix])
             elif path == "/api/status":
                 self.reply(200, {"version": VERSION, "current": runtime.current, "boundary": runtime.boundary,
-                                 "scenarios": {key: {"name": value["name"], "path": value["path"], "owasp": value["owasp"]} for key, value in SCENARIOS.items()},
+                                 "scenarios": {key: {"name": value["name"], "path": value["path"], "owasp": value["owasp"],
+                                                      "phase": value.get("phase", "F2"), "evidence_kind": value.get("evidence_kind", "local_http")}
+                                               for key, value in SCENARIOS.items()},
+                                 "extension_version": EXTENSION_VERSION, "extension_cases": extension_cases(),
+                                 "coverage": coverage(BASE_SCENARIOS),
                                  "runs": sorted(runtime.records.values(), key=lambda r: r["started_at"], reverse=True)[:100]})
+            elif path == "/csrf-demo":
+                from urllib.parse import parse_qs
+                run_id = parse_qs(urlsplit(self.path).query).get("run", [""])[0]
+                record = runtime.records.get(run_id)
+                if (not re.fullmatch(r"[a-f0-9]{32}", run_id) or not record or record["scenario"] != "csrf"
+                        or record["kind"] != "attempt" or record["status"] != "completed"):
+                    self.reply(404, {"error": "unknown_browser_exercise"})
+                    return
+                portal = f"http://127.0.0.1:{PORTS[record['mode']]}"
+                suffix = "?_run=" + run_id
+                page = '<!doctype html><html lang="es"><meta charset="utf-8"><title>Ejercicio CSRF local</title><h1>Formulario entre orígenes del laboratorio</h1><p>Datos ficticios. El portal conserva su sesión en una cookie HttpOnly. La ventana avanzada dura como máximo cinco minutos desde la primera petición y admite 20 solicitudes en total. Un restablecimiento invalida la ejecución anterior.</p>' + '<form method="post" target="_blank" action="' + portal + '/avanzado/sesion' + suffix + '"><input type="hidden" name="actor" value="estibador.demo"><input type="hidden" name="password" value="umbral-demo"><input type="hidden" name="view" value="browser"><button>1. Crear sesión ficticia en el portal</button></form>' + '<form method="post" target="_blank" action="' + portal + '/avanzado/preferencias' + suffix + '"><input type="hidden" name="channel" value="cross-origin-demo"><button>2. Enviar formulario desde este otro origen</button></form><p>Después vuelve al panel y pulsa «Comprobar evidencia del navegador». No se envía el token del panel al portal.</p></html>'
+                self.reply(200, page, "text/html; charset=utf-8")
             elif re.fullmatch(r"/api/runs/[a-f0-9]{32}", path):
                 record = runtime.records.get(path.rsplit("/", 1)[1])
                 self.reply(200 if record else 404, record or {"error": "not_found"})
@@ -510,6 +706,9 @@ def serve():
                     self.reply(200, {"reset": True, "evidence_preserved": True})
                 elif path == "/api/confirm-xss":
                     runtime.confirm_xss(selection.get("id"), selection.get("nonce"))
+                    self.reply(200, {"confirmed": True})
+                elif path == "/api/confirm-csrf":
+                    runtime.confirm_csrf(selection.get("id"))
                     self.reply(200, {"confirmed": True})
                 else:
                     self.reply(404, {"error": "not_found"})

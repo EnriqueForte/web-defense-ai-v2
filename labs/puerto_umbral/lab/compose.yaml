@@ -90,18 +90,28 @@ services:
     container_name: puerto-umbral-f2-brute-corrected
     environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: brute}
     volumes: ["brute-corrected:/run/umbral"]
+  advanced-vulnerable:
+    <<: *target
+    container_name: puerto-umbral-f2-advanced-vulnerable
+    environment: {UMBRAL_MODE: vulnerable, UMBRAL_SCENARIO: advanced}
+    volumes: ["advanced-vulnerable:/run/umbral"]
+  advanced-corrected:
+    <<: *target
+    container_name: puerto-umbral-f2-advanced-corrected
+    environment: {UMBRAL_MODE: corrected, UMBRAL_SCENARIO: advanced}
+    volumes: ["advanced-corrected:/run/umbral"]
   gateway-vulnerable:
     <<: *gateway
     container_name: puerto-umbral-f2-gateway-vulnerable
     ports: ["127.0.0.1:4380:8080"]
-    volumes: ["sqli-vulnerable:/run/umbral/sqli:ro", "xss-vulnerable:/run/umbral/xss:ro", "traversal-vulnerable:/run/umbral/traversal:ro", "command-vulnerable:/run/umbral/command:ro", "brute-vulnerable:/run/umbral/brute:ro"]
-    depends_on: [sqli-vulnerable, xss-vulnerable, traversal-vulnerable, command-vulnerable, brute-vulnerable]
+    volumes: ["sqli-vulnerable:/run/umbral/sqli:ro", "xss-vulnerable:/run/umbral/xss:ro", "traversal-vulnerable:/run/umbral/traversal:ro", "command-vulnerable:/run/umbral/command:ro", "brute-vulnerable:/run/umbral/brute:ro", "advanced-vulnerable:/run/umbral/advanced:ro"]
+    depends_on: [sqli-vulnerable, xss-vulnerable, traversal-vulnerable, command-vulnerable, brute-vulnerable, advanced-vulnerable]
   gateway-corrected:
     <<: *gateway
     container_name: puerto-umbral-f2-gateway-corrected
     ports: ["127.0.0.1:4382:8080"]
-    volumes: ["sqli-corrected:/run/umbral/sqli:ro", "xss-corrected:/run/umbral/xss:ro", "traversal-corrected:/run/umbral/traversal:ro", "command-corrected:/run/umbral/command:ro", "brute-corrected:/run/umbral/brute:ro"]
-    depends_on: [sqli-corrected, xss-corrected, traversal-corrected, command-corrected, brute-corrected]
+    volumes: ["sqli-corrected:/run/umbral/sqli:ro", "xss-corrected:/run/umbral/xss:ro", "traversal-corrected:/run/umbral/traversal:ro", "command-corrected:/run/umbral/command:ro", "brute-corrected:/run/umbral/brute:ro", "advanced-corrected:/run/umbral/advanced:ro"]
+    depends_on: [sqli-corrected, xss-corrected, traversal-corrected, command-corrected, brute-corrected, advanced-corrected]
 networks:
   front:
     name: puerto-umbral-f2-front
@@ -120,3 +130,5 @@ volumes:
   command-corrected: {name: puerto-umbral-f2-command-corrected}
   brute-vulnerable: {name: puerto-umbral-f2-brute-vulnerable}
   brute-corrected: {name: puerto-umbral-f2-brute-corrected}
+  advanced-vulnerable: {name: puerto-umbral-f2-advanced-vulnerable}
+  advanced-corrected: {name: puerto-umbral-f2-advanced-corrected}

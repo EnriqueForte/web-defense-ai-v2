@@ -11,6 +11,14 @@ No se transforma esa muestra en métricas de los 45 casos ni se reescriben los
 resultados históricos. El [estado consolidado vigente](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md)
 recoge esta evidencia posterior y los pendientes que continúan abiertos.
 
+Posteriormente, el 29/10, el propietario aporta también copia y restauración
+aislada del perfil: 66 archivos, sin faltantes, verificaciones correctas de
+SQLite y de la misma publicación estructurada, un trabajo exitoso y ninguna
+entrega. Ese recorrido básico se considera completado en su alcance de datos
+de aplicación, sin promoverlo al estado vivo ni aceptar una recuperación
+completa de la VM. El acta y el estado consolidado enlazados recogen sus límites;
+los criterios originales y métricas históricas de este documento no se alteran.
+
 El propietario autoriza continuar con F5 después de completar el recorrido
 operativo básico F4. Este bloque conserva el alcance acordado: leer evidencias
 ya guardadas, organizar resultados y preparar la entrega, sin nuevos escenarios,

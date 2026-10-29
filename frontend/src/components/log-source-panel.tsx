@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LogFollowPanel } from "@/components/log-follow-panel";
+import { ApplicationAuditPanel } from "@/components/application-audit-panel";
 
 type Source = {
   source: string;
@@ -113,6 +114,7 @@ export function LogSourcePanel({ onSnapshotChanged }: { onSnapshotChanged?: () =
     {source?.sha256 && <p className="status-copy log-source-digest">SHA-256 <code>{source.sha256}</code></p>}
     <div className="settings-actions"><button className="button-secondary" disabled={busy} onClick={() => void load()}>Actualizar estado de fuente</button><button className="button-primary" disabled={busy || !source?.manual_capture_enabled || source.following_active} onClick={() => void load(true)}>{busy ? "Procesando…" : "Capturar log de Puerto Umbral"}</button></div>
     {source?.source === "puerto-umbral" && <LogFollowPanel onSourceUpdated={() => void load()} />}
+    {source?.source === "puerto-umbral" && <ApplicationAuditPanel captureEnabled={source.manual_capture_enabled && !source.following_active && !busy} />}
     {message && <p className="status-copy" role="status">{message}</p>}
     {error && <p className="status-copy error-copy" role="alert">{error} No se interpreta como ausencia de incidentes.</p>}
   </section>;

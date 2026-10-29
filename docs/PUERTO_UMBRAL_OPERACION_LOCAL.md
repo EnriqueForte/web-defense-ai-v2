@@ -6,7 +6,8 @@ corrección de nombres de fuente en `9e71c0c` y un análisis/informe de 17 líne
 observado en Parrot. Los ajustes de ausencia de informe y cobertura del recibo
 descritos aquí forman parte de la revisión del 29/10, cuya publicación autoriza
 el propietario. La identidad de la entrega se obtiene del commit que incorpora
-esta revisión; su uso y recuperación en Parrot todavía no se han comprobado.
+esta revisión. Los ajustes se publicaron después en `c8abcaf`; el propietario
+aportó capturas de selección, creación de copia y restauración aislada del perfil.
 La [evaluación F5](PUERTO_UMBRAL_F5_2026_10_27.md) registra alcance, evidencias y
 pendientes. Este manual conserva las recetas de uso; no solicita ejecutarlas
 de nuevo durante el bloque documental F5.
@@ -161,8 +162,8 @@ un manifiesto, ZIP y comprobación de restauración. El restaurador utiliza la
 misma lista permitida, por lo que reconoce ese recibo sin admitir otros JSON
 arbitrarios. Requiere
 detener las operaciones activas; comprobar `verified` y `missing` antes de
-atribuir cobertura. Esta capacidad no se volvió a ejecutar para Puerto Umbral
-en F5.
+atribuir cobertura. En la revisión documental inicial F5 no se ejecutó; el
+recorrido posterior del 29/10 se describe a continuación.
 
 La ampliación no añade lecturas de `.env` ni claves. Conserva el recibo como
 archivo de evidencia, sin reutilizarlo para arrancar sesiones o repetir el
@@ -179,6 +180,17 @@ directorio exacto de copia mediante `--backup` y recupera en un árbol nuevo de
 `.local-state/recovery/`. No reemplaza el estado vivo ni reactiva sesiones. Su
 resultado debe revisarse antes de una promoción posterior con alcance propio.
 Esta guía no ordena una restauración o sustitución de datos ahora.
+
+El 29/10, el propietario aportó una copia de 66 archivos con `verified: true`
+y `missing: []`, y una recuperación independiente de los mismos 66 archivos
+en un directorio nuevo. La salida de recuperación verifica la base de datos,
+un trabajo exitoso, ninguna entrega y la publicación estructurada del análisis
+único observado. La comprobación básica de recuperación aislada del perfil
+queda completada dentro del alcance de esas capturas. Se conservan la copia,
+el árbol recuperado y los originales; no se requiere repetirla. El
+[acta](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md) registra los destinos y
+límites: no se promovió el estado recuperado a los datos vivos ni se validó una
+recuperación completa de la VM.
 
 Si una operación no completa su salida, conservar los archivos y revisar su
 estado; no forzar reintentos con borrado de volúmenes, recibos o snapshots.

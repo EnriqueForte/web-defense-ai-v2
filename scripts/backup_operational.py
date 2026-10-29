@@ -41,6 +41,10 @@ def puerto_capture_name(name):
         return True
     if local.as_posix() == "following/current.json":
         return True
+    if local.as_posix() == "application-audit/current.json":
+        return True
+    if len(local.parts) == 4 and local.parts[:2] == ("application-audit", "snapshots"):
+        return bool(re.fullmatch(r"[a-f0-9]{32}", local.parts[2])) and local.parts[3] in {"events.json", "receipt.json"}
     if len(local.parts) == 3 and local.parts[:2] == ("following", "sessions"):
         return bool(re.fullmatch(r"[a-f0-9]{32}\.json", local.parts[2]))
     if len(local.parts) == 3 and local.parts[0] == "snapshots":

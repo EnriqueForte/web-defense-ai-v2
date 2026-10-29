@@ -21,7 +21,7 @@ ROOT = Path("/srv/fixtures")
 SOCKET = Path("/run/umbral/backend.sock")
 MODE = os.environ.get("UMBRAL_MODE", "corrected")
 SCENARIO = os.environ.get("UMBRAL_SCENARIO", "")
-PATHS = {"sqli": "/mercancias", "xss": "/comunicaciones", "traversal": "/archivo", "command": "/mantenimiento", "brute": "/login"}
+PATHS = {"sqli": "/mercancias", "xss": "/comunicaciones", "traversal": "/archivo", "command": "/mantenimiento", "brute": "/login", "advanced": "/avanzado"}
 MAX_REQUESTS = 20
 MAX_SECONDS = 30
 MAX_BYTES = 2048
@@ -97,6 +97,7 @@ def diagnose(value, *, corrected):
 
 class Target(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.0"
+    execution_seconds = MAX_SECONDS
     started = None
     request_count = 0
     last_request = 0.0
@@ -122,7 +123,7 @@ class Target(BaseHTTPRequestHandler):
         now = time.monotonic()
         if Target.started is None:
             Target.started = now
-        if now - Target.started > MAX_SECONDS:
+        if now - Target.started > self.execution_seconds:
             self.reply(410, {"error": "execution_expired", "reset_required": True})
             return False
         if Target.request_count >= MAX_REQUESTS:
@@ -210,8 +211,12 @@ class Target(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     verify_boundary()
+    handler = Target
+    if SCENARIO == "advanced":
+        from advanced_target import handler_class
+        handler = handler_class(Target, MODE)
     if SOCKET.exists():
         SOCKET.unlink()  # Exact socket in this container's dedicated named volume.
-    with socketserver.UnixStreamServer(str(SOCKET), Target) as server:
+    with socketserver.UnixStreamServer(str(SOCKET), handler) as server:
         SOCKET.chmod(0o660)
         server.serve_forever()

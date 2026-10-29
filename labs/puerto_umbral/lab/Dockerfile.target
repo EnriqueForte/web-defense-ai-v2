@@ -1,6 +1,7 @@
 FROM python:3.14-slim@sha256:35caba83af2fe6da9a5d922f9b0156f21d1246a48278c58a08bd253303ba42e8
 RUN useradd --uid 10001 --no-create-home umbral && mkdir -p /run/umbral /srv/fixtures/public /srv/fixtures/private && chown 10001:10001 /run/umbral
 COPY lab/target.py /srv/target.py
+COPY lab/advanced_target.py lab/audit_contract.py /srv/
 COPY lab/fixtures/ /srv/fixtures/
 USER 10001:10001
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 UMBRAL_SANDBOX=isolated-v1
