@@ -185,8 +185,9 @@ entre IDs HTML y selectores JS coherentes; 184 enlaces locales comprobados sin
 ausencias en la preparación inicial; la comprobación posterior del paso 1
 abarca 180 enlaces locales actuales sin ausencias y `git diff --check` correcto.
 El corpus base se comparó con HEAD y
-permanece sin cambios. No se ha realizado build Docker, preview, compilación
-Next.js completa o pruebas funcionales. El primer recorrido de validación
+permanece sin cambios. Durante la revisión local no se realizó build Docker,
+preview, compilación Next.js completa o pruebas funcionales. La compilación
+posterior del propietario en Parrot se registra a continuación. El primer recorrido de validación
 está pendiente de autorización posterior.
 
 ## Distribución autorizada del código revisado
@@ -203,6 +204,80 @@ Publicar la fuente no construye o activa la topología nueva, actualiza Parrot,
 ejecuta suites o consume la autorización de otro análisis. El corpus base y los
 JSON históricos F5 se mantienen sin cambios. Esta entrega conserva la revisión
 funcional, las métricas del detector y la aceptación de F6/F7 como pendientes.
+
+## Recepción de publicación y compilación en Parrot — paso 3
+
+El commit de entrega es `cc363aff5e663bcacf0daf7205f18696b30c158a`, publicado
+en `origin/main` y comprobado contra el remoto con árbol Windows limpio al
+terminar el push. Incluye 34 archivos y `[skip ci]`; no se atribuye una nueva
+ejecución CI, etiqueta o release.
+
+Después de autorizar el paso 3, el propietario aporta dos capturas:
+
+| Evidencia | Resultado visible |
+| --- | --- |
+| `git log -1 --oneline` en Parrot | `cc363af`, `HEAD -> main`, `origin/main` y `origin/HEAD`, con el título del paquete F6/F7 |
+| `node node_modules/next/dist/bin/next build --webpack` | Next.js 16.3.8; compilación correcta en 2,8 s y TypeScript en 2,8 s |
+| Fases finales de compilación | Páginas estáticas 4/4, trazas y optimización terminadas en 11,8 s; rutas `/` y `/_not-found` |
+
+El paso 3, actualización de código y compilación del frontend, queda
+**completado según las capturas del propietario**. El agente no accedió a la VM
+ni ejecutó la compilación; no se muestra código de salida del proceso en el
+recorte. No se deducen de la compilación el arranque de V2, construcción de
+imágenes, disponibilidad de los 14 servicios o validación de escenarios.
+
+El siguiente bloque es el arranque conjunto y comprobación de disponibilidad,
+separado de cualquier escenario o análisis. No se solicita repetir el análisis
+Groq ya realizado. Esta recepción documental es local posterior a `cc363af`;
+todavía no tiene otro commit/push.
+
+El propietario autoriza a continuación el bloque de arranque y disponibilidad:
+inicio conjunto en perfil `structured` y fuente `corrected`, revisión de la
+consola V2 y panel del laboratorio. Esa autorización incluye la preparación de
+imágenes y servicios propios del lanzador, sin escenarios, suites, seguimiento
+activado, nuevas llamadas al modelo o notificaciones. El arranque todavía está
+pendiente de la salida real del propietario; no se atribuye éxito por facilitar
+el comando. Se conserva la configuración Groq y el informe anteriores.
+
+## Arranque informado, panel visible y autoría — 29/10/2026
+
+Las capturas posteriores del propietario muestran el comando conjunto con
+`--lab-mode corrected` y la salida «Consola lista» en 3000, panel en 4381 y
+portales en 4380/4382. El panel se muestra accesible e informa de 14 contenedores,
+targets sin red IP, usuario sin privilegios y raíz de solo lectura. Se ven las
+ampliaciones del catálogo, el resultado «SIN EJECUCIÓN» de la selección actual y
+filas del historial anterior. Se acredita el arranque informado por el lanzador
+y el acceso al panel, sin inspección Docker independiente por el agente.
+
+No hay captura de la vista Actividad de V2 en este envío. No se infieren de
+estas imágenes lectura de la auditoría avanzada, nuevos escenarios, resultados
+del modelo, revisión móvil/teclado o aceptación F6/F7. La selección «Vulnerable»
+del panel es independiente de la fuente corregida elegida al arrancar V2.
+
+El propietario solicita incorporar su autoría en la cabecera de Puerto Umbral,
+como en V2. Se añaden en `lab/control.html` Enrique Forte, `@T3r0S3c`,
+«Developer & Maintainer» y los enlaces GitHub/LinkedIn ya presentes en V2, con
+los mismos SVG, etiquetas accesibles y apertura segura en otra pestaña. La
+identificación inferior de la barra lateral muestra también nombre y alias.
+`lab/control.css` adapta el bloque a distintas anchuras. El cambio es de
+presentación, sin modificar JavaScript, APIs, escenarios o dependencias.
+
+La modificación de autoría y estas actas siguen locales posteriores a
+`cc363af`, sin commit/push o actualización de Parrot. No se ha iniciado un
+preview o repetido el arranque desde Windows; la revisión visual del cambio
+queda para su recepción en la VM. El Site privado F1 se conserva.
+
+Distribución posterior autorizada: el propietario solicita commit/push de la
+autoría para verificarla en Parrot. Se incluyen los siete archivos de HTML/CSS
+y actas pendientes, sobre `cc363af`, con `[skip ci]`. La identidad es el commit
+que incorpora esta nota y la comprobación remota se realiza tras el push. Las
+referencias a estado local anteriores corresponden a la preparación.
+
+El panel lee `control.html` y `control.css` desde el checkout en cada GET. Para
+recibir esta modificación basta actualizar con `git pull --ff-only` y recargar
+4381 con Ctrl+Shift+R; no necesita compilar Next o reconstruir imágenes. Una
+revisión visual posterior sigue pendiente de la captura del propietario. Esta
+distribución no ejecuta escenarios o modelos ni cambia el backend del laboratorio.
 
 ## Referencias de diseño
 

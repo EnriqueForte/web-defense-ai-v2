@@ -5,12 +5,24 @@ Fecha: 26/10/2026, Europe/Madrid.
 ## Actualización vigente del 29/10/2026
 
 Objetivo vigente: cerrar **todas las fases F0–F7 antes del martes 03/11**, según
-respuesta expresa del propietario. La autorización actual sigue limitada a
-desarrollo y revisión de código; las pruebas se decidirán después. El
+respuesta expresa del propietario. Tras desarrollar y revisar el código,
+autoriza publicar y después actualizar Parrot y compilar la interfaz (paso 3);
+las pruebas de escenarios se decidirán por separado. El
 [plan de cierre de V2/laboratorio](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) ordena
 el trabajo y la revisión final de documentación con el propietario. La
 [ampliación F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) tiene fuente preparada
 sin ejecución o aceptación: no se convierte una fecha objetivo en cumplimiento.
+El paquete F6/F7 se publica en `cc363af` con remoto verificado. Las capturas
+posteriores muestran ese HEAD en Parrot y compilación completa Webpack y
+TypeScript: el paso 3 queda completado según esa evidencia, sin acreditar
+todavía arranque o disponibilidad de los nuevos servicios. El detalle se
+conserva en el acta F6/F7; la recepción documental posterior sigue local.
+Las capturas posteriores muestran «Consola lista» del arranque conjunto y el
+panel Puerto Umbral accesible, informando 14 contenedores. Es evidencia de la
+salida del lanzador y acceso al panel, sin inspección independiente de Docker
+ni captura de Actividad V2 en ese envío. Los escenarios siguen sin validar.
+La autoría en la cabecera del panel se incorpora después por petición del
+propietario como cambio HTML/CSS local, todavía sin distribuir a Parrot.
 
 El ejecutor acotado se publicó en `1403f8d` y la corrección de nombres de fuente
 en `9e71c0c`. Ambas publicaciones se verificaron contra main remoto y el árbol

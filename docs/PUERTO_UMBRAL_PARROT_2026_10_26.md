@@ -4,6 +4,40 @@ Fecha: 26/10/2026. El propietario autoriza compilación, commit/push del proyect
 y revisión manual posterior desde la VM. Se mantiene la restricción de no
 ejecutar suites de escenarios o análisis LLM automáticamente.
 
+## Recepción vigente F6/F7 — 29/10/2026
+
+El propietario autoriza el paso 3 tras publicar `cc363af`. Sus capturas muestran
+`HEAD -> main`, `origin/main` y `origin/HEAD` en ese commit, y compilación del
+frontend con `next build --webpack`: Next.js 16.3.8, compilación/TypeScript
+correctos, 4/4 páginas estáticas, trazas y optimización finalizadas. El paso 3
+queda completado según las capturas; el agente no ejecutó comandos en la VM.
+
+La actualización se hizo sin solicitar reinstalar dependencias. Los comandos
+de instalación y pruebas de la cronología inferior pertenecen a su preparación
+histórica: no son pasos pendientes que deban repetirse ahora. La siguiente área
+es arranque y disponibilidad de V2/laboratorio; todavía no se atribuye arranque
+de los 14 servicios, ejecución de casos o aceptación funcional F6/F7. Véase el
+[acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md). Esta recepción es local posterior
+a `cc363af`, sin commit/push adicional todavía.
+
+Recepción posterior: el lanzador informa «Consola lista» y las cuatro URLs;
+el panel se muestra accesible e informa perímetro de 14 contenedores. Este
+envío no contiene Actividad V2 ni resultados de escenarios nuevos. El modo
+vulnerable seleccionado en el panel no modifica la fuente V2 `corrected`.
+La petición posterior de autoría en cabecera se prepara en HTML/CSS local,
+con los datos y enlaces de V2; todavía requiere distribución a la VM y revisión
+visual. No se atribuye ese cambio a las capturas previas a su implementación.
+
+El propietario autoriza después publicar esta autoría y las actas pendientes.
+Esta entrega solo cambia HTML/CSS del panel y documentación: tras el commit/push,
+actualizar desde la raíz con `git pull --ff-only` y recargar 4381 con
+Ctrl+Shift+R. El controlador lee esos archivos directamente; no hace falta
+recompilar Next o recrear imágenes por este cambio. Si `git status --short`
+muestra cambios locales, conservarlos y revisarlos antes de actualizar, sin
+usar reset. La recepción visual actualizada queda pendiente.
+
+## Contexto y preparación anteriores
+
 **Estado posterior:** la ronda manual se da por finalizada por decisión del
 propietario. Los pasos no ejecutados que aparecen en esta cronología quedan
 aplazados; no son nuevas solicitudes de prueba. El [estado consolidado](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md)

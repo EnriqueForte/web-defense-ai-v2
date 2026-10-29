@@ -10,13 +10,13 @@ incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el l
 
 | Área | Evidencia disponible | Límite |
 | --- | --- | --- |
-| Distribución V2 | Repositorio público, versión local anterior v0.1.0, última publicación verificada del recorrido `c8abcaf` | No nueva release o CI atribuida a los commits `[skip ci]` |
+| Distribución V2 | Repositorio público, versión local anterior v0.1.0; paquete F6/F7 publicado y remoto verificado en `cc363af` | No nueva release o CI atribuida a los commits `[skip ci]` |
 | Puerto Umbral F1/F2 | Prototipo privado, cinco familias locales y dos modos | Corpus histórico 42/45; tres fallos de comandos preservados |
 | F3, recorrido de integración | Un snapshot de 17 líneas, análisis Groq, publicación y lectura en V2 | No evaluación de los 45 casos |
 | F4 | Inicio, pausa, reanudación, parada, vencimiento y reapertura sin auto-resume | Condiciones ampliadas y latencias individuales pendientes |
 | F5, conservación | Copia y recuperación aislada de 66 archivos, SQLite e informe verificados en Parrot | Sin promover datos recuperados ni restaurar la VM completa |
 | Interfaz | Nombre de fuente Puerto Umbral confirmado por el propietario | No revisión actual completa de móvil/teclado |
-| F6/F7 | [Código de ampliación preparado localmente](PUERTO_UMBRAL_F6_F7_2026_10_29.md), con auditoría, panel y revisiones de artefactos | Sin ejecutar o aceptar las ampliaciones |
+| F6/F7 | [Código de ampliación revisado y publicado](PUERTO_UMBRAL_F6_F7_2026_10_29.md), recibido y compilado en Parrot; lanzador listo y panel visible informando 14 contenedores | Sin inspección Docker independiente, vista Actividad V2 actual o aceptación funcional de escenarios |
 
 El [estado consolidado](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md), el
 [acta del análisis y recuperación](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md)
@@ -56,6 +56,19 @@ validación/lectura acotada y conservación de evidencias, registradas en el
 pendientes. Después el propietario autoriza commit/push del paquete revisado
 con `[skip ci]`; su identidad queda en el commit que incorpora la nota de
 distribución del acta F6/F7. Publicar no ejecuta la validación ni actualiza la VM.
+La publicación se completa en `cc363af`, con remoto coincidente y árbol limpio.
+El propietario autoriza después el paso 3 y sus capturas confirman ese commit
+en Parrot y la compilación completa del frontend con Webpack y TypeScript.
+**Paso 3 completado**; no acredita todavía arranque de V2, construcción o
+disponibilidad de la topología nueva, escenarios o métricas del detector.
+El siguiente bloque de arranque y revisión de pantallas queda autorizado por
+el propietario, limitado a disponibilidad y navegación en el perfil corregido;
+su resultado permanece pendiente. No autoriza recorrer casos ni repetir LLM.
+Las capturas siguientes acreditan salida «Consola lista» y acceso al panel de
+Puerto Umbral, que informa 14 contenedores. El alcance de disponibilidad del
+panel queda observado; falta la captura de Actividad V2 y no se validan casos.
+La petición adicional de autoría en cabecera se implementa en HTML/CSS local;
+su recepción en Parrot y revisión visual quedan pendientes de distribución.
 
 ## Calendario propuesto
 

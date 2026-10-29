@@ -2,6 +2,47 @@
 
 ## Alcance actual
 
+Puerto Umbral29/10 propietarioautoriza commit/push cabeceraautoría para
+verificarParrot. Alcance7archivos: HTML/CSSpanel+AGENTS+plan/estado/actaF6F7/
+guíaParrotconrecepciónbuild/arranque. Basecc363afmain/originverificadaconfetch;
+staginginicialvacío. Publicar[skip ci], revisaralcance/diff/HEADremoto/árbol
+limpio. Sinbackend/JS/Next/dependencias/datos/escenarios/LLM/servicios/VM.
+PanelleeHTML/CSSdecheckoutencadaGET: traspull--ff-onlyenParrotrecargar4381
+conCtrlShiftR; cambioactualnorequierebuildNextniimágenesniLLM. No atribuir
+revisiónvisualactualizadaantescapturapropietario. ResultadoGitverificaralfin.
+
+Puerto Umbral29/10 capturasposteriores: lanzadorstructured/withpuerto/corrected
+informaConsolalista3000+panel4381+portales4380/4382; panelvisiblemuestra
+perímetro14contenedores,sin ejecuciónseleccionada/históricoanterior. Arranque
+informadoyaccesopanelobservados, noinspecciónDockerindependientenivistaV2
+capturada/fuenteauditadavalidada/escenariosnuevos. PanelmodoVulnerablees
+selecciónindependientedelafuenteV2corrected; nocambiarperfilporinferirfallo.
+PropietariosolicitaautoríaarribacomoV2: HTML/CSSpanel añadenEnriqueForte,
+@T3r0S3c,Developer&Maintainer,GitHub/LinkedInmismosURL/SVGexistentesV2;
+identificaciónsidebaractualizadatambién. Cambiospresentaciónlocales, sin
+JS/backend/dependencias/hostingSiteprivado/VM poragente. Sitesmodalidadlocal.
+Actasdedisponibilidadactualizadas; sin nuevaspruebas/LLM ni Gitpublicación.
+
+Puerto Umbral29/10 trasconfirmarpaso3 elpropietarioautorizaarranqueconjunto
+ycomprobacióndepantallas. GuiarParrotconwebdefensestartstructured/withpuerto/
+labmodecorrected; construyeimágenespropiasyprepara14servicios, Flask/Next/panel,
+sinworker/escenarios/suites/LLM/avisos/activarseguimiento. Mantenerinforme y
+configuraciónGroqexistentes. Autorizaciónlimitadaadisponibilidad/navegación,
+noaceptaciónfuncionalninuevaevaluación. Arranquependientedesalidarealusuario;
+agenteWindowsnoconectaaVMniejecutaservicios. Actaslocalesposteriorescc363af.
+
+Puerto Umbral29/10 paso3 autorizado(actualizarParrot/compilarfrontend), luego
+capturaspropietario: gitlogHEADmain/originmain/originHEADcc363af; Webpack
+Next16.3.8 compiled2.8s/TS2.8s/4de4páginas/traces+optimización11.8s/rutas
+/y_not-found/estático visibles. PASO3COMPLETADOsegúnevidenciausuario, sin
+accesoVMdelagente/exitcodecapturado/nuevostests/modelos. Nopresumirarranque
+14contenedores/permisosvolúmenes/escenarios/F6F7aceptadosporcompilarfrontend.
+Publicaciónanteriorcc363aff5e663bcacf0daf7205f18696b30c158a/mainremoto
+verificada/árbollimpiotraspush34archivos[skip ci]. Actarecepciónposterior
+localenF6F7/plan/estado/guíaParrot; sincommit/pushadicionalpornuevacaptura.
+Siguienteárea: arranqueconjunto/disponibilidad,pasoseparadodelosescenarios;
+noejecutarloautomáticamente. Groqúnicoautorizadoyaconsumido, no repetir.
+
 Puerto Umbral29/10 propietarioautoriza expresamente commit/push delpaquete
 F6F7 revisadoysudocumentación, antesdecontinuar. Alcance34archivos conocidos:
 fuentecontrol/target/catálogo99/contratoauditoría/lectorAPIUIV2/conservación
