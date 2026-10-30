@@ -634,6 +634,350 @@ o notificaciones. Parrot puede recibirla con `git pull --ff-only`; al ser solo
 documentación no requiere reinstalar, recompilar o reiniciar. No se repiten
 los controles normales ni el análisis Groq para actualizar las actas.
 
+### Continuación: primer control manual de rechazo corregido
+
+La publicación documental se completó en
+`d3e0b148bb1bc50c6430080dccd98456d04455e0`, con remoto coincidente y árbol
+local limpio tras el push. El propietario solicita después «sigamos entonces
+con lo siguiente». Se continúa la validación manual de rechazos, sin repetir
+los controles normales, ejecutar suites o llamar al modelo.
+
+El primer paso guiado es Cargas, modo corregido, tipo Intento de ataque,
+variante 1 (`ext-idor-a1-corrected`). El ejecutor usa la identidad ficticia y
+solicita `foreign-1`. Expectativa por código: HTTP 403 con
+`error: object_not_authorized`, dos eventos capturados y, en el observador por
+reglas de V2, «Acceso al objeto rechazado». En este caso 403 es el resultado
+esperado del control, no un fallo por sí mismo. Se solicita lectura y
+conservación de su auditoría después de comparar identificadores y conteos.
+
+El resultado sigue pendiente de capturas reales; no se atribuye detección LLM,
+explotación, protección universal o aceptación global a una expectativa. Este
+paso no cambia a modo vulnerable, otras variantes o autoriza un nuevo análisis.
+Notas locales posteriores a `d3e0b14`, sin otra publicación por continuar.
+
+### Cargas: rechazo observado, regla visible y conservación confirmada
+
+El propietario aporta resultado y auditoría V2; una captura adicional confirma
+después la conservación que no aparecía en el primer recorte de V2:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `808f223ac979bd1f3f60ca47ec3a31a1` |
+| Selección/estado | F6, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Solicitud/respuesta | `GET /avanzado/carga?documento=foreign-1`, HTTP 403, `error: object_not_authorized` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 2 eventos |
+| SHA-256 mostrado por V2 | `60651569e6830b5c6032425f04514f3b64538afff307f59352521f3234844b24` |
+| Regla visible | «Acceso al objeto rechazado», componente `cargo`, actor `estibador.demo`, recurso `foreign-1` |
+| Conservación | Captura posterior con mensaje de copia conservada, sin análisis solicitado |
+
+Se completa este recorrido manual de rechazo y conservación informada. Junto
+con el control normal `own-1` anterior, se observa para variante 1 corregida
+lectura propia permitida y recurso ajeno rechazado. No se extrapola a otras
+variantes, modo vulnerable, protección universal o métricas del detector. La
+observación de V2 procede de reglas sobre auditoría de aplicación, no del LLM.
+No se ha aportado recibo local de esta copia o verificación independiente de
+los archivos de la VM. No es necesario repetir Cargas.
+
+Sigue el control HTTP de Preferencias, corregido/Intento de ataque/variante 1.
+Expectativa por código: HTTP 403, `channel: normal`, `changed: false`, dos
+eventos y la regla «Solicitud de otro origen rechazada» en V2. Se guía lectura
+y conservación de la auditoría. La página de formulario entre orígenes y su
+confirmación de navegador no forman parte de este paso HTTP; esa comprobación
+sigue pendiente. Resultado de Preferencias pendiente de capturas reales.
+Actas locales posteriores a `d3e0b14`, sin nueva publicación o llamadas al modelo.
+
+### Preferencias: rechazo HTTP de origen/token y regla visible
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `1acb45412fdc9aa6ee6cb908da777a42` |
+| Selección/estado | F6, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Solicitud/respuesta | `POST /avanzado/preferencias`, HTTP 403; `channel: normal`, `changed: false` |
+| Banner del panel | «Solicitud rechazada en la prueba HTTP de origen/token. Comprobación en navegador pendiente» |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 2 eventos |
+| SHA-256 mostrado por V2 | `4d36d94f3944815832d243192a3f7d1d74f8fc15b346d134967b3770fd2be43f` |
+| Regla visible | «Solicitud de otro origen rechazada», componente `preferences`, actor `estibador.demo`, recurso `arrival_preferences` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+Queda completado el rechazo HTTP de esta variante y su lectura/conservación
+informada en V2. El resultado complementa el caso normal anterior; no separa
+la eficacia individual de origen y token ni acredita un formulario real con
+cookie, CSRF de navegador, otras variantes o protección universal. Los botones
+de ejercicio/confirmación de navegador están visibles, sin evidencia de usarlos.
+La comprobación de navegador permanece pendiente, como indica el panel.
+
+Continúa Baliza/corregido/Intento de ataque/variante 1. El caso fijo solicita el
+recurso lógico de diagnóstico; se espera HTTP 403,
+`error: canary_resource_not_authorized`, dos eventos y «Lectura del señuelo
+rechazada» en V2. Se guía lectura y conservación de esa auditoría, sin repetir
+los casos ya observados. Baliza aún no tiene resultado de rechazo acreditado.
+No hay ejecución de suites/LLM o de la VM por el agente; actas locales sin push.
+
+### Baliza: diagnóstico rechazado, regla y conservación en V2
+
+El propietario aporta las dos capturas del resultado y la auditoría:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `1ee95d713c3577e55088ecc4cc083bba` |
+| Selección/estado | F6, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Solicitud/respuesta | `GET /avanzado/baliza?destino=umbral%3A%2F%2Fbeacon%2Fdiagnostic`, HTTP 403, `error: canary_resource_not_authorized` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 2 eventos |
+| SHA-256 mostrado por V2 | `8baa6edbf9aa926f6aa29beb402c54857384f2b37992d7add7ed19c380fb6983` |
+| Regla visible | «Lectura del señuelo rechazada», componente `beacon`, actor `estibador.demo`, recurso `umbral://beacon/diagnostic` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+Queda completado este control corregido de rechazo, su lectura y conservación
+informada en V2. Complementa la lectura pública permitida del control normal.
+No acredita los otros destinos/variantes, protección SSRF general, inspección
+independiente del aislamiento, comprobación de los bytes o recuperación de
+esta copia. No se repite el caso ni se atribuye el resultado al modelo.
+
+Sigue Atraque/corregido/Intento de ataque/variante 1. El caso predefinido intenta
+utilizar `dock-1` sin aprobación previa; expectativa por código: HTTP 409,
+`previous_state: pending`, `permit_state: pending`, dos eventos y «Aprobación
+exigida» en V2, con posterior conservación. Este caso no comprueba reutilización
+de un permiso consumido. Resultado de Atraque todavía pendiente de capturas.
+Documentación local posterior a `d3e0b14`, sin nueva publicación o ejecución.
+
+### Atraque: operación sin aprobación rechazada y conservada
+
+Las capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `554c8de8300762ce559b9aa38db564ff` |
+| Selección/estado | F6, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Solicitud/respuesta | `POST /avanzado/atraque`, HTTP 409; `previous_state: pending`, `permit_state: pending` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 2 eventos |
+| SHA-256 mostrado por V2 | `42db1bc86a73e8bad691ac32177d9125ed4ce22abc7d8b3168d1f05462913bec` |
+| Regla visible | «Aprobación exigida», componente `docking`, actor `estibador.demo`, recurso `dock-1` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+Queda observado el rechazo sin aprobación de variante 1, junto a su regla y
+conservación informada en V2. Complementa la aprobación/uso normal anterior;
+no comprueba reutilización de un permiso ya consumido, otras variantes,
+protección universal, recibo local o recuperación de esta copia.
+
+Los rechazos HTTP corregidos de variante 1 de Cargas, Preferencias, Baliza y
+Atraque quedan observados y conservados en pantalla. Preferencias sigue siendo
+solo prueba HTTP de origen/token; su comprobación de navegador está pendiente.
+No se declara F6 aceptada o evaluado el detector sobre todo el corpus.
+
+Se continúa con Bitácora/corregido/Intento de ataque/variante 1, como control de
+codificación, no de estado HTTP de denegación. Expectativa por código: HTTP
+200, «Entrada codificada como texto en la respuesta», entidades HTML visibles
+y entrada literal en el iframe opaco, sin ejecución JavaScript confirmada.
+La vista V2 debe referir al mismo caso y tres eventos capturados; puede no
+haber coincidencias al ser `encoded_text`. Se guía lectura y conservación,
+recogiendo también el iframe para no deducir comportamiento de navegador del
+HTTP 200 por sí solo. Esas observaciones nuevas todavía no están acreditadas.
+Actas locales posteriores a `d3e0b14`, sin suites, modelos o nueva publicación.
+
+### Bitácora: codificación observada en respuesta e iframe y copia en V2
+
+Las tres capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `d9d05054f32aae24a76b6fe5b2167552` |
+| Selección/estado | F6, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Solicitud/respuesta | `GET /avanzado/tablon?_run=d9d05054f32aae24a76b6fe5b2167552`, HTTP 200; entrada con entidades HTML |
+| Banner del panel | «Entrada codificada como texto en la respuesta» |
+| Ejecutor y Apache | 4 peticiones, 4 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 3 eventos / 3 referencias HTTP |
+| Iframe | «Bitácora de turno», entrada literal visible como texto y «Sin ejecución confirmada» |
+| V2 | Mismo identificador, modo corregido y 3 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `ccff12955e46717b15e2c39af5854c0975681dbef9075defd75234e6aa84fc3e` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+Se completa este recorrido de codificación observada y presentación como texto
+en el iframe, con lectura y conservación informada de la auditoría en V2. No
+se deduce ausencia universal de JavaScript ni protección de otras entradas o
+variantes. La ausencia de coincidencias de estas reglas no es una métrica del
+modelo o del detector completo. No se ha leído un recibo local o verificado
+independientemente los bytes de esta copia.
+
+### Cierre de la ronda corregida de variante 1
+
+| Caso predefinido, modo corregido | Resultado observado | Auditoría V2 y conservación |
+| --- | --- | --- |
+| Cargas, intento variante 1 | 403, recurso ajeno rechazado | 2 eventos, regla de acceso rechazado, copia confirmada en pantalla |
+| Preferencias, intento variante 1 | 403, `changed: false` en prueba HTTP de origen/token | 2 eventos, regla de otro origen rechazado, copia confirmada en pantalla |
+| Baliza, intento variante 1 | 403, diagnóstico del señuelo rechazado | 2 eventos, regla de lectura rechazada, copia confirmada en pantalla |
+| Atraque, intento variante 1 | 409, permiso sin aprobación sigue pendiente | 2 eventos, regla de aprobación exigida, copia confirmada en pantalla |
+| Bitácora, intento variante 1 | 200, respuesta codificada e iframe con texto literal | 3 eventos, sin coincidencias de reglas, copia confirmada en pantalla |
+
+Queda completada esta ronda específica de cuatro rechazos HTTP y un control de
+codificación, a partir de las capturas. Se conservan los cinco controles
+normales previos y no se repiten para cerrar esta ronda. No se declara
+aceptación F6 completa: siguen pendientes CSRF de navegador, reutilización de
+permiso, modo vulnerable y otras variantes, aislamiento/regresión del MVP,
+recuperación de auditorías nuevas y evaluación independiente del detector.
+
+El siguiente candidato es CSRF de navegador en modo corregido. Necesitará una
+ejecución nueva que prepare sesión y ventana temporal: el último reset de
+Bitácora invalida el contexto antiguo de Preferencias. No se reutiliza aquel
+identificador ni se inicia la nueva ejecución sin acordar su alcance. La
+autorización Groq previa continúa consumida; no se plantean nuevas llamadas.
+Documentación local posterior a `d3e0b14`, sin commit/push o suites nuevas.
+
+### Recorrido CSRF de navegador corregido expresamente autorizado
+
+El propietario responde afirmativamente a un único recorrido manual con sesión
+ficticia, control normal del portal, formulario desde el otro origen y lectura/
+conservación de auditoría en V2. Incluye una preparación nueva de Preferencias,
+corregido/Intento de ataque/variante 1, porque el contexto anterior quedó
+invalidado por el reset posterior. No es una repetición del control HTTP para
+reescribir su resultado: genera otro identificador para la comprobación de
+navegador y conserva los recibos previos. No incluye suites o modelo.
+
+Se guían los pasos seguidos dentro de los cinco minutos desde la primera
+petición del caso: ejecutar preparación una vez, abrir el ejercicio entre
+orígenes, crear sesión en el portal, usar «Control normal desde este origen»,
+volver al ejercicio y enviar el formulario del otro origen, y confirmar en el
+panel con «Comprobar evidencia del navegador». No se restablece ni cambia de
+escenario entre esos pasos. Las respuestas esperadas son `changed: true` para
+el formulario normal y `changed: false` para el cruzado, conservando `normal`.
+
+La confirmación del controlador exige un evento de preferencias con cookie,
+origen cruzado e identificador de petición ajeno al ejecutor HTTP. La secuencia
+única descrita produciría cinco eventos de aplicación: dos de preparación,
+sesión de navegador, formulario normal y formulario cruzado. Recapturar para
+confirmar lleva el contador del ejecutor a cuatro; las peticiones del navegador
+no se contabilizan como solicitudes de ese ejecutor. Son expectativas del
+código, no resultados observados. Pueden verse dos observaciones de rechazo
+distintas, la del control HTTP y la del formulario, bajo el mismo título.
+
+Se solicitarán capturas de las dos respuestas, del panel confirmado y de V2
+tras actualizar y conservar la auditoría del identificador nuevo. La cookie y
+tokens se gestionan desde el propio formulario; no se piden credenciales o
+cabeceras al propietario. Resultado y aceptación continúan pendientes. El
+agente no opera la VM; acta local posterior a `d3e0b14`, sin nuevo commit/push.
+
+### Recepción del recorrido CSRF en navegador corregido — 30/10/2026
+
+Las cuatro capturas posteriores del propietario acreditan el recorrido autorizado:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución nueva | `fe73eb53a5030885bb395eeb7613ac5c` |
+| Formulario normal del portal | URL del portal corregido 4382 con ese `_run`; `channel: normal`, `changed: true` |
+| Formulario desde el otro origen | Misma URL e identificador; `channel: normal`, `changed: false` |
+| Selección y confirmación | F6, `corrected`, `attempt`, variante 1, `COMPLETED`; «Formulario de otro origen con sesión del navegador rechazado» |
+| Respuesta mostrada en panel | `POST /avanzado/preferencias`, HTTP 403, `changed: false` |
+| Ejecutor y Apache | 4 peticiones del ejecutor, 7 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría en panel | 5 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 5 eventos |
+| SHA-256 mostrado en V2 | `8a20bd0c954eca1f91e4fa667c386c8412abb333af8aabc00ee17790b304f2ae` |
+| Observaciones V2 | Dos entradas «Solicitud de otro origen rechazada», componente `preferences`, actor `estibador.demo`, recurso `arrival_preferences` |
+| Conservación | «Copia de auditoría conservada en V2 para su respaldo. No se ha solicitado un análisis» |
+
+Queda **completado este recorrido manual corregido de navegador**, incluida
+la respuesta normal, el rechazo cruzado, la confirmación del panel y la lectura/
+conservación informada en V2. Los contadores son coherentes con la preparación,
+las tres peticiones del navegador y la recaptura descritas antes. Las peticiones
+del navegador no se suman al contador del ejecutor; las dos referencias HTTP
+del lote no representan todo el tráfico del recorrido.
+
+Las dos observaciones del mismo título son coherentes con el rechazo de la
+sonda HTTP inicial y el del formulario de navegador. Las capturas no muestran
+los identificadores individuales de esos eventos, por lo que no se afirma una
+comparación independiente del lote ni un defecto de duplicación. El SHA es el
+mostrado por V2; no se han leído los bytes, recalculado su hash, inspeccionado
+el recibo local o restaurado esta copia desde Windows.
+
+Esta recepción resuelve el pendiente específico de CSRF en navegador corregido,
+variante 1. No acepta toda F6/F7 ni demuestra protección universal o métricas
+del modelo. Siguen pendientes reutilización de permiso, modo vulnerable,
+otras variantes, aislamiento/regresión y evaluación. No repetir este recorrido;
+el siguiente candidato es Atraque corregido, intento variante 3, con alcance
+manual por acordar antes de iniciarlo. Solo se actualizan actas locales,
+posteriores a `d3e0b14`; sin nueva ejecución, modelo, suite o commit/push.
+
+### Siguiente caso autorizado: reutilización de permiso corregida
+
+Tras completar CSRF de navegador, el propietario solicita seguir con el
+siguiente caso propuesto. Se guía un único caso manual Atraque/corregido/
+Intento de ataque/variante 3 (`ext-workflow-a3-corrected`), con lectura y
+conservación de su auditoría en V2, sin suites o llamadas al modelo.
+
+La revisión del controlador y el target muestra esta preparación interna al
+pulsar una sola vez «Ejecutar escenario local»: sesión de operador, sesión de
+supervisor, aprobación de `dock-3`, primer uso permitido y segundo uso. La
+última respuesta esperada es HTTP 409 con `previous_state: consumed` y
+`permit_state: consumed`. No se pide ejecutar dos veces el caso desde el panel:
+la reutilización ya está incluida en esta variante predefinida.
+
+Incluida la captura de auditoría, se esperan 6 peticiones del ejecutor y 5
+eventos / 5 referencias HTTP. V2 debe mostrar el nuevo identificador, modo
+corregido y «Reutilización del permiso rechazada» para `dock-3`. Se solicitarán
+capturas del resultado y de V2 tras actualizar y conservar la copia. Son
+expectativas de código; la ejecución y conservación siguen pendientes de
+evidencia del propietario. Este alcance no acepta F6 completa ni autoriza
+otras variantes, modo vulnerable, suites, modelo o publicación Git.
+
+### Recepción: reutilización de permiso corregida — 30/10/2026
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `b1aa23bd017b47ec814fe8d3c52ecd2e` |
+| Selección y estado | F6, `corrected`, `attempt`, variante 3; `COMPLETED` |
+| Solicitud final | `POST /avanzado/atraque`, HTTP 409 |
+| Estado del permiso | `previous_state: consumed`, `permit_state: consumed` |
+| Ejecutor y Apache | 6 peticiones, 6 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 5 eventos / 5 referencias HTTP |
+| V2 | Misma ejecución, modo corregido y 5 eventos |
+| SHA-256 mostrado por V2 | `4403bb5865d9ed8ba2180a7c5eaa2a207ca727ac5733fa82e89cbce23f3d56b` |
+| Observación por reglas | «Reutilización del permiso rechazada», `docking`, actor `estibador.demo`, recurso `dock-3` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Se completa el recorrido manual autorizado de reutilización corregida:
+la segunda utilización se rechaza y el permiso permanece consumido. Los
+contadores coinciden con la preparación y captura previstas; las pantallas
+no sustituyen una inspección independiente de cada evento. No se ha leído
+el recibo local, recalculado el hash de los bytes o restaurado esta copia.
+No se repite el caso ni los controles normales o CSRF ya observados.
+
+Los pendientes específicos de navegador CSRF corregido y reutilización de
+permiso corregida quedan resueltos a sus respectivos alcances. **F6 completa
+sigue abierta**: otros modos/variantes, aislamiento/regresión y evaluación
+siguen pendientes. F7 permanece desarrollada sin ejecución observada. El
+próximo bloque propuesto es comenzar su revisión manual por Configuración,
+modo corregido, Uso normal, variante 1; requiere acordar ese nuevo alcance.
+Son revisiones educativas de artefactos ficticios, no aceptación global de
+categorías OWASP ni detección completa por el modelo. Solo se actualizan
+actas locales posteriores a `d3e0b14`, sin suites, modelos o publicación Git.
+
+### Distribución documental autorizada tras reutilización — 30/10/2026
+
+El propietario solicita commit/push antes de continuar. La entrega incorpora
+cuatro archivos: esta acta, el plan de cierre, el estado consolidado y AGENTS.
+Recoge las observaciones manuales posteriores a `d3e0b14` y actualiza la tabla
+vigente del plan para reflejar CSRF en navegador y reutilización corregida ya
+observados. Las notas de preparación anteriores conservan su orden histórico;
+no se interpretan como pendientes actuales cuando existe una recepción posterior.
+
+Se publica con `[skip ci]`; su identidad será la del commit que contiene esta
+nota. Se comprueban base remota, contenido preparado, coincidencia de HEAD
+remoto y limpieza local al terminar. No incluye código operativo, datos de la
+VM, secretos o nuevas ejecuciones. Parrot puede recibir esta entrega con
+`git pull --ff-only`; al ser documental no necesita recompilar, reinstalar o
+reiniciar por estos cambios. No se repiten casos o el análisis Groq. Esta
+distribución no acepta F6 global o F7 ni inicia el siguiente caso propuesto.
+
 ## Referencias de diseño
 
 - [OWASP Top 10:2025](https://top10.owasp.org/2025/): categorías del mapa educativo.

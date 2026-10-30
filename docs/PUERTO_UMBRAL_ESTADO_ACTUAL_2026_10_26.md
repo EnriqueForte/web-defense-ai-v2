@@ -2,6 +2,96 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Distribución documental del 30/10/2026
+
+El propietario autoriza publicar las cuatro actas pendientes antes de seguir
+con F7. El commit que incorpora esta nota identifica la entrega: rechazos
+corregidos, comprobación CSRF en navegador y reutilización de permiso con sus
+auditorías observadas y conservación informada. Solo documentación; en Parrot
+se recibe con `git pull --ff-only`, sin build, reinstalación o reinicio por esta
+entrega. La coincidencia del commit con el remoto se comprueba tras el push.
+Las referencias inferiores a notas locales sin publicar describen su momento
+histórico. F6 global y F7 siguen pendientes; no se ejecutan casos por publicar.
+
+## Última recepción — reutilización de permiso corregida, 30/10/2026
+
+Completado por capturas el caso Atraque/corregido/Intento de ataque/variante 3:
+ejecución `b1aa23bd017b47ec814fe8d3c52ecd2e`, HTTP 409 con estado consumido
+antes y después; 6 peticiones del ejecutor, 6 líneas correlacionadas y 5 eventos /
+5 referencias HTTP. V2 muestra el mismo identificador, modo y 5 eventos,
+«Reutilización del permiso rechazada» para `dock-3` y copia conservada sin
+análisis. SHA mostrado:
+`4403bb5865d9ed8ba2180a7c5eaa2a207ca727ac5733fa82e89cbce23f3d56b`.
+
+No se repite este recorrido ni CSRF de navegador ya completado. F6 global
+permanece abierta por otros modos/variantes, aislamiento/regresión y evaluación;
+F7 aún sin ejecución observada. El siguiente bloque propuesto es Configuración
+F7/corregido/Uso normal/variante 1, con alcance nuevo por acordar. No hay lectura
+del recibo local o verificación independiente de bytes de esta copia. Actas
+locales posteriores a `d3e0b14`, sin commit/push, suites o llamadas al modelo.
+
+## Última recepción — CSRF en navegador corregido, 30/10/2026
+
+Continuación posterior autorizada: un caso manual Atraque corregido/intento/
+variante 3 y su lectura/conservación en V2. La variante incorpora aprobación,
+primer uso y reutilización; se guía una sola ejecución del panel. Expectativa:
+409, estado consumido conservado y regla de reutilización rechazada. Resultado
+todavía pendiente de capturas, sin suites, modelo o ejecución de VM por el agente.
+
+El recorrido manual expresamente autorizado queda completado por capturas:
+ejecución `fe73eb53a5030885bb395eeb7613ac5c`, formulario normal con
+`changed: true`, formulario desde el otro origen con `changed: false` y
+confirmación del panel «Formulario de otro origen con sesión del navegador
+rechazado». El panel informa HTTP 403, 4 peticiones del ejecutor, 7 líneas
+Apache correlacionadas y 5 eventos / 2 referencias HTTP. V2 muestra el mismo
+identificador, modo corregido y 5 eventos, dos observaciones de rechazo y copia
+conservada sin análisis. SHA mostrado:
+`8a20bd0c954eca1f91e4fa667c386c8412abb333af8aabc00ee17790b304f2ae`.
+
+Se resuelve el pendiente de navegador CSRF de esta variante corregida; las
+notas inferiores conservan la secuencia histórica previa. No se repite el
+recorrido ni el análisis Groq. No hay inspección independiente de los bytes o
+recibo local de esta copia. Reutilización de permiso en Atraque, otros modos/
+variantes, F7 y aceptación global continúan pendientes. El siguiente candidato
+es Atraque corregido/intento/variante 3, sin iniciar otro caso por estas actas.
+Detalle en el [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md). Documentación local
+posterior a `d3e0b14`, sin nuevo commit/push, suites o llamadas al modelo.
+
+## Primer rechazo corregido observado — 30/10/2026
+
+Después de publicar las actas normales en `d3e0b14`, se continúa manualmente
+con Cargas/corregido/Intento de ataque/variante 1. Las capturas muestran
+HTTP 403 para `foreign-1`, `object_not_authorized`, ejecución
+`808f223ac979bd1f3f60ca47ec3a31a1`, dos eventos y regla «Acceso al objeto
+rechazado» en V2. Una captura posterior confirma copia conservada sin análisis.
+Se completa ese recorrido a este alcance, sin evaluación LLM, hash independiente,
+recibo local de esa copia o aceptación global. Sigue Preferencias, control HTTP
+de rechazo corregido; navegador entre orígenes permanece pendiente.
+La recepción siguiente acredita Preferencias rechazado por HTTP, 403 y
+`changed: false`, ejecución `1acb45412fdc9aa6ee6cb908da777a42`, dos eventos
+en V2 y «Solicitud de otro origen rechazada», con copia conservada sin análisis.
+Es el control HTTP de origen/token; el formulario de navegador sigue pendiente.
+Continúa Baliza, rechazo corregido de variante 1, todavía sin resultado nuevo.
+Después se observa Baliza corregido rechazando diagnóstico, HTTP 403 y
+`canary_resource_not_authorized`, ejecución `1ee95d713c3577e55088ecc4cc083bba`;
+dos eventos y «Lectura del señuelo rechazada» en V2, con copia conservada sin
+análisis. Completa ese control limitado y continúa Atraque sin aprobación,
+variante 1 corregida; no demuestra rechazo de todos los destinos o variantes.
+Después se observa Atraque sin aprobación rechazado, HTTP 409 y permiso
+pendiente, ejecución `554c8de8300762ce559b9aa38db564ff`, dos eventos y
+«Aprobación exigida» en V2, con copia conservada sin análisis. Quedan observados
+los cuatro rechazos HTTP de variante 1 corregida. Sigue Bitácora, codificación
+de texto e iframe, todavía pendiente; CSRF de navegador y demás criterios
+siguen abiertos, incluida reutilización de permiso y otras variantes.
+La recepción de Bitácora confirma respuesta codificada con HTTP 200 e iframe
+mostrando la entrada literal sin ejecución confirmada; ejecución
+`d9d05054f32aae24a76b6fe5b2167552`, tres eventos en V2 y copia conservada sin
+análisis. Se completa la ronda de cuatro rechazos HTTP más codificación de
+Bitácora, variante 1 corregida. No cierra F6 completa: quedan navegador CSRF,
+reutilización de permiso, otros modos/variantes, aislamiento/regresión y
+evaluación. Una prueba CSRF de navegador requiere nueva preparación, porque
+el reset de Bitácora invalida la sesión de Preferencias anterior.
+
 ## Recepción del bloque reanudado el 30/10/2026
 
 Se retoman cuatro controles normales F6, corregido/variante 1, manualmente

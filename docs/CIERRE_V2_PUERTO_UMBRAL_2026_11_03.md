@@ -8,6 +8,75 @@ incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el l
 
 ## Punto de partida comprobado
 
+### Siguiente validación manual: rechazos corregidos
+
+Las cinco actas se publicaron en `d3e0b14`, con remoto verificado y árbol
+limpio. El propietario solicita continuar con lo siguiente: se guía primero
+Cargas/corregido/Intento de ataque/variante 1, seguido de lectura y conservación
+de auditoría en V2, sin suites o modelo. El resultado esperado es HTTP 403 y
+observación por reglas de acceso rechazado. Todavía no hay captura de ese
+caso; no modifica las aceptaciones pendientes ni repite los controles normales.
+Las capturas posteriores muestran Cargas rechazado con HTTP 403 y dos eventos
+en V2, con «Acceso al objeto rechazado» para `foreign-1`. Una captura adicional
+confirma copia conservada sin análisis. Se completa ese recorrido de variante 1
+corregida; sigue Preferencias como control HTTP de rechazo. No se repite Cargas
+ni se atribuyen métricas LLM o protección universal.
+Después se observa Preferencias rechazado en la prueba HTTP de origen/token:
+403, `changed: false`, misma ejecución y 2 eventos en V2, con la regla de
+solicitud de otro origen rechazada y copia conservada. La comprobación de
+navegador sigue pendiente; continúa Baliza, rechazo corregido de variante 1.
+La siguiente recepción muestra Baliza rechazado con 403 para diagnóstico,
+misma ejecución y 2 eventos en V2, regla «Lectura del señuelo rechazada» y
+copia conservada sin análisis. Sigue Atraque sin aprobación, variante 1
+corregida; los demás criterios y comprobaciones de navegador siguen pendientes.
+Las capturas siguientes confirman Atraque sin aprobación rechazado con 409 y
+permiso pendiente, dos eventos y «Aprobación exigida» en V2, con copia
+conservada. Se observan así los cuatro rechazos HTTP corregidos de variante 1.
+Sigue Bitácora, control de codificación con HTTP 200 esperado y revisión del
+iframe; no es aceptación de F6 ni prueba de navegador CSRF.
+La recepción de Bitácora confirma HTTP 200 con entrada codificada, iframe
+mostrando el texto literal sin ejecución confirmada y 3 eventos en V2, con
+copia conservada. Termina la ronda corregida de variante 1: cuatro rechazos
+HTTP y un control de codificación, todos con lectura y conservación informada.
+Sigue pendiente F6 completa, en particular navegador CSRF, reutilización de
+permiso, otros modos/variantes, aislamiento/regresión y evaluación del detector.
+El candidato siguiente es una sesión nueva para comprobar el formulario CSRF
+en navegador; su alcance debe acordarse antes de prepararla.
+El propietario autoriza expresamente ese recorrido manual corregido: una
+preparación nueva, sesión ficticia, formulario normal y formulario del otro
+origen, confirmación en el panel y lectura/conservación en V2, sin suites o
+modelo. Se guían los pasos dentro de su ventana de cinco minutos; los
+resultados nuevos siguen pendientes de capturas y no se declaran aceptados.
+
+Recepción posterior: las cuatro capturas de la ejecución
+`fe73eb53a5030885bb395eeb7613ac5c` muestran formulario normal con
+`changed: true`, formulario cruzado con `changed: false`, confirmación de
+rechazo en navegador y cinco eventos coincidentes en V2, con copia conservada
+sin análisis. **Recorrido CSRF corregido en navegador completado a ese alcance**;
+no repetirlo. El panel informa 4 peticiones del ejecutor y 7 líneas Apache
+correlacionadas. Las dos observaciones de rechazo son coherentes con la sonda
+HTTP y el formulario, sin inspección de eventos crudos o recibo local nuevo.
+El detalle y el SHA mostrado están en el [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md).
+El siguiente candidato manual es reutilización de permiso en Atraque corregido,
+intento variante 3; todavía sin ejecutar ni acordar ese nuevo alcance. F6/F7 y
+el cierre global siguen abiertos. Sin llamadas al modelo o publicación Git.
+El propietario acepta después continuar con ese único caso manual y su lectura/
+conservación en V2. Se guía una pulsación de ejecutar, ya que la variante 3
+incluye aprobación, consumo y segundo uso de `dock-3`. Se espera 409 con el
+permiso todavía consumido y observación «Reutilización del permiso rechazada».
+Resultado pendiente de capturas, sin ejecutar el caso desde Windows ni iniciar
+suites o modelo. El recorrido CSRF anterior no se repite.
+Recepción posterior: Atraque variante 3 corregida se muestra completado,
+ejecución `b1aa23bd017b47ec814fe8d3c52ecd2e`, HTTP 409 y permiso consumido
+antes y después; 6 peticiones, 6 líneas correlacionadas y 5 eventos. V2 muestra
+la misma ejecución y conteo, «Reutilización del permiso rechazada» para `dock-3`
+y copia conservada sin análisis. **Recorrido de reutilización corregida
+completado según capturas**, sin recibo local o hash independiente nuevo.
+No se repite este caso ni CSRF. F6 global continúa abierta por cobertura,
+aislamiento/regresión y evaluación. El siguiente bloque propuesto es revisión
+manual F7, comenzando Configuración/corregido/Uso normal/variante 1; todavía
+sin ejecutar ni acordar ese nuevo alcance. Detalle en el acta F6/F7.
+
 ### Reanudación del 30/10
 
 El propietario vuelve y solicita continuar desde el punto guardado, reiniciando
@@ -98,8 +167,8 @@ reescribe los JSON históricos.
 | ID | Trabajo | Evidencia necesaria para cerrarlo | Estado |
 | --- | --- | --- | --- |
 | DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | Actualizado localmente; revisión final conjunta pendiente |
-| F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco controles normales con 13 eventos en total leídos y conservados en V2; recibo local de Cargas observado; criterios ampliados pendientes |
-| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco controles normales de variante 1 corregida observados; otros tipos/variantes, navegador y regresión pendientes |
+| F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco normales, cinco intentos de variante 1 corregida, CSRF de navegador corregido y reutilización corregida leídos y conservados en V2 según capturas; recibo local del normal Cargas observado; criterios ampliados pendientes |
+| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco normales y cinco intentos de variante 1 corregida, CSRF en navegador corregido y reutilización corregida variante 3 observados; otros modos/variantes, aislamiento/regresión y evaluación pendientes |
 | F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Código preparado; ejecución pendiente |
 | EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Pendiente de ejecución autorizada |
 | EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Pendiente de alcance/budget de nuevas llamadas |

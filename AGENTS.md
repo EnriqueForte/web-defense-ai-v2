@@ -2,6 +2,146 @@
 
 ## Alcance actual
 
+Puerto Umbral30/10 propietarioautoriza commit/pushantesdecontinuarF7.
+Alcance4archivosdocumentalesAGENTS/planCIERRE/ESTADO_ACTUAL/actaF6F7:
+rechazoscorregidosvariante1,CSRFbrowseryreusopermisoconcapturasV2.
+Publicar[skip ci]sobremain/origind3e0b14previacomprobación; staginginicial
+vacío. Revisardiff/staging/HEADremoto/árbollimpiotraspush. Sin runtime,
+datosoperativos/.env/reciboscrudos/servicios/suites/LLM/VM. ActualizarParrot
+despuésconpull--ff-only; entregasolodocumental,sinrebuild/reinstalación/
+reinicioporestoscambios. F6global/F7pendientes, no repetircasoscompletados.
+Identidaddeentregaencommitqueincluyeestanota,resultadoGitverificaralfin.
+
+Puerto Umbral30/10 Atraquereusocorrected/attempt/variante3 observado:
+runb1aa23bd017b47ec814fe8d3c52ecd2e/COMPLETED/POSTavanzado-atraque409/
+previous_stateconsumed/permit_stateconsumed;6peticiones/6líneasApache/
+5eventos5refs. V2mismorun/corrected/5eventos/SHA
+4403bb5865d9ed8ba2180a7c5eaa2a207ca727ac5733fa82e89cbce23f3d56b,
+Reutilizacióndelpermisorechazada/docking/estibador.demo/dock-3 ymensaje
+copiaconservada-sinanálisis. RecorridoautorizadoCOMPLETADOporcapturas,
+sinlecturarecibolocal/hashbytesVMindependiente/restauraciónnueva. No repetir
+CSRF/reusopermiso/controlesnormales. F6globalabiertaporotrosmodosvariantes/
+aislamiento/regresión/evaluación; F7todavíasinejecuciónobservada. Próximobloque
+PROPUESTO revisiónmanualF7Configuracióncorregidousonormalvariante1, acordar
+antescasosnuevos; actualautorizacióncumplida. Soloregistrodocumentallocal
+posteriorad3e0b14/sinGit/suites/LLM/servicios/VMporagente.
+
+Puerto Umbral30/10 propietarioacepta seguirconsiguientepropuesto: UNcaso
+manualAtraque/corrected/Intentodeataque/variante3(ext-workflow-a3-corrected),
+lecturayconservaciónauditoríaV2,sinsuites/modelos. GuiarEjecutarescenario
+localunavez: driverpreparasupervisor/apruebadock-3/consumeunavez/intenta
+reutilizar; no realizarsegundoejecutarmanual. ExpectativaporcódigoHTTP409/
+previous_stateconsumed/permit_stateconsumed;6peticionesejecutor(incluye
+capturaaudit)/5eventos5refs;V2Reutilizacióndelpermisorechazada/dock-3.
+ResultadoPENDIENTEdecapturaspanelyV2mismorun/copiamensaje; nopresumir
+ejecuciónoaceptaciónF6porautorizar. Noescenariosadicionales/LLM/VMagente/
+Gitnuevo. Conservarrecorridosanteriores, actaslocalesposterioresd3e0b14.
+
+Puerto Umbral30/10 CSRFbrowsercorrected observado por4capturas: run
+fe73eb53a5030885bb395eeb7613ac5c; formularioportal channelnormal/changedtrue,
+formotroorigen channelnormal/changedfalse; panelCOMPLETED/confirmaFormulario
+deotroorigenconsesióndelnavegadorrechazado/HTTP403/4peticionesejecutor/
+7líneasApachecorrelacionadas/5eventosapp/2refsHTTP. V2mismorun/corrected/
+5eventos/SHA8a20bd0c954eca1f91e4fa667c386c8412abb333af8aabc00ee17790b304f2ae,
+dosobservacionesSolicituddeotroorigenrechazada/preferences/estibador.demo/
+arrival_preferences ycopiaconservada-sinanálisis. Recorridoautorizado
+normalbrowser→cruzadorechazado→confirmación→V2copiainformadaCOMPLETADO.
+DosobservacionescoherentesconsondaHTTPyformbrowser; eventoscrudosnoleídos,
+noafirmarduplicadodefectuosonihashbytesVMindependiente/recibolocalnuevo.
+No repetirrecorrido/LLM. F6global/F7/reusopermisovariante3/otrosmodosvariantes/
+regresión/evaluaciónpendientes. Siguientecandidatomanualreusopermisocorrected
+requiereacordaralcanceantesdeejecutar; autorizaciónactualcumplida. Agenteno
+operaVM/suites/modelos/servicios/Git; actaslocalesposterioresd3e0b14.
+
+Puerto Umbral30/10 propietarioautoriza UNrecorridomanualPreferenciasCSRF
+browsercorrected: preparaciónNUEVAvariante1Intento(contextoprevioinvalidado),
+sesiónficticiacookie,controlnormalportal yformdesdeorigencontrol;lecturay
+conservaciónV2,sin suites/modelos. Guiarpasosseguidosenventana300s/20requests,
+sinreset/cambiar escenario entrepasos. EsperadoHTTPcontrolinicial403;crear
+sesiónenportal→Controlnormaldesdeesteorigen(channelnormal/changedtrue)→
+formotroorigen(channelnormal/changedfalse)→Comprobarevidencianavegadorenpanel.
+Esperadobannerformulariorechazado y5eventos (2driver+sesiónbrowser+normal+
+cruzado);contadorejecutor4incluyerecaptura. NOresultadosaún: esperarcapturas
+normal/cruzado/panelconfirmación/V2copiaconservada, todomismorunnuevo.
+Noauto-repeticiones/otrosmodos/otrasvariantes/LLM/VMporagente/Gitnuevo.
+Groqconsumidointacto, actaslocalesposterioresd3e0b14.
+
+Puerto Umbral30/10 Bitácoracorrected/attempt/variante1capturas: COMPLETED/
+Entradacodificadacomotexto/GETavanzado-tablon/200/entidadesHTML eiframe
+muestrapayloadliteral/Sinejecuciónconfirmada. Rund9d05054f32aae24a76b6fe5b2167552;
+4peticiones/4líneasApache/3eventos/3refs. V2mismorun/modo/3eventos/SHA
+ccff12955e46717b15e2c39af5854c0975681dbef9075defd75234e6aa84fc3e/sin
+coincidencias/copiaconservada-sinanálisis. Recorridocodificación+iframe+V2+
+conservacióninformadaCOMPLETADOparaestavariante; noausenciaJSuniversal ni
+inspecciónbytes/hashVMindependiente. Con4rechazosHTTPanteriorescompletala
+rondacorregidavariante1(4rechazos+1codificación), noF6global/99casos/LLM.
+PendientesCSRFbrowser, reusopermiso, modovulnerable,otrasvariantes,regresión,
+aislamiento/recuperaciónnuevascopias/evaluación. ProponersiguienteCSRFbrowser
+correctedrequiererunNUEVOconventana5minyresetadvancedporvínculorunactual;
+no reusarPreferenciasviejo trasresetBitácora ni iniciarsinacordarlo.
+Actaslocalesposterioresd3e0b14,sincommit/pushnuevo/modelos/suites.
+
+Puerto Umbral30/10 Atraquesinaprobar/corrected/attempt/variante1capturas:
+COMPLETED/POSTavanzado-atraque/409/previous_statepending/permit_statepending;
+run554c8de8300762ce559b9aa38db564ff/3peticiones/3líneasApache/2eventos/2refs.
+V2mismorun/modo/2eventos/SHA42db1bc86a73e8bad691ac32177d9125ed4ce22abc7d8b3168d1f05462913bec/
+Aprobaciónexigida/docking-actorestibador.demo-dock-1/copiaconservada-sinLLM.
+CuatrorechazosHTTPcorregidosvariante1Cargas/Preferencias/Baliza/Atraque
+observadosconreglasycopias; noF6global/reusopermiso/CSRFbrowser/99casos.
+SiguienteBitácora/corrected/Intento/variante1: controlcodificación,esperado
+HTTP200/Entradacodificadacomotexto/iframepayloadliteral/sinJSconfirmado;
+3eventosV2puedesincoincidenciasreglas/conservarcopia. Aúnpendientecapturas;
+noatribuirprotecciónuniversaloausenciaJSporHTTPsolo. Sin suites/LLM/Gitnuevo.
+
+Puerto Umbral30/10 Balizarechazocorrected/attempt/variante1capturas:
+COMPLETED/GETavanzado-balizadestinodiagnostic/403/canary_resource_not_authorized;
+run1ee95d713c3577e55088ecc4cc083bba/3peticiones/3líneasApache/2eventos/2refs.
+V2mismorun/corrected/2eventos/SHA8baa6edbf9aa926f6aa29beb402c54857384f2b37992d7add7ed19c380fb6983/
+Lecturadelseñuelorechazada/beacon-actorestibador.demo-recurso
+umbral://beacon/diagnostic/copiaconservadasinanálisis. Recorridorechazo+
+regla+conservacióninformadaCOMPLETADO, nootrasvariantes/SSRFgeneral/LLM/
+bytehashindependiente/backup. No repetircasosprevios. SiguienteAtraque
+corrected/Intento/variante1: sinaprobar dock-1,esperado409/previous_state
+pending/permit_statepending/2eventos/reglaAprobaciónexigida;lecturayconservar
+V2. AúnPENDIENTEcapturas, sin suites/modelos/VMporagente/Gitnuevo.
+
+Puerto Umbral30/10 PreferenciasrechazoHTTPcorrected/attempt/variante1capturas:
+COMPLETED/POSTavanzado-preferencias/403/channelnormal/changedfalse;
+run1acb45412fdc9aa6ee6cb908da777a42/3peticiones/3líneasApache/2eventos/2refs.
+V2mismorun/modo/2eventos/SHA4d36d94f3944815832d243192a3f7d1d74f8fc15b346d134967b3770fd2be43f/
+Solicituddeotroorigenrechazada/preferences-actorestibador.demo-recurso
+arrival_preferences/copiaconservadasinanálisis. RecorridorechazoHTTP+regla+
+conservacióninformadaCOMPLETADO. UIdeclaracomprobaciónbrowserpendiente:
+noinferircookies/formularioreal/CSRFbrowser/protecciónuniversal/LLM.
+SiguientemanualBaliza/corrected/Intento/variante1,esperado403/error
+canary_resource_not_authorized/2eventos/reglaLecturadelseñuelorechazada;
+lecturayconservaciónV2, aúnPENDIENTEcapturas. No repetircasosanteriores.
+Sin suites/modelos/VMporagente/Gitnuevo. Actaslocalesposterioresd3e0b14.
+
+Puerto Umbral30/10 Cargasrechazocorrected/attempt/variante1capturas:
+COMPLETED/GETavanzado-carga foreign-1/HTTP403/object_not_authorized;
+run808f223ac979bd1f3f60ca47ec3a31a1/3peticiones/3líneasApache/2eventos/2refs.
+V2mismorun/corrected/2eventos/SHA60651569e6830b5c6032425f04514f3b64538afff307f59352521f3234844b24/
+Accesoalobjetorechazado/cargo-actorestibador.demo-resourceforeign-1.
+PrimerrecorteV2sinbannerdeconservación; envíoposteriorconfirmacopiaconservada
+sinanálisis. Recorrido rechazo→reglaV2→conservacióninformadaCOMPLETADO
+paraestecaso, no métricaglobal/LLM/bytehashindependiente/recibodisco/backup.
+SiguientemanualPreferencias/corrected/Intento/variante1: esperadoHTTP403,
+channelnormal/changedfalse/2eventos/reglaSolicituddeotroorigenrechazada;
+lectura+conservarV2, sinformulariobrowserporahora. Casoaúnpendientecapturas.
+No repetirCargasnormal/rechazo ni otrosnormales/Groq. Sin suites/Gitnuevo.
+
+Puerto Umbral30/10 traspublicaractas propietario «sigamos entonces con lo
+siguiente»: continuarcontrolesderechazomanualesF6, modo corregido/variante1,
+sin suites/LLM/serviciosporagente. PrimerpasoguiadoCargas/Intentodeataque
+(ext-idor-a1-corrected): loginficticio+GETforeign-1, esperado403/error
+object_not_authorized/2eventos/observaciónV2Accesoalobjetorechazado. Leer y
+conservarauditoríaV2comosecuenciahabitual. ResultadoaúnPENDIENTEcapturas;
+noatribuiréxitoaldarcomando ni repetircontrolesnormalescompletados.
+Actaspublicadasd3e0b148bb1bc50c6430080dccd98456d04455e0/remotoverificado/
+árbollimpioentonces. Nuevasnotaslocalesposteriores,sinGitporreanudar.
+Sinmodo vulnerable/otrasvariantes/LLM/Groqconsumido/notificaciones/backupnuevo.
+
 Puerto Umbral30/10 propietarioaceptarecomendaciónpublicaractasantesampliar
 pruebas. Autoriza commit/push[skip ci] SOLO5archivosdocumentales: AGENTS,
 CIERRE_V2_PUERTO_UMBRAL_2026_11_03, ESTADO_ACTUAL_2026_10_26,
