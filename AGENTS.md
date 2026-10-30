@@ -2,6 +2,188 @@
 
 ## Alcance actual
 
+Puerto Umbral 30/10: Excepciones F7/corrected/benign/variante 1 observado por
+capturas: run b4ca524b483be65d9549d6b132f25fe7, COMPLETED, HTTP 200,
+controlled_response, error null, fictional_artifact_review, ambos indicadores
+production_security_claim/observed_fixture_effect false; 3 peticiones/3 líneas
+Apache/2 eventos/2 referencias. V2 mismo run/modo/2 eventos/SHA
+986bd32dd2af9aa895727d63a325b73d79b3c1eb904f3f46dea787b57e00a012,
+sin coincidencias y copia conservada sin análisis. Recorrido COMPLETADO según
+capturas. Seis controles normales F7 corregidos variante 1 completados con
+lectura/conservación informada. No repetirlos. Sin recibos locales nuevos,
+hash de bytes independiente, evaluación F7 por reglas F6 o aceptación global.
+Completar AHORA commit/push ya autorizado de las cuatro actas con [skip ci],
+verificar remoto/árbol limpio; después PAUSA explícita hasta que el propietario
+retome mañana. Punto guardado al inicio del plan CIERRE_V2_PUERTO_UMBRAL_2026_11_03.
+Siguiente bloque PROPUESTO: revisar casos de condición adversa F7 corregidos,
+variante 1, con alcance manual por acordar; no ejecutarlos automáticamente.
+No servicios/VM/escenarios/suites/modelos/recordatorios durante la pausa.
+Base dc9fb17; esta entrega se identifica por el commit que incluye esta nota.
+Las notas inferiores sin publicar/pendiente son historia previa a esta recepción.
+
+Puerto Umbral 30/10: el propietario autoriza un único caso manual Excepciones
+F7/corrected/Uso normal/variante 1 (ext-exceptions-b1-corrected), con lectura y
+conservación en V2, sin suites ni modelo. Después autoriza commit/push de las
+cuatro actas pendientes con [skip ci] y pide continuar mañana. No publicar
+antes de recibir el resultado y la confirmación de copia; no volver a pedir
+permiso Git para esa entrega ya autorizada. Esperado por código: HTTP 200,
+controlled_response, error null, fictional_artifact_review, exceptions,
+fixture-1, production_security_claim false, observed_fixture_effect false;
+3 peticiones y 2 eventos/2 referencias. Resultado pendiente de capturas.
+Tras registrarlas, revisar diff/staging/base remota, publicar actas, verificar
+HEAD remoto/árbol limpio y guardar pausa/punto de reanudación. No iniciar
+otros casos ni servicios/VM/LLM por el agente; no programar recordatorios.
+Cinco normales F7 anteriores completados, no repetir. F7 global pendiente.
+Base publicada dc9fb17; actas locales nuevas. La pausa solicitada será después
+de este caso y de la publicación, no impide completar esas acciones autorizadas.
+
+Puerto Umbral30/10 RegistroF7/corrected/benign/variante1 observado:
+run2c26ab55cda7b3e95eccfbf5080580b2/COMPLETED/HTTP200/sequence_fixture
+[1,2,3,4,5]/missing_sequence[]/warning_recordedfalse/no_warning/
+fictional_artifact_review/production_security_claimfalse/
+observed_fixture_effectfalse;3peticiones/3líneasApache/2eventos2refs.
+V2mismorun/corrected/2eventos/SHA
+141d4822e72b628901569cd0c888504a6de982e1ccff084f8e7cab07e1b25800/
+sincoincidencias/copiaconservada-sinanálisis. Recorridoautorizadoejecución→
+lectura→conservacióninformadaCOMPLETADOporcapturas;norepetircaso/copia.
+NoacreditacontinuidadApache/rotación/entregaavisos/recibolocalnuevo/hashbytes
+independiente/evaluacióncontenidoporreglasF6. CinconormalesF7variante1
+corregidosobservadosyconservados;F7globalabierta. Próximocandidatopropuesto
+ExcepcionesF7/corregido/Usonormal/variante1, todavía sin autorizar o ejecutar.
+Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/suites/LLM.
+
+Puerto Umbral30/10 propietario «ok sigamos» acepta UNcasomanualRegistroF7/
+corrected/Usonormal/variante1(ext-logging-b1-corrected),lecturayconservación
+V2,sinsuites/LLM. GuiarRevisarartefactoficticiounavez; esperadoHTTP200/
+sequence_fixture[1,2,3,4,5]/missing_sequence[]/warning_recordedfalse/
+observationno_warning/provenancefictional_artifact_review/topiclogging/
+fixture-1/production_security_claimfalse/observed_fixture_effectfalse.
+Porcódigo3peticiones/2eventos2refs; V2puedesincoincidenciasreglasF6.
+ResultadoPENDIENTEcapturaspanelyV2mismorun/copiamensaje. Secuenciaficticia,
+noatribuircontinuidadApache/rotación/entreganotificaciones. Norepetircuatro
+normalesF7anteriores. Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/
+suites/modelos; F7globalpendiente.
+
+Puerto Umbral30/10 IntegridadF7/corrected/benign/variante1 observado:
+run38d690cd4161439e73f4d38df256e0d1/COMPLETED/HTTP200/acceptedtrue/
+verificationhmac_sha256/manifest_checked/fictional_artifact_review/
+production_security_claimfalse/observed_fixture_effectfalse;3peticiones/
+3líneasApache/2eventos2refs. V2mismorun/corrected/2eventos/SHA
+6f76a58a30318cdb1ae9fce21d0b553db0fc2bbd8ee5fe498cedea5cf35061f1/
+sincoincidencias/copiaconservada-sinanálisis. Recorridoautorizadoejecución→
+lectura→conservacióninformadaCOMPLETADOporcapturas; norepetircaso/copia.
+NoinspecciónbytesVM/recibolocalnuevo/evaluacióncontenidoporreglasF6/
+verificaciónmanifiestosreales. CuatronormalesF7corregidosvariante1observados:
+Configuración,Suministro,Criptografía,Integridad; F7globalabierta. Próximo
+candidatopropuestoRegistroF7/corregido/Usonormal/variante1, todavía sin
+autorizar o ejecutar. Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/LLM.
+
+Puerto Umbral30/10 propietario «ok sigamos» acepta UNcasomanualIntegridadF7/
+corrected/Usonormal/variante1(ext-integrity-b1-corrected),lecturayconservación
+V2,sinsuites/LLM. GuiarRevisarartefactoficticiounavez; esperadoHTTP200/
+acceptedtrue/verificationhmac_sha256/observationmanifest_checked/
+provenancefictional_artifact_review/topicintegrity/fixture-1/
+production_security_claimfalse/observed_fixture_effectfalse. Porcódigo
+3peticiones/2eventos2refs;V2puedesincoincidenciasreglasF6. ResultadoPENDIENTE
+capturaspanelyV2mismorun/copiamensaje. NoejecuciónVMporagente/modelos/suites/
+Gitnuevo;soloactaslocalesdc9fb17+. NorepetirConfiguración/Suministro/Cripto.
+NoaceptaciónF7globalniverificaciónmanifiestosreales; no pedir clave HMAC.
+
+Puerto Umbral30/10 capturaposteriorconfirmacopiaconservadaV2CriptografíaF7/
+corrected/benign/variante1/run8fa4ffafefc52573988c36dd75fbcbb5/2eventos/
+mismoSHA76632c81fba7f53964684bf7effe03c281ec1a9330846862e20727fcd9dd7052.
+Mensajecopiaconservadaparabackup/sinanálisis. Recorridoejecución→lectura→
+conservacióninformadaCOMPLETADOporcapturas; norepetircaso/copia ni pedirmás
+capturasparaesterecorrido. Nolecturarecibolocal/hashbytesindependiente/
+auditoríacriptográficaproducción/aceptaciónF7global. Configuración,Suministro,
+Criptografíanormalescorregidosvariante1observadosyconservadosenpantalla.
+PróximocandidatopropuestoIntegridadF7/corregido/Usonormal/variante1,aúnsin
+autorizaroejecutar. Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/LLM.
+
+Puerto Umbral30/10 CriptografíaF7/corrected/benign/variante1 observado:
+run8fa4ffafefc52573988c36dd75fbcbb5/Usonormalcorrecto/HTTP200/scrypt/
+saltystored_fixtureconvalor/salted_password_derivation/fictional_artifact_review/
+production_security_claimfalse/observed_fixture_effectfalse;3peticiones/
+3líneasApache/2eventos2refs. V2mismorun/corrected/2eventos/SHA
+76632c81fba7f53964684bf7effe03c281ec1a9330846862e20727fcd9dd7052/
+sincoincidencias; recorteSINbannerdeconservación. Ejecuciónylecturaobservadas,
+conservaciónPENDIENTEconfirmaciónvisual. GuiarsoloConservarcopiadeauditoría
+enV2yrecogermensaje; norepetircaso/recapturar/LLM/compararhashsalaleatoria.
+Noevaluacióncriptoproducción/reglasF7/recibolocal/hashbytesindependiente.
+Otroscasosnoautorizados;soloactaslocalesdc9fb17+,sinGit/servicios/VMagente.
+
+Puerto Umbral30/10 propietario «ok hagamos el siguiente» acepta UNcasomanual
+CriptografíaF7/corrected/Usonormal/variante1(ext-cryptography-b1-corrected),
+lecturayconservaciónV2,sinsuites/LLM. GuiarRevisarartefactoficticiounavez;
+esperadoHTTP200/storage_methodscrypt/saltconvalor/stored_fixtureconvalor/
+observationsalted_password_derivation/provenancefictional_artifact_review/
+topiccryptography/fixture-1/production_security_claimfalse/
+observed_fixture_effectfalse. Salaleatoria,nofijarhashnirepetirparacomparar.
+Porcódigo3peticiones/2eventos2refs;V2puedesincoincidenciasreglasF6.
+ResultadoPENDIENTEcapturaspanelyV2mismorun/copiamensaje. NoejecuciónVMpor
+agente/modelos/suites/Gitnuevo;soloactaslocalesdc9fb17+. NoaceptaciónF7global
+niauditoríacriptográficaproducción. NorepetirConfiguración/Suministro.
+
+Puerto Umbral30/10 SuministroF7/corrected/benign/variante1 observado:
+rund34aba7e1dfae17f750c1ac7c8722be1/COMPLETED/HTTP200/expected_sha256igual
+received_sha256/acceptedtrue/fixed_local_fixture/digest_comparison/
+fictional_artifact_review/production_security_claimfalse/observed_fixture_effect
+false;3peticiones/3líneasApache/2eventos2refs. V2mismorun/corrected/2eventos/
+SHA7228d4f84c4a97a2624a31595e4846d15bf510e16d80c0fdd03890c77a0667d9/
+sincoincidenciasreglas/copiaconservada-sinanálisis. Recorridoautorizado
+ejecución→lectura→conservacióninformadaCOMPLETADOporcapturas; norepetircaso
+oConfiguración. NoinspecciónbytesVM/recibolocalnuevo/procedenciarealpaquetes/
+evaluacióncontenidoporreglasF6. F7globalpendiente. PróximocandidatoCriptografía
+F7/corregido/Usonormal/variante1, propuesto, todavía sin autorización ni ejecución.
+Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/suites/LLM.
+
+Puerto Umbral30/10 propietario «ok sigamos» acepta UNcasomanualSuministroF7/
+corrected/Usonormal/variante1(ext-supply_chain-b1-corrected),lecturay
+conservaciónV2,sinsuites/LLM. GuiarRevisarartefactoficticiounavez; esperado
+HTTP200/provenancefictional_artifact_review/topicsupply_chain/fixture-1/
+expected_sha256igualreceived_sha256/acceptedtrue/trusted_reference
+fixed_local_fixture/observationdigest_comparison/observed_fixture_effectfalse/
+production_security_claimfalse. Porcódigo3peticiones/2eventos2refs; V2puede
+sincoincidenciasporqueobservadorF6noevalúacontenidoF7. ResultadoPENDIENTE
+capturaspanelyV2copiaconservada,mismorunnuevo. NorepetirConfiguración.
+Noautorizapaquetesreales/instalaciones/suites/modelos/VMagente/Gitnuevo.
+Actaslocalesposterioresdc9fb17; F7globalpendiente.
+
+Puerto Umbral30/10 capturaposteriorconfirmacopiaconservadaV2paraConfiguración
+F7/corrected/benign/variante1/run608700e1fe2c6d7d91f4f275a770a56a/2eventos/
+mismoSHA86170cfde0364edc7b16a05999b091f1d9a10bdb8636e63c601285673650bf16.
+Mensajecopiaconservadaparabackup/sinanálisis. Recorridoejecución→lectura→
+conservacióninformadaCOMPLETADOporcapturas; no repetircaso/copia ni solicitar
+máscapturasparaesterecorrido. Sinrecibolocalnuevo/hashbytesindependiente/
+evaluacióncontenidoporreglasF6/aceptaciónF7global. PróximocandidatoSuministro
+F7/corregido/Usonormal/variante1, todavíapropuestosinejecución/autorización.
+Soloactaslocalesdc9fb17+,sinGit/servicios/VMagente/suites/LLM.
+
+Puerto Umbral30/10 primerF7Configuración/corrected/benign/variante1 observado:
+run608700e1fe2c6d7d91f4f275a770a56a/COMPLETED/Usonormalcorrecto/HTTP200/
+fictional_artifact_review/minimal_configuration/debug_enabledfalse/service
+beacon-demo/production_security_claimfalse/observed_fixture_effectfalse.
+3peticiones/3líneasApache/2eventos2refs. V2mismorun/modo/2eventos/SHA
+86170cfde0364edc7b16a05999b091f1d9a10bdb8636e63c601285673650bf16/
+sincoincidenciasreglas; recorteSINbannerdeconservación. Ejecuciónylectura
+COMPLETADASporcapturas; conservaciónaúnPENDIENTEconfirmaciónvisual.
+GuiarsoloConservarcopiadeauditoríaenV2yrecogermensaje,sinrepetircaso/
+recapturar/LLM. NoatribuiranálisiscontenidoF7porreglasF6niconfiguraciónreal
+producción. Sinotroscasos/suites/modelos/VMagente/Git; actaslocalesdc9fb17+.
+
+Puerto Umbral30/10 propietario «ok ahora sigamos con el siguiente» acepta
+primerF7propuesto: UNcasomanualConfiguración/corrected/Usonormal/variante1
+(ext-configuration-b1-corrected),lecturayconservaciónauditoríaV2,sinsuites/
+modelo. GuiarbotónRevisarartefactoficticiounavez; esperadoHTTP200/
+provenancefictional_artifact_review/topicconfiguration/fixture-1/
+debug_enabledfalse/configurationservicebeacon-demo/observation
+minimal_configuration/production_security_claimfalse/observed_fixture_effect
+false. Porcódigo3peticionesincluyeaudit/2eventos2refs; V2puedesin
+coincidenciaspuesreglasF6noevalúanartefactoF7. ResultadoPENDIENTEcapturas,
+noaceptaciónF7/OWASPglobal. AgentenoejecutaVM/servicios/suites/LLM/Git.
+Publicaciónpreviadc9fb1746a8c43be2324d5c78cf072df36a3f6ab/mainremoto
+verificado/árbollimpioentonces; notasnuevaslocalesposteriores.
+
 Puerto Umbral30/10 propietarioautoriza commit/pushantesdecontinuarF7.
 Alcance4archivosdocumentalesAGENTS/planCIERRE/ESTADO_ACTUAL/actaF6F7:
 rechazoscorregidosvariante1,CSRFbrowseryreusopermisoconcapturasV2.

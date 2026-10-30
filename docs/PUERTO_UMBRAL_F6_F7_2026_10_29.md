@@ -978,6 +978,385 @@ VM, secretos o nuevas ejecuciones. Parrot puede recibir esta entrega con
 reiniciar por estos cambios. No se repiten casos o el análisis Groq. Esta
 distribución no acepta F6 global o F7 ni inicia el siguiente caso propuesto.
 
+### Primer recorrido F7 autorizado: Configuración normal corregida
+
+La entrega documental anterior se publicó en
+`dc9fb1746a8c43be2324d5c78cf072df36a3f6ab`, con remoto coincidente y árbol
+local limpio tras el push. El propietario solicita seguir con el siguiente
+bloque propuesto: un caso manual Configuración · réplica de diagnóstico,
+modo corregido, Uso normal, variante 1 (`ext-configuration-b1-corrected`),
+seguido de lectura y conservación de auditoría en V2. No incluye suites o LLM.
+
+Se revisa el código sin importarlo o ejecutarlo. El botón del panel pasa a
+«Revisar artefacto ficticio». Se espera una respuesta HTTP 200 con
+`provenance: fictional_artifact_review`, `topic: configuration`, `fixture:
+fixture-1`, `debug_enabled: false`, configuración con `service: beacon-demo`
+y `observation: minimal_configuration`. Los indicadores
+`production_security_claim` y `observed_fixture_effect` deben ser `false`.
+Se trata de una revisión educativa de un artefacto, no de una comprobación
+de la configuración real del despliegue o de una explotación.
+
+La secuencia incluye sesión ficticia, revisión y captura: expectativa de 3
+peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede mostrar
+«No hay coincidencias de estas reglas»: sus reglas de estado F6 no evalúan el
+contenido del artefacto F7. Se comparará el identificador nuevo y se conservará
+su copia. Resultado pendiente de capturas del panel y de V2 con confirmación
+de conservación; no se da por aceptada F7. Notas locales posteriores a
+`dc9fb17`, sin nueva publicación, servicios, suites o llamadas al modelo.
+
+### Configuración normal corregida: ejecución y lectura observadas
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `608700e1fe2c6d7d91f4f275a770a56a` |
+| Selección y estado | F7, `corrected`, `benign`, variante 1; `COMPLETED`, «Uso normal completado correctamente» |
+| Origen y solicitud | Revisión de artefacto ficticio mediante HTTP; `GET /avanzado/revision?topic=configuration&variant=0&kind=benign`, HTTP 200 |
+| Contenido | `fictional_artifact_review`, `configuration`, `fixture-1`; `debug_enabled: false`, `service: beacon-demo`, `minimal_configuration` |
+| Límites declarados en respuesta | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría en panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de estas reglas |
+| SHA-256 mostrado en V2 | `86170cfde0364edc7b16a05999b091f1d9a10bdb8636e63c601285673650bf16` |
+| Conservación | Botón visible, sin mensaje de copia conservada en el recorte aportado |
+
+La ejecución y la lectura en V2 quedan completadas a este alcance. **Falta
+confirmar la conservación**: se guía únicamente el botón «Conservar copia de
+auditoría en V2» para esta auditoría y la captura del mensaje de confirmación.
+No se repite el caso ni se solicita análisis. La ausencia de coincidencias
+de las reglas F6 no evalúa el artefacto F7; tampoco se demuestra configuración
+de producción o aceptación global de F7. Sin inspección independiente de bytes
+o recibo local nuevo. Notas locales posteriores a `dc9fb17`, sin commit/push.
+
+### Configuración: conservación confirmada y recorrido normal completado
+
+La captura posterior de V2 muestra el mismo identificador
+`608700e1fe2c6d7d91f4f275a770a56a`, modo corregido, 2 eventos y SHA
+`86170cfde0364edc7b16a05999b091f1d9a10bdb8636e63c601285673650bf16`.
+Incluye el mensaje «Copia de auditoría conservada en V2 para su respaldo.
+No se ha solicitado un análisis».
+
+Queda **completado el recorrido Configuración/corregido/Uso normal/variante 1**
+según capturas: respuesta esperada del artefacto ficticio, lectura en V2 y
+conservación informada. No se repite ni se requieren más capturas de este
+recorrido. No se ha inspeccionado un recibo local nuevo o verificado de forma
+independiente el contenido de la copia. La ausencia de coincidencias de reglas
+F6 no evalúa el contenido F7 ni la seguridad del despliegue real.
+
+F7 global continúa pendiente. El siguiente candidato propuesto es Suministro ·
+procedencia del artefacto, modo corregido, Uso normal, variante 1; su ejecución
+no se inicia por recibir esta captura. Actas locales posteriores a `dc9fb17`,
+sin nuevo commit/push, suite, servicio o llamada al modelo.
+
+### Siguiente recorrido autorizado F7: Suministro normal corregido
+
+El propietario acepta continuar con el siguiente caso propuesto: Suministro ·
+procedencia del artefacto, modo corregido, Uso normal, variante 1
+(`ext-supply_chain-b1-corrected`), con lectura y conservación de auditoría en V2.
+Se guía una pulsación de «Revisar artefacto ficticio», sin suites o LLM.
+
+La revisión de código muestra una comparación SHA-256 con una referencia local
+fija para el artefacto ficticio sin modificar. Se espera HTTP 200,
+`expected_sha256` igual a `received_sha256`, `accepted: true`,
+`trusted_reference: fixed_local_fixture`, `observation: digest_comparison` y
+`observed_fixture_effect: false`. La respuesta identifica `supply_chain`,
+`fixture-1`, `fictional_artifact_review` y `production_security_claim: false`.
+Esto no instala paquetes ni verifica la procedencia de una dependencia real;
+la referencia confiable es parte del ejercicio local.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede
+quedar sin coincidencias porque las reglas F6 no evalúan ese contenido F7.
+Se solicitarán resultado y lectura V2 del mismo identificador nuevo, con el
+mensaje de conservación visible. Resultado pendiente de capturas; no se repite
+Configuración ni se declara F7 aceptada. Notas locales posteriores a `dc9fb17`,
+sin commit/push o ejecución de servicios/VM por el agente.
+
+### Suministro normal corregido: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `d34aba7e1dfae17f750c1ac7c8722be1` |
+| Selección y estado | F7, `corrected`, `benign`, variante 1; `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/revision?topic=supply_chain&variant=0&kind=benign`, HTTP 200 |
+| Artefacto | `fictional_artifact_review`, `supply_chain`, `fixture-1`, referencia `fixed_local_fixture` |
+| Comparación | Hashes esperado y recibido iguales, `accepted: true`, `observation: digest_comparison` |
+| Límites de respuesta | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `7228d4f84c4a97a2624a31595e4846d15bf510e16d80c0fdd03890c77a0667d9` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido normal de Suministro corregido, variante 1**,
+con lectura y conservación informada en V2. No se repite ni se solicitan más
+capturas para este recorrido. La comparación visual del artefacto no verifica
+procedencia de paquetes reales; no se han recalculado sus bytes o inspeccionado
+el recibo local de esta copia. La ausencia de observaciones F6 no evalúa el
+contenido F7 ni aporta métricas del modelo.
+
+Configuración y Suministro normales corregidos quedan observados y conservados
+según capturas. F7 global permanece abierta. El siguiente candidato propuesto
+es Criptografía · codificar o proteger, corregido/Uso normal/variante 1; su
+ejecución requiere la continuación del propietario y no se inicia por recibir
+estas imágenes. Solo actas locales posteriores a `dc9fb17`, sin nuevo
+commit/push, suites o llamadas al modelo.
+
+### Siguiente recorrido autorizado F7: Criptografía normal corregida
+
+El propietario acepta el siguiente caso propuesto: Criptografía · codificar o
+proteger, corregido/Uso normal/variante 1 (`ext-cryptography-b1-corrected`),
+con lectura y conservación de auditoría en V2. Se guía una pulsación de
+«Revisar artefacto ficticio», sin suites o LLM. Configuración y Suministro no
+se repiten.
+
+La lectura del código muestra una derivación `scrypt` sobre una contraseña
+ficticia, con sal aleatoria. Se espera HTTP 200, `storage_method: scrypt`,
+`salt` y `stored_fixture` con valores, `observation: salted_password_derivation`,
+`provenance: fictional_artifact_review`, `topic: cryptography`, `fixture-1`,
+`production_security_claim: false` y `observed_fixture_effect: false`. No se
+fija el valor de sal o derivación ni se repite el caso para compararlos.
+La respuesta declara parámetros educativos; no es una auditoría criptográfica
+de producción.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. Las
+reglas F6 de V2 pueden quedar sin coincidencias, sin evaluar el contenido F7.
+Resultado y copia pendientes de capturas del panel y V2 con el mismo nuevo
+identificador y confirmación de conservación. Actas locales `dc9fb17`+, sin
+commit/push, servicios, modelos o ejecución de la VM por el agente.
+
+### Criptografía normal corregida: ejecución y lectura observadas
+
+Las dos capturas aportadas muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `8fa4ffafefc52573988c36dd75fbcbb5` |
+| Selección y resultado | F7, `corrected`, `benign`, variante 1; «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/revision?topic=cryptography&variant=0&kind=benign`, HTTP 200 |
+| Artefacto | `fictional_artifact_review`, `cryptography`, `fixture-1` |
+| Derivación mostrada | `storage_method: scrypt`, `salt` y `stored_fixture` con valores; `salted_password_derivation` |
+| Límites de respuesta | `production_security_claim: false`, `observed_fixture_effect: false`; nota de parámetros educativos |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `76632c81fba7f53964684bf7effe03c281ec1a9330846862e20727fcd9dd7052` |
+| Conservación | Botón visible, sin mensaje de copia conservada en el recorte |
+
+Ejecución y lectura quedan observadas. **Conservación pendiente de confirmación
+visual**: se guía solo «Conservar copia de auditoría en V2» y la captura del
+mensaje para esta auditoría, sin repetir el caso. No se recalcula la derivación
+o compara con una ejecución nueva; la sal es aleatoria. La respuesta no supone
+una auditoría criptográfica de producción, y las reglas F6 no evalúan el
+contenido F7. No se han inspeccionado bytes o recibo local nuevos. Actas locales
+posteriores a `dc9fb17`, sin commit/push, suites o llamadas al modelo.
+
+### Criptografía: conservación confirmada y recorrido normal completado
+
+La captura posterior de V2 muestra la misma ejecución
+`8fa4ffafefc52573988c36dd75fbcbb5`, modo corregido, 2 eventos y SHA
+`76632c81fba7f53964684bf7effe03c281ec1a9330846862e20727fcd9dd7052`.
+Incluye «Copia de auditoría conservada en V2 para su respaldo. No se ha
+solicitado un análisis».
+
+Queda **completado el recorrido Criptografía/corregido/Uso normal/variante 1**
+según capturas: respuesta esperada del artefacto ficticio, lectura y conservación
+informada en V2. No se repite ni se solicitan más capturas para este recorrido.
+No se han inspeccionado bytes o recibo local nuevos; no equivale a una auditoría
+criptográfica de producción o evaluación del contenido F7 por las reglas F6.
+
+Configuración, Suministro y Criptografía normales corregidos, variante 1,
+quedan observados y conservados en pantalla. F7 global sigue abierta. El
+siguiente candidato propuesto es Integridad · manifiesto de carga, corregido/
+Uso normal/variante 1; no se inicia otro caso por recibir esta captura. Solo
+actas locales posteriores a `dc9fb17`, sin commit/push, suites o llamadas LLM.
+
+### Siguiente recorrido autorizado F7: Integridad normal corregida
+
+El propietario acepta el caso propuesto Integridad · manifiesto de carga,
+corregido/Uso normal/variante 1 (`ext-integrity-b1-corrected`), con lectura y
+conservación de auditoría en V2, sin suites o modelo. Se guía una pulsación de
+«Revisar artefacto ficticio». No se repiten los tres casos normales anteriores.
+
+Por lectura del código se espera HTTP 200, `accepted: true`,
+`verification: hmac_sha256`, `observation: manifest_checked`,
+`provenance: fictional_artifact_review`, `topic: integrity`, `fixture-1`,
+`production_security_claim: false` y `observed_fixture_effect: false`.
+Es una comprobación HMAC del manifiesto ficticio sin modificar, con una clave
+interna en memoria; no se pide mostrarla ni se verifican manifiestos reales.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2
+puede quedar sin coincidencias porque las reglas F6 no evalúan el contenido F7.
+Resultado y copia pendientes de capturas del panel y V2 con el mismo nuevo
+identificador y mensaje de conservación. Actas locales posteriores a `dc9fb17`,
+sin commit/push, servicios, suites, LLM o ejecución de la VM por el agente.
+
+### Integridad normal corregida: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `38d690cd4161439e73f4d38df256e0d1` |
+| Selección y estado | F7, `corrected`, `benign`, variante 1; `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/revision?topic=integrity&variant=0&kind=benign`, HTTP 200 |
+| Artefacto y verificación | `fictional_artifact_review`, `integrity`, `fixture-1`; `accepted: true`, `verification: hmac_sha256`, `observation: manifest_checked` |
+| Límites de respuesta | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `6f76a58a30318cdb1ae9fce21d0b553db0fc2bbd8ee5fe498cedea5cf35061f1` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido normal de Integridad corregida, variante 1**,
+con lectura y conservación informada en V2. No se repite ni se solicitan más
+capturas para este recorrido. No se verifican manifiestos reales ni se han
+inspeccionado los bytes o recibo local de esta copia. La ausencia de
+observaciones de reglas F6 no evalúa el contenido F7.
+
+Configuración, Suministro, Criptografía e Integridad normales corregidos,
+variante 1, quedan observados y conservados en pantalla. F7 global permanece
+abierta. El siguiente candidato propuesto es Registro · huecos y avisos,
+corregido/Uso normal/variante 1; no se inicia por recibir estas capturas.
+Actas locales posteriores a `dc9fb17`, sin commit/push, suites o llamadas LLM.
+
+### Siguiente recorrido autorizado F7: Registro normal corregido
+
+El propietario acepta el caso propuesto Registro · huecos y avisos, corregido/
+Uso normal/variante 1 (`ext-logging-b1-corrected`), con lectura y conservación
+de auditoría en V2, sin suites o modelo. Se guía una pulsación de «Revisar
+artefacto ficticio» y no se repiten los cuatro controles normales anteriores.
+
+La lectura de código muestra una secuencia ficticia completa. Se espera HTTP
+200, `sequence_fixture: [1, 2, 3, 4, 5]`, `missing_sequence: []`,
+`warning_recorded: false` y `observation: no_warning`; además de
+`fictional_artifact_review`, `logging`, `fixture-1` y ambos indicadores
+`production_security_claim` / `observed_fixture_effect` en `false`.
+La ausencia de aviso es la expectativa del control normal sin huecos. No
+comprueba continuidad real de Apache, rotación o entrega de notificaciones.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2
+puede mostrar ausencia de coincidencias de reglas F6, sin evaluar el contenido
+F7. Resultado y copia pendientes de capturas del panel y V2 con el mismo nuevo
+identificador y mensaje de conservación. Notas locales posteriores a `dc9fb17`,
+sin commit/push, servicios, suites, LLM o ejecución de la VM por el agente.
+
+### Registro normal corregido: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `2c26ab55cda7b3e95eccfbf5080580b2` |
+| Selección y estado | F7, `corrected`, `benign`, variante 1; `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/revision?topic=logging&variant=0&kind=benign`, HTTP 200 |
+| Artefacto | `fictional_artifact_review`, `logging`, `fixture-1` |
+| Secuencia y aviso | `sequence_fixture: [1,2,3,4,5]`, `missing_sequence: []`, `warning_recorded: false`, `observation: no_warning` |
+| Límites declarados | `production_security_claim: false`, `observed_fixture_effect: false`; nota de secuencia ficticia |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `141d4822e72b628901569cd0c888504a6de982e1ccff084f8e7cab07e1b25800` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido normal de Registro corregido, variante 1**,
+con lectura y conservación informada en V2. No se repite ni se solicitan más
+capturas para este recorrido. La secuencia es ficticia: no verifica continuidad
+real de Apache, rotación o entrega de avisos. Tampoco se ha inspeccionado el
+recibo local o recalculado el hash de los bytes de esta copia. La ausencia de
+observaciones de reglas F6 no evalúa el contenido F7.
+
+Quedan observados y conservados en pantalla cinco controles normales F7
+corregidos, variante 1: Configuración, Suministro, Criptografía, Integridad y
+Registro. El siguiente candidato propuesto es Excepciones · respuesta
+controlada, corregido/Uso normal/variante 1; todavía sin iniciar. F7 global
+sigue abierta. Solo actas locales posteriores a `dc9fb17`, sin commit/push,
+suites o llamadas al modelo.
+
+### Último control normal autorizado: Excepciones y cierre de la sesión
+
+El propietario solicita realizar Excepciones · respuesta controlada,
+corregido/Uso normal/variante 1 (`ext-exceptions-b1-corrected`), seguido de
+commit/push y continuar mañana. El caso incluye lectura y conservación de
+auditoría en V2, sin suites o modelo. Se guía una pulsación de «Revisar
+artefacto ficticio». Los cinco controles normales anteriores no se repiten.
+
+Por lectura del código se espera HTTP 200, `observation: controlled_response`,
+`error: null`, `provenance: fictional_artifact_review`, `topic: exceptions`,
+`fixture-1`, `production_security_claim: false` y
+`observed_fixture_effect: false`; 3 peticiones del ejecutor y 2 eventos /
+2 referencias HTTP. Puede no haber coincidencias de reglas F6. Resultado y
+conservación siguen pendientes de capturas. Este uso normal no comprueba aún
+la respuesta ante una condición de error o la ausencia universal de filtraciones.
+
+Tras recibir las capturas se registrará el resultado observado, se revisarán
+y publicarán las cuatro actas pendientes con `[skip ci]`, y se verificará HEAD
+remoto y árbol limpio. Esta publicación está expresamente autorizada; no se
+ejecuta antes de documentar el caso. Después se guardará el punto para mañana
+y se detendrá el trabajo sin iniciar otros casos, servicios o modelos, ni
+crear recordatorios automáticos. F7 global y demás criterios siguen abiertos.
+
+### Excepciones normal corregida: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `b4ca524b483be65d9549d6b132f25fe7` |
+| Selección y estado | F7, `corrected`, `benign`, variante 1; `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/revision?topic=exceptions&variant=0&kind=benign`, HTTP 200 |
+| Artefacto | `fictional_artifact_review`, `exceptions`, `fixture-1` |
+| Respuesta | `observation: controlled_response`, `error: null` |
+| Límites declarados | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `986bd32dd2af9aa895727d63a325b73d79b3c1eb904f3f46dea787b57e00a012` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido normal de Excepciones corregida, variante 1**,
+con lectura y conservación informada en V2. No se repite. El uso normal no
+demuestra todavía respuesta ante errores o ausencia universal de filtraciones.
+No se han inspeccionado bytes o recibo local de esta copia; las reglas F6 no
+evalúan el contenido F7.
+
+### Cierre de la ronda normal F7 y pausa solicitada
+
+Los seis controles siguientes, todos corregido/Uso normal/variante 1, quedan
+completados según capturas, con lectura y conservación informada en V2:
+
+| Control | Ejecución observada |
+| --- | --- |
+| Configuración | `608700e1fe2c6d7d91f4f275a770a56a` |
+| Suministro | `d34aba7e1dfae17f750c1ac7c8722be1` |
+| Criptografía | `8fa4ffafefc52573988c36dd75fbcbb5` |
+| Integridad | `38d690cd4161439e73f4d38df256e0d1` |
+| Registro | `2c26ab55cda7b3e95eccfbf5080580b2` |
+| Excepciones | `b4ca524b483be65d9549d6b132f25fe7` |
+
+Cada caso informa HTTP 200, 3 peticiones del ejecutor, 3 líneas correlacionadas
+y 2 eventos / 2 referencias HTTP; no se consideran una suite automática o una
+evaluación de detección. Los resultados específicos y sus límites están arriba.
+**La ronda normal queda cerrada; F7 global permanece abierta.** No repetir
+estos casos para cerrar la sesión. Siguen pendientes condiciones adversas,
+otros modos/variantes, validaciones ampliadas y evaluación del contenido.
+
+El propietario ya autorizó publicar las cuatro actas con `[skip ci]` tras
+este caso y continuar mañana. La entrega se identifica por el commit que
+contiene esta nota; se revisan base remota/diff/staging y se verifica HEAD
+remoto y árbol limpio al terminar. Solo documentación: actualizar Parrot por
+`git pull --ff-only` no requiere recompilar, reinstalar o reiniciar por esta
+entrega. Las notas anteriores «local/sin publicar» conservan su contexto histórico.
+
+Después de publicar se pausa el trabajo. Al retomar, leer el punto del plan
+de cierre y el estado que comunique el propietario, sin asumir servicios VM
+abiertos. El siguiente bloque propuesto son condiciones adversas de los
+artefactos F7 en modo corregido, variante 1, con alcance manual por acordar;
+todavía no están autorizadas ni se ejecutan durante la pausa. Sin modelos,
+suites, nuevos servicios o recordatorios automáticos.
+
 ## Referencias de diseño
 
 - [OWASP Top 10:2025](https://top10.owasp.org/2025/): categorías del mapa educativo.

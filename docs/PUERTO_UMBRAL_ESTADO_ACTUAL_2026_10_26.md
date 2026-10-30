@@ -2,6 +2,144 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Cierre del 30/10/2026 y punto de pausa
+
+Los seis controles normales F7, corregido/variante 1, quedan completados según
+capturas, con lectura y conservación informada en V2: Configuración, Suministro,
+Criptografía, Integridad, Registro y Excepciones. Último caso
+`b4ca524b483be65d9549d6b132f25fe7`, HTTP 200, `controlled_response`, `error:
+null`; 3 peticiones, 3 líneas y 2 eventos / 2 referencias HTTP. V2 muestra
+misma ejecución, modo corregido y 2 eventos, sin coincidencias, con copia
+conservada sin análisis. SHA mostrado:
+`986bd32dd2af9aa895727d63a325b73d79b3c1eb904f3f46dea787b57e00a012`.
+
+No repetir estos recorridos. No se han inspeccionado bytes o recibos locales
+nuevos ni evaluado contenido F7 mediante las reglas F6. F7 global sigue abierta.
+El propietario autoriza commit/push de las cuatro actas con `[skip ci]` y pide
+seguir mañana; se verifica la publicación y después se pausa. La entrega es el
+commit que incorpora esta nota, solo documental. Parrot puede recibirla con
+`git pull --ff-only`, sin recompilar, reinstalar o reiniciar por estos cambios.
+Punto de reanudación al inicio del [plan de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md):
+revisar alcance manual de condiciones adversas F7 corregidas, variante 1,
+todavía sin autorización o ejecución. No nuevos casos/modelos/servicios o
+recordatorios durante la pausa. Las notas inferiores son historia previa.
+
+## Continuación autorizada F7 — 30/10/2026
+
+Última instrucción: realizar Excepciones/corregido/Uso normal/variante 1 con
+lectura/conservación V2, después commit/push de las cuatro actas y continuar
+mañana. Se guía el caso una vez; expectativa HTTP 200, `controlled_response`,
+`error: null` y 2 eventos. Resultado y copia aún pendientes de capturas. La
+publicación documental `[skip ci]` ya está autorizada para después de registrar
+esa recepción; se verificará remoto/árbol limpio y se guardará el punto de pausa.
+Sin nuevos casos, servicios, suites, modelos o recordatorios tras ese cierre.
+
+Última recepción: Registro/corregido/Uso normal/variante 1 completado según
+capturas, `2c26ab55cda7b3e95eccfbf5080580b2`, HTTP 200, secuencia ficticia
+completa, sin huecos o aviso. 3 peticiones, 3 líneas y 2 eventos / 2 referencias;
+V2 muestra misma ejecución y 2 eventos, sin coincidencias, con copia conservada
+sin análisis. SHA mostrado:
+`141d4822e72b628901569cd0c888504a6de982e1ccff084f8e7cab07e1b25800`.
+No repetir este caso o los cuatro normales anteriores. No verifica continuidad
+real de Apache, rotación o entrega de avisos; sin recibo local o hash independiente
+nuevos. Siguiente candidato Excepciones/corregido/Uso normal/variante 1, sin
+iniciar todavía; F7 global abierta. Actas locales `dc9fb17`+.
+
+Siguiente caso autorizado: Registro/corregido/Uso normal/variante 1, manual
+una vez con lectura y conservación V2, sin suites o modelo. Expectativa HTTP
+200, secuencia ficticia completa `[1,2,3,4,5]`, huecos vacíos, sin aviso y
+`no_warning`; 2 eventos esperados. No verifica continuidad real de Apache o
+entrega de notificaciones. Resultado y copia pendientes de capturas; no repetir
+los cuatro controles normales anteriores. Actas locales `dc9fb17`+.
+
+Última recepción: Integridad/corregido/Uso normal/variante 1 completada según
+capturas, `38d690cd4161439e73f4d38df256e0d1`, HTTP 200, manifiesto ficticio
+aceptado, `hmac_sha256` y `manifest_checked`. 3 peticiones, 3 líneas y 2 eventos /
+2 referencias; V2 muestra misma ejecución y 2 eventos, sin coincidencias,
+con copia conservada sin análisis. SHA mostrado:
+`6f76a58a30318cdb1ae9fce21d0b553db0fc2bbd8ee5fe498cedea5cf35061f1`.
+No repetir este caso o los tres normales anteriores. Sin inspección de bytes
+o recibo local nuevos ni verificación de manifiestos reales. Próximo candidato
+Registro/corregido/Uso normal/variante 1, todavía sin iniciar. F7 global abierta;
+actas locales `dc9fb17`+.
+
+Siguiente caso autorizado: Integridad/corregido/Uso normal/variante 1, manual
+una vez con lectura y conservación V2, sin suites o modelo. Expectativa HTTP
+200, manifiesto ficticio aceptado, `hmac_sha256` y `manifest_checked`; 2 eventos
+esperados y posible ausencia de observaciones F6. Resultado y copia pendientes
+de capturas. No se repiten los tres casos normales anteriores ni se verifica
+un manifiesto real. Actas locales `dc9fb17`+; aceptación F7 global pendiente.
+
+Última recepción: captura posterior confirma copia conservada sin análisis
+para Criptografía, `8fa4ffafefc52573988c36dd75fbcbb5`, modo corregido,
+2 eventos y mismo SHA indicado debajo. Recorrido normal variante 1 completado
+según capturas; no repetir ni pedir más capturas de este recorrido.
+Configuración, Suministro y Criptografía normales corregidos tienen lectura
+y conservación informada en V2. Sin recibo local nuevo o hash independiente.
+Siguiente candidato Integridad/corregido/Uso normal/variante 1, todavía sin
+iniciar; F7 global sigue abierta. Notas locales `dc9fb17`+.
+
+Última recepción: Criptografía/corregido/Uso normal/variante 1 observada,
+`8fa4ffafefc52573988c36dd75fbcbb5`, HTTP 200, `scrypt`, sal y valor derivado
+presentes y `salted_password_derivation`. 3 peticiones, 3 líneas y 2 eventos /
+2 referencias; V2 muestra misma ejecución y 2 eventos, sin coincidencias.
+SHA mostrado: `76632c81fba7f53964684bf7effe03c281ec1a9330846862e20727fcd9dd7052`.
+El recorte no incluye mensaje de copia conservada: queda pendiente esa
+confirmación. Se guía solo conservar esta auditoría, sin repetir caso o
+comparar hashes mediante ejecuciones nuevas. No evalúa criptografía de
+producción ni acepta F7 global; actas locales `dc9fb17`+.
+
+Siguiente caso autorizado: Criptografía/corregido/Uso normal/variante 1,
+manual una vez, con lectura y conservación V2, sin suites o modelo. Se espera
+HTTP 200, `scrypt`, sal y derivación con valor y `salted_password_derivation`.
+Son parámetros educativos sobre datos ficticios, sin auditoría de producción.
+Resultado y copia aún pendientes de capturas; no repetir casos anteriores o
+comparar hashes mediante ejecuciones nuevas. Actas locales `dc9fb17`+.
+
+Última recepción: Suministro/corregido/Uso normal/variante 1 completado por
+capturas, `d34aba7e1dfae17f750c1ac7c8722be1`, HTTP 200, hashes iguales y
+artefacto ficticio aceptado. 3 peticiones, 3 líneas y 2 eventos / 2 referencias;
+V2 muestra misma ejecución y 2 eventos, sin coincidencias, con copia conservada
+sin análisis. SHA mostrado:
+`7228d4f84c4a97a2624a31595e4846d15bf510e16d80c0fdd03890c77a0667d9`.
+No repetir Suministro o Configuración. No se verifica procedencia de paquetes
+reales ni bytes/recibo local nuevos. Siguiente candidato Criptografía/corregido/
+Uso normal/variante 1, todavía sin iniciar; F7 global continúa abierta.
+
+Siguiente caso autorizado por el propietario: Suministro/corregido/Uso normal/
+variante 1, manual una vez, con lectura y conservación V2, sin suites o modelo.
+Expectativa HTTP 200, hashes iguales y artefacto ficticio aceptado con referencia
+local fija. Resultado todavía pendiente de capturas, incluidos identificador,
+2 eventos esperados y mensaje de copia conservada. No se repite Configuración
+ni se instalan paquetes o verifica procedencia real. Actas locales `dc9fb17`+.
+
+Última recepción: captura posterior confirma copia conservada sin análisis
+para `608700e1fe2c6d7d91f4f275a770a56a`, modo corregido, 2 eventos y mismo
+SHA indicado debajo. Queda completado el recorrido normal Configuración
+variante 1 a este alcance. No se repite ni se requieren más capturas de este
+recorrido. F7 global sigue pendiente; siguiente candidato Suministro/corregido/
+Uso normal/variante 1, todavía sin iniciar. Sin recibo local nuevo o inspección
+independiente de bytes; actas locales posteriores a `dc9fb17`.
+
+Recepción posterior: Configuración/corregido/Uso normal/variante 1 completada,
+ejecución `608700e1fe2c6d7d91f4f275a770a56a`, HTTP 200, depuración desactivada
+y configuración mínima del artefacto ficticio. 3 peticiones, 3 líneas y 2
+eventos / 2 referencias HTTP; V2 muestra misma ejecución y 2 eventos sin
+coincidencias. La captura no incluye confirmación de conservación: queda
+pendiente solo esa confirmación de la copia autorizada, sin repetir el caso.
+La lectura por reglas F6 no evalúa el contenido F7. SHA mostrado por V2:
+`86170cfde0364edc7b16a05999b091f1d9a10bdb8636e63c601285673650bf16`.
+
+Tras publicar las actas en `dc9fb17` (remoto verificado y árbol limpio), el
+propietario solicita continuar con el primer caso propuesto F7: Configuración,
+modo corregido, Uso normal, variante 1, con lectura/conservación en V2, sin
+suites o modelo. Se guía el botón «Revisar artefacto ficticio» una vez. Se
+espera HTTP 200, configuración mínima y depuración desactivada en el artefacto
+ficticio. Ejecución y copia todavía pendientes de capturas; no acepta F7 ni
+evalúa configuración de producción. V2 puede no mostrar coincidencias porque
+sus reglas de auditoría F6 no evalúan este contenido F7. Notas locales nuevas,
+sin publicación adicional o ejecución de servicios/VM por el agente.
+
 ## Distribución documental del 30/10/2026
 
 El propietario autoriza publicar las cuatro actas pendientes antes de seguir

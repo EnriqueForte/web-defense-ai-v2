@@ -8,6 +8,139 @@ incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el l
 
 ## Punto de partida comprobado
 
+### Punto de reanudación guardado — cierre del 30/10 y pausa
+
+**Ronda de seis controles normales F7 completada según capturas**, todos
+corregido/Uso normal/variante 1: Configuración, Suministro, Criptografía,
+Integridad, Registro y Excepciones. Los seis tienen respuesta esperada,
+lectura en V2 y mensaje de copia conservada sin análisis. No repetirlos.
+Último caso: `b4ca524b483be65d9549d6b132f25fe7`, HTTP 200,
+`controlled_response`, `error: null`, 3 peticiones/3 líneas, 2 eventos /
+2 referencias HTTP; misma ejecución y 2 eventos en V2, con copia conservada.
+Detalle e identificadores en el [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md).
+
+El propietario autoriza commit/push documental con `[skip ci]` y pide seguir
+mañana. Se completa esa publicación y se verifica remoto/árbol limpio antes
+de parar. La identidad de la entrega es la del commit que contiene este punto.
+**Después de publicar, pausa hasta que el propietario retome.** No hay tareas
+programadas; no se inician servicios, casos, suites o modelos durante la pausa.
+
+Al retomar, revisar este punto y la situación de la VM comunicada por el
+propietario. No asumir servicios abiertos ni arrancarlos desde Windows. El
+siguiente bloque propuesto es revisar condiciones adversas de artefactos F7,
+modo corregido, variante 1, manualmente y con alcance por acordar; todavía sin
+ejecutar o autorizar. F6/F7 globales, validaciones ampliadas del MVP y evaluación
+del detector siguen pendientes. La autorización Groq anterior sigue consumida.
+La entrega actual solo modifica documentación: Parrot puede actualizarse con
+`git pull --ff-only`, sin build, reinstalación o reinicio por estos cambios.
+Las notas inferiores recogen la secuencia histórica y sus pendientes de entonces.
+
+### Último caso de esta sesión y pausa solicitada
+
+El propietario autoriza Excepciones/corregido/Uso normal/variante 1, con
+lectura y conservación en V2, sin suites o modelo. Expectativa por código:
+HTTP 200, `controlled_response`, `error: null` y 2 eventos. Resultado y copia
+pendientes de capturas. Después autoriza commit/push de las cuatro actas
+pendientes con `[skip ci]` y pide seguir mañana. Primero se documentará el
+resultado, luego se publicará y verificará el remoto/árbol limpio; finalmente
+se guardará el punto de reanudación y se detendrá el trabajo. No se inician
+otros casos o recordatorios por esa petición. Los cinco normales anteriores
+no se repiten; F7 global y demás validaciones continúan pendientes.
+
+### Siguiente revisión manual F7: Registro normal corregido
+
+El propietario acepta un caso Registro/corregido/Uso normal/variante 1,
+con lectura y conservación V2, sin suites o modelo. Se guía la revisión de
+una secuencia ficticia completa: expectativa HTTP 200, `[1,2,3,4,5]`, lista
+de huecos vacía, `warning_recorded: false` y `no_warning`. No comprueba
+continuidad real de Apache o entrega de avisos. Se esperan 2 eventos y puede
+no haber coincidencias F6. Resultado y conservación pendientes de capturas;
+los cuatro controles normales anteriores no se repiten. F7 sigue abierta.
+Las capturas posteriores muestran `2c26ab55cda7b3e95eccfbf5080580b2`, HTTP
+200, secuencia ficticia completa, sin huecos o aviso; 3 peticiones, 3 líneas y
+2 eventos / 2 referencias HTTP. V2 muestra misma ejecución y 2 eventos, sin
+coincidencias, con copia conservada sin análisis. **Registro normal corregido,
+variante 1, completado a ese alcance**. No repetir. Siguiente candidato
+Excepciones/corregido/Uso normal/variante 1, todavía propuesto sin ejecutar.
+F7 global y comprobaciones de continuidad real o entrega de avisos siguen abiertas.
+
+### Siguiente revisión manual F7: Integridad normal corregida
+
+El propietario acepta un caso Integridad/corregido/Uso normal/variante 1,
+con lectura y conservación V2, sin suites o modelo. Se guía una revisión del
+manifiesto ficticio: expectativa HTTP 200, `accepted: true`, `hmac_sha256` y
+`manifest_checked`; no verifica manifiestos reales. Se esperan 2 eventos y
+puede no haber coincidencias de reglas F6. Resultado y conservación pendientes
+de capturas. Los tres casos normales anteriores no se repiten; F7 sigue abierta.
+Las capturas posteriores muestran `38d690cd4161439e73f4d38df256e0d1`, HTTP
+200, manifiesto ficticio aceptado, `hmac_sha256` y `manifest_checked`; 3
+peticiones, 3 líneas y 2 eventos / 2 referencias HTTP. V2 muestra misma
+ejecución y 2 eventos, sin coincidencias, con copia conservada sin análisis.
+**Integridad normal corregida, variante 1, completada a ese alcance**. No se
+repite. Siguiente candidato Registro/corregido/Uso normal/variante 1, todavía
+propuesto sin ejecutar. F7 global y evaluación del contenido siguen pendientes.
+
+### Siguiente revisión manual F7: Criptografía normal corregida
+
+El propietario acepta un caso Criptografía/corregido/Uso normal/variante 1,
+con lectura y conservación V2, sin suites o modelo. Se guía una revisión del
+artefacto ficticio: expectativa HTTP 200, `scrypt`, sal y derivación con valor,
+`salted_password_derivation`; la sal aleatoria impide fijar una respuesta
+idéntica entre casos. No repetir para comparar hashes. Se esperan 2 eventos;
+las reglas F6 no evalúan el contenido F7. Resultado y conservación pendientes
+de capturas; no acepta F7 global o criptografía de producción.
+Recepción posterior: `8fa4ffafefc52573988c36dd75fbcbb5`, HTTP 200, `scrypt`,
+sal y derivación con valor, `salted_password_derivation`; 3 peticiones, 3 líneas
+y 2 eventos / 2 referencias HTTP. V2 muestra misma ejecución y 2 eventos, sin
+coincidencias. Ejecución y lectura observadas; conservación pendiente de
+confirmación visual, sin banner de copia en la captura. Se guía solo conservar
+esa auditoría, sin repetir caso o comparar hashes con ejecuciones nuevas.
+La captura posterior confirma copia conservada sin análisis, con la misma
+ejecución, 2 eventos y SHA. **Recorrido normal de Criptografía corregida,
+variante 1, completado según capturas**. No repetir. Configuración, Suministro
+y Criptografía normales tienen lectura y conservación informada en V2;
+resto de cobertura y aceptación F7 pendientes. Siguiente candidato Integridad/
+corregido/Uso normal/variante 1, todavía propuesto sin ejecutar.
+
+### Siguiente revisión manual F7: Suministro normal corregido
+
+El propietario acepta continuar con un único caso Suministro/corregido/Uso
+normal/variante 1 y su lectura/conservación en V2, sin suites o modelo. Se guía
+«Revisar artefacto ficticio» una vez; expectativa HTTP 200, hashes esperado y
+recibido iguales y `accepted: true`, sobre referencia local ficticia. No se
+verifican paquetes o proveedores reales. Se esperan 2 eventos; la ausencia de
+coincidencias de reglas F6 no evalúa el artefacto F7. Resultado y conservación
+pendientes de capturas. Configuración normal anterior no se repite.
+Las capturas posteriores confirman HTTP 200 con hashes iguales y artefacto
+aceptado, ejecución `d34aba7e1dfae17f750c1ac7c8722be1`; 3 peticiones, 3 líneas
+y 2 eventos / 2 referencias HTTP. V2 muestra la misma ejecución y 2 eventos,
+sin coincidencias, con copia conservada sin análisis. **Suministro normal
+corregido, variante 1, completado a ese alcance**. No se repite. El siguiente
+candidato es Criptografía/corregido/Uso normal/variante 1, todavía propuesto
+sin iniciar. F7 global y evaluación del contenido siguen pendientes.
+
+### Siguiente revisión manual F7: Configuración normal corregida
+
+La entrega de actas se publicó en `dc9fb17`, con remoto coincidente y árbol
+limpio. El propietario solicita continuar: se guía un único caso manual
+Configuración/corregido/Uso normal/variante 1, lectura y conservación en V2,
+sin suites o modelo. Se espera HTTP 200, `debug_enabled: false` y
+`minimal_configuration` en un artefacto ficticio; no una auditoría real del
+despliegue. La ausencia de observaciones en V2 no evalúa el contenido F7.
+Resultado pendiente de capturas y copia informada, sin ejecución desde Windows.
+Los recorridos completados de F6 no se repiten; aceptación global pendiente.
+Las capturas siguientes muestran Configuración normal corregida completada:
+`608700e1fe2c6d7d91f4f275a770a56a`, HTTP 200, depuración desactivada y
+configuración mínima; 3 peticiones/3 líneas y 2 eventos. V2 muestra la misma
+ejecución y 2 eventos, sin coincidencias. Ejecución y lectura observadas;
+**conservación pendiente de confirmación visual**, pues el recorte no incluye
+su mensaje. Se guía solo conservar esta copia, sin repetir caso o análisis.
+La captura posterior confirma copia conservada sin análisis, con la misma
+ejecución, 2 eventos y SHA. **Recorrido normal de Configuración corregida
+completado según capturas**, sin recibo local o verificación independiente
+nuevos. No repetir. El siguiente candidato es Suministro/corregido/Uso normal/
+variante 1; todavía propuesto, sin ejecutar. F7 global sigue abierta.
+
 ### Siguiente validación manual: rechazos corregidos
 
 Las cinco actas se publicaron en `d3e0b14`, con remoto verificado y árbol
@@ -169,7 +302,7 @@ reescribe los JSON históricos.
 | DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | Actualizado localmente; revisión final conjunta pendiente |
 | F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco normales, cinco intentos de variante 1 corregida, CSRF de navegador corregido y reutilización corregida leídos y conservados en V2 según capturas; recibo local del normal Cargas observado; criterios ampliados pendientes |
 | F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco normales y cinco intentos de variante 1 corregida, CSRF en navegador corregido y reutilización corregida variante 3 observados; otros modos/variantes, aislamiento/regresión y evaluación pendientes |
-| F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Código preparado; ejecución pendiente |
+| F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Ronda normal de los seis módulos/corregido/variante 1 completada con lectura y copias conservadas en V2 según capturas; condiciones adversas, otros modos/variantes y aceptación global pendientes |
 | EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Pendiente de ejecución autorizada |
 | EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Pendiente de alcance/budget de nuevas llamadas |
 | OPS-01 | Condiciones ampliadas F4 y regresión de aislamiento | Observaciones reproducibles de rotación, truncado, fallo, cuotas y ausencia de actividad automática | Pendiente de ejecución autorizada |
