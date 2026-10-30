@@ -1,6 +1,6 @@
 # Cierre de Web Defense AI V2 y Puerto Umbral para el 03/11/2026
 
-Estado al 29/10/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
+Estado al 30/10/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
 todavía no aceptado**. El propietario quiere terminar antes del martes 3 de
 noviembre para preparar su publicación en LinkedIn. Confirma expresamente que
 incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el lunes
@@ -8,15 +8,84 @@ incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el l
 
 ## Punto de partida comprobado
 
+### Reanudación del 30/10
+
+El propietario vuelve y solicita continuar desde el punto guardado, reiniciando
+la aplicación en Parrot y siguiendo las pruebas. Se levanta la pausa para el
+bloque manual descrito: Bitácora, Preferencias, Baliza y Atraque, todos en modo
+corregido, Uso normal y variante 1, uno a uno, con lectura y conservación de sus
+auditorías en V2. No se incluyen suites, otros casos, modelo o notificaciones.
+
+Primero se guía el arranque conjunto desde la instalación existente; su éxito
+todavía no se atribuye sin salida real. No se presupone que los servicios
+siguieran abiertos ni se ejecuta la VM desde Windows. No hay cambios de código
+operativo desde `5bf154a` que requieran reinstalar o recompilar por estas actas.
+El primer caso pendiente será Bitácora. Cargas y su copia/recibo anteriores
+permanecen completados, sin repetición. Los cuatro casos y el nuevo arranque
+están pendientes de evidencia del propietario.
+Primera recepción del bloque: Bitácora/corregido/Uso normal/variante 1 se
+muestra completada con HTTP 200 y «Revisión de baliza»; 4 peticiones, 4 líneas
+Apache y 3 eventos capturados. Su lectura/conservación en V2 aún están
+pendientes. Preferencias, Baliza y Atraque no se declaran ejecutados.
+La captura siguiente confirma lectura de Bitácora en V2, misma ejecución y
+3 eventos, y mensaje de copia conservada sin análisis. Se completa ese
+recorrido normal con conservación informada en pantalla. El siguiente control
+es Preferencias; Baliza y Atraque continúan después, todos con la misma
+selección corregido/Uso normal/variante 1. No se repite Cargas o Bitácora.
+Después se observa Preferencias completado, HTTP 200 con `demo-1` y
+`changed: true`; mismo identificador y 2 eventos en V2, con copia conservada
+sin análisis. Este control normal HTTP queda completado a ese alcance;
+Baliza y Atraque son los dos controles pendientes del bloque reanudado.
+La recepción siguiente completa Baliza normal: HTTP 200 para `/public` con
+`UMBRAL_PUBLIC_BEACON`, misma ejecución y 2 eventos en V2, copia conservada
+sin análisis. Atraque es el único control pendiente de este bloque normal.
+La última recepción completa Atraque: HTTP 200, permiso aprobado y después
+consumido; misma ejecución y 4 eventos en V2 con copia conservada. Queda
+**completado el bloque de cuatro controles normales del 30/10**, con lectura
+y conservación informada en V2. Son 15 peticiones/15 líneas informadas/11
+eventos; incluido Cargas del 29/10, cinco controles, 18/18/13. No se considera
+una suite nueva o evaluación del detector. No se repiten los casos normales.
+El propietario acepta después publicar las cinco actas pendientes mediante
+commit/push `[skip ci]`, sobre `5bf154a` comprobado con el remoto. La identidad
+se obtiene del commit que incorpora la nota de distribución del acta F6/F7;
+el resultado de Git se verifica al terminar. Es una entrega documental sin
+ejecuciones nuevas o aceptación de criterios pendientes; en Parrot basta
+actualizar por Git, sin reinstalar, recompilar o reiniciar servicios.
+
+### Punto de reanudación guardado — pausa del 29/10
+
+El propietario indica que continuará mañana (30/10 según la fecha de esta
+sesión) y pide guardar el siguiente paso. Se detiene el trabajo tras registrar
+este punto, sin ejecutar nuevos casos, servicios, modelos o publicaciones.
+No se ha solicitado ni creado un recordatorio automático.
+
+- **Completado:** un control normal Cargas, modo corregido, variante 1;
+  auditoría de 2 eventos visible en V2, copia conservada y recibo local observado.
+  Ejecución `10fea5f6cbef9d88320ca767cc11e0b4`; copia
+  `ed70066797f1f68f7df55b7ecb18247d`. No repetir este recorrido.
+- **Siguiente bloque propuesto, todavía sin ejecutar:** Bitácora, Preferencias,
+  Baliza y Atraque; los cuatro en modo corregido, **Uso normal**, variante 1,
+  manualmente uno a uno, con lectura y conservación de sus auditorías en V2.
+  No incluye suites ni llamadas al modelo. La respuesta recibida aplaza el
+  bloque; no autoriza iniciarlo durante la pausa.
+- **Al retomar:** revisar este punto y el [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md),
+  acordar la continuación y comprobar el estado que comunique el propietario.
+  No se presupone que la VM o sus servicios sigan abiertos.
+- **Distribución:** último commit publicado `5bf154a`; las cinco actas actuales
+  siguen guardadas localmente, sin commit/push posterior. El código no cambia
+  por este registro. La configuración Groq y su análisis anterior se conservan.
+
+### Resumen de evidencia disponible
+
 | Área | Evidencia disponible | Límite |
 | --- | --- | --- |
-| Distribución V2 | Repositorio público, versión local anterior v0.1.0; paquete F6/F7 publicado y remoto verificado en `cc363af` | No nueva release o CI atribuida a los commits `[skip ci]` |
+| Distribución V2 | Repositorio público, versión local anterior v0.1.0; F6/F7 en `cc363af` y autoría/actas en `5bf154a`, ambos con remoto verificado | No nueva release o CI atribuida a los commits `[skip ci]` |
 | Puerto Umbral F1/F2 | Prototipo privado, cinco familias locales y dos modos | Corpus histórico 42/45; tres fallos de comandos preservados |
 | F3, recorrido de integración | Un snapshot de 17 líneas, análisis Groq, publicación y lectura en V2 | No evaluación de los 45 casos |
 | F4 | Inicio, pausa, reanudación, parada, vencimiento y reapertura sin auto-resume | Condiciones ampliadas y latencias individuales pendientes |
 | F5, conservación | Copia y recuperación aislada de 66 archivos, SQLite e informe verificados en Parrot | Sin promover datos recuperados ni restaurar la VM completa |
-| Interfaz | Nombre de fuente Puerto Umbral confirmado por el propietario | No revisión actual completa de móvil/teclado |
-| F6/F7 | [Código de ampliación revisado y publicado](PUERTO_UMBRAL_F6_F7_2026_10_29.md), recibido y compilado en Parrot; lanzador listo y panel visible informando 14 contenedores | Sin inspección Docker independiente, vista Actividad V2 actual o aceptación funcional de escenarios |
+| Interfaz | Autoría visible en cabecera y vistas Fuente/Auditoría de Actividad V2 observadas por capturas | No revisión actual completa de móvil/teclado o enlaces abiertos |
+| F6/F7 | [Código de ampliación revisado y publicado](PUERTO_UMBRAL_F6_F7_2026_10_29.md); los cinco controles normales de variante 1 corregida leídos y conservados en V2; recibo local observado para Cargas | F6 completa no aceptada; otros tipos/variantes, navegador, regresión, recuperación de auditorías nuevas y evaluación ampliada pendientes |
 
 El [estado consolidado](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md), el
 [acta del análisis y recuperación](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md)
@@ -29,8 +98,8 @@ reescribe los JSON históricos.
 | ID | Trabajo | Evidencia necesaria para cerrarlo | Estado |
 | --- | --- | --- | --- |
 | DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | Actualizado localmente; revisión final conjunta pendiente |
-| F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Código preparado; ejecución pendiente |
-| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Código preparado; ejecución pendiente |
+| F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco controles normales con 13 eventos en total leídos y conservados en V2; recibo local de Cargas observado; criterios ampliados pendientes |
+| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco controles normales de variante 1 corregida observados; otros tipos/variantes, navegador y regresión pendientes |
 | F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Código preparado; ejecución pendiente |
 | EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Pendiente de ejecución autorizada |
 | EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Pendiente de alcance/budget de nuevas llamadas |
@@ -69,6 +138,11 @@ Puerto Umbral, que informa 14 contenedores. El alcance de disponibilidad del
 panel queda observado; falta la captura de Actividad V2 y no se validan casos.
 La petición adicional de autoría en cabecera se implementa en HTML/CSS local;
 su recepción en Parrot y revisión visual quedan pendientes de distribución.
+Recepciones posteriores: autoría visible y vistas de Actividad V2 acreditadas
+por capturas. La fuente conserva el snapshot corregido histórico de 17 líneas
+y se muestra antigua; la auditoría avanzada se muestra sin datos, sin error.
+El bloque de disponibilidad y revisión básica de pantallas queda completado.
+No cambia la aceptación de escenarios, F4 ampliada o métricas de detección.
 
 ## Calendario propuesto
 

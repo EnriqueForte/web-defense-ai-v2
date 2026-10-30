@@ -2,6 +2,170 @@
 
 ## Alcance actual
 
+Puerto Umbral30/10 propietarioaceptarecomendaciónpublicaractasantesampliar
+pruebas. Autoriza commit/push[skip ci] SOLO5archivosdocumentales: AGENTS,
+CIERRE_V2_PUERTO_UMBRAL_2026_11_03, ESTADO_ACTUAL_2026_10_26,
+F6_F7_2026_10_29, PARROT_2026_10_26. Base5bf154a/mainoriginverificadaconfetch,
+sinadelantosatrasos/staginginicialvacío. Conservarcronología,histórico42/45/
+JSONF5/modelo previo/recibosVM. Revisarlinks,alcanceexacto,diffcached;traspush
+compararHEADremotoyárbollimpio. No nuevoscasos/suites/LLM/avisos/servicios/
+VM/builds/release/CI. PublicacióndocumentalnoaceptaF6F7/MVP/99casos.
+Parrotpodrárecibiractasconpull--ff-onlysinreinstalar/recompilar/rearrancar.
+ResultadoGitverificaralterminar; noautorizadoscasosadicionalesporpublicar.
+
+Puerto Umbral30/10 Atraque/corrected/benign/variante1capturas: COMPLETED/
+Usonormalcorrecto/POSTavanzado-atraque/HTTP200/previous_stateapproved/
+permit_stateconsumed. Run7114fc01324c2531fac5eca89e131cbb;5peticiones/
+5líneasApache/4eventos/4refsHTTP. V2mismorun/modo/4eventos/SHA
+0e18490747cd7527ac9a1c5db4459de31320efa222a04f28f7dcf4db4069f9d1/
+sincoincidencias/copiaconservada-sinanálisis. BLOQUE4CONTROLESNORMALES
+30OctCOMPLETADO(panel+lectura+conservacióninformada):Bitácora3eventos,
+Preferencias2,Baliza2,Atraque4;15requests/15líneasinformadas/11eventos.
+ConCargasprevio:5normalesvariante1corregida,18requests/18líneas/13eventos,
+sumasrecibospantallasnosuite/métricasdetector. NoF6globalaceptada/99casos/
+FPglobales/pruebasdenegación/reuso/CSRFbrowser/isolation. No repetirnormales
+ni Groqconsumido. Noautorizadosmáscasos/modelos/suites/ZIP/restore/Gitpor
+recibircapturas. Consolidaractas5archivoslocalesposteriores5bf154a.
+
+Puerto Umbral30/10 Baliza/corrected/benign/variante1capturas: COMPLETED/
+Usnormalcorrecto/GETavanzado-baliza-destinopublic/HTTP200/resource/public/
+UMBRAL_PUBLIC_BEACON. Run9bf63cd2fa87781bb0fc7741d6b02f22;
+3peticiones/3líneasApache/2eventos/2refsHTTP. V2mismorun/modo/2eventos/SHA
+a6def6eba59bb18901104b736ebede15117c74660fcce1d1db73d3ee9bb5e4cf/sin
+coincidencias/copiaconservada-sinanálisis. Recorridonormal+V2+conservación
+informadaCOMPLETADO, no prueba denegacióninternos/protecciónSSRFgeneral/
+hashVMindependiente/backup. No repetirprevios. QuedaAtraquecorrected/Usnormal/
+variante1autorizado: esperadodock-1/aprobaciónsupervisor/ejecutar/HTTP200/
+previous_stateapproved/permit_stateconsumed/4eventos+5peticiones, pendiente.
+LeeryconservarauditoríaV2 antescerrarbloquenormal. Sin suites/LLM/Gitnuevo.
+
+Puerto Umbral30/10 Preferencias/corrected/benign/variante1capturas: COMPLETED/
+Usonormalcorrecto/POSTavanzado-preferencias/HTTP200/channeldemo-1/changedtrue.
+Run683fa423e04a76f45aa19d081369a1a2;3peticiones/3líneasApache/2eventos/2refsHTTP.
+V2mismorun/corrected/2eventos/SHA91feab4fe25667a85b0c2563881a759b17bd9eb8541fb16aa1a99f0eb702cb8b/
+sincoincidenciasreglas/copiaconservada-sinanálisis. ControlnormalHTTP+lectura+
+conservacióninformadaCOMPLETADOporcapturas, noCSRFbrowser/proteccióngeneral/
+recibodisco/hashVMindependiente/backup. NorepetirCargas/Bitácora/Preferencias.
+SiguienteBaliza/corrected/Usnormal/variante1,dentrodelbloqueautorizado;
+esperado200/resourcepublic/UMBRAL_PUBLIC_BEACON/2eventos,pendienteejecución.
+Despuéslectura+conservaciónV2yAtraque. Sin suites/LLM/VMporagente/Gitnuevo.
+
+Puerto Umbral30/10 BitácoraV2+copiacapturados: mismoruna6af8974ce18f60314f8ad9c888fe4d2,
+corrected/3eventos/SHA bf38bcbbb142908a1fb8878fb75b37b45212302a2138fefb744888212b318bdc,
+sincoincidenciasreglas/UIcopiaconservada-sinanálisis. RecorridonormalBitácora
+panel→lecturaV2→conservacióninformadaCOMPLETADOporcaptura, sinrecibodisco/
+hashbytesindependiente/backuprestore. No repetirBitácora/Cargas/modelo.
+SiguientePreferencias/corrected/Usonormal/variante1(dentrodelbloqueautorizado),
+esperadoHTTP200/channeldemo-1/changedtrue;3peticiones/2eventosesperadospor
+código,pendingcapturas. CasoHTTPlegítimoOrigen/token, noformCSRFcrossorigin
+ni navegaciónnecesariaparasucontrolnormal. Leer/copiarV2 antespasaraBaliza.
+Baliza/Atraquesiguenpendientes. Actaslocalesposteriores5bf154a,sinpush.
+
+Puerto Umbral30/10 Bitácora/corrected/benign/variante1capturado: COMPLETED/
+Usonormalcorrecto/GETavanzado-tablon/HTTP200/HTMLRevisióndebaliza.
+Runa6af8974ce18f60314f8ad9c888fe4d2;4peticionesejecutor/4líneasApache
+correlacionadas/3eventosapp/3refsHTTP/V2consultadono. Acreditacontrolnormal
+deestavariante, noejecuciónJS/protecciónXSSgeneral/otroscasos. Fuentelector
+auditoríaV2ycopiaparaestecasoPENDIENTES. Siguienteguía: Actualizarauditoría
+enV2,compararmismorun/corrected/3eventos,Conservarcopia si coincideyrecoger
+capturaéxito. Yaautorizadoporbloque4controles,nopedirpermisootravez.
+No repetirBitácora niCargas/modelo. Preferencias/Baliza/Atraquependientes.
+SinterminalarranquecapturadanipruebaindependienteDocker/hashVMporagente.
+Actaslocalesposteriores5bf154a,sincommit/pushnuevo.
+
+Puerto Umbral30/10 propietario «ya estoy, continuemos donde quedamos» y pide
+reiniciarappenVM/seguirpruebas: levantalapausadel29/10paraelbloquemanual
+guardado. Guiararranqueconjuntostructured/withpuerto/labmodecorrectedpor
+propietario; noasumirserviciosabiertosniejecutarlosdesdeWindows. Sininstall/
+pull/buildfrontendnuevosnecesariosporactaslocales. Alcancecontinuación:
+Bitácora,Preferencias,Baliza,Atraque;corrected/Usnormal/variante1,uno auno,
+lecturayconservaciónauditoríasV2. Sin suites/otroscasos/LLM/notificaciones.
+Cargasycopiaed70066797f1f68f7df55b7ecb18247dyaCOMPLETADOS,norepetir.
+PróximoprimercontrolesBitácora,esperadoHTTP200/textoRevisióndebaliza.
+ArranqueycuatrocasosnuevosaúnPENDIENTEScapturasreales. Actaslocales5archivos
+posteriores5bf154aconservadas,sinGitpublicaciónporsoloreanudación.
+
+Puerto Umbral29/10 propietarioindica «Seguiré mañana, guarda este paso» al
+proponer4controlesnormalesF6. PAUSARSALVOguardado decontexto; noejecutar
+nuevasacciones/servicios/escenarios/LLM/publicación. Sinrecordatorioautomatizado
+solicitado. Punto dereanudaciónenplanCIERRE_V2_PUERTO_UMBRAL_2026_11_03.md.
+CompletadoCargas/corrected/benign/variante1 ysulectura/copia/recibolocal:
+run10fea5f6cbef9d88320ca767cc11e0b4/snapshoted70066797f1f68f7df55b7ecb18247d.
+No repetirCargas/copiamodeloanterior. SiguientebloquePROPUESTOnoejecutado:
+Bitácora,Preferencias,Baliza,Atraque;cadaunocorrected/Usnormal/variante1,
+manualunoauno+lecturayconservaciónauditoríaV2/sinsuites/LLM. Respuestafue
+aplazamiento,noautorizaciónparainiciarhoy. Alretomarleerestepuntoyacta;
+noasumirserviciosVMabiertosniarrancar/reconstruir/instalarporagente.
+Últimopublicado5bf154a; 5archivosactaslocalesposterioresSINcommit/push:
+AGENTS,plan,estadoactual,actaF6F7,guíaParrot. Conservarcomocambiostrabajo.
+
+Puerto Umbral29/10 conservaciónauditV2yrecibocomprobadosporcapturas:
+UI Copiaconservada/sinanálisis; current.json schema1/sourcepuerto-umbral-
+application/modecorrected/events2/evidenceapplication_state/statusatcapture
+completed/observer-1/run10fea5f6cbef9d88320ca767cc11e0b4. Snapshot
+ed70066797f1f68f7df55b7ecb18247d coincidecálculoesperado; originalSHA
+1fbf865d130e66e22ebbef765f3e06f1f6a6b6b3d21e795ab4577d625a607c3c;
+copySHA5ce5ba9f249d6104bad53ee4b2bbf9de66259147ff3c9d4d669d53c4c0aa7d1a.
+Captured2026-10-29T21:46:07.257702+00:00/analysisfalse/notificationsfalse.
+Recorrido1controlnormal→auditoríaV2→conservar→recibolocalCOMPLETADOsegún
+capturas, nohashbytesindependiente/events.jsonleído/ZIP/restorenuevo niMVP.
+No repetircaso/copia paraestecierre. Autorizacióncumplida; otroscasosrequieren
+alcanceexpreso, sinmodelos/suites/VMporagente. Actaslocalesposteriores5bf154a.
+
+Puerto Umbral29/10 propietarioautoriza conservarauditoríaexistenteenV2 y
+comprobarsurecibolocal, sinrepetircaso/modelo. AlcancebotónConservarcopia
+auditoríaV2para10fea5f6cbef9d88320ca767cc11e0b4/corrected/SHA
+1fbf865d130e66e22ebbef765f3e06f1f6a6b6b3d21e795ab4577d625a607c3c;
+leercurrent.jsonconpython-mjson.toolenotraterminalVM, no scriptsappimports.
+IDcopiaderivadoporcódigoed70066797f1f68f7df55b7ecb18247d esEXPECTATIVA,
+noescrituracomprobada. Revisar2eventos/modo/run/originalsha/flagsanalysisfalse
+notificationsfalse. Recibometadatosnoequivalehashbytesindependienteverificado.
+Todavíacopiayrecibopendientescapturas. NoautorizabackupZIP/restauración/
+otroscasos/seguimiento/modelos/avisos/VMporagente/Gitpublicación.
+
+Puerto Umbral29/10 casonormalF6autorizadoobservado: capturasCargas/corrected/
+benign/variante1 muestranUsonormalcorrecto/GETavanzado-cargaown-1/HTTP200/
+ownerestibador.demo/UMBRAL_OWN_CARGO. Run10fea5f6cbef9d88320ca767cc11e0b4,
+3peticionesejecutor/3líneasApachecorrelacionadas/2eventosapp/2refsHTTP/V2no
+consultadoporejecutor. V2auditoríamismorun/modocorregido/2eventos/SHA
+1fbf865d130e66e22ebbef765f3e06f1f6a6b6b3d21e795ab4577d625a607c3c/sin
+coincidenciasreglas. Recorridouncontrolnormal→lecturaauditoríaV2COMPLETADO
+porcapturas; noarchivosVM/hashrecalculado/JSONexportado/copiaV2/backupnuevo/
+LLM/aceptaciónglobalF6F7/99casos/FPglobales. Autorizacióncasonormalcumplida,
+norepetirniiniciarotrocasosinacordaralcance. No pulsarConservarcopiapues
+anterioralcancesolocaso+lectura. Actaslocalesposteriores5bf154a,sinpush.
+
+Puerto Umbral29/10 propietarioautoriza UNcasomanualnormalF6 Cargas/IDOR,
+modo corrected,variante1,kindbenign(ext-idor-b1-corrected) ysuauditoríalecturaV2.
+Guiarbotónpanel4381unavez; drivercreasesiónficticia/leeown-1/capturaloteApache+
+auditoríacomopartedelcaso. Resetmóduloavanzadocorregidoconservarecibos.
+EsperadoporcódigoHTTP200/documentown-1/ownerestibador.demo/UMBRAL_OWN_CARGO;
+auditoría2eventossesión+lecturapropia, reglasdeanomalíapuedenquedarsinvinculos.
+TrasresultadoActualizar auditoríaV2(GET), sin Capturarlog/Iniciarseguimiento/
+Conservarcopia/análisis. AúnSINejecuciónacreditada; esperarcapturasresultado+
+auditoría. Noautorizasuite/repeticiones/otroscasos/modelos/avisos/VMporagente.
+Actaslocalesposteriores5bf154a,no publicarporconfirmaciónsinpeticiónGit.
+
+Puerto Umbral29/10 capturasActividadV2: FuentelaboratorioCapturaantigua/modo
+corregido/17líneas/27Oct17:50:51Madrid/últimalectura27Oct18:04:52; snapshot
+df39623de3684fa7932edf6b688b2f04/SHA2f891446d512be3a31ee858db5f3318156f74b3d2348b40a7ee41dd8c59f2b4a
+coincidenconhistórico. AuditoríaIdentidadrecursosestado muestraSin auditoría
+disponible, sinerrorvisible. Disponibilidad/navegaciónprevistacompletadapor
+capturas(panel+V2), noactualidadlog/ingestiónnueva/esquema/hashVMrecalculado/
+escenariosF6F7/detección. No pedirrecapturasnirepetirLLMporcapturaantigua.
+SiguienteposiblecasonormalmanualF6requierecambiodelalcancesolopantallas;
+todavíanuevaspruebasnoautorizadas. Actaslocalesposteriores5bf154a,sinpush.
+
+Puerto Umbral29/10 recepciónvisualcabecera: capturapropietario muestra
+EnriqueForte/@T3r0S3c/Developer&Maintainer/iconosGitHubLinkedIn/badgeHTTPREAL
+yreloj. Autoríavisibleenescritorioconfirmada, noaperturalinks/móvil/teclado/
+sidebar/HEADVMacreditadosporeste recorte. Publicaciónprevia5bf154a7a3c8657735f
+2157e80a3bb3e6eb256ff/mainremotoverificadoyárbollimpiotraspush7archivos
+[skip ci]; capturanuevaesconsistenteconcabecera, nopruebaGitHEADVM.
+ActarecepciónF6F7localposterior, sincommit/pushnuevoni pruebas/servicios/LLM.
+Siguientepantallapendientede disponibilidad: V2Actividad/fuentecorregida y
+auditoríaaplicación, sololecturasinactivarcasos/seguimiento/capturas/modelo.
+
 Puerto Umbral29/10 propietarioautoriza commit/push cabeceraautoría para
 verificarParrot. Alcance7archivos: HTML/CSSpanel+AGENTS+plan/estado/actaF6F7/
 guíaParrotconrecepciónbuild/arranque. Basecc363afmain/originverificadaconfetch;

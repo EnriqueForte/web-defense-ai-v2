@@ -279,6 +279,361 @@ recibir esta modificación basta actualizar con `git pull --ff-only` y recargar
 revisión visual posterior sigue pendiente de la captura del propietario. Esta
 distribución no ejecuta escenarios o modelos ni cambia el backend del laboratorio.
 
+### Recepción visual de la cabecera
+
+La entrega de autoría se publicó en
+`5bf154a7a3c8657735f2157e80a3bb3e6eb256ff`, siete archivos, con `[skip ci]`.
+Tras el push se verificaron coincidencia con `origin/main` y árbol Windows
+limpio. El propietario aporta después una captura de la cabecera donde se ven
+Enrique Forte, `@T3r0S3c`, «Developer & Maintainer», los iconos de GitHub y
+LinkedIn, la insignia del laboratorio y el reloj.
+
+La autoría queda **confirmada visualmente en ese encuadre de escritorio**.
+El recorte no muestra apertura de enlaces, vista móvil, navegación con teclado,
+identificación inferior o HEAD de la VM; no se atribuyen esas comprobaciones.
+No hacen falta otra compilación o escenarios para cerrar esta recepción visual.
+La vista Actividad de V2 sigue pendiente dentro del bloque de disponibilidad.
+Esta acta posterior a `5bf154a` permanece local, sin nuevo commit/push.
+
+### Recepción de Actividad V2 y fin del bloque de disponibilidad
+
+Dos capturas posteriores muestran las secciones solicitadas en Actividad:
+
+| Sección | Evidencia visible |
+| --- | --- |
+| Fuente del laboratorio | «Captura antigua · Modo corregido», 17 líneas, última captura 27/10 a las 17:50:51 y última lectura válida a las 18:04:52, ambas Madrid |
+| Identidad del snapshot | `df39623de3684fa7932edf6b688b2f04`, SHA-256 `2f891446d512be3a31ee858db5f3318156f74b3d2348b40a7ee41dd8c59f2b4a` |
+| Auditoría de aplicación | Panel «Identidad, recursos y estado», con «Sin auditoría de aplicación disponible para el modo seleccionado», sin error visible |
+
+La identidad coincide visualmente con el snapshot histórico ya analizado; no
+se recalculan bytes de la VM por leer la captura. El estado antiguo describe
+esa copia conservada y no acredita una captura reciente ni fallo del conector.
+La fuente avanzada sin datos es coherente con no haber ejecutado nuevos casos
+F6/F7; no se presenta como un resultado de detección o una prueba con eventos.
+
+Con las capturas anteriores del lanzador/panel y estas vistas de V2, el bloque
+acordado de **disponibilidad y revisión básica de pantallas queda completado**.
+No es aceptación funcional F6/F7, revisión completa UX o evaluación del detector.
+No se pide recapturar el log histórico ni repetir el análisis Groq para cerrar
+este recorrido. Una validación manual nueva requiere acordar su alcance;
+todavía no queda autorizada por aportar estas imágenes. Registro local
+posterior a `5bf154a`, sin nuevo commit/push.
+
+### Autorización del primer caso manual normal F6
+
+El propietario autoriza expresamente un único caso manual y la lectura de su
+auditoría en V2: **Cargas · autorización por objeto**, modo **corregido**, tipo
+**Uso normal**, **variante 1**, entrada `ext-idor-b1-corrected`. Se facilita el
+recorrido desde el panel, sin ejecución de la VM por el agente ni resultados
+atribuidos todavía. El botón restablece el módulo avanzado corregido, conserva
+recibos anteriores, crea una sesión ficticia y consulta el recurso propio.
+
+Expectativa derivada del código: HTTP 200, `document: own-1`, propietario
+`estibador.demo` y marcador `UMBRAL_OWN_CARGO`; dos eventos de aplicación
+(sesión y lectura). El ejecutor obtiene también auditoría y evidencia Apache
+como parte de ese caso. La vista V2 se consulta con «Actualizar auditoría»;
+puede mostrar eventos válidos sin coincidencias de reglas, porque es uso normal.
+Las expectativas no son resultados observados ni métricas del detector.
+
+La autorización no incluye otro caso, repetir este, suites, captura manual
+adicional de Apache, seguimiento, conservar copia V2, modelos o notificaciones.
+Se esperan capturas del resultado y de la auditoría antes de decidir cualquier
+continuación. Los registros históricos y la autorización Groq consumida se
+conservan. Acta local, sin nuevo commit/push.
+
+### Resultado del caso normal y recepción de su auditoría en V2
+
+Las dos capturas siguientes del propietario acreditan este recorrido único:
+
+| Campo | Valor visible |
+| --- | --- |
+| Caso | Cargas, F6, `corrected`, `benign`, variante 1 (`ext-idor-b1-corrected`) |
+| Ejecución | `10fea5f6cbef9d88320ca767cc11e0b4` |
+| Resultado del panel | «Uso normal completado correctamente» |
+| Solicitud mostrada | `GET /avanzado/carga?documento=own-1`, HTTP 200 |
+| Respuesta | `document: own-1`, `owner: estibador.demo`, `fixture: UMBRAL_OWN_CARGO` |
+| Captura del ejecutor | 3 peticiones, 3 líneas Apache correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos y 2 referencias HTTP |
+| Auditoría visible en V2 | Modo corregido, mismo identificador y 2 eventos |
+| SHA-256 de auditoría mostrado por V2 | `1fbf865d130e66e22ebbef765f3e06f1f6a6b6b3d21e795ab4577d625a607c3c` |
+| Observaciones por reglas | «No hay coincidencias de estas reglas» |
+
+El recorrido **un caso normal → auditoría capturada → lectura en V2** queda
+completado dentro del alcance de esas capturas. La ausencia de coincidencias
+es coherente con el control normal, pero no se convierte en una tasa global de
+falsas alarmas ni evaluación LLM. La auditoría se consulta por separado desde
+V2: «V2 consultado: no» describe al ejecutor, no contradice su lectura posterior.
+
+El agente no accedió a la VM ni verificó bytes, líneas originales o hashes de
+forma independiente. Los botones de exportar y conservar están visibles, sin
+evidencia de haberlos pulsado: no se acredita JSON exportado, copia conservada
+en V2, respaldo/restauración de esta auditoría o lectura por el modelo.
+Este resultado no cierra las variantes de Cargas, las otras familias, F6/F7,
+los 99 casos o los criterios ampliados del detector.
+
+La autorización del único caso y su lectura queda cumplida. No se solicita
+repetirlo o iniciar otro caso; cualquier ampliación se decidirá por separado.
+Registro local posterior a `5bf154a`, sin nuevo commit/push.
+
+### Autorización de conservación de esta auditoría y lectura del recibo
+
+El propietario autoriza después conservar en V2 la auditoría de esa ejecución
+y comprobar su recibo local, sin repetir el caso o llamar al modelo. Se guía
+el botón «Conservar copia de auditoría en V2» y la lectura en otra terminal de
+`.local-state/puerto-umbral/application-audit/current.json` con
+`.p2/bin/python -B -m json.tool`. El panel debe informar de copia conservada.
+
+Se comprobarán modo corregido, ejecución `10fea5f6cbef9d88320ca767cc11e0b4`,
+2 eventos, `original_sha256` igual al observado y las banderas
+`analysis_requested: false` / `notifications_requested: false`. Por el cálculo
+estable del código, el identificador esperado de esa copia es
+`ed70066797f1f68f7df55b7ecb18247d`; derivarlo no acredita su creación. El campo
+`sha256` corresponde a los bytes JSON normalizados de la copia y puede diferir
+del original; leer el recibo por sí solo no verifica el hash de esos bytes.
+
+Conservación y lectura quedan pendientes de capturas reales. No se autoriza
+por este paso crear un ZIP de respaldo, restaurar, activar seguimiento o
+notificaciones, repetir casos o iniciar otra evaluación. Acta local sin push.
+
+### Conservación confirmada y recibo local observado
+
+Las capturas posteriores muestran el mensaje «Copia de auditoría conservada en
+V2 para su respaldo. No se ha solicitado un análisis» y la lectura del archivo
+`application-audit/current.json` con `json.tool`:
+
+| Campo | Valor observado |
+| --- | --- |
+| `schema_version` / `source` | `1` / `puerto-umbral-application` |
+| `run_id` | `10fea5f6cbef9d88320ca767cc11e0b4` |
+| `snapshot_id` | `ed70066797f1f68f7df55b7ecb18247d`, coincide con el cálculo esperado |
+| `mode` / `events` | `corrected` / `2` |
+| `evidence_kind` / `execution_status_at_capture` | `application_state` / `completed` |
+| `observer_version` | `puerto-umbral-audit-observer-1` |
+| `original_sha256` | `1fbf865d130e66e22ebbef765f3e06f1f6a6b6b3d21e795ab4577d625a607c3c` |
+| `sha256` de la copia | `5ce5ba9f249d6104bad53ee4b2bbf9de66259147ff3c9d4d669d53c4c0aa7d1a` |
+| `captured_at` | `2026-10-29T21:46:07.257702+00:00` |
+| `analysis_requested` / `notifications_requested` | `false` / `false` |
+
+La referencia al caso, el conteo, el modo, el hash original y el identificador
+de copia coinciden con la evidencia anterior. La diferencia entre hash original
+y hash de copia es coherente con la normalización JSON descrita en el código;
+la captura del recibo no supone recalcular los hashes de los archivos.
+
+El recorrido limitado **un control normal → auditoría en V2 → conservación →
+recibo local** queda completado según estas capturas. No se ha acreditado
+lectura independiente de `events.json`, ZIP de respaldo nuevo, restauración de
+esa auditoría, pruebas de idempotencia o recuperación ante interrupciones.
+La copia queda preparada para incluirse en el perfil de respaldo existente;
+los 66 archivos recuperados anteriormente no acreditan su recuperación.
+
+No se pide repetir el caso o la copia para cerrar este recorrido. La
+autorización queda cumplida y las demás variantes/familias F6/F7 y métricas
+globales permanecen pendientes. Se actualiza documentación local sin otro
+commit/push o nueva ejecución del agente.
+
+### Pausa y siguiente bloque guardados
+
+Tras proponer los cuatro controles normales restantes de F6 (Bitácora,
+Preferencias, Baliza y Atraque, corregido/variante 1, con lectura y conservación
+de auditorías), el propietario indica que continuará mañana y pide guardar el
+paso. No se ejecuta ese bloque ni se interpreta el aplazamiento como permiso
+para iniciarlo durante su ausencia. No se crea una automatización.
+
+El [punto de reanudación del plan](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+conserva la secuencia. Cargas y su copia/recibo ya están completados; no se
+repiten. Los demás casos, familias y aceptación global siguen pendientes.
+El trabajo de esta sesión queda guardado en las cinco actas locales posteriores
+a `5bf154a`, sin commit/push nuevo.
+
+### Reanudación guiada — 30/10/2026
+
+El propietario solicita continuar donde se dejó y reiniciar la aplicación en
+la VM para seguir con las pruebas. Se retoma el bloque pendiente de cuatro
+controles normales, uno a uno: Bitácora, Preferencias, Baliza y Atraque; modo
+corregido, variante 1, con lectura y conservación de auditorías V2, sin suites
+o llamadas al modelo. Esta continuación no repite Cargas ni su copia.
+
+El arranque lo realiza el propietario con la instalación existente y el mismo
+perfil. No se solicita reinstalar, recompilar o actualizar Git por actas que
+siguen locales. Antes de cualquier caso debe terminar el arranque. El primer
+control será Bitácora, cuyo texto normal esperado según catálogo es «Revisión
+de baliza» con HTTP 200. Arranque y resultados nuevos continúan pendientes de
+capturas; ningún resultado se infiere por proporcionar las instrucciones.
+
+### Bitácora: primer control normal del bloque reanudado
+
+El propietario aporta una captura del resultado:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `a6af8974ce18f60314f8ad9c888fe4d2` |
+| Selección | F6, `corrected`, `benign`, variante 1; Bitácora por la ruta mostrada |
+| Estado | `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud/respuesta | `GET /avanzado/tablon?_run=a6af8974ce18f60314f8ad9c888fe4d2`, HTTP 200; HTML con «Revisión de baliza» |
+| Ejecutor y Apache | 4 peticiones, 4 líneas correlacionadas; V2 consultado: no |
+| Auditoría capturada | 3 eventos / 3 referencias HTTP |
+
+El control normal de esta variante queda observado en el panel. No acredita
+ejecución JavaScript, protección general ante contenido malicioso, las otras
+variantes o aceptación F6/F7. El recorte tampoco muestra la terminal del nuevo
+arranque ni una inspección independiente de la VM por el agente.
+
+Sigue pendiente ver el mismo identificador, modo corregido y tres eventos en
+V2, y conservar esa auditoría. Ambos pasos están incluidos en la continuación
+manual autorizada: «Actualizar auditoría», comprobar identidad/conteo y luego
+«Conservar copia de auditoría en V2», recogiendo el mensaje de éxito. No se
+repite el caso para ello. Preferencias, Baliza y Atraque siguen pendientes.
+Registro local posterior a `5bf154a`, sin nueva publicación o ejecución del agente.
+
+### Bitácora: lectura y conservación confirmadas en V2
+
+La captura posterior de V2 muestra modo corregido, la misma ejecución
+`a6af8974ce18f60314f8ad9c888fe4d2`, tres eventos y hash de auditoría
+`bf38bcbbb142908a1fb8878fb75b37b45212302a2138fefb744888212b318bdc`.
+La vista no muestra coincidencias de sus reglas y confirma «Copia de auditoría
+conservada en V2 para su respaldo. No se ha solicitado un análisis».
+
+El recorrido normal de Bitácora, variante 1 corregida, con lectura y
+conservación informada en V2 queda completado dentro del alcance de estas
+capturas. No se aporta recibo en disco de esta copia, verificación independiente
+de bytes o respaldo/restauración de la auditoría. No hace falta repetir el caso.
+
+Sigue Preferencias, corregido/Uso normal/variante 1, dentro del bloque manual
+autorizado. La expectativa por código es HTTP 200 con `channel: demo-1` y
+`changed: true`, dos eventos de aplicación y tres peticiones del ejecutor,
+incluida la captura. Es un control HTTP legítimo de origen/token; no equivale
+a comprobar CSRF de navegador entre orígenes. Se recogerá resultado y lectura
+en V2, conservando su auditoría antes de continuar a Baliza. Los resultados de
+Preferencias, Baliza y Atraque siguen pendientes. Acta local sin nuevo push.
+
+### Preferencias: control normal, lectura y conservación en V2
+
+Las dos capturas posteriores del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `683fa423e04a76f45aa19d081369a1a2` |
+| Selección/estado | F6, `corrected`, `benign`, variante 1; `COMPLETED`, uso normal correcto |
+| Respuesta | `POST /avanzado/preferencias`, HTTP 200, `channel: demo-1`, `changed: true` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido, 2 eventos; sin coincidencias de reglas |
+| SHA-256 de auditoría mostrado en V2 | `91feab4fe25667a85b0c2563881a759b17bd9eb8541fb16aa1a99f0eb702cb8b` |
+| Conservación | Mensaje de copia conservada para respaldo, sin análisis solicitado |
+
+El recorrido normal de Preferencias, con lectura y conservación informada en
+V2, queda completado a este alcance. Es un control HTTP legítimo: no acredita
+CSRF en navegador entre orígenes o protección general, otras variantes,
+lectura de recibo local, verificación independiente de hashes o recuperación.
+No se repite este caso. La documentación sigue local posterior a `5bf154a`.
+
+Continúa Baliza/corregido/Uso normal/variante 1. El destino está fijado por el
+catálogo al recurso público del señuelo HTTP sobre Unix; se espera HTTP 200,
+`resource: /public`, `fixture: UMBRAL_PUBLIC_BEACON` y 2 eventos. Se verificará
+lectura y conservación en V2 antes de pasar a Atraque. Estas expectativas no
+atribuyen resultados nuevos; Baliza y Atraque siguen pendientes de capturas.
+
+### Baliza: recurso público, lectura y conservación en V2
+
+Las capturas del propietario muestran el control normal corregido, variante 1:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `9bf63cd2fa87781bb0fc7741d6b02f22` |
+| Estado | `COMPLETED`, «Uso normal completado correctamente» |
+| Solicitud | `GET /avanzado/baliza?destino=umbral%3A%2F%2Fbeacon%2Fpublic`, HTTP 200 |
+| Respuesta | `resource: /public`, `fixture: UMBRAL_PUBLIC_BEACON` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 de auditoría mostrado en V2 | `a6def6eba59bb18901104b736ebede15117c74660fcce1d1db73d3ee9bb5e4cf` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+El recorrido normal de lectura pública de Baliza, con lectura y conservación
+informada en V2, queda completado a este alcance. No demuestra denegación de
+recursos internos, protección SSRF general, aislamiento inspeccionado por el
+agente, verificación independiente de hashes o recuperación de la copia.
+
+Queda Atraque/corregido/Uso normal/variante 1 como último control del bloque
+actual. El ejecutor prepara las sesiones ficticias, solicita aprobación de
+supervisor para `dock-1` y ejecuta el permiso. Se espera HTTP 200 con
+`previous_state: approved` y `permit_state: consumed`; cuatro eventos de
+aplicación y cinco peticiones contando la captura. Lectura y conservación de
+esa auditoría están autorizadas dentro del mismo bloque y siguen pendientes
+de resultados reales. No se repiten los controles anteriores. Actas locales
+posteriores a `5bf154a`, sin nuevo commit/push o llamadas al modelo.
+
+### Atraque: aprobación normal, lectura y conservación en V2
+
+Las capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `7114fc01324c2531fac5eca89e131cbb` |
+| Selección/estado | F6, `corrected`, `benign`, variante 1; `COMPLETED`, uso normal correcto |
+| Solicitud/respuesta | `POST /avanzado/atraque`, HTTP 200; `previous_state: approved`, `permit_state: consumed` |
+| Ejecutor y Apache | 5 peticiones, 5 líneas correlacionadas; V2 consultado: no |
+| Auditoría del panel | 4 eventos / 4 referencias HTTP |
+| V2 | Mismo identificador, modo corregido y 4 eventos; sin coincidencias de reglas |
+| SHA-256 de auditoría mostrado en V2 | `0e18490747cd7527ac9a1c5db4459de31320efa222a04f28f7dcf4db4069f9d1` |
+| Conservación | Mensaje de copia conservada, sin análisis solicitado |
+
+Queda completado el control normal de aprobación y uso de permiso, con lectura
+y conservación informada en V2. No acredita rechazo de una operación sin
+aprobación, reutilización de permiso, las otras variantes, recibo local de esa
+copia, hash independiente o respaldo/restauración de la nueva auditoría.
+
+### Cierre del bloque de cuatro controles normales del 30/10
+
+Los cuatro controles autorizados, modo corregido y variante 1, quedan
+completados según capturas, cada uno con su lectura y mensaje de conservación
+en V2. El control Cargas del día anterior permanece completado y no se repitió.
+
+| Control normal | Fecha de recepción | Peticiones del ejecutor | Líneas Apache correlacionadas informadas | Eventos capturados y visibles en V2 |
+| --- | --- | --- | --- | --- |
+| Cargas | 29/10 | 3 | 3 | 2 |
+| Bitácora | 30/10 | 4 | 4 | 3 |
+| Preferencias | 30/10 | 3 | 3 | 2 |
+| Baliza | 30/10 | 3 | 3 | 2 |
+| Atraque | 30/10 | 5 | 5 | 4 |
+
+El bloque reanudado suma 15 peticiones, 15 líneas correlacionadas informadas y
+11 eventos. Incluido Cargas, son 18 peticiones, 18 líneas y 13 eventos. Estas
+sumas proceden de las pantallas de cinco controles independientes: no se
+ejecutó una suite nueva ni se verificaron los archivos de la VM por el agente.
+Solo para Cargas se observó además el recibo local de la copia; para los otros
+cuatro se observó la confirmación de conservación de la interfaz.
+
+Se cierra **este bloque de controles normales**, no la fase F6 completa. Siguen
+pendientes positivos/denegaciones por variante, comprobaciones de navegador,
+aislamiento/regresión, recuperación de auditorías nuevas, evaluación del
+detector y criterios de aceptación del PRD. No se reescriben el histórico
+42/45, los JSON F5 o el análisis Groq previo. No hay una tasa global de falsas
+alarmas derivada de estas cinco pantallas.
+
+El alcance autorizado queda atendido: no se pide repetir los controles normales
+ni se inicia otro caso o modelo sin acordar la continuación. Las cinco actas
+locales permanecen posteriores a `5bf154a`, pendientes de commit/push; el código
+operativo y los datos de la VM no se modifican por documentar este cierre.
+
+### Publicación documental autorizada al cerrar el bloque normal
+
+El 30/10 el propietario acepta publicar estas actas antes de ampliar las
+pruebas. Se prepara commit/push con `[skip ci]` de cinco documentos: contexto
+AGENTS, plan de cierre, estado consolidado, esta acta y guía de Parrot. La base
+`5bf154a` coincide con `origin/main` tras fetch. No se incluyen código operativo,
+datos, credenciales, imágenes, recibos originales de la VM o JSON históricos F5.
+
+La identidad de esta entrega es el commit que incorpora esta nota; el push,
+coincidencia de HEAD remoto y árbol local limpio se comprueban al terminar.
+Las referencias anteriores a actas locales describen su estado en cada momento
+de recepción. No se crea release, etiqueta o validación CI nueva.
+
+Esta distribución no inicia escenarios, servicios, suites, llamadas al modelo
+o notificaciones. Parrot puede recibirla con `git pull --ff-only`; al ser solo
+documentación no requiere reinstalar, recompilar o reiniciar. No se repiten
+los controles normales ni el análisis Groq para actualizar las actas.
+
 ## Referencias de diseño
 
 - [OWASP Top 10:2025](https://top10.owasp.org/2025/): categorías del mapa educativo.

@@ -36,6 +36,58 @@ recompilar Next o recrear imágenes por este cambio. Si `git status --short`
 muestra cambios locales, conservarlos y revisarlos antes de actualizar, sin
 usar reset. La recepción visual actualizada queda pendiente.
 
+Las capturas siguientes confirman autoría visible y Actividad V2 accesible.
+La fuente muestra el snapshot corregido histórico de 17 líneas como antiguo;
+la auditoría avanzada indica que aún no hay datos, sin error visible. Con ello
+finaliza el bloque básico de disponibilidad y pantallas; no se solicita una
+captura nueva, ejecución de escenarios o repetición del análisis por ese estado.
+Las pruebas funcionales y la evaluación del detector continúan pendientes.
+Posteriormente se autoriza un control normal manual F6: Cargas, corregido,
+variante 1. Las capturas muestran HTTP 200 para `own-1`, propietario correcto,
+3 peticiones y 3 líneas correlacionadas. La auditoría del panel y V2 comparten
+ejecución `10fea5f6cbef9d88320ca767cc11e0b4` y 2 eventos; V2 muestra cero
+coincidencias de esas reglas. Ese caso y su lectura quedan completados, sin
+extender el resultado a los demás casos o a evaluación LLM. La copia de esa
+auditoría en V2 todavía no está acreditada; no se pide repetir el caso.
+El propietario autoriza después conservar la auditoría y consultar su recibo.
+Las capturas muestran confirmación de copia y `current.json` con la misma
+ejecución, 2 eventos, modo corregido, estado completado e identificador
+`ed70066797f1f68f7df55b7ecb18247d`; análisis y notificaciones están en `false`.
+Ese paso queda completado según las capturas, sin una nueva ejecución del caso,
+modelo o respaldo/restauración. El acta F6/F7 conserva ambos hashes reportados;
+su lectura no equivale a recalcular los bytes de los archivos de la VM.
+
+## Recepción del bloque normal F6 del 30/10
+
+El propietario retoma manualmente Bitácora, Preferencias, Baliza y Atraque,
+corregido/Uso normal/variante 1, aportando resultado y auditoría de V2 para cada
+uno. Los cuatro muestran uso normal completado, HTTP 200, mismo identificador
+en panel/V2 y mensaje de copia conservada sin análisis. Se observan 3, 2, 2 y
+4 eventos respectivamente. El bloque queda completado a ese alcance; Cargas
+del 29/10 y su copia ya estaban completados y no se repitieron.
+
+El [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) conserva identidades, hashes
+mostrados, conteos y límites. No se han ejecutado suites, llamadas LLM o acciones
+de VM por el agente. Las otras variantes/tipos, pruebas de navegador,
+aislamiento/regresión y recuperación de auditorías nuevas siguen pendientes;
+no es aceptación de F6/F7 completas. Las actas de recepción siguen locales,
+posteriores a `5bf154a`, sin nuevo commit/push.
+
+El propietario autoriza posteriormente publicar esas cinco actas con
+`[skip ci]`. La entrega documental se identifica por el commit que incorpora
+esta nota; no cambia el runtime. Para recibirla en Parrot, desde la raíz:
+
+```bash
+git status --short
+git pull --ff-only
+git log -1 --oneline
+```
+
+Si hay cambios locales, conservarlos y revisarlos antes del pull. Esta entrega
+no requiere reinstalar, recompilar el frontend o reiniciar la aplicación, ni
+repetir escenarios, capturas o análisis. La recepción de actas en la VM no se
+presume hasta su confirmación; publicar no cierra F6/F7 o el MVP.
+
 ## Contexto y preparación anteriores
 
 **Estado posterior:** la ronda manual se da por finalizada por decisión del

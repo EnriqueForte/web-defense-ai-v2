@@ -2,6 +2,36 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Recepción del bloque reanudado el 30/10/2026
+
+Se retoman cuatro controles normales F6, corregido/variante 1, manualmente
+uno a uno y con lectura/conservación de auditorías, sin suites o LLM. La primera
+captura de Bitácora muestra `COMPLETED`, HTTP 200 y «Revisión de baliza», ejecución
+`a6af8974ce18f60314f8ad9c888fe4d2`; 4 peticiones/4 líneas y 3 eventos de
+auditoría. Su lectura/copia en V2 sigue pendiente, igual que Preferencias,
+Baliza y Atraque. Cargas y su copia anteriores no se repiten. No es aceptación
+global de F6/F7. Detalle en el [acta F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md).
+Una captura posterior de V2 muestra la misma ejecución de Bitácora y 3 eventos,
+sin coincidencias, con confirmación de copia conservada sin análisis. El
+recorrido normal de Bitácora queda completado a ese alcance, sin recibo local
+o respaldo/restauración nuevos. Sigue Preferencias; después Baliza y Atraque.
+Preferencias se observa después completado, HTTP 200 con `demo-1` y
+`changed: true`; ejecución `683fa423e04a76f45aa19d081369a1a2`, 2 eventos
+coincidentes en V2 y copia conservada sin análisis. Cierra ese control normal
+HTTP, sin acreditar CSRF de navegador. Baliza y Atraque siguen pendientes.
+Después se observa Baliza normal, HTTP 200 para `/public` con el marcador
+`UMBRAL_PUBLIC_BEACON`, ejecución `9bf63cd2fa87781bb0fc7741d6b02f22`;
+2 eventos coincidentes en V2 y copia conservada sin análisis. Cierra ese
+control público normal; queda Atraque en este bloque. No acredita controles
+de denegación, variantes restantes, aislamiento independiente o aceptación F6/F7.
+Atraque se observa después completado, HTTP 200 y transición de aprobado a
+consumido, ejecución `7114fc01324c2531fac5eca89e131cbb`; 4 eventos coincidentes
+en V2 y copia conservada sin análisis. Termina el bloque de cuatro controles
+normales del 30/10. Incluido Cargas del 29/10, quedan observados los cinco
+controles normales de variante 1 corregida con lectura y conservación en V2.
+La fase F6 completa sigue pendiente de otros tipos/variantes, navegador,
+aislamiento/regresión y evaluación; no se repiten estos controles para cerrarlos.
+
 ## Actualización vigente del 29/10/2026
 
 Objetivo vigente: cerrar **todas las fases F0–F7 antes del martes 03/11**, según
@@ -23,6 +53,23 @@ salida del lanzador y acceso al panel, sin inspección independiente de Docker
 ni captura de Actividad V2 en ese envío. Los escenarios siguen sin validar.
 La autoría en la cabecera del panel se incorpora después por petición del
 propietario como cambio HTML/CSS local, todavía sin distribuir a Parrot.
+Recepción posterior: autoría publicada en `5bf154a` y confirmada visualmente.
+Actividad V2 muestra la fuente corregida con el snapshot histórico de 17 líneas
+marcado antiguo y el nuevo panel de auditoría sin datos, sin error visible.
+La revisión básica de disponibilidad del lanzador/panel/V2 queda completada
+por estas capturas; no acredita captura nueva, casos F6/F7 o detección.
+Después se autoriza y observa un único caso normal F6 Cargas/corregido/variante 1:
+HTTP 200 con `own-1`, propietario `estibador.demo` y `UMBRAL_OWN_CARGO`.
+La auditoría de aplicación muestra 2 eventos en el panel y V2 con la misma
+ejecución `10fea5f6cbef9d88320ca767cc11e0b4`, sin coincidencias de reglas.
+Ese recorrido limitado queda completado por capturas, sin acreditar todavía
+copia conservada, recuperación de la auditoría, otros casos o métricas globales.
+La conservación se autoriza después y sus capturas muestran confirmación en V2
+y recibo local para esa misma ejecución, 2 eventos, modo corregido y copia
+`ed70066797f1f68f7df55b7ecb18247d`, con análisis/notificaciones en `false`.
+El recorrido de conservación y lectura del recibo queda completado según esas
+capturas, sin acreditar todavía respaldo/restauración de esta copia nueva o
+recalcular sus hashes de forma independiente. No se requiere repetir el caso.
 
 El ejecutor acotado se publicó en `1403f8d` y la corrección de nombres de fuente
 en `9e71c0c`. Ambas publicaciones se verificaron contra main remoto y el árbol
