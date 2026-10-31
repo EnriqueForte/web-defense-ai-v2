@@ -8,7 +8,7 @@ El código se distribuye públicamente bajo MIT, con instalaciones y
 credenciales propias. Consulta la [apertura verificada en GitHub](DISTRIBUCION_PUBLICA.md).
 El alcance de ejecución sigue siendo local, con consola y laboratorio aislados.
 
-Actualización documental: **29/10/2026**. El
+Actualización documental: **31/10/2026**. El
 [estado actual V2/Puerto Umbral](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) separa
 desarrollo, recorridos observados y criterios pendientes. El
 [resumen de la entrega anterior](ESTADO_FINAL_2026_10_12.md) conserva sus pruebas
@@ -28,7 +28,7 @@ una instalación nueva.
 | Windows y Ubuntu 24.04 x86_64 | Instalación nueva, build, API/proxy, regresión y cierre aprobados en CI39466610699, código `0d73ec2`, con el parche aiohttp/yarl. [Acta y artefactos completos](ENTREGA_LOCAL_C4_2026_10_20.md). |
 | Parrot 7.3 x86_64/VMware | Instalación/lectura guiadas, inventario 172/0/0 y arranque/cierre comprobados; muestra DVWA XSS/fuerza bruta aceptada el 15/10. [Instalación](VALIDACION_PARROT_2026_10_12.md) y [análisis guiado](INCIDENCIA_GROQ_413_2026_10_15.md). |
 | VM con pins posteriores | Actualización a v0.1.0, tres pines aplicados, recuperación aislada de aplicación/DB y lectura/cierre acreditados el 21/10 por capturas y confirmación del usuario. [Registro V1](ACTUALIZACION_PARROT_V1_2026_10_20.md). |
-| Puerto Umbral en Parrot | Cinco familias base, captura, ronda básica de seguimiento, un análisis de 17 líneas y respaldo/restauración aislada de 66 archivos observados posteriormente. [Acta y límites](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md). No acredita el código nuevo F6/F7 o evaluación de los 45 casos. |
+| Puerto Umbral en Parrot | Cinco familias base, captura, ronda básica de seguimiento, un análisis de 17 líneas y respaldo/restauración aislada de 66 archivos observados. [Acta y límites](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md). Después se observaron controles corregidos F6 y once recorridos de una [ronda educativa F7](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md), con auditorías conservadas, y un respaldo actualizado de 113 archivos con verificación interna correcta, sin faltantes; restauración independiente adicional aplazada. No acredita todos los modos/variantes o evaluación de los 45 casos; [pendientes de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md). |
 
 Las [auditorías de paquetes del 18/10](REVISION_DEPENDENCIAS_SECRETOS_2026_10_18.md)
 y el [escaneo de imágenes del 19/10](FIJACION_IMAGENES_LAB_2026_10_19.md) sí se
@@ -77,8 +77,9 @@ Kali, Fedora, Arch o Alpine.
 
 Parrot documenta su instalación en
 [VMware](https://www.parrotsec.org/docs/virtualization/parrot-on-vmware/).
-Para este proyecto instala y ejecuta Python, Next y, si usas DVWA, Docker Engine
-con Compose v2 dentro de la VM. Usa el navegador de Parrot para abrir
+Para este proyecto instala y ejecuta Python y Next dentro de la VM. Si usas
+DVWA o Puerto Umbral, también necesitas Docker Engine con Compose v2 en ella.
+Usa el navegador de Parrot para abrir
 http://127.0.0.1:3000: localhost corresponde a la VM, no al equipo anfitrión.
 Los puertos siguen enlazados a loopback; no necesitan abrirse a la red para
 este uso. Acceder desde el navegador del anfitrión requeriría un procedimiento

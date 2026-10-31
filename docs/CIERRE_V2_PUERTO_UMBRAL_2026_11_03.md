@@ -1,12 +1,327 @@
 # Cierre de Web Defense AI V2 y Puerto Umbral para el 03/11/2026
 
-Estado al 30/10/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
+Estado al 31/10/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
 todavía no aceptado**. El propietario quiere terminar antes del martes 3 de
 noviembre para preparar su publicación en LinkedIn. Confirma expresamente que
 incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el lunes
 2 de noviembre. El calendario es una previsión, no una validación anticipada.
 
 ## Punto de partida comprobado
+
+### Publicación autorizada y revisión en Parrot siguiente
+
+El propietario solicita commit/push de los cambios acumulados y revisión
+posterior en Parrot. La entrega incluye dos archivos de interfaz y trece de
+documentación, sin datos operativos. Base `main`/`origin/main` comprobada tras
+fetch: `1fdfed1`, sin divergencia. Se publica con `[skip ci]`; build de
+producción/TypeScript/rutas y ESLint del archivo modificado ya completados.
+La identidad será el commit que contiene esta nota; el resultado Git se
+verifica al terminar, no se presupone por la autorización.
+
+Después de publicarla: detener la consola propia en Parrot, actualizar con
+`git pull --ff-only`, compilar desde `frontend` con
+`node node_modules/next/dist/bin/next build --webpack`, volver a la raíz e iniciar
+la consola habitual. Se conserva `--lab-mode vulnerable`, la última selección
+usada, sin ejecutar casos. Recoger Resumen en escritorio y ventana estrecha;
+móvil, teclado y resultado visual del nuevo diseño siguen pendientes.
+
+### Resumen redistribuido — implementación y compilación completadas
+
+Tras recibir tres capturas del Resumen, el propietario autoriza optimizar la
+distribución. Se implementa ancho fluido solo en esa vista, cabecera y tarjetas
+compactas, y cuadrícula adaptable con gráficas/reportes en paralelo y
+amenazas/terminal debajo en escritorio amplio. Vistas previas: hasta cuatro
+amenazas, seis líneas de log y dos reportes históricos; cantidades y enlaces a
+vistas completas disponibles. Se mantienen tipografía base y desplazamiento
+natural si la ventana o el contenido lo requieren.
+
+Build webpack de producción, TypeScript y generación de rutas completados;
+ESLint de `page.tsx` correcto. No suites, escenarios, servicios o modelos.
+Las capturas corresponden al diseño anterior: revisión visual de la nueva
+distribución en Parrot pendiente tras publicar/compilar el frontend allí.
+Cambios locales, sin commit/push nuevo. Véase la
+[revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md).
+
+### Prioridad actual — producto y documentación
+
+El propietario indica que no puede continuar Baliza por bloqueo del chat y
+pide otro trabajo. Baliza vulnerable queda pendiente, sin ejecución ni
+resultado; no se reformula el recorrido para eludir ese bloqueo. La prioridad
+actual es la [revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md):
+documentación, navegación, presentación móvil y teclado. No requiere nuevos
+escenarios ni llamadas al modelo. La preparación documental no acredita por sí
+sola el recorrido manual y no cierra las dependencias funcionales pendientes.
+Las propuestas inferiores conservan su carácter histórico.
+
+### Cargas vulnerable completado por capturas — 31/10
+
+El recorrido `ext-idor-a1-vulnerable` queda completado en ejecución, lectura y
+conservación informada en V2. Run `176266c5fd701ecdfa637ba14f0d6a34`:
+COMPLETED, HTTP 200, `foreign-1`, propietario `supervisor.demo` y señuelo
+`UMBRAL_FOREIGN_CARGO`; 3 peticiones/3 líneas Apache/2 eventos/2 referencias.
+V2 muestra el mismo run y modo vulnerable, 2 eventos y la observación
+«Recurso de otro propietario devuelto» para actor `estibador.demo` y recurso
+`foreign-1`, con mensaje de copia conservada sin análisis. SHA de auditoría
+mostrado: `2956f103989b75c515c0320b871eb2558cb5b93f425bd6d4b3b2db4cbc6d38d2`.
+La comparación de esta variante con el rechazo corregido previo queda observada;
+no repetir ninguno. No implica hash de bytes verificado de esta copia, nuevo
+respaldo, métricas del modelo o aceptación F6 global. Próximo candidato
+propuesto: Baliza vulnerable/Intento/variante 1, todavía sin autorizar o ejecutar.
+
+### Siguiente recorrido aceptado — Cargas vulnerable, pendiente de resultado
+
+El propietario acepta un caso manual `ext-idor-a1-vulnerable`: Cargas F6,
+Intento de ataque, variante 1, con lectura y conservación de auditoría en V2,
+sin suites ni llamadas al modelo. El arranque manual debe seleccionar
+`--lab-mode vulnerable` para que V2 lea esa fuente. La expectativa revisada es
+HTTP 200 para `foreign-1`, propietario `supervisor.demo` y señuelo
+`UMBRAL_FOREIGN_CARGO`; 3 peticiones y 2 eventos/2 referencias. La regla V2
+esperada es «Recurso de otro propietario devuelto». Ejecución, lectura y copia
+siguen pendientes de las capturas; no se acredita ningún resultado por aceptar
+el recorrido. No repetir el rechazo corregido ni las comprobaciones de cierre.
+
+### Preflight de cierre actual completado — bloque terminado a su alcance
+
+El propietario aporta `webdefense.py check` structured/with-puerto/corrected
+con salida «Preparado: entorno, build y puertos comprobados». La rama revisada
+lo imprime tras pasar las comprobaciones; lectura actual completada sin
+bloqueadores visibles. No pedir repetir por prompt o exitcode fuera del recorte,
+ni atribuir inspección exhaustiva de procesos del host o arranque de servicios.
+
+Quedan completados a su alcance perímetro, recibo/hash puntual de auditoría,
+selección de respaldo, copia del perfil de 113 archivos verificada internamente
+y este preflight. No se repiten casos F7, copias o lecturas; la restauración
+independiente adicional sigue aplazada. F4 ampliada, positivos/regresión F6,
+evaluación/decisión de alcance F5 y UX/aceptación siguen pendientes.
+Siguiente candidato funcional propuesto: un caso Cargas F6/vulnerable/Intento/
+variante 1 con lectura/copia V2, sin suites o modelo, todavía sin autorizar o
+ejecutar. Actas locales posteriores a `1fdfed1`, sin publicación Git.
+
+### Respaldo actualizado completado; comprobar cierre sin arrancar
+
+Captura del propietario: `.local-backups/operational-20261031T201154664036Z`,
+113 archivos, `verified: true`, `missing: []`. Conservación básica del perfil
+actual con verificación interna completada a ese alcance; no repetir el
+respaldo. La restauración independiente adicional sigue aplazada y los
+originales bajo `labs/` no se atribuyen a este perfil. No supone cierre F6/MVP.
+
+Se revisa y guía el preflight existente `webdefense.py check --mode structured
+--with-puerto-umbral --lab-mode corrected`, que comprueba entorno/build/puertos,
+locks/trabajos y contenedores propios detenidos sin arrancar servicios,
+recompilar o ejecutar casos/modelos. Resultado pendiente de captura; no se
+deduce cierre del host a partir de la salida de backup. Procedimiento en la
+[auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+
+### Respaldo actualizado autorizado, restauración independiente aplazada
+
+El propietario acepta crear solo una copia nueva del perfil Puerto Umbral
+con su verificación interna. Se guía cerrar la consola propia y ejecutar
+`backup_operational.py --profile puerto-umbral` una vez, sin `--list`.
+La herramienta crea ZIP/manifiesto, instantánea SQLite y `restore-check`
+interno; se esperan `verified: true`, `missing: []` y ruta/conteo reales.
+Resultado pendiente de captura. La restauración independiente con
+`restore_operational.py` queda expresamente aplazada; no se ejecuta ni se
+considera validada por esta decisión. No repetir casos/LLM o crear Git nuevo.
+
+### Selección de auditorías confirmada; respaldo nuevo propuesto
+
+El listado filtrado aportado muestra las tres rutas de la última auditoría
+como `file`, 47 archivos de auditoría seleccionados y `faltantes: []`.
+**Ronda de lectura completada**: perímetro, recibo, hash puntual y selección.
+No repetirla. No hay todavía ZIP o recuperación nuevos ni inclusión acreditada
+de los originales bajo `labs/`. Se prepara en la
+[auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md) una propuesta conjunta:
+cerrar consola propia, crear respaldo nuevo del perfil, comprobarlo con el
+restaurador aislado y revisar la última auditoría recuperada. Genera archivos,
+mientras que el alcance acordado era de solo lectura: autorización y ejecución
+siguen pendientes. No se repite la recuperación antigua de 66 archivos.
+
+### Integridad de la última copia recibida; listado de respaldo siguiente
+
+El propietario aporta `sha256sum` de `events.json` del snapshot
+`891a00db10ca4bcda8a73f5d33fb10a0`: resultado
+`bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa`,
+idéntico al SHA de copia del recibo. Integridad puntual comprobada según la
+salida aportada; no repetir caso/copia/hash. No acredita todos los snapshots,
+un respaldo nuevo o recuperación. Sigue consulta de selección con
+`backup_operational.py --profile puerto-umbral --list`, resumida para tres
+rutas de esta auditoría y faltantes. Resultado pendiente de captura, sin crear
+ZIP, snapshots SQLite o locks. Procedimiento en la
+[auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+
+### Recibo V2 leído; comparación de bytes siguiente
+
+La captura de `current.json` confirma el último run Excepciones
+`a8a228ff56fc61649041b9740731cc86`, modo corregido, 2 eventos,
+`fixture_review`, estado completado y solicitudes de análisis/notificaciones
+falsas. `original_sha256` coincide con V2; snapshot
+`891a00db10ca4bcda8a73f5d33fb10a0`, SHA de copia
+`bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa`.
+Lectura de metadatos completada según captura, sin repetir caso/copia/lectura.
+Todavía no demuestra integridad de bytes o respaldo. Se guía `sha256sum` del
+`events.json` de ese snapshot; comparar con SHA de copia, no original. Resultado
+pendiente de captura, sin escribir archivos o ejecutar aplicación/modelos.
+Detalle en la [auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+
+### Inspección de perímetro recibida; siguiente lectura del recibo V2
+
+El propietario acepta continuar con la lectura de estado/perímetro propuesta.
+Se revisa y guía el comando existente `labs/puerto_umbral/labctl.py inspect`,
+con un filtro JSON de presentación en una segunda terminal. Consulta Docker y
+el manifiesto sin iniciar/detener servicios, escribir estado, ejecutar casos,
+sondas HTTP o modelo. Se esperan 14 contenedores, targets sin red IP,
+pasarelas en loopback, permisos/montajes/límites conformes y red frontal
+exclusiva. Procedimiento y límites en la
+[auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+Resultado pendiente de captura; no se declara el perímetro actual validado por
+revisar código. Si falla se recoge el error antes de arrancar o corregir nada.
+La captura posterior muestra `valid=True`, 14 contenedores, targets sin red IP
+y masquerade/ICC desactivados. Once filas visibles son activas, de solo lectura
+y usuario `10001:10001`; el inspector revisado emite el resultado agregado tras
+comprobar los catorce y la red frontal. **Lectura actual de perímetro completada
+según la salida aportada**, sin pedir repetir para filas recortadas o atribuir
+inspección independiente del agente. No cierra aún efectos vulnerables F6,
+regresión o procesos host. Se guía después la lectura del `current.json` ya
+conservado en V2 con `python -m json.tool`, sin escribir o importar la aplicación.
+Recibo pendiente de captura; no se repite ningún caso, copia o análisis.
+
+### Auditoría de pendientes reales y documentación vigente — 31/10
+
+Completada la [auditoría de cierre F6/MVP](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
+con evidencia existente. Distingue requisito del PRD, observación, cobertura
+adicional y decisión de alcance; no ejecuta casos o modelos ni acepta fases.
+Hay cinco grupos finitos: funcionamiento/límites/regresión, operación,
+evaluación/alcance F5, conservación nueva y producto/documentación/aceptación.
+No son cinco pruebas ni una orden de ejecutarlas.
+
+Los 45 registros históricos cubren la obligación de registro de F5-AC1, sin
+convertir 42/45 en éxito funcional o pedir otra ejecución de 45 por ese criterio.
+La incidencia de comandos sigue en F2/regresión. El recorrido único hasta
+informe, la recuperación aislada básica y las rondas manuales ya completadas
+no se repiten. F4-AC1 admite medir veinte muestras o revisar una desviación;
+no hay desviación aceptada. F5-AC2 sigue sin métricas y requiere evaluación
+autorizada o decisión expresa de alcance; no se cambia a piloto por defecto.
+
+README, inicio, instalación y repositorios se sincronizan con los recorridos
+F6/F7 observados; las actas F4/F5 remiten a esta auditoría sin alterar JSON
+históricos. Siguiente paso propuesto: acordar lectura manual de estado/perímetro
+y recibos existentes en Parrot, sin nuevos casos, seguimiento o modelo. Aún no
+se ha autorizado o realizado esa lectura. Documentación local, sin Git nuevo.
+
+### Ronda representativa F7 terminada — matriz preparada para revisar
+
+Excepciones/corregido/Intento/variante 1 completada según capturas:
+`a8a228ff56fc61649041b9740731cc86`, HTTP 400, `controlled_response`, error solo
+`code: invalid_fixture`, sin traza en el cuerpo mostrado; 3 peticiones/3 líneas/
+2 eventos/2 referencias HTTP. V2 muestra mismo identificador y 2 eventos, sin
+coincidencias, con copia conservada sin análisis. No repetir este recorrido.
+
+Los cuatro comportamientos nuevos propuestos están observados. **No faltan más
+ejecuciones del bloque representativo F7 propuesto.** Se prepara la
+[matriz de cierre educativo](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md),
+revisada contra F7-AC1/2/3 con las evidencias existentes: once ejecuciones,
+objetivos y tipo de evidencia para diez categorías, límites de simulación y
+ausencia de afirmación de detección F7 completa. Propuesta de aceptación del
+alcance educativo lista para revisión del propietario; F7 global y dependencias
+F6/MVP siguen pendientes. No convertir las variantes no observadas en una cuota
+nueva ni contar Criptografía/Intento/corregido como ejecutado.
+
+Siguiente trabajo: revisar matriz y bloqueadores reales del proyecto (F6,
+regresión/operación/recuperación, evaluación o decisión expresa de alcance F5,
+documentación V2). Esta revisión no autoriza nuevos casos, suites o LLM.
+
+### Último control del bloque en curso: Excepciones corregida
+
+El propietario acepta un caso manual Excepciones/corregido/Intento/variante 1,
+con lectura y conservación V2, sin suites o modelo. Esperado HTTP 400,
+`controlled_response`, error solo `code: invalid_fixture`, sin `fictional_trace`;
+2 eventos. Resultado y copia pendientes de capturas. Después se revisará la
+matriz de evidencias/límites para proponer cierre educativo, sin añadir pruebas
+o aceptar F7/proyecto automáticamente. No se repiten los casos anteriores.
+
+### Última recepción: Registro con hueco corregido
+
+El propietario acepta un caso manual Registro/corregido/Intento/variante 1,
+con lectura y conservación V2, sin suites o modelo. Esperado HTTP 200,
+secuencia ficticia `[1,2,4,5]`, hueco `[3]`, advertencia registrada y
+`gap_identified`; 2 eventos. No comprueba continuidad de Apache, rotación o
+entrega de notificaciones. Resultado y copia pendientes de capturas. Quedan
+dos controles del bloque propuesto incluido este; después quedaría Excepciones.
+No repetir anteriores o aceptar F7 global por guiar el caso.
+Las capturas posteriores muestran `6a0648c2fed5d6b50f5d08e1a7db6db1`, HTTP
+200, secuencia `[1,2,4,5]`, hueco `[3]`, advertencia registrada y
+`gap_identified`; 3 peticiones, 3 líneas y 2 eventos / 2 referencias HTTP.
+V2 muestra la misma ejecución y 2 eventos, sin coincidencias, con copia
+conservada sin análisis. **Recorrido completado según capturas**; no repetir
+ni pedir más capturas de este recorrido. Queda únicamente Excepciones del
+bloque representativo propuesto, aún sin autorizar o ejecutar. F7 global abierta.
+
+### Última recepción: Integridad modificada corregida
+
+El propietario acepta Integridad/corregido/Intento/variante 1, un caso manual
+con lectura y conservación V2, sin suites o modelo. Se guía una revisión del
+manifiesto ficticio modificado: esperado HTTP 422, `accepted: false`,
+`hmac_sha256` y `manifest_checked`; 2 eventos. Resultado y copia pendientes de
+capturas, sin ejecución desde Windows. Quedan tres casos del bloque propuesto
+incluido este; después de completarlo quedarían Registro y Excepciones.
+No repetir anteriores, alterar el corpus o aceptar F7 global por guiar el caso.
+Las capturas posteriores muestran `cc7cdd171465527bc6cd31497755c38a`, HTTP
+422, `accepted: false`, `hmac_sha256` y `manifest_checked`; 3 peticiones,
+3 líneas y 2 eventos / 2 referencias HTTP. V2 muestra misma ejecución y
+2 eventos sin coincidencias; una captura adicional confirma copia conservada
+sin análisis. **Recorrido completado según capturas**; no repetir ni pedir
+más capturas de este recorrido. Quedan Registro y Excepciones del bloque
+representativo propuesto, todavía sin autorizar o ejecutar. F7 global abierta.
+
+### Alcance necesario frente a cobertura exhaustiva — 31/10
+
+El propietario pregunta por el número y necesidad real de pruebas. Actualizado
+tras Excepciones: en F7 hay 11 entradas distintas observadas de un catálogo de 54:
+6 normales más Configuración, Suministro, Integridad, Registro y Excepciones/
+Intento, corregido/variante 1. **Las 43 no observadas no son una cuota obligatoria
+de salida del PRD.** El bloque representativo propuesto está terminado.
+Criptografía corregida sigue la misma rama de derivación que el control normal:
+se propone documentar esa equivalencia por código y conservar el intento como
+no ejecutado, sin puntuarlo como superado.
+
+Propuesta para decidir el cierre educativo F7: observar esos cuatro controles
+y revisar la matriz final frente a F7-AC1/2/3 (objetivo/evidencia, límites de
+simulación y afirmaciones de detección respaldadas). No es aceptación anticipada
+ni cambio del corpus. No elimina dependencias F6/MVP, positivos/negativos y
+regresión, pendientes operativos o evaluación del detector. La cobertura de
+otros modos/variantes se distingue de estos criterios; no se declara 54/54.
+
+Suministro/corregido/Intento/variante 1 queda completado según capturas:
+`3708b145de707ced3497dbb37883f07d`, HTTP 422, hashes distintos y `accepted:
+false`; 3 peticiones/3 líneas/2 eventos/2 referencias HTTP. V2 muestra misma
+ejecución y 2 eventos, sin coincidencias, con copia conservada sin análisis.
+No repetir. Después se completaron Integridad, Registro y Excepciones,
+registrados al inicio; no quedan controles del bloque representativo propuesto.
+Sigue revisión de matriz educativa y pendientes F6/MVP. La revisión final
+documental V2 y la decisión explícita de cierre del proyecto siguen pendientes.
+
+### Reanudación del 31/10 — primer caso adverso F7 corregido
+
+El propietario retoma y se levanta la pausa para guiar Configuración/corregido/
+Intento de ataque/variante 1, manual una vez, lectura y conservación en V2, sin
+suites o modelo. Los seis normales anteriores siguen completados y no se
+repiten. La entrega previa `1fdfed1` se publicó y verificó al cerrar; HEAD local
+coincide y el árbol estaba limpio al retomar. No se asumen servicios VM abiertos;
+se facilita el arranque manual existente si están detenidos, sin instalaciones,
+builds o arranque desde Windows.
+
+Expectativa: HTTP 200, depuración desactivada y configuración mínima sin
+`debug_trace`; 2 eventos. El caso `attempt` corregido devuelve el mismo contenido
+mínimo que el normal, sin afirmar rechazo HTTP o configuración real segura.
+Resultado y conservación pendientes de capturas. F7 global continúa abierta;
+notas nuevas locales posteriores a `1fdfed1`, sin publicación adicional.
+Las capturas posteriores confirman `9370f0028216a9926d2ca38ef0c2b1ee`, HTTP
+200 y configuración mínima sin depuración ni `debug_trace`; 3 peticiones,
+3 líneas y 2 eventos / 2 referencias HTTP. V2 muestra la misma ejecución y
+2 eventos, sin coincidencias, con copia conservada sin análisis. **Configuración
+corregida/Intento/variante 1 completada según capturas**. No repetir. Siguiente
+candidato Suministro/corregido/Intento/variante 1, todavía sin autorizar o
+ejecutar. El resultado no verifica configuración real; F7 global sigue abierta.
 
 ### Punto de reanudación guardado — cierre del 30/10 y pausa
 
@@ -277,17 +592,17 @@ No se ha solicitado ni creado un recordatorio automático.
   siguen guardadas localmente, sin commit/push posterior. El código no cambia
   por este registro. La configuración Groq y su análisis anterior se conservan.
 
-### Resumen de evidencia disponible
+### Resumen de evidencia disponible, actualizado al 31/10
 
 | Área | Evidencia disponible | Límite |
 | --- | --- | --- |
-| Distribución V2 | Repositorio público, versión local anterior v0.1.0; F6/F7 en `cc363af` y autoría/actas en `5bf154a`, ambos con remoto verificado | No nueva release o CI atribuida a los commits `[skip ci]` |
+| Distribución V2 | Repositorio público y entrega base v0.1.0; código F6/F7 en `cc363af`, actas normales posteriores publicadas hasta `1fdfed1` con remoto verificado al cerrar el 30/10; revisión actual local | No nueva release o CI atribuida a los commits `[skip ci]`; no se presume HEAD actual de la VM |
 | Puerto Umbral F1/F2 | Prototipo privado, cinco familias locales y dos modos | Corpus histórico 42/45; tres fallos de comandos preservados |
 | F3, recorrido de integración | Un snapshot de 17 líneas, análisis Groq, publicación y lectura en V2 | No evaluación de los 45 casos |
 | F4 | Inicio, pausa, reanudación, parada, vencimiento y reapertura sin auto-resume | Condiciones ampliadas y latencias individuales pendientes |
 | F5, conservación | Copia y recuperación aislada de 66 archivos, SQLite e informe verificados en Parrot | Sin promover datos recuperados ni restaurar la VM completa |
 | Interfaz | Autoría visible en cabecera y vistas Fuente/Auditoría de Actividad V2 observadas por capturas | No revisión actual completa de móvil/teclado o enlaces abiertos |
-| F6/F7 | [Código de ampliación revisado y publicado](PUERTO_UMBRAL_F6_F7_2026_10_29.md); los cinco controles normales de variante 1 corregida leídos y conservados en V2; recibo local observado para Cargas | F6 completa no aceptada; otros tipos/variantes, navegador, regresión, recuperación de auditorías nuevas y evaluación ampliada pendientes |
+| F6/F7 | [Acta de ampliación](PUERTO_UMBRAL_F6_F7_2026_10_29.md): normales e intentos F6 corregidos, CSRF corregido en navegador y reutilización de permiso observados; once recorridos F7 corregidos con lectura/copia V2 | Ronda educativa representativa F7 terminada; aceptación global y positivos/aislamiento/regresión F6, conservación de auditorías nuevas y evaluación pendientes |
 
 El [estado consolidado](PUERTO_UMBRAL_ESTADO_ACTUAL_2026_10_26.md), el
 [acta del análisis y recuperación](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md)
@@ -299,14 +614,14 @@ reescribe los JSON históricos.
 
 | ID | Trabajo | Evidencia necesaria para cerrarlo | Estado |
 | --- | --- | --- | --- |
-| DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | Actualizado localmente; revisión final conjunta pendiente |
+| DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | README y diagrama vigente, inicio, instalación, repositorios y plan sincronizados al 31/10; revisión final conjunta pendiente |
 | F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco normales, cinco intentos de variante 1 corregida, CSRF de navegador corregido y reutilización corregida leídos y conservados en V2 según capturas; recibo local del normal Cargas observado; criterios ampliados pendientes |
 | F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco normales y cinco intentos de variante 1 corregida, CSRF en navegador corregido y reutilización corregida variante 3 observados; otros modos/variantes, aislamiento/regresión y evaluación pendientes |
-| F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Ronda normal de los seis módulos/corregido/variante 1 completada con lectura y copias conservadas en V2 según capturas; condiciones adversas, otros modos/variantes y aceptación global pendientes |
-| EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Pendiente de ejecución autorizada |
-| EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Pendiente de alcance/budget de nuevas llamadas |
-| OPS-01 | Condiciones ampliadas F4 y regresión de aislamiento | Observaciones reproducibles de rotación, truncado, fallo, cuotas y ausencia de actividad automática | Pendiente de ejecución autorizada |
-| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Pendiente |
+| F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Once recorridos corregidos/variante 1 con lectura y copias conservadas según capturas; ronda representativa terminada y matriz educativa revisada documentalmente; propuesta de aceptación de ese alcance lista; resto de cobertura/dependencias y aceptación global pendientes |
+| EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Los 45 históricos tienen evidencia/causa; tres comandos y regresión actual siguen pendientes en F2/F6; no se exige repetir45 solo por F5-AC1 |
+| EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Métricas sin medir: bloqueo F5-AC2, requiere evaluación autorizada o decisión expresa que cambie alcance; permiso Groq anterior consumido |
+| OPS-01 | Condiciones ampliadas F4 y regresión de aislamiento | Observaciones reproducibles de rotación, truncado, fallo, cuotas y ausencia de actividad automática | Perímetro actual válido/14 contenedores y preflight de cierre posterior al respaldo recibidos; cierre básico acreditado a ese alcance, discontinuidad/latencia y regresión ampliadas pendientes |
+| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Capturas de escritorio previo recibidas; Resumen redistribuido y compilado, ESLint correcto; revisión visual posterior, móvil, teclado y exportación pendientes |
 | DOC-02 | Revisar documentación completa de V2 con el propietario | README/manual/estado/catálogo/actas coherentes y enlaces comprobados | Después de terminar el laboratorio |
 | ACC-01 | Decisión de cierre y alcance de comunicación | Criterios F0–F7 revisados expresamente, limitaciones pendientes visibles | No aceptado |
 

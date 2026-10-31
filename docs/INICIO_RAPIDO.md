@@ -12,8 +12,11 @@ proveedor LLM cuando quiera ejecutar análisis.
 La ampliación Puerto Umbral se entrega dentro de este checkout. Su
 [manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md) separa captura, seguimiento y
 análisis; el [estado y plan de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
-identifica qué está comprobado. F6/F7 tienen código nuevo pendiente de ejecución
-y no se dan por validadas al instalar o arrancar la consola. La instalación no
+identifica qué está comprobado. F6 tiene recorridos corregidos observados y
+F7 una [ronda educativa representativa](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
+terminada; la [auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
+mantiene los criterios globales pendientes. Instalar o arrancar no valida las
+fases ni inicia escenarios o análisis. La instalación no
 incorpora los logs, claves o informes privados del mantenedor.
 
 ## Requisitos iniciales
@@ -89,7 +92,8 @@ está abierta se indicará como impedimento para iniciar otra instancia.
 La primera lectura puede mostrar «Fuentes incompletas»: el clon no incluye logs
 ni informes del mantenedor. Configura tu proveedor en Configuración y prepara tu
 fuente de logs siguiendo la [guía completa](INSTALACION_AUTOALOJADA.md).
-Docker solo es requisito adicional para el laboratorio DVWA de esa guía.
+Docker con Compose es requisito adicional para los laboratorios locales DVWA
+o Puerto Umbral; no se necesita para consultar la consola V2 por sí sola.
 
 Este lanzador inicia la consola de lectura con perfil pilot, solicitudes manuales
 deshabilitadas y destinos de notificación vacíos; no arranca el worker. El arranque

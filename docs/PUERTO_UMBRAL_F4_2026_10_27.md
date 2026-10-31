@@ -148,6 +148,24 @@ No se iniciaron Flask, Next, Docker, sesiones de seguimiento, capturas, escenari
 suites ni llamadas al modelo durante estas comprobaciones. La compilación no
 acredita comportamiento en ejecución ni revisión visual de las nuevas pantallas.
 
+## Revisión de pendientes al 31/10
+
+Después de la copia actualizada del perfil, el propietario aporta un preflight
+de cierre nuevo con salida «Preparado: entorno, build y puertos comprobados»,
+para structured/with-puerto-umbral/corrected. Se registra la comprobación
+acotada actual de entorno/puertos/locks/trabajos/contenedores según su rama de
+código revisada, sin afirmar inspección exhaustiva del host. No se repite la
+ronda básica o este preflight por documentarlos; latencias, discontinuidad y
+regresión ampliadas conservan sus pendientes. Detalle en la auditoría enlazada.
+
+La [auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md) conserva
+finalizada la ronda básica y no solicita repetirla. F4-AC1 exige veinte muestras
+adecuadas **o una desviación documentada y revisada**, como permite el PRD;
+el contador de 26 ciclos no equivale a veinte medidas individuales. La
+desconexión del backend observada no sustituye rotación o desconexión de la
+fuente real. Esos pendientes se separan de la revisión ficticia de Registro F7.
+No se ejecutan nuevas operaciones por esta nota ni se acepta una desviación.
+
 ## Aceptación pendiente
 
 | Criterio PRD | Implementación preparada | Evidencia operativa y pendientes |

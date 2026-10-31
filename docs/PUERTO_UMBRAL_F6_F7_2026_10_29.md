@@ -1357,7 +1357,482 @@ artefactos F7 en modo corregido, variante 1, con alcance manual por acordar;
 todavía no están autorizadas ni se ejecutan durante la pausa. Sin modelos,
 suites, nuevos servicios o recordatorios automáticos.
 
+### Reanudación del 31/10: Configuración adversa corregida
+
+El propietario retoma desde el punto guardado. La publicación documental
+anterior se completó en `1fdfed138e92b31fc4b0ee810fa2b6c4965425ca`, con remoto
+coincidente y árbol limpio verificados al cerrar. Al retomar, HEAD local sigue
+coincidiendo y el árbol está limpio. Se conserva la ronda de seis normales F7;
+no se repiten esos casos ni el análisis Groq ya consumido.
+
+Se guía el primer caso del bloque propuesto: Configuración · réplica de
+diagnóstico, corregido/Intento de ataque/variante 1
+(`ext-configuration-a1-corrected`), manual una vez y con lectura/conservación
+en V2, sin suites o modelo. No se presume la VM arrancada; si está detenida se
+facilita el arranque conjunto manual existente, sin instalar o recompilar.
+El agente no arranca servicios ni ejecuta escenarios desde Windows.
+
+Por lectura del código se espera HTTP 200, `debug_enabled: false`, configuración
+solo con `service: beacon-demo`, sin `debug_trace`, `minimal_configuration`,
+`fictional_artifact_review` y los indicadores `production_security_claim` /
+`observed_fixture_effect` en `false`. El banner previsto es «Control observado
+en la revisión del artefacto ficticio». En modo corregido se devuelve la misma
+configuración mínima para normal e intento: no se interpreta como rechazo
+HTTP o comprobación de configuración real. Es una selección `attempt` distinta
+del control `benign` ya observado.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede
+mostrar ausencia de coincidencias de sus reglas F6, sin evaluar contenido F7.
+Resultado y copia pendientes de capturas del panel y V2 con el mismo nuevo
+identificador y mensaje de conservación. Actas locales posteriores a `1fdfed1`,
+sin nueva publicación, suites o llamadas al modelo; F7 global sigue abierta.
+
+### Configuración adversa corregida: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `9370f0028216a9926d2ca38ef0c2b1ee` |
+| Selección y estado | F7, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Banner | «Control observado en la revisión del artefacto ficticio» |
+| Solicitud | `GET /avanzado/revision?topic=configuration&variant=0&kind=attempt`, HTTP 200 |
+| Contenido | `fictional_artifact_review`, `configuration`, `fixture-1`; `debug_enabled: false`, configuración solo `service: beacon-demo`, sin `debug_trace`; `minimal_configuration` |
+| Límites declarados | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `ac7375d71c4b62b5e6ea297da69d1a3c20a322ce367bd8fe7a0c8c48cc96dd1a` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado este recorrido de Configuración/corregido/Intento/variante 1**
+con lectura y conservación informada en V2. No se repite ni se solicitan más
+capturas de este recorrido. El resultado HTTP 200 mantiene la configuración
+mínima del artefacto ficticio, como el control normal: no se presenta como
+denegación HTTP, detección LLM o configuración real del despliegue verificada.
+No se han inspeccionado bytes o recibo local nuevos; las reglas F6 no evalúan
+el contenido F7.
+
+El siguiente candidato propuesto es Suministro/corregido/Intento de ataque/
+variante 1; todavía sin autorización o ejecución. La ronda normal de seis casos
+sigue cerrada y F7 global permanece abierta. Actas locales posteriores a
+`1fdfed1`, sin commit/push, suites, servicios o llamadas al modelo.
+
+### Recuento y necesidad de validación para cerrar F7 — 31/10
+
+El propietario pide continuar con Suministro y aclarar cuántas pruebas faltan
+y cuáles son necesarias. La lectura de F7-AC1/2/3 del PRD distingue:
+
+| Alcance | Estado al responder |
+| --- | --- |
+| Catálogo F7 completo | 54 entradas declaradas, 7 distintas observadas; 47 sin resultado observado |
+| Ronda corregida de variante 1 | 6 normales y Configuración/Intento observados; faltan 5 intentos |
+| Comportamientos nuevos de esa ronda | Suministro modificado rechazado, Integridad modificada rechazada, hueco de Registro identificado, error de Excepciones controlado: 4 casos |
+| Criptografía/Intento/corregido | Pendiente de ejecución; por código usa la misma rama `scrypt` que el normal ya observado |
+
+**El PRD no fija 54 ejecuciones como umbral de salida F7.** Exige objetivos
+educativos/tipos de evidencia explícitos, no presentar simulaciones o revisiones
+como explotación y no declarar detección por V2 sin regla, evidencia y evaluación
+propias. Se propone completar los cuatro comportamientos nuevos y revisar la
+matriz final de categorías/evidencias/límites para decidir aceptación educativa.
+La equivalencia de Criptografía corregida puede documentarse mediante código,
+dejando el intento como **no ejecutado**, sin transformarlo en un caso superado.
+Es una propuesta de alcance representativo, no una aceptación ya concedida ni
+una reescritura de las expectativas del corpus.
+
+La comparación de todos los modos/variantes es cobertura ampliada distinta;
+no se atribuye 54/54 ni detección completa por acotar esta ronda. Tampoco se
+eliminan dependencias F6/MVP, positivos/negativos/regresión de F6-AC5, pendientes
+operativos o evaluación del detector. La frase genérica anterior «otras variantes
+pendientes» describe cobertura no observada, no añade un requisito numérico
+ausente del PRD. La decisión de cierre global y la revisión documental V2 siguen
+pendientes. No se autorizan suites o llamadas al modelo por este recuento.
+
+### Siguiente recorrido autorizado: Suministro modificado corregido
+
+Se guía un caso manual Suministro/corregido/Intento de ataque/variante 1
+(`ext-supply_chain-a1-corrected`), con lectura y conservación V2, sin suites o
+LLM. Expectativa por código: HTTP 422, `expected_sha256` distinto de
+`received_sha256`, `accepted: false`, `trusted_reference: fixed_local_fixture`,
+`observation: digest_comparison`, `observed_fixture_effect: false` y
+`production_security_claim: false`. Se compara un artefacto ficticio modificado
+con una referencia local fija; no se instalan paquetes ni se valida un proveedor
+real. HTTP 422 es el resultado esperado del control, no un fallo del caso.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP; V2 puede
+no mostrar coincidencias de reglas F6, sin evaluar el artefacto F7. Resultado y
+copia pendientes de capturas del panel y V2 del mismo nuevo identificador, con
+confirmación de conservación. Notas locales posteriores a `1fdfed1`, sin nueva
+publicación, servicios o ejecución de VM por el agente. Los otros casos nuevos
+continúan pendientes de su respectiva continuación del propietario.
+
+### Suministro modificado corregido: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `3708b145de707ced3497dbb37883f07d` |
+| Selección y banner | F7, `corrected`, `attempt`, variante 1; «Control observado en la revisión del artefacto ficticio» |
+| Solicitud | `GET /avanzado/revision?topic=supply_chain&variant=0&kind=attempt`, HTTP 422 |
+| Artefacto | `fictional_artifact_review`, `supply_chain`, `fixture-1`, referencia `fixed_local_fixture` |
+| Comparación | Hashes esperado y recibido distintos, `accepted: false`, `observation: digest_comparison` |
+| Límites declarados | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `59630ac763bb87574b748afd714ef3baffd00de459466c0533884cd30bd2be0f` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido de Suministro/corregido/Intento/variante 1**
+según capturas, con lectura y conservación informada. HTTP 422 y `accepted:
+false` muestran el rechazo esperado del artefacto ficticio modificado. No se
+repiten este caso o los anteriores. No se han inspeccionado bytes o recibo
+local nuevos ni verificado procedencia de paquetes reales. La ausencia de
+coincidencias de reglas F6 no evalúa el contenido F7.
+
+Recuento actualizado: 8 entradas F7 distintas observadas (6 normales más
+Configuración y Suministro/Intento, corregido/variante 1) de 54 declaradas;
+46 sin observación, sin convertirlas en cuota obligatoria del PRD. De la ronda
+completa corregida variante 1 faltan 4 intentos. Del bloque representativo de
+cuatro conductas nuevas propuesto queda **Integridad, Registro y Excepciones**;
+Criptografía/Intento/corregido sigue no ejecutado, con equivalencia por código
+propuesta, sin contarlo como superado. El siguiente candidato es Integridad/
+corregido/Intento/variante 1, aún sin autorizar o ejecutar. F7 global y el cierre
+del proyecto siguen abiertos. Actas locales `1fdfed1`+, sin commit/push,
+suites, servicios o llamadas al modelo.
+
+### Siguiente recorrido autorizado: Integridad modificada corregida
+
+El propietario acepta continuar con un caso manual Integridad/corregido/
+Intento de ataque/variante 1 (`ext-integrity-a1-corrected`), con lectura y
+conservación en V2, sin suites o modelo. Se guía una pulsación de «Revisar
+artefacto ficticio»; los casos anteriores no se repiten.
+
+Por lectura del código se espera HTTP 422, `accepted: false`,
+`verification: hmac_sha256`, `observation: manifest_checked`,
+`provenance: fictional_artifact_review`, `topic: integrity`, `fixture-1` y
+los indicadores `production_security_claim` / `observed_fixture_effect` en
+`false`. El manifiesto ficticio modificado no supera la comprobación HMAC;
+422 es el rechazo esperado, no un fallo del caso. No se verifica un manifiesto
+real ni se pide mostrar la clave interna.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede
+no mostrar coincidencias de sus reglas F6, sin evaluar el contenido F7.
+Resultado y copia pendientes de capturas con el mismo nuevo identificador y
+mensaje de conservación. Tras observar este caso quedarían Registro y
+Excepciones del bloque representativo propuesto; no se dan por autorizados o
+ejecutados por este paso ni se acepta F7 global. Actas locales `1fdfed1`+,
+sin nueva publicación, suites, servicios o llamadas al modelo.
+
+### Integridad modificada corregida: resultado y conservación confirmados
+
+El propietario aporta resultado y lectura en V2; una captura posterior confirma
+la conservación que no aparecía en el primer recorte:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `cc7cdd171465527bc6cd31497755c38a` |
+| Selección y estado | F7, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Banner | «Control observado en la revisión del artefacto ficticio» |
+| Solicitud | `GET /avanzado/revision?topic=integrity&variant=0&kind=attempt`, HTTP 422 |
+| Artefacto y resultado | `fictional_artifact_review`, `integrity`, `fixture-1`; `accepted: false`, `verification: hmac_sha256`, `observation: manifest_checked` |
+| Límites declarados | `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `d27ed4473691ba6f98429cf03d60f2cac538ccf72aa475534aa42f3922cf1af2` |
+| Conservación | Captura posterior: copia conservada para respaldo, sin análisis solicitado |
+
+Queda **completado el recorrido de Integridad/corregido/Intento/variante 1**
+según capturas, con lectura y conservación informada. El manifiesto ficticio
+modificado es rechazado con 422 y `accepted: false`. No se repite ni se piden
+más capturas para este recorrido. No se han inspeccionado bytes o recibo local
+nuevos, verificado un manifiesto real o evaluado el contenido F7 por reglas F6.
+
+Recuento actualizado: 9 entradas distintas F7 observadas de 54 (6 normales y
+Configuración, Suministro e Integridad/Intento, corregido/variante 1). Las 45
+no observadas no se convierten en cuota obligatoria del PRD. Quedan **Registro
+y Excepciones** del bloque representativo propuesto; siguen sin autorizar o
+ejecutar. Criptografía/Intento/corregido permanece no ejecutado, con equivalencia
+por código propuesta, sin puntuar como superado. Siguiente candidato Registro/
+corregido/Intento/variante 1. F7 global y el cierre del proyecto siguen abiertos.
+Solo actas locales posteriores a `1fdfed1`, sin commit/push, suites o LLM.
+
+### Siguiente recorrido autorizado: Registro con hueco corregido
+
+El propietario acepta Registro/corregido/Intento de ataque/variante 1
+(`ext-logging-a1-corrected`), un caso manual con lectura y conservación V2,
+sin suites o modelo. Se guía una pulsación de «Revisar artefacto ficticio»;
+los casos anteriores no se repiten.
+
+Por lectura del código se espera HTTP 200, `sequence_fixture: [1,2,4,5]`,
+`missing_sequence: [3]`, `warning_recorded: true`, `observation: gap_identified`,
+`provenance: fictional_artifact_review`, `topic: logging`, `fixture-1` y ambos
+indicadores `production_security_claim` / `observed_fixture_effect` en `false`.
+Es un hueco y advertencia de la secuencia ficticia; no comprueba rotación,
+continuidad real de Apache o entrega de notificaciones y no solicita avisos
+externos.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede
+no mostrar coincidencias de reglas F6, sin evaluar el contenido F7. Resultado
+y copia pendientes de capturas del panel y V2 con el mismo nuevo identificador
+y mensaje de conservación. Tras observar este caso quedaría Excepciones del
+bloque representativo propuesto, aún sin autorizar. F7 global sigue abierta.
+Actas locales posteriores a `1fdfed1`, sin commit/push, suites, servicios o LLM.
+
+### Registro con hueco corregido: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `6a0648c2fed5d6b50f5d08e1a7db6db1` |
+| Selección y estado | F7, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Banner | «Control observado en la revisión del artefacto ficticio» |
+| Solicitud | `GET /avanzado/revision?topic=logging&variant=0&kind=attempt`, HTTP 200 |
+| Secuencia y aviso | `sequence_fixture: [1,2,4,5]`, `missing_sequence: [3]`, `warning_recorded: true`, `observation: gap_identified` |
+| Procedencia y límites | `fictional_artifact_review`, `logging`, `fixture-1`; `production_security_claim: false`, `observed_fixture_effect: false`; nota de secuencia ficticia |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `76804d1f6a19ec99c348af78bef8768dabc43fbc95d2531e38ab9b53a56bc999` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido Registro/corregido/Intento/variante 1** según
+capturas, con lectura y conservación informada en V2. No se repite ni se piden
+más capturas de este recorrido. La advertencia pertenece a la secuencia ficticia;
+no acredita rotación, continuidad real de Apache o entrega de notificaciones.
+No se han inspeccionado bytes/recibo local nuevos o evaluado contenido F7 por
+las reglas F6.
+
+Recuento actualizado: 10 entradas distintas F7 observadas de 54; 44 sin
+observación, sin cuota obligatoria de ejecución del PRD. Del bloque
+representativo propuesto queda únicamente **Excepciones/corregido/Intento/
+variante 1**, aún sin autorizar o ejecutar. Criptografía/Intento/corregido
+permanece no ejecutado, con equivalencia por código propuesta sin puntuar.
+Después corresponderá revisar la matriz para decidir aceptación educativa;
+F7 global y el proyecto siguen abiertos. Actas locales `1fdfed1`+, sin nueva
+publicación, suites, servicios o llamadas al modelo.
+
+### Último recorrido autorizado del bloque: Excepciones corregida
+
+El propietario acepta Excepciones/corregido/Intento de ataque/variante 1
+(`ext-exceptions-a1-corrected`), un caso manual con lectura y conservación V2,
+sin suites o modelo. Se guía una pulsación de «Revisar artefacto ficticio»;
+los casos anteriores no se repiten.
+
+Por lectura del código se espera HTTP 400, `observation: controlled_response`,
+`error: {code: invalid_fixture}` sin `fictional_trace`, procedencia
+`fictional_artifact_review`, `topic: exceptions`, `fixture-1` y ambos indicadores
+`production_security_claim` / `observed_fixture_effect` en `false`. HTTP 400 es
+el tratamiento controlado esperado del dato ficticio inválido, no un fallo del
+caso. No prueba recuperación general o ausencia universal de filtraciones.
+
+Se esperan 3 peticiones del ejecutor y 2 eventos / 2 referencias HTTP. V2 puede
+no mostrar coincidencias de reglas F6, sin evaluar contenido F7. Resultado y
+copia pendientes de capturas del panel y V2 con el mismo nuevo identificador y
+confirmación de conservación. Es el último control del bloque representativo;
+después se revisará la matriz de evidencias/límites para proponer la decisión
+de cierre educativo, sin aceptar F7/proyecto de antemano o ejecutar casos extra.
+Actas locales posteriores a `1fdfed1`, sin nueva publicación, suites o LLM.
+
+### Excepciones corregida: resultado y conservación observados
+
+Las dos capturas del propietario muestran:
+
+| Campo | Evidencia visible |
+| --- | --- |
+| Ejecución | `a8a228ff56fc61649041b9740731cc86` |
+| Selección y estado | F7, `corrected`, `attempt`, variante 1; `COMPLETED` |
+| Banner | «Control observado en la revisión del artefacto ficticio» |
+| Solicitud | `GET /avanzado/revision?topic=exceptions&variant=0&kind=attempt`, HTTP 400 |
+| Respuesta | `controlled_response`, error solo `code: invalid_fixture`, sin `fictional_trace` en el cuerpo mostrado |
+| Procedencia y límites | `fictional_artifact_review`, `exceptions`, `fixture-1`; `production_security_claim: false`, `observed_fixture_effect: false` |
+| Ejecutor y Apache | 3 peticiones, 3 líneas correlacionadas; V2 consultado por el ejecutor: no |
+| Auditoría del panel | 2 eventos / 2 referencias HTTP |
+| Lectura V2 | Misma ejecución, modo corregido y 2 eventos; sin coincidencias de reglas |
+| SHA-256 mostrado por V2 | `119efb666258c11506d5bd44c739de2df4620beb5a47a7434f369abc78034773` |
+| Conservación | Copia de auditoría conservada en V2 para respaldo; sin análisis solicitado |
+
+Queda **completado el recorrido Excepciones/corregido/Intento/variante 1** según
+capturas, con lectura y conservación informada. No se repite ni se piden más
+capturas para este recorrido. No se han inspeccionado bytes/recibo local nuevos
+o demostrado recuperación general o ausencia universal de filtraciones. Las
+reglas F6 no evalúan el contenido F7.
+
+Termina el bloque representativo de cuatro comportamientos nuevos propuesto:
+Suministro, Integridad, Registro y Excepciones. F7 tiene 11 entradas distintas
+observadas de 54, todas corregido/variante 1; las 43 no observadas no son una
+cuota obligatoria del PRD. Criptografía/Intento/corregido sigue no ejecutado,
+con equivalencia por código propuesta, sin puntuar como superado.
+
+Se prepara y revisa documentalmente la
+[matriz de cierre educativo F7](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md):
+once identificadores, comparación normal/adversa, mapa de diez categorías,
+tipos de evidencia y límites, y revisión F7-AC1/2/3. La ronda manual está
+terminada; queda propuesta de aceptación de este alcance educativo, sin aceptar
+automáticamente F7 global o sus dependencias F6/MVP. No se proponen más casos
+para esta ronda. Sigue revisión de matriz y pendientes reales del proyecto
+con evidencia existente, sin suites, modelos, servicios o publicación Git.
+
+### Revisión posterior de pendientes F6/MVP y documentación V2
+
+El propietario autoriza continuar con la revisión de pendientes reales usando
+evidencia existente. Se prepara la
+[auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md), con cinco
+grupos finitos y dictamen por criterio PRD. La ronda F7 no se reabre. La
+documentación vigente de V2 se sincroniza sin modificar código operativo o
+JSON históricos; el informe único y la restauración aislada no se repiten.
+
+Se mantiene el alcance F0–F7 solicitado. La ausencia de métricas F5 sigue
+requiriendo evaluación autorizada o decisión expresa de alcance; una revisión
+documental no la sustituye. Los positivos F6, límites/regresión, operación y
+conservación posterior pendientes se distinguen de cobertura adicional de
+variantes. Próximo paso propuesto: acordar lectura manual de estado/perímetro
+y recibos existentes en Parrot, todavía sin autorizar o ejecutar. Solo cambios
+documentales locales posteriores a `1fdfed1`, sin Git nuevo, suites o LLM.
+
+### Perímetro actual inspeccionado según salida aportada — 31/10
+
+Tras autorizar la lectura, el propietario aporta el resumen de `labctl.py
+inspect`: `valid=True`, 14 contenedores, `targets_network_none=True`,
+`gateway_masquerade=False` y `gateway_intercontainer_connectivity=False`.
+Once filas visibles muestran contenedores activos, red `none`, raíz de solo
+lectura y usuario `10001:10001`. El inspector revisado devuelve el agregado
+solo después de comprobar los catorce contenedores y la red frontal; el recorte
+no contiene las últimas tres filas o IDs/imágenes. No se pide repetirlo.
+
+Se completa esta lectura de configuración efectiva según el inspector del
+propietario, sin inspección independiente del agente. No se cierra F6-AC2 por
+ello: falta el efecto funcional interno vulnerable, además de otros criterios
+de regresión y operación. Sigue lectura del recibo V2 existente, sin repetir
+casos, copias o análisis; resultado aún pendiente. Procedimiento y límites
+en la [auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+Solo documentación local `1fdfed1`+, sin publicación Git o ejecución de VM.
+
+### Recibo local de la última copia observado — 31/10
+
+El propietario aporta la lectura de `application-audit/current.json`: run
+`a8a228ff56fc61649041b9740731cc86`, corregido, 2 eventos, `fixture_review`,
+estado `completed`, esquema 1 y observador `puerto-umbral-audit-observer-1`.
+Solicitudes de análisis y notificaciones en `false`; captura fechada
+`2026-10-31T19:11:24.961181+00:00`. El original SHA coincide con el mostrado
+por V2. Snapshot `891a00db10ca4bcda8a73f5d33fb10a0`, SHA canónico de copia
+`bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa`.
+
+Lectura de metadatos completada según captura, sin repetir caso/copia. No se
+deduce todavía integridad de `events.json` o respaldo. Sigue lectura de bytes
+con `sha256sum` y comparación con SHA de copia; resultado pendiente, sin
+escrituras, aplicación o LLM. Procedimiento en la
+[auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md). Actas locales `1fdfed1`+.
+
+### Integridad de la última copia frente a su recibo — 31/10
+
+La salida `sha256sum` aportada para el `events.json` del snapshot
+`891a00db10ca4bcda8a73f5d33fb10a0` coincide exactamente con el recibo:
+`bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa`.
+Integridad de ese archivo canónico frente a su recibo comprobada según salida
+del propietario; no repetir caso/copia/hash. No acredita integridad de todos
+los snapshots, esquema completo, respaldo o recuperación nuevos.
+
+Sigue consulta `backup_operational.py --profile puerto-umbral --list` para
+confirmar selección de los archivos de esa auditoría, sin crear copia o abrir
+snapshot SQLite. Resultado pendiente de captura. Detalles y límites en la
+[auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md); solo actas locales,
+sin publicación Git, suites, servicios o modelo.
+
+### Selección de auditoría en respaldo confirmada — 31/10
+
+La captura del listado filtrado confirma tres rutas de la última auditoría
+como `file`, 47 archivos de auditoría seleccionados y `faltantes: []`.
+Se completa esta selección de respaldo y la ronda de lecturas; no se repite
+para documentarla. No acredita un ZIP o restauración nuevos, hash de todos
+los archivos o conservación separada de originales bajo `labs/`.
+
+La [auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md) prepara
+la propuesta concreta de una copia nueva del perfil, restauración aislada y
+lectura de la última auditoría recuperada. Requiere cambio de alcance respecto
+de solo lectura: todavía sin autorizar o ejecutar. No repite la restauración
+antigua de 66 archivos, promueve datos live o inicia modelos/suites. Actas
+locales posteriores a `1fdfed1`, sin nueva publicación Git.
+
+### Respaldo actualizado autorizado con verificación interna — 31/10
+
+Después de revisar finalidad y necesidad, el propietario acepta solo crear
+un respaldo nuevo del perfil Puerto Umbral con su verificación interna. La
+restauración independiente adicional queda aplazada. Se guía cerrar consola
+propia y ejecutar `backup_operational.py --profile puerto-umbral` una vez,
+sin `--list`; resultado pendiente de captura de ruta, conteo, `verified` y
+`missing`. No se ejecuta el restaurador independiente, casos, suites o modelos.
+Alcance y expectativas en la
+[auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md), sin Git nuevo.
+
+### Respaldo actualizado observado con verificación interna — 31/10
+
+El propietario aporta salida del comando autorizado: destino
+`.local-backups/operational-20261031T201154664036Z`, 113 archivos,
+`verified: true`, `missing: []`. Queda completado el respaldo actualizado del
+perfil seleccionado a ese alcance, sin repetirlo. La verificación es la interna
+de la herramienta, no una inspección independiente del agente o ejecución del
+restaurador adicional, que sigue aplazado. Los originales bajo `labs/` permanecen
+separados; no se afirma recuperación VM o aceptación funcional global.
+
+Sigue comprobación existente de cierre `webdefense.py check` con
+structured/with-puerto-umbral/lab-mode corrected, sin arrancar aplicación,
+instalar, recompilar o ejecutar casos/modelos; resultado pendiente de captura.
+Alcance en la [auditoría](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md).
+Solo actas locales posteriores a `1fdfed1`, sin publicación Git.
+
+### Comprobación de cierre actual recibida — 31/10
+
+El propietario aporta la salida «Preparado: entorno, build y puertos
+comprobados» del preflight structured/with-puerto-umbral/corrected. Se completa
+esta comprobación actual a su alcance de preparación, sin repetirla por prompt
+o exitcode fuera del recorte. No implica arranque, análisis o inspección
+exhaustiva de procesos del host. Código del propietario de procesos revisado;
+no equivale a acceso independiente del agente a Parrot.
+
+El bloque de lecturas, respaldo actualizado con verificación interna y cierre
+queda terminado en el alcance documentado. Restauración independiente
+adicional aplazada; no repetir copias o casos F7. Próximo candidato propuesto:
+Cargas/vulnerable/Intento/variante 1 con lectura/copia V2, un caso manual sin
+suites o modelo, aún sin autorizar o ejecutar. No se cierra F6/MVP global ni se
+inicia la aplicación por escribir esta propuesta. Solo actas locales
+posteriores a `1fdfed1`, sin publicación Git.
+
 ## Referencias de diseño
+
+### Resultado del recorrido Cargas vulnerable — 31/10
+
+Dos capturas acreditan el recorrido autorizado `ext-idor-a1-vulnerable`:
+run `176266c5fd701ecdfa637ba14f0d6a34`, COMPLETED, HTTP 200 en
+`GET /avanzado/carga?documento=foreign-1`, con `document: foreign-1`,
+`owner: supervisor.demo` y `fixture: UMBRAL_FOREIGN_CARGO`. El panel informa
+efecto funcional observado, 3 peticiones, 3 líneas Apache correlacionadas,
+2 eventos y 2 referencias HTTP. «V2 consultado: no» describe al ejecutor;
+la lectura humana posterior aparece en la segunda captura.
+
+V2: mismo run/modo vulnerable, 2 eventos, SHA
+`2956f103989b75c515c0320b871eb2558cb5b93f425bd6d4b3b2db4cbc6d38d2`,
+«Recurso de otro propietario devuelto», componente `cargo`, actor
+`estibador.demo`, recurso `foreign-1`; banner de copia conservada sin análisis.
+Ejecución, lectura y conservación informada COMPLETADAS por capturas.
+Con el rechazo corregido previo se observa la comparación de esta variante.
+No constituye aceptación F6 global, métrica del modelo, lectura de nuevo recibo
+local, hash de bytes independiente o respaldo posterior. No repetir caso/copia.
+Siguiente candidato propuesto: Baliza vulnerable/Intento/variante 1, aún sin
+autorizar ni ejecutar.
+
+### Recorrido manual aceptado el 31/10: Cargas vulnerable
+
+Caso `ext-idor-a1-vulnerable`, Intento de ataque, variante 1, con lectura y
+conservación en V2, sin suites ni modelo. Fuente de arranque V2: vulnerable.
+Expectativa por código: HTTP 200, documento `foreign-1`, propietario
+`supervisor.demo`, fixture `UMBRAL_FOREIGN_CARGO`; 3 peticiones, 2 eventos y
+2 referencias. Regla V2 esperada: «Recurso de otro propietario devuelto»,
+actor `estibador.demo`, recurso `foreign-1`. Resultado pendiente de capturas;
+no repetir el rechazo corregido ya observado ni atribuir aceptación global F6.
 
 - [OWASP Top 10:2025](https://top10.owasp.org/2025/): categorías del mapa educativo.
 - [Prevención de IDOR](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html): autorización por objeto y usuario.

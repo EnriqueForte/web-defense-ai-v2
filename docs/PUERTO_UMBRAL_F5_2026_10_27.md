@@ -3,6 +3,16 @@
 Fecha: 27/10/2026. Estado: **revisión de evidencias existentes y documentación
 preparadas; aceptación del MVP pendiente**.
 
+Revisión documental del 31/10: la
+[auditoría vigente de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
+separa registro histórico de validación funcional actual. Los 45 casos sí
+tienen resultado/evidencia o causa de fallo: cubren el registro histórico de
+F5-AC1, sin convertir 42/45 en conformidad completa o exigir otra ejecución de
+45 por ese criterio aislado. La incidencia de comandos y la regresión siguen
+en F2/F6. Las tablas y JSON de este informe conservan el estado de su fecha.
+Las recepciones posteriores de análisis y recuperación resuelven esos
+recorridos básicos; no se repiten ni aceptan por ello F5-AC2 o el MVP global.
+
 Actualización del 29/10: las tablas y JSON de esta revisión conservan el estado
 del archivo histórico al crear la entrega F5. Después se autorizó y observó
 [un análisis acotado de 17 líneas](PUERTO_UMBRAL_ANALISIS_ACOTADO_2026_10_27.md),

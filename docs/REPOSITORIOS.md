@@ -27,6 +27,11 @@ recibos y respaldos siguen excluidos de Git. El
 [plan vigente de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) y el
 [registro F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) documentan el trabajo posterior
 sin renombrar la release anterior ni atribuirle nuevas validaciones.
+La [matriz educativa F7](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md) recoge
+los once recorridos corregidos observados; la
+[auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md) distingue esos
+resultados de los requisitos y decisiones aún pendientes. Estos documentos
+locales no crean una nueva release o publicación remota por sí solos.
 
 El proyecto original permanece en `https://github.com/EnriqueForte/web-defense-ai`.
 No se ha renombrado, eliminado ni actualizado desde este trabajo. V2 utiliza

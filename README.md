@@ -96,15 +96,27 @@ del detector sin medir. El [manual de operación local](docs/PUERTO_UMBRAL_OPERA
 centraliza arranque, seguimiento, cierre y conservación. La aceptación del MVP
 completo sigue pendiente. El respaldo y la restauración aislada del perfil
 Puerto Umbral se observaron después en Parrot con 66 archivos, SQLite e informe
-verificados; no sustituyen una recuperación de toda la VM. Consulta el
+verificados. Un respaldo posterior del perfil actualizado devuelve 113 archivos,
+verificación interna correcta y ningún faltante; la restauración independiente
+adicional queda aplazada. Estos alcances no equivalen a recuperar toda la VM. Consulta el
 [estado actual y plan de cierre F0–F7](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
 
-Las ampliaciones [F6/F7](docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md) están preparadas
-en código para revisión: cinco escenarios con identidad/estado, seis revisiones
-de artefactos ficticios y una fuente de auditoría de aplicación para V2. Su
-corpus separado declara 99 entradas sin ejecutar; no se suman como resultados
-al histórico de 45 casos. No se declara todavía cierre de estas fases o
-detección completa de las diez categorías OWASP.
+Las ampliaciones [F6/F7](docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md) incluyen cinco
+escenarios con identidad/estado, seis revisiones de artefactos ficticios y una
+fuente de auditoría de aplicación para V2. En Parrot se han observado controles
+F6 corregidos, un recorrido CSRF en navegador y rechazo de reutilización de
+permiso, con lectura y conservación informadas en V2. Cargas también cuenta
+con una comparación de variante 1: acceso ajeno en modo vulnerable y rechazo
+en modo corregido, con auditoría V2 observada. La
+[ronda representativa F7](docs/PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
+termina con once recorridos corregidos de variante 1 observados. El catálogo
+separado declara 99 entradas; no equivale a 99 casos superados ni modifica el
+histórico base de 45. La [auditoría de cierre](docs/PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
+separa evidencias completadas, requisitos pendientes y cobertura adicional.
+La [revisión de producto](docs/PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md)
+prepara la comprobación manual de navegación, móvil y teclado.
+La aceptación global de Puerto Umbral y la detección completa de las diez
+categorías OWASP siguen sin acreditarse.
 
 ### Requisitos
 
@@ -182,7 +194,7 @@ análisis se inicia por separado del lanzador de lectura.
 | Proveedores LLM | Groq predeterminado · OpenRouter opcional · credenciales propias |
 | Consola | Next.js 16 · React 19 · TypeScript |
 | API e interfaz alternativa | Flask · API `/api/v1` |
-| Auditoría de aplicación preparada | Contrato de eventos · observaciones por reglas · conservación explícita, sin llamadas LLM |
+| Auditoría de aplicación Puerto Umbral | Contrato de eventos · observaciones por reglas · lectura y conservación explícita observadas, sin llamadas LLM |
 | Laboratorios locales | Puerto Umbral incluido en `labs/puerto_umbral`; DVWA · MariaDB · Mailpit separados; imágenes fijadas por digest |
 | Avisos opcionales | Telegram / SMTP, mediante configuración y ejecución explícitas |
 

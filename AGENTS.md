@@ -2,6 +2,396 @@
 
 ## Alcance actual
 
+V2 31/10: propietario autoriza «commit/push y luego la revisión en Parrot».
+Publicar entrega acumulada: dos archivos frontend (page.tsx/globals.css) y
+trece documentos/actas, incluidos los tres nuevos de auditoría, matriz F7 y
+revisión de producto. Base main/origin1fdfed1 verificada con fetch y0/0;
+staging inicialmente vacío. Build producción/TypeScript/rutas y ESLint page
+ya pasaron, no repetir suites ni activar CI; commit con [skip ci]. Revisar
+staging exacto/HEADremoto/árbol limpio al finalizar. Identidad de esta entrega:
+commit que incorpora la nota, no afirmar publicación antes del push verificado.
+Después guiar propietario: Ctrl+C consola propia, pull --ff-only, buildwebpack
+desde frontend, volver a raíz y arranque habitual --mode structured
+--with-puerto-umbral --lab-mode vulnerable (conservar última fuente); revisión
+solo Resumen escritorio/ventana estrecha/teclado, sin casos ni modelo. No
+reinstalar por este cambio; el agente no inicia servicios o VM. Baliza aplazada.
+
+V2 31/10: propietario aporta tres capturas de Resumen y pide aprovechar ancho
+lateral/reducir desplazamiento; después autoriza «procede a realizar la nueva
+distribución». Implementado en frontend/src/app/page.tsx y globals.css:
+Resumen de ancho fluido; indicadores y coordinación compactos; cuadrícula
+adaptable (>=1600px gráficas+reportes y debajo amenazas+terminal, >=1000px
+dos columnas por bloques, menor una). Vista previa hasta4amenazas/6últimas
+líneas/2reportes históricos con cantidades y enlaces a vistas de detalle.
+Tipografía base conservada, sin altura fija global ni ocultar desbordamiento.
+Build webpack producción/TypeScript/rutas completado exit0 y ESLint page.tsx
+exit0. No suites/escenarios/modelos/servicios/VM por agente. Capturas recibidas
+son ANTERIORES al cambio, no acreditan render nuevo, móvil o teclado. Pendiente
+revisión visual posterior en Parrot tras publicación y build allí. Cambios
+locales sin commit/push nuevo; Baliza sigue aplazada por instrucción previa.
+
+Puerto Umbral 31/10: propietario indica que no puede realizar Baliza por
+bloqueo del chat y pide seguir con otra cosa. Se abandona ese recorrido actual
+sin ejecutarlo ni reformularlo para eludir el bloqueo: Baliza vulnerable
+PENDIENTE, no aprobado ni sustituido por una simulación como resultado real.
+Continuar documentación y preparación de revisión visual/navegación/móvil/
+teclado de V2 y Puerto Umbral, sin escenarios, suites, modelo o servicios por
+agente. Cargas vulnerable y comparación corregida ya completados, no repetir.
+Guía actual docs/PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md; revisión manual
+visual pendiente de capturas, no inferirla de lectura de código. Sin Gitnuevo.
+
+Puerto Umbral 31/10: Cargas F6/vulnerable/attempt/variante1 observado por dos
+capturas: run176266c5fd701ecdfa637ba14f0d6a34/COMPLETED/HTTP200,
+GET /avanzado/carga?documento=foreign-1, owner supervisor.demo,
+fixture UMBRAL_FOREIGN_CARGO; efecto funcional observado en laboratorio.
+3 peticiones/3 líneas Apache/2 eventos/2 referencias HTTP. V2 mismo run/modo,
+2 eventos/SHA2956f103989b75c515c0320b871eb2558cb5b93f425bd6d4b3b2db4cbc6d38d2,
+Recurso de otro propietario devuelto/cargo/estibador.demo/foreign-1 y banner
+copia conservada sin análisis. Recorrido autorizado COMPLETADO por capturas;
+comparación de esta variante con rechazo corregido previo completada, no F6
+global ni métricas del modelo. No repetir caso/copia, no recibo local/hashbytes
+VM nuevo/backup posterior acreditados. Próximo candidato propuesto Baliza F6/
+vulnerable/Intento/variante1, aún sin autorizar ni ejecutar. Solo actas locales,
+sin Gitnuevo/suites/modelos/servicios o VM por agente.
+
+Puerto Umbral 31/10: propietario «ok sigamos entonces» acepta el siguiente
+caso propuesto: Cargas F6/vulnerable/Intento de ataque/variante 1
+(ext-idor-a1-vulnerable), UN recorrido manual con lectura y conservación de
+auditoría V2, sin suites ni modelo. Guiar arranque por propietario con
+--mode structured --with-puerto-umbral --lab-mode vulnerable para seleccionar
+esa fuente en V2; cambiar solo selector del panel no cambia fuente V2.
+Esperado por código: GET /avanzado/carga?documento=foreign-1, HTTP200,
+owner supervisor.demo, fixture UMBRAL_FOREIGN_CARGO; 3 peticiones, 2 eventos
+y 2 referencias; V2 Recurso de otro propietario devuelto/cargo/estibador.demo/
+foreign-1, mismo run/modo, después conservar copia. Son expectativas, resultado
+PENDIENTE capturas. No repetir rechazo corregido, F7, backup o preflight;
+no iniciar servicios/VM por agente ni otros casos/Git/LLM.
+
+Puerto Umbral 31/10: captura webdefense.py check --mode structured
+--with-puerto-umbral --lab-mode corrected muestra «Preparado: entorno, build y
+puertos comprobados. Ejecuta: python webdefense.py start». Preflight actual
+COMPLETADO sin bloqueadores según salida de rama revisada: entorno/build,
+puertoslocales/locks/jobs/publicación y ausencia de contenedores propios en
+ejecución conforme a comprobación. No prompt/exitcode en recorte; no pedir
+repetición por ello. No es arranque, análisis ni inspección exhaustiva de todos
+los procesoshost; no atribuir rotación/latencia/regresión o F6/MVP aceptados.
+Bloque actual de lecturas/perímetro/recibo/hash/selección/backup113verificado/
+preflight terminado en su alcance. No repetir casosF7/copias/check por actas.
+Restauración independiente adicional sigue aplazada. Próximo candidato
+funcional propuesto: Cargas F6/vulnerable/Intento/variante1 para contrastar
+efecto con rechazo corregido ya observado, un caso manual+lectura/copiaV2
+sin suites/LLM; AÚN no autorizado ni ejecutado. No arrancar app o VMporagente.
+Otros pendientes: positivos/regresión F6, operación ampliada, evaluación o
+decisión alcance F5, UX/docs/aceptación. Solo actas locales1fdfed1+, sin Gitnuevo.
+
+Puerto Umbral 31/10: captura respaldo actualizado devuelve destination
+.local-backups/operational-20261031T201154664036Z, files113, verifiedtrue,
+missing[]. Copia perfil actual con verificación interna COMPLETADA según
+herramienta del propietario; coherente con selección previa47auditorías, no
+inspección independiente de ZIP/manifiesto por agente. No repetir backup o
+casos. Restauración independiente adicional sigue APLAZADA; no ejecutarla ni
+atribuir recuperaciónVM/originaleslabs incluidos. Conservación básica perfil
+actual cerrada en este alcance, no F6/MVP globales.
+Siguiente comprobación guiada de cierre, sin arrancar: python3 webdefense.py
+check --mode structured --with-puerto-umbral --lab-mode corrected.
+Revisados webdefense/start_application/puerto_umbral_launcher: rama --check
+revisa entorno/build/puertos3000,5000,4380,4381,4382/locks/jobs/publicación y
+preflightCompose contenedorespropiosdetenidos; usa locktransitorio controller,
+no prepare/build/start/serve/escenarios/modelos. Sonda puertoslocales sin
+peticiones al portal. Esperar Preparado... y prompt; resultado PENDIENTEcaptura,
+no concluir cierreprocesos por backup. Si error no instalar/reiniciar automático.
+Solo actas locales1fdfed1+, sin Gitnuevo/suites/VM o servicios por agente.
+
+Puerto Umbral 31/10: tras preguntar finalidad/necesidad, propietario acepta
+«ok hagamos eso»: SOLO un respaldo actualizado del perfil puerto-umbral con
+verificación interna de herramienta; restauración independiente adicional
+APLAZADA expresamente. No ejecutar restore_operational.py ni interpretar como
+aprobación de la propuesta conjunta anterior. Guiar cerrar consola propia
+Ctrl+C/esperar prompt, desde raíz .p2/bin/python -B scripts/backup_operational.py
+--profile puerto-umbral (esta vez SIN --list), una vez. Crea nuevo directorio
+.local-backups/operational-fechaUTC, ZIP/manifiesto/snapshotSQLite/restore-check
+interno, conserva originales y no promueve live. Esperado verifiedtrue/missing[],
+files real y destination; no fijar total47 porque incluye más fuentes.
+Resultado PENDIENTE captura. Si error conservar fuentes/salida, no borrar o
+reintentar automático. Autorización ya dada para copia+verificación interna,
+no volver a pedir por subpasos. No modelos/suites/casos/Git/servicios nuevos o
+VM por agente; guía manual. Actas locales1fdfed1+; F6/MVP globales abiertos.
+
+Puerto Umbral 31/10: captura listado --list confirma recibo_actual=file,
+eventos_ultima_copia=file, recibo_ultima_copia=file,
+archivos_auditoria_en_lista=47, faltantes=[]. Selección de respaldo de última
+auditoría COMPROBADA según listado; no significa ZIP creado/hash47archivos/
+restauración nueva ni originaleslabs incluidos. Ronda lectura de perímetro,
+recibo, hash puntual y selección completada; no repetirla para documentar.
+Propuesta concreta siguiente (NO ejecutada ni autorizada todavía): un respaldo
+nuevo solo perfilpuerto-umbral con herramienta existente, después restauración
+independiente en árbol nuevo .local-state/recovery, validar hashes/BD/publicación
+y conservación del snapshot891a00db10ca4bcda8a73f5d33fb10a0, sin promover live,
+replay de avisos/modelos/suites o borrar originales. Genera nuevos archivos;
+el bloque acordado hasta ahora era solo lectura, pedir cambio de alcance una
+vez para el conjunto, no ejecutar backup sin --list mientras esté pendiente.
+No volver a pedir permiso si el propietario autoriza ese conjunto después.
+No repetir backup66antiguo; copia nueva cubre evidencia posterior47seleccionados.
+Solo actas locales1fdfed1+, sin nuevoGit/servicios/VM por agente.
+
+Puerto Umbral 31/10: captura sha256sum del events.json snapshot
+891a00db10ca4bcda8a73f5d33fb10a0 devuelve
+bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa,
+idéntico al sha256 canónico del recibo leído. Integridad puntual de esa copia
+COMPROBADA según salida herramienta del propietario, sin accesoVM propio.
+No repetir caso/copia/hash para documentar. No implica validar todos los
+snapshots, esquema/eventos originales, respaldo o recuperación nueva.
+Siguiente lectura del bloque: backup_operational.py --profile puerto-umbral
+--list; código revisado solo collect_sources/imprime fuentes+missing, no
+backup(), locks, SQLite snapshot o ZIP. Filtrar JSON para current.json y
+events.json/receipt.json del snapshot891a00db10ca4bcda8a73f5d33fb10a0,
+esperado todos file; faltantes informados sin inventar. No genera respaldo,
+resultado PENDIENTE captura. No ejecutar sin --list ni crear backup/restore
+por esta lectura. Solo actas locales1fdfed1+, sin Gitnuevo/suites/LLM/servicios/
+VM por agente.
+
+Puerto Umbral 31/10: lectura current.json aportada confirma último run
+a8a228ff56fc61649041b9740731cc86/corrected/2eventos/schema1/sourcepuerto-
+umbral-application/evidence_kindfixture_review/statusatcapturecompleted/
+observerpuerto-umbral-audit-observer-1/analysisfalse/notificationsfalse.
+captured_at2026-10-31T19:11:24.961181+00:00; snapshot
+891a00db10ca4bcda8a73f5d33fb10a0; originalSHA
+119efb666258c11506d5bd44c739de2df4620beb5a47a7434f369abc78034773 coincideUI;
+copySHA bf41223489600b2429eab07b2cd9d08e589372ed9fefa4cd70900e330b1177fa.
+Metadatos del recibo COMPROBADOS según captura, no integridadbytes o respaldo
+todavía. No repetircaso/copia/lecturarecibo para este cierre. Siguiente lectura
+guiada: sha256sum del events.json ya guardado en application-audit/snapshots/
+891a00db10ca4bcda8a73f5d33fb10a0/; comparar con copySHA, no originalSHA.
+Solo lectura de bytes sin importarapp/escribir/LLM; resultado PENDIENTEcaptura.
+Si falta/difiere recoger salida antes de cualquier recaptura/corrección.
+Solo actas locales1fdfed1+, sin nuevoGit/suites/servicios/VM por agente.
+
+Puerto Umbral 31/10: captura de inspección manual muestra valid=True,
+targets_network_none=True, gateway_masquerade=False,
+gateway_intercontainer_connectivity=False, Contenedores14. Filas visibles
+sqli/xss/traversal/command/brute ambos modos y advanced-vulnerable: activos,
+rednone, sololecturaTrue, usuario10001:10001. Recorte no incluye últimas3
+filas/IDs/imágenes; valid agregado se emite tras comprobar14 y redfront según
+código revisado. Inspección de perímetro actual COMPLETADA según salida del
+inspector aportada por propietario, sin accesoVM independiente del agente.
+No pedir repetir captura para filas recortadas. No demuestra aún efecto
+vulnerable SSRF/F6, procesoshost, regresión o métricas detector; no cerrarF6.
+Siguiente lectura guiada del bloque: recibo ya conservado V2 mediante
+.p2/bin/python -B -m json.tool .local-state/puerto-umbral/application-audit/current.json
+sin importarapp/escribir/recapturar/LLM. Esperado último run Excepciones
+a8a228ff56fc61649041b9740731cc86/corrected/2eventos/sourcepuerto-umbral-
+application/schema1/flagsanalysisfalse-notificationsfalse/originalSHA
+119efb666258c11506d5bd44c739de2df4620beb5a47a7434f369abc78034773.
+SHA de copia puede diferir por JSON canónico; metadatos no hashbytesverificado.
+Recibo PENDIENTE captura; no repetir caso/copia si falla lectura. Solo actas
+locales1fdfed1+, sin Gitnuevo/suites/modelos/servicios/VM por agente.
+
+Puerto Umbral 31/10: propietario acepta siguiente paso propuesto, lectura
+manual de estado/perímetro actual en Parrot, sin escenarios/seguimiento/modelo.
+Revisados labctl.py y controller.inspect_boundary: comando existente
+.p2/bin/python -B labs/puerto_umbral/labctl.py inspect no usa ProcessLock,
+no escribe estado, no inicia/detiene/reinicia, no docker exec/health ni HTTP.
+Lee images.json, hace docker inspect de14contenedores y network inspect front;
+valida propiedad/imágenes/usuario/rootfs/caps/namespaces/CPUmemPID/montajes/
+puertosloopback/rednone targets/frontexclusiva/ICCymasqueradefalse.
+Guiar en segunda terminal sin cerrar lanzador; resumir JSON por stdin con
+stdlib, sin guardar ni modificar archivos. Esperado validtrue/14contenedores/
+targets_network_nonetrue/gateway_masqueradefalse/
+gateway_intercontainer_connectivityfalse, 12targetsnone+2gatewaysfront,
+usuario10001:10001/root_readonlytrue. Resultado PENDIENTE captura del usuario,
+no atribuir perímetro actual validado por revisar código. Si error/detenidos/
+falta images.json, recoger salida y no prepare/start/stop ni corregir automático.
+No publicar Git o ejecutar VM/servicios/suites por agente; actas locales1fdfed1+.
+
+Verificación documental 31/10 del paquete vigente: 12 Markdown/147 referencias
+locales, ninguna ausente; git diff --check correcto y ningún JSON histórico
+modificado. Dos documentos nuevos de matriz/auditoría aún sin seguimiento Git;
+no publicar por esta revisión sin petición de commit/push. Sin pruebas de app.
+
+Puerto Umbral 31/10: propietario autoriza siguiente paso de revisión de
+pendientes F6/MVP y documentación con evidencia existente, no nuevas pruebas.
+Preparada docs/PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md: requisitos PRD,
+dictamen por criterio y 5 GRUPOS (no cinco tests): funcionamiento/límites/
+regresión; operación; evaluación/decisión alcance F5; conservación nueva;
+UX/docs/aceptación. No repetir snapshot→informe único, recuperación aislada
+66archivos, seguimiento básico o once recorridos F7 completados. F5-AC1 tiene
+45 registros históricos con evidencia/causa; no impone por sí solo repetir45.
+Eso no resuelve tres comandos Cannot fork (corrección fuente sin verificar),
+F2 funcional o regresión F6. F4-AC1 admite20muestras o desviación revisada,
+ninguna desviación aceptada. F5-AC2 sigue bloqueado por métricas sin medir;
+requerirá evaluación autorizada o decisión expresa de cambio de alcance, no
+piloto aceptado por defecto. Mantener objetivo propietario F0–F7 completo.
+README/inicio/instalación/repositorios y actas F4/F5 sincronizados con evidencia
+posterior, sin reescribir JSON históricos ni baseV2v0.1.0. Próximo propuesto:
+acordar lectura manual de estado/perímetro/recibos existentes en Parrot,
+sin nuevos casos/seguimiento/modelos; aún no autorizada ni ejecutada.
+Actas locales 1fdfed1+, sin Gitnuevo/suites/servicios/VM por agente.
+
+Puerto Umbral 31/10: Excepciones F7/corrected/attempt/variante 1 observada,
+run a8a228ff56fc61649041b9740731cc86, COMPLETED, HTTP 400, controlled_response,
+error solo code invalid_fixture sin fictional_trace en respuesta mostrada,
+fictional_artifact_review y production_security_claim/observed_fixture_effect
+false; 3 peticiones/3 líneas Apache/2 eventos/2 refs. V2 mismo run/modo/2 eventos/
+SHA 119efb666258c11506d5bd44c739de2df4620beb5a47a7434f369abc78034773,
+sin coincidencias y copia conservada sin análisis. Recorrido COMPLETADO según
+capturas; no repetir ni pedir más capturas de este recorrido. Bloque de cuatro
+conductas nuevas terminado (Suministro/Integridad/Registro/Excepciones).
+F7: 11 entradas observadas de 54, 43 no observadas sin cuota obligatoria;
+Cripto attempt corrected NO ejecutado, equivalencia por código propuesta.
+Matriz de cierre educativo preparada en docs/PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md:
+mapa10categorías/objetivos/tipos/evidencias/límites/revisiónAC1-3. Ronda manual
+representativa terminada, propuesta de aceptación de alcance educativo lista;
+F7 global/F6/MVP/proyecto siguen abiertos, no declarar OWASP detectado/global.
+Siguiente trabajo: revisar matriz con propietario y pendientes reales F6/MVP/
+documentación V2 usando evidencia existente; sin añadir pruebas ni ejecutar
+suites/LLM/servicios/VM/Git por recibir capturas. Actas locales 1fdfed1+.
+
+Puerto Umbral 31/10: propietario «ok sigamos entonces» acepta un caso manual
+Excepciones F7/corrected/Intento de ataque/variante 1
+(ext-exceptions-a1-corrected), con lectura y conservación V2, sin suites/LLM.
+Guiar Revisar artefacto ficticio una vez. Esperado por código HTTP 400,
+observation controlled_response, error solo code invalid_fixture, sin
+fictional_trace, fictional_artifact_review y ambos indicadores
+production_security_claim/observed_fixture_effect false; 3 peticiones/2 eventos/
+2 referencias. HTTP 400 es control esperado, no fallo del caso. V2 puede sin
+coincidencias porque reglas F6 no evalúan contenido F7. Resultado y copia
+pendientes de capturas mismo nuevo run y mensaje de conservación. Último
+control del bloque representativo; después revisar matriz/evidencias/límites
+para proponer cierre educativo, sin aceptar F7/proyecto automáticamente.
+No repetir anteriores o iniciar casos extra/modelos/suites/servicios/VM por
+agente. Solo actas locales 1fdfed1+, sin nuevo Git.
+
+Puerto Umbral 31/10: Registro F7/corrected/attempt/variante 1 observado,
+run 6a0648c2fed5d6b50f5d08e1a7db6db1, COMPLETED, HTTP 200, sequence_fixture
+[1,2,4,5], missing_sequence [3], warning_recorded true, gap_identified,
+fictional_artifact_review y production_security_claim/observed_fixture_effect
+false; 3 peticiones/3 líneas Apache/2 eventos/2 refs. V2 mismo run/modo/2 eventos/
+SHA 76804d1f6a19ec99c348af78bef8768dabc43fbc95d2531e38ab9b53a56bc999,
+sin coincidencias y copia conservada sin análisis. Recorrido COMPLETADO según
+capturas; no repetirlo ni pedir más capturas de este recorrido. No acredita
+rotación/continuidad Apache/entrega avisos ni bytes/recibo local independientes.
+Reglas F6 no evalúan contenido F7. Recuento F7: 10 entradas observadas de 54,
+44 no observadas sin cuota obligatoria. Del bloque representativo queda solo
+Excepciones/corregido/Intento/variante 1, aún sin autorizar o ejecutar.
+Criptografía attempt corrected sigue no ejecutado, equivalencia por código
+propuesta sin puntuar. Después revisar matriz para decidir cierre educativo,
+sin aceptar F7/proyecto automáticamente. Solo actas locales 1fdfed1+, sin
+nuevo Git/suites/LLM/servicios/VM por agente.
+
+Puerto Umbral 31/10: propietario «ok sigamos» acepta un caso manual Registro
+F7/corrected/Intento de ataque/variante 1 (ext-logging-a1-corrected), con lectura
+y conservación V2, sin suites/LLM. Guiar Revisar artefacto ficticio una vez;
+por código esperado HTTP 200, sequence_fixture [1,2,4,5], missing_sequence [3],
+warning_recorded true, observation gap_identified, fictional_artifact_review,
+production_security_claim/observed_fixture_effect false; 3 peticiones/2 eventos/
+2 referencias. El aviso es un indicador de la revisión ficticia, no entrega
+de notificaciones o prueba de rotación/continuidad real de Apache. V2 puede
+sin coincidencias de reglas F6, que no evalúan contenido F7. Resultado y copia
+pendientes de capturas panel/V2 mismo run y mensaje de conservación. Tras este
+caso quedaría Excepciones del bloque propuesto, todavía no autorizado. No
+repetir anteriores o aceptar F7 por guiar el caso. Solo actas locales 1fdfed1+,
+sin nuevo Git/suites/modelos/servicios/VM por agente.
+
+Puerto Umbral 31/10: Integridad F7/corrected/attempt/variante 1 observada,
+run cc7cdd171465527bc6cd31497755c38a, COMPLETED, HTTP 422, accepted false,
+verification hmac_sha256, manifest_checked, fictional_artifact_review y ambos
+indicadores production_security_claim/observed_fixture_effect false.
+3 peticiones/3 líneas Apache/2 eventos/2 referencias. V2 mismo run/modo/
+2 eventos/SHA d27ed4473691ba6f98429cf03d60f2cac538ccf72aa475534aa42f3922cf1af2.
+Primer recorte sin banner; captura posterior confirma copia conservada sin
+análisis. Recorrido COMPLETADO según capturas, no repetirlo ni pedir más
+capturas de este recorrido. Sin inspección bytes/recibo local nuevo o
+verificación de manifiestos reales; reglas F6 no evalúan contenido F7.
+Recuento actual F7: 9 entradas observadas de 54, 45 no observadas, no cuota
+obligatoria. Quedan 2 controles representativos propuestos: Registro y
+Excepciones/corregido/Intento/variante 1; aún sin autorizar o ejecutar.
+Criptografía attempt corrected sigue no ejecutado, equivalencia por código
+propuesta sin puntuar. Siguiente candidato Registro. F7/proyecto abiertos.
+Solo actas locales 1fdfed1+, sin nuevo Git/suites/LLM/servicios/VM por agente.
+
+Puerto Umbral 31/10: propietario «ok sigamos» acepta un caso manual Integridad
+F7/corrected/Intento de ataque/variante 1 (ext-integrity-a1-corrected), con
+lectura y conservación V2, sin suites/LLM. Guiar Revisar artefacto ficticio una
+vez. Por código: manifiesto ficticio modificado, esperado HTTP 422, accepted
+false, verification hmac_sha256, observation manifest_checked, procedencia
+fictional_artifact_review, production_security_claim/observed_fixture_effect
+false; 3 peticiones/2 eventos/2 referencias. V2 puede sin coincidencias porque
+reglas F6 no evalúan contenido F7. Resultado y copia pendientes de capturas
+panel/V2 mismo run y confirmación de conservación. No repetir anteriores ni
+iniciar Registro/Excepciones todavía. Tras este caso quedarían dos del bloque
+representativo; aún no darlo por completado o aceptar F7. Solo actas locales
+1fdfed1+, sin nuevo Git, suites, modelos, servicios o VM por agente.
+
+Puerto Umbral 31/10: Suministro F7/corrected/attempt/variante 1 observado,
+run 3708b145de707ced3497dbb37883f07d, HTTP 422, expected_sha256 distinto de
+received_sha256, accepted false, fixed_local_fixture, digest_comparison,
+fictional_artifact_review y ambos indicadores production_security_claim/
+observed_fixture_effect false. 3 peticiones/3 líneas Apache/2 eventos/2 refs.
+V2 mismo run/modo/2 eventos/SHA
+59630ac763bb87574b748afd714ef3baffd00de459466c0533884cd30bd2be0f,
+sin coincidencias y copia conservada sin análisis. Recorrido autorizado
+COMPLETADO según capturas; no repetirlo ni los anteriores. No inspección bytes/
+recibo local nuevo/procedencia de paquetes reales/evaluación F7 por reglas F6.
+Recuento actualizado: 8 entradas F7 distintas observadas de 54; 46 no observadas,
+no cuota obligatoria. Faltan 4 attempt corrected v1; del plan representativo de
+conductas nuevas quedan 3: Integridad, Registro y Excepciones. Cripto attempt
+corrected no ejecutado, equivalencia por código solo propuesta, sin puntuar.
+Siguiente candidato Integridad/corregido/Intento/variante 1, no autorizado aún.
+F7/proyecto globales abiertos. Solo actas locales 1fdfed1+, sin Git nuevo,
+suites/LLM/servicios/VM por agente.
+
+Puerto Umbral 31/10: propietario acepta seguir con Suministro corregido/Intento/
+variante 1 (ext-supply_chain-a1-corrected), manual una vez con lectura y copia
+V2, sin suites/LLM; pide recuento y necesidad real para cierre. Revisado PRD:
+F7-AC1/2/3 exigen objetivo/tipo evidencia, distinguir revisión de explotación,
+y no atribuir detección sin evaluación propia; no fijan 54 ejecuciones.
+F7 catálogo 54, observadas 7 entradas distintas (6 benign corrected v1 +
+configuration attempt corrected v1); 47 no observadas, no 47 obligatorias.
+Ronda attempt corrected v1: faltan 5; 4 aportan conducta nueva (Suministro,
+Integridad,Registro,Excepciones). Criptografía corrected usa la misma rama
+scrypt con benign/attempt; PROPUESTO cubrir equivalencia por código, dejando
+attempt NO ejecutado, no contarlo como superado. No modifica PRD ni acepta
+F7/F6/MVP globales por reducir capturas; regresión/evaluación/dependencias y
+revisión documental final siguen pendientes. No autoriza los demás casos.
+Esperado Suministro HTTP422/expected_sha256 distinto received_sha256/
+accepted false/fixed_local_fixture/digest_comparison/observed_fixture_effect
+false; 3 peticiones/2 eventos2refs. Resultado y copia pendientes de capturas.
+Solo actas locales 1fdfed1+, sin Git/servicios/VMagente/suites/modelos.
+
+Puerto Umbral 31/10: Configuración F7/corrected/attempt/variante 1 observada,
+run 9370f0028216a9926d2ca38ef0c2b1ee, COMPLETED, HTTP 200, debug_enabled
+false, configuración solo service beacon-demo, minimal_configuration,
+fictional_artifact_review y ambos indicadores production_security_claim/
+observed_fixture_effect false. 3 peticiones/3 líneas Apache/2 eventos/2 refs.
+V2 mismo run/modo/2 eventos/SHA
+ac7375d71c4b62b5e6ea297da69d1a3c20a322ce367bd8fe7a0c8c48cc96dd1a,
+sin coincidencias y copia conservada sin análisis. Recorrido autorizado
+COMPLETADO según capturas; no repetirlo ni los seis normales F7 anteriores.
+Sin inspección de bytes/recibo local nuevo, evaluación contenido F7 por reglas
+F6 o configuración real verificada. HTTP 200 no es denegación; la selección
+attempt corregida conserva configuración mínima como benign. F7 global abierta.
+Siguiente candidato propuesto: Suministro/corregido/Intento/variante 1, aún sin
+autorizar o ejecutar. Solo actas locales posteriores a 1fdfed1, sin Git nuevo,
+suites, modelos, servicios o VM por el agente.
+
+Puerto Umbral 31/10: el propietario retoma «ok continuemos por donde quedamos».
+Se levanta la pausa para guiar el primer caso del bloque propuesto: un caso
+manual Configuración F7/corrected/Intento de ataque/variante 1
+(ext-configuration-a1-corrected), con lectura/conservación en V2, sin suites o
+LLM. No se asumen servicios VM abiertos; ofrecer arranque manual existente
+structured/with-puerto-umbral/lab-mode corrected solo si está detenida, sin
+instalar/recompilar ni operar VM desde Windows. Por código se espera HTTP 200,
+debug_enabled false, configuración mínima sin debug_trace, minimal_configuration,
+fictional_artifact_review y ambos indicadores production_security_claim/
+observed_fixture_effect false; banner Control observado en revisión del
+artefacto ficticio. Es selección attempt nueva, no repetir benign: en este
+modo ambos devuelven configuración mínima. Esperado 3 peticiones/2 eventos/
+2 referencias; V2 puede sin coincidencias porque reglas F6 no evalúan F7.
+Resultado/copia pendientes de capturas; no aceptación F7 global. Publicación
+anterior 1fdfed138e92b31fc4b0ee810fa2b6c4965425ca verificada al cerrar ayer;
+HEAD local coincidente y árbol limpio al retomar. Notas nuevas locales,
+sin nueva publicación/otros casos/suites/modelos/servicios por el agente.
+
 Puerto Umbral 30/10: Excepciones F7/corrected/benign/variante 1 observado por
 capturas: run b4ca524b483be65d9549d6b132f25fe7, COMPLETED, HTTP 200,
 controlled_response, error null, fictional_artifact_review, ambos indicadores

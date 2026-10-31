@@ -105,7 +105,6 @@ h1 { margin: var(--space-2) 0; font-size: var(--text-title); font-weight: 650; l
 .metric-icon.amber { color: var(--warning); background: var(--warning-soft); }
 .metric-label { color: var(--text-secondary); font-size: var(--text-sm); line-height: 1.4; }
 .metric-value { font-size: var(--text-metric); font-weight: 650; letter-spacing: -1px; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.overview-grid { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(280px,1fr); gap: var(--space-4); margin-top: var(--space-4); }
 .trend-panel, .severity-panel { padding: var(--space-5); }
 .panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
 .panel-header h2 { margin: 6px 0 var(--space-1); font-size: var(--text-lg); font-weight: 600; letter-spacing: -.15px; }
@@ -182,8 +181,7 @@ tbody tr:hover { background: var(--panel-raised); }
 .severity-desconocida { color: var(--severity-unknown); background: var(--panel-raised); }
 .table-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-top: 1px solid var(--border); color: var(--muted); font-size: var(--text-xs); }
 .table-footer button, .plain-link { padding: var(--space-1) 0; color: var(--cyan); background: transparent; border: 0; font-size: var(--text-sm); }
-.summary-bottom { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: var(--space-4); margin-top: var(--space-4); }
-.state-panel, .list-panel, .report-detail, .summary-bottom > .panel { padding: var(--space-5); }
+.state-panel, .list-panel, .report-detail { padding: var(--space-5); }
 .log-lines, .report-markdown { overflow: auto; padding: var(--space-4); color: var(--text-secondary); background: var(--sidebar); border: 1px solid var(--border); border-radius: var(--radius-sm); font: var(--text-sm)/1.7 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
 .log-lines { min-height: 110px; max-height: 280px; }
 .report-markdown { max-height: 72vh; }
@@ -222,6 +220,69 @@ input::placeholder { color: var(--muted); opacity: 1; }
 .system-health.status-warning .environment-dot { color: var(--warning); box-shadow: 0 0 0 3px var(--warning-soft); }
 .system-status-brand { flex-shrink: 0; color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .09em; }
 
+/* The overview uses the available width; detail views retain their reading width. */
+.content-summary { max-width: none; padding: var(--space-4) clamp(16px, 1.5vw, 32px); }
+.content-summary .source-banner { padding: var(--space-2) var(--space-3); }
+.content-summary .page-heading { min-width: 0; padding: var(--space-3) 0; }
+.content-summary .source-context { margin: var(--space-2) 0 var(--space-3); }
+.content-summary .analysis-panel { padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); }
+.analysis-copy { min-width: 0; flex: 1; }
+.analysis-details { display: flex; flex-wrap: wrap; gap: 0 var(--space-4); }
+.content-summary .metric-grid { gap: var(--space-3); }
+.content-summary .metric-card { padding: var(--space-3) var(--space-4); }
+.content-summary .metric-icon { width: 24px; height: 24px; }
+.content-summary .metric-reading { flex-direction: row; align-items: center; justify-content: space-between; margin: var(--space-2) 0; }
+.content-summary .metric-note { padding-top: var(--space-2); }
+.summary-dashboard { display: grid; grid-template-columns: minmax(0,1fr); gap: var(--space-3); align-items: stretch; margin-top: var(--space-3); }
+.summary-dashboard > .panel { min-width: 0; }
+.summary-dashboard .trend-panel, .summary-dashboard .severity-panel,
+.summary-reports, .summary-terminal { padding: var(--space-4); }
+.summary-dashboard .panel-header h2 { margin-top: var(--space-1); }
+.summary-dashboard .timeline-unit { margin: var(--space-2) 0 var(--space-1); }
+.summary-dashboard .timeline-plot { padding-top: var(--space-2); }
+.summary-dashboard .timeline-axis, .summary-dashboard .timeline-bar-space { height: 112px; }
+.summary-dashboard .timeline-bar-space { background-size: 100% 56px; background-image: linear-gradient(to top, var(--border-soft) 1px, transparent 1px); }
+.summary-dashboard .chart-help { margin: var(--space-1) 0; }
+.summary-dashboard .pattern-summary { gap: var(--space-1); margin: var(--space-2) 0; }
+.summary-dashboard .chart-data summary { padding: var(--space-1) 0; }
+.summary-dashboard .chart-empty { min-height: 180px; }
+.summary-dashboard .severity-chart { gap: var(--space-3); margin-top: var(--space-3); }
+.summary-dashboard .severity-donut { width: 120px; height: 120px; }
+.summary-dashboard .severity-legend { gap: var(--space-1); }
+.summary-reports .simple-list { margin: var(--space-2) 0; }
+.summary-reports .simple-list li { padding: var(--space-2) 0; }
+.summary-dashboard .incidents-panel { display: flex; flex-direction: column; margin-top: 0; }
+.summary-dashboard .incidents-heading { padding: var(--space-3) var(--space-4); }
+.summary-dashboard .threat-table th, .summary-dashboard .threat-table td { padding: var(--space-2) var(--space-3); }
+.summary-dashboard .event-icon { width: 24px; height: 24px; }
+.summary-dashboard .event-cell { gap: var(--space-2); }
+.summary-dashboard .threat-reference { margin-top: var(--space-1); }
+.summary-dashboard .threat-reference summary { padding: 0; }
+.summary-dashboard .table-footer { margin-top: auto; padding: var(--space-2) var(--space-4); }
+.summary-terminal { display: flex; flex-direction: column; align-items: stretch; }
+.summary-terminal .log-lines { flex: 1; min-height: 0; max-height: none; margin: var(--space-3) 0; padding: var(--space-3); white-space: pre; }
+.summary-terminal .plain-link { align-self: flex-start; }
+.content-summary .system-status-bar { margin-top: var(--space-3); padding-right: 0; padding-left: 0; }
+
+@media (min-width: 1000px) {
+  .summary-dashboard { grid-template-columns: repeat(12,minmax(0,1fr)); }
+  .summary-dashboard .trend-panel { grid-column: span 7; }
+  .summary-dashboard .severity-panel { grid-column: span 5; }
+  .summary-reports { grid-column: span 4; }
+  .summary-dashboard .incidents-panel { grid-column: span 8; }
+  .summary-terminal { grid-column: span 12; }
+}
+@media (min-width: 1600px) {
+  .summary-intro { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); grid-template-areas: "heading analysis" "context context"; column-gap: var(--space-5); align-items: center; margin-top: var(--space-3); }
+  .summary-intro .page-heading { grid-area: heading; }
+  .summary-intro .analysis-panel { grid-area: analysis; margin-bottom: 0; }
+  .summary-intro .source-context { grid-area: context; }
+  .summary-dashboard .trend-panel { grid-column: span 5; }
+  .summary-dashboard .severity-panel { grid-column: span 3; }
+  .summary-dashboard .incidents-panel { grid-column: span 8; }
+  .summary-terminal { grid-column: span 4; }
+}
+
 @media (max-width: 1200px) {
   :root { --sidebar-width: 210px; }
   .content-wrap, .topbar { padding-right: var(--space-5); padding-left: var(--space-5); }
@@ -230,11 +291,10 @@ input::placeholder { color: var(--muted); opacity: 1; }
   .page-heading { align-items: flex-start; flex-wrap: wrap; }
 }
 @media (max-width: 1050px) {
-  .summary-bottom, .reports-layout { grid-template-columns: minmax(0,1fr); }
+  .reports-layout { grid-template-columns: minmax(0,1fr); }
 }
 @media (max-width: 950px) {
   .metric-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .overview-grid { grid-template-columns: minmax(0,1fr); }
 }
 @media (max-width: 1000px) {
   .author-role { display: none; }
@@ -263,7 +323,7 @@ input::placeholder { color: var(--muted); opacity: 1; }
   .heading-actions { width: 100%; justify-content: space-between; }
   .metric-grid { grid-template-columns: minmax(0,1fr); }
   .source-banner, .analysis-panel { flex-direction: column; align-items: stretch; }
-  .trend-panel, .severity-panel, .list-panel, .report-detail, .summary-bottom > .panel { padding: var(--space-4); }
+  .trend-panel, .severity-panel, .list-panel, .report-detail { padding: var(--space-4); }
   .filter-row { flex-direction: column; }
   .filter-row label { flex-basis: auto; }
   .system-status-bar { padding: var(--space-2) var(--space-3); }
