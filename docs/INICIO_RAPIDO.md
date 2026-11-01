@@ -105,13 +105,16 @@ servicios propios del laboratorio mediante el supervisor existente.
 | Acción | Comando en Parrot/Linux |
 | --- | --- |
 | Iniciar ambas apps | `python3 webdefensev2.py` |
+| Habilitar análisis manual y su ejecutor | `python3 webdefensev2.py --enable-manual` |
 | Comprobar requisitos sin iniciar | `python3 webdefensev2.py check` |
+| Comprobar el modo manual sin iniciar | `python3 webdefensev2.py check --enable-manual` |
 | Preparar la instalación | `python3 webdefensev2.py install` |
 | Elegir la fuente vulnerable en V2 | `python3 webdefensev2.py --lab-mode vulnerable` |
 | Consultar opciones | `python3 webdefensev2.py --help` |
 
 `install` conserva el alcance del instalador existente; no instala Docker
 automáticamente. `--lab-mode` se admite en inicio/comprobación, no en instalación.
+La misma restricción se aplica a `--enable-manual`.
 Los portales vulnerable y corregido se preparan en ambos casos; la opción
 elige la fuente que lee V2. No modifica el selector del panel ni convierte
 el arranque en una ejecución de casos o análisis.
@@ -121,6 +124,18 @@ terminal abierta; **Ctrl+C cierra los servicios propios de ambas aplicaciones
 y conserva los datos**. Una instancia previa ocupando los puertos impide
 abrir otra; ciérrala desde su terminal. El [manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md)
 conserva las direcciones y opciones detalladas.
+
+Con `--enable-manual`, el supervisor inicia también el ejecutor
+`--manual-only`, con el mismo perfil y rutas que Flask, y espera a verlo online
+mediante una consulta GET local. No solicita un análisis ni crea ciclos
+programados. El botón requiere además proveedor configurado y ningún trabajo
+en cola o ejecución. Las notificaciones permanecen desactivadas por el perfil.
+
+Si hay trabajos pendientes/activos o bloqueos incompatibles, el arranque se
+rechaza sin reanudarlos. Espera a que termine cualquier análisis antes de
+cerrar la terminal. Para volver a lectura, detén la consola propia y arranca
+sin `--enable-manual`. En modo manual el ejecutor coordina la captura: el
+seguimiento y la captura independiente de Actividad no se usan simultáneamente.
 
 ### Proveedor y fuentes
 

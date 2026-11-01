@@ -116,12 +116,16 @@ def main(argv=None):
     parser.add_argument("--with-puerto-umbral", action="store_true",
                         help="arrancar V2 y el laboratorio local, sin escenarios ni análisis automáticos")
     parser.add_argument("--lab-mode", choices=("vulnerable", "corrected"), default="vulnerable")
+    parser.add_argument("--enable-manual", action="store_true",
+                        help="habilitar solicitudes e iniciar el ejecutor manual; requiere start/check --mode structured")
     args = parser.parse_args(argv)
     try:
         if sys.platform not in {"win32", "linux"}:
             raise ValueError("Esta entrada admite Windows y Linux.")
         if args.with_puerto_umbral and (args.action == "install" or args.mode != "structured"):
             raise ValueError("El arranque conjunto requiere start/check --mode structured --with-puerto-umbral.")
+        if args.enable_manual and (args.action == "install" or args.mode != "structured"):
+            raise ValueError("El análisis manual requiere start/check --mode structured --enable-manual.")
         if args.action == "install":
             python = python_command()
             frontend_tools(installing=True)
@@ -138,6 +142,8 @@ def main(argv=None):
                    "--node", node, "--mode", args.mode]
         if args.with_puerto_umbral:
             command.extend(["--with-puerto-umbral", "--lab-mode", args.lab_mode])
+        if args.enable_manual:
+            command.append("--enable-manual")
         if args.action == "check":
             command.append("--check")
         # The supervisor owns cleanup. Ignore Ctrl+C here until it has stopped its children.

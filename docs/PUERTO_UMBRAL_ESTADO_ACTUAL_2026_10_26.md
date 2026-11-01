@@ -2,6 +2,34 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Activación manual opcional desarrollada — 01/11
+
+`python3 webdefensev2.py --enable-manual` integra admisión y ejecutor
+`--manual-only` con el mismo perfil/rutas/env de V2. La entrada sin opción
+conserva lectura. Preflight rechaza trabajos pendientes/activos y bloqueos;
+el supervisor espera estado manual habilitado/ejecutor online por GET local
+antes de declarar disponible la consola. El botón requiere además proveedor
+configurado. Worker supervisado, log propio y cierre con el conjunto; ningún
+análisis o ciclo programado se solicita al arrancar y los avisos siguen apagados.
+
+Revisión de sintaxis Python 3.11 en cuatro archivos y ayuda CLI correctas.
+Cinco regresiones aisladas preparadas sin ejecutar; modo manual y botón no
+observados aún en Parrot. Sin servicios, modelos, preflight, suites o build
+nuevo por el agente. Cambios locales posteriores a `8f65bc7`, sin Git nuevo.
+No se repite el análisis previo ni se presume aceptación global por desarrollar.
+
+## Primer arranque de la entrada conjunta recibido — 01/11
+
+La captura de `python3 webdefensev2.py` muestra fuente corregida, panel/portales
+4381/4380/4382 y Consola lista en 3000. El propietario confirma funcionamiento
+de ambas apps en navegador. Entrega publicada `8f65bc7`, remoto verificado.
+Arranque por la entrada simplificada completado según captura/confirmación;
+no repetirlo para el acta. Cierre nuevo y flujo de análisis no se acreditan.
+«Iniciar análisis» permanece deshabilitado porque el inicio conserva admisión
+manual apagada y no inicia worker. El botón no se habilita solo al esperar.
+Activación manual integrada en lanzador pendiente de desarrollo/alcance propio,
+sin ejecutar análisis, servicios o suites por esta recepción documental.
+
 ## Entrada simplificada para ambas apps — 01/11
 
 Se desarrolla `webdefensev2.py` por petición del propietario. Comando habitual:

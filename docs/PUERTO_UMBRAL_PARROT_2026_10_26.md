@@ -6,6 +6,35 @@ ejecutar suites de escenarios o análisis LLM automáticamente.
 
 ## Recepción vigente F6/F7 — 29/10/2026
 
+### Activación manual integrada preparada — 01/11/2026
+
+Se desarrolla `python3 webdefensev2.py --enable-manual` para incluir el ejecutor
+manual en el mismo supervisor y habilitar admisión de solicitudes. La entrada
+sin esa opción conserva lectura. El botón requiere además proveedor configurado,
+ejecutor online y ausencia de trabajo pendiente/activo. No se solicita un
+análisis al arrancar y no se programan ciclos; notificaciones apagadas.
+
+La primera comprobación propuesta, después de publicar y recibir el cambio,
+consiste en ver Consola lista, Ejecutor activo y disponibilidad del botón,
+sin pulsarlo ni iniciar seguimiento o escenarios. Todavía no se acredita esa
+activación por la captura de lectura de `8f65bc7`. No se requieren reinstalación
+ni build del frontend por este cambio Python. Regresiones aisladas preparadas,
+sin ejecutar; ningún servicio o modelo iniciado por el agente.
+
+### Primer arranque simplificado confirmado — 01/11/2026
+
+Tras publicar `8f65bc7`, el propietario muestra ejecución de
+`python3 webdefensev2.py` con fuente V2 corregida, preparación de servicios
+propios, URLs del panel/portales y Consola lista en 3000. Confirma además el
+funcionamiento de ambas apps en el navegador. El primer arranque mediante
+esta entrada queda completado según captura y confirmación; no se repite por
+documentarlo. No se atribuye una prueba nueva de cierre o análisis.
+
+El botón «Iniciar análisis» desactivado es coherente con esta entrada de lectura:
+no habilita admisión manual ni inicia el worker. No se activará por esperar;
+la integración de una activación manual explícita queda como trabajo propuesto,
+sin servicios o llamadas al modelo nuevos por esta recepción.
+
 ### Entrada conjunta simplificada — 01/11/2026
 
 Se añade `webdefensev2.py` para el uso habitual tras actualizar el checkout:

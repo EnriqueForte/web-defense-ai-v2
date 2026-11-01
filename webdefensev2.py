@@ -15,9 +15,15 @@ def main(argv=None):
         "--lab-mode", choices=("corrected", "vulnerable"),
         help="fuente de Puerto Umbral que lee V2 (predeterminado: corrected); se preparan ambos portales",
     )
+    parser.add_argument(
+        "--enable-manual", action="store_true",
+        help="habilitar solicitudes de análisis desde V2 e iniciar su ejecutor; no solicita un análisis",
+    )
     args = parser.parse_args(argv)
     if args.action == "install" and args.lab_mode is not None:
         parser.error("--lab-mode se utiliza con start o check, no con install.")
+    if args.action == "install" and args.enable_manual:
+        parser.error("--enable-manual se utiliza con start o check, no con install.")
 
     # Reuse the existing prerequisites, supervisor and cleanup; help needs only argparse.
     from webdefense import main as launch
@@ -28,9 +34,12 @@ def main(argv=None):
     mode = args.lab_mode or "corrected"
     label = "corregido" if mode == "corrected" else "vulnerable"
     print(f"Web Defense AI V2 + Puerto Umbral · fuente V2: modo {label}.", flush=True)
-    return launch([
+    command = [
         args.action, "--mode", "structured", "--with-puerto-umbral", "--lab-mode", mode,
-    ])
+    ]
+    if args.enable_manual:
+        command.append("--enable-manual")
+    return launch(command)
 
 
 if __name__ == "__main__":

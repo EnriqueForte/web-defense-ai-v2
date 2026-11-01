@@ -69,10 +69,52 @@ volver a instalar por usar esta entrada en una instalación ya preparada.
 Para comprobar sin iniciar: `python3 webdefensev2.py check`.
 `install` delega en el instalador existente; Docker/Compose se prepara aparte.
 Se conservan puertos, logs, bloqueos, comprobaciones y cierre con `Ctrl+C` del
-supervisor original. No inicia worker, escenarios, seguimiento o modelo.
+supervisor original. Sin `--enable-manual` no inicia worker; ninguna de estas
+entradas ejecuta escenarios, seguimiento o análisis por el mero arranque.
 
-La revisión inicial del nuevo archivo es estática y de ayuda CLI; el primer
-arranque conjunto mediante esa entrada todavía requiere observación operativa.
+### Activación manual integrada
+
+```bash
+python3 webdefensev2.py --enable-manual
+```
+
+Esta opción habilita admisión de solicitudes e inicia el ejecutor existente
+`pipeline.py --manual-only` en el mismo perfil, modo, origen, rutas y entorno
+que Flask. El supervisor espera una respuesta GET local de análisis con
+`manual_enabled: true` y `executor: online` antes de dar la consola por lista.
+No exige contactar al proveedor para comprobar disponibilidad; si falta la
+configuración del proveedor, el botón sigue deshabilitado hasta configurarlo.
+No se crean trabajos ni ciclos programados al arrancar. Usar el botón sí
+solicita un análisis al proveedor configurado. Las notificaciones siguen apagadas.
+
+`python3 webdefensev2.py check --enable-manual` comprueba ese plan sin iniciar
+el ejecutor. `install --enable-manual` se rechaza; la activación corresponde
+al arranque. El modo manual del lanzador requiere informes `structured`.
+
+Los logs del ejecutor se guardan en `worker.log`, junto a `flask.log` y
+`next.log` en `.local-state/launcher/<ejecución>/`. Su proceso y descendientes
+quedan bajo el mismo propietario de procesos: si un componente termina,
+se cierra el conjunto propio; `Ctrl+C` también incluye al ejecutor.
+Espera al fin del trabajo antes de cerrar. Si se interrumpe un trabajo, se
+conservan su estado y recibos para revisión; el preflight no lo reintenta ni
+elimina automáticamente para desbloquear el arranque.
+
+Para seguimiento o captura independiente de logs, vuelve a iniciar sin
+`--enable-manual`: esas operaciones requieren ejecutor detenido. Para el
+análisis manual, la captura la coordina el ejecutor al recibir la solicitud.
+
+Desarrollo revisado con sintaxis/ayuda; las regresiones aisladas preparadas
+no se han ejecutado. Primer arranque de este modo y disponibilidad del botón
+pendientes de comprobación en Parrot, sin solicitar un análisis para ello.
+
+### Arranque de lectura ya observado
+
+La revisión inicial del nuevo archivo fue estática y de ayuda CLI. Después,
+el propietario aporta captura del primer arranque en Parrot con fuente
+corregida, direcciones 4381/4380/4382 y Consola lista en 3000; confirma que
+ambas apps responden en el navegador. Recorrido de arranque completado a ese
+alcance para la entrega `8f65bc7`, sin repetir escenarios o modelo. No se
+extrapola a un nuevo cierre con Ctrl+C o al análisis manual.
 Los comandos detallados anteriores siguen disponibles:
 
 Desde la raíz, el modo corregido revisado utiliza:
@@ -94,13 +136,32 @@ python3 webdefense.py start --mode structured --with-puerto-umbral --lab-mode co
 La terminal supervisa Flask, Next, el panel y los servicios propios del
 laboratorio. Debe quedar abierta. Construye las dos imágenes con Docker y utiliza
 el Compose instalado para su ciclo de vida. No ejecuta escenarios, corpus,
-worker, análisis, notificaciones o seguimiento por el mero arranque.
+worker (sin `--enable-manual`), análisis, notificaciones o seguimiento por el mero arranque.
 
 `--lab-mode` elige la pasarela que lee V2. Cambiar el selector vulnerable/corregido
 en el panel 4381 no cambia esa fuente. El perfil `puerto-umbral` mantiene sus
 logs, snapshots, informes y SQLite separados de pilot/legacy y de DVWA.
 
 ## Lectura, captura y seguimiento
+
+### Por qué «Iniciar análisis» puede estar desactivado
+
+El arranque conjunto sin `--enable-manual` mantiene lectura: el plan usa
+`ANALYSIS_MANUAL_ENABLED=0` y el supervisor no inicia el worker. Configurar el
+proveedor no cambia esas dos condiciones. El botón solo se habilita cuando
+la admisión manual está habilitada, el proveedor está listo, el ejecutor
+figura online y no hay un trabajo en cola o ejecución. No se activa por esperar.
+
+La activación explícita de componentes de análisis tiene su
+[procedimiento separado](INSTALACION_AUTOALOJADA.md#pasar-de-lectura-a-análisis-manual).
+Esa receta histórica usa el perfil `pilot`; no se debe copiar como si fuera
+la activación integrada de Puerto Umbral. La opción conjunta desarrollada el
+01/11 es `python3 webdefensev2.py --enable-manual`, descrita arriba. Su
+comprobación operativa aún está pendiente; no se ejecuta un análisis por esta
+explicación. Se conserva el análisis único anterior y no se repite para
+comprobar el botón.
+
+### Fuente local y seguimiento
 
 En Actividad, **Actualizar estado de fuente** lee los metadatos locales.
 **Capturar log de Puerto Umbral** solicita una captura manual del gateway

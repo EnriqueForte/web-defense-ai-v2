@@ -94,6 +94,17 @@ abierta; `Ctrl+C` cierra los servicios propios de ambas apps y conserva los dato
 Este arranque no ejecuta escenarios ni análisis automáticos.
 La entrada conjunta reutiliza `webdefense.py`; los comandos anteriores siguen
 disponibles para iniciar solo V2 o elegir sus opciones avanzadas.
+Para habilitar el análisis manual y su ejecutor desde la misma terminal:
+
+```bash
+python3 webdefensev2.py --enable-manual
+```
+
+El ejecutor espera solicitudes del botón **Iniciar análisis**, sin ciclos
+programados. El botón necesita además proveedor configurado y ausencia de un
+trabajo pendiente/activo. Iniciar con esa opción no solicita un análisis;
+usar el botón sí contacta al proveedor configurado. Para volver a lectura,
+espera al fin del trabajo, cierra la consola propia y arranca sin la opción.
 La revisión manual ha observado escenarios de ambas modalidades y un recorrido
 de snapshot guardado a informe visible en V2: 17 líneas, tres llamadas a Groq y
 cuatro grupos que requieren investigación. Ese recorrido no evalúa por sí solo
@@ -172,7 +183,7 @@ El instalador prepara `.p2`, comprueba las dependencias fijadas y compila el
 frontend. Crea `.env` si falta y conserva uno existente. No necesitas activar
 el entorno virtual para usar el lanzador.
 
-Este inicio abre la consola **en modo de lectura**, sin worker, análisis manual
+Este inicio sin `--enable-manual` abre la consola **en modo de lectura**, sin worker, análisis manual
 ni notificaciones habilitados. Una instalación nueva puede indicar «Fuentes
 incompletas»: cada usuario aporta sus logs y publicaciones. Para configurar el
 proveedor y ejecutar un análisis, sigue la [guía de instalación y operación](docs/INSTALACION_AUTOALOJADA.md).

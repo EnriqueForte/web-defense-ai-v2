@@ -2,6 +2,56 @@
 
 ## Alcance actual
 
+V2 01/11: propietario autoriza commit/push y comprobación del modo manual.
+Alcance entrega12archivos:3lanzadoresPython,1archivo5testsaisladospreparados
+sin ejecutar y8documentos/actas (incluyen recepción arranquelectura previo).
+Base8f65bc7/main/origin verificadaconfetch y0/0; staginginicialvacío.
+Publicar[skip ci] y verificarlistaexacta/HEADremoto/árbollimpio alfinal.
+Identidad entrega=commit que contieneestanota; no anticiparresultadoGit.
+AST4archivos y ayudaCLI ya correctos, enlaces132/0faltantes; no repetir
+suites/builds/modelos ni activarserviciosporagente. Traspublicar, propietario
+CtrlCconsolalectura, status/pull--ff-only/log-1 y python3 webdefensev2.py
+--enable-manual. ConfirmarConsolalista/Ejecutoractivo/admisiónmanual/botón
+disponible con proveedorconfigurado; NO pulsar Iniciaranálisis. Permisoactual
+cubre esa disponibilidadmanual, no llamadaLLM, caso educativo ni suite.
+Sinreinstalación/recompilaciónfrontend porentregaPython. Esperarcapturas,
+no inferir operatividad porpush. Balizaaplazada y análisisGroqprevio consumido.
+
+V2 01/11: propietario «ok sigamos entonces» acepta integrar activación manual
+explícita en lanzador. Desarrollado --enable-manual en webdefensev2.py,
+webdefense.py y scripts/start_application.py. Omisión=lectura sin worker;
+opción=start/check structured, install/legacy rechazados. Preflight propaga
+enable_manual a readiness componenteall; conserva bloqueo por jobsactivos/
+pendientes/locks. Supervisor usa mismo perfil/env/rutas para Flask y worker
+existente pipeline.py--manual-only, logworker.log, GETlocalanalisis/actual
+esperamanual_enabledtrue/executoronline antes de Next/Consolalista; consulta
+no contacta proveedor. Worker hijo propietario y cierre conjunto existentes,
+sin ciclosprogramados/notificaciones/enqueue de arranque. Proveedorconfigurado
+también necesario para habilitarbotón. Cerrar al finalizar trabajo; interrupción
+conservaestado/recibos y preflightno reintenta trabajos automáticamente.
+Preparadas5regresiones aisladas en tests/test_manual_application_launcher.py,
+NO ejecutadas por restricción vigente. ASTPython3.11 de4archivos/ayudaCLI exit0;
+sin start/check/install, suites, servicios, modelo o VM por agente. Documentación
+de uso/plan/estado actualizada. Primer arranque manualybotón en Parrot PENDIENTES;
+no inferir de lectura8f65bc7. Cambios locales sin Gitnuevo. Esta autorización
+es desarrollo, no otra llamadaGroq; análisisprevio sigueconsumido. Balizaaplazada.
+
+V2 01/11: entrega8f65bc747e87e3bbd7318e2146e453869b1728f3 publicada en
+origin/main, HEADremoto/árbol limpio verificados al terminar Git. Propietario
+aporta captura python3 webdefensev2.py: fuenteV2corregido, preparación propia,
+URLs4381/4380/4382, Consolalista3000; logs
+.local-state/launcher/20261101T162651Z-b93ea780. Confirma ambas apps funcionan
+en navegador. Primer arranque mediante entrada conjunta COMPLETADO según
+captura/confirmación; no repetir por actas. No acredita cierreCtrlC nuevo,
+check/installnuevos, análisis o aceptación global. Propietario observa botón
+Iniciaranálisisdesactivado: esperado por código, readiness se llama con
+enable_manual=False y supervisor no inicia worker. Botón requiere admisión
+manual+llm_ready+executoronline+ausenciajobqueued/running. No se activa por
+esperar o guardarclave. Pendiente propuesto integrar activación manual explícita
+con worker en lanzador, aún sin desarrollar/activar por esta recepción;
+no ejecutar modelo ni reusar autorizaciónGroq consumida. Solo recepción
+documental local posterior8f65bc7, sin Gitnuevo/servicios/VM/suites por agente.
+
 V2 01/11: propietario autoriza commit/push para recibir el nuevo lanzador en
 Parrot. Entrega revisada: webdefensev2.py nuevo, mensaje check en
 scripts/start_application.py y nueve documentos/actas (incluyen recepción

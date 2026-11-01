@@ -307,6 +307,23 @@ El perfil `legacy` usa las rutas históricas y su origen Docker anterior.
 
 ### Pasar de lectura a análisis manual
 
+Para V2 junto con Puerto Umbral se incorpora la activación en una terminal:
+
+```bash
+python3 webdefensev2.py --enable-manual
+```
+
+Con la consola anterior detenida, inicia el conjunto y su ejecutor manual en
+el mismo perfil. Espera al estado online del ejecutor; el botón necesita además
+la configuración del proveedor. El arranque no solicita un análisis y no crea
+ciclos programados. Las notificaciones siguen desactivadas. La primera
+verificación operativa de esta integración está pendiente, sin usar el modelo.
+Detalle de preflight, captura, cierre y logs en el
+[manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md#activación-manual-integrada).
+
+El procedimiento alternativo siguiente conserva el alcance **solo V2/pilot**;
+no se inicia a la vez que el lanzador conjunto.
+
 Configura el proveedor y confirma que la copia de log contiene los datos que
 quieres analizar. Usa el mismo usuario y permisos de captura Docker; no arranques
 el motor como root para resolver permisos. Si Node se instaló con nvm, carga

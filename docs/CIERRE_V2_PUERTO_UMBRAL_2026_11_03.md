@@ -8,6 +8,67 @@ incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el l
 
 ## Punto de partida comprobado
 
+### Publicación y comprobación de disponibilidad manual autorizadas — 01/11
+
+El propietario pide commit/push y comprobar la integración manual. Entrega:
+tres lanzadores Python, cinco comprobaciones aisladas en un archivo todavía
+sin ejecutar y ocho documentos/actas. Base `8f65bc7`, coincidente con
+`origin/main` tras fetch; staging inicial vacío. Se publica con `[skip ci]`;
+la identidad será el commit que incluye esta nota, verificando remoto y árbol
+al finalizar. No se repiten suites, frontend build o llamadas al modelo.
+
+El recorrido acordado en Parrot es detener la consola anterior, revisar cambios
+locales, actualizar con `git pull --ff-only`, comprobar el commit y ejecutar
+`python3 webdefensev2.py --enable-manual`. Recoger Consola lista, ejecutor activo,
+admisión manual y disponibilidad del botón con el proveedor ya configurado,
+**sin pulsar Iniciar análisis**. Esta comprobación no autoriza otra llamada al
+modelo, escenario o suite. No necesita reinstalar o recompilar el frontend.
+La disponibilidad real sigue pendiente de capturas; no se acredita por Git.
+
+### Activación manual del lanzador desarrollada — 01/11
+
+El propietario acepta integrar la opción `--enable-manual`. Se implementa
+en ambas entradas Python y el supervisor: el inicio sin opción mantiene lectura;
+el inicio manual habilita admisión y supervisa el worker existente
+`pipeline.py --manual-only` en el mismo perfil/env/rutas que Flask.
+Se conserva el bloqueo por trabajos activos/pendientes y locks incompatibles.
+El supervisor espera, mediante GET local de estado, admisión habilitada y
+ejecutor online antes de confirmar disponibilidad; no necesita contactar al
+proveedor para ello. El botón también necesita proveedor configurado.
+
+No se encolan trabajos ni ciclos programados por arrancar; notificaciones
+apagadas. `worker.log` y el proceso del ejecutor forman parte del supervisor
+y su cierre propio. Antes de cerrar se espera al fin del trabajo; un trabajo
+interrumpido conserva estado/recibos para revisión y no se reintenta por
+eludir el bloqueo del preflight. `check --enable-manual` no inicia el ejecutor;
+instalación/legacy no admiten esa opción.
+
+Sintaxis AST Python 3.11 revisada en cuatro archivos y ayuda CLI exit 0.
+Cinco regresiones aisladas preparadas, **no ejecutadas**; tampoco se inicia
+servicio, preflight, instalación, suite, frontend build o modelo por el agente.
+Validación operativa del modo manual/botón en Parrot pendiente tras publicar;
+la primera revisión será disponibilidad, sin pulsar Iniciar análisis. Cambios
+locales sin nuevo commit/push. Los demás criterios abiertos se mantienen.
+
+### Entrada conjunta observada en Parrot — 01/11
+
+Entrega `8f65bc747e87e3bbd7318e2146e453869b1728f3` publicada y verificada
+contra `origin/main`. La captura muestra `python3 webdefensev2.py`, fuente V2
+corregida, preparación de servicios propios, direcciones 4381/4380/4382 y
+«Consola lista» en 3000. Directorio de logs mostrado:
+`.local-state/launcher/20261101T162651Z-b93ea780`. El propietario confirma que
+ambas apps funcionan en el navegador. Primer arranque de la entrada conjunta
+completado a ese alcance; no repetirlo para documentar. No implica una nueva
+comprobación de cierre, instalación o flujo de análisis.
+
+El propietario señala que «Iniciar análisis» sigue desactivado. Es coherente
+con el arranque de lectura: no habilita admisión manual ni inicia el worker.
+El botón requiere admisión manual, proveedor listo, ejecutor online y ausencia
+de trabajo en cola/ejecución. No se habilita automáticamente al esperar o
+guardar una clave. Integrar una activación manual explícita en el lanzador
+queda como pendiente propuesto, sin cambiarlo por esta recepción. La
+autorización anterior de Groq está consumida; no se solicitan análisis nuevos.
+
 ### Publicación del lanzador autorizada — 01/11
 
 El propietario solicita commit/push de la entrada conjunta y documentación
