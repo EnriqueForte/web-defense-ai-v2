@@ -6,6 +6,37 @@ ejecutar suites de escenarios o análisis LLM automáticamente.
 
 ## Recepción vigente F6/F7 — 29/10/2026
 
+### Vuelta a lectura completada — 01/11/2026
+
+La captura posterior muestra Ejecutor no disponible, solicitudes manuales
+desactivadas y botón inactivo, conservando Groq configurado y el trabajo
+anterior. Retorno a lectura completado; junto con el arranque manual y la
+parada anteriores completa el recorrido básico del lanzador en `91a101e`.
+No se repite ese flujo por el acta ni se ejecuta otro análisis. Regresiones
+aisladas y revisión móvil/teclado conservan sus pendientes.
+
+### Parada recibida y retorno de lectura pendiente — 01/11/2026
+
+Captura posterior muestra Ctrl+C y «Consola detenida» para la sesión manual.
+Otra captura conserva el panel anterior con aviso de consulta del ejecutor
+fallida. La lectura anterior no acredita actividad actual después del cierre.
+Queda por iniciar `python3 webdefensev2.py` sin opción manual y recargar
+Resumen para observar solicitudes desactivadas, ejecutor no disponible y
+botón inactivo. No se solicita repetir la parada ni un análisis por documentar.
+
+### Disponibilidad manual recibida — 01/11/2026
+
+El propietario aporta dos capturas: actualización efectiva a `91a101e`,
+inicio `python3 webdefensev2.py --enable-manual` con fuente corregida,
+direcciones 4381/4380/4382 y Consola lista en 3000. El panel muestra Ejecutor
+activo, solicitudes manuales habilitadas, Groq configurado y botón Iniciar
+análisis disponible. Mantiene como último trabajo visible `f5b674c86799…`,
+manual/succeeded/finished, el análisis anterior. La comprobación acordada
+de disponibilidad queda completada por capturas; no se repite por el acta.
+No se aporta análisis nuevo, nueva prueba de cierre, autenticación/coste del
+proveedor o ejecución de regresiones. Parada y vuelta a lectura siguen como
+siguiente recorrido propuesto, sin ejecutar por esta recepción.
+
 ### Activación manual integrada preparada — 01/11/2026
 
 Se desarrolla `python3 webdefensev2.py --enable-manual` para incluir el ejecutor

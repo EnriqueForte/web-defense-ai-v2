@@ -2,6 +2,270 @@
 
 ## Alcance actual
 
+V2/PuertoUmbral02Nov: propietarioautoriza explícitamentecommit/pushentrega13
+archivos(observer/tests+11Markdownacumulados)con[skip ci]. Fetchoriginrealizado,
+mainHEAD91a101e3831009da1ba25589798dc733b0222ce0=origin/main,divergencia0/0,
+staginginicialvacío. Completar stagingexacto13/revisióndiff/commit/pushoriginmain/
+verificarHEADremotoyárbollimpio;identidaddeliverycommitqueincluyenota,noafirmar
+pushantesverificación.5testsobserverpasados. No más suites/build/servicios/VM/
+modeloporGit. EnParrotconservarcambioslocales,pull--ff-only,confirmararchivo;
+no necesitarebuildfrontend/reinstalar/reiniciarappactual porqueobsindependiente.
+Sesiónmediciónreal5s/300s/20muestrasAÚNpendientedeacordar, noautorizadaporpublish.
+
+PuertoUmbral02Nov: propietarioautoriza SOLO5testsaisladosobservadornuevo.
+Ejecutadauna vez .p2/Scripts/python.exe -B -m unittest tests.test_follow_observer -v,
+Python3.11.9/Windows,5tests/0.085s/OK/exit0,sinHTTP/servicios/Docker/modeloreales.
+Sintaxisobserver/tests y --helpcorrectos. NOamplíarsuiteporestepermiso.
+Guíamedición/resumen/acta/auditoríasincronizados:observadorlistolocal,sesiónVM
+ypublicaciónGitAÚNpendientes;fuenteactiva5s/300s20muestrasrequiereinicioexplícito
+porpropietario. MediciónAPI vs paintdistintos,noF4autopass. NoJSONhistórico/env/
+logsoperativoscambiados,solo2archivosnuevosscript/test+docs. Próximopasoentregar
+archivoaParrot(publish aúnnoautorizadoporestos5tests),luegoguiarobservaciónacotada.
+
+PuertoUmbral02Nov: respuestaactualAPI recibida,statusinterrupted/
+errorprocess_interrupted/session_activefalse/owned_herefalse/in_flightfalse/
+enabledtrue/analysisfalse/notifsfalse. Checkpointantiguocorrected17líneasdf39623d,
+SHA2f891446...; running_at_capture eIDgateway sonhistóricos,nosaludactualDocker.
+Interrupción/inactividadactualcomprobada,norepetirGET/editarJSON/borrarlocks;
+nohoraexactafinantigua/noinspecciónexhaustivahost. Para cerrar medición se
+preparan scripts/observe_puerto_umbral_follow.py +tests/test_follow_observer.py
+(5pruebasaisladasNUEVAS aúnNOejecutadas) y guía
+docs/PUERTO_UMBRAL_MEDICION_F4_2026_11_02.md. Herramienta stdlib,sinapp/dotenv/
+Docker/modelo/controlPOST,soloGETfijo3000/fuentes/logsinproxyredirect,20ciclos
+distintos,sesiónmanual5s/300s,espera180s/max181GET,SQLiteROyconteosnapshotsantes/
+después,1recibonuevooperational-reviewsin sobrescribir. MidecotaAPI,no paint
+navegador;RNF09/F4AC1nodarporaceptadosautomáticamente. NoobsVM/Git/suitespor
+preparación,permiso5tests anterioreradelanzador,noseamplía. Solo sintaxis/ayuda
+previstasantesdepedirejecuciónnueva;sesión/publishpendientes.
+
+PuertoUmbral02Nov: lecturametadatosSQLite recibida.3sesionescorrected27OctUTC:
+efd533dc completed16:50:51–16:55:51/26cycles/1snapshot25unchanged/last0.057;
+9cc5313e stopped16:58:48–17:01:37/31cycles/0snapshot31unchanged/last0.065;
+cf462e69 followingdesde17:04:32/finishednull/5cycles/0snapshot5unchanged/last0.058.
+DB1job succeeded solicitado21:38:37UTCfinal21:38:42UTC27Oct,deliveries0.
+NingúnjobCONSERVADO dentroprimeras2sesionescerradas;corrobora temporalmente,
+noauditoríaproveedor/registrosborrados/dedupexhaustivo/20latenciasvisibilidad.
+TerceraJSONfollowing NOpruebasesiónactualviva niintervaloterminado. Siguiente
+lecturaGET http://127.0.0.1:3000/api/v1/fuentes/log/seguimiento; estado/lease
+sin capturar/iniciarhilo. Si lease libre, expectedinterrupted/process_interrupted/
+session_activefalse/owned_herefalse, AÚNpendienterespuestaactual. Si activo/error
+revisarantesnuevasesión;noeditarJSON/borrarlocks/reiniciarpordefecto. Actaprioritaria
+yauditactualizadas,sinruntime/Git/suites/modelo/serviciosporagente.
+
+PuertoUmbral02Nov: propietario«oksigamos» acepta continuaroperaciónF3/F4.
+Primerpasoguiadolecturametadatosconservados:following/sessions/*.json+current
+dedupID,fechas/modo/estado/contadoresúltimas5;SQLiteperfilpuerto-umbralmodero/
+query_only,totaljobs+estado/fechasúltimos20,totaldeliveries,sinclaves/lograw/
+destinos. Ausencia/errornoequivaleacero.ResultadoPENDIENTEsalidapropietario;
+no fuente/ciclos/Docker/modelo/servicios/suites/Gitporagente. Revisiónservicio
+guarda sololast_cycle_seconds/counter/checkpoint,NO20muestras. RNF09captura
+visible<=10secconhardware/carga,noconfundirconúltimaduraciónlectura. No pedir
+otrafotocountercomo20latencias;nueva sesión/discontinuidad aúnporconcretar,
+ningunadesviaciónaceptada. Noafirmarnuevosjobs/dedupresueltosanteslectura.
+Bloquecomandosya terminado,no repetir. Actaprioritariaactualizadalocal.
+
+PuertoUmbral02Nov: vulnerableComandosF2/attempt/v1 recibido porcaptura,
+rund2bf894ca4914ef4a7c3b43e7d97a445/COMPLETED/HTTP200,
+stdoutdiagnóstico+uid=10001(umbral)/timed_outfalse/returncode0/sinCannotfork;
+1petición1líneaApache,V2noconsultado,auditoríaappnodisponible(esperadoF2).
+Con normalcorrectedprevio eidentificaciónimagen/fuente, BLOQUE2RECORRIDOS
+COMPLETADO: Cannotfork corregido/verificadoenrepresentativovulnerablev1.
+Norepetir/export/auditoríaF6/backup/inspector poractas; conservar3falloshistóricos,
+variantes2/3NOreejecutadas/nopuntuarhistórico45/45/nodetecciónniF2F6global.
+SiguienteprioridadRECOMENDADA operaciónF3/F4: concretar sesión lectura/latencias
+(20individuales odesviaciónrevisada),dedup/trabajos/conservacióndiscontinuidad,
+sin nuevoscasosseguridad/modelo. AÚNsin autorizar/ejecutar nuevoseguimiento o
+modificaciónfuente; no ampliar suites por capturas.5unitpreviaspasadasconpermiso
+agotado paraesebloque;Groqprevio consumido.Balizaaplazada.Soloactaslocales,
+sinGit/runtime/build/serviciosVMporagente.
+
+PuertoUmbral02Nov: captura normalComandosF2/corrected/benign/v1 recibida,
+run0e78b2e1bd2dc4bd48ec28aa6d8cd2e6/COMPLETED/HTTP200,
+GET/mantenimiento?equipo=baliza-07,stdoutDIAG:baliza-07newline/timed_outfalse/
+returncode0/sinCannotfork;1petición1líneaApache,V2noconsultado,auditoríaappno
+disponible(esperadoF2). NORMALCORREGIDOcompletadoporcuerporeal,norepetir,
+noauditoríaF6/copias/export. Segundo recorridoYAacordado:Comandos/vulnerable/
+Intento/v1 casopredefinidopanel,unavez;esperadoHTTP200/stdoutuid=10001/
+timed_outfalse/returncode0/sinCannotfork.ResultadoPENDIENTEcaptura,noatribuir
+resueltofallovulnerabletodavía,noalterar3falloshistóricos,suites/LLM/Git/
+serviciosVMporagente.Balizaaplazada permanecefuera.Actasprioritaria/resumen/
+auditoría actualizadas localmente91a101e+.
+
+PuertoUmbral02Nov: capturaidentificación recibida: commandcorrected/vulnerable
+mismoIDimagen prefijosha256:0ccdadfa84ad, hash /srv/target.py coincideexacto
+e05cce8a819728358e0d00886814593c0f3879868b7e7cfe53b4fafd169ce637.
+Identificaciónpreviacompletada, norepetir/norebuildpordefecto; noefectofuncional
+acreditado. Siguiente dentrodosrecorridosyaacordados: móduloComandos/corrected/
+Uso normal/variante1 unavez, esperadoHTTP200/stdoutDIAG:baliza-07 newline/
+timed_outfalse/returncode0/sinCannotfork. Revisarcuerporeal porquebannerbenign
+soloHTTP. Capturapanelyrespuesta pendiente; vulnposterior tambiénpendiente.
+No pedir auditoríaF6/copias/export/modelo/inspector14. Soloactaslocales,sinGit/
+suites/build/serviciosVMporagente. RecepcióncapturanoaceptaF2/F6globales.
+
+PuertoUmbral02Nov: propietario acepta «sigamos con siguienteprioridad» después
+depropuestadosrecorridosmanualescomandos: normalcorregido y representativo
+vulnerablev1. Guiar primeroidentificaciónimagenenParrot porpropietario, sincaso:
+dockerinspectsoloIDscommandcorrected/vulnerable +hash /srv/target.py delcorregido.
+Ambosusan targetcompartida; siIDsiguales yhashfuente
+e05cce8a819728358e0d00886814593c0f3879868b7e7cfe53b4fafd169ce637 coincide,
+identificacontenidoactual, NOefectofuncional. Dockerfilecopyrutarevisado.
+Sierrordiferencia recogerantesrebuild/ejecución. Noinspector14repetido/suites/
+modelos/Git/serviciosVMporagente. Siappdetenida propietariopuedeusarentrada
+habitualpython3webdefensev2.py,sin--enable-manual; nodep reinstalaciónpordefecto.
+LecturaimagenyamboscasosPENDIENTEScapturas;actaprioritariaactualizada.
+
+V2/PuertoUmbral02Nov: propietario pidepriorizarcierre y luegoautoriza SOLOcinco
+pruebas aisladas existentes tests/test_manual_application_launcher.py. Ejecutadas
+una vez .p2/Scripts/python.exe -B -m unittest tests.test_manual_application_launcher -v:
+Python3.11.9/Windows,5tests/0.020s/OK/exit0. ProcesosHTTPmock/tempdir;sinDocker/
+VM/servicios/modelo/escenarios. NOampliarsuitesporéxito. No cambio runtime.
+Acta docs/CIERRE_VERIFICACION_PRIORITARIA_2026_11_02.md y resumen/auditoría/plan
+actualizados: cinco regresiones dejan deestar pendientes, no MVP/F6global.
+Siguiente propuesto (NOautorizado/ejecutado): dosrecorridosmanuales comandos
+normalcorregido y representativovulnerablev1 pararesolverCannotfork; fuente
+quitaRLIMIT_NPROCporUIDymantienecgroup32, no evidenciaactualVM. Antes identificar
+versión/imagenusada sinreinstalar/rebuildtotalpordefecto. Si errorconservarsalida.
+Balizaaplazada/noresultado sigue, sinreformular/repetirparaeludirbloqueo.
+F4operación/F6positivosregresión/F5métricasyaceptación aúnabiertos. No nuevas
+llamadasGroq(permisoanteriorconsumido)/Git/release/LinkedIn. Docs locales91a101e+.
+
+V2/PuertoUmbral 02/11: propietario acepta continuar consolidación documental.
+Entrada vigente docs/PUERTO_UMBRAL_ENTREGA_2026_11_02.md: tres bloques técnicos
+abiertos (funcionamiento/regresión, operación, evaluaciónF5) y decisiónfinal;
+objetivo F0–F7 completo sigue vigente. Guía producto reescrita para quitar
+instrucciones de capturas/arranques ya completados, auditoría/README/plan/estado
+sincronizados. Cronologías previas conservadas e identificadas como históricas,
+no repetir sus pendientes resueltos. UXbásica de ambas y ciclo lanzador ya
+recibidos; zoom200/export/exhaustivo sin observar como cobertura adicional,
+no cuotas nuevas automáticas delPRD. Baliza tiene fila525a2076b8ae sin resultado
+funcional recibido: no contarpass/noafirmarnuncaejecutada/noreejecutar por actas.
+Backup113del31Oct anterior a Cargasvulnerable posterior; conservarfecha/selección,
+noatribuir copia de todalaevidenciaposterior. Restoreadicional sigueaplazado.
+No cambiosruntime, servicios/VM, suites/modelos/build o Gitporconsolidación.
+Cinco regresiones nuevas del lanzador preparadas, NOejecutadas. Próximo:
+preparar plan acotado funcional/operativo por criterios sin ejecutarlo; evaluación
+F5/presupuesto decisiónseparada, permisoGroqconsumido. Aceptación/release/LinkedIn
+pendientes; solo docs locales91a101e+. Notas inferiores son historia previa.
+Verificación documental02Nov:9Markdown/120referenciaslocales/sinausencias;
+no códigoapp/JSONhistóricos/datosoperativos modificados por este paso.
+
+PuertoUmbral 01/11: doscapturas en vistaestrecha muestran marca/navhorizontal,
+autoría, cabecera, controles formulario y lista Ejecucionesyevidencia legibles.
+Propietario dice «Paso3 sí se distingue» tras pedir focoTab/MayúsTab; se
+interpreta como confirmación del controlseleccionado visible, sin afirmar
+prueba automática o todoscontroles. RevisiónbásicaUI Puerto completada a ese
+alcance; con V2previo completa bloque básico navegación/vistaestrecha/foco.
+No consulta recibos/export/zoom200/WCAGglobal/dispositivo físico acreditados.
+Tabla tiene overflow-x:auto enCSS, no afirmar desplazamiento completo probado
+solo por recorte. Listado incluye Balizavulnerable prefijo525a2076b8ae, sin
+resultado/HTTP/recibo: NO contar como casoF6aprobado ni concluir que nunca
+se ejecutó; resultado funcional Baliza sigue sin recibir. No pedir reejecución
+o recibo por esta revisión visual. Sinruntime/Git/build/suites/modelos por
+agente; actaslocales91a101e+. Próximo trabajo propuesto consolidar documentación
+y pendientes esenciales de entrega; no declarar F0–F7 aceptadas por UI.
+
+V2 01/11: cuatrocapturas en vistaestrecha muestran report.md abierto,
+Amenazas, Actividad y Configuración, sin error visible en los bloques
+mostrados. Informe previo27Oct/17líneas/4grupos/f5b674c867994aeba3beeb4a638d7a33
+se ajusta como texto dentro panel; no informe nuevo. Amenazas identifica
+PuertoUmbral, Actividad muestra capturaantigua/corregido17líneas con fechas
+explícitas, Configuración muestraGroq/catalogogratuito sin guardarformularios.
+Con Resumen/menú y Tab/Escape previos, revisión básicaV2 navegación5vistas/
+vistaestrecha/foco/cierremenú COMPLETADA a alcance capturado/confirmado.
+No WCAGglobal/dispositivofísico/zoom200/export o todoscontroles probados.
+Siguiente dentrobloqueUX yaaceptado: PuertoUmbral4381 vistaadaptable390x844,
+captura superior y zona Ejecucionesyevidencia, Tab/MayúsTab sinactivarbotones.
+Su menú es tira horizontal de opciones, no asumir☰. NO pulsar Ejecutar,
+Restablecer, Consultarrecibos (pueden montariframe), exportar o confirmar
+navegador en esta revisión. ResultadoPuerto aún pendiente; no nuevos casos/
+modelos/build/Git/serviciosporagente. Soloactaslocales91a101e+.
+
+V2 01/11: propietario confirma explícitamente paso1Tab/MayúsTab=focovisible
+y paso2Escape=cierre/devoluciónfoco ☰. Captura Reportes en vista estrecha,
+menúcerrado: cabeceraautoría/botónmenú/lecturalocal legibles, catálogo y panel
+Lecturasegura apilados; único Reporteactual27Oct/2652bytes, página1de1,
+detalleaún «Seleccionaunreporte». Teclado confirmado a ese recorrido por
+propietario; disposición superiorReportes observada. No inferir lectura del
+informe abierto, navegacióncompleta5vistas, WCAGglobal o dispositivofísico;
+tamaño no visible en este recorte, sigue contextoResponsive390x844 previo.
+Siguiente dentrobloqueUX acordado: abrirReporteactual existente/captura y
+confirmar Amenazas/Actividad/Configuración abren sin editar, no repetir menús
+o teclaEsc ya completados. Después PuertoUmbral pendiente. Soloactaslocales
+91a101e+, sinruntime/Git/build/suites/modelos/serviciosporagente.
+
+V2 01/11: capturaFirefoxResponsive390x844/DPR1 muestra menú móvil de V2
+abierto, Cerrar menú/X, marca y cinco opciones (Resumenactivo/Amenazas4/
+Reportes/Actividad/Configuración), panelFuentesdisponibles legibles y fondo
+atenuado. Apertura y disposición del menú a ese viewport OBSERVADAS; alternativa
+resuelve impedimento de arrastrar ventana sin modificarParrot. No acredita
+dispositivofísico, contenido con menú cerrado, navegación5vistas o teclado.
+Siguiente dentro de recorrido acordado: Tab/MayúsTab foco visible dentro menú,
+Escape cierra/devuelvefoco ☰ con confirmacióntextual; después Reportes390x844
+captura. Resultados pendientes; no pedir repetir menú abierto por actas.
+Sin cambiosruntime/Git/build/suites/escenarios/LLM/serviciosporagente.
+
+V2 01/11: propietario no puede arrastrar/redimensionar Firefox por su
+configuraciónParrot. No cambiar escritorio/ventanas/políticas ni atribuir fallo
+de laapp. Revisiónmóvil/menú/teclado sigue NOobservada. Proponer vista adaptable
+nativaFirefox Ctrl+Mayús+M con viewport390x844, sin moverventana ni configurar
+red/useragent/dispositivos; documentaciónMozilla verificada. Recoger captura
+antes de continuar pasos de teclado. Alternativa todavía no ejecutada; si
+no disponible, dejar móvil pendiente y continuar escritorio sin exigir cambios
+Parrot o puntuarlo como aprobado. Sin código nuevo/Git/suites/modelo/servicios
+por agente. Ciclo lanzador previo completado, no repetir.
+
+V2 01/11: propietario «ok hagamoslo» acepta siguiente revisión manual de
+producto: navegación/móvil/teclado, sin escenarios o modelo. Guiar primero
+V2yaabiertoenlectura3000: zoom100%, abrir5vistas sin editarconfiguración,
+estrecharventana hasta menú móvil (<650pxCSS), abrirmenú/captura; Tab/MayúsTab
+focovisible/dentrodelmenú, Escape cierra y devuelvefoco a Abrirmenú; Reportes
+enventanaestrecha/captura. Confirmacióntecladopropietariorequerida, no inferir
+deimagenestática ni código. Después PuertoUmbral4381 lectura sin ejecutar/
+restablecer casos; todavía no guiado ni observado. No repetir arranques/ciclo
+lectura→manual→parada→lectura, ya completado. ResultadoUXactual PENDIENTE;
+no Gitnuevo/frontendchanges/build/suites/servicios/VMporagente. Guía en
+docs/PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md; Balizaaplazada.
+
+V2 01/11: captura posterior al retorno solicitado muestra Ejecutor no
+disponible/solicitudes manuales desactivadas/botón Iniciar análisis inactivo,
+LLMgroq configurado y último trabajo anteriorf5b674c86799/manual/succeeded/
+finished. Retorno a lectura COMPLETADO por captura. Con disponibilidadmanual
+y CtrlC/Consoladetenida anteriores completa recorrido básico lectura→manual→
+parada→lectura en91a101e, sin resultado de análisisnuevo. No repetir flujo,
+arranques, clave, captura o modelo por actas. No inspección exhaustivaPIDhost,
+suiteaisladaejecutada, autenticaciónproveedor o fasesglobales aceptadas.
+Soloactaslocalesposteriores91a101e, sinGitnuevo/frontendbuild/servicios/VM
+poragente. Próximo propuesto producto: navegación/móvil/teclado pendientes,
+sin escenarios/modelos; Balizaaplazada y autorizaciónGroqprevia consumida.
+
+V2 01/11: propietario sigue propuesta de cierre/retornolectura y aporta captura
+CtrlC en sesión manual20261101T164618Z-9953ad47: «Consola detenida».
+Parada informada por supervisor propio recibida; no repetir por recorte sin
+prompt. Segunda captura conserva Ejecutoractivo/admisiónmanual y trabajo
+anteriorf5b674c86799, pero muestra «No se pudo consultar el estado del
+ejecutor». Es última lectura tras cerrarbackend, NO prueba de worker vivo
+ni retornolectura. Falta iniciar python3 webdefensev2.py SINflag en mismaVM
+y recargarResumen; esperadoEjecutorno disponible/manualdesactivado/botón
+inactivo. Guiar esa continuación, no otro cierre/instalación/build/checksuite
+o análisis. Sinresultado del retornotodavía ni inspecciónindependientehost.
+Solo notaslocales91a101e+, sinGitnuevo/servicios/VM/modeloporagente.
+
+V2 01/11: entrega91a101e3831009da1ba25589798dc733b0222ce0 publicada
+origin/main con HEADremoto/árbollimpio verificados al terminar Git. Dos capturas
+del propietario muestran91a101eHEAD/main/origin, python3 webdefensev2.py
+--enable-manual, fuentecorregida, URLs4381/4380/4382, Consolalista3000,
+análisismanualhabilitado/ejecutoresperasolicitudes sin ciclosprogramados.
+Logs.local-state/launcher/20261101T164618Z-9953ad47. Panel: Ejecutoractivo,
+solicitudesmanualeshabilitadas, LLMgroq, botónIniciaranálisisdisponible; último
+trabajovisiblef5b674c86799/manual/succeeded/finished corresponde al anterior.
+DisponibilidadmanualAUTORIZADACOMPLETADAporcapturas; no repetir inicio/botón.
+No resultado de análisisnuevo/validacióncredenciales/coste/cierremanual nuevo
+o suites. PermisoLLM previo consumido, no pulsar botón por esta recepción.
+Siguiente candidato propuesto: parada propiaCtrlC y retornolectura sinflag,
+comprobaradmisiónapagada/ejecutorinactivo, sinmodelo; aún no ejecutado.
+Solo recepción documental local posterior91a101e, sinGitnuevo/servicios/VM
+o pruebasautomáticasporagente. Balizaaplazada y cierre globalpendiente.
+
 V2 01/11: propietario autoriza commit/push y comprobación del modo manual.
 Alcance entrega12archivos:3lanzadoresPython,1archivo5testsaisladospreparados
 sin ejecutar y8documentos/actas (incluyen recepción arranquelectura previo).

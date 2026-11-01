@@ -104,8 +104,29 @@ Para seguimiento o captura independiente de logs, vuelve a iniciar sin
 análisis manual, la captura la coordina el ejecutor al recibir la solicitud.
 
 Desarrollo revisado con sintaxis/ayuda; las regresiones aisladas preparadas
-no se han ejecutado. Primer arranque de este modo y disponibilidad del botón
-pendientes de comprobación en Parrot, sin solicitar un análisis para ello.
+no se han ejecutado. Después, el propietario aporta dos capturas de la entrega
+`91a101e`: Consola lista y ejecutor esperando solicitudes, con V2 mostrando
+Ejecutor activo, solicitudes manuales habilitadas, Groq configurado y botón
+disponible. El último trabajo visible sigue siendo el previo
+`f5b674c86799…`, succeeded/finished. Primer arranque del modo manual y
+disponibilidad del botón completados según capturas, sin resultado de un
+análisis nuevo. No se atribuye por ello validación del proveedor o una parada
+del nuevo ejecutor; no se repite el arranque solo para actualizar el acta.
+
+Recepción posterior del 01/11: el propietario aporta Ctrl+C y «Consola detenida»
+en la sesión manual. El navegador conserva la última lectura y muestra que no
+puede consultar el estado del ejecutor: tras cerrar el backend, esos campos
+no son una comprobación en vivo de su actividad. No hace falta repetir la
+parada. Para completar el retorno, iniciar `python3 webdefensev2.py` sin la
+opción y recargar Resumen; se esperan solicitudes manuales desactivadas,
+ejecutor no disponible y botón inactivo. Esa recepción aún está pendiente.
+
+La captura siguiente completa ese retorno: Ejecutor no disponible, solicitudes
+manuales desactivadas y botón inactivo, conservando Groq configurado y el
+último trabajo anterior. El recorrido básico lectura → manual → parada →
+lectura queda completado por capturas en `91a101e`; no se repite para el acta.
+No constituye análisis nuevo, inspección exhaustiva de procesos del host o
+ejecución de las regresiones aisladas preparadas.
 
 ### Arranque de lectura ya observado
 

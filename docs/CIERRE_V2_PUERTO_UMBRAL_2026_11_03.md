@@ -1,12 +1,141 @@
 # Cierre de Web Defense AI V2 y Puerto Umbral para el 03/11/2026
 
-Estado al 01/11/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
+Estado al 02/11/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
 todavía no aceptado**. El propietario quiere terminar antes del martes 3 de
 noviembre para preparar su publicación en LinkedIn. Confirma expresamente que
 incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el lunes
 2 de noviembre. El calendario es una previsión, no una validación anticipada.
 
-## Punto de partida comprobado
+## Estado vigente de entrega — 02/11
+
+Publicación autorizada después de comprobar el observador: trece archivos
+(observador independiente, cinco pruebas y once Markdown acumulados), con
+`[skip ci]`. Base `91a101e` coincide con remoto tras fetch y staging inicial
+vacío. La identidad será el commit que incluye esta nota y su HEAD remoto se
+verifica al terminar. Se entrega código/actas; medición real F4 no realizada.
+
+El propietario pide priorizar lo realmente necesario y autoriza expresamente
+las cinco pruebas aisladas del lanzador. Resultado local: **5/5 correctas,
+exit 0**, Python 3.11.9/Windows, sin servicios o HTTP reales, Docker, VM o
+modelo. No cambia el código ni se amplía la ejecución después. Acta y propuesta
+manual siguiente: [verificación prioritaria](CIERRE_VERIFICACION_PRIORITARIA_2026_11_02.md).
+Se reciben después los dos recorridos manuales de comandos y la identificación
+previa de imagen/fuente: normal corregido y vulnerable variante 1 con identidad
+del usuario del contenedor, ambos sin timeout y retorno 0. La incidencia
+`Cannot fork` queda corregida y verificada a ese alcance; se conservan los tres
+fallos históricos y no se puntúan variantes 2/3 nuevas. No repetir ese bloque.
+Los demás criterios globales siguen abiertos; operación F3/F4 es la siguiente
+prioridad recomendada, todavía sin ejecutar.
+
+El [resumen de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) es la entrada
+actual para continuar: lanzador conjunto y revisión básica de ambas interfaces
+completados a su alcance; tres bloques técnicos abiertos (funcionamiento y
+regresión, operación ampliada, evaluación F5) más decisión final de aceptación.
+La guía de producto y la auditoría incorporan las recepciones posteriores.
+No se repiten pantallas, arranques o lecturas de conservación ya completados.
+
+Zoom 200 %, exportación y controles exhaustivos quedan sin observar como
+cobertura adicional, sin convertirse automáticamente en cuotas del PRD.
+Baliza tiene fila de historial pero resultado funcional sin recibir; no se
+cuenta como superado ni se pide reejecución. El respaldo de 113 archivos
+mantiene su fecha/selección, anterior a Cargas vulnerable recibido después.
+La consolidación es documental local, sin suites, modelos, servicios o Git.
+
+## Cronología del punto de partida
+
+Las entradas siguientes registran qué se sabía y proponía en cada momento.
+Los pendientes de una entrada antigua se resuelven por sus recepciones
+posteriores; no son instrucciones vigentes de repetición. El resumen del
+02/11 y la tabla de trabajo actualizada al final prevalecen para continuar.
+
+### Revisión básica de ambas interfaces recibida — 01/11
+
+Las capturas de Puerto Umbral muestran cabecera, autoría, controles y lista de
+evidencias legibles en vista estrecha. La indicación «sí se distingue» del
+propietario se interpreta como confirmación del foco solicitado. Con las
+recepciones V2 anteriores se completa el bloque básico de navegación/vista
+estrecha/foco de ambas interfaces a ese alcance. No se repite por el acta.
+No constituye revisión de todos los controles, accesibilidad global, zoom
+200 %, exportación o consulta móvil de recibos individuales. Una fila del
+historial no acredita el resultado funcional del caso; no se añade otro
+resultado F6 por la fila Baliza visible. Siguiente trabajo propuesto:
+consolidación documental y revisión de los pendientes esenciales de entrega,
+sin aceptar automáticamente F0–F7 ni activar pruebas o modelos.
+
+### Revisión básica V2 completada; Puerto Umbral siguiente — 01/11
+
+Cuatro capturas completan el recorrido V2: informe anterior abierto, Amenazas,
+Actividad y Configuración en vista estrecha, con bloques mostrados legibles y
+sin error visible. Se mantienen informe/fechas/origen/antigüedad; no se genera
+evidencia nueva. Con Resumen y la confirmación previa de foco/Escape, se
+completa navegación básica de cinco vistas y ese recorrido de teclado.
+No se atribuyen todos los controles, accesibilidad global, zoom 200 % o
+exportación. Siguiente dentro del bloque acordado: panel Puerto Umbral en
+vista adaptable, cabecera y lista de evidencias, sin ejecutar, restablecer,
+abrir recibos o activar comprobaciones de navegador. Resultado aún pendiente.
+Detalle en [revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md).
+
+### Revisión de producto V2, recepción parcial — 01/11
+
+Firefox Responsive permitió observar el menú a 390 × 844/DPR 1 pese a la
+restricción de redimensionar la ventana en Parrot. El propietario confirma
+foco visible con Tab/Mayús+Tab y cierre con Escape/devolución al botón de menú.
+Otra captura muestra Reportes con menú cerrado: cabecera/autoría legibles,
+catálogo y lectura apilados. El informe aún no está seleccionado; no se
+atribuye lectura de su contenido. Resumen/Reportes observados; navegación de
+las otras tres vistas y revisión de Puerto Umbral pendientes. No repetir
+menú/teclado ya confirmados. Estado detallado en la
+[revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md).
+
+### Retorno a lectura completado por captura — 01/11
+
+La captura posterior muestra Ejecutor no disponible, solicitudes manuales
+desactivadas y botón Iniciar análisis inactivo. Groq sigue configurado y el
+último trabajo visible sigue siendo el previo `f5b674c86799…`, manual,
+succeeded/finished. Queda completado el retorno solicitado a lectura.
+
+Con las recepciones de arranque manual/disponibilidad y Ctrl+C/Consola detenida,
+se completa el recorrido básico **lectura → manual → parada → lectura** de
+`91a101e` dentro del alcance observado. No se repite por documentarlo. No se
+aporta análisis nuevo ni ejecución de las cinco regresiones aisladas, ni se
+atribuye una inspección exhaustiva de procesos del host o aceptación global.
+Las actas nuevas siguen locales; siguiente bloque de producto propuesto:
+navegación, móvil y teclado, sin modelos o escenarios.
+
+### Parada manual informada; retorno a lectura pendiente — 01/11
+
+El propietario sigue la propuesta y aporta `Ctrl+C` en la sesión manual
+`20261101T164618Z-9953ad47`, con salida «Consola detenida». Se recibe la parada
+informada por el supervisor propio, sin solicitar repetirla por un prompt no
+visible ni atribuir una inspección exhaustiva de procesos del host.
+
+La segunda captura del navegador conserva la lectura anterior de ejecutor
+activo/admisión habilitada, pero añade «No se pudo consultar el estado del
+ejecutor». Es coherente con el backend cerrado: no acredita ejecutor activo
+actual ni un arranque nuevo de lectura. La continuación es iniciar
+`python3 webdefensev2.py` sin la opción manual y recargar Resumen. Se esperan
+ejecutor no disponible, solicitudes manuales desactivadas y botón inactivo,
+sin solicitar un análisis. Resultado de ese retorno todavía pendiente.
+
+### Disponibilidad del modo manual observada — 01/11
+
+Dos capturas del propietario muestran la entrega `91a101e` en HEAD/main/origin
+y el inicio con `python3 webdefensev2.py --enable-manual`, fuente corregida,
+direcciones del panel/portales y Consola lista en 3000. Logs mostrados:
+`.local-state/launcher/20261101T164618Z-9953ad47`. La consola indica que el
+ejecutor espera solicitudes, sin ciclos programados. V2 muestra Ejecutor
+activo, solicitudes manuales habilitadas, Groq configurado y botón disponible.
+El último trabajo visible conserva el prefijo `f5b674c86799`, manual,
+succeeded/finished, correspondiente al análisis previo.
+
+La comprobación acordada de disponibilidad queda completada por capturas;
+no se repite el arranque o la revisión del botón por documentarlos. No se
+aporta resultado de un análisis nuevo, autenticación del proveedor, coste,
+parada del nuevo ejecutor o ejecución de las cinco regresiones preparadas.
+Publicación Git verificada; no hay publicación adicional por esta recepción.
+Siguiente comprobación propuesta: cierre propio con Ctrl+C y retorno a lectura
+sin la opción, observando admisión apagada y ejecutor inactivo, sin llamar al
+modelo; aún no realizada. Resto de criterios globales pendientes.
 
 ### Publicación y comprobación de disponibilidad manual autorizadas — 01/11
 
@@ -722,15 +851,15 @@ reescribe los JSON históricos.
 
 | ID | Trabajo | Evidencia necesaria para cerrarlo | Estado |
 | --- | --- | --- | --- |
-| DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | README y diagrama vigente, inicio, instalación, repositorios y plan sincronizados al 31/10; revisión final conjunta pendiente |
+| DOC-01 | Sincronizar README, arquitectura, inicio y plan V2 | Enlaces válidos y distinción entre estado actual e historia | Consolidación del 02/11 enlazada desde README/estado/plan/auditoría; revisión básica de producto recibida y guía actualizada; nueve Markdown/120 referencias locales sin ausencias; revisión final conjunta pendiente |
 | F6-01 | Contrato de auditoría de aplicación y correlación | Actor, recurso, acción, decisión y secuencia; sin claves, tokens o etiquetas esperadas del corpus | Cinco normales, cinco intentos de variante 1 corregida, CSRF de navegador corregido y reutilización corregida leídos y conservados en V2 según capturas; recibo local del normal Cargas observado; criterios ampliados pendientes |
-| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Cinco normales y cinco intentos de variante 1 corregida, CSRF en navegador corregido y reutilización corregida variante 3 observados; otros modos/variantes, aislamiento/regresión y evaluación pendientes |
+| F6-02 | XSS almacenado, IDOR, CSRF, SSRF y permisos de atraque | Modos vulnerable/corregido, controles normales, reset, evidencia HTTP/negocio y prueba de navegador cuando corresponda | Corregidos normales/negativos, CSRF en navegador, reutilización de permiso y comparación Cargas observados; perímetro configurado válido; otros efectos representativos y regresión pendientes; Baliza vulnerable solo tiene fila sin resultado recibido |
 | F7-01 | Ejercicios para configuración, suministro, criptografía, integridad, registro y excepciones | Catálogo con tipo de ejercicio explícito y artefactos ficticios verificables | Once recorridos corregidos/variante 1 con lectura y copias conservadas según capturas; ronda representativa terminada y matriz educativa revisada documentalmente; propuesta de aceptación de ese alcance lista; resto de cobertura/dependencias y aceptación global pendientes |
-| EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Los 45 históricos tienen evidencia/causa; tres comandos y regresión actual siguen pendientes en F2/F6; no se exige repetir45 solo por F5-AC1 |
+| EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Los 45 históricos tienen evidencia/causa; corrección de comandos verificada en normal corregido y vulnerable variante 1 del 02/11; variantes 2/3 históricas preservadas sin nueva ejecución; regresión global F2/F6 pendiente; no repetir45 por F5-AC1 |
 | EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Métricas sin medir: bloqueo F5-AC2, requiere evaluación autorizada o decisión expresa que cambie alcance; permiso Groq anterior consumido |
 | OPS-01 | Condiciones ampliadas F4 y regresión de aislamiento | Observaciones reproducibles de rotación, truncado, fallo, cuotas y ausencia de actividad automática | Perímetro actual válido/14 contenedores y preflight de cierre posterior al respaldo recibidos; cierre básico acreditado a ese alcance, discontinuidad/latencia y regresión ampliadas pendientes |
-| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Resumen redistribuido/publicado y observado en Parrot a 60 %; desplazamiento a 100 % informado, legibilidad prioritaria; móvil, teclado y exportación pendientes |
-| DOC-02 | Revisar documentación completa de V2 con el propietario | README/manual/estado/catálogo/actas coherentes y enlaces comprobados | Después de terminar el laboratorio |
+| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Bloque básico de ambas interfaces completado a su alcance; zoom 200 %, exportación y consultas adicionales sin observar como cobertura adicional, no nuevas cuotas de salida |
+| DOC-02 | Revisar documentación completa de V2 con el propietario | README/manual/estado/catálogo/actas coherentes y enlaces comprobados | Consolidación documental del 02/11 preparada; revisión final conjunta pendiente, sin dar por aceptados criterios técnicos abiertos |
 | ACC-01 | Decisión de cierre y alcance de comunicación | Criterios F0–F7 revisados expresamente, limitaciones pendientes visibles | No aceptado |
 
 F6 y F7 pueden prepararse en código sin declarar superado su requisito de

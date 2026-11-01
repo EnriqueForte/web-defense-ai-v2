@@ -137,7 +137,10 @@ separado declara 99 entradas; no equivale a 99 casos superados ni modifica el
 histórico base de 45. La [auditoría de cierre](docs/PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
 separa evidencias completadas, requisitos pendientes y cobertura adicional.
 La [revisión de producto](docs/PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md)
-prepara la comprobación manual de navegación, móvil y teclado.
+registra la navegación básica, vista estrecha y foco de ambas interfaces,
+completados a su alcance. El
+[resumen de entrega del 02/11](docs/PUERTO_UMBRAL_ENTREGA_2026_11_02.md)
+concentra lo acreditado, los pendientes esenciales y la cobertura adicional.
 La aceptación global de Puerto Umbral y la detección completa de las diez
 categorías OWASP siguen sin acreditarse.
 

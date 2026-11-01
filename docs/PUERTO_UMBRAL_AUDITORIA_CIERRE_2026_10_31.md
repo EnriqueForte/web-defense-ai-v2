@@ -1,26 +1,44 @@
 # Puerto Umbral integrado en V2 — auditoría de pendientes de cierre
 
-**Prioridad actual:** el propietario aplaza Baliza por bloqueo del chat y pide
-seguir con otro trabajo. No hay ejecución ni resultado nuevo de ese caso.
-Se continúa con documentación y [revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md),
-sin escenarios o modelos. Las dependencias funcionales permanecen explícitas;
-no se aceptan como cumplidas por cambiar el orden de trabajo.
+**Estado consolidado al 02/11:** el lanzador conjunto y la revisión básica de
+ambas interfaces ya cuentan con recepción posterior en Parrot. No se repiten
+estos recorridos para cerrar actas. El
+[resumen de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) distingue tres bloques
+técnicos abiertos —funcionamiento/regresión, operación y evaluación— de la
+decisión final de aceptación y de la cobertura adicional.
 
-**Último resultado, 31/10:** Cargas F6 vulnerable, Intento, variante 1,
+Recepción posterior del 02/11: cinco regresiones aisladas del lanzador
+ejecutadas con permiso explícito, **5/5 correctas, exit 0**, Windows/Python
+3.11.9; procesos/HTTP simulados, sin modelo. La
+[verificación prioritaria](CIERRE_VERIFICACION_PRIORITARIA_2026_11_02.md)
+registra alcance y los dos recorridos manuales posteriores de comandos,
+completados por capturas: normal corregido y vulnerable representativo de
+variante 1 con efecto real, sin `Cannot fork`, timeout o retorno distinto de 0.
+No se amplía la suite ni se acepta toda la regresión por este resultado.
+
+Baliza vulnerable mantiene su resultado funcional sin recibir. El historial
+estrecho del 01/11 incluye el prefijo `525a2076b8ae`, pero no HTTP, efecto o
+recibo evaluable. No se concluye que nunca se ejecutó ni se cuenta como
+aprobado. El recorrido aplazado por el propietario no se reejecuta o reformula
+para eludir el bloqueo comunicado.
+
+**Último resultado funcional F6 recibido, 31/10:** Cargas vulnerable, Intento, variante 1,
 completado por capturas: acceso al señuelo `foreign-1` de otro propietario,
 regla V2 observada y copia conservada sin análisis. Run
 `176266c5fd701ecdfa637ba14f0d6a34`, HTTP 200, 2 eventos, SHA de auditoría
 `2956f103989b75c515c0320b871eb2558cb5b93f425bd6d4b3b2db4cbc6d38d2`.
 Comparación puntual con rechazo corregido previo completada, sin aceptación F6
-global o métricas del modelo. No repetir caso/copia. Baliza vulnerable queda
-aplazada por la indicación posterior del propietario, sin ejecución.
+global o métricas del modelo. No repetir caso/copia.
 
 **Respaldo previo, 31/10:** respaldo actualizado del perfil completado según
 salida del propietario: 113 archivos, `verified: true`, `missing: []`, destino
 `.local-backups/operational-20261031T201154664036Z`. La restauración independiente
 adicional sigue aplazada; las propuestas anteriores no autorizan ejecutarla.
+El respaldo precede al recorrido Cargas vulnerable recibido después; no se
+presenta como copia de todas las evidencias posteriores.
 
-Fecha: 31/10/2026, Europe/Madrid. Revisión de código, documentación y evidencias
+Revisión inicial: 31/10/2026; consolidación: 02/11/2026, Europe/Madrid.
+Revisión de código, documentación y evidencias
 ya registradas, con recepción posterior de lecturas y respaldo manuales del
 propietario. **El agente no accede a Parrot ni inicia escenarios, modelos,
 suites o aceptación de fases.** El alcance solicitado sigue siendo
@@ -58,6 +76,7 @@ un documento antiguo. «No observado» no significa «fallido» o «obligatorio�
 | Respaldo/restauración básica | 66 archivos, sin faltantes, SQLite y publicación verificados en recuperación aislada del perfil | No cubre por sí solo auditorías creadas después; no es recuperación de toda la VM |
 | F6 corregida y comparación Cargas | Cinco normales, cinco intentos de variante 1, formulario CSRF en navegador y reutilización de permiso corregidos; Cargas vulnerable variante 1 con efecto observado; lectura y conservación V2 informadas | Comparación Cargas acreditada a su alcance; otros efectos avanzados y regresión del MVP pendientes |
 | F7 representativa | Once recorridos corregidos/variante 1 con lectura y conservación V2 informadas; matriz de objetivos/evidencias/límites preparada | No es 54/54, evaluación del detector o validación de todas las categorías |
+| Lanzador y producto, 01/11 | Lectura → manual disponible → parada → lectura; navegación básica de cinco vistas V2, informe anterior abierto, ambas interfaces en vista estrecha y foco confirmado a su alcance | No nuevo análisis, suite ejecutada, revisión exhaustiva de controles o accesibilidad global; detalle en la revisión de producto |
 
 ## Cinco grupos de trabajo y estado actualizado
 
@@ -65,46 +84,48 @@ Son grupos de cierre, **no cinco pruebas ni autorizaciones para ejecutarlas**.
 
 | ID | Grupo | Qué falta realmente | Qué no se añade como requisito |
 | --- | --- | --- | --- |
-| C-01 | Funcionamiento, límites y regresión F2/F6 | Tratar la incidencia de comandos y observar efectos avanzados con identidad/estado cuando correspondan; verificar límites efectivos y una regresión justificada por cambios | No repetir los normales completados ni ejecutar 99 entradas solo por existir en el catálogo |
-| C-02 | Operación F3/F4 | Salud ante fuente inválida/discontinuidad, latencia requerida o desviación revisada, no duplicación/trabajos y cierre de procesos propios; compatibilidad de perfiles | No confundir el cierre del backend con desconexión de la fuente; no exigir todas las interrupciones imaginables |
+| C-01 | Funcionamiento, límites y regresión F2/F6 | Corrección de comandos verificada en recorrido representativo; efectos avanzados distintos, límites funcionales afectados y regresión justificada siguen pendientes | No repetir los dos recorridos de comandos o los normales completados ni ejecutar 99 entradas solo por existir en el catálogo |
+| C-02 | Operación F3/F4 | Salud ante fuente inválida/discontinuidad, latencia requerida o desviación revisada, no duplicación/trabajos y regresión de perfiles | El ciclo básico de cierre/retorno a lectura está recibido; no confundir el cierre del backend con desconexión de la fuente ni exigir todas las interrupciones imaginables |
 | C-03 | Evaluación y alcance F5 | Medir objetivos del detector con un plan autorizado, o preparar una decisión expresa que cambie el alcance de entrega y deje esa evaluación pendiente | No transformar cuatro grupos del informe en cuatro aciertos de corpus; no iniciar otro Groq con el permiso consumido |
-| C-04 | Conservación de evidencias nuevas | Completado el respaldo del perfil seleccionado con verificación interna: 113 archivos, sin faltantes, después de confirmar selección de auditorías y hash puntual | Restauración independiente adicional aplazada; originales bajo `labs/` fuera de este perfil; no atribuir recuperación de toda la VM |
-| C-05 | Producto, documentación y aceptación | Revisión móvil/teclado y recorridos de lectura/exportación; documentación vigente, matriz y decisión explícita de entrega | No crear una release, publicar LinkedIn o desplegar el backend en Sites por cerrar documentación |
+| C-04 | Conservación de evidencias | Respaldo del perfil seleccionado del 31/10 con verificación interna: 113 archivos, sin faltantes; selección de auditorías y hash puntual recibidos | No cubre automáticamente Cargas vulnerable o evidencias posteriores; restauración adicional aplazada; originales bajo `labs/` fuera del perfil; no recuperación de toda la VM |
+| C-05 | Producto, documentación y aceptación | Revisión básica de ambas interfaces completada; documentación consolidada; revisión final del propietario y decisión de entrega pendientes | Zoom 200 %, exportación y revisión exhaustiva siguen sin observarse, sin convertirse en cuotas nuevas del PRD; no crear release o publicar LinkedIn por cerrar documentación |
 
 ## Matriz de los criterios que condicionan el MVP y F6
 
 Los estados siguientes son dictámenes de esta revisión de evidencia, no una
 aceptación del propietario o resultado de pruebas nuevas.
 
-| Criterio PRD | Evidencia y dictamen al 31/10 | Trabajo mínimo pendiente o decisión |
+| Criterio PRD | Evidencia y dictamen al 02/11 | Trabajo mínimo pendiente o decisión |
 | --- | --- | --- |
-| F2-AC1: efecto vulnerable, corrección y uso benigno | Históricos 42/45; comparaciones manuales parciales; tres comandos vulnerables históricos no demostraron efecto | La fuente ya elimina `RLIMIT_NPROC` por UID y mantiene techo cgroup, pero su efecto no se comprobó tras la corrección; resolver esa incidencia funcional sin convertir una revisión de código en prueba |
-| F2-AC2: efecto demostrado, no solo HTTP 200 | SQL/traversal y marcador XSS de variante 1 observados; comandos históricos tienen causa explícita | La validación representativa pendiente debe mirar efecto/estado, no únicamente HTTP |
+| F2-AC1: efecto vulnerable, corrección y uso benigno | Históricos 42/45 preservados; el 02/11 se identifica la fuente corregida en imagen y pasan normal corregido y vulnerable variante 1, con salida real/retorno 0 y sin `Cannot fork` | Incidencia verificada como corregida en el recorrido representativo; no repetirlo ni cambiar a superadas las variantes 2/3 históricas sin reejecución; aceptación y regresión globales siguen separadas |
+| F2-AC2: efecto demostrado, no solo HTTP 200 | SQL/traversal, marcador XSS y ahora comandos vulnerable variante 1 con identidad `uid=10001(umbral)` observados | El efecto de este recorrido de comandos está acreditado por cuerpo real, sin puntuar todo el corpus o detector |
 | F2-AC3: reset conserva evidencia y separa perfiles | Recibos anteriores visibles mientras se ejecutan nuevos casos; separación implementada | Cotejo acotado de conservación y separación efectiva de datos/perfiles en la versión final |
 | F2-AC4: límites XSS/traversal/comandos | Contratos revisados, verificaciones iniciales F2 y después inspección agregada válida de 14 contenedores/red frontal aportada por el propietario | Perímetro configurado actual observado mediante inspector; los límites funcionales afectados y regresión siguen pendientes, sin solicitar destinos ajenos |
 | F3-AC1: petición/snapshot con línea y hash | Captura y lectura observadas; revisión offline de snapshots y hashes históricos | Recorrido básico acreditado; no repetir para documentarlo |
 | F3-AC2: trabajo consume snapshot identificado y publica referencias | Un análisis identificado y su informe visible completados | Recorrido básico acreditado; no repetir el modelo |
 | F3-AC3: ausencia/corrupción/antigüedad no se muestra como ausencia de ataques | Captura antigua y fuentes incompletas visibles; tratamiento de publicación ausente/corrupta revisado en código | Verificación negativa acotada de las ramas no observadas, sin sobrescribir evidencia válida |
 | F3-AC4: pilot/legacy conservan comportamiento y datos | Código y contratos compatibles revisados; rondas nuevas usaron el perfil Puerto Umbral | Regresión de perfiles con alcance concreto; instalar o arrancar Puerto no la acredita |
-| F4-AC1: veinte ciclos cumplen objetivo de diez segundos o desviación revisada | Contadores de 26 ciclos y últimas latencias visibles; no veinte muestras individuales | Obtener medición adecuada **o documentar y revisar expresamente la desviación**, como permite el PRD; no afirmar cumplimiento a partir del contador |
-| F4-AC2: sin cambios no duplica eventos ni crea trabajos | Snapshots reutilizados y contadores estables observados | Cotejo de archivos/trabajos para cerrar el criterio completo |
-| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error de red al cerrar V2 y reapertura sin auto-resume observados | Falta comportamiento de la fuente ante discontinuidad/rotación; cierre de V2 no sustituye esa evidencia |
-| F4-AC4: pausa/parada sin ciclos o procesos propios huérfanos | Secuencia básica completa, propietario de procesos revisado y preflight actual del 31/10 sin bloqueadores observado | Cierre básico y comprobaciones de puertos/locks/contenedores acreditados a ese alcance; no implica inspección exhaustiva de procesos del host o todas las interrupciones; no repetir la secuencia |
-| F4-AC5: seguimiento sin LLM ni notificaciones | Separación arquitectónica y flujo básico revisados | Preservar esa separación y corroborarla en el cotejo de trabajos; no se necesita iniciar un modelo para probar ausencia de consumo |
+| F4-AC1: veinte ciclos cumplen objetivo de diez segundos o desviación revisada | Historial conserva últimas duraciones, no veinte muestras; observador preparado con cinco pruebas aisladas autorizadas y correctas, sin medición Parrot todavía | Obtener medición y revisar su alcance: el observador conserva cota de disponibilidad API, no paint del navegador; RNF-09/desviación requieren revisión expresa; no afirmar cumplimiento a partir del contador |
+| F4-AC2: sin cambios no duplica eventos ni crea trabajos | Contadores de sesiones conservadas respaldan reutilización; lectura SQLite del 02/11 muestra un único trabajo posterior a las dos sesiones cerradas y cero entregas | Relación temporal corroborada para esas dos sesiones con registros conservados; no equivale a deduplicación exhaustiva de archivos/eventos; tercera sesión guardada sin fin requiere consultar estado actual |
+| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error de red al cerrar V2 y reapertura sin auto-resume; API actual del 02/11 confirma interrupted/process_interrupted, sesión inactiva y checkpoint antiguo conservado | Interrupción de proceso visible corroborada; sigue pendiente comportamiento de la fuente ante discontinuidad/rotación; el checkpoint histórico no prueba salud actual de la pasarela |
+| F4-AC4: pausa/parada sin ciclos o procesos propios huérfanos | Secuencia básica completa, supervisor revisado, preflight del 31/10 sin bloqueadores y ciclo del lanzador conjunto lectura/manual/parada/lectura del 01/11 recibidos | Cierre básico y comprobaciones de puertos/locks/contenedores acreditados a ese alcance; no implica inspección exhaustiva del host, cierre durante un trabajo activo o suite de regresión ejecutada; no repetir la secuencia básica |
+| F4-AC5: seguimiento sin LLM ni notificaciones | Separación arquitectónica; ningún trabajo conservado coincide con las dos sesiones cerradas del 27/10; cero entregas registradas en SQLite el 02/11 | Corroboración acotada de trabajos/entregas conservados, sin inferir una auditoría del proveedor; tercera sesión sin fin no permite cerrar su intervalo; no iniciar un modelo para comprobarlo |
 | F5-AC1: 45 resultados/evidencias o causa de fallo | Los 45 históricos tienen registro y causa, incluidos los tres fallos | **Registro histórico cubierto** en su alcance; el criterio no exige por sí solo otra ejecución completa de 45. Esto no resuelve F2-AC1 o regresión de la versión actual |
 | F5-AC2: objetivos de detección o decisión expresa de alcance | Objetivos 27/30 intentos, 5/6 por familia y cero falsas alarmas entre 15 benignos siguen sin medir | Bloqueo de aceptación: evaluación propia autorizada o decisión expresa documentada sobre cambio de alcance; una entrega no evaluada no cumple los objetivos originales por renombrarla |
 | F5-AC3: separar intento, bloqueo, efecto y evidencia insuficiente | Actas, informe y matriz educativa distinguen estas clases | Conservar el criterio en la revisión editorial final; no exige repetir casos ya observados |
 | F5-AC4: instalación/cierre en plataforma objetivo | Instalación V2 previa, actualización/build/arranque/cierre del laboratorio en Parrot documentados | Acreditado para instalación existente y recorridos observados; no exigir reinstalar de cero por este criterio ni certificar otras plataformas nuevas |
-| F5-AC5: originales, presupuesto y límites conservados | Archivos históricos revisados, consumo del único análisis registrado, recuperación aislada de 66 archivos y posterior respaldo actualizado de 113 archivos con verificación interna observados | Conservación básica del perfil seleccionado acreditada según herramientas; originales `labs/` separados y restauración adicional aplazada; mantener límites y coste real no medido |
+| F5-AC5: originales, presupuesto y límites conservados | Archivos históricos revisados, consumo del único análisis registrado, recuperación aislada de 66 archivos y posterior respaldo de 113 archivos con verificación interna observados | Conservación acreditada para las selecciones y fechas correspondientes, sin extenderla automáticamente a evidencia posterior; originales `labs/` separados y restauración adicional aplazada; coste real no medido |
 | F6-AC1: acceso indebido con identidad/recurso/política | Lecturas propias permitidas y ajenas rechazadas; Cargas vulnerable variante 1 devuelve el recurso ajeno y V2 lo registra/conserva según capturas; aprobaciones y consumo corregidos observados | Comparación puntual Cargas completada; otros efectos avanzados vulnerables y regresión siguen pendientes |
-| F6-AC2: SSRF confinada al señuelo | Lectura pública y rechazo de recurso interno corregidos; Unix HTTP sin DNS/IP en código; inspección posterior con `valid=True`, 14 contenedores y targets sin red IP | Perímetro configurado actual observado según inspector del propietario; efecto interno vulnerable todavía pendiente de caso autorizado; no hace falta probar Internet o host |
+| F6-AC2: SSRF confinada al señuelo | Lectura pública y rechazo de recurso interno corregidos; Unix HTTP sin DNS/IP en código; inspección con `valid=True`, 14 contenedores y targets sin red IP; fila vulnerable en historial sin resultado funcional | Perímetro configurado observado; efecto vulnerable sin evidencia recibida y recorrido aplazado; no se solicita repetirlo, probar Internet o host |
 | F6-AC3: CSRF entre orígenes sin afectar al control | Formulario normal aceptado y cruzado rechazado en navegador corregido observados | Efecto vulnerable y separación del control aún sin observar; no repetir el recorrido corregido |
 | F6-AC4: detector sin etiquetas/veredictos esperados | Separación catálogo/contrato/lector en código, observaciones V2 sobre campos de negocio; fuente distinta del informe LLM | Revisión acotada del lote/recibo real si se exige comprobación operativa completa; no requiere nuevas llamadas LLM para revisar el contrato |
 | F6-AC5: positivos/negativos y regresión | Negativos corregidos y normales observados; positivo Cargas vulnerable variante 1 con efecto, regla y conservación observados; corpus base conservado | Otros positivos representativos y regresión justificada pendientes; no interpretar tres variantes declaradas como una orden de 99 ejecuciones |
 
-F1 ya registra vistas adaptables 390/768/1440 sin desbordamiento en las pantallas
-comprobadas; no se borra esa evidencia. F1-AC3 conserva la revisión del propietario,
-incluido teclado, y no certifica por sí sola la interfaz local posterior. La matriz F7
+F1 ya registra vistas adaptables 390/768/1440 en las pantallas del prototipo
+comprobadas; no se borra esa evidencia. La interfaz local posterior cuenta ahora
+con revisión básica del propietario en vista estrecha y teclado a su alcance,
+según el acta de producto; no es accesibilidad global o aprobación final F0–F7.
+La matriz F7
 prepara sus tres criterios educativos, sin borrar la dependencia de F6 ni las
 validaciones reales F4–F5 relacionadas con operación/avisos.
 
@@ -129,28 +150,41 @@ decisión no equivale a conformidad.
 
 ## Orden recomendado para continuar
 
-1. Revisar con el propietario esta matriz y la propuesta educativa F7.
-2. El propietario autoriza después la lectura manual del estado/perímetro
-   actual de Parrot. Se guía primero la inspección existente descrita debajo,
-   sin ejecutar casos, activar seguimiento o llamar al modelo. Una captura
-   posterior acredita salida agregada válida; la lectura posterior de recibos
-   sigue formando parte del trabajo de conservación.
-3. Preparar el bloque funcional y operativo mínimo que cierre los criterios
-   abiertos, con número y acciones concretas antes de nuevas ejecuciones;
-   mantener separada cualquier decisión de evaluación/alcance F5.
-4. Verificar conservación de las evidencias nuevas y completar móvil/teclado,
-   revisión editorial y decisión de entrega.
+1. Usar el resumen de entrega como estado vigente. Inspección de perímetro,
+   recibo/hash/listado/respaldo y revisión básica de interfaces ya recibidos
+   no se reabren por sus instrucciones históricas.
+2. Continuar por operación F3/F4, con alcance concreto antes de nuevas
+   sesiones o cambios de fuente. Las cinco regresiones aisladas y el bloque
+   representativo de comandos están completados a su alcance; no repetirlos.
+   El resto del plan funcional/operativo se vincula a criterios abiertos sin
+   extender las autorizaciones anteriores a otra suite o al modelo.
+3. Resolver separadamente el plan de evaluación/presupuesto F5 o una decisión
+   expresa de alcance; el objetivo completo sigue vigente mientras no se decida.
+4. Revisar con el propietario resultados, matriz educativa F7 y documentación
+   V2 para la decisión final de entrega. Conservación se declara por selección
+   y fecha; no se añade una nueva restauración independiente aplazada.
 
 El README y las guías vigentes se sincronizan con las observaciones actuales.
 Los JSON históricos y las actas de su momento se conservan; sus enlaces de
 actualización remiten aquí. No se ha publicado Git, creado release o alterado
 datos operativos por esta revisión documental.
 
-Comprobación documental del paquete: 12 Markdown, 147 referencias locales sin
+Comprobación documental inicial del paquete: 12 Markdown, 147 referencias locales sin
 ausencias, `git diff --check` correcto y ningún JSON histórico modificado.
 Es verificación de documentación, no una prueba funcional de la aplicación.
 
-## Lectura manual autorizada del perímetro actual
+Consolidación del 02/11: nueve Markdown modificados/nuevos, 120 referencias
+locales comprobadas sin ausencias; sin cambios en código de aplicación,
+corpus JSON o datos operativos. Esta revisión es local y no publica Git.
+
+## Cronología de lecturas y conservación recibidas
+
+Las secciones siguientes conservan la preparación y recepción de cada paso
+desde el 31/10. Sus propuestas pendientes se resuelven por las recepciones
+posteriores; no son una lista actual de acciones por repetir. Para el estado
+vigente se usan las tablas anteriores y el resumen de entrega del 02/11.
+
+### Lectura manual autorizada del perímetro
 
 En una segunda terminal de Parrot, desde la raíz del repositorio y sin cerrar
 el lanzador actual, se guía el comando existente:

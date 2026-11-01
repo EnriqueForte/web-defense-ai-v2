@@ -1,6 +1,91 @@
 # Puerto Umbral — estado consolidado y cierre de la ronda manual
 
-Fecha: 26/10/2026, Europe/Madrid.
+Creado el 26/10/2026; consolidación vigente al 02/11/2026, Europe/Madrid.
+
+## Estado vigente y lectura de esta cronología
+
+Comandos, recepción posterior del 02/11: fuente identificada en los dos
+contenedores y bloque de dos recorridos manuales completado. Normal corregido
+`0e78b2e1bd2dc4bd48ec28aa6d8cd2e6` y vulnerable variante 1
+`d2bf894ca4914ef4a7c3b43e7d97a445`, HTTP 200, salida real, sin timeout,
+retorno 0; el vulnerable muestra `uid=10001(umbral)`. La incidencia
+`Cannot fork` está verificada como corregida para ese recorrido representativo,
+sin modificar los tres fallos históricos o repetir los casos. V2 no consultado;
+no métricas de detector o aceptación global. Operación F3/F4 es el siguiente
+bloque recomendado, aún sin ejecutar.
+
+Verificación prioritaria posterior del 02/11: el propietario autoriza las
+cinco regresiones aisladas del lanzador y pasan **5/5, exit 0**, con Python
+3.11.9 en Windows y procesos/HTTP simulados, sin servicios, VM o modelo.
+Ejecución y propuesta siguiente para la incidencia de comandos en el
+[acta prioritaria](CIERRE_VERIFICACION_PRIORITARIA_2026_11_02.md). No completa
+la regresión global ni autoriza otros casos o suites.
+
+Consultar primero el [resumen de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md):
+arranque conjunto, ciclo básico manual/lectura y revisión básica de ambas
+interfaces completados; funcionamiento/regresión, operación ampliada,
+evaluación del detector y aceptación final siguen abiertos. La revisión
+documental distingue esos requisitos de la cobertura adicional UX/F7.
+
+Las recepciones siguientes conservan la historia de cada paso. Un «pendiente»
+antiguo se resuelve por su resultado posterior, no pide repetir comprobaciones.
+Baliza vulnerable tiene fila de historial sin resultado funcional recibido.
+El respaldo de 113 archivos precede a la recepción de Cargas vulnerable y no
+se presenta como copia de toda evidencia posterior. Consolidación local,
+sin nueva publicación Git ni pruebas.
+
+## Revisión básica de interfaces recibida — 01/11
+
+Puerto Umbral aporta cabecera/formulario/lista legibles en vista estrecha y
+confirmación «sí se distingue», interpretada como foco visible. Con V2 previo
+queda completado el bloque básico de ambas interfaces a ese alcance, sin
+repetirlo por documentación. No acredita todos los controles, accesibilidad
+global, zoom 200 %, exportación o consulta de recibos individuales. El historial
+incluye una fila Baliza vulnerable sin resultado funcional aportado: no se
+contabiliza como caso aprobado ni se pide repetirlo. Criterios globales y
+pendientes esenciales de entrega continúan en el plan; actas nuevas locales.
+
+## Revisión básica V2 recibida — 01/11
+
+Capturas del informe anterior abierto, Amenazas, Actividad y Configuración
+en vista estrecha completan el recorrido de cinco vistas con Resumen previo.
+El propietario ya confirmó foco Tab/Mayús+Tab y Escape/devolución en menú.
+Bloques mostrados legibles, informe/origen/fechas conservados y captura antigua
+identificada como tal, sin análisis nuevo. Revisión básica V2 completada a ese
+alcance; no todos los controles o accesibilidad global. Sigue el panel Puerto
+Umbral en lectura visual, sin escenarios o recibos con iframe. Zoom 200 % y
+exportación conservan sus pendientes. Actas locales, sin Git nuevo.
+
+## Recorrido básico del lanzador completado — 01/11
+
+Tras la parada informada, una captura muestra Ejecutor no disponible,
+solicitudes manuales desactivadas y botón inactivo; Groq y el trabajo anterior
+se conservan en la vista. Retorno a lectura completado. Se completa con ello
+lectura → manual → parada → lectura en `91a101e`, según capturas del propietario.
+No se repite el flujo ni el análisis anterior para documentar. Sin nuevos
+resultados del modelo o suites ejecutadas; móvil/teclado y criterios globales
+pendientes. Recepción documental local, sin publicación Git nueva.
+
+## Parada del modo manual recibida — 01/11
+
+Captura de Ctrl+C muestra «Consola detenida» para la sesión manual ya registrada.
+El navegador mantiene la última lectura pero informa que no pudo consultar
+el estado del ejecutor; ese dato anterior no acredita que siga activo. No se
+recibe aún la vuelta a lectura. Continuar con `python3 webdefensev2.py` sin
+`--enable-manual` y recargar Resumen, esperando solicitudes desactivadas,
+ejecutor no disponible y botón inactivo. No repetir la parada ni ejecutar
+análisis para esta comprobación. Solo recepción documental local.
+
+## Modo manual disponible en Parrot — 01/11
+
+Capturas de `91a101e` y `python3 webdefensev2.py --enable-manual`: fuente
+corregida, URLs del conjunto y Consola lista; el panel muestra Ejecutor activo,
+solicitudes manuales habilitadas, Groq configurado y botón Iniciar análisis
+disponible. Último trabajo visible: `f5b674c86799…`, manual/succeeded/finished,
+el anterior. Disponibilidad del modo manual completada a ese alcance; no se
+aporta análisis nuevo ni cierre del nuevo ejecutor. No repetir el arranque o
+botón para documentarlo. Parada y retorno a lectura propuestos, sin ejecutar;
+regresiones y criterios globales siguen pendientes. Solo actas locales nuevas.
 
 ## Activación manual opcional desarrollada — 01/11
 
