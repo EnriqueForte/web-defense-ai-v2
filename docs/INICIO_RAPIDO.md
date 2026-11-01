@@ -89,16 +89,51 @@ está abierta se indicará como impedimento para iniciar otra instancia.
 
 ## Configuración y análisis
 
+### V2 y Puerto Umbral con una sola entrada
+
+Con la instalación anterior preparada y Docker/Compose disponible, ejecuta:
+
+```bash
+python3 webdefensev2.py
+```
+
+En Windows: `py webdefensev2.py`. No hace falta escribir los argumentos de
+arranque conjunto: la entrada selecciona `structured`, incluye Puerto Umbral
+y usa su fuente `corrected` por defecto. Inicia Flask/Next, el panel y los
+servicios propios del laboratorio mediante el supervisor existente.
+
+| Acción | Comando en Parrot/Linux |
+| --- | --- |
+| Iniciar ambas apps | `python3 webdefensev2.py` |
+| Comprobar requisitos sin iniciar | `python3 webdefensev2.py check` |
+| Preparar la instalación | `python3 webdefensev2.py install` |
+| Elegir la fuente vulnerable en V2 | `python3 webdefensev2.py --lab-mode vulnerable` |
+| Consultar opciones | `python3 webdefensev2.py --help` |
+
+`install` conserva el alcance del instalador existente; no instala Docker
+automáticamente. `--lab-mode` se admite en inicio/comprobación, no en instalación.
+Los portales vulnerable y corregido se preparan en ambos casos; la opción
+elige la fuente que lee V2. No modifica el selector del panel ni convierte
+el arranque en una ejecución de casos o análisis.
+
+V2: **http://127.0.0.1:3000**. Panel: **http://127.0.0.1:4381**. Mantén la
+terminal abierta; **Ctrl+C cierra los servicios propios de ambas aplicaciones
+y conserva los datos**. Una instancia previa ocupando los puertos impide
+abrir otra; ciérrala desde su terminal. El [manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md)
+conserva las direcciones y opciones detalladas.
+
+### Proveedor y fuentes
+
 La primera lectura puede mostrar «Fuentes incompletas»: el clon no incluye logs
 ni informes del mantenedor. Configura tu proveedor en Configuración y prepara tu
 fuente de logs siguiendo la [guía completa](INSTALACION_AUTOALOJADA.md).
 Docker con Compose es requisito adicional para los laboratorios locales DVWA
 o Puerto Umbral; no se necesita para consultar la consola V2 por sí sola.
 
-Este lanzador inicia la consola de lectura con perfil pilot, solicitudes manuales
+El arranque solo de V2 con `webdefense.py` inicia lectura con perfil pilot, solicitudes manuales
 deshabilitadas y destinos de notificación vacíos; no arranca el worker. El arranque
 operativo del análisis sigue el procedimiento explícito de la guía completa.
-El modo de informes predeterminado es legacy; para leer publicaciones structured:
+En `webdefense.py` el modo de informes predeterminado es legacy; para leer publicaciones structured:
 `python3 webdefense.py start --mode structured`. Esto no habilita análisis.
 
 Las pruebas completas Python/SDK/UI son verificaciones de desarrollo y CI;

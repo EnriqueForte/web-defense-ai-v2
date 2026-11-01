@@ -4,11 +4,18 @@ Para usuarios nuevos, consulta [Inicio rápido](INICIO_RAPIDO.md): instalación
 con `webdefense.py install` y arranque en una terminal con `webdefense.py start`.
 Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado.
 
+Para iniciar V2 junto con Puerto Umbral, la entrada simplificada es
+`python3 webdefensev2.py` (Windows: `py webdefensev2.py`), tras preparar la
+instalación y Docker/Compose. Selecciona informes `structured` y fuente
+`corrected`; admite `--lab-mode vulnerable` para elegir esa otra fuente en V2.
+También ofrece `install`, `check` y `--help`, delegando en los procedimientos
+existentes. No sustituye la instalación de Docker ni ejecuta escenarios o modelos.
+
 El código se distribuye públicamente bajo MIT, con instalaciones y
 credenciales propias. Consulta la [apertura verificada en GitHub](DISTRIBUCION_PUBLICA.md).
 El alcance de ejecución sigue siendo local, con consola y laboratorio aislados.
 
-Actualización documental: **31/10/2026**. El
+Actualización documental: **01/11/2026**. El
 [estado actual V2/Puerto Umbral](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) separa
 desarrollo, recorridos observados y criterios pendientes. El
 [resumen de la entrega anterior](ESTADO_FINAL_2026_10_12.md) conserva sus pruebas

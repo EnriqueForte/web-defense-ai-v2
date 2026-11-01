@@ -2,6 +2,29 @@
 
 Fecha: 26/10/2026, Europe/Madrid.
 
+## Entrada simplificada para ambas apps — 01/11
+
+Se desarrolla `webdefensev2.py` por petición del propietario. Comando habitual:
+`python3 webdefensev2.py`; usa el lanzador existente con informes `structured`,
+Puerto Umbral incluido y fuente V2 `corrected` por defecto. Admite `start`,
+`check`, `install`, `--help` y `--lab-mode vulnerable`; preserva las
+comprobaciones y el supervisor con cierre conjunto por `Ctrl+C`.
+Sintaxis de ambos archivos Python modificados revisada con AST y ayuda CLI
+exit 0, sin iniciar servicios, preflight, instalaciones, suites o modelos.
+Primer arranque de esta entrada en Parrot aún no observado; no se extrapola
+del arranque anterior con argumentos explícitos. Documentación de uso actualizada;
+cambios locales posteriores a `cd6b34d`, sin publicación Git nueva.
+
+## Recepción visual posterior al cambio — 31/10
+
+Entrega `cd6b34d` publicada y verificada contra `origin/main`. La captura del
+propietario muestra el nuevo Resumen en Parrot a zoom 60 %, aprovechando el
+ancho y distribuyendo los bloques en paralelo. Informa desplazamiento vertical
+a 100 % y prioriza la legibilidad de los datos. Se recomienda mantener el
+diseño actual y usar 100 % con desplazamiento natural; no se fuerza el encaje
+mediante más compactación. Sin nuevo cambio frontend o compilación por esta
+recepción. No acredita móvil/teclado ni encaje sin scroll a 100 %.
+
 ## Distribución del Resumen V2 implementada — 31/10
 
 El propietario aporta capturas de escritorio y autoriza una distribución que

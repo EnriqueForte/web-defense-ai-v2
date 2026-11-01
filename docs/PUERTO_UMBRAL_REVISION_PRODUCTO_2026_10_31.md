@@ -1,9 +1,38 @@
 # V2 y Puerto Umbral — revisión de producto
 
-Fecha: 31/10/2026, Europe/Madrid. Estado: capturas de escritorio recibidas;
-redistribución implementada y compilada, revisión visual posterior pendiente.
+Fecha: 31/10/2026, Europe/Madrid. Estado: redistribución implementada, compilada
+y publicada; nueva captura de escritorio en Parrot recibida a zoom 60 %.
 Se revisan las pantallas y evidencias existentes, sin ejecutar
 escenarios, capturar fuentes nuevas, iniciar seguimiento o llamar al modelo.
+
+Actualización de uso del 01/11: se desarrolla la entrada conjunta
+`python3 webdefensev2.py`, que usa fuente V2 `corrected` por defecto.
+Para conservar la fuente vulnerable de la revisión anterior, utilizar
+`python3 webdefensev2.py --lab-mode vulnerable`. La receta explícita posterior
+sigue siendo compatible. La nueva entrada tiene sintaxis y ayuda revisadas;
+su arranque en Parrot aún no se ha observado y requiere recibir antes el cambio
+publicado. No se repite una revisión visual por añadir este acceso.
+
+## Resultado visual posterior en Parrot
+
+Entrega `cd6b34d1e87b6382cfd24856a19afce2f485dcd5`, publicada en `origin/main`
+con HEAD remoto y árbol limpio verificados al finalizar la publicación.
+El propietario aporta una captura de la nueva distribución a zoom 60 %:
+se aprovecha el ancho lateral, las gráficas y reportes comparten fila y
+amenazas/terminal aparecen debajo; también se ve la barra inferior de estado.
+
+Informa que a zoom 100 % todavía necesita desplazamiento vertical y que no
+quiere empeorar la visibilidad de los datos. La recepción acredita la nueva
+distribución mostrada a 60 %, no el encaje completo a 100 % o una revisión de
+teclado/móvil. No se solicita repetir la captura solo para documentar esto.
+
+Se recomienda mantener el diseño actual y usar zoom 100 % con desplazamiento
+natural. Aprovechar el ancho no garantiza que todos los bloques quepan en la
+altura visible de cualquier ventana. No se reduce más la tipografía ni se
+impone una altura fija u ocultación de contenido para forzar el encaje. No se
+introducen nuevos cambios de interfaz por esta recepción; el objetivo de
+eliminar todo desplazamiento a 100 % no queda acreditado. El resto de la
+revisión de producto conserva sus pendientes y no bloquea registrar lo observado.
 
 ## Recepción visual y redistribución del Resumen
 
@@ -79,7 +108,7 @@ pueden diferir de la selección actual: revisar sus etiquetas, no regenerarlas.
 
 | Recorrido | Resultado esperado | Estado actual |
 | --- | --- | --- |
-| V2 en escritorio | Cabecera y autoría legibles; menú y contenido sin superposición | Capturas previas recibidas; redistribución compilada, resultado visual nuevo pendiente |
+| V2 en escritorio | Cabecera y autoría legibles; menú y contenido sin superposición | Nueva distribución observada a zoom 60 %; propietario informa desplazamiento a 100 %; se prioriza legibilidad, sin forzar encaje total |
 | Navegación V2 | Resumen, Amenazas, Reportes, Actividad y Configuración se abren, con vista activa identificable | Pendiente |
 | Evidencias existentes | Log e informe mantienen fechas y origen; la auditoría identifica modo y ejecución; vacíos y errores se explican sin aparentar datos nuevos | Evidencias previas parciales; revisión conjunta pendiente |
 | Panel Puerto Umbral | Autoría visible, navegación legible y recibos existentes consultables sin ejecutar ni restablecer casos | Cabecera observada previamente; revisión conjunta pendiente |

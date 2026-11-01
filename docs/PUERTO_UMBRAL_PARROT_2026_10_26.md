@@ -6,6 +6,28 @@ ejecutar suites de escenarios o análisis LLM automáticamente.
 
 ## Recepción vigente F6/F7 — 29/10/2026
 
+### Entrada conjunta simplificada — 01/11/2026
+
+Se añade `webdefensev2.py` para el uso habitual tras actualizar el checkout:
+
+```bash
+python3 webdefensev2.py
+```
+
+Inicia V2 y Puerto Umbral con informes `structured` y fuente V2 `corrected`.
+Si se quiere conservar la selección vulnerable del último recorrido, usar
+`python3 webdefensev2.py --lab-mode vulnerable`. La nueva entrada también
+admite `check`, `install` y `--help`; mantiene el supervisor, las comprobaciones
+y la parada conjunta con `Ctrl+C` existentes. No necesita recompilar Next
+por este cambio de entrada Python ni reinstalar una instalación ya preparada.
+La actualización se recibe con `git pull --ff-only` después de su publicación,
+con la consola propia detenida y los cambios locales revisados previamente.
+
+Esta nota registra desarrollo del acceso simplificado, no un arranque nuevo
+observado en la VM. No se ha iniciado ningún servicio por el agente; no se
+ejecutan casos, suites, seguimiento o modelos como parte de la revisión.
+La cronología siguiente conserva las recepciones y comandos de su fecha.
+
 El propietario autoriza el paso 3 tras publicar `cc363af`. Sus capturas muestran
 `HEAD -> main`, `origin/main` y `origin/HEAD` en ese commit, y compilación del
 frontend con `next build --webpack`: Next.js 16.3.8, compilación/TypeScript

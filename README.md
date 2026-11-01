@@ -80,8 +80,20 @@ la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACIO
 Para la revisión educativa de Puerto Umbral junto con V2, consulta la
 [guía de actualización en Parrot](docs/PUERTO_UMBRAL_PARROT_2026_10_26.md).
 La distribución incluye el laboratorio local; su inicio se solicita con
-`python3 webdefense.py start --mode structured --with-puerto-umbral --lab-mode corrected` después
-de instalar/compilar. Este arranque no ejecuta escenarios ni análisis automáticos.
+una entrada conjunta después de instalar/compilar y disponer de Docker/Compose:
+
+```bash
+python3 webdefensev2.py
+```
+
+En Windows: `py webdefensev2.py`. Abre V2 en `http://127.0.0.1:3000` y Puerto
+Umbral en `http://127.0.0.1:4381`; también prepara los dos portales locales.
+Usa informes `structured` y fuente del laboratorio `corrected` por defecto.
+`--lab-mode vulnerable` selecciona esa otra fuente para V2. Mantén la terminal
+abierta; `Ctrl+C` cierra los servicios propios de ambas apps y conserva los datos.
+Este arranque no ejecuta escenarios ni análisis automáticos.
+La entrada conjunta reutiliza `webdefense.py`; los comandos anteriores siguen
+disponibles para iniciar solo V2 o elegir sus opciones avanzadas.
 La revisión manual ha observado escenarios de ambas modalidades y un recorrido
 de snapshot guardado a informe visible en V2: 17 líneas, tres llamadas a Groq y
 cuatro grupos que requieren investigación. Ese recorrido no evalúa por sí solo
@@ -130,6 +142,12 @@ categorías OWASP siguen sin acreditarse.
 
 ### Instalar e iniciar
 
+Los ejemplos siguientes arrancan **solo V2**. Para el conjunto con Puerto
+Umbral utiliza después `python3 webdefensev2.py`, como se indica arriba.
+La nueva entrada también admite `install`, `check` y `--help`: `install`
+reutiliza el instalador del proyecto y `check` comprueba el arranque conjunto
+sin iniciar servicios. Docker/Compose se prepara por separado.
+
 En Linux, desde la carpeta donde quieras clonar:
 
 ```bash
@@ -160,8 +178,10 @@ incompletas»: cada usuario aporta sus logs y publicaciones. Para configurar el
 proveedor y ejecutar un análisis, sigue la [guía de instalación y operación](docs/INSTALACION_AUTOALOJADA.md).
 
 Se muestra `--mode structured` para consultar publicaciones estructuradas de V2.
-El modo predeterminado del lanzador sigue siendo `legacy`; utiliza
+El modo predeterminado de `webdefense.py` sigue siendo `legacy`; utiliza
 `--mode legacy` para los informes anteriores. Elegir modo no genera un informe.
+La entrada conjunta `webdefensev2.py` selecciona siempre `structured` para
+el perfil Puerto Umbral.
 
 Consulta [Inicio rápido](docs/INICIO_RAPIDO.md) para preparar las herramientas,
 comprobar el entorno y resolver problemas de arranque.

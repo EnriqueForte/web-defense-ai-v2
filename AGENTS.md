@@ -2,6 +2,50 @@
 
 ## Alcance actual
 
+V2 01/11: propietario autoriza commit/push para recibir el nuevo lanzador en
+Parrot. Entrega revisada: webdefensev2.py nuevo, mensaje check en
+scripts/start_application.py y nueve documentos/actas (incluyen recepción
+visual previa). Base cd6b34d/main/origin verificada con fetch y0/0; staging
+inicial vacío. Publicar [skip ci], verificar lista exacta/HEADremoto/árbol
+limpio al terminar. Identidad: commit que contiene esta nota; resultado Git
+no se presupone antes de verificarlo. Ayuda CLI y AST ya correctos; enlaces
+locales revisados131/0faltantes. Sin nuevos start/check/install, suites,
+frontendbuild, escenarios, modelo, servicios o VM por agente.
+Tras publicar: propietario detiene consola previa conCtrlC, status/pull
+--ff-only/log-1 y python3 webdefensev2.py desde raíz. Fuente por defecto
+corrected; para conservar vulnerable, opción --lab-mode vulnerable explícita.
+No reinstalar/recompilarNext por este cambio Python/documental. Primer arranque
+del acceso nuevo pendiente de captura Consolalista/URLs, no inferirlo del push.
+
+V2 01/11: propietario solicita entrada más genérica webdefensev2.py para
+iniciar V2 y Puerto Umbral con un comando. Implementada entrada delgada que
+delega en webdefense.main existente, sin duplicar supervisor ni procesos.
+Sin argumentos=start/structured/with-puerto-umbral/lab-mode corrected;
+--lab-mode vulnerable explícito conserva esa otra fuente para V2. Acciones
+start opcional/check/install; install no recibe flags de laboratorio y rechaza
+--lab-mode. --help se resuelve con argparse antes de importar webdefense.
+scripts/start_application.py solo ajusta mensaje de check para recomendar
+entrada conjunta y conservar fuente elegida; soloV2 conserva modo explícito.
+Sintaxis AST Python3.11 de ambos archivos correcta y ayuda CLI exit0; NO
+ejecutados start/check/install, preflight, suites, frontendbuild o servicios.
+Primer arranque con entrada nueva pendiente de observación manual en Parrot;
+no inferirlo de equivalencia por código o de arranque anterior. README/inicio/
+manual/guíaParrot/instalación/plan/estado documentados. Sin commit/push nuevo,
+modelo, escenarios o acciones VM por agente. Diseño Resumen se mantiene;
+Baliza aplazada y pendientes globales intactos.
+
+V2 31/10: entrega cd6b34d1e87b6382cfd24856a19afce2f485dcd5 publicada
+en origin/main, HEAD remoto y árbol limpio verificados al terminar Git.
+Propietario aporta captura de la nueva distribución en Parrot a zoom60% e
+informa que a100% aún necesita desplazamiento; prioriza legibilidad y admite
+dejarlo así si forzar encaje la empeora. Captura muestra ancho aprovechado,
+gráficas/reportes en paralelo y amenazas/terminal debajo. No acredita ajuste
+sin scroll a100%, móvil, teclado o zoom200%. Se recomienda conservar diseño
+actual y usar100% con desplazamiento natural, sin más compactación ni altura
+fija/ocultar contenido. No nuevos cambios frontend, build, suites o escenarios.
+Recepción documental local posterior cd6b34d, sin nueva publicación Git.
+Baliza sigue aplazada; revisión de producto restante pendiente a su alcance.
+
 V2 31/10: propietario autoriza «commit/push y luego la revisión en Parrot».
 Publicar entrega acumulada: dos archivos frontend (page.tsx/globals.css) y
 trece documentos/actas, incluidos los tres nuevos de auditoría, matriz F7 y

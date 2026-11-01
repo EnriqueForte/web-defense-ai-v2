@@ -1,12 +1,59 @@
 # Cierre de Web Defense AI V2 y Puerto Umbral para el 03/11/2026
 
-Estado al 31/10/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
+Estado al 01/11/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
 todavía no aceptado**. El propietario quiere terminar antes del martes 3 de
 noviembre para preparar su publicación en LinkedIn. Confirma expresamente que
 incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el lunes
 2 de noviembre. El calendario es una previsión, no una validación anticipada.
 
 ## Punto de partida comprobado
+
+### Publicación del lanzador autorizada — 01/11
+
+El propietario solicita commit/push de la entrada conjunta y documentación
+pendiente para actualizar Parrot. Alcance: dos archivos Python y nueve
+documentos; sin frontend o datos operativos nuevos. Base `cd6b34d`, coincidente
+con `origin/main` tras fetch. La entrega se identifica por el commit que
+contiene esta nota, con `[skip ci]`; se verifican remoto y árbol al terminar.
+No se repiten ayuda/AST ni se inician servicios o suites por publicar.
+
+En Parrot: cerrar la consola propia anterior, revisar cambios locales,
+`git pull --ff-only`, comprobar el commit e iniciar desde raíz con
+`python3 webdefensev2.py`. La fuente elegida por defecto será `corrected`;
+`--lab-mode vulnerable` conserva esa otra selección explícita si se desea.
+No requiere recompilar Next o reinstalar por esta entrega. Primer arranque
+real mediante la entrada nueva pendiente de captura, no acreditado por Git.
+
+### Entrada conjunta simplificada desarrollada — 01/11
+
+El propietario solicita un comando genérico para iniciar ambas aplicaciones.
+Se implementa `webdefensev2.py`: sin argumentos delega en el lanzador existente
+con `start --mode structured --with-puerto-umbral --lab-mode corrected`.
+Admite `start` explícito, `check`, `install`, `--help` y selección
+`--lab-mode vulnerable`. La instalación delega sin opciones del laboratorio;
+no instala Docker por sí sola. Ambas pasarelas se preparan, y `--lab-mode`
+elige la fuente que lee V2, no una ejecución de casos.
+
+La nueva entrada conserva el supervisor y el cierre conjunto originales,
+sin introducir otro gestor de procesos. El mensaje final de `check` recomienda
+el comando conjunto con la fuente seleccionada, o el modo elegido para solo V2.
+Sintaxis Python 3.11 revisada con AST y ayuda CLI con exit 0. No se ejecutaron
+inicio, instalación, preflight, suites o modelos; no hubo build nuevo de Next.
+El primer arranque mediante la entrada nueva sigue pendiente de observación
+manual en Parrot. Cambios locales sin commit/push nuevo. La redistribución del
+Resumen se mantiene y Baliza continúa aplazada.
+
+### Nueva distribución recibida en Parrot — legibilidad prioritaria
+
+La entrega `cd6b34d` se publicó en `origin/main` y su HEAD remoto/árbol limpio
+se verificaron. El propietario aporta captura de Resumen a zoom 60 % y confirma
+que a 100 % todavía requiere desplazamiento vertical. Se observa el ancho
+aprovechado y las tarjetas en paralelo; no se acredita encaje sin scroll a
+100 %, móvil o teclado. Pide preservar visibilidad y admite mantenerlo así.
+Se recomienda conservar la distribución y trabajar a 100 % con desplazamiento
+natural, sin compactar más, reducir texto o fijar la altura de la página.
+No se modifica de nuevo el frontend por esta recepción. Acta visual en la
+[revisión de producto](PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md).
 
 ### Publicación autorizada y revisión en Parrot siguiente
 
@@ -621,7 +668,7 @@ reescribe los JSON históricos.
 | EVAL-01 | Resolver o conservar con causa los fallos del corpus actual | Resultados actuales trazables; el histórico 42/45 permanece intacto | Los 45 históricos tienen evidencia/causa; tres comandos y regresión actual siguen pendientes en F2/F6; no se exige repetir45 solo por F5-AC1 |
 | EVAL-02 | Evaluar detección y falsas alarmas del corpus definido | Expectativas fijadas antes de puntuar, resultados por caso, presupuesto, modelo y uso | Métricas sin medir: bloqueo F5-AC2, requiere evaluación autorizada o decisión expresa que cambie alcance; permiso Groq anterior consumido |
 | OPS-01 | Condiciones ampliadas F4 y regresión de aislamiento | Observaciones reproducibles de rotación, truncado, fallo, cuotas y ausencia de actividad automática | Perímetro actual válido/14 contenedores y preflight de cierre posterior al respaldo recibidos; cierre básico acreditado a ese alcance, discontinuidad/latencia y regresión ampliadas pendientes |
-| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Capturas de escritorio previo recibidas; Resumen redistribuido y compilado, ESLint correcto; revisión visual posterior, móvil, teclado y exportación pendientes |
+| UX-01 | Lectura final, móvil, teclado y exportación de evidencias | Comprobación del producto actual y ausencia de contenido sin fuente | Resumen redistribuido/publicado y observado en Parrot a 60 %; desplazamiento a 100 % informado, legibilidad prioritaria; móvil, teclado y exportación pendientes |
 | DOC-02 | Revisar documentación completa de V2 con el propietario | README/manual/estado/catálogo/actas coherentes y enlaces comprobados | Después de terminar el laboratorio |
 | ACC-01 | Decisión de cierre y alcance de comunicación | Criterios F0–F7 revisados expresamente, limitaciones pendientes visibles | No aceptado |
 

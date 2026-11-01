@@ -172,7 +172,9 @@ def main(argv=None):
     try:
         if args.check:
             preflight(ROOT, args.mode, with_puerto_umbral=args.with_puerto_umbral, lab_mode=args.lab_mode)
-            print("Preparado: entorno, build y puertos comprobados. Ejecuta: python webdefense.py start")
+            start_command = (f"python webdefensev2.py --lab-mode {args.lab_mode}" if args.with_puerto_umbral
+                             else f"python webdefense.py start --mode {args.mode}")
+            print(f"Preparado: entorno, build y puertos comprobados. Ejecuta: {start_command}")
         else:
             lock = checked_path(ROOT, ".local-state/application.lock")
             with exclusive_lock(lock):

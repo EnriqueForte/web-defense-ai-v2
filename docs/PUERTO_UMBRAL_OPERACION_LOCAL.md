@@ -53,6 +53,28 @@ fue necesario reinstalar Python, cambiar dependencias o modificar `.env`.
 
 ## Comprobar y arrancar
 
+La entrada simplificada incorporada el 01/11 utiliza el mismo supervisor:
+
+```bash
+python3 webdefensev2.py
+```
+
+Equivale al arranque conjunto `structured`, con fuente V2 `corrected`.
+Admite `start` explícito, `check`, `install` y `--help`; el comando sin acción
+ejecuta `start`. `python3 webdefensev2.py --lab-mode vulnerable` cambia solo
+la fuente del laboratorio elegida para V2. En Windows sustituir `python3`
+por `py`. No hace falta activar `.p2`, abrir varios procesos manualmente o
+volver a instalar por usar esta entrada en una instalación ya preparada.
+
+Para comprobar sin iniciar: `python3 webdefensev2.py check`.
+`install` delega en el instalador existente; Docker/Compose se prepara aparte.
+Se conservan puertos, logs, bloqueos, comprobaciones y cierre con `Ctrl+C` del
+supervisor original. No inicia worker, escenarios, seguimiento o modelo.
+
+La revisión inicial del nuevo archivo es estática y de ayuda CLI; el primer
+arranque conjunto mediante esa entrada todavía requiere observación operativa.
+Los comandos detallados anteriores siguen disponibles:
+
 Desde la raíz, el modo corregido revisado utiliza:
 
 ```bash
