@@ -5,6 +5,15 @@ recorridos básicos observados en Parrot; aceptación completa F0–F7 todavía
 abierta.** El objetivo del propietario sigue siendo todas las fases. Este
 resumen consolida evidencias existentes; no cambia el PRD ni autoriza pruebas.
 
+Publicación solicitada después el 02/11: entrega acumulada de once archivos,
+con actas F4, preparación F5 y regresiones de perfiles. Se identifica por el
+commit que contiene esta nota, con `[skip ci]`; la coincidencia remota se
+comprueba al terminar el push. Los cinco tests de perfiles ya pasaron; los
+cinco del empaquetador F5 siguen sin ejecutar y la evaluación sigue pendiente
+de localizar sus originales. En Parrot basta actualizar Git conservando cambios
+locales: no requiere recompilar frontend ni reinstalar o reiniciar servicios.
+La referencia verificada anterior indicada debajo se conserva como antecedente.
+
 Actualización posterior del 02/11: observador F4 y cinco pruebas aisladas
 correctas preparados junto a las actas; el propietario autoriza su commit/push
 en una entrega de trece archivos con `[skip ci]`. Se identifica por el commit
@@ -14,10 +23,11 @@ es independiente y no requiere otro build de interfaz. Las indicaciones
 «local/publicación pendiente» de las recepciones anteriores describen su
 momento de preparación, sin sustituir la verificación final de publicación.
 
-Última entrega de código publicada y verificada al cerrar su publicación:
-`91a101e3831009da1ba25589798dc733b0222ce0`, opción de análisis manual en el
-lanzador conjunto. Las recepciones y esta consolidación documental son cambios
-locales posteriores; no se han publicado por redactar este documento.
+Última entrega publicada y verificada al cerrar su publicación:
+`586f050a85f21e0d4014a8d571453acdb58627fd`, observador independiente y actas.
+`91a101e3831009da1ba25589798dc733b0222ce0` conserva la referencia de los
+servicios y opción manual del lanzador. Las recepciones posteriores y la
+preparación F5 actual son cambios locales; no se han publicado por redactarlos.
 
 ## Uso disponible
 
@@ -66,7 +76,7 @@ orden de ejecución. El detalle por criterio está en la
 | Prioridad | Pendiente | Criterios relacionados | Evidencia o decisión que falta |
 | --- | --- | --- | --- |
 | 1 | Funcionamiento y regresión | F2-AC1/2/3/4, F3-AC4, F6-AC1/2/3/4/5 | Comandos ya tiene verificación representativa de la corrección; completar conductas avanzadas distintas aún no observadas y regresión acotada por cambios; revisar separación de perfiles y contrato real sin etiquetas esperadas |
-| 2 | Operación ampliada | F3-AC3, F4-AC1/2/3/4/5 | Completar discontinuidad/rotación de fuente y conservación, cotejo de deduplicación/trabajos y latencias; el PRD admite una desviación temporal documentada y revisada, todavía no aceptada |
+| 2 | Operación ampliada | F3-AC3, F4-AC1/2/3/4/5 | Ensayo API con desviación F4-AC1 aceptada y estabilidad de trabajos/entregas; desconexión/reinicio con evidencia conservada completados. Rotación/discontinuidad del contenido y regresión ampliada siguen sin verificar |
 | 3 | Evaluación del detector | F5-AC2 | Medir los objetivos del corpus: 27/30 intentos, al menos 5/6 por familia y cero falsas alarmas entre 15 benignos; o decisión expresa de alcance sobre resultados inferiores, conforme al PRD |
 | Final | Revisión y aceptación de entrega | F5 y F7, con sus dependencias | Revisar resultados/limitaciones, matriz educativa F7 y documentación V2 con el propietario; registrar la decisión sin convertir criterios pendientes en aprobados |
 
@@ -109,19 +119,40 @@ toda la VM tampoco se añaden como requisitos de cierre.
 
 ## Siguiente trabajo y límites vigentes
 
-Las cinco regresiones aisladas y el bloque representativo de comandos están
-completados a su alcance. Siguiente prioridad recomendada: concretar la
-validación de operación F3/F4 (lectura, latencias, deduplicación, ausencia de
-trabajos nuevos y conservación ante discontinuidad), sin otros escenarios
-de seguridad o modelo. Todavía no se ha autorizado o ejecutado ese bloque.
+Las regresiones aisladas, el bloque representativo de comandos y el ensayo
+operativo de veinte ciclos están completados a sus alcances. No se repiten.
 La lectura de historial/SQLite ya corrobora la relación temporal de dos
 sesiones cerradas con el único trabajo posterior y cero entregas; la API
 actual confirma inactividad/interrupción de la tercera sesión antigua.
-Se prepara el [observador F4](PUERTO_UMBRAL_MEDICION_F4_2026_11_02.md), con cinco
-pruebas aisladas autorizadas y correctas, para conservar veinte muestras de
-disponibilidad por API y cotejar metadatos antes/después. No mide paint del
-navegador ni acepta el criterio automáticamente. Archivo aún local, medición
-Parrot y publicación pendientes. Cada comprobación reutiliza evidencia previa.
+El [ensayo F4](PUERTO_UMBRAL_MEDICION_F4_2026_11_02.md), tras recibir `586f050`
+en Parrot, registra veinte lecturas de 0,057–0,096 s y cotas API de 0,086–1,054 s,
+trabajos 1→1, entregas 0→0 y snapshots 25→26 con un único checkpoint. Parada
+recibida y condiciones del recibo leídas: Linux Parrot/x86_64/16 CPU lógicas,
+carga registrada. El panel termina Detenido con 21 ciclos; el adicional hasta
+detener no se suma a las veinte muestras. No mide renderizado del navegador.
+El propietario acepta expresamente la desviación acotada de F4-AC1:
+disponibilidad API como evidencia, sin renderizado o visibilidad extremo a
+extremo RNF-09 verificados. No equivale a aceptar toda F4/proyecto. Siguiente
+recorrido de desconexión/reinicio también completado después: error visible,
+captura recuperada de 94 líneas, sin auto-resume y snapshot previo existente
+con hash coincidente según lectura del propietario. No repetirlo. Rotación
+real y criterios F6/F5 siguen separados. La [preparación F5](PUERTO_UMBRAL_EVALUACION_F5_2026_11_02.md)
+ya incluye empaquetador offline, protocolo de puntuación por caso y presupuesto
+propuesto: tres lotes de quince casos/veinticinco líneas, con etiquetas separadas.
+Sintaxis y ayuda correctas; cinco pruebas nuevas preparadas pero no ejecutadas.
+Falta localizar el archivo original `suite.json`/`runs/` y su corpus físico;
+no está en este checkout. No se ha creado un paquete real ni ejecutado evaluación.
+Ejecutor con presupuesto y puntuador quedan pendientes; tope propuesto de
+dieciocho llamadas, sin autorización nueva de modelo. El informe de metadatos
+histórico no sustituye sus originales ni el log actual sustituye los 45 casos.
+Al no localizar la copia, el propietario acepta avanzar con otros pendientes:
+cinco regresiones aisladas de separación de perfiles y preflight con publicación
+ausente/corrupta, en `tests/test_closure_profile_isolation.py`, se ejecutan después
+con autorización específica: **5/5 correctas, 0,178 s, exit 0**, sin bloqueo,
+archivos temporales y comprobaciones de entorno/puerto simuladas. Su alcance figura en la
+[verificación prioritaria](CIERRE_VERIFICACION_PRIORITARIA_2026_11_02.md).
+No se cambia el runtime ni se acepta toda la regresión por este bloque.
+Cada comprobación reutiliza evidencia previa.
 La evaluación F5 se trata como una decisión separada de ejecución y presupuesto.
 El número final de comprobaciones se fija al revisar ese plan; no se deduce
 del número de entradas del catálogo.

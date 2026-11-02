@@ -27,6 +27,23 @@ fallos históricos y no se puntúan variantes 2/3 nuevas. No repetir ese bloque.
 Los demás criterios globales siguen abiertos; operación F3/F4 es la siguiente
 prioridad recomendada, todavía sin ejecutar.
 
+Recepción operativa posterior: [ensayo F4 de veinte ciclos](PUERTO_UMBRAL_MEDICION_F4_2026_11_02.md)
+completado con parada y lectura de condiciones. Lecturas 0,057–0,096 s,
+cotas API 0,086–1,054 s, trabajos 1→1/entregas 0→0 y un snapshot nuevo con
+checkpoint único; Linux Parrot/x86_64/16 CPU lógicas/carga registradas.
+No repetirlo. El propietario acepta después la desviación acotada de F4-AC1:
+disponibilidad API, sin paint/visibilidad extremo a extremo RNF-09 verificados.
+Condiciones de fallo/rotación de fuente y aceptación global siguen pendientes;
+no se autoriza una nueva operación por aceptar esa desviación.
+
+Tras autorización separada se completa el recorrido de fallo/recuperación de
+la pasarela corregida: error visible, stop/start previstos, captura nueva de
+94 líneas y ausencia de auto-resume; lectura del snapshot anterior confirma
+existencia e igualdad de hash contra el recibo. No repetir comandos/captura/
+lecturas o respaldo por documentarlo. Rotación real no observada y demás
+criterios abiertos siguen explícitos. Siguiente prioridad recomendada:
+preparación de evaluación F5 acotada, sin reutilizar el permiso Groq consumido.
+
 El [resumen de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) es la entrada
 actual para continuar: lanzador conjunto y revisión básica de ambas interfaces
 completados a su alcance; tres bloques técnicos abiertos (funcionamiento y

@@ -2,6 +2,188 @@
 
 ## Alcance actual
 
+V2/Puerto Umbral02Nov: propietario solicita commit/push de entrega acumulada
+de11archivos:8Markdown (contexto/actas/estado/protocoloF5), empaquetadorF5 y
+2archivos tests. Base main/origin586f050 verificada trasfetch, divergencia0/0,
+staginginicialvacío. Publicar [skip ci], revisar stagingexacto y verificar
+HEADremoto/árbollimpio al terminar; identidad=commit que contiene esta nota,
+no anticipar éxitoGit. Perfiles5tests ya OK; empaquetador5tests NOejecutados,
+originalesF5 no localizados y evaluación pendiente. Sin repetir suites/builds/
+servicios/VM/modelo por Git. Parrot: status/pull--ff-only/log-1, conservarcambios
+locales; entrega Python/tests/docs no requiere recompilar frontend/reinstalar
+ni reiniciar servicios por defecto. Históricos inferiores conservan su fecha.
+
+Puerto Umbral02Nov: propietario autoriza únicamente5regresiones aisladas de
+perfiles («si puedes hacerlo si me bloquea lo dejaremos sin hacer»).
+Ejecutada una vez .p2/Scripts/python.exe -B -m unittest
+tests.test_closure_profile_isolation -v: 5/5 OK,0.178s,exit0,Windows/entorno
+Python3.11.9; sin bloqueo. Temporales y compare/puerto simulados; sin HTTPreal,
+Docker/VM/servicios/modelo/credenciales. Separación rutas3perfiles, modosfuente
+y admisiónmanual, rechazoPuertoLegacy, current corrupto bloqueaPuerto sin
+fallback/otrosinformes intactos, current ausente distinto sincreararchivos.
+No repetir/ampliarsuite; permiso consumido para este bloque. F3AC3/4 corroborados
+solo en planes/preflight, no todosendpoints/regresiónglobal/rotación/F6aceptada.
+F5 originales siguen sin localizar y sus5tests empaquetador NOejecutados.
+Docsactualizadas, sin nuevo Git/runtime/modelo/servicios por esta recepción.
+
+Puerto Umbral02Nov: propietario acepta avanzar al no localizar suite.json.
+Búsqueda HOMEParrot sin coincidencias recibidas y errores de permisos en otros
+labs; no sudo/cambiospermisos. Windows proyectos/Desktop/Documents/Downloads
+sin coincidencias por nombre (no totalidad discos/ZIP/rutasinaccesibles).
+F5 originales/evaluación siguen pendientes, sin reducir alcance por silencio.
+Siguiente bloque desarrollado: tests/test_closure_profile_isolation.py con5
+regresiones nuevas temporales: rutas3perfiles/fuentes, modoFuente+manual,
+rechazoPuertoLegacy, current corrupto bloqueaPuerto sinfallback/preservación
+otros perfiles, current ausente distinto sincreararchivos. Revisión estática
+local_runtime_profile/PROFILES/guardsapp realizada; no bug runtime afirmado ni
+cambios runtime. Tests PREPARADOS NOEJECUTADOS; requieren permiso nuevo por
+restricción vigente, distinto de5lanzador/5observador ya consumidos y5packF5
+pendientes. No servicios/HTTP/Docker/credenciales/VM/modelo/Git. Alcance eventual
+es separaciónplanes/preflight F3AC3/4, no todosendpoints/F2F6global/rotación.
+Acta verificación prioritaria y estadoentrega sincronizados.
+
+Puerto Umbral 02/11: siguiente prioridad F5, preparación local realizada:
+scripts/prepare_puerto_umbral_evaluation.py y protocolo
+docs/PUERTO_UMBRAL_EVALUACION_F5_2026_11_02.md. Plan tres lotes por variante,
+15casos/25líneas cada uno; entrada detector separada de etiquetas privadas,
+revisor existente + hashes exactos + selección producción completa antes de
+crear directorio nuevo. Sin originales no reconstruir tráfico ni puntuar.
+Búsqueda en este checkout no encuentra suite.json; no implica ausencia en VM
+o máquina completa. Propietario desconoce ruta en Parrot; se guía búsqueda
+solo de nombres desde ~/Proyectos/web-defense-ai-v2 con find . -type f
+-name suite.json -print (incluye ocultos/respaldos locales). Salida pendiente;
+si no aparece, no crear corpus nuevo ni afirmar ausencia en toda la VM.
+Cinco tests nuevos tests/test_puerto_umbral_evaluation_pack.py PREPARADOS,
+NO ejecutados/no autorizados por anteriores permisos. AST2archivos y ayudaCLI
+correctos Python3.11.9/exit0. No paquete real generado ni modelo/HTTP/servicios/
+escenarios/Git. Ejecutor con tope externo18solicitudes propuesto y puntuador
+por caso aún pendientes de implementar/revisar, no confundir plan con métricas.
+27/30 intentos,5/6 por familia,0FP/15 benignos; conservar3Cannotfork históricos.
+PermisoGroq anterior consumido, presupuesto nuevo NOautorizado. No cambiar
+JSON históricos ni informe operativo. Estado local posterior586f050.
+
+Puerto Umbral 02/11: lectura final snapshot_anterior
+b41656aab6e548e9bac5458c69e41637/existe true/sha256_coincide true recibida.
+Código leído verificó ID esperado y comparó bytes actuales con samples[0].sha256
+del recibo follow-4bb2c1c519524ab5b68ed82d3ea116d0.json. Integridad puntual
+COMPROBADA según herramienta propietario, sin acceso VM independiente.
+Recorrido autorizado fallo/recuperación COMPLETADO: error fuente, stop/start
+pasarela prevista, captura94líneas recuperada sin auto-resume, snapshot anterior
+intacto. NO repetir control/captura/hash/backup/observer, ni ampliar a todos los
+snapshots/rotación/recuperaciónVM. Rotación real sigue sin probarse; F4AC1 ya
+aceptado por desviación API, no paint/RNF09e2e ni F4global. Actas sincronizadas
+locales posteriores586f050, sin nuevo Git/código/suites/servicios/modelo.
+Siguiente prioridad recomendada: preparar evaluación F5 sobre evidencia guardada,
+expectativas por caso separadas y presupuesto antes de otra autorización LLM.
+Permiso Groq anterior consumido; no ejecutar ni renombrar evaluación incompleta
+como aprobada; F6 positivos/regresión y operación restante también abiertos.
+
+Puerto Umbral02Nov: captura recuperación recibida, Captura disponible/corrected,
+94líneas/captura-lecturaválida18:03:42Madrid/snapshot
+a0c4aafab7a645f986a11f7164ef316a/SHA
+40354503f19a91d865a41bbe353a088a1571ad461eecfeaf0a4c154273113d7d.
+Seguimiento mantiene error/3cycles/last18:00:15/Iniciohabilitado/otrosdisabled:
+recuperaciónfuente ynoauto-resume observados. Mensajerojoesúltima sesiónfallida,
+nocapturaactual; running_at_capture no saludcontinua. No repetir captura o
+start/stop/follow. ÚltimopasoYAautorizadolecturaROsnapshotanterior b41656aab6e548e9bac5458c69e41637,
+compararSHAbytesactualescon samples[0].sha256 delrecibofollow-4bb2c1c519524ab5b68ed82d3ea116d0.json,
+verificandoID coincide. No comparar con hash nuevo a0c..., no logsraw/env/modelo/
+suites/Git/backup/repetirrecorrido. ResultadointegridadPENDIENTE;rotaciónnoacreditada.
+
+Puerto Umbral 02/11: recibidas capturaUI errorfuente + terminal stop/start
+puerto-umbral-f2-gateway-corrected, ambos devuelven nombre sin error visible.
+UI Seguimiento con error, «La pasarela está detenida. Se conserva la última
+evidencia válida; un error no significa ausencia de eventos», 3cycles/0nuevos/
+3unchanged,last18:00:15Madrid0.117s,expiry18:05:05(NOhorafallo). Inicio habilitado,
+otrosdisabled en captura. Parada/arranque y detecciónfuente acreditados a salida,
+NO recuperacióncaptura/hashbytes aún. No repetir comandos/seguimiento. Siguiente
+YAautorizado: Actualizar seguimiento(lectura), si inactivo pulsar una vez Capturar
+log de Puerto Umbral y recoger fuente+seguimiento. Última sesión puede mantener
+error mientras fuente nueva disponible, no reanudar por ello. Si activo/error
+captura guardar antes de repetir. Luego lectura integridad old snapshot b416...
+contra recibo. Sin suites/LLM/Git/VMporagente,rotación sigue sin probarse.
+
+Puerto Umbral 02/11: propietario AUTORIZA un único recorrido manual de fallo y
+recuperación: seguimiento 5s/5min, parar/arrancar SOLO
+puerto-umbral-f2-gateway-corrected, observar error, una captura manual tras
+restaurar y lectura de conservación del snapshot b41656aab6e548e9bac5458c69e41637
+contra hash del recibo. Sin escenarios/LLM/suites/borrar-truncar-rotar logs;
+agente no opera VM. Guiar primero iniciar seguimiento/esperar Siguiendo logs,
+docker stop --time 3 esa pasarela, esperar error/guardar captura; dar también
+docker start misma pasarela para restaurar inmediatamente después de capturar
+sin esperar al chat. Pedir error y salida start. Si estado inesperado guardar
+y restaurar si llegó a pararse, no repetir seguimiento. Expected source_stopped,
+snapshot anterior conservado, no auto-resume. Datos y restauración aún PENDIENTES;
+no afirmar cierre F4AC3/rotación/global. F4AC1 desviación acotada ya aceptada,
+no repetir medición 20. Solo actas locales posteriores586f050, sin Git nuevo.
+
+Puerto Umbral, 02/11: el propietario ACEPTA expresamente la desviación acotada
+de F4-AC1: evidencia API de 20 muestras, máximo 1,054 s; renderizado y visibilidad
+extremo a extremo RNF-09 siguen SIN verificar. Criterio tratado por vía de
+desviación revisada, no cumplimiento original ni aceptación F4/proyecto global.
+Acta medición/auditoría/resumen actualizados. Siguiente propuesta concreta,
+AÚN NO autorizada/ejecutada: un recorrido de fallo y reinicio de la pasarela
+puerto-umbral-f2-gateway-corrected. Seguimiento 5s/5min una vez (sin observador),
+propietario docker stop --time 3 únicamente esa pasarela, esperar error
+source_stopped con snapshot conservado, docker start mismo contenedor, sin
+auto-resume; captura manual una vez después y lectura de integridad del snapshot
+b41656aab6e548e9bac5458c69e41637 contra recibo anterior. No targets/red/volúmenes/
+logs/suites/modelo; agente no opera VM. Esto NO acredita rotación real, que
+sigue pendiente. Preparación de alcance no autoriza controles; pedir una vez
+para conjunto nuevo porque sesión anterior excluía cambios de contenedores.
+No Git nuevo ni nuevas sesiones/recapturas por aceptar la desviación.
+
+PuertoUmbral02Nov: resumenderecibo recibido ybloquemediciónparadalecturacompletado.
+20muestras/lectura0.057–0.096s/cotaAPI0.086–1.054s/jobs1→1/deliveries0→0/
+snapshots25→26,nuevoIDb41656aab6e548e9bac5458c69e41637,checkpointúnico.
+Linux7.0.9+parrot7-amd64/x86_64/16CPU,lavgantes[1.28466796875,.603515625,
+.26904296875],después[.26318359375,.4521484375,.25341796875]. SinaccesoVM
+independiente. UIparada21cycles/1snapshot20unchanged ya recibida,no21muestras.
+Norepetirobserver/recibos/stop/arranque/suites/modelo/backup/Git. F4AC2/5
+corroborados enventanaobservadasintráficonuevo,no todohistorial. MétricaAPI
+NOpaintnirotaciónnihealthactualsource. PropuestaF4AC1desviacióndealcance
+documentada(enactamedición): admitirAPIcomo evidencia, RNF09endtoendNOmedido;
+REQUIEREdecisiónexpresapropietario,nosilencio/noF4globalaceptada. Fuente
+fallo/rotaciónyF6/F5globales siguenabiertos.Nuevasoperacionesfuenteaúnno
+autorizadas. Actaslocalesposteriores586f050,soloMDsinruntime/Gitnuevo.
+
+PuertoUmbral02Nov: capturaUIparadarecibida:Detenido,Iniciarhabilitado y
+pausa/reanudar/detenerdisabled;21cycles/1snapshot20unchanged/5s5min;
+últimaválida2Nov17:40:13Madrid/0.073s,expiraciónprevista17:43:32(NOhoraparada).
+ParadaacordadaCOMPLETADAporUI,norepetirbotón/sesión/observer.21panelincluye
+1cicloadicionalhastaacciónhumana,nocontarlocomomuestra21delrecibo20.
+SiguientedentroalcancelecturaROrecibofollow-4bb2c1c519524ab5b68ed82d3ea116d0.json:
+sessiona3c05482a81a4b2894da55ad53f30583,count20,minmaxlectura/cotaAPI,
+jobs/deliveriescountsantesdespués,dirs snapshotsnuevos,hardware/carga.
+Sinlogsraw/env/claves/repetirGET/arranque/suite/modelo/backup/Git; resultado
+resumenPENDIENTE. MétricaAPIno render/rotación/aceptaciónglobal;soloactaslocales.
+
+PuertoUmbral02Nov: capturamediciónrealobserver recibida, sesión
+a3c05482a81a4b2894da55ad53f30583/statusobserved_20_cycles/errornull/GET114/
+database_unchangedtrue/single_checkpointtrue/all_api_bounds<=10true.
+Recibo .local-state/puerto-umbral/operational-review/follow-4bb2c1c519524ab5b68ed82d3ea116d0.json.
+Recorte6–20noimpideacreditarmuestras20porresumen,nopedir1–5nirepetirobserver.
+Visibleslecturas0.057–0.091,cotasAPI0.086–1.054:SOLO6–20,noinferirmáximototal
+hastaleerrecibo. ParadaPENDIENTE:propietarioDetenerenActividad/esperarDetenido;
+siyacompletedporduraciónvalorestadoterminal,noreiniciar. LuegolecturaROresumen
+reciboexistente(20/minmax/hardwarecarga/conteosjobsdeliveries/directoriosnuevos),
+dentroalcanceyaautorizado;nosuite/nuevasesión/LLM/backup/Git. MétricaAPI no paint/
+rotación/aceptaciónF4global. Actaslocalesposteriores586f050sin runtime nuevo.
+
+V2/PuertoUmbral02Nov: entrega586f050a85f21e0d4014a8d571453acdb58627fd
+publicadaorigin/main,HEADremotoigual/árbollimpio/0–0verificadosalterminarGit.
+CapturapropietarioParrotstatusvacío/pull--ff-onlyYaactualizado/log586f050
+HEADmainorigin: recepciónCOMPLETADA,norepetirpull/build/reinstalar/reiniciar.
+PropietarioAUTORIZA explícitamente1sesiónmanualcorrected5s/300s,observador20
+ciclosGETlocal+SQLiteROantes/después+1recibonuevo,sin escenarios/LLM/suites/
+cambioslogscontenedores. Guiar prepararActividad5s5min SINinicio, terminal
+.p2/bin/python -B scripts/observe_puerto_umbral_follow.py --observe; aldecir
+Observadorpreparado pulsarIniciarseguimiento1vez. Esperar20muestras/resumen/
+recibo, luegoDetenerseguimientoyconfirmarDetenido. Si fallapreparaciónNOiniciar;
+si fallatrasinicio detener/guardar salida/recibo,sinretryautomático. Pedirsalida
+final+UIstopped,no20capturas. ResultadoVMrealPENDIENTE;noF4autopass/paintmedido.
+AgenteNOoperaVM/servicios,nuevosdatoslocalessoloactasposteriores586f050sinGit.
+
 V2/PuertoUmbral02Nov: propietarioautoriza explícitamentecommit/pushentrega13
 archivos(observer/tests+11Markdownacumulados)con[skip ci]. Fetchoriginrealizado,
 mainHEAD91a101e3831009da1ba25589798dc733b0222ce0=origin/main,divergencia0/0,

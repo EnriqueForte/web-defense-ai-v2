@@ -16,6 +16,15 @@ completados por capturas: normal corregido y vulnerable representativo de
 variante 1 con efecto real, sin `Cannot fork`, timeout o retorno distinto de 0.
 No se amplía la suite ni se acepta toda la regresión por este resultado.
 
+Recepción posterior: cinco regresiones nuevas de separación de perfiles y
+preflight ejecutadas una vez con autorización específica: **5/5, 0,178 s,
+exit 0**, sin bloqueo, Windows/Python 3.11.9. Solo archivos temporales y puerto/
+entorno simulados. Corroboran rutas separadas, modos admitidos y publicación
+ausente/corrupta sin fallback entre perfiles o modificación de otros informes.
+No son pruebas de todos los endpoints ni aceptación global F3/F6; el detalle
+está en la verificación prioritaria. No se amplía el permiso a las cinco del
+empaquetador F5, que siguen preparadas sin ejecutar.
+
 Baliza vulnerable mantiene su resultado funcional sin recibir. El historial
 estrecho del 01/11 incluye el prefijo `525a2076b8ae`, pero no HTTP, efecto o
 recibo evaluable. No se concluye que nunca se ejecutó ni se cuenta como
@@ -103,13 +112,13 @@ aceptación del propietario o resultado de pruebas nuevas.
 | F2-AC4: límites XSS/traversal/comandos | Contratos revisados, verificaciones iniciales F2 y después inspección agregada válida de 14 contenedores/red frontal aportada por el propietario | Perímetro configurado actual observado mediante inspector; los límites funcionales afectados y regresión siguen pendientes, sin solicitar destinos ajenos |
 | F3-AC1: petición/snapshot con línea y hash | Captura y lectura observadas; revisión offline de snapshots y hashes históricos | Recorrido básico acreditado; no repetir para documentarlo |
 | F3-AC2: trabajo consume snapshot identificado y publica referencias | Un análisis identificado y su informe visible completados | Recorrido básico acreditado; no repetir el modelo |
-| F3-AC3: ausencia/corrupción/antigüedad no se muestra como ausencia de ataques | Captura antigua y fuentes incompletas visibles; tratamiento de publicación ausente/corrupta revisado en código | Verificación negativa acotada de las ramas no observadas, sin sobrescribir evidencia válida |
-| F3-AC4: pilot/legacy conservan comportamiento y datos | Código y contratos compatibles revisados; rondas nuevas usaron el perfil Puerto Umbral | Regresión de perfiles con alcance concreto; instalar o arrancar Puerto no la acredita |
-| F4-AC1: veinte ciclos cumplen objetivo de diez segundos o desviación revisada | Historial conserva últimas duraciones, no veinte muestras; observador preparado con cinco pruebas aisladas autorizadas y correctas, sin medición Parrot todavía | Obtener medición y revisar su alcance: el observador conserva cota de disponibilidad API, no paint del navegador; RNF-09/desviación requieren revisión expresa; no afirmar cumplimiento a partir del contador |
-| F4-AC2: sin cambios no duplica eventos ni crea trabajos | Contadores de sesiones conservadas respaldan reutilización; lectura SQLite del 02/11 muestra un único trabajo posterior a las dos sesiones cerradas y cero entregas | Relación temporal corroborada para esas dos sesiones con registros conservados; no equivale a deduplicación exhaustiva de archivos/eventos; tercera sesión guardada sin fin requiere consultar estado actual |
-| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error de red al cerrar V2 y reapertura sin auto-resume; API actual del 02/11 confirma interrupted/process_interrupted, sesión inactiva y checkpoint antiguo conservado | Interrupción de proceso visible corroborada; sigue pendiente comportamiento de la fuente ante discontinuidad/rotación; el checkpoint histórico no prueba salud actual de la pasarela |
+| F3-AC3: ausencia/corrupción/antigüedad no se muestra como ausencia de ataques | Captura antigua y fuentes incompletas visibles; pruebas aisladas del 02/11 distinguen publicación ausente/corrupta en preflight, bloquean la corrupta sin fallback ni modificar otros informes | Rama de preflight corroborada; no equivale a probar todos los estados negativos de la API/interfaz |
+| F3-AC4: pilot/legacy conservan comportamiento y datos | Código y contratos revisados; cinco regresiones aisladas del 02/11 pasan para rutas/fuentes/motor y preflight de los tres perfiles, conservando informes temporales de otros perfiles | Separación de planes/preflight acreditada a ese alcance; comportamiento completo del pipeline y todos los endpoints no cubiertos por este bloque |
+| F4-AC1: veinte ciclos cumplen objetivo de diez segundos o desviación revisada | Veinte muestras, lectura 0,057–0,096 s/cota API 0,086–1,054 s y condiciones registradas; propietario acepta el 02/11 la desviación acotada de disponibilidad API | Criterio tratado por la vía de desviación documentada y revisada; renderizado y visibilidad extremo a extremo RNF-09 siguen sin verificar, sin aceptación F4/proyecto global |
+| F4-AC2: sin cambios no duplica eventos ni crea trabajos | Ensayo real: trabajos 1→1, entregas 0→0 y metadatos sin cambios; snapshots 25→26, un único checkpoint en las veinte muestras; panel detenido con 21 ciclos/1 snapshot/20 sin cambios | Acreditado en la ventana observada sin tráfico nuevo; no repetirla ni extenderla a todas las condiciones/historial |
+| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error real de fuente, stop/start previstos, captura recuperada de 94 líneas sin auto-resume; snapshot anterior b41656aa existe y su hash coincide con el recibo según lectura del propietario | Recorrido de desconexión/reinicio/conservación completado a su alcance; no repetirlo. Rotación/discontinuidad del contenido del log sigue sin probarse y no se puntúa por reiniciar el contenedor |
 | F4-AC4: pausa/parada sin ciclos o procesos propios huérfanos | Secuencia básica completa, supervisor revisado, preflight del 31/10 sin bloqueadores y ciclo del lanzador conjunto lectura/manual/parada/lectura del 01/11 recibidos | Cierre básico y comprobaciones de puertos/locks/contenedores acreditados a ese alcance; no implica inspección exhaustiva del host, cierre durante un trabajo activo o suite de regresión ejecutada; no repetir la secuencia básica |
-| F4-AC5: seguimiento sin LLM ni notificaciones | Separación arquitectónica; ningún trabajo conservado coincide con las dos sesiones cerradas del 27/10; cero entregas registradas en SQLite el 02/11 | Corroboración acotada de trabajos/entregas conservados, sin inferir una auditoría del proveedor; tercera sesión sin fin no permite cerrar su intervalo; no iniciar un modelo para comprobarlo |
+| F4-AC5: seguimiento sin LLM ni notificaciones | Arquitectura separada, cotejo histórico y ensayo real del 02/11 con trabajos 1→1/entregas 0→0 y metadatos sin cambios | Corroborado en el ensayo y registros conservados, sin auditoría independiente del proveedor; no iniciar un modelo ni repetir el ensayo para documentar ausencia de nuevos trabajos |
 | F5-AC1: 45 resultados/evidencias o causa de fallo | Los 45 históricos tienen registro y causa, incluidos los tres fallos | **Registro histórico cubierto** en su alcance; el criterio no exige por sí solo otra ejecución completa de 45. Esto no resuelve F2-AC1 o regresión de la versión actual |
 | F5-AC2: objetivos de detección o decisión expresa de alcance | Objetivos 27/30 intentos, 5/6 por familia y cero falsas alarmas entre 15 benignos siguen sin medir | Bloqueo de aceptación: evaluación propia autorizada o decisión expresa documentada sobre cambio de alcance; una entrega no evaluada no cumple los objetivos originales por renombrarla |
 | F5-AC3: separar intento, bloqueo, efecto y evidencia insuficiente | Actas, informe y matriz educativa distinguen estas clases | Conservar el criterio en la revisión editorial final; no exige repetir casos ya observados |
@@ -144,22 +153,25 @@ piloto o aplazamiento por defecto. Una eventual desviación debe nombrar los
 criterios no cumplidos, evidencia disponible y afirmaciones permitidas; no
 convertir lo pendiente en aprobado.
 
-El mismo tratamiento se aplica al objetivo temporal de F4: el PRD admite una
-desviación revisada, pero todavía no se ha aceptado ninguna. La ausencia de
-decisión no equivale a conformidad.
+Para F4 el propietario acepta posteriormente, el 02/11, la desviación acotada
+documentada en el acta de medición: disponibilidad por API con condiciones
+registradas, sin renderizado o visibilidad extremo a extremo RNF-09 medidos.
+Es una decisión expresa sobre F4-AC1, no conformidad original ni aceptación
+de toda F4, F5 o el proyecto.
 
 ## Orden recomendado para continuar
 
 1. Usar el resumen de entrega como estado vigente. Inspección de perímetro,
    recibo/hash/listado/respaldo y revisión básica de interfaces ya recibidos
    no se reabren por sus instrucciones históricas.
-2. Continuar por operación F3/F4, con alcance concreto antes de nuevas
-   sesiones o cambios de fuente. Las cinco regresiones aisladas y el bloque
-   representativo de comandos están completados a su alcance; no repetirlos.
-   El resto del plan funcional/operativo se vincula a criterios abiertos sin
-   extender las autorizaciones anteriores a otra suite o al modelo.
-3. Resolver separadamente el plan de evaluación/presupuesto F5 o una decisión
-   expresa de alcance; el objetivo completo sigue vigente mientras no se decida.
+2. Preparar la evaluación/presupuesto F5 con entradas conservadas, expectativas
+   separadas y puntuación por caso antes de autorizar modelo. Las regresiones
+   aisladas, comandos representativos, medición API y recorrido de desconexión/
+   reinicio/conservación están completados a sus alcances; no repetirlos.
+3. Mantener explícitos los criterios restantes de operación (incluida rotación
+   no observada), regresión y positivos F6. Vincular cada propuesta a un criterio
+   sin ampliar permisos anteriores. El objetivo completo sigue vigente; ni el
+   análisis único ni los ensayos funcionales sustituyen métricas del detector.
 4. Revisar con el propietario resultados, matriz educativa F7 y documentación
    V2 para la decisión final de entrega. Conservación se declara por selección
    y fecha; no se añade una nueva restauración independiente aplazada.

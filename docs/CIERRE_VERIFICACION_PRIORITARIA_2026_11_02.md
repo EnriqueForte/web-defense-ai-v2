@@ -5,6 +5,63 @@ importante para terminar el proyecto. Se mantiene el objetivo F0–F7 y se
 priorizan fallos conocidos y criterios abiertos. No se añaden variantes por
 cantidad ni se repiten capturas de interfaz, arranques o análisis completados.
 
+## Resultado: separación de perfiles y publicación inválida
+
+Tras no localizar los originales F5, el propietario acepta avanzar con los
+demás pendientes. Se revisan `scripts/local_runtime_profile.py`, la definición
+de rutas de respaldo y las condiciones de acceso de las rutas Puerto Umbral
+en `dashboard/app.py`. Los planes declaran log, informes y SQLite separados;
+las rutas específicas comprueban la fuente seleccionada. Esta revisión no
+acredita por sí sola la regresión ejecutada ni todas las rutas HTTP.
+
+Se preparan exactamente cinco pruebas nuevas en
+`tests/test_closure_profile_isolation.py`:
+
+| Comprobación aislada | Pendiente que ayuda a verificar |
+| --- | --- |
+| Tres rutas distintas de log/informes/SQLite y fuentes explícitas | Separación de `legacy`, `pilot` y `puerto-umbral` |
+| Fuente corregida/vulnerable explícita y opción manual sin cambiar rutas | Consistencia del plan entre modos |
+| Rechazo de Puerto con motor legacy antes de crear archivos | Combinación incompatible no admitida |
+| Puntero estructurado corrupto de Puerto bloquea su preflight, conserva otros informes y no los usa como fallback | Aislamiento y publicación inválida |
+| Publicación ausente distinta de corrupta, sin crear SQLite o informes | Instalación previa al primer informe sin evidencia inventada |
+
+Solo usan un directorio temporal, datos sintéticos y comprobaciones de entorno
+y puerto simuladas. No arrancan hijos ni hacen HTTP, Docker, escenarios,
+lectura de credenciales o llamadas al proveedor. Tras preparar el bloque, el
+propietario autoriza expresamente estas cinco, indicando que se dejen pendientes
+si aparece un bloqueo. Se ejecutan una sola vez, sin bloqueo:
+
+```powershell
+.p2/Scripts/python.exe -B -m unittest tests.test_closure_profile_isolation -v
+```
+
+**5 pruebas correctas, 0 fallos, 0,178 s, exit 0**, Windows y entorno Python
+3.11.9. No se amplía ni repite la suite. El resultado corrobora F3-AC3/4 y
+separación de planes a este alcance; no acepta F2/F3/F6 globales, rotación real
+o todos los endpoints.
+
+No se cambia código de ejecución en este bloque ni se pide repetir recorridos
+completados en Parrot. Las cinco del empaquetador F5 siguen separadas y sin
+ejecutar. El archivo F5 no apareció en el proyecto de Parrot ni en las zonas
+legibles de su HOME; hubo permisos denegados en otros laboratorios, que no se
+intenta modificar. Tampoco se encontró por nombre en proyectos, Escritorio,
+Documentos o Descargas de Windows. No se afirma ausencia en todo el disco,
+archivos comprimidos o rutas inaccesibles; su recuperación permanece pendiente.
+
+## Preparación siguiente: F5
+
+El [protocolo F5](PUERTO_UMBRAL_EVALUACION_F5_2026_11_02.md) incorpora un
+empaquetador offline que exige los originales con los hashes históricos,
+separa etiquetas de entrada al detector y comprueba selección completa en
+tres lotes de 25 líneas. AST y ayuda CLI correctos, sin paquete real generado.
+Cinco pruebas aisladas nuevas escritas, **no ejecutadas**; los permisos de las
+cinco del lanzador y cinco del observador no se amplían a estas.
+
+No se localiza `suite.json` en este checkout: se solicita la ruta de una copia
+existente, sin repetir escenarios o fabricar tráfico. Ejecutor acotado y
+puntuador aún pendientes. Presupuesto propuesto de 18 solicitudes no autorizado;
+F5-AC2 continúa sin medir, permiso Groq anterior consumido. Sin Git nuevo.
+
 ## Resultado realizado: cinco regresiones aisladas del lanzador
 
 El propietario autoriza expresamente las cinco pruebas ya preparadas de
@@ -193,6 +250,55 @@ respuestas simuladas: **5/5 correctas, exit 0**, Windows/Python 3.11.9,
 sin transporte real; no se amplía la suite. Medición Parrot/publicación siguen
 pendientes. Se distingue
 disponibilidad API de renderizado del navegador al revisar RNF-09/F4-AC1.
+
+Actualización posterior: entrega `586f050` publicada, HEAD remoto y árbol limpio
+verificados; captura del propietario confirma recepción en Parrot, checkout
+sin cambios y main/origin coincidentes. El propietario autoriza después la
+única sesión manual acotada de cinco segundos/cinco minutos, veinte muestras
+con observador GET, SQLite antes/después y recibo nuevo. Se guía preparar
+Actividad, iniciar observador y, solo al indicar preparado, iniciar seguimiento;
+detener desde la interfaz al terminar o fallar. No hay resultado real recibido
+todavía, ni autorización para suites, escenarios, cambios de fuente o modelo.
+
+Recepción posterior del observador en Parrot: sesión
+`a3c05482a81a4b2894da55ad53f30583`, veinte ciclos observados, error nulo,
+114 GET, base sin cambios, checkpoint único y veinte cotas API dentro de diez
+segundos según resumen. Recibo nuevo `operational-review/follow-4bb2c1c519524ab5b68ed82d3ea116d0.json`.
+No se repite la observación por el recorte de filas 6–20. Parada de seguimiento
+y lectura resumida del recibo/condiciones aún pendientes; ambos dentro del
+recorrido acordado. La medición API no acredita paint o rotación de fuente.
+
+La captura siguiente confirma Detenido en Actividad, 21 ciclos, un snapshot
+nuevo y 20 sin cambios; última lectura 0,073 s. Parada de la sesión completada
+según interfaz. El observador midió veinte, no los 21 ciclos finales del panel.
+No se solicita repetir la parada o la medición; siguiente lectura local del
+recibo ya creado para extremos completos, cantidades y hardware/carga.
+
+Lectura del recibo recibida: veinte muestras, lectura 0,057–0,096 s/cota API
+0,086–1,054 s, trabajos 1→1, entregas 0→0, snapshots 25→26 y nuevo ID
+`b41656aab6e548e9bac5458c69e41637`. Condiciones Linux
+`7.0.9+parrot7-amd64`, x86_64, 16 CPU lógicas y carga antes/después registradas
+en el acta de medición. Ensayo y recibo completados a ese alcance; no repetirlos.
+F4-AC2/5 quedan corroborados en la ventana observada; revisar expresamente la
+evidencia API para F4-AC1/RNF-09, sin declarar renderizado medido. Nueva sesión,
+fallo/rotación de fuente, suites/modelo o Git no autorizados por esta lectura.
+
+El propietario acepta después expresamente la desviación acotada de F4-AC1
+preparada en el acta de medición: disponibilidad API como evidencia de entrega,
+manteniendo renderizado/visibilidad extremo a extremo RNF-09 sin verificar.
+No acepta toda F4 o el proyecto. Siguiente propuesta preparada, no autorizada
+por esa decisión: un fallo y reinicio de la pasarela corregida con error visible
+y conservación del snapshot; excluye rotación/truncado, escenarios y modelo.
+
+El propietario autoriza ese recorrido aparte y aporta sus resultados: error
+de pasarela detenida tras tres ciclos, stop/start del contenedor previsto,
+captura recuperada corrected/94 líneas/snapshot a0c4aafab7a645f986a11f7164ef316a,
+sin auto-reanudación. La lectura final devuelve existe/hash coincidente para
+el snapshot anterior b41656aab6e548e9bac5458c69e41637 contra el recibo de medición.
+**Recorrido completado a ese alcance**, sin pedir más lecturas o copias.
+Rotación real, criterios F6 restantes y evaluación F5 conservan sus pendientes.
+Siguiente trabajo recomendado: preparar la evaluación F5 con entradas y coste
+acotados antes de otra autorización del modelo; no ejecutarla por estas actas.
 
 | Bloque | Trabajo concreto | Qué se reutiliza |
 | --- | --- | --- |

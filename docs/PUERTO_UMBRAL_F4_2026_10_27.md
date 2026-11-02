@@ -3,6 +3,19 @@
 Fecha: 27/10/2026. Estado: **implementado; ronda operativa básica completada en
 Parrot; aceptación ampliada pendiente**.
 
+Actualización vigente del 02/11: [ensayo operativo acotado completado](PUERTO_UMBRAL_MEDICION_F4_2026_11_02.md)
+con veinte muestras, lecturas 0,057–0,096 s/cotas API 0,086–1,054 s,
+trabajos 1→1 y entregas 0→0, checkpoint único y un solo snapshot nuevo.
+Parada y condiciones del recibo recibidas. No repetir ensayo o lecturas por
+los pendientes históricos inferiores. El propietario acepta expresamente la
+desviación acotada de F4-AC1: evidencia API, dejando renderizado y visibilidad
+extremo a extremo RNF-09 sin verificar. Rotación/fallo de fuente siguen
+separados; no se acepta toda F4 por esta decisión. Después se completa un
+recorrido autorizado de desconexión/reinicio de la pasarela corregida: error
+visible, captura recuperada sin auto-resume e integridad del snapshot previo
+comparada con su hash guardado. No repetirlo. Rotación/discontinuidad real
+del contenido permanece sin observar, con detalle en el acta enlazada.
+
 El propietario autoriza desarrollar F4 después de finalizar la ronda manual.
 Se mantiene la restricción de no ejecutar escenarios, suites, capturas reales,
 ciclos de seguimiento ni llamadas al modelo. No se solicitan nuevas pruebas o
