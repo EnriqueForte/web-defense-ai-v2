@@ -1,8 +1,19 @@
 # web-defense-ai V2 — Desarrollo en Codex, agentes y tareas
 
-Trabajo vigente al 29/10/2026: [cierre V2/Puerto Umbral F0–F7 antes del 03/11](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
-El propietario solicita todas las fases del laboratorio; por ahora autoriza solo
-desarrollo/revisión de código, sin nuevas suites o llamadas al modelo. El
+Trabajo vigente al 03/11/2026: [cierre V2/Puerto Umbral F0–F7](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md),
+con objetivo de finalizar el desarrollo el jueves 5 de noviembre y aceptación
+completa todavía pendiente. La [revisión integral](REVISION_INTEGRAL_2026_11_03.md)
+recoge los pendientes actuales y el [índice documental](README.md) organiza las guías.
+Decisión más reciente del 03/11: matriz educativa F7 aceptada expresamente;
+F4/F5 cerradas por decisión de alcance sin pruebas restantes, con rotación
+no verificada y métricas detector no medidas. F6 conserva su cierre previo.
+Estas decisiones prevalecen sobre los pendientes históricos; resta la
+consolidación/aceptación final del conjunto, sin nuevos ensayos o publicación.
+Decisión posterior del 03/11: F6 cerrada por el propietario sin sus pruebas
+restantes, registradas como omitidas/no verificadas; no se reabre ese trabajo.
+La instrucción vigente es continuar sin ejecución de pruebas.
+El propietario solicita todas las fases del laboratorio; se mantienen las
+autorizaciones específicas registradas, sin nuevas suites o llamadas al modelo. El
 [registro F6/F7](PUERTO_UMBRAL_F6_F7_2026_10_29.md) recoge la ampliación preparada.
 La revisión final de la documentación V2 se hará con el propietario al terminar
 el laboratorio. Las fases Puerto Umbral son distintas de las fases históricas

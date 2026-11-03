@@ -1,5 +1,12 @@
 # Puerto Umbral y V2 — manual de operación local
 
+Estado de cierre acordado el 03/11: F4/F5 cerradas por decisión expresa del
+propietario sin sus pruebas restantes; F6 conserva su cierre previo y la matriz
+F7 está aceptada en su alcance educativo. Rotación real y métricas del detector
+no acreditadas se mantienen como límites. Las recetas siguientes son referencia
+de uso, no tareas pendientes de cierre ni solicitudes de ejecución. Véase el
+[registro vigente](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
+
 Referencia inicial de entrega: código operativo `02d2638`, revisión del 27/10/2026.
 Actualización de estado del 29/10: ejecutor acotado publicado en `1403f8d`,
 corrección de nombres de fuente en `9e71c0c` y un análisis/informe de 17 líneas

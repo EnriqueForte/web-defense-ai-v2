@@ -4,6 +4,60 @@
 No se han realizado escenarios, peticiones HTTP, llamadas al modelo ni nuevas
 pruebas automáticas. El permiso Groq anterior está consumido.
 
+**Decisión posterior del propietario, 03/11: F5 cerrada sin evaluación adicional.**
+El propietario ordena cerrar F4/F5 si requieren pruebas. Se registra el cierre
+expreso de alcance con la evidencia disponible y la evaluación del detector
+omitida/no realizada. No se afirma que se hayan alcanzado 27/30, 5/6 por
+familia o cero falsas alarmas. Los originales siguen sin localizar; no se
+reconstruyen ni se inicia otra búsqueda para cerrar esta entrega.
+
+Se retiran del trabajo de cierre la ejecución de los cinco tests del
+empaquetador, el paquete real, el desarrollo/validación pendiente del ejecutor
+y puntuador y las llamadas al modelo. Las herramientas preparadas se conservan
+con su estado real, sin presentarlas como evaluación terminada. No se cambia
+el PRD o los JSON históricos. El [registro de decisiones](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+prevalece sobre las propuestas inferiores; no queda ninguna de ellas como
+instrucción de ejecución o bloqueo de fase F5.
+
+## Revisión documental completada — 03/11, sin ejecución
+
+Tras cerrar F6 por decisión expresa, el propietario pide continuar con trabajo
+que no implique pruebas. Se revisan por lectura el PRD, los metadatos históricos,
+el protocolo, el código del empaquetador y el puntuador sintético V2 existente.
+No se ejecuta ninguno de esos programas, ni comandos de ayuda, parsers de
+validación, búsquedas nuevas en la VM, empaquetado, hashes o evaluación.
+
+| Elemento revisado | Conclusión documental |
+| --- | --- |
+| Archivo funcional histórico | El índice declara 45 casos: 30 intentos y 15 benignos, cinco familias y 75 líneas correlacionadas; 42 conformes HTTP y tres fallos históricos de comandos. Son resultados funcionales, no TP/FN/FP/TN del detector |
+| Procedencia | El índice conserva referencias y hashes de 92 archivos revisados en su momento. No sustituye sus bytes originales ni permite verificar de nuevo su integridad; no hay una copia original nueva localizada por este paso |
+| Preparación | El empaquetador contempla tres lotes de 15 casos/25 líneas, separación de entrada y etiquetas y rechazo de selección incompleta. Es lectura del código; no se prepara un paquete ni se acredita su funcionamiento |
+| Puntuación existente | `agents/evaluation_scoring.py` puntúa fixtures V2 y grupos de indicadores. No es el puntuador por caso del archivo histórico Puerto Umbral ni aporta sus métricas F5 |
+| Estado de evaluación | No hay resultados propios de esta evaluación para calcular precisión, recall o falsas alarmas. El informe anterior de 17 líneas y sus cuatro grupos no permiten completar esos denominadores |
+| Presupuesto | Las 18 solicitudes inferiores son una propuesta histórica sin autorización. No se consume presupuesto, se consulta cuota o se contacta al proveedor |
+
+### Expediente de criterios F5, con evidencia existente
+
+| Criterio | Estado tras esta revisión |
+| --- | --- |
+| F5-AC1 | Registro histórico de los 45 casos cubierto según acta previa, con los tres fallos conservados; no se reejecuta |
+| F5-AC2 | Cerrado por decisión expresa de alcance del 03/11; evaluación omitida y objetivos sin medir, sin declararlos cumplidos |
+| F5-AC3 | Conclusiones editoriales revisadas: se distinguen intento, bloqueo, efecto y evidencia insuficiente; HTTP conforme no se presenta como acierto del detector |
+| F5-AC4 | Se reutilizan las recepciones anteriores de instalación/actualización y cierre en Parrot, sin pedir una instalación o arranque nuevos |
+| F5-AC5 | Se conservan índices, consumo registrado y límites de respaldos anteriores; los originales necesarios para la evaluación siguen sin localizar. No se afirma que el respaldo V2 incluya automáticamente los originales bajo `labs/` |
+
+**Resultado vigente:** revisión documental F5 completada, evaluación
+del detector no realizada y fase F5 cerrada por decisión expresa de alcance. La documentación de entrega
+puede describir funciones, recorridos recibidos y cierre F6 por decisión del
+propietario. No puede anunciar que se alcanzó 27/30, 5/6 por familia o cero
+falsas alarmas, ni convertir 42/45 conformes HTTP en precisión del detector.
+
+Mientras siga vigente el trabajo sin pruebas, se mantiene este expediente
+con sus límites. Las instrucciones de ejecución inferiores se conservan como
+preparación histórica suspendida; no son el siguiente paso autorizado ni se
+solicita al propietario realizarlas. Tampoco se desarrolla otro ejecutor sin
+validación como atajo para cerrar las métricas pendientes.
+
 ## Entrada que falta localizar
 
 El [índice histórico](PUERTO_UMBRAL_F5_CORPUS_2026_10_27.json) conserva metadatos
@@ -108,9 +162,11 @@ el control de presupuesto y acordar expresamente ejecución y cuenta gratuita.
 Los resultados se guardarían en un directorio de evaluación separado, sin
 publicar sobre el informe actual, encolar trabajos o emitir notificaciones.
 
-## Próximo paso concreto
+## Secuencia de ejecución prevista antes de la restricción vigente
 
 Localizar la copia original conservada. Después: validar el empaquetador con
 sus cinco pruebas aisladas cuando se autoricen, preparar el paquete real y
 terminar ejecutor/puntuador sobre su formato comprobado. Ninguno de estos pasos
-autoriza una llamada al modelo. F5-AC2 y la aceptación F0–F7 siguen abiertos.
+autoriza una llamada al modelo. Esta secuencia es histórica: F5-AC2 queda
+después cerrado por decisión expresa de alcance, sin evaluación, según la
+cabecera. La aceptación final del conjunto permanece separada.

@@ -1,12 +1,51 @@
-# Cierre de Web Defense AI V2 y Puerto Umbral para el 03/11/2026
+# Estado y plan de cierre de Web Defense AI V2 y Puerto Umbral
+
+## Estado vigente — 03/11/2026
+
+El propietario mantiene el jueves **5 de noviembre** como objetivo de cierre
+del desarrollo y comunica el 03/11: «Procedo a aceptar la matrix actualizada»,
+y sobre F4/F5: «si hay que ejecutar pruebas dalas por cerradas tambien».
+Se registra esa decisión expresa después de la revisión documental F7 y de
+la explicación de los pendientes. No se ejecutan nuevas pruebas para cerrar.
+
+| Fase | Decisión vigente del propietario | Alcance y limitación conservada |
+| --- | --- | --- |
+| F4 | Cerrada por decisión expresa de alcance, sin las pruebas restantes | Medición API con desviación F4-AC1 ya aceptada, seguimiento y fallo/recuperación observados. Rotación/discontinuidad real restante y otras condiciones no observadas quedan sin verificar; no se declaran aprobadas |
+| F5 | Cerrada por decisión expresa de alcance, sin evaluación adicional | Se conserva registro histórico, revisión documental, consumo y respaldos a sus fechas. No hay métricas propias del detector sobre los 45 casos; originales aún sin localizar. Se omiten del trabajo de cierre la evaluación, pruebas del empaquetador y desarrollo/validación pendiente de su ejecutor/puntuador |
+| F6 | Cerrada por decisión expresa anterior, sin las pruebas restantes | Cargas/Atraque y controles corregidos conservan sus resultados. Bitácora/Preferencias vulnerables, resultado vulnerable de Baliza y regresión F6 restante omitidos/no verificados |
+| F7 | Matriz actualizada aceptada expresamente en su alcance educativo documentado | Diez categorías con objetivos/tipos de evidencia y once recorridos representativos identificados; no 54/54, detección completa OWASP o seguridad de producción |
+
+**Las decisiones de alcance F4/F5 y aceptación de la matriz F7 están resueltas.**
+Los criterios originales del PRD se conservan como referencia: el cierre
+acordado incorpora omisiones explícitas y no equivale a haber superado todas
+sus verificaciones originales. La falta de evaluación F5 se conserva como tal;
+27/30, 5/6 por familia y cero falsas alarmas son objetivos no acreditados.
+
+No se reabren las búsquedas de originales, pruebas, casos, capturas, copias,
+hashes, sesiones de seguimiento, servicios, VM o modelo para este cierre. Los
+resultados recibidos de lanzador, interfaces, comandos, observador, perfiles,
+auditoría y conservación mantienen su alcance. La cobertura F2/F3 no observada
+sigue declarada como limitación, sin añadir nuevas pruebas.
+
+Queda la consolidación y aceptación final del conjunto de entrega con esos
+límites; esta aceptación de fases no publica Git, crea una release o autoriza
+LinkedIn. V2 v0.1.0 mantiene su identidad y aceptación local anterior. La
+[revisión integral](REVISION_INTEGRAL_2026_11_03.md), el
+[estado de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) y la
+[matriz aceptada](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
+conservan el detalle. Los pendientes de las cronologías inferiores quedan
+resueltos o retirados según esta decisión, sin cambiar resultados históricos.
+
+## Antecedentes de planificación y entrega — 02/11
 
 Estado al 02/11/2026, Europe/Madrid: **desarrollo en curso; cierre F0–F7 solicitado,
-todavía no aceptado**. El propietario quiere terminar antes del martes 3 de
-noviembre para preparar su publicación en LinkedIn. Confirma expresamente que
-incluye F6 y F7, además del MVP F0–F5. El objetivo de revisión final es el lunes
-2 de noviembre. El calendario es una previsión, no una validación anticipada.
+todavía no aceptado**. En ese momento el propietario quería terminar antes del martes 3 de
+noviembre para preparar su publicación en LinkedIn. Confirmaba expresamente que
+incluía F6 y F7, además del MVP F0–F5. El objetivo de revisión final era el lunes
+2 de noviembre. Este calendario histórico queda sustituido por el objetivo
+del 5 de noviembre indicado arriba; no es una validación anticipada.
 
-## Estado vigente de entrega — 02/11
+## Estado de entrega registrado — 02/11
 
 Publicación autorizada después de comprobar el observador: trece archivos
 (observador independiente, cinco pruebas y once Markdown acumulados), con
@@ -915,7 +954,7 @@ y se muestra antigua; la auditoría avanzada se muestra sin datos, sin error.
 El bloque de disponibilidad y revisión básica de pantallas queda completado.
 No cambia la aceptación de escenarios, F4 ampliada o métricas de detección.
 
-## Calendario propuesto
+## Calendario histórico propuesto, sustituido por el objetivo del 05/11
 
 | Fecha | Prioridad de trabajo |
 | --- | --- |

@@ -144,6 +144,19 @@ concentra lo acreditado, los pendientes esenciales y la cobertura adicional.
 La aceptación global de Puerto Umbral y la detección completa de las diez
 categorías OWASP siguen sin acreditarse.
 
+El 03/11 el propietario cierra F6 por decisión expresa de alcance, sin realizar
+las verificaciones restantes. Se conservan las evidencias recibidas y las
+omisiones como no verificadas; este cierre no afirma validación íntegra F6 ni
+aceptación global. El [registro de cierre](docs/PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md)
+recoge la decisión y el trabajo documental siguiente, sin nuevas pruebas.
+
+Posteriormente el propietario acepta la matriz educativa F7 y cierra F4/F5
+sin sus pruebas restantes. Rotación real y métricas del detector mantienen
+estado no verificado/no medido; los objetivos originales no se anuncian como
+resultados. El [estado de cierre acordado](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+registra estas decisiones separadas de la aceptación final del conjunto y
+de cualquier publicación.
+
 ### Requisitos
 
 | Herramienta | Versión / uso |
@@ -241,6 +254,10 @@ instrucciones de respaldo de la [guía DVWA](docs/LABORATORIO_DVWA_FASE_6.md):
 la copia de la aplicación no incluye el volumen de la base ni el buzón Mailpit.
 
 ## Documentación
+
+El [índice documental](docs/README.md) separa guías de uso, estado actual y
+actas históricas. La [revisión integral del 03/11](docs/REVISION_INTEGRAL_2026_11_03.md)
+recoge la limpieza y los pendientes de aceptación de Puerto Umbral F0–F7.
 
 | Para… | Consulta |
 | --- | --- |

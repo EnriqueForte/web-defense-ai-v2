@@ -2,8 +2,17 @@
 
 Preparado el 02/11/2026. **Observador desarrollado; cinco comprobaciones
 aisladas correctas; ensayo real, parada y lectura del recibo completados en
-Parrot. Desviación acotada de F4-AC1 aceptada expresamente; F4 global abierta.**
-La sesión antigua está interrumpida e inactiva según la respuesta actual de V2.
+Parrot. Desviación acotada de F4-AC1 aceptada expresamente.**
+
+**Decisión posterior del propietario, 03/11: F4 cerrada sin pruebas restantes.**
+Se conserva la evidencia observada y se omite la verificación real pendiente
+de rotación/discontinuidad y demás condiciones no observadas. El cierre es
+por decisión expresa de alcance; no acredita cumplimiento íntegro de todas
+las verificaciones originales de F4. No se propone ensayo alternativo ni se
+repiten sesiones, capturas, controles, hashes o copias. Registro vigente:
+[decisiones de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
+Las instrucciones inferiores documentan recorridos ya terminados, no acciones
+pendientes. La sesión antigua estaba interrumpida e inactiva según la respuesta recibida de V2.
 No se modifican el servicio de seguimiento, la interfaz o los logs para medir.
 
 ## Recepción en Parrot y sesión acordada

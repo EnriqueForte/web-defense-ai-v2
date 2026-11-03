@@ -2,6 +2,103 @@
 
 ## Alcance actual
 
+Puerto Umbral 03Nov, propietario solicita commit/push de la entrega acumulada:
+21 rutas exactas (16 Markdown y 5 SVG de plantilla sin uso eliminados).
+Destino origin=EnriqueForte/web-defense-ai-v2, main; fetch realizado y base
+HEAD=origin/main=7d4d10f1d3a0c26f04fdb14f7766a57a01e23ba2, divergencia0/0,
+staging inicial vacío. Publicar con [skip ci], revisar staging exacto y
+verificar HEAD remoto/árbol limpio al finalizar; identidad de entrega=commit
+que incorpora esta nota, sin anticipar éxito. Sin suites/build/modelo/servicios/
+VM por esta publicación. En Parrot conservar cambios locales y actualizar
+con pull--ff-only cuando corresponda; solo docs/assets no requiere rebuild,
+reinstalar o reiniciar por defecto. F4/F5/F6 cerradas por alcance y matriz F7
+aceptada mantienen sus límites; Git no añade aceptación global o métricas.
+
+Puerto Umbral 03Nov, DECISIÓN MÁS RECIENTE: propietario acepta expresamente
+la matriz F7 actualizada y ordena cerrar también F4/F5 si requieren pruebas.
+F7 ACEPTADA en alcance educativo documentado (10 categorías/11 recorridos,
+sin detección completa). F4/F5 CERRADAS por decisión expresa de alcance, sin
+ejecutar verificaciones restantes. Mantener rotación/discontinuidad real no
+verificada, métricas detector NO medidas y originales F5 sin localizar;
+no presentar objetivos27/30,5/6familia,0FP como resultados ni 45/45 o54/54.
+Se retiran del trabajo de cierre nuevas pruebas F4/F5, búsquedas originales,
+evaluación, empaquetado y desarrollo/validación del ejecutor/puntuador F5.
+F6 conserva cierre expreso previo. No pedir más pruebas/recorridos/lecturas/
+hashes/copias ni modelo/servicios/VM/Git. PRD y JSON históricos intactos.
+Registro vigente en docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md. Resta
+consolidación/aceptación final del conjunto con límites, sin publicación Git,
+release o LinkedIn autorizadas por esta aceptación de fases. Prevalece sobre
+los pendientes de las notas anteriores.
+
+Puerto Umbral 03Nov, bloque posterior autorizado por «ok sigue por ese bloque»:
+revisión documental F7 COMPLETADA por lectura de PRD, catálogos, target,
+panel/observador/componente y actas. Matriz diez categorías y F7-AC1/2/3
+revisados; once IDs cotejados con acta (6 normales/5 adversos corregidos v1).
+Intento Criptografía sigue NO observado, equivalencia scrypt solo por código;
+43 entradas F7 sin resultado, no 54/54 ni detección completa OWASP. Sin pruebas,
+parsers, imports/runtime, HTTP, VM, hashes/copias, modelo, servicios o Git.
+Matriz F7 lista para decisión final del propietario, no aceptación automática
+F7/proyecto. F6 conserva cierre expreso; F4/F5 decisiones propias pendientes.
+Siguiente trabajo posible: consolidación documental de entrega y decisiones
+de alcance F4/F5, sin volver a solicitar pruebas. No se reabre la ronda F7.
+
+Puerto Umbral 03Nov, decisión posterior del propietario: F6 CERRADA por
+decisión expresa de alcance porque las pruebas bloquean la conversación;
+no se realizarán las verificaciones restantes. Conservar lo observado y
+registrar Bitácora/Preferencias vulnerables, resultado vulnerable Baliza y
+regresión F6 restante como omitidos/no verificados, nunca como pruebas
+superadas. No volver a pedir esos recorridos ni buscar ejercicios alternativos.
+El cierre es de fase por decisión del propietario, no validación íntegra de
+los criterios originales ni aceptación global F0–F7. Continuar únicamente
+trabajo documental/revisión sin ejecutar pruebas, suites, escenarios, modelo,
+servicios, VM o Git. F5 y operación conservan sus estados hasta decisión propia.
+F5: revisión documental de metadatos/protocolo y separación de métricas
+completada, sin originales nuevos, empaquetado, puntuación o evaluación.
+Esta decisión prevalece sobre los candidatos y pendientes F6 históricos debajo.
+
+Puerto Umbral03Nov: capturaV2 recibida completa AtraquevulnIntentov1:
+mismo runprefijob2df9053/modovulnerable/2eventos/SHAvisible; observación
+Atraqueejecutadosinaprobación/docking/estibador.demo/dock-1 y mensaje copia
+conservadaV2sinanálisis. Recorrido autorizado COMPLETADO por capturas efecto+
+observación+copia; no repetircaso/copia/export/hash/backup/arranque. Comparación
+puntual con rechazo corregido previo acreditada, no F6global ni métricasLLM.
+Mensaje rojo superior pasareladetenida pertenece a sesión2Nov18:00:15, no
+saludactualfuente ni fallo de auditoría. No reiniciar/controlarDocker por ello.
+BitácorayPreferencias siguientes candidatos, todavía noautorizados; Baliza
+sigueaplazada y F5orig/operaciónpendientes. Soloactualizacióndocs, sinGit,
+suites/modelo/serviciosVMporagente.
+
+Puerto Umbral03Nov: propietario autoriza un único AtraqueF6/vulnerable/Intento/
+variante1 con lectura y conservaciónV2, sin suites/modelo. Captura recibida
+COMPLETED/runprefijob2df9053/HTTP200/POSTavanzadoatraque, respuesta real
+previous_state pending→permit_state consumed,3peticiones/3líneasApache/
+2eventos/2refsHTTP/V2consultadono. Efecto funcional observado por cuerpo,
+no repetircaso/reset/export/arranque. Falta lecturaV2 mismo run/modo y copia
+autorizadas: Actualizarauditoría, esperadoAtraqueejecutadosinaprobación/
+estibador.demo/dock-1; conservar1vez,recibircaptura. AúnNOobservación/copiaV2
+confirmadas ni F6global. Ventana navegadorinnecesariaenworkflow. Bitácora/
+Preferencias/Balizasiguenfueraautorización. Solo notaslocales, sinGit/suites/
+modelo/serviciosVMporagente. Planmínimo y auditoría actualizados.
+
+V2/Puerto Umbral03Nov: entrega7d4d10f1d3a0c26f04fdb14f7766a57a01e23ba2
+publicada origin/main, remotoigual/árbollimpio/0–0verificados al terminarGit
+anterior; propietario confirma actualizadoParrot. No repetirpull/build/tests.
+Propietario fija jueves5Nov cierre desarrollo y acepta concretar F6/operación.
+Nuevo docs/PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md:3candidatosfuncionales
+pendientes de permiso (AtraquevulnIntentov1,Bitácoravulnmarcadornavegador,
+PreferenciasvulnformularioCookieentreorígenes). No cuotas99casos, no repetir
+normales/corregidos/Cargas/comandos ni Baliza aplazada. PrimerpropuestoAtraque
+3peticiones/2eventos esperados, pendiente resultado; no ejecuciónautorizada
+por preparación. Lectura código contratoF6campos exactos/sinexpectedlabels/
+tokensredactados/reglasobservadas realizada, NOtodosrecibosVM/LLM acreditados.
+Operación: Apache stdout,/proc/self/fd/1; captura dockerlogs--tail1000;
+Compose json-file5m/3archivos. Renombrarcopiaaccess.log NOpruebarotaciónfuente.
+_transition/UI contemplandiscontinuidad, no causareal/rotación observada.
+Ensayofuenteadecuado odecisiónexpresacriterio aúnpendientes, no editarDockerlogs
+ni llenar5MB/usarcasossecundariospor defecto. F5orig/métricassiguenpendientes,
+objetivoF0–F7no reducido por fecha. Solo revisión/MDlocales, sinruntime/tests/
+servicios/VM/modelo/Gitnuevo. Próximo pedir alcancemanualAtraque una vez.
+
 V2/Puerto Umbral02Nov: propietario solicita commit/push de entrega acumulada
 de11archivos:8Markdown (contexto/actas/estado/protocoloF5), empaquetadorF5 y
 2archivos tests. Base main/origin586f050 verificada trasfetch, divergencia0/0,

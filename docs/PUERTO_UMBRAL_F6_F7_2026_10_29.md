@@ -1,5 +1,19 @@
 # Puerto Umbral — preparación de código F6/F7
 
+Decisión más reciente del propietario, 03/11: matriz F7 actualizada aceptada
+en su alcance educativo; F4/F5 cerradas sin pruebas restantes por decisión
+expresa de alcance. F6 conserva su cierre previo. Rotación real y métricas
+del detector no acreditadas siguen como limitaciones. Este estado prevalece
+sobre las propuestas y pendientes históricos inferiores; no reabrir pruebas.
+
+Estado posterior vigente al 03/11: F6 cerrada por decisión expresa del
+propietario con verificaciones omitidas/no acreditadas; revisión documental
+F7 completada sin pruebas. La [matriz F7 actualizada](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
+coteja once identificadores de esta acta, explicita diez categorías y recoge
+el dictamen F7-AC1/2/3, listo para aceptación final del propietario. Los
+pendientes de estas fases en las entradas inferiores son históricos: no
+reabren F6 o la ronda F7, ni autorizan ejecuciones. F4/F5 mantienen sus estados.
+
 Fecha: 29/10/2026, Europe/Madrid. Estado: **implementación revisada en código;
 sin ejecutar escenarios, servicios o suites y sin aceptación de fases**.
 El propietario solicita cerrar F0–F7 antes del martes 03/11 y elige expresamente

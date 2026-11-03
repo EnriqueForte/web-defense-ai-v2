@@ -1,11 +1,69 @@
 # Puerto Umbral integrado en V2 — auditoría de pendientes de cierre
 
-**Estado consolidado al 02/11:** el lanzador conjunto y la revisión básica de
+## Decisión vigente más reciente — 03/11
+
+El propietario acepta expresamente la matriz F7 actualizada y ordena cerrar
+F4/F5 si requieren pruebas. **F7 queda aceptada en su alcance educativo;
+F4/F5 cerradas por decisión expresa de alcance sin las pruebas restantes.**
+F6 conserva su cierre previo. Las omisiones y objetivos no medidos no se
+puntúan como aprobados. Rotación/discontinuidad real restante no verificada;
+evaluación del detector F5 omitida, originales sin localizar y métricas sin medir.
+
+Se retiran del trabajo de cierre ensayos F4 y preparación/ejecución adicional
+F5, incluidas búsquedas, pruebas del empaquetador y desarrollo/validación del
+ejecutor/puntuador pendiente. No se piden nuevas pruebas para estas fases.
+Los límites de cobertura F2/F3 y la evidencia recibida se conservan. Queda
+consolidación/aceptación final del conjunto, sin Git, release o LinkedIn por
+estas decisiones. El [registro de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
+prevalece sobre los pendientes y propuestas históricos inferiores.
+
+## Antecedentes de revisión y recepción
+
+**Decisión posterior vigente, 03/11: F6 cerrada por el propietario.** Las pruebas
+bloquean la conversación y el propietario decide no realizar las restantes.
+Se cierra F6 por decisión expresa de alcance: Bitácora/Preferencias vulnerables,
+resultado vulnerable de Baliza y regresión F6 restante quedan omitidos/no
+verificados. Se conserva la evidencia recibida y no se puntúan las omisiones
+como pruebas superadas. Los pendientes F6 de las cronologías inferiores quedan
+retirados, sin solicitar nuevos recorridos, recibos o sustituciones. Esta decisión
+no cierra F4/F5/F7 ni acepta el proyecto completo. El trabajo actual continúa
+sin ejecución de pruebas; véase el [registro F6](PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md).
+
+**Revisión documental F7 posterior, 03/11: completada.** Se cotejan por
+lectura los once IDs del acta, el catálogo, las etiquetas de revisión ficticia
+y los tres criterios F7. El mapa y su dictamen quedan listos para decisión
+final del propietario, con omisiones visibles y sin afirmar detección de
+categorías. No se reabre F6 ni se ejecutan pruebas para F7. Véase la
+[matriz actualizada](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md).
+
+**Estado consolidado al 03/11:** el lanzador conjunto y la revisión básica de
 ambas interfaces ya cuentan con recepción posterior en Parrot. No se repiten
 estos recorridos para cerrar actas. El
 [resumen de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) distingue tres bloques
 técnicos abiertos —funcionamiento/regresión, operación y evaluación— de la
 decisión final de aceptación y de la cobertura adicional.
+
+Recepción funcional del 03/11: Atraque F6/vulnerable/Intento/variante 1
+autorizado, captura `COMPLETED` de run con prefijo `b2df9053`, HTTP 200,
+estado `pending → consumed`; tres peticiones/líneas Apache y dos eventos/
+referencias HTTP. Efecto funcional acreditado por la respuesta real.
+La captura V2 posterior confirma mismo run/modo, dos eventos, observación
+«Atraque ejecutado sin aprobación», actor `estibador.demo` y recurso `dock-1`,
+con copia conservada sin análisis. Recorrido autorizado completado a ese
+alcance y comparación con rechazo corregido previo; no repetir caso/copia,
+exigir hashes adicionales ni ampliar a F6 global. El aviso rojo de seguimiento
+corresponde al ensayo del 02/11 y no es un error de la auditoría actual.
+
+Actualización del 03/11: [plan mínimo hasta el jueves 5](PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md).
+Revisión de código del contrato/eventos/lector F6 realizada: campos exactos,
+ausencia de veredictos esperados en eventos, redacción de tokens y observaciones
+derivadas de estado; no equivale a leer todos los recibos de Parrot. Tres
+candidatos funcionales distintos se concretan en ese plan: Atraque se completa
+según la recepción anterior; Bitácora y Preferencias siguen sin autorización
+específica, y Baliza aplazada. Fuente de logs confirmada por código:
+stdout de Apache y `docker logs`, no fichero rotatorio `access.log` del host.
+La prueba de rotación real o decisión explícita de alcance sigue pendiente;
+no se manipula la copia V2 para presentarla como rotación del origen.
 
 Recepción posterior del 02/11: cinco regresiones aisladas del lanzador
 ejecutadas con permiso explícito, **5/5 correctas, exit 0**, Windows/Python
@@ -31,7 +89,7 @@ recibo evaluable. No se concluye que nunca se ejecutó ni se cuenta como
 aprobado. El recorrido aplazado por el propietario no se reejecuta o reformula
 para eludir el bloqueo comunicado.
 
-**Último resultado funcional F6 recibido, 31/10:** Cargas vulnerable, Intento, variante 1,
+**Resultado funcional F6 anterior, 31/10:** Cargas vulnerable, Intento, variante 1,
 completado por capturas: acceso al señuelo `foreign-1` de otro propietario,
 regla V2 observada y copia conservada sin análisis. Run
 `176266c5fd701ecdfa637ba14f0d6a34`, HTTP 200, 2 eventos, SHA de auditoría
@@ -93,18 +151,18 @@ Son grupos de cierre, **no cinco pruebas ni autorizaciones para ejecutarlas**.
 
 | ID | Grupo | Qué falta realmente | Qué no se añade como requisito |
 | --- | --- | --- | --- |
-| C-01 | Funcionamiento, límites y regresión F2/F6 | Corrección de comandos verificada en recorrido representativo; efectos avanzados distintos, límites funcionales afectados y regresión justificada siguen pendientes | No repetir los dos recorridos de comandos o los normales completados ni ejecutar 99 entradas solo por existir en el catálogo |
-| C-02 | Operación F3/F4 | Salud ante fuente inválida/discontinuidad, latencia requerida o desviación revisada, no duplicación/trabajos y regresión de perfiles | El ciclo básico de cierre/retorno a lectura está recibido; no confundir el cierre del backend con desconexión de la fuente ni exigir todas las interrupciones imaginables |
-| C-03 | Evaluación y alcance F5 | Medir objetivos del detector con un plan autorizado, o preparar una decisión expresa que cambie el alcance de entrega y deje esa evaluación pendiente | No transformar cuatro grupos del informe en cuatro aciertos de corpus; no iniciar otro Groq con el permiso consumido |
+| C-01 | Alcance de funcionamiento y límites F2/F3 | Corrección de comandos verificada y preflight de perfiles probado; documentar límites de cobertura restante sin nuevas pruebas. F6 cerrada por decisión expresa con omisiones registradas | No repetir comandos/normales ni reabrir verificaciones F6; no ejecutar 99 entradas por existir en el catálogo |
+| C-02 | Operación F3/F4 | F4 cerrada por decisión expresa sin pruebas restantes; ensayos previos conservados y rotación/discontinuidad real no verificada. Límites F3 registrados | No repetir ensayos o solicitar sustitutos; cierre por alcance, sin afirmar todos los estados API/interfaz o pipeline probados |
+| C-03 | Evaluación y alcance F5 | F5 cerrada por decisión expresa sin evaluación adicional. Objetivos del detector no medidos y originales sin localizar | No transformar grupos del informe en aciertos de corpus, ejecutar otro Groq o reabrir preparación/pruebas para esta entrega |
 | C-04 | Conservación de evidencias | Respaldo del perfil seleccionado del 31/10 con verificación interna: 113 archivos, sin faltantes; selección de auditorías y hash puntual recibidos | No cubre automáticamente Cargas vulnerable o evidencias posteriores; restauración adicional aplazada; originales bajo `labs/` fuera del perfil; no recuperación de toda la VM |
-| C-05 | Producto, documentación y aceptación | Revisión básica de ambas interfaces completada; documentación consolidada; revisión final del propietario y decisión de entrega pendientes | Zoom 200 %, exportación y revisión exhaustiva siguen sin observarse, sin convertirse en cuotas nuevas del PRD; no crear release o publicar LinkedIn por cerrar documentación |
+| C-05 | Producto, documentación y aceptación | Revisión básica de interfaces completada y matriz F7 aceptada por el propietario. Consolidación final y aceptación del conjunto pendientes | Zoom 200 %, exportación y revisión exhaustiva siguen sin observarse, sin convertirse en cuotas nuevas del PRD; no crear release o publicar LinkedIn por cerrar documentación |
 
 ## Matriz de los criterios que condicionan el MVP y F6
 
 Los estados siguientes son dictámenes de esta revisión de evidencia, no una
 aceptación del propietario o resultado de pruebas nuevas.
 
-| Criterio PRD | Evidencia y dictamen al 02/11 | Trabajo mínimo pendiente o decisión |
+| Criterio PRD | Evidencia y dictamen al 03/11 | Trabajo mínimo pendiente o decisión |
 | --- | --- | --- |
 | F2-AC1: efecto vulnerable, corrección y uso benigno | Históricos 42/45 preservados; el 02/11 se identifica la fuente corregida en imagen y pasan normal corregido y vulnerable variante 1, con salida real/retorno 0 y sin `Cannot fork` | Incidencia verificada como corregida en el recorrido representativo; no repetirlo ni cambiar a superadas las variantes 2/3 históricas sin reejecución; aceptación y regresión globales siguen separadas |
 | F2-AC2: efecto demostrado, no solo HTTP 200 | SQL/traversal, marcador XSS y ahora comandos vulnerable variante 1 con identidad `uid=10001(umbral)` observados | El efecto de este recorrido de comandos está acreditado por cuerpo real, sin puntuar todo el corpus o detector |
@@ -116,29 +174,29 @@ aceptación del propietario o resultado de pruebas nuevas.
 | F3-AC4: pilot/legacy conservan comportamiento y datos | Código y contratos revisados; cinco regresiones aisladas del 02/11 pasan para rutas/fuentes/motor y preflight de los tres perfiles, conservando informes temporales de otros perfiles | Separación de planes/preflight acreditada a ese alcance; comportamiento completo del pipeline y todos los endpoints no cubiertos por este bloque |
 | F4-AC1: veinte ciclos cumplen objetivo de diez segundos o desviación revisada | Veinte muestras, lectura 0,057–0,096 s/cota API 0,086–1,054 s y condiciones registradas; propietario acepta el 02/11 la desviación acotada de disponibilidad API | Criterio tratado por la vía de desviación documentada y revisada; renderizado y visibilidad extremo a extremo RNF-09 siguen sin verificar, sin aceptación F4/proyecto global |
 | F4-AC2: sin cambios no duplica eventos ni crea trabajos | Ensayo real: trabajos 1→1, entregas 0→0 y metadatos sin cambios; snapshots 25→26, un único checkpoint en las veinte muestras; panel detenido con 21 ciclos/1 snapshot/20 sin cambios | Acreditado en la ventana observada sin tráfico nuevo; no repetirla ni extenderla a todas las condiciones/historial |
-| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error real de fuente, stop/start previstos, captura recuperada de 94 líneas sin auto-resume; snapshot anterior b41656aa existe y su hash coincide con el recibo según lectura del propietario | Recorrido de desconexión/reinicio/conservación completado a su alcance; no repetirlo. Rotación/discontinuidad del contenido del log sigue sin probarse y no se puntúa por reiniciar el contenedor |
+| F4-AC3: desconexión/rotación/reinicio visibles, evidencia conservada | Error real de fuente, stop/start previstos, captura recuperada de 94 líneas sin auto-resume; snapshot anterior b41656aa existe y su hash coincide con el recibo según lectura del propietario | F4 cerrada por decisión expresa de alcance del 03/11; recorrido observado conservado y rotación/discontinuidad real omitida/no verificada, sin nuevas pruebas |
 | F4-AC4: pausa/parada sin ciclos o procesos propios huérfanos | Secuencia básica completa, supervisor revisado, preflight del 31/10 sin bloqueadores y ciclo del lanzador conjunto lectura/manual/parada/lectura del 01/11 recibidos | Cierre básico y comprobaciones de puertos/locks/contenedores acreditados a ese alcance; no implica inspección exhaustiva del host, cierre durante un trabajo activo o suite de regresión ejecutada; no repetir la secuencia básica |
 | F4-AC5: seguimiento sin LLM ni notificaciones | Arquitectura separada, cotejo histórico y ensayo real del 02/11 con trabajos 1→1/entregas 0→0 y metadatos sin cambios | Corroborado en el ensayo y registros conservados, sin auditoría independiente del proveedor; no iniciar un modelo ni repetir el ensayo para documentar ausencia de nuevos trabajos |
 | F5-AC1: 45 resultados/evidencias o causa de fallo | Los 45 históricos tienen registro y causa, incluidos los tres fallos | **Registro histórico cubierto** en su alcance; el criterio no exige por sí solo otra ejecución completa de 45. Esto no resuelve F2-AC1 o regresión de la versión actual |
-| F5-AC2: objetivos de detección o decisión expresa de alcance | Objetivos 27/30 intentos, 5/6 por familia y cero falsas alarmas entre 15 benignos siguen sin medir | Bloqueo de aceptación: evaluación propia autorizada o decisión expresa documentada sobre cambio de alcance; una entrega no evaluada no cumple los objetivos originales por renombrarla |
+| F5-AC2: objetivos de detección o decisión expresa de alcance | Objetivos 27/30 intentos, 5/6 por familia y cero falsas alarmas entre 15 benignos siguen sin medir | F5 cerrada por decisión expresa de alcance del 03/11, sin evaluación adicional. Se retira como bloqueo de fase, conservando objetivos no acreditados y omisiones visibles |
 | F5-AC3: separar intento, bloqueo, efecto y evidencia insuficiente | Actas, informe y matriz educativa distinguen estas clases | Conservar el criterio en la revisión editorial final; no exige repetir casos ya observados |
 | F5-AC4: instalación/cierre en plataforma objetivo | Instalación V2 previa, actualización/build/arranque/cierre del laboratorio en Parrot documentados | Acreditado para instalación existente y recorridos observados; no exigir reinstalar de cero por este criterio ni certificar otras plataformas nuevas |
 | F5-AC5: originales, presupuesto y límites conservados | Archivos históricos revisados, consumo del único análisis registrado, recuperación aislada de 66 archivos y posterior respaldo de 113 archivos con verificación interna observados | Conservación acreditada para las selecciones y fechas correspondientes, sin extenderla automáticamente a evidencia posterior; originales `labs/` separados y restauración adicional aplazada; coste real no medido |
-| F6-AC1: acceso indebido con identidad/recurso/política | Lecturas propias permitidas y ajenas rechazadas; Cargas vulnerable variante 1 devuelve el recurso ajeno y V2 lo registra/conserva según capturas; aprobaciones y consumo corregidos observados | Comparación puntual Cargas completada; otros efectos avanzados vulnerables y regresión siguen pendientes |
-| F6-AC2: SSRF confinada al señuelo | Lectura pública y rechazo de recurso interno corregidos; Unix HTTP sin DNS/IP en código; inspección con `valid=True`, 14 contenedores y targets sin red IP; fila vulnerable en historial sin resultado funcional | Perímetro configurado observado; efecto vulnerable sin evidencia recibida y recorrido aplazado; no se solicita repetirlo, probar Internet o host |
-| F6-AC3: CSRF entre orígenes sin afectar al control | Formulario normal aceptado y cruzado rechazado en navegador corregido observados | Efecto vulnerable y separación del control aún sin observar; no repetir el recorrido corregido |
-| F6-AC4: detector sin etiquetas/veredictos esperados | Separación catálogo/contrato/lector en código, observaciones V2 sobre campos de negocio; fuente distinta del informe LLM | Revisión acotada del lote/recibo real si se exige comprobación operativa completa; no requiere nuevas llamadas LLM para revisar el contrato |
-| F6-AC5: positivos/negativos y regresión | Negativos corregidos y normales observados; positivo Cargas vulnerable variante 1 con efecto, regla y conservación observados; corpus base conservado | Otros positivos representativos y regresión justificada pendientes; no interpretar tres variantes declaradas como una orden de 99 ejecuciones |
+| F6-AC1: acceso indebido con identidad/recurso/política | Lecturas propias permitidas y ajenas rechazadas; Cargas vulnerable variante 1 devuelve el recurso ajeno; Atraque vulnerable variante 1 consume permiso pendiente; V2 observa y conserva ambas auditorías según capturas; rechazos corregidos previos recibidos | Fase cerrada por decisión expresa del 03/11; comparaciones recibidas conservadas y cobertura restante omitida/no verificada, sin más recorridos |
+| F6-AC2: SSRF confinada al señuelo | Lectura pública y rechazo de recurso interno corregidos; Unix HTTP sin DNS/IP en código; inspección con `valid=True`, 14 contenedores y targets sin red IP; fila vulnerable en historial sin resultado funcional | Fase cerrada por decisión expresa; resultado vulnerable de Baliza omitido/no verificado. No se ejecutará ni se sustituirá por otro caso |
+| F6-AC3: CSRF entre orígenes sin afectar al control | Formulario normal aceptado y cruzado rechazado en navegador corregido observados | Fase cerrada por decisión expresa; recorrido vulnerable restante omitido/no verificado. Se conserva lo observado en modo corregido |
+| F6-AC4: detector sin etiquetas/veredictos esperados | Separación catálogo/contrato/lector en código, observaciones V2 sobre campos de negocio; fuente distinta del informe LLM | Fase cerrada por decisión expresa con revisión estática registrada; no se exige nueva lectura de recibos VM ni se afirma inspección operativa exhaustiva |
+| F6-AC5: positivos/negativos y regresión | Negativos corregidos y normales observados; positivos Cargas y Atraque vulnerables variante 1 con efecto, regla y conservación observados; corpus base conservado | Fase cerrada por decisión expresa; Bitácora y restantes positivos/regresión F6 omitidos/no verificados, sin convertirlos en aprobados |
 
 F1 ya registra vistas adaptables 390/768/1440 en las pantallas del prototipo
 comprobadas; no se borra esa evidencia. La interfaz local posterior cuenta ahora
 con revisión básica del propietario en vista estrecha y teclado a su alcance,
 según el acta de producto; no es accesibilidad global o aprobación final F0–F7.
-La matriz F7
-prepara sus tres criterios educativos, sin borrar la dependencia de F6 ni las
-validaciones reales F4–F5 relacionadas con operación/avisos.
+La matriz F7 tiene sus tres criterios educativos revisados documentalmente y
+queda lista para la decisión final. F6 conserva su cierre expreso con límites;
+F4/F5 mantienen sus estados y no se dan por aceptadas por esta revisión.
 
-## Cobertura adicional y decisiones pendientes
+## Antecedentes de cobertura adicional y decisiones, resueltas según cabecera
 
 Completar todas las variantes F6/F7, restaurar toda la VM, repetir el análisis
 de 17 líneas o reinstalar todas las plataformas no son requisitos nuevos que
@@ -159,7 +217,10 @@ registradas, sin renderizado o visibilidad extremo a extremo RNF-09 medidos.
 Es una decisión expresa sobre F4-AC1, no conformidad original ni aceptación
 de toda F4, F5 o el proyecto.
 
-## Orden recomendado para continuar
+## Orden histórico propuesto antes del cierre F4/F5
+
+Las propuestas de evaluación, búsquedas o ensayos siguientes están retiradas
+por la decisión vigente de cabecera. La matriz F7 ya está aceptada.
 
 1. Usar el resumen de entrega como estado vigente. Inspección de perímetro,
    recibo/hash/listado/respaldo y revisión básica de interfaces ya recibidos
@@ -169,9 +230,10 @@ de toda F4, F5 o el proyecto.
    aisladas, comandos representativos, medición API y recorrido de desconexión/
    reinicio/conservación están completados a sus alcances; no repetirlos.
 3. Mantener explícitos los criterios restantes de operación (incluida rotación
-   no observada), regresión y positivos F6. Vincular cada propuesta a un criterio
-   sin ampliar permisos anteriores. El objetivo completo sigue vigente; ni el
-   análisis único ni los ensayos funcionales sustituyen métricas del detector.
+   no observada) y límites de cobertura F2/F3, sin ejecutar pruebas. F6 está
+   cerrada por decisión expresa con sus omisiones, sin nuevas propuestas de
+   positivos o regresión. El análisis único y los ensayos funcionales no
+   sustituyen métricas del detector F5.
 4. Revisar con el propietario resultados, matriz educativa F7 y documentación
    V2 para la decisión final de entrega. Conservación se declara por selección
    y fecha; no se añade una nueva restauración independiente aplazada.
