@@ -1,4 +1,4 @@
-# Capturas de Web Defense AI
+# Capturas de Web Defense AI V2 y Puerto Umbral
 
 ## Consola V2
 
@@ -31,6 +31,20 @@ La captura ilustra la interfaz; no acredita una nueva ejecución del modelo,
 validación de la clave ni disponibilidad o gratuidad de los modelos mostrados.
 Su incorporación documental no requirió consultar proveedores, leer `.env`,
 ejecutar análisis ni modificar la instalación del propietario.
+
+## Puerto Umbral
+
+El propietario aporta estas imágenes para la documentación el 04/11/2026:
+
+| Archivo | Vista |
+| --- | --- |
+| [PuertoUmbral Panel.png](PuertoUmbral%20Panel.png) | Panel local, selección de escenarios, controles y listado de ejecuciones/evidencia |
+| [PuertoUmbral Portal.png](PuertoUmbral%20Portal.png) | Portal educativo con Mercancías, Comunicaciones, Archivo de vuelo, Mantenimiento y Tripulación |
+
+Se incorporan los archivos originales, sin editar. Muestran la instalación
+local con datos ficticios; su uso documental no añade validación funcional de
+los casos del historial ni modifica las decisiones de cierre registradas.
+No se ejecutan escenarios o servicios para incorporarlas al README.
 
 ## Interfaz anterior
 

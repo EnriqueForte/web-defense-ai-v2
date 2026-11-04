@@ -1,300 +1,163 @@
 <div align="center">
 
-# 🛡️ Web Defense AI · V2
+# 🛡️ Web Defense AI V2
 
-**Del registro de acceso a la evidencia: análisis defensivo con agentes de IA.**
+**Un laboratorio web para aprender y una consola con IA para investigar sus evidencias.**
 
-Consola local para revisar actividad de Apache, investigar patrones sospechosos
-y consultar informes con referencias a las líneas del log.
-
-[![Versión local](https://img.shields.io/badge/versión-v0.1.0-22d3ee?style=flat-square)](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0)
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)
-![CrewAI](https://img.shields.io/badge/CrewAI-1.15.27-F15A24?style=flat-square)
-![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-API-000000?style=flat-square&logo=flask&logoColor=white)
-[![Licencia MIT](https://img.shields.io/badge/licencia-MIT-34d399?style=flat-square)](LICENSE)
-
-[Inicio rápido](#inicio-rápido) · [Consola](#la-consola) · [Arquitectura](#arquitectura) · [Documentación](#documentación)
+[Instalación](#instalación) · [Arranque](#arranque) · [Capturas](#capturas) · [Documentación](#documentación)
 
 </div>
 
-![Resumen de la consola Web Defense AI V2 con datos sintéticos](screenshots/v2-summary.png)
+## Qué incluye el proyecto
 
-*Resumen con datos sintéticos de demostración; no representa incidentes reales ni una nueva ejecución del modelo.*
+Este repositorio reúne dos aplicaciones que trabajan juntas en tu equipo:
 
-## Qué hace
-
-Web Defense AI combina preparación de evidencias en Python, tres agentes CrewAI
-y una consola de revisión. Está pensado para **laboratorios, aprendizaje y apoyo
-al análisis defensivo local**: permite pasar de las peticiones del registro a un
-informe trazable, manteniendo visible la diferencia entre un patrón observado y
-un incidente confirmado.
-
-- **Revisa indicadores:** patrones de SQLi, XSS, traversal, fuerza bruta e inyección de comandos, sujetos a la evidencia disponible.
-- **Agrupa hallazgos:** presenta tipo, severidad, IP observada y referencias al log; varios intentos pueden formar un único grupo.
-- **Consulta informes:** accede al reporte actual y a los archivos históricos disponibles, con fechas de publicación y lectura segura como texto.
-- **Explora la actividad:** muestra coincidencias por periodo y una ventana de peticiones recientes.
-- **Controla la ejecución:** separa la lectura de datos, el análisis y las notificaciones opcionales.
-
-V2 continúa el [proyecto original Web Defense AI](https://github.com/EnriqueForte/web-defense-ai)
-de **T3r0S3c**, con una interfaz Next.js, API versionada, publicaciones estructuradas
-y herramientas de instalación y recuperación. Ambos repositorios se mantienen
-independientes; consulta [su relación y alcance](docs/REPOSITORIOS.md).
-
-### Distribución pública
-
-El código está disponible en un **repositorio público de GitHub bajo licencia
-MIT**, para consulta, clonación e instalación propias sin solicitar acceso.
-La apertura y sus comprobaciones se registran en [Distribución pública](docs/DISTRIBUCION_PUBLICA.md).
-Cada instalación mantiene sus propias credenciales, logs e informes.
-La consola y el laboratorio siguen destinados al uso local aislado.
-
-## La consola
-
-Cinco vistas organizan el trabajo: **Resumen**, **Amenazas**, **Reportes**,
-**Actividad** y **Configuración**. El resumen reúne indicadores y severidades;
-el detalle permite contrastar los grupos del informe con sus evidencias.
-
-| Amenazas y referencias | Consulta de informes |
-| :---: | :---: |
-| [![Vista de amenazas con datos sintéticos](screenshots/v2-threats.png)](screenshots/v2-threats.png) | [![Vista de reportes con datos sintéticos](screenshots/v2-reports.png)](screenshots/v2-reports.png) |
-
-*Pulsa una imagen para ampliarla. [Procedencia de las capturas](screenshots/README.md).*
-
-Las **coincidencias del log** y los **grupos clasificados del informe** son
-medidas distintas. La actividad reciente es una ventana de ocho líneas de la
-API, no un registro histórico completo. **Actualizar** relee la copia local:
-no captura tráfico nuevo ni solicita un análisis.
-
-### Configuración del LLM
-
-Selecciona **Groq u OpenRouter**, elige un modelo del catálogo o introduce otro
-identificador compatible y configura tus credenciales desde la consola.
-Cada instalación conserva su propia configuración local; guardar no valida
-la clave ni inicia un análisis. [Guía de configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md).
-
-[![Configuración del proveedor y modelo LLM en Web Defense AI V2](screenshots/v2-llm.png)](screenshots/v2-llm.png)
-
-## Inicio rápido
-
-Para la revisión educativa de Puerto Umbral junto con V2, consulta la
-[guía de actualización en Parrot](docs/PUERTO_UMBRAL_PARROT_2026_10_26.md).
-La distribución incluye el laboratorio local; su inicio se solicita con
-una entrada conjunta después de instalar/compilar y disponer de Docker/Compose:
-
-```bash
-python3 webdefensev2.py
-```
-
-En Windows: `py webdefensev2.py`. Abre V2 en `http://127.0.0.1:3000` y Puerto
-Umbral en `http://127.0.0.1:4381`; también prepara los dos portales locales.
-Usa informes `structured` y fuente del laboratorio `corrected` por defecto.
-`--lab-mode vulnerable` selecciona esa otra fuente para V2. Mantén la terminal
-abierta; `Ctrl+C` cierra los servicios propios de ambas apps y conserva los datos.
-Este arranque no ejecuta escenarios ni análisis automáticos.
-La entrada conjunta reutiliza `webdefense.py`; los comandos anteriores siguen
-disponibles para iniciar solo V2 o elegir sus opciones avanzadas.
-Para habilitar el análisis manual y su ejecutor desde la misma terminal:
-
-```bash
-python3 webdefensev2.py --enable-manual
-```
-
-El ejecutor espera solicitudes del botón **Iniciar análisis**, sin ciclos
-programados. El botón necesita además proveedor configurado y ausencia de un
-trabajo pendiente/activo. Iniciar con esa opción no solicita un análisis;
-usar el botón sí contacta al proveedor configurado. Para volver a lectura,
-espera al fin del trabajo, cierra la consola propia y arranca sin la opción.
-La revisión manual ha observado escenarios de ambas modalidades y un recorrido
-de snapshot guardado a informe visible en V2: 17 líneas, tres llamadas a Groq y
-cuatro grupos que requieren investigación. Ese recorrido no evalúa por sí solo
-el corpus completo ni certifica sus resultados.
-La [fase F4](docs/PUERTO_UMBRAL_F4_2026_10_27.md) incorpora seguimiento con inicio,
-pausa y parada explícitos, sin análisis automático. Su ronda operativa básica
-en Parrot está completada; la aceptación ampliada sigue pendiente. Arrancar
-V2 o abrir Actividad no inicia el seguimiento.
-La [evaluación F5](docs/PUERTO_UMBRAL_F5_2026_10_27.md) organiza los 45 registros
-históricos y las observaciones manuales, conservando tres fallos y las métricas
-del detector sin medir. El [manual de operación local](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md)
-centraliza arranque, seguimiento, cierre y conservación. La aceptación del MVP
-completo sigue pendiente. El respaldo y la restauración aislada del perfil
-Puerto Umbral se observaron después en Parrot con 66 archivos, SQLite e informe
-verificados. Un respaldo posterior del perfil actualizado devuelve 113 archivos,
-verificación interna correcta y ningún faltante; la restauración independiente
-adicional queda aplazada. Estos alcances no equivalen a recuperar toda la VM. Consulta el
-[estado actual y plan de cierre F0–F7](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
-
-Las ampliaciones [F6/F7](docs/PUERTO_UMBRAL_F6_F7_2026_10_29.md) incluyen cinco
-escenarios con identidad/estado, seis revisiones de artefactos ficticios y una
-fuente de auditoría de aplicación para V2. En Parrot se han observado controles
-F6 corregidos, un recorrido CSRF en navegador y rechazo de reutilización de
-permiso, con lectura y conservación informadas en V2. Cargas también cuenta
-con una comparación de variante 1: acceso ajeno en modo vulnerable y rechazo
-en modo corregido, con auditoría V2 observada. La
-[ronda representativa F7](docs/PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
-termina con once recorridos corregidos de variante 1 observados. El catálogo
-separado declara 99 entradas; no equivale a 99 casos superados ni modifica el
-histórico base de 45. La [auditoría de cierre](docs/PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
-separa evidencias completadas, requisitos pendientes y cobertura adicional.
-La [revisión de producto](docs/PUERTO_UMBRAL_REVISION_PRODUCTO_2026_10_31.md)
-registra la navegación básica, vista estrecha y foco de ambas interfaces,
-completados a su alcance. El
-[resumen de entrega del 02/11](docs/PUERTO_UMBRAL_ENTREGA_2026_11_02.md)
-concentra lo acreditado, los pendientes esenciales y la cobertura adicional.
-La aceptación global de Puerto Umbral y la detección completa de las diez
-categorías OWASP siguen sin acreditarse.
-
-El 03/11 el propietario cierra F6 por decisión expresa de alcance, sin realizar
-las verificaciones restantes. Se conservan las evidencias recibidas y las
-omisiones como no verificadas; este cierre no afirma validación íntegra F6 ni
-aceptación global. El [registro de cierre](docs/PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md)
-recoge la decisión y el trabajo documental siguiente, sin nuevas pruebas.
-
-Posteriormente el propietario acepta la matriz educativa F7 y cierra F4/F5
-sin sus pruebas restantes. Rotación real y métricas del detector mantienen
-estado no verificado/no medido; los objetivos originales no se anuncian como
-resultados. El [estado de cierre acordado](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
-registra estas decisiones separadas de la aceptación final del conjunto y
-de cualquier publicación.
-
-### Requisitos
-
-| Herramienta | Versión / uso |
+| Aplicación | Para qué sirve |
 | --- | --- |
-| Git | Clonar el repositorio público por HTTPS, sin token de GitHub |
+| **Web Defense AI V2** | Consola defensiva que analiza registros de Apache con tres agentes CrewAI y presenta hallazgos, severidades e informes con referencias a las líneas del log. |
+| **Puerto Umbral** | Laboratorio web educativo con versiones vulnerable y corregida, datos ficticios y escenarios locales para observar peticiones, respuestas y cambios de estado. |
+
+**V2** permite capturar y seguir logs, consultar auditoría de aplicación y
+solicitar análisis con **Groq u OpenRouter**. Organiza el trabajo en Resumen,
+Amenazas, Reportes, Actividad y Configuración.
+
+**Puerto Umbral** incluye SQLi, XSS, traversal, inyección de comandos y fuerza
+bruta, además de módulos con identidad y estado como Cargas, Preferencias y
+Atraque. Incluye revisiones de artefactos ficticios sobre configuración,
+criptografía, integridad y otros riesgos web.
+
+El recorrido habitual es **explorar un escenario en Puerto Umbral → capturar sus
+logs en V2 → solicitar un análisis → revisar el informe y sus evidencias**.
+
+## Instalación
+
+Necesitas estas herramientas instaladas:
+
+| Herramienta | Requisito |
+| --- | --- |
+| Git | Para clonar el repositorio |
 | Python | **3.11**, con `venv` y `ensurepip` |
 | Node.js | **24 o posterior** |
-| pnpm | **11.19.0** |
-| Docker | Opcional para V2; necesario para los laboratorios locales DVWA/Mailpit o Puerto Umbral |
+| pnpm | **11.19.0**: `npm install --global pnpm@11.19.0` |
+| Docker y Compose | Para Puerto Umbral; en Windows, Docker Desktop con contenedores Linux |
 
-### Instalar e iniciar
-
-Los ejemplos siguientes arrancan **solo V2**. Para el conjunto con Puerto
-Umbral utiliza después `python3 webdefensev2.py`, como se indica arriba.
-La nueva entrada también admite `install`, `check` y `--help`: `install`
-reutiliza el instalador del proyecto y `check` comprueba el arranque conjunto
-sin iniciar servicios. Docker/Compose se prepara por separado.
-
-En Linux, desde la carpeta donde quieras clonar:
+Clona el proyecto y entra en su carpeta:
 
 ```bash
 git clone https://github.com/EnriqueForte/web-defense-ai-v2.git
 cd web-defense-ai-v2
-python3 webdefense.py install
-python3 webdefense.py start --mode structured
 ```
 
-En Windows, tras clonar y entrar en la carpeta:
+Instala las dependencias y compila la interfaz:
+
+```bash
+# Linux / Parrot
+python3 webdefensev2.py install
+```
 
 ```powershell
-py webdefense.py install
-py webdefense.py start --mode structured
+# Windows
+py webdefensev2.py install
 ```
 
-Cuando aparezca **«Consola lista»**, abre **[http://127.0.0.1:3000](http://127.0.0.1:3000)**.
-Mantén la terminal abierta; **Ctrl+C detiene Flask y Next.js** iniciados por el
-lanzador. En una VM, abre la dirección desde el navegador de esa VM.
+El instalador prepara `.p2`, las dependencias Python, el frontend y `.env`.
+Docker se instala por separado; no necesitas activar `.p2` manualmente.
 
-El instalador prepara `.p2`, comprueba las dependencias fijadas y compila el
-frontend. Crea `.env` si falta y conserva uno existente. No necesitas activar
-el entorno virtual para usar el lanzador.
+## Arranque
 
-Este inicio sin `--enable-manual` abre la consola **en modo de lectura**, sin worker, análisis manual
-ni notificaciones habilitados. Una instalación nueva puede indicar «Fuentes
-incompletas»: cada usuario aporta sus logs y publicaciones. Para configurar el
-proveedor y ejecutar un análisis, sigue la [guía de instalación y operación](docs/INSTALACION_AUTOALOJADA.md).
+Con Docker iniciado, ejecuta desde la raíz del proyecto:
 
-Se muestra `--mode structured` para consultar publicaciones estructuradas de V2.
-El modo predeterminado de `webdefense.py` sigue siendo `legacy`; utiliza
-`--mode legacy` para los informes anteriores. Elegir modo no genera un informe.
-La entrada conjunta `webdefensev2.py` selecciona siempre `structured` para
-el perfil Puerto Umbral.
-
-Consulta [Inicio rápido](docs/INICIO_RAPIDO.md) para preparar las herramientas,
-comprobar el entorno y resolver problemas de arranque.
-
-## Arquitectura
-
-```mermaid
-flowchart LR
-    A["Apache / Puerto Umbral o DVWA"] -->|captura explícita| B["Copia local del access.log"]
-    B --> C["Preparación de evidencias"]
-    C --> D["Analista → Detective → Reporter"]
-    D --> E["Validación y publicación JSON / Markdown"]
-    E --> F["API Flask /api/v1"]
-    B --> F
-    I["Auditoría de aplicación Puerto Umbral / F6–F7"] --> J["Observador por reglas / copia explícita respaldable"]
-    J --> F
-    F --> G["Consola Next.js"]
-    F --> H["Interfaz Flask alternativa"]
+```bash
+# Linux / Parrot
+python3 webdefensev2.py
 ```
 
-En modo **structured**, Python selecciona evidencia, valida referencias y
-clasificación, calcula tablas y conteos y publica una generación coherente de
-JSON/Markdown. Los tres agentes participan en el análisis; la publicación pasa
-por validaciones antes de quedar disponible para la consola. El ejecutor de
-análisis se inicia por separado del lanzador de lectura.
+```powershell
+# Windows
+py webdefensev2.py
+```
 
-| Componente | Tecnología |
+El primer arranque prepara las imágenes del laboratorio. Cuando aparezca
+**«Consola lista»**, abre:
+
+| Aplicación | Dirección local |
 | --- | --- |
-| Motor de análisis | Python 3.11 · CrewAI 1.15.27 · contrato de 172 paquetes por plataforma |
-| Proveedores LLM | Groq predeterminado · OpenRouter opcional · credenciales propias |
-| Consola | Next.js 16 · React 19 · TypeScript |
-| API e interfaz alternativa | Flask · API `/api/v1` |
-| Auditoría de aplicación Puerto Umbral | Contrato de eventos · observaciones por reglas · lectura y conservación explícita observadas, sin llamadas LLM |
-| Laboratorios locales | Puerto Umbral incluido en `labs/puerto_umbral`; DVWA · MariaDB · Mailpit separados; imágenes fijadas por digest |
-| Avisos opcionales | Telegram / SMTP, mediante configuración y ejecución explícitas |
+| **Web Defense AI V2** | [127.0.0.1:3000](http://127.0.0.1:3000) |
+| **Panel de Puerto Umbral** | [127.0.0.1:4381](http://127.0.0.1:4381) |
+| Portal vulnerable | [127.0.0.1:4380](http://127.0.0.1:4380) |
+| Portal corregido | [127.0.0.1:4382](http://127.0.0.1:4382) |
 
-Puerto Umbral usa su Compose propio en `labs/puerto_umbral/lab/compose.yaml` y
-su [manual de operación](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md). Para DVWA/Mailpit,
-el laboratorio aislado utiliza **`compose.lab.yaml`**, con puertos publicados
-en loopback. `docker-compose.yml` conserva el entorno legacy y tiene una
-exposición diferente. Antes de actualizar un laboratorio existente, sigue las
-instrucciones de respaldo de la [guía DVWA](docs/LABORATORIO_DVWA_FASE_6.md):
-la copia de la aplicación no incluye el volumen de la base ni el buzón Mailpit.
+Mantén la terminal abierta. **Ctrl+C detiene los servicios propios de la sesión
+conservando sus datos.** Si trabajas en una VM, abre las direcciones en su navegador.
+
+### Primer uso
+
+1. En **Puerto Umbral**, elige módulo, modo y variante. Ejecuta desde el panel
+   y consulta su respuesta y recibo de evidencia.
+2. En **V2 → Actividad**, captura el log del laboratorio o inicia su seguimiento.
+   Para los módulos avanzados, consulta también la auditoría de aplicación.
+3. En **V2 → Configuración**, selecciona Groq u OpenRouter y configura tu clave
+   para analizar con IA.
+4. Para habilitar el análisis, cierra la sesión y arranca con la opción manual:
+
+   ```bash
+   python3 webdefensev2.py --enable-manual
+   ```
+
+   En Windows: `py webdefensev2.py --enable-manual`. Después usa **Iniciar
+   análisis** y consulta **Amenazas** y **Reportes** al terminar.
+
+El arranque habitual abre V2 en lectura y selecciona la fuente **corregida**.
+Para leer la vulnerable, añade `--lab-mode vulnerable` al comando de arranque.
+El selector del panel de Puerto Umbral y la fuente elegida por V2 son independientes.
+
+El análisis es explícito: puede enviar logs al proveedor y consumir su cuota
+o saldo. La instalación comienza sin los logs ni informes privados del autor.
+La auditoría de aplicación usa reglas separadas del informe de IA.
+
+Para iniciar **solo V2**, usa `python3 webdefense.py start --mode structured`
+(Windows: `py webdefense.py start --mode structured`). No requiere Docker;
+consulta cómo aportar tus logs en la [guía de operación](docs/INSTALACION_AUTOALOJADA.md).
+
+## Capturas
+
+### Web Defense AI V2
+
+| Resumen de seguridad | Consulta de informes |
+| :---: | :---: |
+| [![Resumen de Web Defense AI V2](screenshots/v2-summary.png)](screenshots/v2-summary.png) | [![Informe con referencias en Web Defense AI V2](screenshots/v2-reports.png)](screenshots/v2-reports.png) |
+
+*Pulsa para ampliar. Datos sintéticos de demostración.
+[Procedencia de las imágenes](screenshots/README.md).*
+
+### Puerto Umbral
+
+| Panel de escenarios y evidencias | Portal del laboratorio |
+| :---: | :---: |
+| [![Panel de Puerto Umbral con módulos, controles e historial de ejecuciones](screenshots/PuertoUmbral%20Panel.png)](screenshots/PuertoUmbral%20Panel.png) | [![Portal de Puerto Umbral con los módulos Mercancías, Comunicaciones, Archivo de vuelo, Mantenimiento y Tripulación](screenshots/PuertoUmbral%20Portal.png)](screenshots/PuertoUmbral%20Portal.png) |
+
+*Capturas del laboratorio local aportadas por el autor; datos ficticios.
+Pulsa para ampliar.*
+
+## Alcance
+
+Uso educativo local y autorizado; mantén las aplicaciones en localhost.
+Un indicador requiere interpretación y no confirma por sí solo explotación.
+La detección general y sus métricas no están acreditadas;
+[consulta el alcance documentado](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md).
 
 ## Documentación
 
-El [índice documental](docs/README.md) separa guías de uso, estado actual y
-actas históricas. La [revisión integral del 03/11](docs/REVISION_INTEGRAL_2026_11_03.md)
-recoge la limpieza y los pendientes de aceptación de Puerto Umbral F0–F7.
+- [Inicio rápido y ayuda de instalación](docs/INICIO_RAPIDO.md).
+- [Operación de V2 y Puerto Umbral](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md).
+- [Configuración del proveedor LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md).
+- [Índice de guías, arquitectura, recuperación y actas](docs/README.md).
 
-| Para… | Consulta |
-| --- | --- |
-| Instalar y abrir la consola | [Inicio rápido](docs/INICIO_RAPIDO.md) |
-| Preparar logs y ejecutar análisis | [Instalación y operación](docs/INSTALACION_AUTOALOJADA.md) |
-| Elegir proveedor y configurar credenciales | [Configuración LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md) |
-| Trabajar con un laboratorio aislado | [DVWA y Mailpit](docs/LABORATORIO_DVWA_FASE_6.md) |
-| Usar Puerto Umbral junto con V2 | [Manual local](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md) · [Estado y cierre F0–F7](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) |
-| Conservar y recuperar datos | [Operación y recuperación](docs/OPERACION_RECUPERACION_2026_10_14.md) |
-| Desarrollar y consultar el plan | [Guía de VSCode](docs/GUIA_VSCODE.md) · [Plan del proyecto](docs/PLAN_AGENTES_TAREAS.md) |
-| Revisar la entrega y su validación | [Estado actual y plan de cierre](docs/CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) · [Entrega anterior v0.1.0](docs/NOTAS_VERSION_LOCAL_2026_10_20.md) |
-
-### Versión y validación
-
-La primera entrega local es **[v0.1.0](https://github.com/EnriqueForte/web-defense-ai-v2/releases/tag/v0.1.0)**.
-El código de entrega pasó instalación, regresión, pruebas de interfaz y recorrido
-API/proxy en [CI Windows y Ubuntu](https://github.com/EnriqueForte/web-defense-ai-v2/actions/runs/39466610699).
-La actualización, recuperación aislada y lectura/cierre en Parrot se documentan
-en el [registro V1](docs/ACTUALIZACION_PARROT_V1_2026_10_20.md).
-
-La aceptación cubre el uso local de apoyo a la revisión de indicadores.
-Los [criterios y límites de evaluación](docs/MATRIZ_ACEPTACION_A05_2026_10_20.md)
-y el [tratamiento de riesgos](docs/TRATAMIENTO_RIESGOS_C3_2026_10_20.md)
-conservan el detalle. Los [estados anteriores del README](docs/HISTORIAL_README_2026_10_20.md)
-se mantienen como referencia histórica.
-
-## Uso responsable y límites
-
-- **Evidencia, no confirmación automática.** Un patrón, un HTTP 200 o una petición a un avatar no demuestran explotación ni autenticación exitosa. Las IP mostradas son observadas; no identifican por sí solas a un atacante.
-- **Alcance local.** Mantén la consola en localhost y DVWA aislado. No se ofrece remediación automática, uso público multiusuario ni soporte general de todas las plataformas.
-- **Privacidad y costes.** Un análisis puede enviar contenido del log al proveedor elegido. La clave se guarda en `.env` local, sin cifrar y excluido de Git; guardar la configuración no valida la clave ni inicia un análisis.
-- **Calidad y seguridad acotadas.** Las validaciones de formato y referencias no garantizan detección general. Los resultados conservan `quality=semantic_evaluation_pending`; la comparación con legacy está diferida. Persisten los avisos de dependencias e imágenes: fijar versiones no elimina vulnerabilidades.
+**Tecnologías:** Python · CrewAI · Flask · Next.js · React · TypeScript · Docker.
 
 ## Autor y licencia
 
-**Enrique Forte · T3r0S3c** — Proyecto de portfolio en ciberseguridad defensiva.
+**Enrique Forte · T3r0S3c** · [GitHub](https://github.com/EnriqueForte) ·
+[LinkedIn](https://linkedin.com/in/enriqueforte) · [Licencia MIT](LICENSE).
 
-[GitHub](https://github.com/EnriqueForte) · [LinkedIn](https://linkedin.com/in/enriqueforte) · [Licencia MIT](LICENSE)
-
-Utiliza el proyecto únicamente con registros y sistemas para los que tengas autorización.
+V2 continúa el [proyecto original Web Defense AI](https://github.com/EnriqueForte/web-defense-ai).
