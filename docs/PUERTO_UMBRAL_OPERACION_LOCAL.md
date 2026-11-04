@@ -1,6 +1,6 @@
 # Puerto Umbral y V2 — manual de operación local
 
-## Arranque unificado — cambio preparado el 04/11
+## Arranque unificado — recorrido manual recibido en Parrot el 04/11
 
 La entrada habitual `python3 webdefensev2.py` (Windows: `py webdefensev2.py`)
 habilita el ejecutor manual junto a captura y seguimiento. No solicita análisis
@@ -26,9 +26,14 @@ de aplicación usa también la selección nueva. Snapshots e informe anteriores
 se conservan y el desajuste de modo queda visible hasta capturar. Un arranque
 nuevo comienza en corregido salvo `--lab-mode` inicial explícito.
 Las recetas inferiores de cerrar/reabrir para habilitar el análisis
-describen el comportamiento anterior. Implementación local preparada, con trece
-regresiones aisladas nuevas escritas y no ejecutadas; no hay build ni validación
-de este cambio en Parrot todavía. Las actas anteriores conservan su versión.
+describen el comportamiento anterior. Entrega `7ecfcf1` recibida en Parrot y
+build completo con TypeScript confirmados por capturas. El recorrido manual
+observa ejecutor activo, captura/seguimiento con ese ejecutor esperando,
+parada del seguimiento al solicitar análisis, informe nuevo y cambio a la
+otra fuente con captura sin reiniciar. El [acta del 04/11](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md)
+conserva resultados y límites. Las trece regresiones aisladas nuevas siguen
+escritas y no ejecutadas; esta recepción no valida todos los estados negativos
+o condiciones de concurrencia. Las actas anteriores conservan su versión.
 
 Estado de cierre acordado el 03/11: F4/F5 cerradas por decisión expresa del
 propietario sin sus pruebas restantes; F6 conserva su cierre previo y la matriz

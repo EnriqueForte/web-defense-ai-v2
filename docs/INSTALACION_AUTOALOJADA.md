@@ -1,8 +1,14 @@
 # Instalación propia desde GitHub — Windows y Linux
 
 Para usuarios nuevos, consulta [Inicio rápido](INICIO_RAPIDO.md): instalación
-con `webdefense.py install` y arranque en una terminal con `webdefense.py start`.
+con `webdefensev2.py install` y arranque conjunto con `webdefensev2.py`.
 Esta guía conserva las órdenes separadas y el procedimiento operativo avanzado.
+
+El arranque conjunto actual habilita captura, seguimiento y análisis manual.
+La fuente se cambia desde Actividad y el análisis detiene el seguimiento propio;
+no requiere reiniciar con `--enable-manual`. `--read-only` omite el ejecutor
+expresamente. Las recetas por componentes de esta guía corresponden a perfiles
+avanzados; no se deben iniciar sobre una sesión conjunta ya abierta.
 
 Para iniciar V2 junto con Puerto Umbral, la entrada simplificada es
 `python3 webdefensev2.py` (Windows: `py webdefensev2.py`), tras preparar la

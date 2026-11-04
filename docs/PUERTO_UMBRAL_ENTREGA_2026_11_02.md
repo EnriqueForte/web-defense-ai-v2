@@ -1,5 +1,15 @@
 # Web Defense AI V2 y Puerto Umbral — estado de entrega
 
+Recepción posterior del 04/11: entrega unificada `7ecfcf1` publicada y recibida
+en Parrot, con build completo y TypeScript confirmados. Validación manual
+completada a su alcance: ejecutor disponible desde el arranque habitual,
+captura/seguimiento compatibles con ejecutor esperando, parada al solicitar
+análisis y cambio de fuente sin reinicio. Nuevo trabajo `ed972c941c08…`
+exitoso, informe de 26/26 líneas con dos grupos altos; después fuente corregida
+capturada con 95 líneas y ejecutor todavía activo. El [acta actualizada](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md)
+detalla sesiones y límites; trece tests preparados siguen sin ejecutar. No se
+solicitan más ejecuciones por registrar esta recepción; notas locales sin Git nuevo.
+
 Actualización del 04/11: [recorrido manual de principio a fin](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md)
 solicitado por el propietario y completado a su alcance por capturas. Captura
 de logs, seguimiento con una petición nueva y finalización por duración;

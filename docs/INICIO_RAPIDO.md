@@ -1,170 +1,122 @@
 # Primera instalación y arranque
 
-Instala en el disco local de Windows o Linux. Cada instalación conserva sus
-propios datos y configuración. Los comandos siguientes parten de la carpeta
-del repositorio clonado.
+Guía actualizada el 04/11/2026 para iniciar **Web Defense AI V2 y Puerto Umbral
+juntos**, desde una terminal. La instalación conserva tus propios logs,
+credenciales e informes; el clon no incluye los datos privados del mantenedor.
 
-V2 se distribuye en un repositorio público bajo MIT. La apertura está verificada
-en [Distribución pública](DISTRIBUCION_PUBLICA.md). Clonar por HTTPS no requiere
-una cuenta ni un token de GitHub; cada usuario aporta sus credenciales del
-proveedor LLM cuando quiera ejecutar análisis.
+## Requisitos
 
-La ampliación Puerto Umbral se entrega dentro de este checkout. Su
-[manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md) separa captura, seguimiento y
-análisis; el [estado y plan de cierre](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md)
-identifica qué está comprobado. F6 tiene recorridos corregidos observados y
-F7 una [ronda educativa representativa](PUERTO_UMBRAL_F7_CIERRE_EDUCATIVO_2026_10_31.md)
-terminada; la [auditoría de cierre](PUERTO_UMBRAL_AUDITORIA_CIERRE_2026_10_31.md)
-mantiene los criterios globales pendientes. Instalar o arrancar no valida las
-fases ni inicia escenarios o análisis. La instalación no
-incorpora los logs, claves o informes privados del mantenedor.
+- Git.
+- Python **3.11** con `venv` y `ensurepip`.
+- Node.js **24 o posterior**.
+- pnpm **11.19.0**: `npm install --global pnpm@11.19.0`.
+- Docker iniciado y Compose disponible para Puerto Umbral. En Windows utiliza
+  Docker Desktop con contenedores Linux.
 
-## Requisitos iniciales
-
-- Git para clonar el repositorio.
-- Python 3.11 con `venv` y `ensurepip`.
-- Node.js 24 o posterior.
-- pnpm 11.19.0: con Node disponible, `npm install --global pnpm@11.19.0`.
-
-El instalador comprueba versiones antes de preparar el proyecto. Por ahora las
-herramientas anteriores se instalan por separado; no modifica el Python del
-sistema ni instala gestores globales automáticamente. En Parrot se comprobó
-Python 3.11 mediante [uv](https://docs.astral.sh/uv/guides/install-python/) y
-Node 24 mediante [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-En Windows puede utilizarse el [instalador de Python](https://www.python.org/downloads/windows/)
-y el [de Node.js](https://nodejs.org/en/download).
+Instala en disco local; en una VM, instala y ejecuta dentro de la VM y usa su
+navegador. No copies entornos Python o `node_modules` entre sistemas operativos.
+Las herramientas se preparan por separado; el instalador no instala Docker
+ni modifica el Python del sistema.
 
 ## Instalar una vez
 
 ```bash
 git clone https://github.com/EnriqueForte/web-defense-ai-v2.git
 cd web-defense-ai-v2
-python3 webdefense.py install
+python3 webdefensev2.py install
 ```
 
-En Windows usa `py webdefense.py install`. La entrada busca Python 3.11 aunque
-el comando inicial utilice otra versión reciente de Python. En Linux, si lo
-instalaste en tu usuario, asegúrate de que `python3.11` esté en el PATH.
-La URL HTTPS pública permite clonar sin autenticación. Si Git pide credenciales,
-comprueba la URL y la configuración de tu cliente; los permisos de escritura
-siguen reservados a los colaboradores autorizados.
-
-La instalación crea o reutiliza `.p2`, instala los paquetes del contrato,
-comprueba sus versiones y dependencias, instala el frontend con lockfile y
-compila Next. Crea `.env` desde la plantilla cuando falta y conserva uno existente.
-Ejecuta sin sudo; detén las instancias anteriores antes de instalar o actualizar.
-Los puertos ocupados, bloqueos de operación y trabajos activos impiden la
-instalación simplificada. Un error detiene el recorrido; no elimina instalaciones
-ni datos para intentar recuperarse. Consulta la última etapa fallida.
+En Windows sustituye la última línea por `py webdefensev2.py install`.
+El instalador busca Python 3.11, crea o reutiliza `.p2`, instala Python y
+frontend con sus contratos y compila Next.js. Crea `.env` si falta y conserva
+uno existente. No requiere activar `.p2` manualmente. Detén la sesión propia
+antes de instalar o actualizar; no borres datos o bloqueos para forzar el proceso.
 
 ## Iniciar habitualmente
-
-```bash
-python3 webdefense.py start
-```
-
-En Windows: `py webdefense.py start`. No necesitas activar el entorno virtual,
-recompilar cada vez ni abrir una segunda terminal. El comando usa `.p2` y arranca
-Flask y Next en modo producción. Cuando aparece «Consola lista», abre:
-
-**http://127.0.0.1:3000**
-
-En VMware abre esa dirección desde el navegador de la VM. Mantén la terminal
-abierta. **Ctrl+C detiene los dos servicios creados por este comando.**
-El puerto 5000 conserva la interfaz Flask; la interfaz nueva está en 3000.
-
-El arranque comprueba contrato Python, build, proxy, puertos y bloqueos. No adopta
-ni detiene una instancia anterior. Si uno de sus servicios termina, cierra el otro
-y devuelve un error. Los logs están en `.local-state/launcher/<ejecución>/`;
-consúltalos localmente si el inicio no llega a confirmar la conexión.
-
-Comprobación sin arrancar servicios:
-
-```bash
-python3 webdefense.py check
-```
-
-Es una comprobación previa al inicio: un puerto ocupado por una consola que ya
-está abierta se indicará como impedimento para iniciar otra instancia.
-
-## Configuración y análisis
-
-### V2 y Puerto Umbral con una sola entrada
-
-Con la instalación anterior preparada y Docker/Compose disponible, ejecuta:
 
 ```bash
 python3 webdefensev2.py
 ```
 
-En Windows: `py webdefensev2.py`. No hace falta escribir los argumentos de
-arranque conjunto: la entrada selecciona `structured`, incluye Puerto Umbral
-y usa su fuente `corrected` por defecto. Inicia Flask/Next, el panel y los
-servicios propios del laboratorio mediante el supervisor existente.
+En Windows: `py webdefensev2.py`. El mismo comando habilita captura,
+seguimiento y ejecutor de análisis manual. No solicita análisis o seguimiento
+por el mero arranque. La primera preparación de imágenes del laboratorio
+puede tardar; espera a **«Consola lista»**.
 
-| Acción | Comando en Parrot/Linux |
+| Dirección local | Aplicación |
 | --- | --- |
-| Iniciar ambas apps | `python3 webdefensev2.py` |
-| Habilitar análisis manual y su ejecutor | `python3 webdefensev2.py --enable-manual` |
+| http://127.0.0.1:3000 | Web Defense AI V2 |
+| http://127.0.0.1:4381 | Panel de Puerto Umbral |
+| http://127.0.0.1:4380 | Portal vulnerable |
+| http://127.0.0.1:4382 | Portal corregido |
+
+Mantén la terminal abierta. **Ctrl+C** solicita detener los servicios propios,
+conservando evidencias y volúmenes. Espera a que termine cualquier análisis
+antes de cerrar. El lanzador no adopta otra instancia ya abierta; los puertos
+ocupados impiden iniciar una segunda sesión.
+
+## Capturar, seguir y analizar desde la interfaz
+
+1. En Puerto Umbral elige escenario, modo y variante; ejecuta desde el panel.
+2. En **V2 → Actividad → Fuente de V2** elige el mismo modo: **Corregido** o
+   **Vulnerable**. Ambos portales están disponibles y el cambio no exige reiniciar.
+3. Pulsa **Capturar log de Puerto Umbral** para una captura o **Iniciar seguimiento**
+   para lecturas periódicas. El ejecutor de análisis puede seguir disponible.
+4. Configura proveedor, modelo y clave en **Configuración** si quieres usar IA.
+5. Pulsa **Iniciar análisis**. V2 detiene el seguimiento propio, espera a su
+   parada y solicita el trabajo. Consulta el resultado en **Amenazas** y **Reportes**.
+
+Un trabajo pendiente/activo impide cambiar de fuente o iniciar otra operación
+incompatible. Para cambiar la fuente o capturar manualmente, detén antes el
+seguimiento. Tras un análisis, el seguimiento permanece detenido: puedes
+iniciarlo otra vez desde su botón. No hace falta cerrar V2 para estas acciones.
+
+La fuente inicial es corregida. Cambiar de fuente y capturar no cambia el
+informe anterior: un informe nuevo requiere solicitar otro análisis. La
+actividad reciente representa una ventana limitada de logs, no todo el historial.
+Las peticiones y los hallazgos del informe se muestran por separado.
+
+Capturar o seguir logs no llama al modelo. Solicitar análisis puede enviar
+contenido al proveedor y consumir cuota o saldo. Cada instalación gestiona
+sus propias credenciales. Las notificaciones siguen desactivadas en el perfil
+conjunto. Consulta [Configuración LLM](CONFIGURACION_PROVEEDOR_LLM.md).
+
+## Opciones avanzadas y ayuda
+
+| Necesidad | Comando en Linux/Parrot; en Windows sustituir `python3` por `py` |
+| --- | --- |
 | Comprobar requisitos sin iniciar | `python3 webdefensev2.py check` |
-| Comprobar el modo manual sin iniciar | `python3 webdefensev2.py check --enable-manual` |
-| Preparar la instalación | `python3 webdefensev2.py install` |
-| Elegir la fuente vulnerable en V2 | `python3 webdefensev2.py --lab-mode vulnerable` |
+| Abrir sin ejecutor de análisis | `python3 webdefensev2.py --read-only` |
+| Elegir fuente inicial vulnerable | `python3 webdefensev2.py --lab-mode vulnerable` |
 | Consultar opciones | `python3 webdefensev2.py --help` |
+| Iniciar solo V2 sin laboratorio | `python3 webdefense.py start --mode structured` |
 
-`install` conserva el alcance del instalador existente; no instala Docker
-automáticamente. `--lab-mode` se admite en inicio/comprobación, no en instalación.
-La misma restricción se aplica a `--enable-manual`.
-Los portales vulnerable y corregido se preparan en ambos casos; la opción
-elige la fuente que lee V2. No modifica el selector del panel ni convierte
-el arranque en una ejecución de casos o análisis.
+`--enable-manual` se conserva por compatibilidad; el arranque conjunto ya lo
+habilita por defecto. La entrada anterior `webdefense.py` mantiene sus opciones
+y perfiles separados; no copies sus recetas avanzadas encima de una sesión
+conjunta abierta. La instalación y el uso de logs propios se detallan en
+[Instalación autoalojada](INSTALACION_AUTOALOJADA.md).
 
-V2: **http://127.0.0.1:3000**. Panel: **http://127.0.0.1:4381**. Mantén la
-terminal abierta; **Ctrl+C cierra los servicios propios de ambas aplicaciones
-y conserva los datos**. Una instancia previa ocupando los puertos impide
-abrir otra; ciérrala desde su terminal. El [manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md)
-conserva las direcciones y opciones detalladas.
+Si el arranque falla, conserva el mensaje y consulta los logs en
+`.local-state/launcher/<sesión>/`. No reinstales ni elimines evidencias como
+primer paso. Las suites Python/SDK/UI son verificaciones de desarrollo,
+no parte de cada arranque del usuario.
 
-Con `--enable-manual`, el supervisor inicia también el ejecutor
-`--manual-only`, con el mismo perfil y rutas que Flask, y espera a verlo online
-mediante una consulta GET local. No solicita un análisis ni crea ciclos
-programados. El botón requiere además proveedor configurado y ningún trabajo
-en cola o ejecución. Las notificaciones permanecen desactivadas por el perfil.
+## Alcance y conservación
 
-Si hay trabajos pendientes/activos o bloqueos incompatibles, el arranque se
-rechaza sin reanudarlos. Espera a que termine cualquier análisis antes de
-cerrar la terminal. Para volver a lectura, detén la consola propia y arranca
-sin `--enable-manual`. En modo manual el ejecutor coordina la captura: el
-seguimiento y la captura independiente de Actividad no se usan simultáneamente.
+La entrega `7ecfcf1` tiene actualización/build y recorrido manual unificado
+observados en Parrot: selector, captura, seguimiento, análisis y publicación.
+El [acta del 04/11](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md) delimita esa
+recepción y las trece regresiones preparadas sin ejecutar. No es certificación
+de todas las plataformas ni evaluación general de detección.
 
-### Proveedor y fuentes
+Consulta el [manual local](PUERTO_UMBRAL_OPERACION_LOCAL.md) para operación,
+el [registro de decisiones](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.md) para alcance,
+y [Operación y recuperación](OPERACION_RECUPERACION_2026_10_14.md) para respaldos.
+Cada copia tiene selección y fecha propias; no incluye automáticamente toda
+la VM, las bases de laboratorios o credenciales.
 
-La primera lectura puede mostrar «Fuentes incompletas»: el clon no incluye logs
-ni informes del mantenedor. Configura tu proveedor en Configuración y prepara tu
-fuente de logs siguiendo la [guía completa](INSTALACION_AUTOALOJADA.md).
-Docker con Compose es requisito adicional para los laboratorios locales DVWA
-o Puerto Umbral; no se necesita para consultar la consola V2 por sí sola.
-
-El arranque solo de V2 con `webdefense.py` inicia lectura con perfil pilot, solicitudes manuales
-deshabilitadas y destinos de notificación vacíos; no arranca el worker. El arranque
-operativo del análisis sigue el procedimiento explícito de la guía completa.
-En `webdefense.py` el modo de informes predeterminado es legacy; para leer publicaciones structured:
-`python3 webdefense.py start --mode structured`. Esto no habilita análisis.
-
-Las pruebas completas Python/SDK/UI son verificaciones de desarrollo y CI;
-no forman parte de cada arranque del usuario.
-
-Para conservar o recuperar datos de la aplicación, seguir la
-[guía de operación y recuperación](OPERACION_RECUPERACION_2026_10_14.md):
-el respaldo incluye perfiles conocidos y la recuperación usa un destino nuevo
-aislado. La base DVWA y el buzón Mailpit tienen un alcance separado.
-
-Si necesitas verificar también que no hay paquetes adicionales en `.p2`,
-en Linux ejecuta `.p2/bin/python -B scripts/check_environment.py --strict`.
-En Windows utiliza `.p2/Scripts/python.exe`. La [guía del contrato Linux](CONTRATO_LINUX_2026_10_12.md)
-explica cómo guardar el inventario completo para diagnosticar una instalación.
-
-## Alcance comprobado
+## Validación histórica de V2 anterior a Puerto Umbral
 
 Estado revisado el 21/10/2026: [resumen vigente](ESTADO_FINAL_2026_10_12.md).
 El código de entrega `0d73ec2` pasó instalación, regresión, E2E y smoke API/proxy

@@ -71,3 +71,37 @@ aceptada, según el [registro de decisiones](CIERRE_V2_PUERTO_UMBRAL_2026_11_03.
 Los originales F5 sin localizar y las verificaciones omitidas no cambian de
 estado por estas dos observaciones. No se realizan nuevas ejecuciones por
 redactar el acta; su publicación Git queda separada.
+
+## Validación posterior del arranque unificado — entrega 7ecfcf1
+
+El propietario autoriza publicar y validar en Parrot la simplificación de
+arranque y el selector de fuente. La publicación de
+`7ecfcf150d8cfb9b42fcc0bbf851a2cce7546433` se verificó en remoto antes de
+guiar la actualización. Capturas de Parrot acreditan pull fast-forward,
+`HEAD/main/origin` en `7ecfcf1` y build `--webpack` terminado, incluidas
+TypeScript y generación de rutas. No se repiten por esta recepción.
+
+| Comprobación del recorrido unificado | Resultado recibido por capturas |
+| --- | --- |
+| Arranque habitual sin opción manual | Resumen muestra ejecutor activo y solicitudes manuales habilitadas; conserva el trabajo anterior `b12709abd521…` |
+| Selección y captura con ejecutor esperando | Fuente de V2 Vulnerable, captura disponible de 26 líneas a las 21:12:24 Madrid, sin cerrar V2 para habilitar captura |
+| Seguimiento con ejecutor activo | Estado Siguiendo logs, intervalo 5 s y duración solicitada 5 min; cinco ciclos válidos, cero snapshots nuevos y cinco sin cambios |
+| Solicitud de análisis durante seguimiento | Tras guiar una pulsación sin parada manual previa, nuevo trabajo `ed972c941c08…` terminado como `succeeded / finished`; seguimiento Detenido. La última captura de seguimiento corresponde a una sesión posterior, con dos ciclos, cero snapshots nuevos y dos sin cambios, último ciclo 21:23:02 y expiración prevista 21:27:56. No se suma a la sesión anterior de cinco ciclos |
+| Informe nuevo | `report.md` publicado a las 21:23:32 Madrid, análisis `ed972c941c08…`, 26/26 líneas y cero omitidas; dos grupos ALTA, SQLi y Command Injection, ambos con estado Indicador observado. Es el resultado de esta ejecución, no se fuerza a repetir el estado Requiere investigación del informe anterior |
+| Cambio posterior a la fuente corregida | Selector Corregido y captura disponible de 95 líneas a las 21:26:31 Madrid; el ejecutor sigue activo y el último trabajo sigue siendo `ed972c941c08…`. Cambiar y capturar no solicita otro análisis |
+| Conservación visible | El catálogo muestra el informe actual y publicaciones anteriores. Incluye una fila con prefijo `3409292…` a las 21:18:47; no se revisan sus recibos ni se atribuye un origen automático/manual o consumo a partir de esa fila |
+
+**Recorrido manual del arranque unificado y cambio de fuente completado a su
+alcance observado.** La selección vulnerable alcanza al análisis del ejecutor:
+el informe nuevo procesa sus 26 líneas; después la captura corregida muestra
+sus 95 líneas. La secuencia se guía dentro de la misma sesión, sin solicitar
+reinicios para cambiar de función o fuente; no se inspeccionan procesos de la VM.
+
+Las trece regresiones preparadas no se ejecutan por esta validación. No se
+prueban todos los conflictos, corrupción del selector, errores de origen,
+concurrencia o plataformas; la recepción no es una evaluación global F5 o
+rotación real. No se infieren número de llamadas LLM, tokens, costes o modelo
+efectivo de cada transporte. Se registra lo recibido sin solicitar nuevos
+análisis, capturas, snapshots, copias, suites o servicios. Los cierres de fases
+y sus limitaciones siguen vigentes. Esta ampliación del acta permanece local
+hasta una publicación Git solicitada por el propietario.

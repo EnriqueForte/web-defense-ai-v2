@@ -2,6 +2,32 @@
 
 ## Alcance actual
 
+Puerto Umbral 04Nov: propietario solicita actualizar README al flujo unificado
+y commit/push posterior. Entrega documental8archivos: README/guías de inicio y
+operación/contexto/resumen/índice/acta de validación. Base fetch HEAD=origin/main
+7ecfcf150d8cfb9b42fcc0bbf851a2cce7546433,0/0,stagingvacío; destinooriginV2/main.
+Publicar [skip ci], revisar staging8exacto/diffcheck y verificar remoto/árbol
+limpio al finalizar; identidad=commit que incorpora nota, sin anticipar éxito.
+Sin cambios runtime, suites/build/modelo/servicios/VM por publicación. Parrot
+ya validó el código7ecfcf1; esta entrega solo Markdown no requiere recompilar,
+reinstalar/reiniciar ni repetir recorrido. Mantener límites de evidencia.
+
+Puerto Umbral 04Nov: validación manual arranque unificado/selector COMPLETADA
+a alcance recibido. Publicación7ecfcf150d8cfb9b42fcc0bbf851a2cce7546433
+verificada antes; capturas propietario confirman pullFF/HEADmainorigin7ecfcf1
+y build --webpack completo con TypeScript en Parrot. No repetir pull/build.
+Arranque normal guiado: ejecutor activo/admisiónmanual; selector Vulnerable y
+captura26líneas con worker esperando. Seguimiento iniciado con worker activo,
+5ciclos sin cambios; sesión posterior2ciclos quedaDetenido al solicitar análisis.
+Nuevo jobed972c941c08… succeeded/finished; informe21:23:32Madrid,26/26,0omitidas,
+SQLi1/CommandInjection1,ALTA2,Indicadorobservado2. Cambio posterior aCorregido
+sin reinicio guiado/captura95líneas21:26:31 y workeractivo/jobnuevo conservado.
+Historial contiene fila3409292… adicional, no inferir causa ni totalcalls.
+No nuevos escenarios por esta validación ni repetir análisis/seguimiento/capturas
+para acta. Tests13 siguen preparados NO ejecutados; no todosestados/concurrencia/
+rotación/Windows/evaluaciónF5. Actualización documental local, sinGitnuevo;
+acta ampliada docs/PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md.
+
 Puerto Umbral 04Nov: propietario autoriza publicar para validar manualmente
 en Parrot el arranque unificado/selector. Entrega17rutas exactas (runtime,
 frontend,13regresiones preparadas y actas del recorrido anterior), [skip ci].

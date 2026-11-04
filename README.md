@@ -4,7 +4,7 @@
 
 **Un laboratorio web para aprender y una consola con IA para investigar sus evidencias.**
 
-[Instalación](#instalación) · [Arranque](#arranque) · [Capturas](#capturas) · [Documentación](#documentación)
+[Instalación](#instalación) · [Arranque único](#arranque-único) · [Capturas](#capturas) · [Documentación](#documentación)
 
 </div>
 
@@ -63,7 +63,7 @@ py webdefensev2.py install
 El instalador prepara `.p2`, las dependencias Python, el frontend y `.env`.
 Docker se instala por separado; no necesitas activar `.p2` manualmente.
 
-## Arranque
+## Arranque único
 
 Con Docker iniciado, ejecuta desde la raíz del proyecto:
 
@@ -76,6 +76,10 @@ python3 webdefensev2.py
 # Windows
 py webdefensev2.py
 ```
+
+**Un solo comando abre V2, el panel de Puerto Umbral y ambos portales, y deja
+disponibles la captura, el seguimiento de logs y el análisis manual.** Cambias
+de fuente y de función desde la interfaz, sin cerrar ni reiniciar la aplicación.
 
 El primer arranque prepara las imágenes del laboratorio. Cuando aparezca
 **«Consola lista»**, abre:
@@ -94,29 +98,39 @@ conservando sus datos.** Si trabajas en una VM, abre las direcciones en su naveg
 
 1. En **Puerto Umbral**, elige módulo, modo y variante. Ejecuta desde el panel
    y consulta su respuesta y recibo de evidencia.
-2. En **V2 → Actividad**, captura el log del laboratorio o inicia su seguimiento.
+2. En **V2 → Actividad → Fuente de V2**, selecciona el mismo modo que has usado
+   en Puerto Umbral: **Corregido** o **Vulnerable**. Después pulsa **Capturar log
+   de Puerto Umbral** o **Iniciar seguimiento** para incorporar sus peticiones.
    Para los módulos avanzados, consulta también la auditoría de aplicación.
 3. En **V2 → Configuración**, selecciona Groq u OpenRouter y configura tu clave
    para analizar con IA.
 4. Pulsa **Iniciar análisis** y consulta **Amenazas** y **Reportes** al terminar.
    El ejecutor ya está disponible desde el arranque; si hay seguimiento activo,
-   V2 lo detiene antes de capturar y analizar. Puedes volver a iniciarlo después.
+   V2 lo detiene y espera a su parada antes de capturar y analizar. Al terminar,
+   puedes volver a pulsar **Iniciar seguimiento** si quieres seguir recogiendo logs.
 
-Ambos portales arrancan juntos. En **V2 → Actividad → Fuente de V2**, elige
-**Corregido** o **Vulnerable**, usando el mismo modo que en Puerto Umbral.
-Detén el seguimiento antes de cambiar; después captura el log o inicia otro
-seguimiento. No hace falta reiniciar V2. El informe anterior se conserva hasta
-solicitar otro análisis. Por defecto se empieza en corregido; `--lab-mode`
-solo sirve para elegir la selección inicial desde la terminal.
+Para cambiar de fuente, detén antes el seguimiento y espera a que termine
+cualquier análisis activo. Capturar o cambiar de modo actualiza la fuente;
+**la clasificación de Amenazas y el informe de Reportes se actualizan al publicarse un análisis nuevo**.
+Cada arranque comienza leyendo el modo corregido por defecto.
 
 El análisis es explícito: puede enviar logs al proveedor y consumir su cuota
 o saldo. La instalación comienza sin los logs ni informes privados del autor.
 La auditoría de aplicación usa reglas separadas del informe de IA.
-Para abrir sin ejecutor de análisis, existe la opción avanzada `--read-only`.
 
-Para iniciar **solo V2**, usa `python3 webdefense.py start --mode structured`
-(Windows: `py webdefense.py start --mode structured`). No requiere Docker;
-consulta cómo aportar tus logs en la [guía de operación](docs/INSTALACION_AUTOALOJADA.md).
+<details>
+<summary>Opciones avanzadas de arranque</summary>
+
+- `--read-only`: abre el conjunto sin ejecutor de análisis.
+- `--lab-mode vulnerable`: elige la fuente inicial vulnerable; después puedes
+  cambiarla desde Actividad. Los dos portales siguen disponibles.
+- Para iniciar solo V2, sin Docker: `python3 webdefense.py start --mode structured`
+  (Windows: `py webdefense.py start --mode structured`). Consulta cómo aportar
+  tus logs en la [guía de operación](docs/INSTALACION_AUTOALOJADA.md).
+
+El uso habitual de ambas aplicaciones no requiere estas opciones.
+
+</details>
 
 ## Capturas
 
@@ -150,6 +164,7 @@ La detección general y sus métricas no están acreditadas;
 - [Inicio rápido y ayuda de instalación](docs/INICIO_RAPIDO.md).
 - [Operación de V2 y Puerto Umbral](docs/PUERTO_UMBRAL_OPERACION_LOCAL.md).
 - [Configuración del proveedor LLM](docs/CONFIGURACION_PROVEEDOR_LLM.md).
+- [Recorrido manual del arranque unificado observado en Parrot](docs/PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md).
 - [Índice de guías, arquitectura, recuperación y actas](docs/README.md).
 
 **Tecnologías:** Python · CrewAI · Flask · Next.js · React · TypeScript · Docker.
