@@ -17,13 +17,21 @@ def main(argv=None):
     )
     parser.add_argument(
         "--enable-manual", action="store_true",
-        help="habilitar solicitudes de análisis desde V2 e iniciar su ejecutor; no solicita un análisis",
+        help="compatibilidad: el análisis manual ya está habilitado por defecto",
+    )
+    parser.add_argument(
+        "--read-only", action="store_true",
+        help="abrir sin ejecutor de análisis; captura y seguimiento siguen disponibles",
     )
     args = parser.parse_args(argv)
     if args.action == "install" and args.lab_mode is not None:
         parser.error("--lab-mode se utiliza con start o check, no con install.")
     if args.action == "install" and args.enable_manual:
         parser.error("--enable-manual se utiliza con start o check, no con install.")
+    if args.action == "install" and args.read_only:
+        parser.error("--read-only se utiliza con start o check, no con install.")
+    if args.read_only and args.enable_manual:
+        parser.error("--read-only y --enable-manual no se pueden combinar.")
 
     # Reuse the existing prerequisites, supervisor and cleanup; help needs only argparse.
     from webdefense import main as launch
@@ -37,7 +45,7 @@ def main(argv=None):
     command = [
         args.action, "--mode", "structured", "--with-puerto-umbral", "--lab-mode", mode,
     ]
-    if args.enable_manual:
+    if not args.read_only:
         command.append("--enable-manual")
     return launch(command)
 

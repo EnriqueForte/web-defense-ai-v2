@@ -20,6 +20,7 @@ from dashboard.services.puerto_umbral_capture import (
 )
 from dashboard.services.read_store import atomic_write_text, capture_file
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock, lock_is_held
+from dashboard.services.puerto_umbral_mode import selected_mode
 
 CURRENT = STATE / "following" / "current.json"
 LEASE = STATE / ".follow.lock"
@@ -56,7 +57,7 @@ def _snapshot():
     metadata = source_status()
     identifier = metadata.get("snapshot_id")
     if (not identifier or metadata.get("status") in {"changing", "mode_mismatch"}
-            or metadata.get("snapshot_mode") != os.getenv("PUERTO_UMBRAL_MODE", "vulnerable")):
+            or metadata.get("snapshot_mode") != selected_mode()):
         return None
     path = STATE / "snapshots" / identifier / "access.log"
     _root_safe(path)
@@ -148,8 +149,8 @@ class LogFollower:
                 leases.enter_context(exclusive_lock(LEASE))
                 leases.enter_context(exclusive_lock(db_path.with_suffix(".cycle.lock")))
                 leases.enter_context(exclusive_lock(db_path.with_suffix(".engine.lock")))
-                if lock_is_held(db_path.with_suffix(".worker.lock")) is not False:
-                    raise FollowError("executor_active_or_unknown")
+                # An idle manual worker may coexist with following. Cycle and
+                # engine leases exclude actual analysis; queued jobs block start.
                 if db_path.exists():
                     with closing(sqlite3.connect(db_path.resolve().as_uri() + "?mode=ro", uri=True, timeout=1)) as db:
                         db.execute("PRAGMA query_only=ON")

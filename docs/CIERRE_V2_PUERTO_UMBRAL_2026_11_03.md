@@ -1,5 +1,23 @@
 # Estado y plan de cierre de Web Defense AI V2 y Puerto Umbral
 
+## Recorrido funcional posterior — 04/11/2026
+
+El propietario solicita y realiza un nuevo recorrido guiado: captura,
+seguimiento con una petición normal nueva, dos análisis manuales y retorno a
+lectura. El primero selecciona 30/95 líneas y no publica hallazgos; el segundo
+selecciona 26/26 de la fuente vulnerable y publica SQLi en la línea 26 del
+intento recién recibido y Command Injection en línea 7 del historial.
+La vista Amenazas refleja ambos y el ejecutor vuelve a lectura conservando
+el resultado. **Recorrido representativo completado a su alcance observado.**
+
+El [acta del 04/11](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md) distingue
+seguimiento de la consulta normal, captura manual del intento vulnerable,
+evidencia de pantalla y límites. La pausa no tiene captura específica de
+estabilidad de contadores; no se repite por el acta. Esta autorización nueva
+no cambia las decisiones de cierre por alcance inferiores ni aporta métricas
+globales F5, rotación real o aceptación final. No se ejecuta nada adicional
+para registrar los resultados y no se publica Git por documentarlos.
+
 ## Estado vigente — 03/11/2026
 
 El propietario mantiene el jueves **5 de noviembre** como objetivo de cierre

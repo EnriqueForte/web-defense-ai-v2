@@ -1,6 +1,6 @@
 # Documentación de Web Defense AI V2
 
-Entrada documental actualizada el 03/11/2026, Europe/Madrid. La entrega local
+Entrada documental actualizada el 04/11/2026, Europe/Madrid. La entrega local
 V2 v0.1.0 y la ampliación Puerto Umbral tienen aceptaciones distintas.
 El objetivo de cierre del desarrollo es el jueves **5 de noviembre**.
 El 03/11 el propietario acepta la matriz F7 en su alcance educativo y cierra
@@ -14,6 +14,7 @@ sobre pendientes históricos.
 
 | Para consultar | Documento |
 | --- | --- |
+| Recorrido manual con seguimiento, análisis y SQLi observado el 04/11 | [Acta del recorrido funcional](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md) |
 | Dictamen de la revisión del proyecto y limpieza realizada | [Revisión integral del 03/11](REVISION_INTEGRAL_2026_11_03.md) |
 | Trabajo mínimo y recepciones funcionales más recientes | [Cierre mínimo F6 y operación](PUERTO_UMBRAL_CIERRE_MINIMO_2026_11_03.md) |
 | Resumen de capacidades y evidencia recibida | [Estado de entrega](PUERTO_UMBRAL_ENTREGA_2026_11_02.md) |

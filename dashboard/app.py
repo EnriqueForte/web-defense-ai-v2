@@ -25,6 +25,7 @@ from dashboard.services.active_report import capture_current, capture_current_de
 from agents.structured_reporting import event_period, render_markdown
 from dashboard.services.analysis_jobs import JobStore, default_db_path
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
+from dashboard.services.puerto_umbral_mode import selected_mode, select_mode, selection_path
 from dashboard.services.llm_settings import InvalidLLMSettings, public_llm_settings, save_llm_settings
 from dashboard.services.local_hosts import LocalHostFlask
 from werkzeug.exceptions import HTTPException
@@ -737,7 +738,7 @@ def api_v1_fuente_auditoria():
     if os.getenv("LOG_SYNC_SOURCE", "").strip().lower() != "puerto-umbral":
         return jsonify({"meta": {"api_version": "1"}, "data": {"source": "puerto-umbral-application", "status": "disabled"}})
     from dashboard.services.application_audit import source_status
-    return jsonify({"meta": {"api_version": "1"}, "data": source_status(os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"))})
+    return jsonify({"meta": {"api_version": "1"}, "data": source_status(selected_mode())})
 
 
 @app.post("/api/v1/fuentes/auditoria/capturar")
@@ -757,7 +758,7 @@ def api_v1_capturar_auditoria():
             job = JobStore().latest() if default_db_path().is_file() else None
             if job and job["status"] in {"queued", "running"}:
                 return _api_error(409, "analysis_active", "Espera a que termine el trabajo activo.")
-            receipt = preserve_capture(os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"), payload["run_id"], payload["sha256"])
+            receipt = preserve_capture(selected_mode(), payload["run_id"], payload["sha256"])
     except AlreadyRunning:
         return _api_error(409, "operation_active", "Detén el seguimiento o la operación activa antes de conservar la auditoría.")
     except ValueError as error:
@@ -775,6 +776,7 @@ def _log_source_data():
         from dashboard.services.puerto_umbral_capture import source_status
         from dashboard.services.puerto_umbral_follow import follower
         data = source_status()
+        data['mode_selection_enabled'] = selection_path() is not None
         data["following"] = {**follower().status(), "enabled": os.getenv("LOG_FOLLOW_ENABLED") == "1"}
     else:
         data = {"source": source, "status": "unobserved"}
@@ -786,6 +788,29 @@ def _log_source_data():
 def api_v1_seguimiento_log():
     data = _log_source_data().get("following", {"status": "disabled", "enabled": False, "session_active": False})
     return jsonify({"meta": {"api_version": "1"}, "data": data})
+
+
+@app.put('/api/v1/fuentes/log/modo')
+def api_v1_fuente_modo():
+    if (request.remote_addr not in {'127.0.0.1', '::1'} or not _local_origin_allowed()
+            or os.getenv('LOG_SYNC_SOURCE', '').strip().lower() != 'puerto-umbral'
+            or os.getenv('LOG_CAPTURE_MANUAL_ENABLED') != '1'):
+        return _api_error(403, 'source_selection_disabled', 'El cambio requiere el perfil local de Puerto Umbral.')
+    payload = request.get_json(silent=True) if request.is_json else None
+    if (type(payload) is not dict or set(payload) != {'mode'}
+            or type(payload['mode']) is not str or payload['mode'] not in {'corrected', 'vulnerable'}):
+        return _api_error(400, 'invalid_source_mode', 'Selecciona corregido o vulnerable.')
+    try:
+        with exclusive_lock(default_db_path().with_suffix('.cycle.lock')), exclusive_lock(default_db_path().with_suffix('.engine.lock')):
+            job = JobStore().latest() if default_db_path().is_file() else None
+            if job and job['status'] in {'queued', 'running'}:
+                return _api_error(409, 'analysis_active', 'Espera a que termine el análisis antes de cambiar la fuente.')
+            select_mode(payload['mode'])
+    except AlreadyRunning:
+        return _api_error(409, 'operation_active', 'Detén el seguimiento y espera a que termine la operación activa.')
+    except (OSError, ValueError, sqlite3.Error):
+        return _api_error(503, 'source_selection_unavailable', 'No se confirmó el cambio de fuente. Actualiza su estado.')
+    return jsonify({'meta': {'api_version': '1'}, 'data': _log_source_data()})
 
 
 @app.post("/api/v1/fuentes/log/seguimiento/<action>")
@@ -805,9 +830,7 @@ def api_v1_seguimiento_log_control(action):
     from dashboard.services.puerto_umbral_follow import FollowError, follower
     try:
         if action == "iniciar":
-            if _executor_status() != "offline":
-                return _api_error(409, "executor_active_or_unknown", "Detén el ejecutor antes de iniciar el seguimiento.")
-            follower().start(mode=os.getenv("PUERTO_UMBRAL_MODE", "vulnerable"), db_path=default_db_path(),
+            follower().start(mode=selected_mode(), db_path=default_db_path(),
                              interval_seconds=body.get("interval_seconds", 5),
                              duration_seconds=body.get("duration_seconds", 1800))
         else:
@@ -829,11 +852,12 @@ def api_v1_fuente_log_capturar():
         return _api_error(403, "capture_disabled", "La captura manual de Puerto Umbral no está habilitada en este perfil.")
     if not request.is_json or request.get_json(silent=True) != {}:
         return _api_error(400, "empty_json_required", "La captura utiliza el modo del perfil. Envía un objeto JSON vacío.")
-    if _executor_status() == "online":
-        return _api_error(409, "executor_active", "El ejecutor coordina la captura. Deténlo antes de usar la captura manual independiente.")
     from dashboard.services.puerto_umbral_capture import capture_access_log, source_status
     try:
-        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")):
+        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")), exclusive_lock(default_db_path().with_suffix(".engine.lock")):
+            job = JobStore().latest() if default_db_path().is_file() else None
+            if job and job["status"] in {"queued", "running"}:
+                return _api_error(409, "analysis_active", "Espera a que termine el análisis antes de capturar.")
             captured = capture_access_log(Path(LOG_PATH))
     except AlreadyRunning:
         return _api_error(409, "capture_busy", "Hay otra operación coordinada en curso.")
@@ -921,17 +945,33 @@ def api_v1_analisis_crear():
         return _api_error(403, "invalid_origin", "El origen de la solicitud no está autorizado.")
     if os.getenv("ANALYSIS_MANUAL_ENABLED") != "1":
         return _api_error(403, "manual_disabled", "El análisis manual está desactivado.")
-    if os.getenv("LOG_SYNC_SOURCE", "").strip().lower() == "puerto-umbral":
-        from dashboard.services.puerto_umbral_follow import follower
-        if follower().status()["session_active"]:
-            return _api_error(409, "follow_active", "Detén el seguimiento antes de solicitar un análisis manual.")
     if _executor_status() != "online":
         return _api_error(503, "executor_offline", "Inicia el ejecutor antes de solicitar un análisis.")
     key = request.headers.get("Idempotency-Key")
     if not key:
         return _api_error(400, "missing_idempotency_key", "Falta la clave de idempotencia.")
+    if not 1 <= len(key) <= 80 or not key.isascii() or not all(c.isalnum() or c in "-_" for c in key):
+        return _api_error(400, "invalid_idempotency_key", "La clave de idempotencia no es válida.")
+    if os.getenv("LOG_SYNC_SOURCE", "").strip().lower() == "puerto-umbral":
+        from dashboard.services.puerto_umbral_follow import follower
+        try:
+            follow = follower()
+            state = follow.status()
+            if state["session_active"]:
+                if not state.get("owned_here"):
+                    return _api_error(409, "follow_active", "El seguimiento pertenece a otra sesión; deténlo desde su consola.")
+                state = follow.control("stop")
+                if state["session_active"]:
+                    return _api_error(409, "follow_stopping", "El seguimiento se está deteniendo. Espera su confirmación antes de analizar.")
+        except (OSError, ValueError, RuntimeError):
+            return _api_error(409, "follow_unavailable", "No se confirmó la parada del seguimiento; no se solicitó análisis.")
     try:
-        job, outcome = JobStore().enqueue("manual", key)
+        # Serialize admission with follow.start and capture. A follow started
+        # concurrently either holds this lease or observes the queued job.
+        with exclusive_lock(default_db_path().with_suffix(".cycle.lock")):
+            job, outcome = JobStore().enqueue("manual", key)
+    except AlreadyRunning:
+        return _api_error(409, "operation_active", "Hay una captura u operación activa. Espera a que termine antes de analizar.")
     except ValueError:
         return _api_error(400, "invalid_idempotency_key", "La clave de idempotencia no es válida.")
     if outcome == "busy":

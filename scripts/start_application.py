@@ -122,6 +122,14 @@ def serve(root, plan, node):
     directory.mkdir(parents=True)
     env = {**os.environ, **plan["environment_overrides"], "FLASK_DEBUG": "0", "FLASK_SKIP_DOTENV": "1",
            "NEXT_TELEMETRY_DISABLED": "1", "WEB_DEFENSE_API_PORT": "5000", "NODE_ENV": "production"}
+    if plan.get("with_puerto_umbral"):
+        from dashboard.services.read_store import atomic_write_text
+        import json
+        selection = directory / 'source-mode.json'
+        atomic_write_text(selection, json.dumps({'schema_version': 1, 'mode': env['PUERTO_UMBRAL_MODE']}))
+        env['PUERTO_UMBRAL_MODE_FILE'] = str(selection.absolute())
+    else:
+        env.pop('PUERTO_UMBRAL_MODE_FILE', None)
     # .env loading belongs to the application; the supervisor never reads its contents.
     with ExitStack() as stack:
         owner = ProcessOwner()

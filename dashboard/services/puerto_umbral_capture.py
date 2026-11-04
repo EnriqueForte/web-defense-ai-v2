@@ -19,6 +19,7 @@ import uuid
 
 from dashboard.services.read_store import atomic_write_text, capture_file
 from dashboard.services.runtime_lock import AlreadyRunning, exclusive_lock
+from dashboard.services.puerto_umbral_mode import selected_mode
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = ROOT / ".local-state" / "puerto-umbral"
@@ -174,7 +175,7 @@ def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None,
     On failure, previous generations remain intact. Publication uses an immutable
     generation plus a dashboard copy; readers detect interrupted pointer/copy updates.
     """
-    mode = mode or os.getenv("PUERTO_UMBRAL_MODE", "vulnerable")
+    mode = mode or selected_mode()
     if mode not in MODES or Path(destination).absolute() != DEFAULT_DESTINATION.absolute():
         return None
     try:
@@ -251,7 +252,7 @@ def capture_access_log(destination=DEFAULT_DESTINATION, *, mode=None, run=None,
 
 def source_status(*, mode=None):
     """Read local metadata only. Does not inspect Docker, write, or trigger work."""
-    mode = mode or os.getenv("PUERTO_UMBRAL_MODE", "vulnerable")
+    mode = mode or selected_mode()
     result = {"source": "puerto-umbral", "mode": mode, "status": "missing", "captured_at": None,
               "snapshot_id": None, "sha256": None, "line_count": None, "changed": None,
               "running_at_capture": None, "error_code": None}

@@ -2,6 +2,67 @@
 
 ## Alcance actual
 
+Puerto Umbral 04Nov: propietario autoriza publicar para validar manualmente
+en Parrot el arranque unificado/selector. Entrega17rutas exactas (runtime,
+frontend,13regresiones preparadas y actas del recorrido anterior), [skip ci].
+Base tras fetch HEAD=origin/main=5ced3e788afd020be85b17fd5ff219611c1adb6e,
+0/0 y stagingvacío. Identidad entrega=commit con esta nota; verificar remoto
+y árbol limpio tras push, sin anticipar publicación. Sin suites/modelo/
+servicios/VM del agente; pruebas preparadas NO ejecutadas. En Parrot cerrar
+sesión propia, status/conservarcambios, pull--ff-only y build frontend
+con --webpack (necesario por UI nueva); no reinstalar Python por defecto.
+Recibir resultado actualización/build antes del único arranque normal;
+validar selector/captura/seguimiento con worker inactivo y luego coordinación
+de análisis en misma sesión. Validación nueva aún PENDIENTE de capturas;
+no atribuir a este código el recorrido anterior ni operar VM por el agente.
+
+Puerto Umbral 04Nov: continuación autorizada de unificación, selector de fuente
+añadido en V2/Actividad sin reinicios; ambos portales arrancan ya juntos.
+--lab-mode solo inicializa selección por sesión. source-mode.json bajo
+.local-state/launcher/<sesión> compartido Flask/worker, validado sin fallback
+si corrupto; captura/seguimiento/auditoría consultan selected_mode(). PUT
+/api/v1/fuentes/log/modo requiere origen local/perfil habilitado y bloqueos
+ciclo+motor sin jobs pendientes/activos; seguimiento detenido para cambiar.
+No captura/escenarios/modelo por selector; snapshots/report anterior conservado,
+modo anterior explícito hasta nueva captura. Auditoría UI se recarga al cambiar.
+Revisión detecta/elimina también guard API que aún rechazaba seguimiento con
+worker inactivo del cambio anterior. tests/test_unified_application.py amplía
+a13casos PREPARADOS NO EJECUTADOS; falta build/validación funcional, sin
+servicios/VM/modelo/Git del agente. Actualiza README/manual/OpenAPI.
+
+Puerto Umbral 04Nov: propietario solicita unificar arranque y habilitar logs/
+análisis juntos; autoriza este cambio runtime posterior a actas anteriores.
+webdefensev2.py habilita ejecutor manual por defecto, --read-only lo omite;
+--enable-manual queda compatible. Ejecutor inactivo compatible con seguimiento
+y captura; ciclo/motor protegen trabajo real y jobs pendientes bloquean captura/
+inicio seguimiento. Solicitud de análisis detiene seguimiento propio y exige
+parada confirmada antes de encolar; otro propietario/parada pendiente/conflicto
+no encolan. Seguimiento posterior se inicia explícitamente, sin auto-resume.
+Fuente continúa por --lab-mode; no selector UI ni binario .exe empaquetado.
+README/manual/texto UI actualizados; seis regresiones nuevas preparadas en
+tests/test_unified_application.py, NO ejecutadas. Sin suites/build/modelo/
+servicios/VM/Git por implementación; validación funcional y build pendientes,
+no atribuir pruebas previas a este comportamiento nuevo. Respetar evidencia
+y cierres históricos; no publicar cambios sin solicitud Git.
+
+Puerto Umbral 04Nov: propietario pide nuevo recorrido manual completo con
+seguimiento y análisis; guiado/recibido por capturas, no ejecuciones del agente.
+Fuente corregida94→95 líneas tras SQL Uso normal/corrected/v1 (45bda3c6311c…,
+HTTP200/UM-1284). Seguimiento5s/5min termina por duración49cycles/1snapshot/
+48unchanged; pausa guiada sin captura específica de contador estable, no dar
+por verificada. Análisis0a8e4ed1b569… succeeded/finished,30de95/65omitidas/0hallazgos.
+Después SQL Intento/vulnerable/v1 ac029c2f83d5… devuelve UM-9000; V2 seguía
+corregido: alinear --lab-mode vulnerable y capturar SIN repetir intento.
+Fuente vulnerable26líneas; segundo análisis b12709abd521441a90e47b8912e46a70
+succeeded/finished,26/26,0omitidas,2gruposALTA/requiereinvestigación: SQLi
+línea26 del04Nov20:19:40Madrid y CommandInjection línea7 histórico02Nov00:29:56.
+Amenazas muestra ambos y eventoSQL nuevo; retornolectura conejecutoroffline/
+manualdesactivado/botóninactivo y nuevoresultado conservado recibido. Modelo
+configurado Groq/gpt-oss-120b, no recibostransporte/tokens/coste/modeloefectivo.
+Acta docs/PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md. Recorrido solicitado
+completado a su alcance, no F5global/rotación ni reapertura de cierres F4/F5/F6
+o matriz F7. No repetir casos/análisis/arranques por registrar; sin Git nuevo.
+
 Puerto Umbral 03Nov, propietario solicita commit/push de la entrega acumulada:
 21 rutas exactas (16 Markdown y 5 SVG de plantilla sin uso eliminados).
 Destino origin=EnriqueForte/web-defense-ai-v2, main; fetch realizado y base

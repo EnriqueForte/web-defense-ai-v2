@@ -17,6 +17,7 @@ type Source = {
   running_at_capture: boolean | null;
   manual_capture_enabled: boolean;
   following_active: boolean;
+  mode_selection_enabled: boolean;
 };
 
 const labels: Record<string, string> = {
@@ -35,6 +36,7 @@ function parseSource(body: unknown): Source {
   }
   return {
     source: data.source, status: data.status, manual_capture_enabled: data.manual_capture_enabled,
+    mode_selection_enabled: data.mode_selection_enabled === true,
     mode: typeof data.mode === "string" ? data.mode : null,
     captured_at: typeof data.captured_at === "string" ? data.captured_at : null,
     last_checked_at: typeof data.last_checked_at === "string" ? data.last_checked_at : null,
@@ -59,8 +61,9 @@ export function LogSourcePanel({ onSnapshotChanged }: { onSnapshotChanged?: () =
   useEffect(() => { updated.current = onSnapshotChanged; }, [onSnapshotChanged]);
   useEffect(() => {
     if (!source) return;
-    if (lastSnapshot.current !== undefined && source.snapshot_id !== lastSnapshot.current) updated.current?.();
-    lastSnapshot.current = source.snapshot_id;
+    const signature = `${source.mode}:${source.snapshot_id}`;
+    if (lastSnapshot.current !== undefined && signature !== lastSnapshot.current) updated.current?.();
+    lastSnapshot.current = signature;
   }, [source]);
 
   const load = useCallback(async (capture = false) => {
@@ -102,10 +105,42 @@ export function LogSourcePanel({ onSnapshotChanged }: { onSnapshotChanged?: () =
     return () => { window.clearTimeout(initial); alive.current = false; for (const controller of active) controller.abort(); };
   }, [load]);
 
+  async function changeMode(mode: string) {
+    if (controllers.current.size || !source?.mode_selection_enabled || source.following_active) return;
+    const controller = new AbortController();
+    controllers.current.add(controller);
+    const timeout = window.setTimeout(() => controller.abort(), 10000);
+    setBusy(true); setError(""); setMessage("");
+    try {
+      const response = await fetch('/api/v1/fuentes/log/modo', {
+        method: 'PUT', cache: 'no-store', signal: controller.signal,
+        headers: {'Content-Type': 'application/json'}, body: JSON.stringify({mode}),
+      });
+      const body = await response.json();
+      if (!response.ok) throw new Error(typeof body?.error?.message === 'string' ? body.error.message : 'No se confirmó el cambio de fuente.');
+      const next = parseSource(body);
+      if (alive.current && !controller.signal.aborted) {
+        setSource(next);
+        setMessage('Fuente cambiada. Captura su log o inicia el seguimiento. El informe anterior se conserva hasta solicitar otro análisis.');
+      }
+    } catch (failure) {
+      if (alive.current) setError(controller.signal.aborted
+        ? 'No se confirmó el cambio dentro del plazo. Actualiza el estado antes de repetir.'
+        : failure instanceof Error ? failure.message : 'No se pudo cambiar la fuente.');
+    } finally {
+      window.clearTimeout(timeout); controllers.current.delete(controller);
+      if (alive.current) setBusy(controllers.current.size > 0);
+    }
+  }
+
   if (source && source.source !== "puerto-umbral") return null;
   return <section className="panel list-panel" aria-label="Fuente de Puerto Umbral">
     <div className="panel-header"><div><div className="panel-kicker">PUERTO UMBRAL · FUENTE LOCAL</div><h2>Fuente del laboratorio</h2><p>Leer el estado consulta archivos locales. Capturar obtiene logs de Apache y no inicia un análisis.</p></div></div>
-    <p className="status-copy">La fuente se elige al arrancar V2. Cambiar el modo en el panel de Puerto Umbral no cambia esta selección.</p>
+    <p className="status-copy">Ambos modos del laboratorio están disponibles. Elige aquí cuál consulta V2 y usa el mismo modo en el panel de Puerto Umbral.</p>
+    <label>Fuente de V2 <select aria-label="Modo de la fuente de V2" value={source?.mode ?? 'corrected'} disabled={busy || !source?.mode_selection_enabled || source.following_active} onChange={event => void changeMode(event.target.value)}>
+      <option value="corrected">Corregido</option><option value="vulnerable">Vulnerable</option>
+    </select></label>
+    {source?.following_active && <p className="status-copy">Detén el seguimiento antes de cambiar la fuente.</p>}
     <p className="status-copy" role="status">{source ? labels[source.status] ?? "Estado pendiente de revisión" : "Consultando metadatos de la fuente…"}{source?.mode ? ` · Modo ${source.mode === "corrected" ? "corregido" : "vulnerable"}` : ""}</p>
     {source?.captured_at && <p className="status-copy">Última captura: {new Date(source.captured_at).toLocaleString("es-ES", { timeZone: "Europe/Madrid" })} (Madrid) · {source.line_count ?? "—"} líneas. Origen {source.running_at_capture ? "en ejecución" : "detenido"} cuando se capturó; no es una comprobación de su estado actual.</p>}
     {source?.snapshot_mode && source.snapshot_mode !== source.mode && <p className="status-copy">El snapshot anterior pertenece al modo {source.snapshot_mode === "corrected" ? "corregido" : "vulnerable"}.</p>}
@@ -114,7 +149,7 @@ export function LogSourcePanel({ onSnapshotChanged }: { onSnapshotChanged?: () =
     {source?.sha256 && <p className="status-copy log-source-digest">SHA-256 <code>{source.sha256}</code></p>}
     <div className="settings-actions"><button className="button-secondary" disabled={busy} onClick={() => void load()}>Actualizar estado de fuente</button><button className="button-primary" disabled={busy || !source?.manual_capture_enabled || source.following_active} onClick={() => void load(true)}>{busy ? "Procesando…" : "Capturar log de Puerto Umbral"}</button></div>
     {source?.source === "puerto-umbral" && <LogFollowPanel onSourceUpdated={() => void load()} />}
-    {source?.source === "puerto-umbral" && <ApplicationAuditPanel captureEnabled={source.manual_capture_enabled && !source.following_active && !busy} />}
+    {source?.source === "puerto-umbral" && <ApplicationAuditPanel key={source.mode} captureEnabled={source.manual_capture_enabled && !source.following_active && !busy} />}
     {message && <p className="status-copy" role="status">{message}</p>}
     {error && <p className="status-copy error-copy" role="alert">{error} No se interpreta como ausencia de incidentes.</p>}
   </section>;

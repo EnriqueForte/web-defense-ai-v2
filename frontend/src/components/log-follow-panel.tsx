@@ -110,7 +110,7 @@ export function LogFollowPanel({ onSourceUpdated }: { onSourceUpdated: () => voi
     <h3 id="log-follow-title">Seguimiento de logs</h3>
     <p className="status-copy" role="status">{state ? labels[state.status] : "Consultando estado del seguimiento…"}{state?.in_flight ? " · Lectura en curso" : ""}</p>
     <p className="status-copy">Actualiza la evidencia sin iniciar análisis ni notificaciones. La sesión continúa al cambiar de vista o cerrar esta pestaña, hasta detenerla, cerrar V2 o agotar su duración.</p>
-    <p className="status-copy">La pausa mantiene el bloqueo y no amplía la duración. Detén el seguimiento antes de capturar manualmente, analizar o respaldar.</p>
+    <p className="status-copy">Al solicitar un análisis, V2 detiene este seguimiento antes de capturar y analizar. Para capturar manualmente o respaldar, detenlo con su botón. La pausa no amplía la duración.</p>
     <div className="settings-actions">
       <label>Intervalo <select aria-label="Intervalo de seguimiento" value={interval} disabled={busy || state?.session_active} onChange={event => setIntervalSeconds(Number(event.target.value))}>{[5, 10, 30, 60].map(value => <option key={value} value={value}>{value} segundos</option>)}</select></label>
       <label>Duración <select aria-label="Duración de seguimiento" value={duration} disabled={busy || state?.session_active} onChange={event => setDuration(Number(event.target.value))}>{[300, 900, 1800].map(value => <option key={value} value={value}>{value / 60} minutos</option>)}</select></label>

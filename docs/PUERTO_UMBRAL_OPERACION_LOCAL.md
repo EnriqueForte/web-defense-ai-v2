@@ -1,5 +1,35 @@
 # Puerto Umbral y V2 — manual de operación local
 
+## Arranque unificado — cambio preparado el 04/11
+
+La entrada habitual `python3 webdefensev2.py` (Windows: `py webdefensev2.py`)
+habilita el ejecutor manual junto a captura y seguimiento. No solicita análisis
+ni inicia seguimiento automáticamente. Ya no es necesario cerrar y arrancar
+con `--enable-manual` para pasar de logs a análisis; esa opción se conserva
+como compatibilidad. `--read-only` permite omitir el ejecutor explícitamente.
+
+El ejecutor inactivo puede convivir con la captura y el seguimiento. Un análisis
+solicitado desde V2 detiene primero el seguimiento propio y solo se admite
+cuando su parada está confirmada. Una sesión de otro proceso o una parada
+pendiente produce un conflicto sin encolar el análisis. Los bloqueos de ciclo
+y motor mantienen la exclusión entre operaciones reales; un trabajo pendiente
+impide iniciar seguimiento o capturar manualmente. El seguimiento no se reinicia
+automáticamente después de analizar: se inicia desde su botón cuando se desee.
+
+Los dos portales arrancan juntos: vulnerable en 4380 y corregido en 4382.
+La fuente de V2 se cambia en Actividad mediante el selector Corregido/Vulnerable,
+sin reiniciar. Flask y el ejecutor leen una selección compartida, acotada a la
+sesión del lanzador. El cambio exige seguimiento detenido y ningún análisis
+pendiente/activo; no ejecuta escenarios ni captura automáticamente. Después
+de cambiar, capturar el log o iniciar seguimiento para esa fuente. Auditoría
+de aplicación usa también la selección nueva. Snapshots e informe anteriores
+se conservan y el desajuste de modo queda visible hasta capturar. Un arranque
+nuevo comienza en corregido salvo `--lab-mode` inicial explícito.
+Las recetas inferiores de cerrar/reabrir para habilitar el análisis
+describen el comportamiento anterior. Implementación local preparada, con trece
+regresiones aisladas nuevas escritas y no ejecutadas; no hay build ni validación
+de este cambio en Parrot todavía. Las actas anteriores conservan su versión.
+
 Estado de cierre acordado el 03/11: F4/F5 cerradas por decisión expresa del
 propietario sin sus pruebas restantes; F6 conserva su cierre previo y la matriz
 F7 está aceptada en su alcance educativo. Rotación real y métricas del detector

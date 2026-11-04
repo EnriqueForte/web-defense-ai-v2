@@ -98,22 +98,21 @@ conservando sus datos.** Si trabajas en una VM, abre las direcciones en su naveg
    Para los módulos avanzados, consulta también la auditoría de aplicación.
 3. En **V2 → Configuración**, selecciona Groq u OpenRouter y configura tu clave
    para analizar con IA.
-4. Para habilitar el análisis, cierra la sesión y arranca con la opción manual:
+4. Pulsa **Iniciar análisis** y consulta **Amenazas** y **Reportes** al terminar.
+   El ejecutor ya está disponible desde el arranque; si hay seguimiento activo,
+   V2 lo detiene antes de capturar y analizar. Puedes volver a iniciarlo después.
 
-   ```bash
-   python3 webdefensev2.py --enable-manual
-   ```
-
-   En Windows: `py webdefensev2.py --enable-manual`. Después usa **Iniciar
-   análisis** y consulta **Amenazas** y **Reportes** al terminar.
-
-El arranque habitual abre V2 en lectura y selecciona la fuente **corregida**.
-Para leer la vulnerable, añade `--lab-mode vulnerable` al comando de arranque.
-El selector del panel de Puerto Umbral y la fuente elegida por V2 son independientes.
+Ambos portales arrancan juntos. En **V2 → Actividad → Fuente de V2**, elige
+**Corregido** o **Vulnerable**, usando el mismo modo que en Puerto Umbral.
+Detén el seguimiento antes de cambiar; después captura el log o inicia otro
+seguimiento. No hace falta reiniciar V2. El informe anterior se conserva hasta
+solicitar otro análisis. Por defecto se empieza en corregido; `--lab-mode`
+solo sirve para elegir la selección inicial desde la terminal.
 
 El análisis es explícito: puede enviar logs al proveedor y consumir su cuota
 o saldo. La instalación comienza sin los logs ni informes privados del autor.
 La auditoría de aplicación usa reglas separadas del informe de IA.
+Para abrir sin ejecutor de análisis, existe la opción avanzada `--read-only`.
 
 Para iniciar **solo V2**, usa `python3 webdefense.py start --mode structured`
 (Windows: `py webdefense.py start --mode structured`). No requiere Docker;

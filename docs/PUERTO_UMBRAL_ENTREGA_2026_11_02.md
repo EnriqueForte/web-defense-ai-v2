@@ -1,5 +1,15 @@
 # Web Defense AI V2 y Puerto Umbral — estado de entrega
 
+Actualización del 04/11: [recorrido manual de principio a fin](PUERTO_UMBRAL_RECORRIDO_MANUAL_2026_11_04.md)
+solicitado por el propietario y completado a su alcance por capturas. Captura
+de logs, seguimiento con una petición nueva y finalización por duración;
+análisis corregido con 30/95 líneas y cero hallazgos; análisis vulnerable con
+26/26 y dos grupos altos, SQLi nuevo y Command Injection histórico. Amenazas
+muestra las referencias y el retorno a lectura conserva el nuevo resultado.
+No se repiten casos/análisis por registrarlo; los cierres por alcance y las
+limitaciones de evaluación general, rotación y evidencia permanecen explícitos.
+Este bloque documental es local, sin publicación Git o runtime nuevo.
+
 Publicación solicitada por el propietario el 03/11: entrega de 21 rutas,
 16 Markdown y eliminación de cinco SVG de plantilla sin uso, con `[skip ci]`.
 Base comprobada tras fetch: `7d4d10f1d3a0c26f04fdb14f7766a57a01e23ba2`,
